@@ -1,0 +1,374 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+  <link rel="Stylesheet" type="text/css" href="/css/style.css" >
+  <title>Decho - Vim script internal debugger (output in separate window, tab, or remote vim) : vim online</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <meta name="KEYWORDS" content="Vim, Vi IMproved, text editor, home, documentation, tips, scripts, news">
+  <link rel="shortcut icon" type="image/x-icon" href="/images/vim_shortcut.ico">
+</head>
+
+<body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" bgcolor="#ffffff"> 
+
+<!-- HEADER, SPONSOR IMAGE, VIM IMAGE AND BOOK AD -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0" bordercolor="red">
+  <tr>
+    <td colspan="4" class="lightbg"><img src="/images/spacer.gif" width="1" height="5" alt=""></td>
+  </tr>
+  <tr>
+  <td class="lightbg">&nbsp;&nbsp;&nbsp;</td>
+  <td class="lightbg" align="left"><a href="/sponsor/index.php"><img src="/images/sponsorvim.gif" alt="sponsor Vim development" border="0"></a></td>
+    <td class="lightbg" align="center"><a href="/index.php"><img src="/images/vim_header.gif" border="0" alt="Vim logo"></a></td>
+    <td class="lightbg" align="right"><a href="http://iccf-holland.org/click5.html"><img src="/images/buyhelplearn.gif" alt="Vim Book Ad" border="0"></a></td>
+  </tr>
+  <tr>
+    <td colspan="4" class="lightbg"><img src="/images/spacer.gif" width="1" height="5" alt=""></td>
+  </tr>
+  <tr>
+    <td colspan="4" class="darkbg"><img src="/images/spacer.gif" width="1" height="10" alt=""></td>
+  </tr>
+</table>
+<!-- THE PAGE BODY: BETWEEN HEADER AND FOOTER -->
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <col width="180">
+  <col width="1">
+
+  <tr valign="top">
+    <td class="sidebar">
+      <table width="180" cellpadding="4" cellspacing="0" border="0">
+        <tr valign="top">
+          <td class="sidebar">
+
+<!-- INCLUDE THE PAGE NAVIGATION -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0" bordercolor="red">
+    <tr>
+        <td><small>not logged in (<a href="/login.php">login</a>)</small></td>
+    </tr>
+    <tr><td>
+<small>&nbsp;</small>
+<form action="http://www.google.com/cse" id="cse-search-box">
+  <div>
+    <input type="hidden" name="cx" value="partner-pub-3005259998294962:bvyni59kjr1" />
+    <input type="hidden" name="ie" value="ISO-8859-1" />
+    <input type="text" name="q" size="20" />
+    <br>
+    <input type="submit" name="sa" value="Search" />
+  </div>
+</form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"></script>
+    </td></tr>
+    <tr>
+        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="1"></td>
+    </tr>
+    <tr>
+        <td class="darkbg"><img src="/images/spacer.gif" alt='' border="0" height="3"></td>
+    </tr>
+    <tr>
+        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="2"></td>
+    </tr>
+        <tr>
+            <td class="sidebarheader"><a href="/index.php">Home</a></td>
+        </tr>
+        <tr>
+            <td class="sidebarheader"><a href="/search.php">Advanced search</a></td>
+        </tr>
+    <tr>
+        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
+    </tr>
+    <tr>
+        <td class="checker"><img src="/images/spacer.gif" alt='' border="0" height="1"></td>
+    </tr>
+    <tr>
+        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
+    </tr>
+        <tr>
+            <td class="sidebarheader"><a href="/about.php">About Vim</a></td>
+        </tr>
+        <tr>
+            <td class="sidebarheader"><a href="/community.php">Community</a></td>
+        </tr>
+        <tr>
+            <td class="sidebarheader"><a href="/news/news.php">News</a></td>
+        </tr>
+        <tr>
+            <td class="sidebarheader"><a href="/sponsor/index.php">Sponsoring</a></td>
+        </tr>
+        <tr>
+            <td class="sidebarheader"><a href="/trivia.php">Trivia</a></td>
+        </tr>
+        <tr>
+            <td class="sidebarheader"><a href="/docs.php">Documentation</a></td>
+        </tr>
+        <tr>
+            <td class="sidebarheader"><a href="/download.php">Download</a></td>
+        </tr>
+    <tr>
+        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
+    </tr>
+    <tr>
+        <td class="checker"><img src="/images/spacer.gif" alt='' border="0" height="1"></td>
+    </tr>
+    <tr>
+        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
+    </tr>
+        <tr>
+            <td class="sidebarheader"><a href="/scripts/index.php">Scripts</a></td>
+        </tr>
+        <tr>
+            <td class="sidebarheader"><a href="/tips/index.php">Tips</a></td>
+        </tr>
+        <tr>
+            <td class="sidebarheader"><a href="/account/index.php">My Account</a></td>
+        </tr>
+    <tr>
+        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
+    </tr>
+    <tr>
+        <td class="checker"><img src="/images/spacer.gif" alt='' border="0" height="1"></td>
+    </tr>
+    <tr>
+        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
+    </tr>
+        <tr>
+            <td class="sidebarheader"><a href="/huh.php">Site Help</a></td>
+        </tr>
+</table>
+
+            <table width="172" cellpadding="0" cellspacing="0" border="0">
+              <tr><td><img src="/images/spacer.gif" alt="" border="0" width="1" height="8"></td></tr>
+              <tr><td class="darkbg"><img src="/images/spacer.gif" width="1" height="3" alt=""></td></tr>
+            </table>
+            <br>
+
+<!-- INCLUDE THE PAGE SIDEBAR TEXT -->
+&nbsp;
+
+          </td>
+        </tr>
+      </table>
+    </td>
+
+    <td class="darkbg"><img src="/images/spacer.gif" width="1" height="1" border="0" alt=""><br></td>
+    <td>
+      <table width="100%" cellpadding="10" cellspacing="0" border="0" bordercolor="red">
+        <tr>
+          <td valign="top">
+
+<span class="txth1">Decho : Vim script internal debugger (output in separate window, tab, or remote vim)</span> 
+
+<br>
+<br>
+
+<!-- karma table -->
+<table cellpadding="4" cellspacing="0" border="1" bordercolor="#000066">
+<tr>
+  <td class="lightbg"><b>&nbsp;script karma&nbsp;</b></td>
+  <td>
+    Rating <b>92/32</b>,
+    Downloaded by 3952  </td>
+</tr>
+</table>
+<p>
+
+<table cellspacing="0" cellpadding="0" border="0">
+<tr><td class="prompt">created by</td></tr>
+<tr><td><a href="/account/profile.php?user_id=96">Charles Campbell</a></td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td class="prompt">script type</td></tr>
+<tr><td>utility</td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td class="prompt">description</td></tr>
+<tr><td>The Decho.vim plugin provides debugging messages in a separate window.&nbsp;&nbsp;One puts<br><br>&nbsp;&nbsp;&nbsp;&nbsp;Decho &quot;some message here&quot;<br>-or-<br>&nbsp;&nbsp;&nbsp;&nbsp;call Decho(&quot;another message&quot;)<br><br>and Decho will split the screen with a five line debugging window on the bottom of the display where the messages will appear.&nbsp;&nbsp;Allows one to inspect multiple error messages with the usual vim editing commands!<br><br>To better support the debugging of scripts, Decho.vim also provides:<br><br>&nbsp;&nbsp;&nbsp;&nbsp;call Dfunc(&quot;YourFunctionName([arg1&lt;&quot;.a:arg1.&quot;&gt; arg2&lt;&quot;.a:arg2.&quot;&gt;])&quot;)<br>&nbsp;&nbsp;&nbsp;&nbsp;call Dret(&quot;YourFunctionName [returnvalue]&quot;)<br><br>These two functions use Decho(), but also provide function tracking.&nbsp;&nbsp;The .vim/syntax/Decho.vim provides special highlighting for the DBG buffer, too.&nbsp;&nbsp;See the example below!<br><br>One may redirect the output of arbitrary vim commands to the DBG buffer with the following function:<br><br>&nbsp;&nbsp;&nbsp;&nbsp;call Dredir(&quot;command&quot;)<br><br>For example, consider<br><br>	call Dredir(&quot;ls&quot;)<br><br>Decho.vim makes it easy to turn debugging on and off in your scripts:<br><br>&nbsp;&nbsp;&nbsp;&nbsp;Turning Debugging On:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vim yourscript.vim<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:DechoOn<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:wq<br><br>&nbsp;&nbsp;&nbsp;&nbsp;Turning Debugging Off:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;vim yourscript.vim<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:DechoOff<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:wq<br><br>Some plugins use events such as WinEnter and others attempt to control window layout.&nbsp;&nbsp;Decho supports these plugins with four methods to avoid disturbing the display:<br><br>	DechoMsgOn&nbsp;&nbsp;-- subsequent debugging output uses :echomsg<br>	DechoRemOn&nbsp;&nbsp;-- subsequent debugging output goes to a remote gvim which DechoRemOn will set up itself<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DechoTabOn&nbsp;&nbsp;-- subsequent debugging output goes to a separate debugging tab/window<br>	DechoVarOn&nbsp;&nbsp;-- subsequent debugging output goes to a variable (default value: g:dechovar)<br><br>With any of these enabled, subsequent Dfunc, Dret, Decho, and Dredir output will be directed as indicated.<br><br> ---------------------------------------------------------------------<br>Example:<br><br>&nbsp;&nbsp;&nbsp;&nbsp;LocalBrowse(dirname&lt;.&gt;) {<br>&nbsp;&nbsp;&nbsp;&nbsp;|NetGetcwd() {<br>&nbsp;&nbsp;&nbsp;&nbsp;||return NetGetcwd /home/cec/.vim/VIMSCRIPT/ }<br>&nbsp;&nbsp;&nbsp;&nbsp;|dirname&lt;/home&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;|Perform directory listing...<br>&nbsp;&nbsp;&nbsp;&nbsp;|bufnr(dirname&lt;/home&gt;)=1<br>&nbsp;&nbsp;&nbsp;&nbsp;|dirnamenr=1 dirname&lt;/home&gt; pre-exists<br>&nbsp;&nbsp;&nbsp;&nbsp;|changed directory to&lt;/home&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;|buffer already exists, but needs listing (buf#1)<br>&nbsp;&nbsp;&nbsp;&nbsp;|Setting up local browser maps<br>&nbsp;&nbsp;&nbsp;&nbsp;|NetGetcwd() {<br>&nbsp;&nbsp;&nbsp;&nbsp;||return NetGetcwd /home/cec/.vim/VIMSCRIPT/ }<br>&nbsp;&nbsp;&nbsp;&nbsp;|NetGetcwd() {<br>&nbsp;&nbsp;&nbsp;&nbsp;||return NetGetcwd /home/cec/.vim/VIMSCRIPT/ }<br>&nbsp;&nbsp;&nbsp;&nbsp;|NetGetcwd() {<br>&nbsp;&nbsp;&nbsp;&nbsp;||return NetGetcwd /home/cec/.vim/VIMSCRIPT/ }<br>&nbsp;&nbsp;&nbsp;&nbsp;|NetGetcwd() {<br>&nbsp;&nbsp;&nbsp;&nbsp;||return NetGetcwd /home/cec/.vim/VIMSCRIPT/ }<br>&nbsp;&nbsp;&nbsp;&nbsp;|NetGetcwd() {<br>&nbsp;&nbsp;&nbsp;&nbsp;||return NetGetcwd /home/cec/.vim/VIMSCRIPT/ }<br>&nbsp;&nbsp;&nbsp;&nbsp;|NetGetcwd() {<br>&nbsp;&nbsp;&nbsp;&nbsp;||return NetGetcwd /home/cec/.vim/VIMSCRIPT/ }<br>&nbsp;&nbsp;&nbsp;&nbsp;|set up banner<br>&nbsp;&nbsp;&nbsp;&nbsp;|directories will be sorted by name<br>&nbsp;&nbsp;&nbsp;&nbsp;|LocalBrowseList(dirname&lt;/home&gt;) {<br>&nbsp;&nbsp;&nbsp;&nbsp;|(elided for brevity)<br>&nbsp;&nbsp;&nbsp;&nbsp;||return LocalBrowseList }<br>&nbsp;&nbsp;&nbsp;&nbsp;|SetSort() bannercnt=8 {<br>&nbsp;&nbsp;&nbsp;&nbsp;|(elided for brevity)<br>&nbsp;&nbsp;&nbsp;&nbsp;||return SetSort }<br>&nbsp;&nbsp;&nbsp;&nbsp;|NetSort() {<br>&nbsp;&nbsp;&nbsp;&nbsp;||return NetSort }<br>&nbsp;&nbsp;&nbsp;&nbsp;|return LocalBrowse : file&lt;/home&gt; }<br><br></td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td class="prompt">install details</td></tr>
+<tr><td>1. vim Decho.vba.gz<br>&nbsp;&nbsp;&nbsp;&nbsp;:so %<br>&nbsp;&nbsp;&nbsp;&nbsp;:q<br><br>2. This will create the following files:<br>&nbsp;&nbsp;plugin/Decho.vim<br>&nbsp;&nbsp;plugin/cecutil.vim<br>&nbsp;&nbsp;syntax/Decho.vim<br>&nbsp;&nbsp;doc/Decho.txt<br><br>(you may want the latest vimball handling script for this: <a href="/scripts/script.php?script_id=1502">vimscript#1502</a>)</td></tr>
+<tr><td>&nbsp;</td></tr>
+</table>
+
+<!-- rating table -->
+<form name="rating">
+<input type="hidden" name="script_id" value="120">
+<table cellpadding="4" cellspacing="0" border="1" bordercolor="#000066">
+<tr>
+  <td class="lightbg"><b>rate this script</b></td>
+  <td valign="middle">
+    <input type="radio" name="rating" value="life_changing">Life Changing
+    <input type="radio" name="rating" value="helpful">Helpful
+    <input type="radio" name="rating" value="unfulfilling">Unfulfilling&nbsp;
+    <input type="submit" value="rate">
+  </td>
+</tr>
+</table>
+</form>
+<span class="txth2">script versions</span> (<a href="add_script_version.php?script_id=120">upload new version</a>)
+<p>
+Click on the package to download.
+<p>
+
+<table cellspacing="2" cellpadding="4" border="0" width="100%">
+<tr class='tableheader'>
+        <th valign="top">package</th>
+    <th valign="top">script version</th>
+    <th valign="top">date</th>
+    <th valign="top">Vim version</th>
+    <th valign="top">user</th>
+    <th valign="top">release notes</th>
+</tr>
+<tr>
+        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=9388">Decho.vba.gz</a></td>
+    <td class="rowodd" valign="top" nowrap><b>20</b></td>
+    <td class="rowodd" valign="top" nowrap><i>2008-10-23</i></td>
+    <td class="rowodd" valign="top" nowrap>7.0</td>
+    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
+    <td class="rowodd" valign="top" width="2000">* DechoSep() can now be externally called (and :Dsep&nbsp;&nbsp;makes it easy to use).&nbsp;&nbsp;Creates an easy-to-find separator in the debugging output.<br>* bug fixes (Cyan, Magenta highlighting; improved DechoTab's tab search, unwanted DechoRemOn staircasing)<br></td>
+</tr>
+<tr>
+        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=7092">Decho.vba.gz</a></td>
+    <td class="roweven" valign="top" nowrap><b>19</b></td>
+    <td class="roweven" valign="top" nowrap><i>2007-05-10</i></td>
+    <td class="roweven" valign="top" nowrap>7.0</td>
+    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
+    <td class="roweven" valign="top" width="2000">Various bugfixes and improvements...<br>Dredir now takes optional strings first instead of last.<br>The :Decho and :Dredir commands now take &lt;args&gt; instead of &lt;q-args&gt;, which allows them to act more like the function calls do.<br>DechoRemOn's remote vim no longer will have formatoptions' a or t suboptions set even if the user has specified something like fo+=at in his/her .vimrc.<br>If the user interposes a new tab (or deletes the &quot;Decho Tab&quot;), Decho finds the &quot;Decho Tab&quot; tab or creates a new one when called.<br></td>
+</tr>
+<tr>
+        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=6144">Decho.vba.gz</a></td>
+    <td class="rowodd" valign="top" nowrap><b>18</b></td>
+    <td class="rowodd" valign="top" nowrap><i>2006-09-05</i></td>
+    <td class="rowodd" valign="top" nowrap>7.0</td>
+    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
+    <td class="rowodd" valign="top" width="2000">Decho now handles list arguments, works around ignorecase setting, and no longer uses bt=nofile (makes it easier to save).</td>
+</tr>
+<tr>
+        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=5374">Decho.tar.gz</a></td>
+    <td class="roweven" valign="top" nowrap><b>17</b></td>
+    <td class="roweven" valign="top" nowrap><i>2006-03-06</i></td>
+    <td class="roweven" valign="top" nowrap>6.0</td>
+    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
+    <td class="roweven" valign="top" width="2000">The &quot;Decho Tab&quot; buffer now is syntax highlighted, plus bugfixes.<br></td>
+</tr>
+<tr>
+        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=5333">Decho.tar.gz</a></td>
+    <td class="rowodd" valign="top" nowrap><b>16</b></td>
+    <td class="rowodd" valign="top" nowrap><i>2006-02-27</i></td>
+    <td class="rowodd" valign="top" nowrap>6.0</td>
+    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
+    <td class="rowodd" valign="top" width="2000">For vim 7.0 users: DechoTabOn/Off changed to reflect changes in vim 7.0's :tab, :tabn, :tabnew commands.&nbsp;&nbsp;(Decho still works fine for vim 6.0, BTW)</td>
+</tr>
+<tr>
+        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=5297">Decho.tar.gz</a></td>
+    <td class="roweven" valign="top" nowrap><b>15</b></td>
+    <td class="roweven" valign="top" nowrap><i>2006-02-21</i></td>
+    <td class="roweven" valign="top" nowrap>6.0</td>
+    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
+    <td class="roweven" valign="top" width="2000">Decho now supports use of vim7.0aa's &quot;tab&quot; feature -- with :DechoTabOn, subsequent debugging output goes to its own tab.</td>
+</tr>
+<tr>
+        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=5225">Decho.tar.gz</a></td>
+    <td class="rowodd" valign="top" nowrap><b>14</b></td>
+    <td class="rowodd" valign="top" nowrap><i>2006-02-15</i></td>
+    <td class="rowodd" valign="top" nowrap>6.0</td>
+    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
+    <td class="rowodd" valign="top" width="2000">Decho has a new pair of commands: DechoRemOn and DechoRemOff.&nbsp;&nbsp;With these, debugging output can be sent to a remote gvim.&nbsp;&nbsp;Really helps with debugging plugins that use events and control window layout.<br></td>
+</tr>
+<tr>
+        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=4796">Decho.tar.gz</a></td>
+    <td class="roweven" valign="top" nowrap><b>12</b></td>
+    <td class="roweven" valign="top" nowrap><i>2005-11-22</i></td>
+    <td class="roweven" valign="top" nowrap>6.0</td>
+    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
+    <td class="roweven" valign="top" width="2000">* DechoOn/Off now also turns on/off DechoVarOn/Off<br>* DechoMsgOn and DechoMsgOff installed; debugging messages will use the |echomsg| command.<br>* DechoVarOn and DechoVarOff installed; debugging messages will be appended to the variable specified by g:dechovarname, which by default is &quot;g:dechovar&quot;.&nbsp;&nbsp;These two commands toggle the variable &quot;g:dechovar_enabled&quot;.<br>* Now includes a GetLatestVimScripts line for cecutil.vim<br>* Decho now does &quot;runtime plugin/cecutil.vim&quot; if that plugin hasn't been loaded yet.&nbsp;&nbsp;It will also try the AsNeeded subdirectory if g:loaded_asneeded exists.<br>* with DechoMsgOn, Decho(&quot;doesn't&quot;) now works<br>* Dredir() now accepts multiple arguments (cmd and output)<br></td>
+</tr>
+<tr>
+        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=3297">Decho.tar.bz2</a></td>
+    <td class="rowodd" valign="top" nowrap><b>10</b></td>
+    <td class="rowodd" valign="top" nowrap><i>2004-08-03</i></td>
+    <td class="rowodd" valign="top" nowrap>6.0</td>
+    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
+    <td class="rowodd" valign="top" width="2000">* New function: call Dredir(&quot;command&quot;) will redirect the command's output to the DBG buffer.<br>* Decho now uses keepjumps to avoid altering the jumplist table (requires vim6.3)<br>* Decho's appending to the DBG buffer no longer flags it as modified.<br>* One may have Decho ignore BufEnter events if g:decho_bufenter exists.<br></td>
+</tr>
+<tr>
+        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=3102">Decho.tar.bz2</a></td>
+    <td class="roweven" valign="top" nowrap><b>8</b></td>
+    <td class="roweven" valign="top" nowrap><i>2004-06-07</i></td>
+    <td class="roweven" valign="top" nowrap>6.0</td>
+    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
+    <td class="roweven" valign="top" width="2000">Decho now has :Dhide and :Dshow commands for toggling the visibility of the DBG buffer<br></td>
+</tr>
+<tr>
+        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=3092">Decho.tar.bz2</a></td>
+    <td class="rowodd" valign="top" nowrap><b>7</b></td>
+    <td class="rowodd" valign="top" nowrap><i>2004-06-02</i></td>
+    <td class="rowodd" valign="top" nowrap>6.0</td>
+    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
+    <td class="rowodd" valign="top" width="2000">With g:decho_hide=1, Decho will keep its DBG buffer hidden, thereby allowing window-manipulating scripts their natural behavior.&nbsp;&nbsp;Use :ls! to see the DBG buffer, and you may use :b [nmbr] to see it.<br>In additon, Decho's DBG window's is silently created, and Dfunc/Decho/Dret will always resize the DBG window to the number of lines specified by g:decho_winheight.<br></td>
+</tr>
+<tr>
+        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=3012">Decho.tar.bz2</a></td>
+    <td class="roweven" valign="top" nowrap><b>6</b></td>
+    <td class="roweven" valign="top" nowrap><i>2004-05-11</i></td>
+    <td class="roweven" valign="top" nowrap>6.0</td>
+    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
+    <td class="roweven" valign="top" width="2000">Now, along with Decho(), is<br>&nbsp;&nbsp;Dfunc(&quot;funcname(...)&quot;) -- for tracking entry to function funcname<br>&nbsp;&nbsp;Dret(&quot;funcname ...&quot;) -- for tracking return from function funcname<br>Includes special syntax highlighting for Dfunc/Decho/Dret files, too.<br></td>
+</tr>
+</table>
+<!-- finish off the framework -->
+          </td>
+        </tr>
+      </table>
+    </td>
+
+  </tr>
+</table>
+
+<!-- END OF THE PAGE BODY: BETWEEN HEADER AND FOOTER -->
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0" bordercolor="red">
+  <tr><td colspan="4"><img src="/images/spacer.gif" width="1" height="5" alt=""></td></tr>
+  <tr><td colspan="4" bgcolor="#000000"><img src="/images/spacer.gif" height="2" width="1" alt=""></td></tr>
+  <tr><td colspan="4"><img src="/images/spacer.gif" width="1" height="5" alt=""></td></tr>
+  <tr>
+    <td><img src="/images/spacer.gif" width="5" height="1" alt=""></td>
+
+    <td align="left" valign="top"><small>
+      If you have questions or remarks about this site, visit the
+      <a href="http://vimonline.sf.net">vimonline development</a> pages.
+      Please use this site responsibly.
+      <br> 
+      
+      Questions about <a href="http://www.vim.org/about.php">Vim</a> should go
+      to the <a href="http://www.vim.org/maillist.php">maillist</a>.
+      Help Bram <a href="http://iccf-holland.org/">help Uganda</a>.
+      </small>
+	&nbsp;
+	&nbsp;
+
+	<!-- Start of StatCounter Code -->
+	<script type="text/javascript" language="javascript">
+	var sc_project=1417324; 
+	var sc_invisible=1; 
+	var sc_partition=11; 
+	var sc_security="d41633bc"; 
+	</script>
+
+	<script type="text/javascript" language="javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><a href="http://www.statcounter.com/" target="_blank"><img  src="http://c12.statcounter.com/counter.php?sc_project=1417324&java=0&security=d41633bc&invisible=0" alt="free tracking" border="0"></a> </noscript>
+	<!-- End of StatCounter Code -->
+          </td>
+
+    <td align="right" valign="top">
+      		<a href="http://sourceforge.net/projects/vim" rel="nofollow"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=8&type=1" width="88" height="31" border="0" alt="SourceForge.net Logo" /></a>
+    </td>
+
+    <td><img src="/images/spacer.gif" width="5" height="1" alt=""></td>
+  </tr>
+
+    
+  <tr><td colspan="4"><img src="/images/spacer.gif" width="1" height="5" alt=""></td>
+  
+  </tr>
+</table>
+
+</body>
+</html>
+

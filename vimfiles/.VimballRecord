@@ -1,0 +1,7 @@
+Align.vba: call delete('H:/vimfiles/plugin/AlignPlugin.vim')|call delete('H:/vimfiles/plugin/AlignMapsPlugin.vim')|call delete('H:/vimfiles/plugin/cecutil.vim')|call delete('H:/vimfiles/doc/Align.txt')|call delete('H:/vimfiles/autoload/Align.vim')|call delete('H:/vimfiles/autoload/AlignMaps.vim')
+camelcasemotion.vba: call delete('H:/vimfiles/autoload/camelcasemotion.vim')|call delete('H:/vimfiles/plugin/camelcasemotion.vim')|call delete('H:/vimfiles/doc/camelcasemotion.txt')
+getscript.vba: call delete('C:/Users/Adam/vimfiles/plugin/getscriptPlugin.vim')|call delete('C:/Users/Adam/vimfiles/autoload/getscript.vim')|call delete('C:/Users/Adam/vimfiles/GetLatest/GetLatestVimScripts.dist')|call delete('C:/Users/Adam/vimfiles/doc/pi_getscript.txt')
+visincr.vba: call delete('C:/Users/Adam/vimfiles/plugin/visincrPlugin.vim')|call delete('C:/Users/Adam/vimfiles/autoload/visincr.vim')|call delete('C:/Users/Adam/vimfiles/doc/visincr.txt')|call delete('C:/Users/Adam/vimfiles/autoload/calutil.vim')
+omniperl.vba: call delete('C:/vim/vimfiles/ftplugin/perl/omniperl.pl')|call delete('C:/vim/vimfiles/ftplugin/perl/omniperl.vim')|call delete('C:/vim/vimfiles/doc/omniperl.txt')
+getscript.vba: call delete('C:/vim/vimfiles/plugin/getscriptPlugin.vim')|call delete('C:/vim/vimfiles/autoload/getscript.vim')|call delete('C:/vim/vimfiles/GetLatest/GetLatestVimScripts.dist')|call delete('C:/vim/vimfiles/doc/pi_getscript.txt')
+LargeFile.vba: call delete('C:/vim/vimfiles/plugin/LargeFile.vim')|call delete('C:/vim/vimfiles/doc/LargeFile.txt')

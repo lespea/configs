@@ -1,0 +1,374 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+  <link rel="Stylesheet" type="text/css" href="/css/style.css" >
+  <title>Engspchk - Spelling checker: On-the-fly spell checking, multi-language, alternate spellings : vim online</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <meta name="KEYWORDS" content="Vim, Vi IMproved, text editor, home, documentation, tips, scripts, news">
+  <link rel="shortcut icon" type="image/x-icon" href="/images/vim_shortcut.ico">
+</head>
+
+<body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" bgcolor="#ffffff"> 
+
+<!-- HEADER, SPONSOR IMAGE, VIM IMAGE AND BOOK AD -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0" bordercolor="red">
+  <tr>
+    <td colspan="4" class="lightbg"><img src="/images/spacer.gif" width="1" height="5" alt=""></td>
+  </tr>
+  <tr>
+  <td class="lightbg">&nbsp;&nbsp;&nbsp;</td>
+  <td class="lightbg" align="left"><a href="/sponsor/index.php"><img src="/images/sponsorvim.gif" alt="sponsor Vim development" border="0"></a></td>
+    <td class="lightbg" align="center"><a href="/index.php"><img src="/images/vim_header.gif" border="0" alt="Vim logo"></a></td>
+    <td class="lightbg" align="right"><a href="http://iccf-holland.org/click5.html"><img src="/images/buyhelplearn.gif" alt="Vim Book Ad" border="0"></a></td>
+  </tr>
+  <tr>
+    <td colspan="4" class="lightbg"><img src="/images/spacer.gif" width="1" height="5" alt=""></td>
+  </tr>
+  <tr>
+    <td colspan="4" class="darkbg"><img src="/images/spacer.gif" width="1" height="10" alt=""></td>
+  </tr>
+</table>
+<!-- THE PAGE BODY: BETWEEN HEADER AND FOOTER -->
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <col width="180">
+  <col width="1">
+
+  <tr valign="top">
+    <td class="sidebar">
+      <table width="180" cellpadding="4" cellspacing="0" border="0">
+        <tr valign="top">
+          <td class="sidebar">
+
+<!-- INCLUDE THE PAGE NAVIGATION -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0" bordercolor="red">
+    <tr>
+        <td><small>not logged in (<a href="/login.php">login</a>)</small></td>
+    </tr>
+    <tr><td>
+<small>&nbsp;</small>
+<form action="http://www.google.com/cse" id="cse-search-box">
+  <div>
+    <input type="hidden" name="cx" value="partner-pub-3005259998294962:bvyni59kjr1" />
+    <input type="hidden" name="ie" value="ISO-8859-1" />
+    <input type="text" name="q" size="20" />
+    <br>
+    <input type="submit" name="sa" value="Search" />
+  </div>
+</form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"></script>
+    </td></tr>
+    <tr>
+        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="1"></td>
+    </tr>
+    <tr>
+        <td class="darkbg"><img src="/images/spacer.gif" alt='' border="0" height="3"></td>
+    </tr>
+    <tr>
+        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="2"></td>
+    </tr>
+        <tr>
+            <td class="sidebarheader"><a href="/index.php">Home</a></td>
+        </tr>
+        <tr>
+            <td class="sidebarheader"><a href="/search.php">Advanced search</a></td>
+        </tr>
+    <tr>
+        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
+    </tr>
+    <tr>
+        <td class="checker"><img src="/images/spacer.gif" alt='' border="0" height="1"></td>
+    </tr>
+    <tr>
+        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
+    </tr>
+        <tr>
+            <td class="sidebarheader"><a href="/about.php">About Vim</a></td>
+        </tr>
+        <tr>
+            <td class="sidebarheader"><a href="/community.php">Community</a></td>
+        </tr>
+        <tr>
+            <td class="sidebarheader"><a href="/news/news.php">News</a></td>
+        </tr>
+        <tr>
+            <td class="sidebarheader"><a href="/sponsor/index.php">Sponsoring</a></td>
+        </tr>
+        <tr>
+            <td class="sidebarheader"><a href="/trivia.php">Trivia</a></td>
+        </tr>
+        <tr>
+            <td class="sidebarheader"><a href="/docs.php">Documentation</a></td>
+        </tr>
+        <tr>
+            <td class="sidebarheader"><a href="/download.php">Download</a></td>
+        </tr>
+    <tr>
+        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
+    </tr>
+    <tr>
+        <td class="checker"><img src="/images/spacer.gif" alt='' border="0" height="1"></td>
+    </tr>
+    <tr>
+        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
+    </tr>
+        <tr>
+            <td class="sidebarheader"><a href="/scripts/index.php">Scripts</a></td>
+        </tr>
+        <tr>
+            <td class="sidebarheader"><a href="/tips/index.php">Tips</a></td>
+        </tr>
+        <tr>
+            <td class="sidebarheader"><a href="/account/index.php">My Account</a></td>
+        </tr>
+    <tr>
+        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
+    </tr>
+    <tr>
+        <td class="checker"><img src="/images/spacer.gif" alt='' border="0" height="1"></td>
+    </tr>
+    <tr>
+        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
+    </tr>
+        <tr>
+            <td class="sidebarheader"><a href="/huh.php">Site Help</a></td>
+        </tr>
+</table>
+
+            <table width="172" cellpadding="0" cellspacing="0" border="0">
+              <tr><td><img src="/images/spacer.gif" alt="" border="0" width="1" height="8"></td></tr>
+              <tr><td class="darkbg"><img src="/images/spacer.gif" width="1" height="3" alt=""></td></tr>
+            </table>
+            <br>
+
+<!-- INCLUDE THE PAGE SIDEBAR TEXT -->
+&nbsp;
+
+          </td>
+        </tr>
+      </table>
+    </td>
+
+    <td class="darkbg"><img src="/images/spacer.gif" width="1" height="1" border="0" alt=""><br></td>
+    <td>
+      <table width="100%" cellpadding="10" cellspacing="0" border="0" bordercolor="red">
+        <tr>
+          <td valign="top">
+
+<span class="txth1">Engspchk : Spelling checker: On-the-fly spell checking, multi-language, alternate spellings</span> 
+
+<br>
+<br>
+
+<!-- karma table -->
+<table cellpadding="4" cellspacing="0" border="1" bordercolor="#000066">
+<tr>
+  <td class="lightbg"><b>&nbsp;script karma&nbsp;</b></td>
+  <td>
+    Rating <b>512/181</b>,
+    Downloaded by 30773  </td>
+</tr>
+</table>
+<p>
+
+<table cellspacing="0" cellpadding="0" border="0">
+<tr><td class="prompt">created by</td></tr>
+<tr><td><a href="/account/profile.php?user_id=96">Charles Campbell</a></td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td class="prompt">script type</td></tr>
+<tr><td>syntax</td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td class="prompt">description</td></tr>
+<tr><td>There are a fair number of ispell/aspell based spelling checkers out there -- but engspchk isn't one of them.&nbsp;&nbsp;The engspchk source uses Vim's native syntax highlighting to catch spelling errors, so you get quick on-the-fly spellchecking!&nbsp;&nbsp;An optional external program, agrep, may be used to suggest alternative spellings. With the optional &lt;engspchk.rare&gt; dictionary, &lt;engspchk.vim&gt; now provides over 186730 words (over 189000 when including proper names)!<br><br>Engspchk flags rare/unusual words and allows the user to specify his/her preferred dialect (let g:spchkdialect=&quot;usa&quot;, &quot;uk&quot;, or &quot;can&quot;).&nbsp;&nbsp;Click-N-Fix by enabling the mouse (example: :set mouse=n) and a leftmouse click in the document will advance the cursor to the next spelling error; a leftmouse click in the alternative spellings window will substitute the selected word for the misspelled word.&nbsp;&nbsp;A rightmouse click will do that substitute for all such misspellings in your file.<br><br>Engspchk is no longer English-only: it supports multiple languages.&nbsp;&nbsp;You can tell it what language (dictionary) to use by either renaming it (ex.&nbsp;&nbsp;engspchk.vim -&gt; frspchk.vim for French) or by specifying the variable g:spchklang (ex. let g:spchklang=&quot;ger&quot; for German).&nbsp;&nbsp;See <a target="_blank" href="http://mysite.verizon.net/astronaut/vim/index.html#vimlinks_scripts">http://mysite.verizon.net/astronaut/vim/index.html#vimlinks_scripts</A> for some dictionaries: currently, that includes Dutch, French, Galician, German, Hungarian, Italian, Polish, Russian, Spanish, and Yiddish.<br><br>The engspchk s/w includes maps for jumping to the next and preceding spelling errors, alternative spellings, and for saving words either permanently in a custom dictionary or just for the current session.<br><br>Engspchk's dictionaries are optional.&nbsp;&nbsp;SpellChecker, for example, claims to load faster because it doesn't handle unusual words.&nbsp;&nbsp;Merely deleting &lt;CVIMSYN/engspchk.rare&gt; will speed up loading (which is pretty fast anyway).&nbsp;&nbsp;Both support flagging dialect-sensitive words, but only Engspchk has Click-N-Fix and rare word support.&nbsp;&nbsp;Telling the difference between &quot;or the&quot; and &quot;ort he&quot; is easy -- the &quot;ort&quot; will show up with RareWord highlighting (default: black on cyan).<br><br>To begin checking your spelling with engspchk, and assuming that &lt;engspchk.vim&gt; has been put into your .vim/plugin directory, simply start up engspchk by applying the English Check map:<br><br>&nbsp;&nbsp;&nbsp;&nbsp;\ec<br><br>and your spelling errors will show up highlighted in white-on-red.&nbsp;&nbsp;Alternatively, if you're using gvim, select DrChip:Load Spelling Checker from the menu.<br><br>If you want to change languages, engspchk provides a lot of ways to help you:<br><br>&nbsp;&nbsp;* set g:spchklang appropriately and \ec will load that language's dictionary.&nbsp;&nbsp;The backslash is actually using &lt;mapleader&gt;, so you can customize the backslash to whatever you want.<br>&nbsp;&nbsp;* you may embed a modeline at the beginning or at the end of the file:&nbsp;&nbsp;ex. spchk: lang=nl.<br>&nbsp;&nbsp;* using gvim, there's a &quot;Load AltLang Spelling Checker&quot; submenu for choosing whatever language(s) for which you have dictionaries!<br>&nbsp;&nbsp;* engspchk looks over your dictionaries and constructs simple commands: :Engspchk&nbsp;&nbsp;:Frspchk&nbsp;&nbsp;:Gerspchk&nbsp;&nbsp;:Nlspchk&nbsp;&nbsp;:Spanspchk&nbsp;&nbsp;etc,<br><br>It will work with some cooperating syntax files to check out spelling in comments, including:<br><br>amiga, bib, c, cpp, csh, d, dcl, dtml, elmfilt, exports, fortran, html, java, lex, lisp, mail, maple, sh, sm, smarty, tcsh, tex, vim, and xmath<br><br>If your favorite computer language isn't on that list, perhaps you can talk that language's maintainer into making it engspchk compatible.<br><br>More Features:<br><br>Version 42-45:<br>&nbsp;&nbsp;click'n'fix button support improved: with a click, one can re-try alternates, accept misspellings (skip by them), and apply corrected spelling to entire document.&nbsp;&nbsp;(see :he engspchk-clicknfix)<br><br>&nbsp;&nbsp;The alternative spellings window can now be either on the bottom or on the right hand side. (see :he engspchk-variables)<br><br>&nbsp;&nbsp;PreProc highlighting used to emphasize word selected for alternate spellings<br><br>&nbsp;&nbsp;A number of bug fixes -- see&nbsp;&nbsp; :help |engspchk-history| (after downloading, of course!)<br><br>Version 41:<br>&nbsp;&nbsp;&nbsp;&nbsp;Engspchk can be loaded into multiple windows concurrently; one can force spell checking of non-highlighted text with the g:spchknonhl variable; RareWord and Dialect added to the @Spell cluster; and the 'hidden' option is set to allow preserve engspchk highlighting (\ee will restore the user's hidden setting).<br><br>Version 40:<br>&nbsp;&nbsp;&nbsp;&nbsp;*@Spell cluster utilized.<br>&nbsp;&nbsp;&nbsp;&nbsp;*Allow two or more sequential capitalized<br>&nbsp;&nbsp;&nbsp;&nbsp; letters to be ignored (English only, acronym support).<br>&nbsp;&nbsp;&nbsp;&nbsp;*Yura Kloubakov's inclusion of the user's<br>&nbsp;&nbsp;&nbsp;&nbsp; mapleader in the DrChip menu and removal<br>&nbsp;&nbsp;&nbsp;&nbsp; of \ec after use<br>&nbsp;&nbsp;&nbsp;&nbsp;*Entered dozens of city names into &lt;engspchk.proper&gt;<br><br>Version 34:<br>&nbsp;&nbsp;&nbsp;&nbsp;The latest engspchk includes:<br>&nbsp;&nbsp;&nbsp;&nbsp;differentiating between common, dialect, and rare words, saving/restoring gdefault option maps to make a word a temporary/permanent BadWord<br>&nbsp;&nbsp;&nbsp;&nbsp;Click-N-Fix<br><br>Version 32:<br>&nbsp;&nbsp;&nbsp;&nbsp;English dialects supported (usa can uk); bug fixes (ending engspchk, alternatives, etc)<br><br><br>Version 30:<br>&nbsp;&nbsp;&nbsp;&nbsp;Engspchk, the native Vim spelling checker, is better than ever!<br><br>&nbsp;&nbsp;&nbsp;&nbsp;* Click'n'Fix:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- leftmouse to move to the next error<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- leftmouse to select correctly spelled word<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- rightmouse to fix all instances of<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;misspelled word<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Makes spell-checking a document Fast and Easy!<br><br>&nbsp;&nbsp;&nbsp;&nbsp;* New maps:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- \eS, \eT to take a word under the cursor<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;out of the user dictionary (permanently<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or just this session)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- \ee to end engspchk; restores prior maps<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and restores normal highlighting<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- &lt;tab&gt; in alternative-word window does<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a global replace of the misspelled word<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with the user-selected correctly spelled<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;word<br><br>&nbsp;&nbsp;&nbsp;&nbsp;* optional auto-jump to next spelling error<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for \es, \et, and \ea.<br>&nbsp;&nbsp;&nbsp;&nbsp;* will signal if syntax highlighting is off.<br>&nbsp;&nbsp;&nbsp;&nbsp;* Plus a bugfix for Mac users<br><br>&nbsp;&nbsp;&nbsp;&nbsp;Plus engspchk supports a non-English languages,<br>&nbsp;&nbsp;&nbsp;&nbsp;checks for spelling inside comments for C, C++,<br>&nbsp;&nbsp;&nbsp;&nbsp;Fortran, DCL (VMS), csh/sh/ksh/bash, tex, and<br>&nbsp;&nbsp;&nbsp;&nbsp;more.<br><br>Version 27: New features for the Vim-based spelling checker!<br><br>&nbsp;&nbsp;&nbsp;&nbsp;* Maps to remove words from the user dictionary<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(\eT, \eS).<br><br>&nbsp;&nbsp;&nbsp;&nbsp;* If g:spchk_autonext exists, then \et, \es, and<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\ea (if a word is selected) will automatically<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;do a \en jump to the next spelling error.<br><br>&nbsp;&nbsp;&nbsp;&nbsp;* \en and \ep will now examine words inside folds,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;opening the fold as necessary to display spelling<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;errors.<br><br>Version 23:<br>&nbsp;&nbsp;&nbsp;&nbsp;Can handle English, French, German, Spanish, Dutch,<br>&nbsp;&nbsp;&nbsp;&nbsp;Hungarian -- just set up a dictionary and set a<br>&nbsp;&nbsp;&nbsp;&nbsp;g:spchklang variable!&nbsp;&nbsp;Native vim code, no external<br>&nbsp;&nbsp;&nbsp;&nbsp;programs necessary<br><br>Version 19:<br>&nbsp;&nbsp;&nbsp;&nbsp;Now contains: engspchk.vim engspchk.dict<br>&nbsp;&nbsp;&nbsp;&nbsp;engspchk.wb engspchk.txt Over 187192 words!<br>&nbsp;&nbsp;&nbsp;&nbsp;non-English support menus, documentation, English<br>&nbsp;&nbsp;&nbsp;&nbsp;punctuation checking (g:spchkpunc)<br><br><br>Alternative Spelling Checkers<br>&nbsp;&nbsp;&nbsp;&nbsp;SpellChecker - Ajit Thakkar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - syntax&nbsp;&nbsp;&nbsp;&nbsp; - <a href="/scripts/script.php?script_id=499">vimscript#499</a><br>&nbsp;&nbsp;&nbsp;&nbsp;vimspell&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Mathieu Clabaut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- [ia]spell&nbsp;&nbsp; - <a href="/scripts/script.php?script_id=465">vimscript#465</a><br>&nbsp;&nbsp;&nbsp;&nbsp;spellcheck&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Matthias Veit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - ispell&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - <a href="/scripts/script.php?script_id=131">vimscript#131</a><br>&nbsp;&nbsp;&nbsp;&nbsp;spell&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Yegappan Lakshmanan - spell&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- <a href="/scripts/script.php?script_id=232">vimscript#232</a><br>&nbsp;&nbsp;&nbsp;&nbsp;vim-spell&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Luc Hermite&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- [ia]spell&nbsp;&nbsp;- <a href="/scripts/script.php?script_id=135">vimscript#135</a><br><br><br>Thank you for ranking engspchk!<br><br></td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td class="prompt">install details</td></tr>
+<tr><td>1) put engspchk.tar.gz into your .vim directory<br>2) gunzip engspchk.tar.gz<br>3) tar -xvf engspchk.tar<br>4) vim<br>&nbsp;&nbsp; :helptags ..wherever../.vim/doc<br>&nbsp;&nbsp; :help engspchk-start&nbsp;&nbsp;&lt;-- startup directions for Unix/Linux/Cygwin<br>&nbsp;&nbsp; :help engspchk-win32&nbsp;&nbsp;&lt;-- startup directions for Windows<br><br>From there the directions explain how to set up CVIMSYN, an environment<br>variable; how to set up Click-N-Fix; how to enable plugins; how to<br>choose a bottom-of-screen or right-side alternative-spellings window;<br>and how to choose your preferred dialect.&nbsp;&nbsp;Your choice!<br></td></tr>
+<tr><td>&nbsp;</td></tr>
+</table>
+
+<!-- rating table -->
+<form name="rating">
+<input type="hidden" name="script_id" value="195">
+<table cellpadding="4" cellspacing="0" border="1" bordercolor="#000066">
+<tr>
+  <td class="lightbg"><b>rate this script</b></td>
+  <td valign="middle">
+    <input type="radio" name="rating" value="life_changing">Life Changing
+    <input type="radio" name="rating" value="helpful">Helpful
+    <input type="radio" name="rating" value="unfulfilling">Unfulfilling&nbsp;
+    <input type="submit" value="rate">
+  </td>
+</tr>
+</table>
+</form>
+<span class="txth2">script versions</span> (<a href="add_script_version.php?script_id=195">upload new version</a>)
+<p>
+Click on the package to download.
+<p>
+
+<table cellspacing="2" cellpadding="4" border="0" width="100%">
+<tr class='tableheader'>
+        <th valign="top">package</th>
+    <th valign="top">script version</th>
+    <th valign="top">date</th>
+    <th valign="top">Vim version</th>
+    <th valign="top">user</th>
+    <th valign="top">release notes</th>
+</tr>
+<tr>
+        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=6351">engspchk.tar.gz</a></td>
+    <td class="rowodd" valign="top" nowrap><b>64</b></td>
+    <td class="rowodd" valign="top" nowrap><i>2006-10-30</i></td>
+    <td class="rowodd" valign="top" nowrap>6.0</td>
+    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
+    <td class="rowodd" valign="top" width="2000">When filetype is mail, spell checking no longer takes place in initial lines<br></td>
+</tr>
+<tr>
+        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=5227">engspchk.tar.gz</a></td>
+    <td class="roweven" valign="top" nowrap><b>63</b></td>
+    <td class="roweven" valign="top" nowrap><i>2006-02-15</i></td>
+    <td class="roweven" valign="top" nowrap>6.0</td>
+    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
+    <td class="roweven" valign="top" width="2000">Small things: includes CVIMSYN/engspchk.match, uses cecutil, and CVIMSYN can now have spaces in its path<br></td>
+</tr>
+<tr>
+        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=4422">engspchk.tar.gz</a></td>
+    <td class="rowodd" valign="top" nowrap><b>62</b></td>
+    <td class="rowodd" valign="top" nowrap><i>2005-07-12</i></td>
+    <td class="rowodd" valign="top" nowrap>6.0</td>
+    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
+    <td class="rowodd" valign="top" width="2000">cpo workaround and improved visual-block only spellchecking<br></td>
+</tr>
+<tr>
+        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=4018">engspchk.tar.gz</a></td>
+    <td class="roweven" valign="top" nowrap><b>61</b></td>
+    <td class="roweven" valign="top" nowrap><i>2005-03-14</i></td>
+    <td class="roweven" valign="top" nowrap>6.0</td>
+    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
+    <td class="roweven" valign="top" width="2000">A check is made for +clipboard before attempting to clear it<br></td>
+</tr>
+<tr>
+        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=3851">engspchk.tar.gz</a></td>
+    <td class="rowodd" valign="top" nowrap><b>60</b></td>
+    <td class="rowodd" valign="top" nowrap><i>2005-02-11</i></td>
+    <td class="rowodd" valign="top" nowrap>6.0</td>
+    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
+    <td class="rowodd" valign="top" width="2000">Engspchk now has improved operation with html.<br>Engspchk checks if &quot;m&quot; is part of guioptions before doing (un)menu operations.<br>Contractions have now been moved to [lang]spchk.contraction; hopefully, some<br>folks will step up and make some contraction dictionaries for their native<br>languages (I know that French, for example, needs such support!).<br></td>
+</tr>
+<tr>
+        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=3707">engspchk.tar.gz</a></td>
+    <td class="roweven" valign="top" nowrap><b>59</b></td>
+    <td class="roweven" valign="top" nowrap><i>2004-12-15</i></td>
+    <td class="roweven" valign="top" nowrap>6.0</td>
+    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
+    <td class="roweven" valign="top" width="2000">Silenced all &quot;unmenu&quot; operations; included more tests to see if the gui is actually running before attempting to (un)install menus<br></td>
+</tr>
+<tr>
+        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=3615">engspchk.tar.gz</a></td>
+    <td class="rowodd" valign="top" nowrap><b>58</b></td>
+    <td class="rowodd" valign="top" nowrap><i>2004-11-09</i></td>
+    <td class="rowodd" valign="top" nowrap>6.0</td>
+    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
+    <td class="rowodd" valign="top" width="2000">Engspchk now has language-specific starting commands: :Engspchk :Nlspchk :Spanspchk etc (which are based on the dictionaries you have available in $CVIMSYN)<br>Error messages now have a &quot;press &lt;cr&gt; to continue&quot; message so that one can see them.<br>Bugfixes: modeline priority, modeline highlighting, incomplete saving/restoration of user maps<br></td>
+</tr>
+<tr>
+        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=3144">engspchk.tar.bz2</a></td>
+    <td class="roweven" valign="top" nowrap><b>57</b></td>
+    <td class="roweven" valign="top" nowrap><i>2004-06-17</i></td>
+    <td class="roweven" valign="top" nowrap>6.0</td>
+    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
+    <td class="roweven" valign="top" width="2000">New Feature: \ev enables spell checking on just a visual-block (ie. ctrl-v, v, or V), and \eV removes the block restriction<br>New utf8 German (with two dialects) and Russian dictionaries (tnx, Sergey Markelov!)<br>bugfix: when mapleader wasn't explicitly set, a variable-not-found message resulted.&nbsp;&nbsp;Fixed (tnx, Sergey Markelov!)<br></td>
+</tr>
+<tr>
+        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=3127">engspchk.tar.bz2</a></td>
+    <td class="rowodd" valign="top" nowrap><b>56</b></td>
+    <td class="rowodd" valign="top" nowrap><i>2004-06-14</i></td>
+    <td class="rowodd" valign="top" nowrap>6.0</td>
+    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
+    <td class="rowodd" valign="top" width="2000">\ej, \eJ: enables saving words to and from *spchk.proj, engspchk's project support.<br>bugfix: the loading of colorschemes usually wiped out RareWord and Dialect highlighting.&nbsp;&nbsp;A CursorHold is now used to restore such highlighting.<br>bugfix: usually languages (C Vim Mail etc) want to confine spellchecking to certain regions (ie. comments).&nbsp;&nbsp;The latest engspchk does that, but the dictionaries needed to be changed.&nbsp;&nbsp;engspchk.dict is changed for you, but new non-English dictionaries also need to be obtained.<br></td>
+</tr>
+<tr>
+        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=3101">engspchk-v55.tar.bz2</a></td>
+    <td class="roweven" valign="top" nowrap><b>55</b></td>
+    <td class="roweven" valign="top" nowrap><i>2004-06-07</i></td>
+    <td class="roweven" valign="top" nowrap>6.0</td>
+    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
+    <td class="roweven" valign="top" width="2000">Bugfixes: now uses finish instead of exit for certain errors, an exception has been made for mail for extensive spell checking, the &quot;-&quot; has been removed from iskeyword for French (please let me know if other languages need it removed, too!), an improved search method for dictionaries (often won't need CVIMSYN set anymore!).&nbsp;&nbsp;Most important, a bug with wordlist generation caused some words to be dropped that should not have been.&nbsp;&nbsp;Pls wipe out your old engspchk.wordlist and let engspchk v55 re-generate it!<br><br></td>
+</tr>
+<tr>
+        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=3013">engspchk-v50.tar.bz2</a></td>
+    <td class="rowodd" valign="top" nowrap><b>50</b></td>
+    <td class="rowodd" valign="top" nowrap><i>2004-05-11</i></td>
+    <td class="rowodd" valign="top" nowrap>6.0</td>
+    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
+    <td class="rowodd" valign="top" width="2000">\er and \ed now cycle through three states:<br>&nbsp;&nbsp;&quot;RareWord/Dialect : Error : no&quot; highlighting<br><br>Engspchk now supports modelines (spchk: ...)<br>where one may set options such as acronym,<br>altright, autonext, cvimsyn, dialect, DrChipTopLvlMenu,<br>mouse, nonhl, proj, punc, silent, and lang.<br><br>Engspchk has dictionaries for: Dutch, Galician, German,<br>Hungarian, Italian, Russian, Spanish, Polish.&nbsp;&nbsp;A Yiddish<br>variant has also been made available.&nbsp;&nbsp;See<br><a target="_blank" href="http://www.erols.com/astronaut/index.html#vimlinks_scripts">http://www.erols.com/astronaut/index.html#vimlinks_scripts</A><br>Engspchk supports selecting from multiple languages by mouse.<br></td>
+</tr>
+<tr>
+        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=522">engspchk.tar.gz</a></td>
+    <td class="roweven" valign="top" nowrap><b>2.09</b></td>
+    <td class="roweven" valign="top" nowrap><i>2002-01-30</i></td>
+    <td class="roweven" valign="top" nowrap>5.7</td>
+    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
+    <td class="roweven" valign="top" width="2000">Initial upload</td>
+</tr>
+</table>
+<!-- finish off the framework -->
+          </td>
+        </tr>
+      </table>
+    </td>
+
+  </tr>
+</table>
+
+<!-- END OF THE PAGE BODY: BETWEEN HEADER AND FOOTER -->
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0" bordercolor="red">
+  <tr><td colspan="4"><img src="/images/spacer.gif" width="1" height="5" alt=""></td></tr>
+  <tr><td colspan="4" bgcolor="#000000"><img src="/images/spacer.gif" height="2" width="1" alt=""></td></tr>
+  <tr><td colspan="4"><img src="/images/spacer.gif" width="1" height="5" alt=""></td></tr>
+  <tr>
+    <td><img src="/images/spacer.gif" width="5" height="1" alt=""></td>
+
+    <td align="left" valign="top"><small>
+      If you have questions or remarks about this site, visit the
+      <a href="http://vimonline.sf.net">vimonline development</a> pages.
+      Please use this site responsibly.
+      <br> 
+      
+      Questions about <a href="http://www.vim.org/about.php">Vim</a> should go
+      to the <a href="http://www.vim.org/maillist.php">maillist</a>.
+      Help Bram <a href="http://iccf-holland.org/">help Uganda</a>.
+      </small>
+	&nbsp;
+	&nbsp;
+
+	<!-- Start of StatCounter Code -->
+	<script type="text/javascript" language="javascript">
+	var sc_project=1417324; 
+	var sc_invisible=1; 
+	var sc_partition=11; 
+	var sc_security="d41633bc"; 
+	</script>
+
+	<script type="text/javascript" language="javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><a href="http://www.statcounter.com/" target="_blank"><img  src="http://c12.statcounter.com/counter.php?sc_project=1417324&java=0&security=d41633bc&invisible=0" alt="free tracking" border="0"></a> </noscript>
+	<!-- End of StatCounter Code -->
+          </td>
+
+    <td align="right" valign="top">
+      		<a href="http://sourceforge.net/projects/vim" rel="nofollow"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=8&type=1" width="88" height="31" border="0" alt="SourceForge.net Logo" /></a>
+    </td>
+
+    <td><img src="/images/spacer.gif" width="5" height="1" alt=""></td>
+  </tr>
+
+    
+  <tr><td colspan="4"><img src="/images/spacer.gif" width="1" height="5" alt=""></td>
+  
+  </tr>
+</table>
+
+</body>
+</html>
+

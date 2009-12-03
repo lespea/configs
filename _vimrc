@@ -7,14 +7,6 @@ set nocompatible
 autocmd!
 
 behave xterm
-if &term == "xterm"
-    let &term = "xtermc"
-
-    " Restore the screen when we're exiting
-    set rs
-    set t_ti= 7 [r [?47h
-    set t_te= [?47l 8
-endif
 
 " General *********************************************************************
 " save last 50 search history items, last 50 edit marks, don't remember search
@@ -32,6 +24,23 @@ set statusline+=%=      "left/right separator
 set statusline+=%b,0x%-8B\      " current char
 set statusline+=%c,%l/ "cursor column/total lines
 set statusline+=%L\ %P "total lines/percentage in file
+
+function! InsertStatuslineColor(mode)
+  if a:mode == 'i'
+    hi statusline guibg=orange
+  elseif a:mode == 'r'
+    hi statusline guibg=cyan
+  else
+    hi statusline guibg=red
+  endif
+endfunction
+
+au InsertEnter * call InsertStatuslineColor(v:insertmode)
+au InsertLeave * hi statusline guibg=blue
+
+" default the statusline to green when entering Vim
+hi statusline guibg=blue
+
 
 
 "make backspace work

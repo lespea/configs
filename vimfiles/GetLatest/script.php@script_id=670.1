@@ -1,358 +1,0 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-
-<head>
-  <link rel="Stylesheet" type="text/css" href="/css/style.css" >
-  <title>VisIncr - Produce increasing/decreasing columns of numbers, dates, or daynames : vim online</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-  <meta name="KEYWORDS" content="Vim, Vi IMproved, text editor, home, documentation, tips, scripts, news">
-  <link rel="shortcut icon" type="image/x-icon" href="/images/vim_shortcut.ico">
-</head>
-
-<body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" bgcolor="#ffffff"> 
-
-<!-- HEADER, SPONSOR IMAGE, VIM IMAGE AND BOOK AD -->
-<table width="100%" cellpadding="0" cellspacing="0" border="0" bordercolor="red">
-  <tr>
-    <td colspan="4" class="lightbg"><img src="/images/spacer.gif" width="1" height="5" alt=""></td>
-  </tr>
-  <tr>
-  <td class="lightbg">&nbsp;&nbsp;&nbsp;</td>
-  <td class="lightbg" align="left"><a href="/sponsor/index.php"><img src="/images/sponsorvim.gif" alt="sponsor Vim development" border="0"></a></td>
-    <td class="lightbg" align="center"><a href="/index.php"><img src="/images/vim_header.gif" border="0" alt="Vim logo"></a></td>
-    <td class="lightbg" align="right"><a href="http://iccf-holland.org/click5.html"><img src="/images/buyhelplearn.gif" alt="Vim Book Ad" border="0"></a></td>
-  </tr>
-  <tr>
-    <td colspan="4" class="lightbg"><img src="/images/spacer.gif" width="1" height="5" alt=""></td>
-  </tr>
-  <tr>
-    <td colspan="4" class="darkbg"><img src="/images/spacer.gif" width="1" height="10" alt=""></td>
-  </tr>
-</table>
-<!-- THE PAGE BODY: BETWEEN HEADER AND FOOTER -->
-
-<table cellpadding="0" cellspacing="0" border="0" width="100%">
-  <col width="180">
-  <col width="1">
-
-  <tr valign="top">
-    <td class="sidebar">
-      <table width="180" cellpadding="4" cellspacing="0" border="0">
-        <tr valign="top">
-          <td class="sidebar">
-
-<!-- INCLUDE THE PAGE NAVIGATION -->
-<table width="100%" cellpadding="0" cellspacing="0" border="0" bordercolor="red">
-    <tr>
-        <td><small>not logged in (<a href="/login.php">login</a>)</small></td>
-    </tr>
-    <tr><td>
-<small>&nbsp;</small>
-<form action="http://www.google.com/cse" id="cse-search-box">
-  <div>
-    <input type="hidden" name="cx" value="partner-pub-3005259998294962:bvyni59kjr1" />
-    <input type="hidden" name="ie" value="ISO-8859-1" />
-    <input type="text" name="q" size="20" />
-    <br>
-    <input type="submit" name="sa" value="Search" />
-  </div>
-</form>
-<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"></script>
-    </td></tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="1"></td>
-    </tr>
-    <tr>
-        <td class="darkbg"><img src="/images/spacer.gif" alt='' border="0" height="3"></td>
-    </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="2"></td>
-    </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/index.php">Home</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/search.php">Advanced search</a></td>
-        </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
-    </tr>
-    <tr>
-        <td class="checker"><img src="/images/spacer.gif" alt='' border="0" height="1"></td>
-    </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
-    </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/about.php">About Vim</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/community.php">Community</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/news/news.php">News</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/sponsor/index.php">Sponsoring</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/trivia.php">Trivia</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/docs.php">Documentation</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/download.php">Download</a></td>
-        </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
-    </tr>
-    <tr>
-        <td class="checker"><img src="/images/spacer.gif" alt='' border="0" height="1"></td>
-    </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
-    </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/scripts/index.php">Scripts</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/tips/index.php">Tips</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/account/index.php">My Account</a></td>
-        </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
-    </tr>
-    <tr>
-        <td class="checker"><img src="/images/spacer.gif" alt='' border="0" height="1"></td>
-    </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
-    </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/huh.php">Site Help</a></td>
-        </tr>
-</table>
-
-            <table width="172" cellpadding="0" cellspacing="0" border="0">
-              <tr><td><img src="/images/spacer.gif" alt="" border="0" width="1" height="8"></td></tr>
-              <tr><td class="darkbg"><img src="/images/spacer.gif" width="1" height="3" alt=""></td></tr>
-            </table>
-            <br>
-
-<!-- INCLUDE THE PAGE SIDEBAR TEXT -->
-&nbsp;
-
-          </td>
-        </tr>
-      </table>
-    </td>
-
-    <td class="darkbg"><img src="/images/spacer.gif" width="1" height="1" border="0" alt=""><br></td>
-    <td>
-      <table width="100%" cellpadding="10" cellspacing="0" border="0" bordercolor="red">
-        <tr>
-          <td valign="top">
-
-<span class="txth1">VisIncr : Produce increasing/decreasing columns of numbers, dates, or daynames</span> 
-
-<br>
-<br>
-
-<!-- karma table -->
-<table cellpadding="4" cellspacing="0" border="1" bordercolor="#000066">
-<tr>
-  <td class="lightbg"><b>&nbsp;script karma&nbsp;</b></td>
-  <td>
-    Rating <b>619/493</b>,
-    Downloaded by 4120  </td>
-</tr>
-</table>
-<p>
-
-<table cellspacing="0" cellpadding="0" border="0">
-<tr><td class="prompt">created by</td></tr>
-<tr><td><a href="/account/profile.php?user_id=96">Charles Campbell</a></td></tr>
-<tr><td>&nbsp;</td></tr>
-<tr><td class="prompt">script type</td></tr>
-<tr><td>utility</td></tr>
-<tr><td>&nbsp;</td></tr>
-<tr><td class="prompt">description</td></tr>
-<tr><td><br>The visincr plugin facilitates making a column of increasing or decreasing<br>numbers, dates, or daynames.<br><br>First, select a column using visual-block (ctrl-v) and move the cursor.<br><br>Second, choose what sort of incremented list you want:<br><br>&nbsp;&nbsp;&nbsp;&nbsp;:I [#]&nbsp;&nbsp;Will use the first line's number as a starting point to build<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a column of increasing numbers (or decreasing numbers if the<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;increment is negative).<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default increment: 1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Justification&nbsp;&nbsp;&nbsp;&nbsp;: left (will pad on the right)<br><br>&nbsp;&nbsp;&nbsp;&nbsp;:II [# [zfill]]&nbsp;&nbsp;Will use the first line's number as a starting point<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to build a column of increasing numbers (or decreasing numbers<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if the increment is negative).<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default increment: 1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Justification&nbsp;&nbsp;&nbsp;&nbsp;: right (will pad on the left)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Zfill&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: left padding will be done with the given<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; character, typically a zero.<br><br>&nbsp;&nbsp;&nbsp;&nbsp;:IYMD [#]&nbsp;&nbsp;&nbsp;&nbsp;year/month/day<br>&nbsp;&nbsp;&nbsp;&nbsp;:IMDY [#]&nbsp;&nbsp;&nbsp;&nbsp;month/day/year<br>&nbsp;&nbsp;&nbsp;&nbsp;:IDMY [#]&nbsp;&nbsp;&nbsp;&nbsp;day/month/year<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Will use the starting line's date to construct an increasing<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or decreasing list of dates, depending on the sign of the<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;number.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default increment: 1 (in days)<br><br>&nbsp;&nbsp;&nbsp;&nbsp;:ID [#] Will produce an increasing/decreasing list of daynames.&nbsp;&nbsp;Three-letter<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;daynames will be used if the first day on the first line is a three<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;letter dayname; otherwise, full names will be used.<br><br>&nbsp;&nbsp;&nbsp;&nbsp;:IO [#]<br>&nbsp;&nbsp;&nbsp;&nbsp;:IIO [#] [zfill]<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Like :I and :II, except visincr creates octal numbers.<br><br>&nbsp;&nbsp;&nbsp;&nbsp;:IR [#]<br>&nbsp;&nbsp;&nbsp;&nbsp;:IIR [#] [zfill]<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Like :I and :II, except visincr uses Roman numerals.&nbsp;&nbsp;Negative and<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zero counts are not supported for Roman numerals.<br><br>&nbsp;&nbsp;&nbsp;&nbsp;:IX [#]<br>&nbsp;&nbsp;&nbsp;&nbsp;:IIX [#] [zfill]<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Like :I and :II, except visincr creates hexadecimal numbers.<br><br>&nbsp;&nbsp;&nbsp;&nbsp;-------------------<br>&nbsp;&nbsp;&nbsp;&nbsp;EXTRA NOTES<br>&nbsp;&nbsp;&nbsp;&nbsp;-------------------<br>&nbsp;&nbsp;&nbsp;&nbsp;For :I :II :IO :IIO :IR :IIR :<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If the visual block is ragged on the right-hand side (as can<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;easily happen when the &quot;$&quot; is used to select the<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;right-hand-side), the block will have spaces appended to<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;straighten it out.&nbsp;&nbsp;If the string length of the count exceeds<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the visual-block, then additional spaces will be inserted as<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;needed.&nbsp;&nbsp;Leading tabs are handled by using virtual column<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;calculations.<br><br>&nbsp;&nbsp;&nbsp;&nbsp;For :IR and :IIR :<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Since Roman numerals vary considerably in their lengths for<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nearby numbers, an additional two spaces will be included.<br><br>&nbsp;&nbsp;&nbsp;&nbsp;For :IYMD, :IMDY, and IDMY:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You'll need the &lt;calutil.vim&gt; plugin, available as<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&quot;Calendar Utilities&quot; under the following url:<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="http://mysite.verizon.net/astronaut/vim/index.html#CALUTIL">http://mysite.verizon.net/astronaut/vim/index.html#CALUTIL</A><br><br>Help is included, too -- check out&nbsp;&nbsp;:he visincr-examples to see<br>even more examples of each command in action.<br><br>Examples:<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:I<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Use ctrl-V to<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Original&nbsp;&nbsp;&nbsp;&nbsp;Select, :I<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:I -1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Use ctrl-V to<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Original&nbsp;&nbsp;&nbsp;&nbsp;Select, :I -1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4<br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:II<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Use ctrl-V to<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Original&nbsp;&nbsp;&nbsp;&nbsp;Select, :II<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:II -1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Use ctrl-V to<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Original&nbsp;&nbsp;&nbsp;&nbsp;Select, :II -1<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4<br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:IMDY<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Use ctrl-V to<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Original&nbsp;&nbsp;Select, :IMDY<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;06/10/03&nbsp;&nbsp;&nbsp;&nbsp; 6/10/03<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;06/10/03&nbsp;&nbsp;&nbsp;&nbsp; 6/11/03<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;06/10/03&nbsp;&nbsp;&nbsp;&nbsp; 6/12/03<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;06/10/03&nbsp;&nbsp;&nbsp;&nbsp; 6/13/03<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;06/10/03&nbsp;&nbsp;&nbsp;&nbsp; 6/14/03<br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:IYMD<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Use ctrl-V to<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Original&nbsp;&nbsp;Select, :IYMD<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;03/06/10&nbsp;&nbsp;&nbsp;&nbsp;03/06/10<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;03/06/10&nbsp;&nbsp;&nbsp;&nbsp;03/06/11<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;03/06/10&nbsp;&nbsp;&nbsp;&nbsp;03/06/12<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;03/06/10&nbsp;&nbsp;&nbsp;&nbsp;03/06/13<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;03/06/10&nbsp;&nbsp;&nbsp;&nbsp;03/06/14<br><br><br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:IDMY<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Use ctrl-V to<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Original&nbsp;&nbsp;Select, :IDMY<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10/06/03&nbsp;&nbsp;&nbsp;&nbsp;10/06/03<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10/06/03&nbsp;&nbsp;&nbsp;&nbsp;11/06/03<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10/06/03&nbsp;&nbsp;&nbsp;&nbsp;12/06/03<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10/06/03&nbsp;&nbsp;&nbsp;&nbsp;13/06/03<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10/06/03&nbsp;&nbsp;&nbsp;&nbsp;14/06/03<br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:ID<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Use ctrl-V to<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Original&nbsp;&nbsp;Select, :ID<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sun&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sun<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sun&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Mon<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sun&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Tue<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sun&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Wed<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sun&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Thu<br><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:ID<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Use ctrl-V to<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Original&nbsp;&nbsp;Select, :ID<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sunday&nbsp;&nbsp;&nbsp;&nbsp; Sunday<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sunday&nbsp;&nbsp;&nbsp;&nbsp; Monday<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sunday&nbsp;&nbsp;&nbsp;&nbsp; Tuesday<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sunday&nbsp;&nbsp;&nbsp;&nbsp; Wednesday<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sunday&nbsp;&nbsp;&nbsp;&nbsp; Thursday<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:IA<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Use ctrl-V to<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Original&nbsp;&nbsp;Select, :IA<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:IO<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Use ctrl-V to<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Original&nbsp;&nbsp;Select, :IO<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 11<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:IR<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Use ctrl-V to<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Original&nbsp;&nbsp;Select, :IR<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; II&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; II<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; II&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; III<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; II&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IV<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; II&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; V <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; II&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; VI<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Use ctrl-V to<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Original&nbsp;&nbsp;Select, :IX<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; c<br><br><br>-------------<br>SEE ALSO<br>-------------<br>vis&nbsp;&nbsp;&nbsp;&nbsp; : <a href="/scripts/script.php?script_id=1195">vimscript#1195</a> : apply any ex command (ex. :s/../../) to a visual block<br>vissort : <a href="/tips/tip.php?tip_id=588">vimtip#588</a>&nbsp;&nbsp;&nbsp;&nbsp; : how to sort a visual block (or sort based on one)<br></td></tr>
-<tr><td>&nbsp;</td></tr>
-<tr><td class="prompt">install details</td></tr>
-<tr><td>1. You need vimball v18 or later (<a href="/scripts/script.php?script_id=1502">vimscript#1502</a>).&nbsp;&nbsp;Please remove any vestiges of an older vimball first.<br>&nbsp;&nbsp;&nbsp;&nbsp;(if you have vim 7.1 or later, you can skip this step)<br>2. vim visincr.vba.gz<br>&nbsp;&nbsp;&nbsp;&nbsp;:so %<br>&nbsp;&nbsp;&nbsp;&nbsp;:q</td></tr>
-<tr><td>&nbsp;</td></tr>
-</table>
-
-<!-- rating table -->
-<form name="rating">
-<input type="hidden" name="script_id" value="670">
-<table cellpadding="4" cellspacing="0" border="1" bordercolor="#000066">
-<tr>
-  <td class="lightbg"><b>rate this script</b></td>
-  <td valign="middle">
-    <input type="radio" name="rating" value="life_changing">Life Changing
-    <input type="radio" name="rating" value="helpful">Helpful
-    <input type="radio" name="rating" value="unfulfilling">Unfulfilling&nbsp;
-    <input type="submit" value="rate">
-  </td>
-</tr>
-</table>
-</form>
-<span class="txth2">script versions</span> (<a href="add_script_version.php?script_id=670">upload new version</a>)
-<p>
-Click on the package to download.
-<p>
-
-<table cellspacing="2" cellpadding="4" border="0" width="100%">
-<tr class='tableheader'>
-        <th valign="top">package</th>
-    <th valign="top">script version</th>
-    <th valign="top">date</th>
-    <th valign="top">Vim version</th>
-    <th valign="top">user</th>
-    <th valign="top">release notes</th>
-</tr>
-<tr>
-        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=8073">visincr.vba.gz</a></td>
-    <td class="rowodd" valign="top" nowrap><b>19</b></td>
-    <td class="rowodd" valign="top" nowrap><i>2007-12-19</i></td>
-    <td class="rowodd" valign="top" nowrap>7.0</td>
-    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="rowodd" valign="top" width="2000">Forgot to include calutil with visincr (its there now!)</td>
-</tr>
-<tr>
-        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=8071">visincr.vba.gz</a></td>
-    <td class="roweven" valign="top" nowrap><b>18</b></td>
-    <td class="roweven" valign="top" nowrap><i>2007-12-19</i></td>
-    <td class="roweven" valign="top" nowrap>7.0</td>
-    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="roweven" valign="top" width="2000">* Power based incrementing: IPOW (2,4,8,16,...)<br>* Date dividers are no longer required<br>* Calutil is included, and they use vim 7's autoload feature (load only on demand)<br></td>
-</tr>
-<tr>
-        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=6208">visincr.vba.gz</a></td>
-    <td class="rowodd" valign="top" nowrap><b>17</b></td>
-    <td class="rowodd" valign="top" nowrap><i>2006-09-19</i></td>
-    <td class="rowodd" valign="top" nowrap>7.0</td>
-    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="rowodd" valign="top" width="2000">(NEW) Visincr's commands now support expression-style completion.<br>(NEW) g:visincr_datedivset support included: date dividers are (default) assumed to from the set [-./]; the separator actually used is the first one found in your date column.<br></td>
-</tr>
-<tr>
-        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=5989">visincr.vba.gz</a></td>
-    <td class="roweven" valign="top" nowrap><b>16</b></td>
-    <td class="roweven" valign="top" nowrap><i>2006-07-25</i></td>
-    <td class="roweven" valign="top" nowrap>6.0</td>
-    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="roweven" valign="top" width="2000">Roman numerals (:IR and :IIR) supported!<br>:IX, :IIX, :IO, and :IIO now support negative increments and negative counts.<br></td>
-</tr>
-<tr>
-        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=5825">visincr.vba.gz</a></td>
-    <td class="rowodd" valign="top" nowrap><b>14</b></td>
-    <td class="rowodd" valign="top" nowrap><i>2006-06-12</i></td>
-    <td class="rowodd" valign="top" nowrap>7.0</td>
-    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="rowodd" valign="top" width="2000">Visincr now supports :IX, :IIX, :IO, and :IIO for creating hexadecimal and octal incremented lists, supports autoloading for faster vim startup, and informs users about :help visincr-calutil when necessary.<br><br>Autoloading by itself necessitates requiring Vim version 7.0.</td>
-</tr>
-<tr>
-        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=5467">visincr.vim.gz</a></td>
-    <td class="roweven" valign="top" nowrap><b>13</b></td>
-    <td class="roweven" valign="top" nowrap><i>2006-03-20</i></td>
-    <td class="roweven" valign="top" nowrap>6.0</td>
-    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="roweven" valign="top" width="2000">A &quot;zfill&quot; of &quot;&quot; or '' now stands for an empty zfill.<br>Bugfix: visincr now insures that the first character of a month or day incrementing sequence is capitalized.<br>Bugfix: names embedded within lines weren't being incremented correctly; fixed!<br></td>
-</tr>
-<tr>
-        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=5384">visincr.vim.gz</a></td>
-    <td class="rowodd" valign="top" nowrap><b>12</b></td>
-    <td class="rowodd" valign="top" nowrap><i>2006-03-07</i></td>
-    <td class="rowodd" valign="top" nowrap>6.0</td>
-    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="rowodd" valign="top" width="2000">Zfill capability provided ( 01 02 03 ... style incrementing).&nbsp;&nbsp;Users may now set g:visincr_dow and g:visincr_month to customize daynames and monthnames (for date incrementing).&nbsp;&nbsp;Handles more vim option settings.<br></td>
-</tr>
-<tr>
-        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=3377">visincr.vim.bz2</a></td>
-    <td class="roweven" valign="top" nowrap><b>11</b></td>
-    <td class="roweven" valign="top" nowrap><i>2004-08-24</i></td>
-    <td class="roweven" valign="top" nowrap>6.0</td>
-    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="roweven" valign="top" width="2000">g:visincr_leaddate now allows one to specify a leading character to expand single-digit days and months into two-characters<br>The :IM and :ID commands (increment month, increment day) now handle varying length long names<br></td>
-</tr>
-<tr>
-        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=3024">visincr.vim.bz2</a></td>
-    <td class="rowodd" valign="top" nowrap><b>9</b></td>
-    <td class="rowodd" valign="top" nowrap><i>2004-05-14</i></td>
-    <td class="rowodd" valign="top" nowrap>6.0</td>
-    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="rowodd" valign="top" width="2000">Visincr now supports incrementing/decrementing<br>alphabetic lists:&nbsp;&nbsp;ie. transform a column of<br>(a) or a) into (a) (b) (c) (or a) b) c) ). <br><br>Visincr can now increment or decrement integers,<br>daynames, monthnames, dates, and alphabetic lists!<br><br>(Help is automatically installed and made available using<br>the HelpExtractor)<br></td>
-</tr>
-<tr>
-        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=2419">visincr.vim</a></td>
-    <td class="roweven" valign="top" nowrap><b>8</b></td>
-    <td class="roweven" valign="top" nowrap><i>2003-10-21</i></td>
-    <td class="roweven" valign="top" nowrap>6.0</td>
-    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="roweven" valign="top" width="2000">Now has month incrementing (:IM) and restriction-pattern commands<br>(:RI, :RID, :RYMD, etc) which restrict application of renumbering<br>only to those lines which have numbers/daynames/dates/monthnames,<br>as appropriate for the command.<br></td>
-</tr>
-</table>
-<!-- finish off the framework -->
-          </td>
-        </tr>
-      </table>
-    </td>
-
-  </tr>
-</table>
-
-<!-- END OF THE PAGE BODY: BETWEEN HEADER AND FOOTER -->
-
-<table width="100%" cellpadding="0" cellspacing="0" border="0" bordercolor="red">
-  <tr><td colspan="4"><img src="/images/spacer.gif" width="1" height="5" alt=""></td></tr>
-  <tr><td colspan="4" bgcolor="#000000"><img src="/images/spacer.gif" height="2" width="1" alt=""></td></tr>
-  <tr><td colspan="4"><img src="/images/spacer.gif" width="1" height="5" alt=""></td></tr>
-  <tr>
-    <td><img src="/images/spacer.gif" width="5" height="1" alt=""></td>
-
-    <td align="left" valign="top"><small>
-      If you have questions or remarks about this site, visit the
-      <a href="http://vimonline.sf.net">vimonline development</a> pages.
-      Please use this site responsibly.
-      <br> 
-      
-      Questions about <a href="http://www.vim.org/about.php">Vim</a> should go
-      to the <a href="http://www.vim.org/maillist.php">maillist</a>.
-      Help Bram <a href="http://iccf-holland.org/">help Uganda</a>.
-      </small>
-	&nbsp;
-	&nbsp;
-
-	<!-- Start of StatCounter Code -->
-	<script type="text/javascript" language="javascript">
-	var sc_project=1417324; 
-	var sc_invisible=1; 
-	var sc_partition=11; 
-	var sc_security="d41633bc"; 
-	</script>
-
-	<script type="text/javascript" language="javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><a href="http://www.statcounter.com/" target="_blank"><img  src="http://c12.statcounter.com/counter.php?sc_project=1417324&java=0&security=d41633bc&invisible=0" alt="free tracking" border="0"></a> </noscript>
-	<!-- End of StatCounter Code -->
-          </td>
-
-    <td align="right" valign="top">
-      		<a href="http://sourceforge.net/projects/vim" rel="nofollow"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=8&type=1" width="88" height="31" border="0" alt="SourceForge.net Logo" /></a>
-    </td>
-
-    <td><img src="/images/spacer.gif" width="5" height="1" alt=""></td>
-  </tr>
-
-    
-  <tr><td colspan="4"><img src="/images/spacer.gif" width="1" height="5" alt=""></td>
-  
-  </tr>
-</table>
-
-</body>
-</html>
-

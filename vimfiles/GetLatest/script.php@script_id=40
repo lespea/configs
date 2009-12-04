@@ -1,318 +1,0 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-
-<head>
-  <link rel="Stylesheet" type="text/css" href="/css/style.css" >
-  <title>DrawIt! - Ascii drawing plugin: lines, ellipses, arrows, fills, and more! : vim online</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-  <meta name="KEYWORDS" content="Vim, Vi IMproved, text editor, home, documentation, tips, scripts, news">
-  <link rel="shortcut icon" type="image/x-icon" href="/images/vim_shortcut.ico">
-</head>
-
-<body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" bgcolor="#ffffff"> 
-
-<!-- HEADER, SPONSOR IMAGE, VIM IMAGE AND BOOK AD -->
-<table width="100%" cellpadding="0" cellspacing="0" border="0" bordercolor="red">
-  <tr>
-    <td colspan="4" class="lightbg"><img src="/images/spacer.gif" width="1" height="5" alt=""></td>
-  </tr>
-  <tr>
-  <td class="lightbg">&nbsp;&nbsp;&nbsp;</td>
-  <td class="lightbg" align="left"><a href="/sponsor/index.php"><img src="/images/sponsorvim.gif" alt="sponsor Vim development" border="0"></a></td>
-    <td class="lightbg" align="center"><a href="/index.php"><img src="/images/vim_header.gif" border="0" alt="Vim logo"></a></td>
-    <td class="lightbg" align="right"><a href="http://iccf-holland.org/click5.html"><img src="/images/buyhelplearn.gif" alt="Vim Book Ad" border="0"></a></td>
-  </tr>
-  <tr>
-    <td colspan="4" class="lightbg"><img src="/images/spacer.gif" width="1" height="5" alt=""></td>
-  </tr>
-  <tr>
-    <td colspan="4" class="darkbg"><img src="/images/spacer.gif" width="1" height="10" alt=""></td>
-  </tr>
-</table>
-<!-- THE PAGE BODY: BETWEEN HEADER AND FOOTER -->
-
-<table cellpadding="0" cellspacing="0" border="0" width="100%">
-  <col width="180">
-  <col width="1">
-
-  <tr valign="top">
-    <td class="sidebar">
-      <table width="180" cellpadding="4" cellspacing="0" border="0">
-        <tr valign="top">
-          <td class="sidebar">
-
-<!-- INCLUDE THE PAGE NAVIGATION -->
-<table width="100%" cellpadding="0" cellspacing="0" border="0" bordercolor="red">
-    <tr>
-        <td><small>not logged in (<a href="/login.php">login</a>)</small></td>
-    </tr>
-    <tr><td>
-<small>&nbsp;</small>
-<form action="http://www.google.com/cse" id="cse-search-box">
-  <div>
-    <input type="hidden" name="cx" value="partner-pub-3005259998294962:bvyni59kjr1" />
-    <input type="hidden" name="ie" value="ISO-8859-1" />
-    <input type="text" name="q" size="20" />
-    <br>
-    <input type="submit" name="sa" value="Search" />
-  </div>
-</form>
-<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"></script>
-    </td></tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="1"></td>
-    </tr>
-    <tr>
-        <td class="darkbg"><img src="/images/spacer.gif" alt='' border="0" height="3"></td>
-    </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="2"></td>
-    </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/index.php">Home</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/search.php">Advanced search</a></td>
-        </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
-    </tr>
-    <tr>
-        <td class="checker"><img src="/images/spacer.gif" alt='' border="0" height="1"></td>
-    </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
-    </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/about.php">About Vim</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/community.php">Community</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/news/news.php">News</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/sponsor/index.php">Sponsoring</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/trivia.php">Trivia</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/docs.php">Documentation</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/download.php">Download</a></td>
-        </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
-    </tr>
-    <tr>
-        <td class="checker"><img src="/images/spacer.gif" alt='' border="0" height="1"></td>
-    </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
-    </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/scripts/index.php">Scripts</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/tips/index.php">Tips</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/account/index.php">My Account</a></td>
-        </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
-    </tr>
-    <tr>
-        <td class="checker"><img src="/images/spacer.gif" alt='' border="0" height="1"></td>
-    </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
-    </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/huh.php">Site Help</a></td>
-        </tr>
-</table>
-
-            <table width="172" cellpadding="0" cellspacing="0" border="0">
-              <tr><td><img src="/images/spacer.gif" alt="" border="0" width="1" height="8"></td></tr>
-              <tr><td class="darkbg"><img src="/images/spacer.gif" width="1" height="3" alt=""></td></tr>
-            </table>
-            <br>
-
-<!-- INCLUDE THE PAGE SIDEBAR TEXT -->
-&nbsp;
-
-          </td>
-        </tr>
-      </table>
-    </td>
-
-    <td class="darkbg"><img src="/images/spacer.gif" width="1" height="1" border="0" alt=""><br></td>
-    <td>
-      <table width="100%" cellpadding="10" cellspacing="0" border="0" bordercolor="red">
-        <tr>
-          <td valign="top">
-
-<span class="txth1">DrawIt! : Ascii drawing plugin: lines, ellipses, arrows, fills, and more!</span> 
-
-<br>
-<br>
-
-<!-- karma table -->
-<table cellpadding="4" cellspacing="0" border="1" bordercolor="#000066">
-<tr>
-  <td class="lightbg"><b>&nbsp;script karma&nbsp;</b></td>
-  <td>
-    Rating <b>629/229</b>,
-    Downloaded by 8611  </td>
-</tr>
-</table>
-<p>
-
-<table cellspacing="0" cellpadding="0" border="0">
-<tr><td class="prompt">created by</td></tr>
-<tr><td><a href="/account/profile.php?user_id=96">Charles Campbell</a></td></tr>
-<tr><td>&nbsp;</td></tr>
-<tr><td class="prompt">script type</td></tr>
-<tr><td>utility</td></tr>
-<tr><td>&nbsp;</td></tr>
-<tr><td class="prompt">description</td></tr>
-<tr><td>DrawIt is a plugin which allows one to draw lines left, right, up, down, and along both slants. Optionally one may &quot;cap&quot; the lines with arrowheads.&nbsp;&nbsp;One may change the horizontal, vertical, slant, and crossing characters to whichever characters one wishes.<br><br>Its easy to start and stop DrawIt: use<br><br>&nbsp;&nbsp; \di to start DrawIt and<br>&nbsp;&nbsp; \ds to stop&nbsp;&nbsp;DrawIt.<br><br>Its also available as &quot;DrawIt&quot; from<br> <a target="_blank" href="http://mysite.verizon.net/astronaut/vim/index.html#VimFuncs">http://mysite.verizon.net/astronaut/vim/index.html#VimFuncs</A>.<br><br>When DrawIt has been started you may use the number pad to leave a trail of dashes, vertical bars, etc.&nbsp;&nbsp;The lines will be expanded as needed to accomodate your drawing.&nbsp;&nbsp;DrawIt can also draw boxes and ellipses on a blank-filled area (DrawIt can produce these) which can be useful for drawing boxes around comments.<br><br>Viart's &lt;drawing.vim&gt; has been merged with the original DrawIt (<a href="/scripts/script.php?script_id=11">vimscript#11</a>) (by permission).&nbsp;&nbsp;Use visual-block selection to specify starting and ending positions and a Bresenham line drawing algorithm will be used to connect the two.&nbsp;&nbsp;DrC has written an ellipse-drawing Bresenham-style procedure: again, use the visual block selection to specify a box to contain the ellipse and \e to trigger the ellipse drawing.<br><br>DrawIt incorporates an &quot;erase&quot; mode, toggled by the &lt;space&gt; key, that will leave a trail of blanks behind and under the cursor as it is moved by the number pad.&nbsp;&nbsp;Using the shift-arrow keys, DrawIt will move the cursor, expanding lines and inserting spaces as needed, without changing underlying text.<br><br>DrawIt is now in the vimball format, which is understood by the new Vim 7.0 release.&nbsp;&nbsp;After decompressing the DrawIt.vba.gz file, edit it with Vim, and then source it (:so %).&nbsp;&nbsp;The components of DrawIt will then be placed where they belong, based on your Vim's runtimepath.<br><br>DrawIt records many user options that affect DrawIt and all maps that starting DrawIt creates.&nbsp;&nbsp;When DrawIt is terminated it restores the user's maps and options.&nbsp;&nbsp;DrawIt's number pad maps will expand the file as necessary to accomodate the drawing, automatically.<br><br>Supported Features<br>&nbsp;&nbsp; &lt;left&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; move and draw left<br>&nbsp;&nbsp; &lt;right&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;move and draw right, inserting lines/space as needed<br>&nbsp;&nbsp; &lt;up&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; move and draw up, inserting lines/space as needed<br>&nbsp;&nbsp; &lt;down&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; move and draw down, inserting lines/space as needed<br>&nbsp;&nbsp; &lt;s-left&gt;&nbsp;&nbsp;&nbsp;&nbsp; move left<br>&nbsp;&nbsp; &lt;s-right&gt;&nbsp;&nbsp;&nbsp;&nbsp;move right, inserting lines/space as needed<br>&nbsp;&nbsp; &lt;s-up&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; move up, inserting lines/space as needed<br>&nbsp;&nbsp; &lt;s-down&gt;&nbsp;&nbsp;&nbsp;&nbsp; move down, inserting lines/space as needed<br>&nbsp;&nbsp; &lt;space&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;toggle into and out of erase mode<br>&nbsp;&nbsp; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;draw -&gt; arrow<br>&nbsp;&nbsp; &lt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;draw &lt;- arrow<br>&nbsp;&nbsp; ^&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;draw ^&nbsp;&nbsp;arrow<br>&nbsp;&nbsp; v&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;draw v&nbsp;&nbsp;arrow<br>&nbsp;&nbsp; &lt;pgdn&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; replace with a \, move down and right, and insert a \<br>&nbsp;&nbsp; &lt;end&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;replace with a /, move down and left,&nbsp;&nbsp;and insert a /<br>&nbsp;&nbsp; &lt;pgup&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; replace with a /, move up&nbsp;&nbsp; and right, and insert a /<br>&nbsp;&nbsp; &lt;home&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; replace with a \, move up&nbsp;&nbsp; and left,&nbsp;&nbsp;and insert a \<br>&nbsp;&nbsp; \&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; draw fat -&gt; arrow<br>&nbsp;&nbsp; \&lt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; draw fat &lt;- arrow<br>&nbsp;&nbsp; \^&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; draw fat ^&nbsp;&nbsp;arrow<br>&nbsp;&nbsp; \v&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; draw fat v&nbsp;&nbsp;arrow<br>&nbsp;&nbsp; \a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; draw arrow based on corners of visual-block<br>&nbsp;&nbsp; \b&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; draw box using visual-block selected region<br>&nbsp;&nbsp; \e&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; draw an ellipse inside visual-block<br>&nbsp;&nbsp; \f&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fill a figure with some character<br>&nbsp;&nbsp; \h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; create a canvas for \a \b \e \l<br>&nbsp;&nbsp; \l&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; draw line based on corners of visual block<br>&nbsp;&nbsp; \s&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adds spaces to canvas<br>&nbsp;&nbsp; &lt;leftmouse&gt;&nbsp;&nbsp;select visual block<br> &lt;s-leftmouse&gt;&nbsp;&nbsp;drag and draw with current brush (register)<br>&nbsp;&nbsp; \ra ... \rz&nbsp;&nbsp;replace text with given brush/register<br>&nbsp;&nbsp; \pa ...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;like \ra ... \rz, except that blanks are considered<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to be transparent<br><br>Thank you for ranking DrawIt!<br></td></tr>
-<tr><td>&nbsp;</td></tr>
-<tr><td class="prompt">install details</td></tr>
-<tr><td>DrawIt! is now distributed as a vimball (see :help vimball)<br><br>vim DrawIt.vba.gz<br>:so %<br>:q<br><br>and that's all!<br><br></td></tr>
-<tr><td>&nbsp;</td></tr>
-</table>
-
-<!-- rating table -->
-<form name="rating">
-<input type="hidden" name="script_id" value="40">
-<table cellpadding="4" cellspacing="0" border="1" bordercolor="#000066">
-<tr>
-  <td class="lightbg"><b>rate this script</b></td>
-  <td valign="middle">
-    <input type="radio" name="rating" value="life_changing">Life Changing
-    <input type="radio" name="rating" value="helpful">Helpful
-    <input type="radio" name="rating" value="unfulfilling">Unfulfilling&nbsp;
-    <input type="submit" value="rate">
-  </td>
-</tr>
-</table>
-</form>
-<span class="txth2">script versions</span> (<a href="add_script_version.php?script_id=40">upload new version</a>)
-<p>
-Click on the package to download.
-<p>
-
-<table cellspacing="2" cellpadding="4" border="0" width="100%">
-<tr class='tableheader'>
-        <th valign="top">package</th>
-    <th valign="top">script version</th>
-    <th valign="top">date</th>
-    <th valign="top">Vim version</th>
-    <th valign="top">user</th>
-    <th valign="top">release notes</th>
-</tr>
-<tr>
-        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=8798">DrawIt.vba.gz</a></td>
-    <td class="rowodd" valign="top" nowrap><b>10</b></td>
-    <td class="rowodd" valign="top" nowrap><i>2008-06-12</i></td>
-    <td class="rowodd" valign="top" nowrap>7.0</td>
-    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="rowodd" valign="top" width="2000">Fixed a bug with text brushes and ctrl-leftmouse.</td>
-</tr>
-<tr>
-        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=7777">DrawIt.vba.gz</a></td>
-    <td class="roweven" valign="top" nowrap><b>9</b></td>
-    <td class="roweven" valign="top" nowrap><i>2007-10-10</i></td>
-    <td class="roweven" valign="top" nowrap>7.0</td>
-    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="roweven" valign="top" width="2000">Bugfix: Johann-Guenter Simon fixed a bug with s:DrawErase()</td>
-</tr>
-<tr>
-        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=7419">DrawIt.vba.gz</a></td>
-    <td class="rowodd" valign="top" nowrap><b>8</b></td>
-    <td class="rowodd" valign="top" nowrap><i>2007-07-26</i></td>
-    <td class="rowodd" valign="top" nowrap>7.0</td>
-    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="rowodd" valign="top" width="2000">* Changed &quot;Holer&quot; to &quot;Canvas&quot; and implemented AutoCanvas (which works real well with set ve=all)<br>* use ctrl-leftmouse to select visual-blocks<br>* floods can now be done inside an ellipse<br>* Extended DrawIt to allow users to specify their ellipse drawing with b:di_ellipse<br>* DrawIt's maps are now all &lt;buffer&gt; (local) instead of global<br>* Bug fixe fixed multi-character user map restoration<br></td>
-</tr>
-<tr>
-        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=5550">DrawIt.vba.gz</a></td>
-    <td class="roweven" valign="top" nowrap><b>7</b></td>
-    <td class="roweven" valign="top" nowrap><i>2006-04-13</i></td>
-    <td class="roweven" valign="top" nowrap>7.0</td>
-    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="roweven" valign="top" width="2000">DrawIt now uses autoload feature of vim 7.0 , so vim7.0 is required!<br>DrawIt now supports brushes: use visual block to select a brush, then use :SetBrush a (for example).&nbsp;&nbsp;Blanks are transparent.&nbsp;&nbsp;Use shift-leftmouse to draw with the current brush.<br>Various bugfixes.<br></td>
-</tr>
-<tr>
-        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=1764">DrawIt.tar.gz</a></td>
-    <td class="rowodd" valign="top" nowrap><b>02242003</b></td>
-    <td class="rowodd" valign="top" nowrap><i>2003-02-24</i></td>
-    <td class="rowodd" valign="top" nowrap>6.0</td>
-    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="rowodd" valign="top" width="2000">The latest DrawIt now provides a fill function.<br>\f will ask for a character to fill the figure<br>surrounding the current cursor location.&nbsp;&nbsp;Plus<br>I suggest reading :he drawit-tip for those whose<br>home/pageup/pagedown/end keys aren't all working<br>properly with DrawIt.<br></td>
-</tr>
-</table>
-<!-- finish off the framework -->
-          </td>
-        </tr>
-      </table>
-    </td>
-
-  </tr>
-</table>
-
-<!-- END OF THE PAGE BODY: BETWEEN HEADER AND FOOTER -->
-
-<table width="100%" cellpadding="0" cellspacing="0" border="0" bordercolor="red">
-  <tr><td colspan="4"><img src="/images/spacer.gif" width="1" height="5" alt=""></td></tr>
-  <tr><td colspan="4" bgcolor="#000000"><img src="/images/spacer.gif" height="2" width="1" alt=""></td></tr>
-  <tr><td colspan="4"><img src="/images/spacer.gif" width="1" height="5" alt=""></td></tr>
-  <tr>
-    <td><img src="/images/spacer.gif" width="5" height="1" alt=""></td>
-
-    <td align="left" valign="top"><small>
-      If you have questions or remarks about this site, visit the
-      <a href="http://vimonline.sf.net">vimonline development</a> pages.
-      Please use this site responsibly.
-      <br> 
-      
-      Questions about <a href="http://www.vim.org/about.php">Vim</a> should go
-      to the <a href="http://www.vim.org/maillist.php">maillist</a>.
-      Help Bram <a href="http://iccf-holland.org/">help Uganda</a>.
-      </small>
-	&nbsp;
-	&nbsp;
-
-	<!-- Start of StatCounter Code -->
-	<script type="text/javascript" language="javascript">
-	var sc_project=1417324; 
-	var sc_invisible=1; 
-	var sc_partition=11; 
-	var sc_security="d41633bc"; 
-	</script>
-
-	<script type="text/javascript" language="javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><a href="http://www.statcounter.com/" target="_blank"><img  src="http://c12.statcounter.com/counter.php?sc_project=1417324&java=0&security=d41633bc&invisible=0" alt="free tracking" border="0"></a> </noscript>
-	<!-- End of StatCounter Code -->
-          </td>
-
-    <td align="right" valign="top">
-      		<a href="http://sourceforge.net/projects/vim" rel="nofollow"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=8&type=1" width="88" height="31" border="0" alt="SourceForge.net Logo" /></a>
-    </td>
-
-    <td><img src="/images/spacer.gif" width="5" height="1" alt=""></td>
-  </tr>
-
-    
-  <tr><td colspan="4"><img src="/images/spacer.gif" width="1" height="5" alt=""></td>
-  
-  </tr>
-</table>
-
-</body>
-</html>
-

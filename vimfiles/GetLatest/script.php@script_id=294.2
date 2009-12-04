@@ -1,358 +1,0 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-
-<head>
-  <link rel="Stylesheet" type="text/css" href="/css/style.css" >
-  <title>Align - Help folks to align text, eqns, declarations, tables, etc : vim online</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-  <meta name="KEYWORDS" content="Vim, Vi IMproved, text editor, home, documentation, tips, scripts, news">
-  <link rel="shortcut icon" type="image/x-icon" href="/images/vim_shortcut.ico">
-</head>
-
-<body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" bgcolor="#ffffff"> 
-
-<!-- HEADER, SPONSOR IMAGE, VIM IMAGE AND BOOK AD -->
-<table width="100%" cellpadding="0" cellspacing="0" border="0" bordercolor="red">
-  <tr>
-    <td colspan="4" class="lightbg"><img src="/images/spacer.gif" width="1" height="5" alt=""></td>
-  </tr>
-  <tr>
-  <td class="lightbg">&nbsp;&nbsp;&nbsp;</td>
-  <td class="lightbg" align="left"><a href="/sponsor/index.php"><img src="/images/sponsorvim.gif" alt="sponsor Vim development" border="0"></a></td>
-    <td class="lightbg" align="center"><a href="/index.php"><img src="/images/vim_header.gif" border="0" alt="Vim logo"></a></td>
-    <td class="lightbg" align="right"><a href="http://iccf-holland.org/click5.html"><img src="/images/buyhelplearn.gif" alt="Vim Book Ad" border="0"></a></td>
-  </tr>
-  <tr>
-    <td colspan="4" class="lightbg"><img src="/images/spacer.gif" width="1" height="5" alt=""></td>
-  </tr>
-  <tr>
-    <td colspan="4" class="darkbg"><img src="/images/spacer.gif" width="1" height="10" alt=""></td>
-  </tr>
-</table>
-<!-- THE PAGE BODY: BETWEEN HEADER AND FOOTER -->
-
-<table cellpadding="0" cellspacing="0" border="0" width="100%">
-  <col width="180">
-  <col width="1">
-
-  <tr valign="top">
-    <td class="sidebar">
-      <table width="180" cellpadding="4" cellspacing="0" border="0">
-        <tr valign="top">
-          <td class="sidebar">
-
-<!-- INCLUDE THE PAGE NAVIGATION -->
-<table width="100%" cellpadding="0" cellspacing="0" border="0" bordercolor="red">
-    <tr>
-        <td><small>not logged in (<a href="/login.php">login</a>)</small></td>
-    </tr>
-    <tr><td>
-<small>&nbsp;</small>
-<form action="http://www.google.com/cse" id="cse-search-box">
-  <div>
-    <input type="hidden" name="cx" value="partner-pub-3005259998294962:bvyni59kjr1" />
-    <input type="hidden" name="ie" value="ISO-8859-1" />
-    <input type="text" name="q" size="20" />
-    <br>
-    <input type="submit" name="sa" value="Search" />
-  </div>
-</form>
-<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"></script>
-    </td></tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="1"></td>
-    </tr>
-    <tr>
-        <td class="darkbg"><img src="/images/spacer.gif" alt='' border="0" height="3"></td>
-    </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="2"></td>
-    </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/index.php">Home</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/search.php">Advanced search</a></td>
-        </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
-    </tr>
-    <tr>
-        <td class="checker"><img src="/images/spacer.gif" alt='' border="0" height="1"></td>
-    </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
-    </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/about.php">About Vim</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/community.php">Community</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/news/news.php">News</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/sponsor/index.php">Sponsoring</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/trivia.php">Trivia</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/docs.php">Documentation</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/download.php">Download</a></td>
-        </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
-    </tr>
-    <tr>
-        <td class="checker"><img src="/images/spacer.gif" alt='' border="0" height="1"></td>
-    </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
-    </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/scripts/index.php">Scripts</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/tips/index.php">Tips</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/account/index.php">My Account</a></td>
-        </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
-    </tr>
-    <tr>
-        <td class="checker"><img src="/images/spacer.gif" alt='' border="0" height="1"></td>
-    </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
-    </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/huh.php">Site Help</a></td>
-        </tr>
-</table>
-
-            <table width="172" cellpadding="0" cellspacing="0" border="0">
-              <tr><td><img src="/images/spacer.gif" alt="" border="0" width="1" height="8"></td></tr>
-              <tr><td class="darkbg"><img src="/images/spacer.gif" width="1" height="3" alt=""></td></tr>
-            </table>
-            <br>
-
-<!-- INCLUDE THE PAGE SIDEBAR TEXT -->
-&nbsp;
-
-          </td>
-        </tr>
-      </table>
-    </td>
-
-    <td class="darkbg"><img src="/images/spacer.gif" width="1" height="1" border="0" alt=""><br></td>
-    <td>
-      <table width="100%" cellpadding="10" cellspacing="0" border="0" bordercolor="red">
-        <tr>
-          <td valign="top">
-
-<span class="txth1">Align : Help folks to align text, eqns, declarations, tables, etc</span> 
-
-<br>
-<br>
-
-<!-- karma table -->
-<table cellpadding="4" cellspacing="0" border="1" bordercolor="#000066">
-<tr>
-  <td class="lightbg"><b>&nbsp;script karma&nbsp;</b></td>
-  <td>
-    Rating <b>1221/375</b>,
-    Downloaded by 16103  </td>
-</tr>
-</table>
-<p>
-
-<table cellspacing="0" cellpadding="0" border="0">
-<tr><td class="prompt">created by</td></tr>
-<tr><td><a href="/account/profile.php?user_id=96">Charles Campbell</a></td></tr>
-<tr><td>&nbsp;</td></tr>
-<tr><td class="prompt">script type</td></tr>
-<tr><td>utility</td></tr>
-<tr><td>&nbsp;</td></tr>
-<tr><td class="prompt">description</td></tr>
-<tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ALIGN/ALIGNMAPS NEEDS VIM 7.0 AS OF V29/34]<br><br>Align and AlignMaps lets you align statements on their equal signs, make comment boxes, align comments, align declarations, etc.<br><br>Note: this plugin is not a left&right margin justification tool!&nbsp;&nbsp;See <a href="/scripts/script.php?script_id=177">vimscript#177</a> or <a href="/scripts/script.php?script_id=2324">vimscript#2324</a> for that.<br>Note: if you have vim 7.1 or later, your vimball should unpack just fine without having to update it.<br><br>There are two basic commands provided by this package:<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AlignCtrl options sep1 sep2 sep3 ...<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[range]Align sep1 sep2 sep3 ...<br><br>The &quot;sep#&quot; are regular expressions which describe separators that delineate fields; Align will line up the separators. The range may be any Vim range, _including_ visual-blocks.&nbsp;&nbsp;Align works on lines of the form:<br>(ws==whitespace, sep==separator, field==text)<br><br>&nbsp;&nbsp;&nbsp;&nbsp;ws-field-ws-sep-ws-field-ws-sep-ws-field-...<br>&nbsp;&nbsp;&nbsp;&nbsp;ws-field-ws-sep-ws-field-ws-sep-ws-field-...<br><br>Note that white-space (ws) surrounding separators is ignored.<br><br>The Align package includes:<br><br>&nbsp;&nbsp;Align : the basic alignment command<br>&nbsp;&nbsp;AlignCtrl : provides options for the next call to :Align<br>&nbsp;&nbsp;AlignMaps : many three or four key maps which support aligning C/C++ style declarations, ()?..:.., expressions, C/C++ comments, numbers, C preprocessor definitions, tables based on tabs or spaces, and more.<br><br>In addition, AutoAlign (<a href="/scripts/script.php?script_id=884">vimscript#884</a>) uses the Align function to align =s as you type.<br><br>Align handles alignment on multiple separators, not just the first one, and the separators may be the same across the line or different.&nbsp;&nbsp;With AlignCtrl one may specify that separators are cyclic (re-used sequentially) or equivalent (all separators are simultaneously active).<br><br>There are several options to help with deciding what to do with initial white space.&nbsp;&nbsp; By default Align re-uses the first line's initial white space, but one may use AlignCtrl to retain or remove each line's initial white space.<br><br>The &lt;Align.vim&gt; and &lt;AlignMaps.vim&gt; files are plugins and require vim 6.1 or higher.<br><br><br>EXAMPLES:<br><br>:5,10Align =<br>&nbsp;&nbsp;&nbsp;&nbsp;Align on '=' signs<br><br>:'&lt;,'&gt;Align = + - \* /<br>&nbsp;&nbsp;&nbsp;&nbsp;Align on any of the five separator characters shown.<br>&nbsp;&nbsp;&nbsp;&nbsp;Note that visual block mode was used to fire off Align.<br><br>:AlignCtrl =lp1P1I<br>&nbsp;&nbsp;&nbsp;&nbsp;which means:<br>&nbsp;&nbsp;&nbsp;&nbsp;= all separators are equivalent<br>&nbsp;&nbsp;&nbsp;&nbsp;l fields will be left-justified<br>&nbsp;&nbsp;&nbsp;&nbsp;p1 pad one space before each separator<br>&nbsp;&nbsp;&nbsp;&nbsp;P1 pad one space after each separator<br>&nbsp;&nbsp;&nbsp;&nbsp;I&nbsp;&nbsp;preserve and apply the first line's leading white space to all<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Align'd lines<br><br>:help align<br>&nbsp;&nbsp;&nbsp;&nbsp;Gives help for Align<br><br><br>ALIGNMENT CONTROL<br><br>Alignment control allows for left or right justification or centering of fields, cyclic (sequentially active) or equivalent (simultaneously active) regular expressions to specify field separators, initial white space control, optional visual-block use (ie. apply Alignment only within a block), user-specified white-space padding about separators, and multiple separators.<br><br>MANY ALIGNMENT MAPS<br><br>AlignMaps.vim provides a number of maps which make using this package easy.&nbsp;&nbsp;They typically either apply to the range 'a,. (from mark a to current line) or use the visual-selection (V, v, or ctrl-v selected):<br><br>	\t=&nbsp;&nbsp;: align assignments (don't count logic, like == or !=)<br>	\t,&nbsp;&nbsp;: align on commas<br>	\t|&nbsp;&nbsp;: align on vertical bars (|)<br>	\tsp : align on whitespace<br>	\tt&nbsp;&nbsp;: align LaTeX tabular tables<br><br>AlignMaps also provides some internally complex maps for aligning C declarations, Ansi C function arguments, html tables, LaTeX tabulars, and trailing comments:<br><br>	\acom : align comments<br>	\adec : align C declarations (one variable per line)<br>	\afnc : align ansi-style C function input arguments<br>	\Htd&nbsp;&nbsp;: align html tables<br>	<br>To see some examples of this, check out<br><br>&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="http://mysite.verizon.net/astronaut/vim/align.html#Examples">http://mysite.verizon.net/astronaut/vim/align.html#Examples</A><br><br>(the proportional fonts used by most browsers in showing you this page preclude showing the examples here). The help for Align and AlignCtrl also contains many examples.<br><br>ALIGNMENT ON VISUAL BLOCKS AND g,v-LIKE CONTROL<br><br>Sometimes one wants to align only a subset of text in a range, based on patterns or column extents.&nbsp;&nbsp;Align supports both types of restrictions!<br>&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;Visual-block selection may be used to restrict Align to operate only<br>&nbsp;&nbsp;&nbsp;&nbsp;within that visual block.<br>&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;AlignCtrl supports &quot;g&quot; and &quot;v&quot; patterns that restrict Align to<br><br>&nbsp;&nbsp;&nbsp;&nbsp;operate on lines which match (or don't match, respectively) those<br>&nbsp;&nbsp;&nbsp;&nbsp;patterns.<br><br>NEW STUFF:<br><br>There's a number of new AlignCtrl options:<br>&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;- allows one to skip a separator (treat it as part of a field)<br>&nbsp;&nbsp;&nbsp;&nbsp;+ repeat the last lrc justification (ex. lr+ == lrrrrrr... )<br>&nbsp;&nbsp;&nbsp;&nbsp;: treat the rest of the line as a field; acts as a modifier<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to the last lrc. <br>&nbsp;&nbsp;&nbsp;&nbsp;&lt; left-justify the separator<br>&nbsp;&nbsp;&nbsp;&nbsp;&gt; right-justify the separator<br>&nbsp;&nbsp;&nbsp;&nbsp;| center the separator<br><br>These are, except for the &quot;:&quot;, cyclic parameters.&nbsp;&nbsp;In other words, &gt;&lt; is equivalent to &gt;&lt;&gt;&lt;&gt;&lt;&gt;&lt;... .&nbsp;&nbsp;Thus separators can be of differing lengths (ex.&nbsp;&nbsp;-\+ as a separator pattern can match -, --, ---, etc and the separators will be left/right/center justified as you wish).<br><br>To get automatic, as-you-type, aligning of = in the C, vimL, and other languages, check out <a href="/scripts/script.php?script_id=884">vimscript#884</a> for several ftplugins (which use Align).<br><br><br>Alternative Aligners:<br>&nbsp;&nbsp;&nbsp;&nbsp;Gergely Kontra's <a href="/scripts/script.php?script_id=176">vimscript#176</a><br><br>Thank you for rating Align!<br><br>---------------------------------------<br>DISCUSSION and COMMENTS:<br>---------------------------------------<br><br>Please use email for bugs.&nbsp;&nbsp;Enjoy!<br><br></td></tr>
-<tr><td>&nbsp;</td></tr>
-<tr><td class="prompt">install details</td></tr>
-<tr><td>1. You'll need to have plugins enabled: in your home directory, have at least the following two lines in your .vimrc file:<br>&nbsp;&nbsp; set nocp<br>&nbsp;&nbsp; filetype plugin on<br><br>2. Using vim 7.1 or later:<br>&nbsp;&nbsp;vim Align.vba.gz<br>&nbsp;&nbsp; :so %<br>&nbsp;&nbsp; :q<br><br>3. Using vim 7.0: see <a target="_blank" href="http://mysite.verizon.net/astronaut/vim/index.html#VIMBALL">http://mysite.verizon.net/astronaut/vim/index.html#VIMBALL</A> to get and install an up-to-date version of vimball.&nbsp;&nbsp;Then follow the simple directions for installation of Align/AlignMaps above!&nbsp;&nbsp;Or, preferably: upgrade your copy of vim.<br><br>(this version of Align/AlignMaps requires vim 7.0)<br></td></tr>
-<tr><td>&nbsp;</td></tr>
-</table>
-
-<!-- rating table -->
-<form name="rating">
-<input type="hidden" name="script_id" value="294">
-<table cellpadding="4" cellspacing="0" border="1" bordercolor="#000066">
-<tr>
-  <td class="lightbg"><b>rate this script</b></td>
-  <td valign="middle">
-    <input type="radio" name="rating" value="life_changing">Life Changing
-    <input type="radio" name="rating" value="helpful">Helpful
-    <input type="radio" name="rating" value="unfulfilling">Unfulfilling&nbsp;
-    <input type="submit" value="rate">
-  </td>
-</tr>
-</table>
-</form>
-<span class="txth2">script versions</span> (<a href="add_script_version.php?script_id=294">upload new version</a>)
-<p>
-Click on the package to download.
-<p>
-
-<table cellspacing="2" cellpadding="4" border="0" width="100%">
-<tr class='tableheader'>
-        <th valign="top">package</th>
-    <th valign="top">script version</th>
-    <th valign="top">date</th>
-    <th valign="top">Vim version</th>
-    <th valign="top">user</th>
-    <th valign="top">release notes</th>
-</tr>
-<tr>
-        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=10110">Align.vba.gz</a></td>
-    <td class="rowodd" valign="top" nowrap><b>35/41</b></td>
-    <td class="rowodd" valign="top" nowrap><i>2009-03-04</i></td>
-    <td class="rowodd" valign="top" nowrap>7.0</td>
-    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="rowodd" valign="top" width="2000">Align: save and restore of mod now done with the local version of the option<br>Align: new sanity check for an AlignStyle of just &quot;:&quot;<br>AlignMaps: new maps: \ts; ts: \ts&lt; \ts= \a(<br>AlignMaps: default g:Align_xstrlen often is now 1 for multi-byte support<br>AlignMaps: bug fixed for \ts,<br></td>
-</tr>
-<tr>
-        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=9414">Align.vba.gz</a></td>
-    <td class="roweven" valign="top" nowrap><b>34/40</b></td>
-    <td class="roweven" valign="top" nowrap><i>2008-10-29</i></td>
-    <td class="roweven" valign="top" nowrap>7.0</td>
-    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="roweven" valign="top" width="2000">(AlignMaps) split into plugin/ and autoload/ sections (faster [g]vim startup)<br>(AlignMaps) maps use &lt;Plug&gt;s and &lt;script&gt;s: allowing users to invoke the maps how they wish, and preventing user maps from interfering with the internal workings of the maps.<br>(Align)&nbsp;&nbsp;&nbsp;&nbsp; bugfix - using :AlignCtrl before entering any alignment ctrl cmds was causing an error<br></td>
-</tr>
-<tr>
-        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=8407">Align.vba.gz</a></td>
-    <td class="rowodd" valign="top" nowrap><b>33/39</b></td>
-    <td class="rowodd" valign="top" nowrap><i>2008-03-06</i></td>
-    <td class="rowodd" valign="top" nowrap>6.0</td>
-    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="rowodd" valign="top" width="2000">* Align now aligns multi-byte characters correctly (see :help align-strlen) -- choose g:Align_xstrlen for the type of codepoint you want handled.<br><br>* Align now accepts \&quot;...\&quot; arguments, so one can pass whitespace to Align as a separator<br><br>* AlignMaps&#039 \\t= map now avoids comment aligning when the filetype is not *.c or *.cpp</td>
-</tr>
-<tr>
-        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=7531">Align.vba.gz</a></td>
-    <td class="roweven" valign="top" nowrap><b>32/38</b></td>
-    <td class="roweven" valign="top" nowrap><i>2007-08-20</i></td>
-    <td class="roweven" valign="top" nowrap>7.0</td>
-    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="roweven" valign="top" width="2000">The &lt;leader&gt;tt map wasn't working right; Align now uses &lt;q-args&gt; instead of &lt;f-args&gt;, so it does the argument splitting itself, thus allowing patterns containing backslashes to be used without lots of backslash-duplication.&nbsp;&nbsp;This allows the \tt map in AlignMaps to work, and to work without a lot of extra backslashes.</td>
-</tr>
-<tr>
-        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=7511">Align.vba.gz</a></td>
-    <td class="rowodd" valign="top" nowrap><b>31/36</b></td>
-    <td class="rowodd" valign="top" nowrap><i>2007-08-16</i></td>
-    <td class="rowodd" valign="top" nowrap>7.0</td>
-    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="rowodd" valign="top" width="2000">New feature -- one can embed AlignCtrl settings into Align (as a one-shot):<br><br>&nbsp;&nbsp; [range]Align! [AlignCtrl settings] pattern(s)<br><br>Plus some small improvements to some of the AlignMaps.</td>
-</tr>
-<tr>
-        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=6210">Align.vba.gz</a></td>
-    <td class="roweven" valign="top" nowrap><b>30/35</b></td>
-    <td class="roweven" valign="top" nowrap><i>2006-09-20</i></td>
-    <td class="roweven" valign="top" nowrap>7.0</td>
-    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="roweven" valign="top" width="2000">* \acom can now work with doxygen style /// comments<br>* \t= and cousins used &quot;`&quot;s.&nbsp;&nbsp;They now use \xff characters.<br>* &lt;char-0xff&gt; used in \t= \T= \w= and \m= instead of backquotes.<br></td>
-</tr>
-<tr>
-        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=5608">Align.vba.gz</a></td>
-    <td class="rowodd" valign="top" nowrap><b>29/34</b></td>
-    <td class="rowodd" valign="top" nowrap><i>2006-04-25</i></td>
-    <td class="rowodd" valign="top" nowrap>7.0</td>
-    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="rowodd" valign="top" width="2000">Align and AlignMaps now use vim 7.0 style autoloading (quicker startup, loads only when used)<br>cecutil updated to use keepjumps<br>Now being distributed as a vimball - simply :so % it after decompressing it to install<br></td>
-</tr>
-<tr>
-        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=4788">Align.tar.gz</a></td>
-    <td class="roweven" valign="top" nowrap><b>28/33</b></td>
-    <td class="roweven" valign="top" nowrap><i>2005-11-21</i></td>
-    <td class="roweven" valign="top" nowrap>6.0</td>
-    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="roweven" valign="top" width="2000">bugfix: (Align) Align now works around the report option setting.<br>bugfix: (Align) AlignCtrl l: wasn't behaving as expected; fixed!<br>bugfix: (AlignMap) \ts, now uses P1 in its AlignCtrl call<br></td>
-</tr>
-<tr>
-        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=4421">Align.tar.gz</a></td>
-    <td class="rowodd" valign="top" nowrap><b>27/32</b></td>
-    <td class="rowodd" valign="top" nowrap><i>2005-07-12</i></td>
-    <td class="rowodd" valign="top" nowrap>6.0</td>
-    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="rowodd" valign="top" width="2000">Align v27 : cpo and ignorecase workarounds<br>AlignMaps v32: s:WrapperStart() -&gt; AlignWrapperStart(), s:WrapperEnd() -&gt; AlignWrapperEnd()<br> These changes let the wrappers be used outside of AlignMaps.vim (customized map support)<br></td>
-</tr>
-<tr>
-        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=4167">Align.tar.gz</a></td>
-    <td class="roweven" valign="top" nowrap><b>27/31</b></td>
-    <td class="roweven" valign="top" nowrap><i>2005-04-15</i></td>
-    <td class="roweven" valign="top" nowrap>6.0</td>
-    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="roweven" valign="top" width="2000">Align: GetLatestVimScripts/AutoInstall supported<br>AlignMaps: new map: \\adcom (align declaration-style comments), \\a, now wors across multiple lines with different types, cecutil.vim now used, more number alignment maps (\\aenum, \\aunum)<br></td>
-</tr>
-</table>
-<!-- finish off the framework -->
-          </td>
-        </tr>
-      </table>
-    </td>
-
-  </tr>
-</table>
-
-<!-- END OF THE PAGE BODY: BETWEEN HEADER AND FOOTER -->
-
-<table width="100%" cellpadding="0" cellspacing="0" border="0" bordercolor="red">
-  <tr><td colspan="4"><img src="/images/spacer.gif" width="1" height="5" alt=""></td></tr>
-  <tr><td colspan="4" bgcolor="#000000"><img src="/images/spacer.gif" height="2" width="1" alt=""></td></tr>
-  <tr><td colspan="4"><img src="/images/spacer.gif" width="1" height="5" alt=""></td></tr>
-  <tr>
-    <td><img src="/images/spacer.gif" width="5" height="1" alt=""></td>
-
-    <td align="left" valign="top"><small>
-      If you have questions or remarks about this site, visit the
-      <a href="http://vimonline.sf.net">vimonline development</a> pages.
-      Please use this site responsibly.
-      <br> 
-      
-      Questions about <a href="http://www.vim.org/about.php">Vim</a> should go
-      to the <a href="http://www.vim.org/maillist.php">maillist</a>.
-      Help Bram <a href="http://iccf-holland.org/">help Uganda</a>.
-      </small>
-	&nbsp;
-	&nbsp;
-
-	<!-- Start of StatCounter Code -->
-	<script type="text/javascript" language="javascript">
-	var sc_project=1417324; 
-	var sc_invisible=1; 
-	var sc_partition=11; 
-	var sc_security="d41633bc"; 
-	</script>
-
-	<script type="text/javascript" language="javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><a href="http://www.statcounter.com/" target="_blank"><img  src="http://c12.statcounter.com/counter.php?sc_project=1417324&java=0&security=d41633bc&invisible=0" alt="free tracking" border="0"></a> </noscript>
-	<!-- End of StatCounter Code -->
-          </td>
-
-    <td align="right" valign="top">
-      		<a href="http://sourceforge.net/projects/vim" rel="nofollow"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=8&type=1" width="88" height="31" border="0" alt="SourceForge.net Logo" /></a>
-    </td>
-
-    <td><img src="/images/spacer.gif" width="5" height="1" alt=""></td>
-  </tr>
-
-    
-  <tr><td colspan="4"><img src="/images/spacer.gif" width="1" height="5" alt=""></td>
-  
-  </tr>
-</table>
-
-</body>
-</html>
-

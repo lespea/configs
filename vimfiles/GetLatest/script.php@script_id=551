@@ -1,350 +1,0 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-
-<head>
-  <link rel="Stylesheet" type="text/css" href="/css/style.css" >
-  <title>Mines - Play Mines with vim : vim online</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-  <meta name="KEYWORDS" content="Vim, Vi IMproved, text editor, home, documentation, tips, scripts, news">
-  <link rel="shortcut icon" type="image/x-icon" href="/images/vim_shortcut.ico">
-</head>
-
-<body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" bgcolor="#ffffff"> 
-
-<!-- HEADER, SPONSOR IMAGE, VIM IMAGE AND BOOK AD -->
-<table width="100%" cellpadding="0" cellspacing="0" border="0" bordercolor="red">
-  <tr>
-    <td colspan="4" class="lightbg"><img src="/images/spacer.gif" width="1" height="5" alt=""></td>
-  </tr>
-  <tr>
-  <td class="lightbg">&nbsp;&nbsp;&nbsp;</td>
-  <td class="lightbg" align="left"><a href="/sponsor/index.php"><img src="/images/sponsorvim.gif" alt="sponsor Vim development" border="0"></a></td>
-    <td class="lightbg" align="center"><a href="/index.php"><img src="/images/vim_header.gif" border="0" alt="Vim logo"></a></td>
-    <td class="lightbg" align="right"><a href="http://iccf-holland.org/click5.html"><img src="/images/buyhelplearn.gif" alt="Vim Book Ad" border="0"></a></td>
-  </tr>
-  <tr>
-    <td colspan="4" class="lightbg"><img src="/images/spacer.gif" width="1" height="5" alt=""></td>
-  </tr>
-  <tr>
-    <td colspan="4" class="darkbg"><img src="/images/spacer.gif" width="1" height="10" alt=""></td>
-  </tr>
-</table>
-<!-- THE PAGE BODY: BETWEEN HEADER AND FOOTER -->
-
-<table cellpadding="0" cellspacing="0" border="0" width="100%">
-  <col width="180">
-  <col width="1">
-
-  <tr valign="top">
-    <td class="sidebar">
-      <table width="180" cellpadding="4" cellspacing="0" border="0">
-        <tr valign="top">
-          <td class="sidebar">
-
-<!-- INCLUDE THE PAGE NAVIGATION -->
-<table width="100%" cellpadding="0" cellspacing="0" border="0" bordercolor="red">
-    <tr>
-        <td><small>not logged in (<a href="/login.php">login</a>)</small></td>
-    </tr>
-    <tr><td>
-<small>&nbsp;</small>
-<form action="http://www.google.com/cse" id="cse-search-box">
-  <div>
-    <input type="hidden" name="cx" value="partner-pub-3005259998294962:bvyni59kjr1" />
-    <input type="hidden" name="ie" value="ISO-8859-1" />
-    <input type="text" name="q" size="20" />
-    <br>
-    <input type="submit" name="sa" value="Search" />
-  </div>
-</form>
-<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"></script>
-    </td></tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="1"></td>
-    </tr>
-    <tr>
-        <td class="darkbg"><img src="/images/spacer.gif" alt='' border="0" height="3"></td>
-    </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="2"></td>
-    </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/index.php">Home</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/search.php">Advanced search</a></td>
-        </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
-    </tr>
-    <tr>
-        <td class="checker"><img src="/images/spacer.gif" alt='' border="0" height="1"></td>
-    </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
-    </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/about.php">About Vim</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/community.php">Community</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/news/news.php">News</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/sponsor/index.php">Sponsoring</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/trivia.php">Trivia</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/docs.php">Documentation</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/download.php">Download</a></td>
-        </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
-    </tr>
-    <tr>
-        <td class="checker"><img src="/images/spacer.gif" alt='' border="0" height="1"></td>
-    </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
-    </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/scripts/index.php">Scripts</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/tips/index.php">Tips</a></td>
-        </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/account/index.php">My Account</a></td>
-        </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
-    </tr>
-    <tr>
-        <td class="checker"><img src="/images/spacer.gif" alt='' border="0" height="1"></td>
-    </tr>
-    <tr>
-        <td><img src="/images/spacer.gif" alt="" border="0" width="1" height="7"></td>
-    </tr>
-        <tr>
-            <td class="sidebarheader"><a href="/huh.php">Site Help</a></td>
-        </tr>
-</table>
-
-            <table width="172" cellpadding="0" cellspacing="0" border="0">
-              <tr><td><img src="/images/spacer.gif" alt="" border="0" width="1" height="8"></td></tr>
-              <tr><td class="darkbg"><img src="/images/spacer.gif" width="1" height="3" alt=""></td></tr>
-            </table>
-            <br>
-
-<!-- INCLUDE THE PAGE SIDEBAR TEXT -->
-&nbsp;
-
-          </td>
-        </tr>
-      </table>
-    </td>
-
-    <td class="darkbg"><img src="/images/spacer.gif" width="1" height="1" border="0" alt=""><br></td>
-    <td>
-      <table width="100%" cellpadding="10" cellspacing="0" border="0" bordercolor="red">
-        <tr>
-          <td valign="top">
-
-<span class="txth1">Mines : Play Mines with vim</span> 
-
-<br>
-<br>
-
-<!-- karma table -->
-<table cellpadding="4" cellspacing="0" border="1" bordercolor="#000066">
-<tr>
-  <td class="lightbg"><b>&nbsp;script karma&nbsp;</b></td>
-  <td>
-    Rating <b>58/31</b>,
-    Downloaded by 3343  </td>
-</tr>
-</table>
-<p>
-
-<table cellspacing="0" cellpadding="0" border="0">
-<tr><td class="prompt">created by</td></tr>
-<tr><td><a href="/account/profile.php?user_id=96">Charles Campbell</a></td></tr>
-<tr><td>&nbsp;</td></tr>
-<tr><td class="prompt">script type</td></tr>
-<tr><td>game</td></tr>
-<tr><td>&nbsp;</td></tr>
-<tr><td class="prompt">description</td></tr>
-<tr><td>Mines is a Vim plugin, but you can also source it in.&nbsp;&nbsp;Mines includes cecutil.vim and Rndm.vim (for screen restoration and for pseudo-random number generation).&nbsp;&nbsp;The latest developments in Mines.vim will always be available at<br><br>&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="http://mysite.verizon.net/astronaut/vim/index.html#MINES">http://mysite.verizon.net/astronaut/vim/index.html#MINES</A><br><br>&nbsp;&nbsp;&nbsp;&nbsp;Games:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\mfe : play an easy mines game<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\mfm : play a&nbsp;&nbsp;medium-difficulty mines game<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\mfh : play a&nbsp;&nbsp;high-difficulty mines game<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\mfr : restore a game<br><br>Note that using the \mf_ maps above will save the files showing in all windows and save your session.&nbsp;&nbsp;Although I've used the backslash in the maps as shown here, actually they use &lt;Leader&gt; so you may customize your maps using mapleader as you wish.<br><br>Mines.vim is a use-at-your-own-risk game.&nbsp;&nbsp;However, an effort has been made to preserve your files.&nbsp;&nbsp;The game does a &quot;windo w&quot; and uses mksession to both save your working files that are showing in your windows and to preserve your window layout for subsequent restoration.<br><br>On many terminals, all you need to do is to click with the left mouse (to see what's there, or maybe to go BOOM!) or to click with the rightmouse to flag what you think is a mine.<br><br>&nbsp;&nbsp;&nbsp;&nbsp;More Maps:<br><br>&nbsp;&nbsp;&nbsp;&nbsp; -Play-<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;x&nbsp;&nbsp; move the cursor around the field;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pressing x is just like pressing a<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;leftmouse&gt; -- find out what's<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hidden!<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f&nbsp;&nbsp; just like the &lt;rightmouse&gt;, flag<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;what's under the cursor as a mine<br><br>&nbsp;&nbsp;&nbsp;&nbsp; -Control-<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s&nbsp;&nbsp; suspend the game, restore the display<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and session&nbsp;&nbsp;(\mfr will subsequently<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;restore the game)<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;q&nbsp;&nbsp; quit the game, restore the display<br><br>&nbsp;&nbsp;&nbsp;&nbsp; -New Games-<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E&nbsp;&nbsp; starts up a new easy game <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(only while an old game is showing)<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;M&nbsp;&nbsp; starts up a new medium game<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(only while an old game is showing)<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;H&nbsp;&nbsp; starts up a new hard game<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(only while an old game is showing)<br><br>The objective of the game is to flag all mines and to reveal all safe squares.&nbsp;&nbsp;As soon as you click a &lt;leftmouse&gt; or x, the square under the cursor is revealed with either a count of the number of bombs around it or as a BOOM.<br><br>If you win Minnie will do a cartwheel for you!<br><br>Sigh -- there appears to be a problem with Sun Solarus dtterms -- Mines highlights several characters with the same foreground and background colors, and this action appears to turn the cursor off on dtterms.&nbsp;&nbsp;I'm afraid I don't know how to work around this; does anyone know how to turn the cursor back on???<br><br>Thank you for rating Mines.vim -- good luck!<br></td></tr>
-<tr><td>&nbsp;</td></tr>
-<tr><td class="prompt">install details</td></tr>
-<tr><td>1. Make sure you have at least v18 of vimball:<br>&nbsp;&nbsp; <a target="_blank" href="http://mysite.verizon.net/astronaut/vim/index.html#VIMBALL">http://mysite.verizon.net/astronaut/vim/index.html#VIMBALL</A><br>&nbsp;&nbsp; -or-<br>&nbsp;&nbsp; <a href="/scripts/script.php?script_id=1502">vimscript#1502</a><br>&nbsp;&nbsp; (if you have vim 7.1a or later, you probably can skip this step)<br><br>2. vim Mines.vba.gz<br>&nbsp;&nbsp; :so %<br></td></tr>
-<tr><td>&nbsp;</td></tr>
-</table>
-
-<!-- rating table -->
-<form name="rating">
-<input type="hidden" name="script_id" value="551">
-<table cellpadding="4" cellspacing="0" border="1" bordercolor="#000066">
-<tr>
-  <td class="lightbg"><b>rate this script</b></td>
-  <td valign="middle">
-    <input type="radio" name="rating" value="life_changing">Life Changing
-    <input type="radio" name="rating" value="helpful">Helpful
-    <input type="radio" name="rating" value="unfulfilling">Unfulfilling&nbsp;
-    <input type="submit" value="rate">
-  </td>
-</tr>
-</table>
-</form>
-<span class="txth2">script versions</span> (<a href="add_script_version.php?script_id=551">upload new version</a>)
-<p>
-Click on the package to download.
-<p>
-
-<table cellspacing="2" cellpadding="4" border="0" width="100%">
-<tr class='tableheader'>
-        <th valign="top">package</th>
-    <th valign="top">script version</th>
-    <th valign="top">date</th>
-    <th valign="top">Vim version</th>
-    <th valign="top">user</th>
-    <th valign="top">release notes</th>
-</tr>
-<tr>
-        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=11139">Mines.vba.gz</a></td>
-    <td class="rowodd" valign="top" nowrap><b>17</b></td>
-    <td class="rowodd" valign="top" nowrap><i>2009-08-06</i></td>
-    <td class="rowodd" valign="top" nowrap>7.0</td>
-    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="rowodd" valign="top" width="2000">* Pressing &quot;x&quot; when atop an &quot;f&quot; now is a no-op; one must use an &quot;f&quot; to clear an &quot;f&quot;<br>* Attempting to modify a completed minefield no longer produces not-modifiable error messages.<br>* cecutil bug fix incorporated<br>* bugfix: works with simple .vimrcs; I usually use (:set ve-all), and the lack of virtualedit was causing problems.<br><br>Enjoy!&nbsp;&nbsp;On easy mode, I win 51.7% of the time on Easy mode...</td>
-</tr>
-<tr>
-        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=6764">Mines.vba.gz</a></td>
-    <td class="roweven" valign="top" nowrap><b>16</b></td>
-    <td class="roweven" valign="top" nowrap><i>2007-02-21</i></td>
-    <td class="roweven" valign="top" nowrap>6.0</td>
-    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="roweven" valign="top" width="2000">On wins, percentage won now shown to 3 decimal places.<br>Works with Rndm.vim to save seeds in $HOME/.seed to improve pseudo-random nature of games.<br></td>
-</tr>
-<tr>
-        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=6619">Mines.vba.gz</a></td>
-    <td class="rowodd" valign="top" nowrap><b>15</b></td>
-    <td class="rowodd" valign="top" nowrap><i>2007-01-17</i></td>
-    <td class="rowodd" valign="top" nowrap>6.0</td>
-    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="rowodd" valign="top" width="2000">At end of game due to hitting a mine, empty squares mistakenly flagged as bombs are shown with a blue background<br>Now includes cecutil to handle saving/restoring user maps<br>Insures that it cleans up the -Mines- file<br>Flickering flood bug fixed<br></td>
-</tr>
-<tr>
-        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=5881">Mines.vba.gz</a></td>
-    <td class="roweven" valign="top" nowrap><b>14</b></td>
-    <td class="roweven" valign="top" nowrap><i>2006-06-27</i></td>
-    <td class="roweven" valign="top" nowrap>7.0</td>
-    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="roweven" valign="top" width="2000">Added &quot;Flags Used&quot; field while playing.<br>New commands for speedier play: pressing &quot;c&quot; changes corner, pressing 0,$,gg,G changes cursor position but stays inside the minefield.<br>Improved playability: medium is now 15% mines on an 18x18 grid, hard is 18% mines.<br></td>
-</tr>
-<tr>
-        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=4950">Mines.tar.gz</a></td>
-    <td class="rowodd" valign="top" nowrap><b>13</b></td>
-    <td class="rowodd" valign="top" nowrap><i>2006-01-06</i></td>
-    <td class="rowodd" valign="top" nowrap>6.0</td>
-    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="rowodd" valign="top" width="2000">When you win, Minnie will tell you your winning percentage to the nearest 1/10 percent.<br>Mines now uses cecutil to save/restore user maps.<br></td>
-</tr>
-<tr>
-        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=4913">Mines.vim.gz</a></td>
-    <td class="roweven" valign="top" nowrap><b>12</b></td>
-    <td class="roweven" valign="top" nowrap><i>2005-12-22</i></td>
-    <td class="roweven" valign="top" nowrap>6.0</td>
-    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="roweven" valign="top" width="2000">Mines's winning banner now includes a percentage of wins.<br>When Rndm.vim is missing, Mines will issue a warning about it (and where to get Rndm.vim)<br>Any players out there?&nbsp;&nbsp;I've now got a 47% winning rate with Easy mode...<br></td>
-</tr>
-<tr>
-        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=3394">Mines.vim.bz2</a></td>
-    <td class="rowodd" valign="top" nowrap><b>11</b></td>
-    <td class="rowodd" valign="top" nowrap><i>2004-08-27</i></td>
-    <td class="rowodd" valign="top" nowrap>6.0</td>
-    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="rowodd" valign="top" width="2000">1: An X will now mark the bomb that went off<br>2: Flipped the cterm=NONE and fg/bg specs about; some machines were showing all bold which equated to one color.<br>3: bugfix: an &quot;f&quot; on a previously determined site (whether numbered or blank) will now have no effect<br></td>
-</tr>
-<tr>
-        <td class="roweven" valign="top" nowrap><a href="download_script.php?src_id=3290">Mines.vim.bz2</a></td>
-    <td class="roweven" valign="top" nowrap><b>10</b></td>
-    <td class="roweven" valign="top" nowrap><i>2004-07-30</i></td>
-    <td class="roweven" valign="top" nowrap>6.0</td>
-    <td class="roweven" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="roweven" valign="top" width="2000">Highlighting is now fixed after a colorscheme change.&nbsp;&nbsp;The updatetime is now set to 200ms during the game (it gets restored) to facilitate the timing statistics and colorscheme handling.&nbsp;&nbsp;Statistics are now kept separately for each size, and better streak statistics are kept, too.<br></td>
-</tr>
-<tr>
-        <td class="rowodd" valign="top" nowrap><a href="download_script.php?src_id=3188">Mines.vim.bz2</a></td>
-    <td class="rowodd" valign="top" nowrap><b>9</b></td>
-    <td class="rowodd" valign="top" nowrap><i>2004-06-28</i></td>
-    <td class="rowodd" valign="top" nowrap>6.0</td>
-    <td class="rowodd" valign="top"><i><a href="/account/profile.php?user_id=96">Charles Campbell</a></i></td>
-    <td class="rowodd" valign="top" width="2000">For some reason I didn't consider light backgrounds before -- Mines.vim now displays well on light as well as dark backgrounds.&nbsp;&nbsp;To do so it uses the &quot;background&quot; option's setting, which colorschemes normally set (in the colorscheme sampler, only brown bw c dante delek<br>don't).</td>
-</tr>
-</table>
-<!-- finish off the framework -->
-          </td>
-        </tr>
-      </table>
-    </td>
-
-  </tr>
-</table>
-
-<!-- END OF THE PAGE BODY: BETWEEN HEADER AND FOOTER -->
-
-<table width="100%" cellpadding="0" cellspacing="0" border="0" bordercolor="red">
-  <tr><td colspan="4"><img src="/images/spacer.gif" width="1" height="5" alt=""></td></tr>
-  <tr><td colspan="4" bgcolor="#000000"><img src="/images/spacer.gif" height="2" width="1" alt=""></td></tr>
-  <tr><td colspan="4"><img src="/images/spacer.gif" width="1" height="5" alt=""></td></tr>
-  <tr>
-    <td><img src="/images/spacer.gif" width="5" height="1" alt=""></td>
-
-    <td align="left" valign="top"><small>
-      If you have questions or remarks about this site, visit the
-      <a href="http://vimonline.sf.net">vimonline development</a> pages.
-      Please use this site responsibly.
-      <br> 
-      
-      Questions about <a href="http://www.vim.org/about.php">Vim</a> should go
-      to the <a href="http://www.vim.org/maillist.php">maillist</a>.
-      Help Bram <a href="http://iccf-holland.org/">help Uganda</a>.
-      </small>
-	&nbsp;
-	&nbsp;
-
-	<!-- Start of StatCounter Code -->
-	<script type="text/javascript" language="javascript">
-	var sc_project=1417324; 
-	var sc_invisible=1; 
-	var sc_partition=11; 
-	var sc_security="d41633bc"; 
-	</script>
-
-	<script type="text/javascript" language="javascript" src="http://www.statcounter.com/counter/counter.js"></script><noscript><a href="http://www.statcounter.com/" target="_blank"><img  src="http://c12.statcounter.com/counter.php?sc_project=1417324&java=0&security=d41633bc&invisible=0" alt="free tracking" border="0"></a> </noscript>
-	<!-- End of StatCounter Code -->
-          </td>
-
-    <td align="right" valign="top">
-      		<a href="http://sourceforge.net/projects/vim" rel="nofollow"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=8&type=1" width="88" height="31" border="0" alt="SourceForge.net Logo" /></a>
-    </td>
-
-    <td><img src="/images/spacer.gif" width="5" height="1" alt=""></td>
-  </tr>
-
-    
-  <tr><td colspan="4"><img src="/images/spacer.gif" width="1" height="5" alt=""></td>
-  
-  </tr>
-</table>
-
-</body>
-</html>
-

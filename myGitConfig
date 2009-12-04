@@ -1,0 +1,31 @@
+[user]
+    name = Adam Lesperance
+    email = lespea@gmail.com
+
+
+[alias]
+    aa = add -A
+    ca = commit -a
+    co = checkout
+    st = status -a
+
+[apply]
+    whitespace = strip
+
+[color]
+    grep        = always
+    diff        = always
+    interactive = always
+    pager       = true
+    status      = true
+    ui          = always
+
+[core]
+    editor = vim
+    pager  = less
+
+[diff]
+    rename = copy
+
+[merge]
+    conflictstyle = diff3

@@ -103,6 +103,8 @@ endfunction
 " indent length with < >
 set shiftwidth=4
 set tabstop=4
+set softtabstop=4
+set expandtab
 "Insert spaces for tabs
 set smarttab
 set expandtab

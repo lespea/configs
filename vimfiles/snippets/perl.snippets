@@ -156,7 +156,7 @@ snippet xfor
 snippet ldie
 	$logger->die(qq{${1:message}})${2};
 snippet ldebug
-	$logger->debug(qq{${1:message}})${2};
+	$logger->debug(qq{${1:message}})  if  $logger->debug${2};
 snippet linfo
 	$logger->info(qq{${1:message}})${2};
 snippet lnotice
@@ -169,7 +169,7 @@ snippet lerror
 snippet ldies
 	$logger->die(sprintf(qq{${1:message}}, ${2:args}))${3};
 snippet ldebugs
-	$logger->debug(sprintf(qq{${1:message}}, ${2:args}))${3};
+	$logger->debug(sprintf(qq{${1:message}}, ${2:args}))  if  $logger->debug${3};
 snippet linfos
 	$logger->info(sprintf(qq{${1:message}}, ${2:args}))${3};
 snippet lnotices

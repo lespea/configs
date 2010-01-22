@@ -101,7 +101,10 @@ endfunction
 
 " Tabs should be converted to a group of 4 spaces.
 " indent length with < >
-call Tabstyle_spaces()
+set shiftwidth=4
+set tabstop=4
+set softtabstop=4
+set expandtab
 "Insert spaces for tabs
 set smarttab
 set expandtab

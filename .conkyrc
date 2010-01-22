@@ -1,0 +1,60 @@
+background yes
+use_xft yes
+xftfont HandelGotD:size=8
+xftalpha 0.5
+update_interval 4.0
+total_run_times 0
+own_window yes
+own_window_type normal
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+double_buffer yes
+minimum_size 200 400
+maximum_width 220
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+default_color grey
+default_shade_color black
+default_outline_color black
+alignment top_right
+gap_x 20
+gap_y 40
+no_buffers yes
+uppercase no
+cpu_avg_samples 2
+override_utf8_locale no
+
+
+TEXT
+Uptime ${alignr}${uptime}
+
+
+CPU1 $alignr ${cpu cpu1}% ${cpugraph cpu1 10, 100}
+CPU2 $alignr ${cpu cpu2}% ${cpugraph cpu2 10, 100}
+CPU3 $alignr ${cpu cpu3}% ${cpugraph cpu3 10, 100}
+CPU4 $alignr ${cpu cpu4}% ${cpugraph cpu4 10, 100}
+
+MEM ${alignr}$memperc% ${membar 8,100}
+swap ${alignr}$swapperc% ${swapbar 8,100}
+
+
+Disk I/O $alignr ${diskio} ${diskiograph 10,100}
+
+/ ${alignr}${fs_used_perc /}% ${fs_bar 8,100 /}
+home ${alignr}${fs_used_perc /home}% ${fs_bar 8,100 /home}
+
+
+$processes processes $alignr $running_processes running
+
+Name $alignr PID    CPU
+
+${top name 1} $alignr ${top pid 1} ${top cpu 1}
+${top name 2} $alignr ${top pid 2} ${top cpu 2}
+${top name 3} $alignr ${top pid 3} ${top cpu 3}
+${top name 4} $alignr ${top pid 4} ${top cpu 4}
+${top name 5} $alignr ${top pid 5} ${top cpu 5}
+
+In $alignr ${downspeed eth0} ${downspeedgraph eth0 10,100}
+Out $alignr ${upspeed eth0} ${upspeedgraph eth0 10,100}

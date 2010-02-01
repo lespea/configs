@@ -169,6 +169,7 @@ set background=dark
 if has("gui_running")
     set guifont=Anonymous_Pro:h12
     colorscheme strawimodo
+    "colorscheme bvemu
 else
     colorscheme candycode
 endif

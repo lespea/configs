@@ -178,6 +178,10 @@ if has("gui_win32")       " NT Windows
         autocmd GUIEnter * :simalt ~x
 endif
 
+let g:slimv_python = 'C:/Python26/python.exe'
+let g:slimv_lisp = '"java -cp C:/clojure/clojure.jar;C:/clojure/clojure-contrib.jar clojure.main"'
+let g:lisp_rainbow = 1
+
 " Omni Completion *************************************************************
 " set ofu=syntaxcomplete#Complete
 autocmd FileType html        set  omnifunc=htmlcomplete#CompleteTags

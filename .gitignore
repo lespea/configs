@@ -4,3 +4,8 @@ _viminfo
 .gitconfig
 .ssh/*
 .neocon/*
+.VirtualBox/*
+.bash_history
+.slime-history.eld
+.idlerc/recent-files.lst
+*.swp

@@ -556,9 +556,9 @@ set pastetoggle=<F4>
 
 
 " check perl code with :make
-" autocmd FileType perl set makeprg=perl\ -c\ %\ $*
-" autocmd FileType perl set errorformat=%f:%l:%m
-" autocmd FileType perl set autowrite
+autocmd FileType perl set makeprg=perl\ -c\ %\ $*
+autocmd FileType perl set errorformat=%f:%l:%m
+autocmd FileType perl set autowrite
 
 " my perl includes pod
 let perl_include_pod = 1
@@ -637,3 +637,23 @@ set selectmode=""
 if has("gui_win32")       " NT Windows
         autocmd GUIEnter * :simalt ~x
 endif
+
+
+" Copy matches of the last search to a register (default is the clipboard).
+" Accepts a range (default is the current line).
+" Matches are appended to the register and each match is terminated by \n.
+" Usage: [RANGE]CopyMatches [REGISTER]
+command! -nargs=0 -range -register CopyMatches call s:CopyMatches(<line1>, <line2>, "<reg>")
+function! s:CopyMatches(line1, line2, reg)
+  let reg = a:reg != '' ? a:reg : '+'
+  for line in range(a:line1, a:line2)
+    let txt = getline(line)
+    let idx = match(txt, @/)
+    while idx > -1
+      exec "let @".reg." .= matchstr(txt, @/, idx) . \"\n\""
+      let end = matchend(txt, @/, idx)
+      let idx = match(txt, @/, end)
+    endwhile
+  endfor
+endfunction
+

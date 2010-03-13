@@ -167,7 +167,12 @@ set mousehide
 syntax on
 set background=dark
 if has("gui_running")
-    set guifont=Anonymous_Pro:h12
+    if has("gui_win32")       " NT Windows
+        set guifont=Anonymous_Pro:h12
+    else
+        set guifont=Anonymous\ Pro\ 12
+    endif
+
     colorscheme strawimodo
     "colorscheme bvemu
 else

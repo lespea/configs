@@ -146,6 +146,9 @@ set noequalalways
 ":noremap ,v :vsp^M^W^W<cr>
 ":noremap ,h :split^M^W^W<cr>
 
+let g:SuperTabMappingForward = '<C-tab>'
+let g:SuperTabMappingTabLiteral = '<S-C-tab>'
+
 " Cursor highlights ***********************************************************
 set cursorline
 "set cursorcolumn

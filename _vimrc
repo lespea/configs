@@ -146,6 +146,8 @@ set noequalalways
 ":noremap ,v :vsp^M^W^W<cr>
 ":noremap ,h :split^M^W^W<cr>
 
+:noremap ,= :Align =><CR>
+
 let g:SuperTabMappingForward = '<C-tab>'
 let g:SuperTabMappingTabLiteral = '<S-C-tab>'
 
@@ -592,6 +594,12 @@ inoremap        (<SPACE>  ()<Left>
 inoremap        ((  ()<Left>
 inoremap        (;        ();<Left><Left>
 inoremap <expr> )  strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
+
+inoremap        @{<SPACE>  @{  }<Left><Left>
+inoremap        @{;  @{  };<Left><Left><Left>
+
+inoremap        %{<SPACE>  %{  }<Left><Left>
+inoremap        %{;  %{  };<Left><Left><Left>
 
 inoremap        {<SPACE>  {}<Left>
 inoremap        {{  {}<Left>

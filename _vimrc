@@ -147,6 +147,10 @@ set noequalalways
 ":noremap ,h :split^M^W^W<cr>
 
 :noremap ,= :Align =><CR>
+:noremap ,q  qqqq
+:noremap ,c  qcq
+:noremap ,t :%s/\..*//<CR>
+:noremap ,i :%s/\v^(.*)$/    '\1',/<CR>G$xo)<Esc>ggO(<Esc>:silent noh<CR>
 
 let g:SuperTabMappingForward = '<C-tab>'
 let g:SuperTabMappingTabLiteral = '<S-C-tab>'

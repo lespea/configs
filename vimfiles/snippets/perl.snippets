@@ -183,3 +183,13 @@ snippet lwarns
 	$logger->warn(sprintf(qq{${1:message}}, ${2:args}))${3};
 snippet lerrors
 	$logger->error(sprintf(qq{${1:message}}, ${2:args}))${3};
+snippet dbar
+	while (my $row = ${1:db_handle}->fetchrow_arrayref) {
+		my (${2:args}) = @$row;
+		${3:#body}
+	}
+snippet dbha
+	while (my $row = ${1:db_handle}->fetchrow_hashref) {
+		my (${2:args}) = @{ $row }{qw/ ${3:keys} /};
+		${4:#body}
+	}

@@ -148,6 +148,7 @@ set noequalalways
 
 :noremap ,= :Align =><CR>
 :noremap ,q  qqqq
+:noremap ,m :CopyMatches<CR>
 :noremap ,c  qcq
 :noremap ,t :%s/\..*//<CR>
 :noremap ,i :%s/\v^(.*)$/    '\1',/<CR>G$xo)<Esc>ggO(<Esc>:silent noh<CR>
@@ -664,17 +665,23 @@ endif
 
 
 " Copy matches of the last search to a register (default is the clipboard).
-" Accepts a range (default is the current line).
-" Matches are appended to the register and each match is terminated by \n.
-" Usage: [RANGE]CopyMatches [REGISTER]
-command! -nargs=0 -range -register CopyMatches call s:CopyMatches(<line1>, <line2>, "<reg>")
+" Accepts a range (default is whole file).
+" 'CopyMatches'   copies matches to clipboard (each match has \n added).
+" 'CopyMatches x' copies matches to register x (clears register first).
+" 'CopyMatches X' appends matches to register x.
+command! -range=% -register CopyMatches call s:CopyMatches(<line1>, <line2>, '<reg>')
 function! s:CopyMatches(line1, line2, reg)
-  let reg = a:reg != '' ? a:reg : '+'
+  let reg = empty(a:reg) ? '+' : a:reg
+  if reg =~# '[A-Z]'
+    let reg = tolower(reg)
+  else
+    execute 'let @'.reg.' = ""'
+  endif
   for line in range(a:line1, a:line2)
     let txt = getline(line)
     let idx = match(txt, @/)
-    while idx > -1
-      exec "let @".reg." .= matchstr(txt, @/, idx) . \"\n\""
+    while idx >= 0
+      execute 'let @'.reg.' .= matchstr(txt, @/, idx) . "\n"'
       let end = matchend(txt, @/, idx)
       let idx = match(txt, @/, end)
     endwhile

@@ -143,7 +143,7 @@ set splitbelow splitright
 set noequalalways
 
 "  Use relavent line numbers
-RltvNmbr
+call RltvNmbr#RltvNmbrCtrl(1)
 
 "Vertical split then hop to new buffer
 ":noremap ,v :vsp^M^W^W<cr>

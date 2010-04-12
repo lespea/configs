@@ -7,3 +7,4 @@ getscript.vba: call delete('C:/vim/vimfiles/plugin/getscriptPlugin.vim')|call de
 LargeFile.vba: call delete('C:/vim/vimfiles/plugin/LargeFile.vim')|call delete('C:/vim/vimfiles/doc/LargeFile.txt')
 supertab.vba: call delete('C:/Users/Adam/configs/vimfiles/doc/supertab.txt')|call delete('C:/Users/Adam/configs/vimfiles/plugin/supertab.vim')
 csv.vba: call delete('C:/Users/Adam/configs/vimfiles/ftplugin/csv.vim')|call delete('C:/Users/Adam/configs/vimfiles/doc/ft_csv.txt')
+RltvNmbr.vba: call delete('C:/configs/vimfiles/plugin/RltvNmbr.vim')|call delete('C:/configs/vimfiles/plugin/RltvNmbrPlugin.vim')|call delete('C:/configs/vimfiles/doc/RltvNmbr.txt')|call delete('C:/configs/vimfiles/autoload/RltvNmbr.vim')

@@ -142,11 +142,14 @@ set splitbelow splitright
 " don't always keep windows at equal size (for minibufexplorer)
 set noequalalways
 
+"  Use relavent line numbers
+RltvNmbr
+
 "Vertical split then hop to new buffer
 ":noremap ,v :vsp^M^W^W<cr>
 ":noremap ,h :split^M^W^W<cr>
 
-:noremap ,= :Align =><CR>
+:noremap \= :Align =><CR>
 :noremap ,q  qqqq
 :noremap ,m :CopyMatches<CR>
 :noremap ,c  qcq

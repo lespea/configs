@@ -143,7 +143,7 @@ set splitbelow splitright
 set noequalalways
 
 "  Use relavent line numbers
-call RltvNmbr#RltvNmbrCtrl(1)
+:noremap ,h :RN<CR>
 
 "Vertical split then hop to new buffer
 ":noremap ,v :vsp^M^W^W<cr>
@@ -152,9 +152,11 @@ call RltvNmbr#RltvNmbrCtrl(1)
 :noremap \= :Align =><CR>
 :noremap ,q  qqqq
 :noremap ,m :CopyMatches<CR>
-:noremap ,c  qcq
+:noremap ,a  qaq
 :noremap ,t :%s/\..*//<CR>
 :noremap ,i :%s/\v^(.*)$/    '\1',/<CR>G$xo)<Esc>ggO(<Esc>:silent noh<CR>
+
+:noremap \fd :%s/\v(\d{1,2})\/(\d{1,2})\/(\d{4})/\3\/\1\/\2/<CR>
 
 let g:SuperTabMappingForward = '<C-tab>'
 let g:SuperTabMappingTabLiteral = '<S-C-tab>'

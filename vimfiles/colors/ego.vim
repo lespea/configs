@@ -46,8 +46,10 @@ hi WildMenu             gui=bold guibg=Chartreuse guifg=Black
 
 " General Syntax Colors
 
+" Gray coment
+hi Comment              gui=NONE guifg=#777777 guibg=bg
+
 " Light green
-hi Comment              gui=NONE guifg=#C8F482 guibg=bg
 hi Todo                 gui=bold guifg=#C8F482 guibg=bg
 
 " Green #82c057

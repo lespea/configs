@@ -1,0 +1,59 @@
+*repeater.txt*  Repeat an item n times.
+
+Author:   Jon-Michael Deldin <dev@jmdeldin.com>
+Date:     2009-03-27
+Version:  1.0.0
+License:  MIT
+Homepage: http://github.com/jmdeldin/repeater
+
+==============================================================================
+Contents                                                   *repeater-contents*
+==============================================================================
+
+1. Introduction         |repeater-intro|
+2. Installation         |repeater-install|
+3. Commands             |repeater-commands|
+4. Usage                |repeater-usage|
+
+
+==============================================================================
+Introduction                                                  *repeater-intro*
+==============================================================================
+
+Repeater.vim allows you to repeat items {n} times. For example, if you have a
+section header in ReStructuredText and you need to insert an underbar of
+equals signs that's the same length, you can simply move down a line and
+invoke ``:Repeater =``. You can also specify a length, but the real utility of
+this plugin is calculating the length for you.
+
+
+==============================================================================
+Installation                                                *repeater-install*
+==============================================================================
+
+1. Download repeater.zip and unzip to ".vim" or "vimfiles"
+2. :helptags ~/.vim/doc
+
+
+==============================================================================
+Commands                                                   *repeater-commands*
+==============================================================================
+
+:Repeater {item} [n]
+    Repeat {item} an optional {n} times. If {n} is omitted, the length of the
+    preceding line will be used.
+
+
+==============================================================================
+Usage                                                         *repeater-usage*
+==============================================================================
+
+1. Insert 78 equals signs:
+    :Repeater = 78
+2. Insert a ReST or Markdown section header for the current line:
+    :Repeater -
+3. Insert "THIS IS FILLER" 999 times:
+    :Repeater THIS\ IS\ FILLER.\  999
+
+vim:ft=help:norl:
+

@@ -152,11 +152,20 @@ set noequalalways
 :noremap \= :Align =><CR>
 :noremap ,q  qqqq
 :noremap ,m :CopyMatches<CR>
+:noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>ggVG"+y
+:noremap \u :sort u<CR>:g/^$/d<CR>
 :noremap ,a  qaq
 :noremap ,t :%s/\..*//<CR>
 :noremap ,i :%s/\v^(.*)$/    '\1',/<CR>G$xo)<Esc>ggO(<Esc>:silent noh<CR>
 
 :noremap \fd :%s/\v(\d{1,2})\/(\d{1,2})\/(\d{4})/\3\/\1\/\2/<CR>
+
+" toggle paste on/off
+nnoremap \tp :set invpaste paste?<CR>
+
+"toggle list on/off and report the change (start with list on):
+nnoremap \tl :set invlist list?<CR>
+nnoremap \ca ggVG"+y
 
 let g:SuperTabMappingForward = '<C-tab>'
 let g:SuperTabMappingTabLiteral = '<S-C-tab>'
@@ -301,7 +310,9 @@ set ttyfast
 
 " Aliases        *************************************************************
 " Professor VIM says '87% of users prefer jj over esc', jj abrams strongly disagrees
+"   but jk is even better!
 imap jj <Esc>
+imap jk <Esc>
 
 " page down with <Space> (like in `Lynx', `Mutt', `Pine', `Netscape Navigator',
 " `SLRN', `Less', and `More'); page up with - (like in `Lynx', `Mutt', `Pine'),
@@ -408,12 +419,6 @@ vnoremap p <Esc>:let current_reg = @"<CR>gvs<C-R>=current_reg<CR><Esc>
 nnoremap <silent><A-m> m`:s/\v(<\k*%#\k*>)(\_.{-})(<\k+>)/\3\2\1/<CR>``:noh<CR>
 nnoremap <silent><A-n> m`:s/\v(<\k+>)(.{-})(<\k*%#\k*>)/\3\2\1/<CR>``:noh<CR>
 
-" toggle paste on/off
-nnoremap \tp :set invpaste paste?<CR>
-
-"toggle list on/off and report the change (start with list on):
-nnoremap \tl :set invlist list?<CR>
-nnoremap \ca ggVG"+y
 set list
 
 "toggle highlighting of search matches, and report the change:
@@ -644,6 +649,8 @@ let g:miniBufExplorerMoreThanOne    = 1
 let g:miniBufExplUseSingleClick     = 1
 
 abb teh the
+abb fo of
+abb taht that
 
 map <F9> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))<CR>
 

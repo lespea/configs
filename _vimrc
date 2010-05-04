@@ -188,10 +188,10 @@ if has("gui_running")
         set guifont=Anonymous\ Pro\ 12
     endif
 
-    colorscheme strawimodo
+    colorscheme ego
     "colorscheme bvemu
 else
-    colorscheme candycode
+    colorscheme ego
 endif
 
 if has("gui_win32")       " NT Windows

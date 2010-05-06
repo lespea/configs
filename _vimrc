@@ -200,7 +200,7 @@ if has("gui_running")
     colorscheme ego
     "colorscheme bvemu
 else
-    colorscheme ego
+    colorscheme desert256
 endif
 
 if has("gui_win32")       " NT Windows

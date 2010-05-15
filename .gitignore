@@ -7,5 +7,7 @@ _viminfo
 .VirtualBox/*
 .bash_history
 .slime-history.eld
-.idlerc/recent-files.lst
+.idlerc/*
 *.swp
+.neocon/*
+.subversion/*

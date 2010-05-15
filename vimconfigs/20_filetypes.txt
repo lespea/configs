@@ -17,6 +17,8 @@ au BufNewFile,BufRead *.html        setf xhtml
 
 "  All my perls
 au BufNewFile,BufRead *.pl,*.pm,*.t setf perl
+"au FileType perl setlocal keywordprg=perldoc\ -T\ -f
+autocmd FileType perl noremap K :!echo <cWORD> <cword> <bar> perl -e '$line = <STDIN>; if ($line =~ /(\w+::\w+)/){exec("perldoc $1")} elsif($line =~ /(\w+)/){exec "perldoc -f $1 <bar><bar> perldoc $1"}'<cr><cr>
 
 
 " check perl code with :make

@@ -122,6 +122,7 @@ au FileType helpfile nnoremap <buffer><cr> <c-]>
 au FileType helpfile nnoremap <buffer><bs> <c-T>
 au BufNewFile,BufRead *.html        setf xhtml
 au BufNewFile,BufRead *.pl,*.pm,*.t setf perl
+autocmd FileType perl noremap K :!echo <cWORD> <cword> <bar> perl -e '$line = <STDIN>; if ($line =~ /(\w+::\w+)/){exec("perldoc $1")} elsif($line =~ /(\w+)/){exec "perldoc -f $1 <bar><bar> perldoc $1"}'<cr><cr>
 autocmd FileType perl set makeprg=perl\ -c\ %\ $*
 autocmd FileType perl set errorformat=%f:%l:%m
 autocmd FileType perl set autowrite

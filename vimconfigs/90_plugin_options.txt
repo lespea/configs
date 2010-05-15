@@ -23,6 +23,7 @@ let NERDTreeIgnore=['\.vim$', '\~$', '\.pyo$', '\.pyc$', '\.svn[\//]$', '\.swp$'
 let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$',  '\.bak$', '\~$']
 
 
+
 "  -----------------
 "  |  FuzzyFinder  |
 "  -----------------
@@ -39,23 +40,13 @@ map <silent> \f :FufFile<CR>
 map <silent> \b :FufBuffer<CR>
 
 
-"  ---------------------
-"  |  miniBufExplorer  |
-"  ---------------------
-
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs  = 1
-let g:miniBufExplModSelTarget       = 1
-let g:miniBufExplorerMoreThanOne    = 1
-let g:miniBufExplUseSingleClick     = 1
-
 
 "  ----------------
 "  |  XPTemplate  |
 "  ----------------
 
-"  Include the < for brace completion
-let g:xptemplate_brace_complete = '([{<'
+"  Turn off brace completion (it sucks)
+let g:xptemplate_brace_complete = ''
 
 "  XPT uses Control-Space as trigger key
 let g:xptemplate_key = '<C-Space>'
@@ -95,6 +86,22 @@ let g:NeoComplCache_MinKeywordLength = 3
 
 
 
+"  -----------------
+"  |  delimitMate  |
+"  -----------------
+
+"  Match pairs of '/' for perl
+au FileType perl let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
+
+"  Don't match quotes in vim
+au FileType vim  let b:delimitMate_smart_quotes = 0
+
+"  Expand spaces and newlines
+let b:delimitMate_expand_space = 1
+let b:delimitMate_expand_cr = 1
+
+
+
 
 
 
@@ -102,24 +109,20 @@ let g:NeoComplCache_MinKeywordLength = 3
 "==                   DISABLED                   ==
 "==================================================
 "" 
-"" "  -----------------
-"" "  |  delimitMate  |
-"" "  -----------------
-"" 
-"" "  Match pairs of '/' for perl
-"" au FileType perl let b:delimitMate_matchpairs = "(:),[:],{:},<:>,/:/"
-"" 
-"" "  Don't match quotes in vim
-"" "au FileType vim  let b:delimitMate_smart_quotes = 0
-"" 
-"" "  Expand spaces and newlines
-"" let b:delimitMate_expand_space = "\<SPACE>\<SPACE>\<Left>"
-"" let b:delimitMate_expand_cr    = "\<CR>\<CR>\<Up>"
-"" 
-"" 
 "" "  --------------
 "" "  |  SuperTab  |
 "" "  --------------
 "" 
 "" let g:SuperTabMappingForward = '<C-tab>'
 "" let g:SuperTabMappingTabLiteral = '<S-C-tab>'
+"" 
+"" 
+"" "  ---------------------
+"" "  |  miniBufExplorer  |
+"" "  ---------------------
+"" 
+"" let g:miniBufExplMapWindowNavArrows = 1
+"" let g:miniBufExplMapCTabSwitchBufs  = 1
+"" let g:miniBufExplModSelTarget       = 1
+"" let g:miniBufExplorerMoreThanOne    = 1
+"" let g:miniBufExplUseSingleClick     = 1

@@ -202,12 +202,7 @@ let g:fuzzy_ceiling = 50000
 let g:fuzzy_ignore = "*.log;*.pyc;*.svn;"
 map <silent> \f :FufFile<CR>
 map <silent> \b :FufBuffer<CR>
-let g:miniBufExplMapWindowNavArrows = 1
-let g:miniBufExplMapCTabSwitchBufs  = 1
-let g:miniBufExplModSelTarget       = 1
-let g:miniBufExplorerMoreThanOne    = 1
-let g:miniBufExplUseSingleClick     = 1
-let g:xptemplate_brace_complete = '([{<'
+let g:xptemplate_brace_complete = ''
 let g:xptemplate_key = '<C-Space>'
 let g:xptemplate_pum_tab_nav = 1
 let g:NeoComplCache_EnableAtStartup = 1
@@ -216,6 +211,10 @@ let g:NeoComplCache_EnableUnderbarCompletion = 1
 let g:NeoComplCache_MinSyntaxLength = 3
 let g:NeoComplCache_ManualCompletionStartLength = 0
 let g:NeoComplCache_MinKeywordLength = 3
+au FileType perl let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
+au FileType vim  let b:delimitMate_smart_quotes = 0
+let b:delimitMate_expand_space = 1
+let b:delimitMate_expand_cr = 1
 noremap <Space> <PageDown>
 imap jj <Esc>
 imap jk <Esc>

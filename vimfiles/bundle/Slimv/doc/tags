@@ -1,6 +1,3 @@
-g:paredit_matchlines	slimv.txt	/*g:paredit_matchlines*
-g:paredit_mode	slimv.txt	/*g:paredit_mode*
-g:paredit_shortmaps	slimv.txt	/*g:paredit_shortmaps*
 g:slimv_clhs_root	slimv.txt	/*g:slimv_clhs_root*
 g:slimv_clhs_user_db	slimv.txt	/*g:slimv_clhs_user_db*
 g:slimv_clhs_user_root	slimv.txt	/*g:slimv_clhs_user_root*
@@ -25,7 +22,6 @@ g:slimv_repl_file	slimv.txt	/*g:slimv_repl_file*
 g:slimv_repl_open	slimv.txt	/*g:slimv_repl_open*
 g:slimv_repl_split	slimv.txt	/*g:slimv_repl_split*
 g:slimv_repl_wait	slimv.txt	/*g:slimv_repl_wait*
-g:slimv_repl_wrap	slimv.txt	/*g:slimv_repl_wrap*
 g:slimv_template_apropos	slimv.txt	/*g:slimv_template_apropos*
 g:slimv_template_compile_file	slimv.txt	/*g:slimv_template_compile_file*
 g:slimv_template_describe	slimv.txt	/*g:slimv_template_describe*
@@ -43,7 +39,6 @@ g:slimv_template_undefine	slimv.txt	/*g:slimv_template_undefine*
 g:slimv_template_unprofile	slimv.txt	/*g:slimv_template_unprofile*
 g:slimv_template_unprofile_all	slimv.txt	/*g:slimv_template_unprofile_all*
 g:slimv_template_untrace	slimv.txt	/*g:slimv_template_untrace*
-paredit	slimv.txt	/*paredit*
 slimv	slimv.txt	/*slimv*
 slimv-changelog	slimv.txt	/*slimv-changelog*
 slimv-clojure	slimv.txt	/*slimv-clojure*
@@ -54,7 +49,6 @@ slimv-faq	slimv.txt	/*slimv-faq*
 slimv-hyperspec	slimv.txt	/*slimv-hyperspec*
 slimv-installation	slimv.txt	/*slimv-installation*
 slimv-issues	slimv.txt	/*slimv-issues*
-slimv-paredit	slimv.txt	/*slimv-paredit*
 slimv-profiling	slimv.txt	/*slimv-profiling*
 slimv-repl	slimv.txt	/*slimv-repl*
 slimv-todo	slimv.txt	/*slimv-todo*

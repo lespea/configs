@@ -1,0 +1,109 @@
+*Highlight.txt*	Highlighting      				Nov 26, 2008
+
+Author:    Charles E. Campbell, Jr.  <NdrOchip@ScampbellPfamily.AbizM>
+           (remove NOSPAM from Campbell's email first)
+Copyright: (c) 2008 by Charles E. Campbell, Jr.		*Highlight-copyright*
+           The VIM LICENSE applies to Highlight.vim and Highlight.txt
+           (see |copyright|) except use "Highlight" instead of "Vim"
+           NO WARRANTY, EXPRESS OR IMPLIED.  USE AT-YOUR-OWN-RISK.
+
+==============================================================================
+1. Contents					*Highlight* *Highlight-contents* {{{1
+
+	1. Contents.................: |Highlight-contents|
+	2. Highlight Manual.........: |Highlight-manual|
+	5. Highlight History........: |Highlight-history|
+
+==============================================================================
+2. History Manual					*Highlight-manual* {{{1
+
+   The highlight command is designed to work with gvim only.
+
+COMMANDS:
+
+	:HLcolor					*HLcolor*
+		Lists currently selected highlighting colors
+	
+	:HLcolor name name name ...
+		Sets list of names to be the highlighting colors.
+		Default: HLcolor IndianRed orange3 khaki3 OliveDrab3 ...
+		                 MediumSeaGreen CornflowerBlue turquoise3 ...
+				 MediumPurple3 burlywood4 grey72
+
+	:[count]HLsrch					*HLsrch*
+		Uses the last pattern (|@/|) to highlight with the count'th
+		color
+	
+	:[count]HLsrch pattern
+		Uses the specified pattern (|@/|) to highlight with the count'th
+		color
+	
+	:HLclear					*HLclear*
+		If the cursor is atop one of the Highlighted patterns, then
+		that pattern will be cleared.  Otherwise, all Highlighted
+		patterns will be cleared.
+
+	:HLclear 1+
+		If a positive integer is given, then the Highlighting for the
+		given id will be cleared.
+
+	:HLclear 0
+		All Highlighted patterns will be cleared
+
+	:HLclear -1
+		If the cursor is atop one of the Highlighted patterns, then
+		that pattern will be cleared.  Otherwise, nothing happens.
+	
+NORMAL MAPS:
+	[count]\HLw					*\HLw*
+		A HLsrch pattern will be constructed which highlights the
+		word under the cursor.  The count'th id highlighting color
+		will be used.  ie.  expand("<cword.")
+
+	[count]\HLl					*\HLl*
+		A HLsrch pattern will be constructed which highlights the
+		line under the cursor.  The count'th id highlighting color
+		will be used.  ie.  '^\%'.line(".").'l.*$'
+
+VISUAL MAP:						*\HL*
+	[count]\HL
+		A HLsrch patttern will be constructed which will highlight
+		just the visually selected text. ie.
+		'\%'.line("'<").'l\%'.col("'<").'c\_.*\%'.line("'>").'l\%'.(col("'>")+1).'c'
+
+SUGGESTED FUNCTION KEY MAPS:
+
+nmap <silent> <c-F10>	:call Highlight#Clear(-1)<cr>
+nmap <silent> <c-F11>	:call Highlight#Srch(v:count,'^\%'.line(".").'l.*$')<cr>
+vmap <silent> <c-F11>	:<c-u>call Highlight#Srch(v:count,'\%'.line("'<").'l\%'.col("'<").'c\_.*\%'.line("'>").'l\%'.(col("'>") + (col("'>") != col("$"))).'c')<cr>
+
+With these maps:
+
+	<c-F10>          ctrl-functionkey-10  will clear the Highlighted pattern
+	                                      under the cursor.
+		
+	[count]<c-F11>   ctrl-functionkey-11  (normal mode) will Highlight the
+	                                      current line with the count'th
+					      Highlighting color.
+
+	[count]<c-F11>   ctrl-functionkey-11  (visual mode) will Highlight the
+	                                      current visual block with the
+					      count'th Highlighting color.
+
+	As a modification to the above: attempts to re-use a Highlighting
+	color will result in the next available Highlighting Color.  With
+	the maps above, repeatedly pressing <c-F11> will incrementing the
+	Highlighting color.
+
+
+==============================================================================
+3. History						*Highlight-history* {{{1
+
+   	v1	Nov 25, 2008	* The epoch
+		Nov 26, 2008	* Added a ColorScheme autocmd so that changes
+				  in the colorscheme don't wipe out the High-
+				  lighting colors.
+
+==============================================================================
+Modelines: {{{1
+vim:tw=78:ts=8:ft=help:fdm=marker:

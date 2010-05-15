@@ -1,0 +1,12 @@
+HLclear	Highlight.txt	/*HLclear*
+HLcolor	Highlight.txt	/*HLcolor*
+HLsrch	Highlight.txt	/*HLsrch*
+Highlight	Highlight.txt	/*Highlight*
+Highlight-contents	Highlight.txt	/*Highlight-contents*
+Highlight-copyright	Highlight.txt	/*Highlight-copyright*
+Highlight-history	Highlight.txt	/*Highlight-history*
+Highlight-manual	Highlight.txt	/*Highlight-manual*
+Highlight.txt	Highlight.txt	/*Highlight.txt*
+\HL	Highlight.txt	/*\\HL*
+\HLl	Highlight.txt	/*\\HLl*
+\HLw	Highlight.txt	/*\\HLw*

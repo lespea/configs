@@ -264,7 +264,9 @@ imap \ttt <Esc>:execute "normal a" . strftime("%x %X (%Z)")<Esc>a
 :noremap \= :Align =><CR>
 :noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>ggVG"+y
 :noremap \fd :%s/\v(\d{1,2})\/(\d{1,2})\/(\d{4})/\3\/\1\/\2/<CR>
-:noremap \d :tabnew<CR>:diffthis<CR>:vne<CR>:diffthis<CR>
+:noremap \dn :tabnew<CR>:diffthis<CR>:vne<CR>:diffthis<CR>
+:noremap \dt :diffthis<CR>:vne<CR>:diffthis<CR>
+:noremap ,du :diffupdate<CR>
 nnoremap \tp :set invpaste paste?<CR>
 nnoremap \tl :set invlist!<CR>
 nnoremap \ca ggVG"+y

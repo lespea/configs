@@ -125,7 +125,9 @@ imap \ttt <Esc>:execute "normal a" . strftime("%x %X (%Z)")<Esc>a
 :noremap \fd :%s/\v(\d{1,2})\/(\d{1,2})\/(\d{4})/\3\/\1\/\2/<CR>
 
 "  Setups up a new quick-diff window
-:noremap \d :tabnew<CR>:diffthis<CR>:vne<CR>:diffthis<CR>
+:noremap \dn :tabnew<CR>:diffthis<CR>:vne<CR>:diffthis<CR>
+:noremap \dt :diffthis<CR>:vne<CR>:diffthis<CR>
+:noremap ,du :diffupdate<CR>
 
 "  Toggle paste on/off
 nnoremap \tp :set invpaste paste?<CR>

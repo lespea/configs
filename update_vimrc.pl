@@ -10,7 +10,7 @@ Readonly::Scalar  my $BASE       => 'vimconfigs';
 Readonly::Scalar  my $CONF_FILE  => '_vimrc';
 
 my @out;
-for  my $file  (grep {/txt$/i} read_dir($BASE)){
+for  my $file  (grep {/\.(?:txt|vim)$/i} read_dir($BASE)){
     my $filename = File::Spec->catfile($BASE, $file);
     open  my $fh, '<', $filename;
     while (<$fh>){

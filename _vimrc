@@ -215,6 +215,8 @@ au FileType perl let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
 au FileType vim  let b:delimitMate_smart_quotes = 0
 let b:delimitMate_expand_space = 1
 let b:delimitMate_expand_cr = 1
+let g:delimitMate_expand_space = 1
+let g:delimitMate_expand_cr = 1
 noremap <Space> <PageDown>
 imap jj <Esc>
 imap jk <Esc>
@@ -245,12 +247,14 @@ map <silent> <C-N> :silent noh<CR>
 inoremap <S-CR> <Esc>
 nnoremap <S-space> i <esc>la <esc>h
 noremap  <C-S-space> lBi <esc>Ea <esc>B
-map      <S-Insert> "+gP
-vnoremap <S-Insert> "+gP
-cmap     <S-Insert> <C-R>+
-map      <C-Insert> "+gy
-vnoremap <C-Insert> "+gy
-nmap <C-T> :tabnew<CR>
+noremap     <S-Insert> "+gP
+vnoremap    <S-Insert> "+gP
+cmap        <S-Insert> <C-R>+
+noremap     <C-X>      "+gP
+vnoremap    <C-X>      "+gP
+vnoremap <C-C>      "+y
+vnoremap <C-Insert> "+y
+noremap <C-T> :tabnew<CR>
 nmap <C-F4> :bd<CR>
 noremap \qa :qa!<CR>
 nnoremap \tn :set number!<Bar> set number?<CR>

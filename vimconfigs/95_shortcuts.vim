@@ -76,17 +76,19 @@ inoremap <S-CR> <Esc>
 nnoremap <S-space> i <esc>la <esc>h
 noremap  <C-S-space> lBi <esc>Ea <esc>B
 
-"  S-Insert is paste
-map      <S-Insert> "+gP
-vnoremap <S-Insert> "+gP
-cmap     <S-Insert> <C-R>+
+"  Pasting
+noremap     <S-Insert> "+gP
+vnoremap    <S-Insert> "+gP
+cmap        <S-Insert> <C-R>+
+noremap     <C-X>      "+gP
+vnoremap    <C-X>      "+gP
 
-"  C-Insert to copy
-map      <C-Insert> "+gy
-vnoremap <C-Insert> "+gy
+"  Yanking
+vnoremap <C-C>      "+y
+vnoremap <C-Insert> "+y
 
 "  Open up a new tab
-nmap <C-T> :tabnew<CR>
+noremap <C-T> :tabnew<CR>
 
 "  Delete the current buffer
 nmap <C-F4> :bd<CR>

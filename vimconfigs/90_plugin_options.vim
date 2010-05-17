@@ -99,6 +99,8 @@ au FileType vim  let b:delimitMate_smart_quotes = 0
 "  Expand spaces and newlines
 let b:delimitMate_expand_space = 1
 let b:delimitMate_expand_cr = 1
+let g:delimitMate_expand_space = 1
+let g:delimitMate_expand_cr = 1
 
 
 

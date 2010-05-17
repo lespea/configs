@@ -11,3 +11,4 @@ _viminfo
 *.swp
 .neocon/*
 .subversion/*
+vimfiles/sessions/

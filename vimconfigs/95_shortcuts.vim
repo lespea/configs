@@ -149,6 +149,11 @@ nmap \mod  :tabnew C:\\Work\\irm_vm\\Modules\\trunk\\IRM\\
 "  Jump to the IRM script folder
 nmap \script  :tabnew C:\\Work\\irm_vm\\Scripts\\trunk\\
 
+"  Shortcuts to save various "scratch" sessions
+noremap \sa :SessionSaveAs scratcha<CR>
+noremap \sb :SessionSaveAs scratchb<CR>
+noremap \qs :SessionSaveAs quitscrach<CR>:qa!<CR>
+
 
 " -----------
 " |  Comma  |
@@ -177,3 +182,8 @@ nmap \script  :tabnew C:\\Work\\irm_vm\\Scripts\\trunk\\
 
 "  Takes all of the lines and formats them for a sql "IN" query part
 :noremap ,i :%s/\v^(.*)$/    '\1',/<CR>G$xo)<Esc>ggO(<Esc>:silent noh<CR>
+
+"  Shortcuts to save various "scratch" sessions
+noremap ,sa :SessionOpen scratcha<CR>
+noremap ,sb :SessionOpen scratchb<CR>
+noremap ,qs :SessionOpen quitscrach<CR>

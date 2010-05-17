@@ -273,6 +273,9 @@ nmap \v :tabnew $MYVIMRC<CR>
 nmap \snip :tabnew $HOME\\vimfiles\\snippets\\
 nmap \mod  :tabnew C:\\Work\\irm_vm\\Modules\\trunk\\IRM\\
 nmap \script  :tabnew C:\\Work\\irm_vm\\Scripts\\trunk\\
+noremap \sa :SessionSaveAs scratcha<CR>
+noremap \sb :SessionSaveAs scratchb<CR>
+noremap \qs :SessionSaveAs quitscrach<CR>:qa!<CR>
 :noremap ,h :RN<CR>
 :noremap ,v :vne<CR>
 :noremap ,q  qqqqq
@@ -281,6 +284,9 @@ nmap \script  :tabnew C:\\Work\\irm_vm\\Scripts\\trunk\\
 :noremap ,a  qaq
 :noremap ,t :%s/\..*//<CR>
 :noremap ,i :%s/\v^(.*)$/    '\1',/<CR>G$xo)<Esc>ggO(<Esc>:silent noh<CR>
+noremap ,sa :SessionOpen scratcha<CR>
+noremap ,sb :SessionOpen scratchb<CR>
+noremap ,qs :SessionOpen quitscrach<CR>
 abb teh the
 abb fo of
 abb taht that

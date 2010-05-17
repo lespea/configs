@@ -250,8 +250,6 @@ noremap  <C-S-space> lBi <esc>Ea <esc>B
 noremap     <S-Insert> "+gP
 vnoremap    <S-Insert> "+gP
 cmap        <S-Insert> <C-R>+
-noremap     <C-X>      "+gP
-vnoremap    <C-X>      "+gP
 vnoremap <C-C>      "+y
 vnoremap <C-Insert> "+y
 noremap <C-T> :tabnew<CR>

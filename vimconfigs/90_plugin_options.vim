@@ -41,6 +41,14 @@ map <silent> \b :FufBuffer<CR>
 
 
 
+"  --------------
+"  |  SuperTab  |
+"  --------------
+
+let g:SuperTabDefaultCompletionType="context"
+
+
+
 "  ----------------
 "  |  XPTemplate  |
 "  ----------------
@@ -82,7 +90,7 @@ let g:NeoComplCache_ManualCompletionStartLength = 0
 let g:NeoComplCache_MinKeywordLength = 3
 
 "  Print caching percent in statusline.
-"let g:NeoComplCache_CachingPercentInStatusline = 1 
+"let g:NeoComplCache_CachingPercentInStatusline = 1
 
 
 
@@ -110,19 +118,19 @@ let g:delimitMate_expand_cr = 1
 "==================================================
 "==                   DISABLED                   ==
 "==================================================
-"" 
+""
 "" "  --------------
 "" "  |  SuperTab  |
 "" "  --------------
-"" 
+""
 "" let g:SuperTabMappingForward = '<C-tab>'
 "" let g:SuperTabMappingTabLiteral = '<S-C-tab>'
-"" 
-"" 
+""
+""
 "" "  ---------------------
 "" "  |  miniBufExplorer  |
 "" "  ---------------------
-"" 
+""
 "" let g:miniBufExplMapWindowNavArrows = 1
 "" let g:miniBufExplMapCTabSwitchBufs  = 1
 "" let g:miniBufExplModSelTarget       = 1

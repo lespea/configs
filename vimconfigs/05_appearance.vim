@@ -23,7 +23,7 @@ if has("gui_running")
 "  Console vim
 else
     "  Console vim color scheme
-    colorscheme vividchalk
+    colorscheme desert256
 endif
 
 

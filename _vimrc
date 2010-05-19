@@ -14,7 +14,7 @@ if has("gui_running")
     endif
     colorscheme molokai
 else
-    colorscheme vividchalk
+    colorscheme desert256
 endif
 set cursorline
 behave xterm
@@ -219,21 +219,21 @@ let b:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
 let g:delimitMate_expand_cr = 1
 noremap <Space> <PageDown>
-imap jj <Esc>
-imap jk <Esc>
+inoremap jj <Esc>
+inoremap jk <Esc>
 nnoremap Q gqap
 vnoremap Q gq
 noremap Y y$
 nnoremap <F1> :help<Space>
-vmap <F1> <C-C><F1>
-omap <F1> <C-C><F1>
-map! <F1> <C-C><F1>
-map <F9> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))<CR>
-nmap <F4> \tp
-imap <F4> <C-O>\tp
+vnoremap <F1> <C-C><F1>
+noremap <F1> <C-C><F1>
+noremap! <F1> <C-C><F1>
+noremap <F9> :call setline(1,noremap(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))<CR>
+nnoremap <F4> \tp
+inoremap <F4> <C-O>\tp
 set pastetoggle=<F4>
-nn <F7> :setlocal spell! spell?<CR>
-nn <F2> :tab sball<CR>
+noremap <F7> :setlocal spell! spell?<CR>
+noremap <F2> :tab sball<CR>
 nnoremap <C-L> :tabnext<CR>
 nnoremap <C-H> :tabprevious<CR>
 nnoremap <silent><A-j> m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
@@ -242,55 +242,56 @@ nnoremap <silent><C-j> :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <silent><C-k> :set paste<CR>m`O<Esc>``:set nopaste<CR>
 nnoremap <silent><A-m> m`:s/\v(<\k*%#\k*>)(\_.{-})(<\k+>)/\3\2\1/<CR>``:noh<CR>
 nnoremap <silent><A-n> m`:s/\v(<\k+>)(.{-})(<\k*%#\k*>)/\3\2\1/<CR>``:noh<CR>
-nn <M-,> k:call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
-nn <M-.> :call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
-map <silent> <C-N> :silent noh<CR>
+noremap <M-,> k:call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
+noremap <M-.> :call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
+noremap <silent> <C-N> :silent noh<CR>
 inoremap <S-CR> <Esc>
 nnoremap <S-space> i <esc>la <esc>h
 noremap  <C-S-space> lBi <esc>Ea <esc>B
 noremap     <S-Insert> "+gP
 vnoremap    <S-Insert> "+gP
-cmap        <S-Insert> <C-R>+
+cnoremap        <S-Insert> <C-R>+
 vnoremap <C-C>      "+y
 vnoremap <C-Insert> "+y
 noremap <C-T> :tabnew<CR>
-nmap <C-F4> :bd<CR>
+nnoremap <C-F4> :bd<CR>
 noremap \qa :qa!<CR>
 nnoremap \tn :set number!<Bar> set number?<CR>
-map \c :let @/ = ""<CR>
+noremap \c :let @/ = ""<CR>
 nnoremap \r :e!<CR>
-nmap \ttt :execute "normal a" . strftime("%x %X (%Z)")<Esc>
-imap \ttt <Esc>:execute "normal a" . strftime("%x %X (%Z)")<Esc>a
-:noremap \u :sort u<CR>:g/^$/d<CR>
-:noremap \= :Align =><CR>
-:noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>ggVG"+y
-:noremap \fd :%s/\v(\d{1,2})\/(\d{1,2})\/(\d{4})/\3\/\1\/\2/<CR>
-:noremap \dn :tabnew<CR>:diffthis<CR>:vne<CR>:diffthis<CR>
-:noremap \dt :diffthis<CR>:vne<CR>:diffthis<CR>
-:noremap ,du :diffupdate<CR>
+nnoremap \ttt :execute "normal a" . strftime("%x %X (%Z)")<Esc>
+inoremap \ttt <Esc>:execute "normal a" . strftime("%x %X (%Z)")<Esc>a
+noremap \u :sort u<CR>:g/^$/d<CR>
+noremap \= :Align =><CR>
+noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>ggVG"+y
+noremap \fd :%s/\v(\d{1,2})\/(\d{1,2})\/(\d{4})/\3\/\1\/\2/<CR>
+noremap \dn :tabnew<CR>:diffthis<CR>:vne<CR>:diffthis<CR>
+noremap \dt :diffthis<CR>:vne<CR>:diffthis<CR>
+noremap ,du :diffupdate<CR>
 nnoremap \tp :set invpaste paste?<CR>
 nnoremap \tl :set invlist!<CR>
 nnoremap \ca ggVG"+y
-nmap \s :source $MYVIMRC<CR>
-nmap \v :tabnew $MYVIMRC<CR>
-nmap \snip :tabnew $HOME\\vimfiles\\snippets\\
-nmap \mod  :tabnew C:\\Work\\irm_vm\\Modules\\trunk\\IRM\\
-nmap \script  :tabnew C:\\Work\\irm_vm\\Scripts\\trunk\\
+nnoremap \s :source $MYVIMRC<CR>
+nnoremap \v :tabnew $MYVIMRC<CR>
+nnoremap \mod  :tabnew C:\\Work\\irm_vm\\Modules\\trunk\\IRM\\
+nnoremap \script  :tabnew C:\\Work\\irm_vm\\Scripts\\trunk\\
 noremap \sa :SessionSaveAs scratcha<CR>
 noremap \sb :SessionSaveAs scratchb<CR>
 noremap \qs :SessionSaveAs quitscrach<CR>:qa!<CR>
-:noremap ,h :RN<CR>
-:noremap ,v :vne<CR>
-:noremap ,q  qqqqq
-:noremap ,m :CopyMatches<CR>
-:noremap ,u :sort u<CR>:g/^$/d<CR>
-:noremap ,a  qaq
-:noremap ,t :%s/\..*//<CR>
-:noremap ,i :%s/\v^(.*)$/    '\1',/<CR>G$xo)<Esc>ggO(<Esc>:silent noh<CR>
+noremap ,h :RN<CR>
+noremap ,v :vne<CR>
+noremap ,q  qqqqq
+noremap ,m :CopyMatches<CR>
+noremap ,u :sort u<CR>:g/^$/d<CR>
+noremap ,a  qaq
+noremap ,t :%s/\..*//<CR>
+noremap ,i :%s/\v^(.*)$/    '\1',/<CR>G$xo)<Esc>ggO(<Esc>:silent noh<CR>
 noremap ,sa :SessionOpen scratcha<CR>
 noremap ,sb :SessionOpen scratchb<CR>
 noremap ,qs :SessionOpen quitscrach<CR>
 noremap ,cab :tabdo :bd!<CR>
+noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>
+noremap ,conf :tabnew $HOME\\vimconfigs\\
 abb teh the
 abb fo of
 abb taht that

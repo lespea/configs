@@ -1,5 +1,5 @@
 " ----------------------------------------------
-" |  Configures my personal shortcut mappings  |
+" |  Configures my personal shortcut noremappings  |
 " ----------------------------------------------
 
 " ------------
@@ -10,8 +10,8 @@
 noremap <Space> <PageDown>
 
 "  Super fast insert exiting
-imap jj <Esc>
-imap jk <Esc>
+inoremap jj <Esc>
+inoremap jk <Esc>
 
 "  Have Q reformat the current paragraph (or selected text if there is any):
 nnoremap Q gqap
@@ -27,23 +27,23 @@ noremap Y y$
 
 "  Have <F1> prompt for a help topic, rather than displaying the introduction page
 nnoremap <F1> :help<Space>
-vmap <F1> <C-C><F1>
-omap <F1> <C-C><F1>
-map! <F1> <C-C><F1>
+vnoremap <F1> <C-C><F1>
+noremap <F1> <C-C><F1>
+noremap! <F1> <C-C><F1>
 
 "  Remove all trailing spaces
-map <F9> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))<CR>
+noremap <F9> :call setline(1,noremap(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))<CR>
 
 "  Paste toggler
-nmap <F4> \tp
-imap <F4> <C-O>\tp
+nnoremap <F4> \tp
+inoremap <F4> <C-O>\tp
 set pastetoggle=<F4>
 
 "  Spellcheck the current file
-nn <F7> :setlocal spell! spell?<CR>
+noremap <F7> :setlocal spell! spell?<CR>
 
 "  Turn all the buffers to tabs
-nn <F2> :tab sball<CR>
+noremap <F2> :tab sball<CR>
 
 
 " --------------
@@ -65,11 +65,11 @@ nnoremap <silent><A-m> m`:s/\v(<\k*%#\k*>)(\_.{-})(<\k+>)/\3\2\1/<CR>``:noh<CR>
 nnoremap <silent><A-n> m`:s/\v(<\k+>)(.{-})(<\k*%#\k*>)/\3\2\1/<CR>``:noh<CR>
 
 " Move up or down with same indent level
-nn <M-,> k:call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
-nn <M-.> :call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
+noremap <M-,> k:call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
+noremap <M-.> :call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
 
 " Turn off highlighted search
-map <silent> <C-N> :silent noh<CR>
+noremap <silent> <C-N> :silent noh<CR>
 
 "  Shortcuts that insert surrounding space as reqeuested
 inoremap <S-CR> <Esc>
@@ -79,7 +79,7 @@ noremap  <C-S-space> lBi <esc>Ea <esc>B
 "  Pasting
 noremap     <S-Insert> "+gP
 vnoremap    <S-Insert> "+gP
-cmap        <S-Insert> <C-R>+
+cnoremap        <S-Insert> <C-R>+
 
 "  Yanking
 vnoremap <C-C>      "+y
@@ -89,7 +89,7 @@ vnoremap <C-Insert> "+y
 noremap <C-T> :tabnew<CR>
 
 "  Delete the current buffer
-nmap <C-F4> :bd<CR>
+nnoremap <C-F4> :bd<CR>
 
 
 " ------------
@@ -103,31 +103,31 @@ noremap \qa :qa!<CR>
 nnoremap \tn :set number!<Bar> set number?<CR>
 
 "  Really clear the search buffer, not just remove the highlight
-map \c :let @/ = ""<CR>
+noremap \c :let @/ = ""<CR>
 
 "  Undo all local changes
 nnoremap \r :e!<CR>
 
 "  Insert THE time!
-nmap \ttt :execute "normal a" . strftime("%x %X (%Z)")<Esc>
-imap \ttt <Esc>:execute "normal a" . strftime("%x %X (%Z)")<Esc>a
+nnoremap \ttt :execute "normal a" . strftime("%x %X (%Z)")<Esc>
+inoremap \ttt <Esc>:execute "normal a" . strftime("%x %X (%Z)")<Esc>a
 
 "  Remove dupes
-:noremap \u :sort u<CR>:g/^$/d<CR>
+noremap \u :sort u<CR>:g/^$/d<CR>
 
 "  Align on =>  (useful for hash assignments)
-:noremap \= :Align =><CR>
+noremap \= :Align =><CR>
 
 "  Copy the matches to a new buffer, remove the duplicates/blank lines, and copy to the clipboard
-:noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>ggVG"+y
+noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>ggVG"+y
 
 "  Takes a bunch of "invalid" dates and makes them usable in Excel
-:noremap \fd :%s/\v(\d{1,2})\/(\d{1,2})\/(\d{4})/\3\/\1\/\2/<CR>
+noremap \fd :%s/\v(\d{1,2})\/(\d{1,2})\/(\d{4})/\3\/\1\/\2/<CR>
 
 "  Setups up a new quick-diff window
-:noremap \dn :tabnew<CR>:diffthis<CR>:vne<CR>:diffthis<CR>
-:noremap \dt :diffthis<CR>:vne<CR>:diffthis<CR>
-:noremap ,du :diffupdate<CR>
+noremap \dn :tabnew<CR>:diffthis<CR>:vne<CR>:diffthis<CR>
+noremap \dt :diffthis<CR>:vne<CR>:diffthis<CR>
+noremap ,du :diffupdate<CR>
 
 "  Toggle paste on/off
 nnoremap \tp :set invpaste paste?<CR>
@@ -139,17 +139,14 @@ nnoremap \tl :set invlist!<CR>
 nnoremap \ca ggVG"+y
 
 "  Easy edit/sourcing of vimrc
-nmap \s :source $MYVIMRC<CR>
-nmap \v :tabnew $MYVIMRC<CR>
-
-"  Shortcut to start editing a snippet file
-nmap \snip :tabnew $HOME\\vimfiles\\snippets\\
+nnoremap \s :source $MYVIMRC<CR>
+nnoremap \v :tabnew $MYVIMRC<CR>
 
 "  Jump to the IRM module folder
-nmap \mod  :tabnew C:\\Work\\irm_vm\\Modules\\trunk\\IRM\\
+nnoremap \mod  :tabnew C:\\Work\\irm_vm\\Modules\\trunk\\IRM\\
 
 "  Jump to the IRM script folder
-nmap \script  :tabnew C:\\Work\\irm_vm\\Scripts\\trunk\\
+nnoremap \script  :tabnew C:\\Work\\irm_vm\\Scripts\\trunk\\
 
 "  Shortcuts to save various "scratch" sessions
 noremap \sa :SessionSaveAs scratcha<CR>
@@ -162,28 +159,28 @@ noremap \qs :SessionSaveAs quitscrach<CR>:qa!<CR>
 " -----------
 
 "  Use relavent line numbers
-:noremap ,h :RN<CR>
+noremap ,h :RN<CR>
 
 "  Vertical split in a new buffer
-:noremap ,v :vne<CR>
+noremap ,v :vne<CR>
 
 "  Clear the q register and then begin recording to it (for recursive recordings)
-:noremap ,q  qqqqq
+noremap ,q  qqqqq
 
 "  Copy the matches to the clipboard (slow?)
-:noremap ,m :CopyMatches<CR>
+noremap ,m :CopyMatches<CR>
 
 "  Remove dupes
-:noremap ,u :sort u<CR>:g/^$/d<CR>
+noremap ,u :sort u<CR>:g/^$/d<CR>
 
 "  Clear the (a)ll register
-:noremap ,a  qaq
+noremap ,a  qaq
 
 "  Trim the domain from every line (abc.uhc.com => abc)
-:noremap ,t :%s/\..*//<CR>
+noremap ,t :%s/\..*//<CR>
 
 "  Takes all of the lines and formats them for a sql "IN" query part
-:noremap ,i :%s/\v^(.*)$/    '\1',/<CR>G$xo)<Esc>ggO(<Esc>:silent noh<CR>
+noremap ,i :%s/\v^(.*)$/    '\1',/<CR>G$xo)<Esc>ggO(<Esc>:silent noh<CR>
 
 "  Shortcuts to save various "scratch" sessions
 noremap ,sa :SessionOpen scratcha<CR>
@@ -192,3 +189,9 @@ noremap ,qs :SessionOpen quitscrach<CR>
 
 "  Close all of the open buffers (force close so be careful!)
 noremap ,cab :tabdo :bd!<CR>
+
+"  Seperate  the lines by a newline if the first word isn't the first word on the following line
+noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>
+
+"  Shortcut to edit the conf files
+noremap ,conf :tabnew $HOME\\vimconfigs\\

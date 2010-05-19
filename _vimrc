@@ -290,6 +290,7 @@ noremap \qs :SessionSaveAs quitscrach<CR>:qa!<CR>
 noremap ,sa :SessionOpen scratcha<CR>
 noremap ,sb :SessionOpen scratchb<CR>
 noremap ,qs :SessionOpen quitscrach<CR>
+noremap ,cab :tabdo :bd!<CR>
 abb teh the
 abb fo of
 abb taht that

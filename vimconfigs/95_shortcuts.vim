@@ -189,3 +189,6 @@ noremap \qs :SessionSaveAs quitscrach<CR>:qa!<CR>
 noremap ,sa :SessionOpen scratcha<CR>
 noremap ,sb :SessionOpen scratchb<CR>
 noremap ,qs :SessionOpen quitscrach<CR>
+
+"  Close all of the open buffers (force close so be careful!)
+noremap ,cab :tabdo :bd!<CR>

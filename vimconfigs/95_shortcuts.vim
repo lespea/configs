@@ -32,7 +32,7 @@ noremap <F1> <C-C><F1>
 noremap! <F1> <C-C><F1>
 
 "  Remove all trailing spaces
-noremap <F9> :call setline(1,noremap(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))<CR>
+noremap <F9> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))<CR>
 
 "  Paste toggler
 nnoremap <F4> \tp

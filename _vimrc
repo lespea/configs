@@ -229,6 +229,7 @@ vnoremap <F1> <C-C><F1>
 noremap <F1> <C-C><F1>
 noremap! <F1> <C-C><F1>
 noremap <F9> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))<CR>
+noremap <F10> :retab<CR>
 nnoremap <F4> \tp
 inoremap <F4> <C-O>\tp
 set pastetoggle=<F4>

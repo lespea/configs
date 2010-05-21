@@ -52,7 +52,8 @@ hi Folded          guifg=#465457 guibg=#000000
 hi Function        guifg=#A6E22E
 hi Identifier      guifg=#FD971F
 hi Ignore          guifg=#808080 guibg=bg
-hi IncSearch       guifg=#C4BE89 guibg=#000000
+"hi IncSearch       guifg=#C4BE89 guibg=#000000
+hi IncSearch       guifg=#FD971F guibg=#000000 
 
 hi Keyword         guifg=#F92672               gui=bold
 hi Label           guifg=#E6DB74               gui=none
@@ -74,7 +75,8 @@ hi PreCondit       guifg=#A6E22E               gui=bold
 hi PreProc         guifg=#A6E22E
 hi Question        guifg=#66D9EF
 hi Repeat          guifg=#F92672               gui=bold
-hi Search          guifg=#FFFFFF guibg=#455354
+"hi Search          guifg=#FFFFFF guibg=#455354
+hi Search       guifg=#000000 guibg=#FD971F 
 " marks column
 hi SignColumn      guifg=#A6E22E guibg=#232526
 hi SpecialChar     guifg=#F92672               gui=bold

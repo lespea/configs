@@ -191,6 +191,9 @@ noremap ,qs :SessionOpen quitscrach<CR>
 "  Close all of the open buffers (force close so be careful!)
 noremap ,cab :tabdo :bd!<CR>
 
+"  CD to the current file directory
+noremap ,cd :cd %\..<CR>
+
 "  Seperate  the lines by a newline if the first word isn't the first word on the following line
 noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>
 

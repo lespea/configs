@@ -291,6 +291,7 @@ noremap ,sa :SessionOpen scratcha<CR>
 noremap ,sb :SessionOpen scratchb<CR>
 noremap ,qs :SessionOpen quitscrach<CR>
 noremap ,cab :tabdo :bd!<CR>
+noremap ,cd :cd %\..<CR>
 noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>
 noremap ,conf :tabnew $HOME\\vimconfigs\\
 abb teh the

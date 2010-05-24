@@ -179,6 +179,7 @@ noremap ,a  qaq
 
 "  Trim the domain from every line (abc.uhc.com => abc)
 noremap ,t :%s/\..*//<CR>
+noremap ,t :%s/\(\<[a-zA-Z0-9_-]*[a-zA-Z][a-zA-Z0-9_-]*\)\.[a-zA-Z0-9_.-]*\>/\1/<CR>
 
 "  Takes all of the lines and formats them for a sql "IN" query part
 noremap ,i :%s/\v^(.*)$/    '\1',/<CR>G$xo)<Esc>ggO(<Esc>:silent noh<CR>

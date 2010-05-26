@@ -285,15 +285,14 @@ noremap ,q  qqqqq
 noremap ,m :CopyMatches<CR>
 noremap ,u :sort u<CR>:g/^$/d<CR>
 noremap ,a  qaq
-noremap ,t :%s/\..*//<CR>
-noremap ,t :%s/\(\<[a-zA-Z0-9_-]*[a-zA-Z][a-zA-Z0-9_-]*\)\.[a-zA-Z0-9_.-]*\>/\1/<CR>
+noremap ,t :%s/\(\<[a-zA-Z0-9_-]*[a-zA-Z][a-zA-Z0-9_-]*\)\.[a-zA-Z0-9_.-]*\>/\1/<CR>:silent noh<CR>
 noremap ,i :%s/\v^(.*)$/    '\1',/<CR>G$xo)<Esc>ggO(<Esc>:silent noh<CR>gg"+yG
 noremap ,sa :SessionOpen scratcha<CR>
 noremap ,sb :SessionOpen scratchb<CR>
 noremap ,qs :SessionOpen quitscrach<CR>
 noremap ,cab :tabdo :bd!<CR>
 noremap ,cd :cd %\..<CR>
-noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>
+noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>:silent noh<CR>
 noremap ,conf :tabnew $HOME\\vimconfigs\\
 abb teh the
 abb fo of

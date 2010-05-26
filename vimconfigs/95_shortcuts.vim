@@ -180,9 +180,10 @@ noremap ,u :sort u<CR>:g/^$/d<CR>
 "  Clear the (a)ll register
 noremap ,a  qaq
 
-"  Trim the domain from every line (abc.uhc.com => abc)
-noremap ,t :%s/\..*//<CR>
-noremap ,t :%s/\(\<[a-zA-Z0-9_-]*[a-zA-Z][a-zA-Z0-9_-]*\)\.[a-zA-Z0-9_.-]*\>/\1/<CR>
+"  Trim the domain from every line (abc.uhc.com => abc)  -- Is a little smart and doesn't clobber
+"  IPS and such.  Also, tries to keep the trimming to the current word.  Not tested as much as I'd
+"  like!!!
+noremap ,t :%s/\(\<[a-zA-Z0-9_-]*[a-zA-Z][a-zA-Z0-9_-]*\)\.[a-zA-Z0-9_.-]*\>/\1/<CR>:silent noh<CR>
 
 "  Takes all of the lines and formats them for a sql "IN" query part
 noremap ,i :%s/\v^(.*)$/    '\1',/<CR>G$xo)<Esc>ggO(<Esc>:silent noh<CR>gg"+yG
@@ -199,7 +200,7 @@ noremap ,cab :tabdo :bd!<CR>
 noremap ,cd :cd %\..<CR>
 
 "  Seperate  the lines by a newline if the first word isn't the first word on the following line
-noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>
+noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>:silent noh<CR>
 
 "  Shortcut to edit the conf files
 noremap ,conf :tabnew $HOME\\vimconfigs\\

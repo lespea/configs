@@ -53,7 +53,7 @@ let g:SuperTabDefaultCompletionType="context"
 "  |  XPTemplate  |
 "  ----------------
 
-"  Turn off brace completion (it sucks)
+"  Turn off brace completion (it sucks and delimitMate is much better)
 let g:xptemplate_brace_complete = ''
 
 "  XPT uses Control-Space as trigger key
@@ -98,11 +98,8 @@ let g:NeoComplCache_MinKeywordLength = 3
 "  |  delimitMate  |
 "  -----------------
 
-"  Match pairs of '/' for perl
-au FileType perl let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
-
-"  Don't match quotes in vim
-au FileType vim  let b:delimitMate_smart_quotes = 0
+"  Don't match double quotes in vim (they're comments)
+au FileType vim  let b:delimitMate_quotes = " ' ` *"
 
 "  Expand spaces and newlines
 let b:delimitMate_expand_space = 1

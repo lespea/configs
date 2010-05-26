@@ -125,6 +125,9 @@ noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>ggVG"+y
 "  Takes a bunch of "invalid" dates and makes them usable in Excel
 noremap \fd :%s/\v(\d{1,2})\/(\d{1,2})\/(\d{4})/\3\/\1\/\2/<CR>
 
+"Split the "databases" into their different parts
+noremap \dbs :%s/\./\t/<CR>:%s/^\([^\t]\+\)\ze\t[^\t]\+$/\1\t\1<CR>
+
 "  Setups up a new quick-diff window
 noremap \dn :tabnew<CR>:diffthis<CR>:vne<CR>:diffthis<CR>
 noremap \dt :diffthis<CR>:vne<CR>:diffthis<CR>
@@ -137,7 +140,7 @@ nnoremap \tp :set invpaste paste?<CR>
 nnoremap \tl :set invlist!<CR>
 
 "  Copies everything into the clipboard
-nnoremap \ca ggVG"+y
+nnoremap \ca gg"+yG
 
 "  Easy edit/sourcing of vimrc
 nnoremap \s :source $MYVIMRC<CR>
@@ -182,7 +185,7 @@ noremap ,t :%s/\..*//<CR>
 noremap ,t :%s/\(\<[a-zA-Z0-9_-]*[a-zA-Z][a-zA-Z0-9_-]*\)\.[a-zA-Z0-9_.-]*\>/\1/<CR>
 
 "  Takes all of the lines and formats them for a sql "IN" query part
-noremap ,i :%s/\v^(.*)$/    '\1',/<CR>G$xo)<Esc>ggO(<Esc>:silent noh<CR>
+noremap ,i :%s/\v^(.*)$/    '\1',/<CR>G$xo)<Esc>ggO(<Esc>:silent noh<CR>gg"+yG
 
 "  Shortcuts to save various "scratch" sessions
 noremap ,sa :SessionOpen scratcha<CR>

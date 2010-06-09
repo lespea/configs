@@ -9,7 +9,7 @@
 "  Use space to page down
 noremap <Space> <PageDown>
 
-"  Super fast insert exiting
+"  Super fast insert-mode exiting
 inoremap jj <Esc>
 inoremap jk <Esc>
 
@@ -33,6 +33,8 @@ noremap! <F1> <C-C><F1>
 
 "  Remove all trailing spaces
 noremap <F9> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))<CR>
+
+"  Changes tabs back to spaces
 noremap <F10> :retab<CR>
 
 "  Paste toggler
@@ -55,7 +57,7 @@ noremap <F2> :tab sball<CR>
 nnoremap <C-L> :tabnext<CR>
 nnoremap <C-H> :tabprevious<CR>
 
-"  Above/below adding and creating
+"  Above/below adding and creating lines
 nnoremap <silent><A-j> m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
 nnoremap <silent><A-k> m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
 nnoremap <silent><C-j> :set paste<CR>m`o<Esc>``:set nopaste<CR>
@@ -80,7 +82,7 @@ noremap  <C-S-space> lBi <esc>Ea <esc>B
 "  Pasting
 noremap     <S-Insert> "+gP
 vnoremap    <S-Insert> "+gP
-cnoremap        <S-Insert> <C-R>+
+cnoremap    <S-Insert> <C-R>+
 
 "  Yanking
 vnoremap <C-C>      "+y
@@ -109,11 +111,11 @@ noremap \c :let @/ = ""<CR>
 "  Undo all local changes
 nnoremap \r :e!<CR>
 
-"  Insert THE time!
+"  Insert the time!
 nnoremap \ttt :execute "normal a" . strftime("%x %X (%Z)")<Esc>
 inoremap \ttt <Esc>:execute "normal a" . strftime("%x %X (%Z)")<Esc>a
 
-"  Remove dupes
+"  Remove dupes (sorts as well)
 noremap \u :sort u<CR>:g/^$/d<CR>
 
 "  Align on =>  (useful for hash assignments)
@@ -125,10 +127,13 @@ noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>ggVG"+y
 "  Takes a bunch of "invalid" dates and makes them usable in Excel
 noremap \fd :%s/\v(\d{1,2})\/(\d{1,2})\/(\d{4})/\3\/\1\/\2/<CR>
 
-"Split the "databases" into their different parts
+"  Pastes and copies a bunch of text (to remove formatting)
+noremap \fc :vne<CR>"+pggdd"+yG:bd!<CR>
+
+"  Split the "databases" into their different parts
 noremap \dbs :%s/\./\t/<CR>:%s/^\([^\t]\+\)\ze\t[^\t]\+$/\1\t\1<CR>
 
-"  Setups up a new quick-diff window
+"  Diff functions
 noremap \dn :tabnew<CR>:diffthis<CR>:vne<CR>:diffthis<CR>
 noremap \dt :diffthis<CR>:vne<CR>:diffthis<CR>
 noremap ,du :diffupdate<CR>
@@ -194,7 +199,7 @@ noremap ,sb :SessionOpen scratchb<CR>
 noremap ,qs :SessionOpen quitscrach<CR>
 
 "  Close all of the open buffers (force close so be careful!)
-noremap ,cab :tabdo :bd!<CR>
+noremap ,cab :tab sball<CR>:tabdo :bd!<CR>
 
 "  CD to the current file directory
 noremap ,cd :cd %\..<CR>

@@ -250,7 +250,7 @@ nnoremap <S-space> i <esc>la <esc>h
 noremap  <C-S-space> lBi <esc>Ea <esc>B
 noremap     <S-Insert> "+gP
 vnoremap    <S-Insert> "+gP
-cnoremap        <S-Insert> <C-R>+
+cnoremap    <S-Insert> <C-R>+
 vnoremap <C-C>      "+y
 vnoremap <C-Insert> "+y
 noremap <C-T> :tabnew<CR>
@@ -265,6 +265,7 @@ noremap \u :sort u<CR>:g/^$/d<CR>
 noremap \= :Align =><CR>
 noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>ggVG"+y
 noremap \fd :%s/\v(\d{1,2})\/(\d{1,2})\/(\d{4})/\3\/\1\/\2/<CR>
+noremap \fc :vne<CR>"+pggdd"+yG:bd!<CR>
 noremap \dbs :%s/\./\t/<CR>:%s/^\([^\t]\+\)\ze\t[^\t]\+$/\1\t\1<CR>
 noremap \dn :tabnew<CR>:diffthis<CR>:vne<CR>:diffthis<CR>
 noremap \dt :diffthis<CR>:vne<CR>:diffthis<CR>
@@ -290,7 +291,7 @@ noremap ,i :%s/\v^(.*)$/    '\1',/<CR>G$xo)<Esc>ggO(<Esc>:silent noh<CR>gg"+yG
 noremap ,sa :SessionOpen scratcha<CR>
 noremap ,sb :SessionOpen scratchb<CR>
 noremap ,qs :SessionOpen quitscrach<CR>
-noremap ,cab :tabdo :bd!<CR>
+noremap ,cab :tab sball<CR>:tabdo :bd!<CR>
 noremap ,cd :cd %\..<CR>
 noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>:silent noh<CR>
 noremap ,conf :tabnew $HOME\\vimconfigs\\

@@ -213,8 +213,7 @@ let g:NeoComplCache_MinSyntaxLength = 3
 let g:NeoComplCache_ManualCompletionStartLength = 0
 let g:NeoComplCache_MinKeywordLength = 3
 au FileType vim  let b:delimitMate_quotes = " ' ` *"
-let b:delimitMate_expand_space = 1
-let b:delimitMate_expand_cr = 1
+let g:delimitMate_matchpairs = "(:),[:],{:}"
 let g:delimitMate_expand_space = 1
 let g:delimitMate_expand_cr = 1
 noremap <Space> <PageDown>
@@ -294,7 +293,7 @@ noremap ,qs :SessionOpen quitscrach<CR>
 noremap ,cab :tab sball<CR>:tabdo :bd!<CR>
 noremap ,cd :cd %\..<CR>
 noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>:silent noh<CR>
-noremap ,uniq :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>:%s/^\(.\+\)\n\1\+/\1/<CR>:silent noh<CR>
+noremap ,dupe :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>yyp:%s/^\(.\+\)\n\1\+/\1/<CR>:g/^$/d<CR>:silent noh<CR>
 noremap ,conf :tabnew $HOME\\vimconfigs\\
 abb teh the
 abb fo of

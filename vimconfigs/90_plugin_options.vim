@@ -101,9 +101,10 @@ let g:NeoComplCache_MinKeywordLength = 3
 "  Don't match double quotes in vim (they're comments)
 au FileType vim  let b:delimitMate_quotes = " ' ` *"
 
+"  Force pairs so they're always what I expect
+let g:delimitMate_matchpairs = "(:),[:],{:}"
+
 "  Expand spaces and newlines
-let b:delimitMate_expand_space = 1
-let b:delimitMate_expand_cr = 1
 let g:delimitMate_expand_space = 1
 let g:delimitMate_expand_cr = 1
 

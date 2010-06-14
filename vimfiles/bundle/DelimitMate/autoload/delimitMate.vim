@@ -122,13 +122,22 @@ function! delimitMate#Init() "{{{
 	let b:delimitMate_buffer = []
 
 	call delimitMate#UnMap()
-	if b:delimitMate_autoclose
-		call delimitMate#AutoClose()
-	else
-		call delimitMate#NoAutoClose()
-	endif
-	call delimitMate#VisualMaps()
-	call delimitMate#ExtraMappings()
+	try
+		let save_cpo = &cpo
+		let save_keymap = &keymap
+		set keymap=
+		set cpo&vim
+		if b:delimitMate_autoclose
+			call delimitMate#AutoClose()
+		else
+			call delimitMate#NoAutoClose()
+		endif
+		call delimitMate#VisualMaps()
+		call delimitMate#ExtraMappings()
+	finally
+		let &cpo = save_cpo
+		let &keymap = save_keymap
+	endtry
 
 	let b:loaded_delimitMate = 1
 	let b:delimitMate_enabled = 1
@@ -186,27 +195,12 @@ function! delimitMate#IsBlockVisual() " {{{
 endfunction " }}}
 
 function! delimitMate#Visual(del) " {{{
-	let mode = mode()
-	if mode == "\<C-V>"
-		redraw
-		echom "delimitMate: delimitMate is disabled on blockwise visual mode."
-		return ""
-	endif
-	" Store unnamed register values for later use in delimitMate#RestoreRegister().
-	let b:save_reg = getreg('"')
-	let b:save_reg_mode = getregtype('"')
-
 	if len(getline('.')) == 0
 		" This for proper wrap of empty lines.
 		let @" = "\n"
 	endif
 
-	if mode ==# "V"
-		let dchar = "\<BS>"
-	else
-		let dchar = ""
-	endif
-
+	" Let's find which kind of delimiter we got:
 	let index = index(b:delimitMate_left_delims, a:del)
 	if index >= 0
 		let ld = a:del
@@ -219,11 +213,24 @@ function! delimitMate#Visual(del) " {{{
 		let rd = a:del
 	endif
 
-	let index = index(b:delimitMate_quotes_list, a:del)
-	if index >= 0
+	if index(b:delimitMate_quotes_list, a:del) >= 0
 		let ld = a:del
 		let rd = ld
 	endif
+
+	let mode = mode()
+	if mode == "\<C-V>"
+		" Block-wise visual
+		return "I" . ld . "\<Esc>gv\<Right>A" . rd . "\<Esc>"
+	elseif mode ==# "V"
+		let dchar = "\<BS>"
+	else
+		let dchar = ""
+	endif
+
+	" Store unnamed register values for later use in delimitMate#RestoreRegister().
+	let b:save_reg = getreg('"')
+	let b:save_reg_mode = getregtype('"')
 
 	return "s" . ld . "\<C-R>\"" . dchar . rd . "\<Esc>:call delimitMate#RestoreRegister()\<CR>"
 endfunction " }}}
@@ -707,7 +714,7 @@ function! delimitMate#ExtraMappings() "{{{
 	"the following simply creates an ambiguous mapping so vim fully
 	"processes the escape sequence for terminal keys, see 'ttimeout' for a
 	"rough explanation, this just forces it to work
-	if &term[:4] == "xterm"
+	if !has('gui_running')
 		inoremap <silent> <C-[>OC <RIGHT>
 	endif
 endfunction "}}}

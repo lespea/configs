@@ -294,6 +294,7 @@ noremap ,qs :SessionOpen quitscrach<CR>
 noremap ,cab :tab sball<CR>:tabdo :bd!<CR>
 noremap ,cd :cd %\..<CR>
 noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>:silent noh<CR>
+noremap ,uniq :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>:%s/^\(.\+\)\n\1\+/\1/<CR>:silent noh<CR>
 noremap ,conf :tabnew $HOME\\vimconfigs\\
 abb teh the
 abb fo of

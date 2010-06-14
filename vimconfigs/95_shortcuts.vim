@@ -207,5 +207,8 @@ noremap ,cd :cd %\..<CR>
 "  Seperate  the lines by a newline if the first word isn't the first word on the following line
 noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>:silent noh<CR>
 
+"  Sorts the buffer and removes and line that isn't a duplicate
+noremap ,uniq :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>:%s/^\(.\+\)\n\1\+/\1/<CR>g/^\s*$/d<CR>:silent noh<CR>
+
 "  Shortcut to edit the conf files
 noremap ,conf :tabnew $HOME\\vimconfigs\\

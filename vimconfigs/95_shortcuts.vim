@@ -122,13 +122,13 @@ noremap \u :sort u<CR>:g/^$/d<CR>
 noremap \= :Align =><CR>
 
 "  Copy the matches to a new buffer, remove the duplicates/blank lines, and copy to the clipboard
-noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>ggVG"+y
+noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>:1,$y+<CR>
 
 "  Takes a bunch of "invalid" dates and makes them usable in Excel
 noremap \fd :%s/\v(\d{1,2})\/(\d{1,2})\/(\d{4})/\3\/\1\/\2/<CR>
 
 "  Pastes and copies a bunch of text (to remove formatting)
-noremap \fc :vne<CR>"+pggdd"+yG:bd!<CR>
+noremap \fc :new<CR>"+p"+:2,$y+<CR>:bd!<CR>
 
 "  Split the "databases" into their different parts
 noremap \dbs :%s/\./\t/<CR>:%s/^\([^\t]\+\)\ze\t[^\t]\+$/\1\t\1<CR>
@@ -145,7 +145,7 @@ nnoremap \tp :set invpaste paste?<CR>
 nnoremap \tl :set invlist!<CR>
 
 "  Copies everything into the clipboard
-nnoremap \ca gg"+yG
+nnoremap \ca :1,$y+<CR>
 
 "  Easy edit/sourcing of vimrc
 nnoremap \s :source $MYVIMRC<CR>
@@ -185,13 +185,12 @@ noremap ,u :sort u<CR>:g/^$/d<CR>
 "  Clear the (a)ll register
 noremap ,a  qaq
 
-"  Trim the domain from every line (abc.uhc.com => abc)  -- Is a little smart and doesn't clobber
-"  IPS and such.  Also, tries to keep the trimming to the current word.  Not tested as much as I'd
-"  like!!!
+"  Trim the domain from every line (abc.uhc.com => abc)  -- Is a little smart and doesn't clobber IPs
+"  and such.  Also, tries to keep the trimming to the current word. Not tested as much as I'd like!!!
 noremap ,t :%s/\(\<[a-zA-Z0-9_-]*[a-zA-Z][a-zA-Z0-9_-]*\)\.[a-zA-Z0-9_.-]*\>/\1/<CR>:silent noh<CR>
 
 "  Takes all of the lines and formats them for a sql "IN" query part
-noremap ,i :%s/\v^(.*)$/    '\1',/<CR>G$xo)<Esc>ggO(<Esc>:silent noh<CR>gg"+yG
+noremap ,i :%s/\v^(.*)$/    '\1',/<CR>:1s/^/(\r<CR>:$s/$/\r)<CR>:silent noh<CR>"+:1,$y+<CR>
 
 "  Shortcuts to save various "scratch" sessions
 noremap ,sa :SessionOpen scratcha<CR>
@@ -204,7 +203,7 @@ noremap ,cab :tab sball<CR>:tabdo :bd!<CR>
 "  CD to the current file directory
 noremap ,cd :cd %\..<CR>
 
-"  Seperate  the lines by a newline if the first word isn't the first word on the following line
+"  Seperate the lines by a newline if the first word isn't the first word on the following line
 noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>:silent noh<CR>
 
 "  Sorts the buffer and removes and line that isn't a duplicate (includes stupid hack to fix issue

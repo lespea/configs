@@ -262,16 +262,16 @@ nnoremap \ttt :execute "normal a" . strftime("%x %X (%Z)")<Esc>
 inoremap \ttt <Esc>:execute "normal a" . strftime("%x %X (%Z)")<Esc>a
 noremap \u :sort u<CR>:g/^$/d<CR>
 noremap \= :Align =><CR>
-noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>ggVG"+y
+noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>:1,$y+<CR>
 noremap \fd :%s/\v(\d{1,2})\/(\d{1,2})\/(\d{4})/\3\/\1\/\2/<CR>
-noremap \fc :vne<CR>"+pggdd"+yG:bd!<CR>
+noremap \fc :new<CR>"+p"+:2,$y+<CR>:bd!<CR>
 noremap \dbs :%s/\./\t/<CR>:%s/^\([^\t]\+\)\ze\t[^\t]\+$/\1\t\1<CR>
 noremap \dn :tabnew<CR>:diffthis<CR>:vne<CR>:diffthis<CR>
 noremap \dt :diffthis<CR>:vne<CR>:diffthis<CR>
 noremap ,du :diffupdate<CR>
 nnoremap \tp :set invpaste paste?<CR>
 nnoremap \tl :set invlist!<CR>
-nnoremap \ca gg"+yG
+nnoremap \ca :1,$y+<CR>
 nnoremap \s :source $MYVIMRC<CR>
 nnoremap \v :tabnew $MYVIMRC<CR>
 nnoremap \mod  :tabnew C:\\Work\\irm_vm\\Modules\\trunk\\IRM\\
@@ -286,7 +286,7 @@ noremap ,m :CopyMatches<CR>
 noremap ,u :sort u<CR>:g/^$/d<CR>
 noremap ,a  qaq
 noremap ,t :%s/\(\<[a-zA-Z0-9_-]*[a-zA-Z][a-zA-Z0-9_-]*\)\.[a-zA-Z0-9_.-]*\>/\1/<CR>:silent noh<CR>
-noremap ,i :%s/\v^(.*)$/    '\1',/<CR>G$xo)<Esc>ggO(<Esc>:silent noh<CR>gg"+yG
+noremap ,i :%s/\v^(.*)$/    '\1',/<CR>:1s/^/(\r<CR>:$s/$/\r)<CR>:silent noh<CR>"+:1,$y+<CR>
 noremap ,sa :SessionOpen scratcha<CR>
 noremap ,sb :SessionOpen scratchb<CR>
 noremap ,qs :SessionOpen quitscrach<CR>

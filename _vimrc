@@ -286,7 +286,7 @@ noremap ,m :CopyMatches<CR>
 noremap ,u :sort u<CR>:g/^$/d<CR>
 noremap ,a  qaq
 noremap ,t :%s/\(\<[a-zA-Z0-9_-]*[a-zA-Z][a-zA-Z0-9_-]*\)\.[a-zA-Z0-9_.-]*\>/\1/<CR>:silent noh<CR>
-noremap ,i :%s/\v^(.*)$/    '\1',/<CR>:1s/^/(\r<CR>:$s/$/\r)<CR>:silent noh<CR>"+:1,$y+<CR>
+noremap ,i :g/^$/d<CR>:%s/\v^(.*)$/    '\1',/<CR>:1s/^/(\r<CR>:$s/$/\r)<CR>:silent noh<CR>"+:1,$y+<CR>
 noremap ,sa :SessionOpen scratcha<CR>
 noremap ,sb :SessionOpen scratchb<CR>
 noremap ,qs :SessionOpen quitscrach<CR>

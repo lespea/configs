@@ -190,7 +190,7 @@ noremap ,a  qaq
 noremap ,t :%s/\(\<[a-zA-Z0-9_-]*[a-zA-Z][a-zA-Z0-9_-]*\)\.[a-zA-Z0-9_.-]*\>/\1/<CR>:silent noh<CR>
 
 "  Takes all of the lines and formats them for a sql "IN" query part
-noremap ,i :g/^$/d<CR>:%s/\v^(.*)$/    '\1',/<CR>:1s/^/(\r<CR>:$s/$/\r)<CR>:silent noh<CR>"+:1,$y+<CR>
+noremap ,i :g/^$/d<CR>:%s/\v^(.*)$/   ,'\1'/<CR>:1s/   ,/(\r    <CR>:$s/$/\r)<CR>:silent noh<CR>"+:1,$y+<CR>
 
 "  Shortcuts to save various "scratch" sessions
 noremap ,sa :SessionOpen scratcha<CR>

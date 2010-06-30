@@ -13,3 +13,4 @@ _viminfo
 .subversion/*
 vimfiles/sessions/
 .rnd
+.dzil

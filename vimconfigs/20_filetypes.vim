@@ -22,7 +22,7 @@ autocmd FileType perl noremap K :!echo <cWORD> <cword> <bar> perl -e '$line = <S
 
 
 " check perl code with :make
-autocmd FileType perl set makeprg=perl\ -c\ %\ $*
+autocmd FileType perl set makeprg=perl\ -c\ -T\ \"%\"\ $*
 autocmd FileType perl set errorformat=%f:%l:%m
 autocmd FileType perl set autowrite
 

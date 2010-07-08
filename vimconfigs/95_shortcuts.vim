@@ -198,7 +198,7 @@ noremap ,sb :SessionOpen scratchb<CR>
 noremap ,qs :SessionOpen quitscrach<CR>
 
 "  Close all of the open buffers (force close so be careful!)
-noremap ,cab :tab sball<CR>:tabdo :bd!<CR>
+noremap ,cab :tab sball<CR>:tabdo :bd!<CR>:tab sball<CR>:tabdo :bd!<CR>
 
 "  CD to the current file directory
 noremap ,cd :cd %\..<CR>

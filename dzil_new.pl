@@ -105,10 +105,9 @@ say $dist_fh <<'__END_TEXT';
 [Prepender]
 ;   Adds info to the top of your madules        {usefull}
 line =
-line = ###########################################
-line = #  For any technical difficulties, please #
-line = #  file a bug report on CPAN or github    #
-line = ###########################################
+line = ################################################################################
+line = #  For any technical difficulties, please file a bug report on CPAN or github  #
+line = ################################################################################
 line =
 __END_TEXT
 close $dist_fh;
@@ -116,7 +115,35 @@ close $dist_fh;
 
 open  my $weave_fh, '>', WEAVER_FILE;
 say $weave_fh <<'__END_TEXT';
-[@Default]
+[@CorePrep]
+
+[Name]
+[Version]
+
+[Region  / prelude]
+
+[Generic / SYNOPSIS]
+[Generic / DESCRIPTION]
+[Generic / OVERVIEW]
+
+[Generic / EXPORTS]
+
+[Collect / ATTRIBUTES]
+command = attr
+
+[Collect / METHODS]
+command = method
+
+[Collect / FUNCTIONS]
+command = func
+
+[Leftovers]
+
+[Region  / postlude]
+
+[Authors]
+[Legal]
+
 
 [-Transformer]
 transformer = List

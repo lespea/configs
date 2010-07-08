@@ -623,7 +623,7 @@ by Slimv to ',' by default.
     ,Z      ,rw      Refresh REPL Now
 
 
-Also see *slimv-repl* for additional keybindings valid only in the REPL buffer.
+Also see |slimv-repl| for additional keybindings valid only in the REPL buffer.
 
 
 ===============================================================================

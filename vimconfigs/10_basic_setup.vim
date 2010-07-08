@@ -168,7 +168,7 @@ set whichwrap=h,l,~,[,]
 
 "  Normally don't automatically format `text' as it is typed, IE only do this with comments, at 79 characters:
 set formatoptions=cq
-set textwidth=99
+set textwidth=80
 
 " treat lines starting with a quote mark as comments
 set comments+=b:\"

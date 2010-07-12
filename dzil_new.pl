@@ -101,6 +101,8 @@ say $dist_fh <<'__END_TEXT';
 [ReadmeFromPod]
 ;   Create useful readme                        {required}
 
+[PerlCritic]
+
 
 [Prepender]
 ;   Adds info to the top of your madules        {usefull}

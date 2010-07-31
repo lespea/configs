@@ -1,7 +1,7 @@
 " ============================================================================
 " File:        autoload/delimitMate.vim
-" Version:     2.4DEV
-" Modified:    2010-06-06
+" Version:     2.4
+" Modified:    2010-07-29
 " Description: This plugin provides auto-completion for quotes, parens, etc.
 " Maintainer:  Israel Chauca F. <israelchauca@gmail.com>
 " Manual:      Read ":help delimitMate".
@@ -53,8 +53,9 @@ function! delimitMate#Init() "{{{
 	call delimitMate#option_init("excluded_regions_enabled", enabled)
 
 	" visual_leader
-	call delimitMate#option_init("visual_leader", exists('b:maplocalleader') ? b:maplocalleader :
-					\ exists('g:mapleader') ? g:mapleader : "\\")
+	let leader = exists('b:maplocalleader') ? b:maplocalleader :
+					\ exists('g:mapleader') ? g:mapleader : "\\"
+	call delimitMate#option_init("visual_leader", leader)
 
 	" expand_space
 	if exists("b:delimitMate_expand_space") && type(b:delimitMate_expand_space) == type("")
@@ -84,7 +85,9 @@ function! delimitMate#Init() "{{{
 		unlet g:delimitMate_expand_cr
 		let g:delimitMate_expand_cr = 1
 	endif
-	if &backspace !~ 'eol' || &backspace !~ 'start'
+	if (&backspace !~ 'eol' || &backspace !~ 'start') &&
+				\ ((exists('b:delimitMate_expand_cr') && b:delimitMate_expand_cr == 1) ||
+				\ (exists('g:delimitMate_expand_cr') && g:delimitMate_expand_cr == 1))
 		echom "delimitMate: In order to use the <CR> expansion, you need to have 'eol' and 'start' in your backspace option. Read :help 'backspace'."
 		let b:delimitMate_expand_cr = 0
 	endif
@@ -100,8 +103,8 @@ function! delimitMate#Init() "{{{
 	" tab2exit
 	call delimitMate#option_init("tab2exit", 1)
 
-	" unbalanced_parens
-	call delimitMate#option_init("unbalanced_parens", 0)
+	" balance_matchpairs
+	call delimitMate#option_init("balance_matchpairs", 0)
 
 	let b:_l_delimitMate_buffer = []
 
@@ -114,6 +117,8 @@ function! delimitMate#Map() "{{{
 	try
 		let save_cpo = &cpo
 		let save_keymap = &keymap
+		let save_iminsert = &iminsert
+		let save_imsearch = &imsearch
 		set keymap=
 		set cpo&vim
 		if b:_l_delimitMate_autoclose
@@ -126,6 +131,8 @@ function! delimitMate#Map() "{{{
 	finally
 		let &cpo = save_cpo
 		let &keymap = save_keymap
+		let &iminsert = save_iminsert
+		let &imsearch = save_imsearch
 	endtry
 
 	let b:delimitMate_enabled = 1
@@ -421,7 +428,7 @@ function! delimitMate#ParenDelim(char) " {{{
 	if delimitMate#IsForbidden(a:char)
 		return ''
 	endif
-	if b:_l_delimitMate_unbalanced_parens &&
+	if b:_l_delimitMate_balance_matchpairs &&
 				\ delimitMate#BalancedParens(a:char) <= 0
 		return ''
 	endif
@@ -452,8 +459,9 @@ function! delimitMate#QuoteDelim(char) "{{{
 		" Get out of the string.
 		return a:char . delimitMate#Del()
 	elseif (line[col] =~ '[[:alnum:]]' && a:char == "'") ||
-				\(line[col] =~ '[[:alnum:]]' && b:_l_delimitMate_smart_quotes) ||
-				\(line[col + 1] =~ '[[:alnum:]]' && b:_l_delimitMate_smart_quotes)
+				\ (b:_l_delimitMate_smart_quotes &&
+				\ (line[col] =~ '[[:alnum:]]' ||
+				\ line[col + 1] =~ '[[:alnum:]]'))
 		" Seems like an apostrophe or a smart quote case, insert a single quote.
 		return a:char
 	elseif (line[col] == a:char && line[col + 1 ] != a:char) && b:_l_delimitMate_smart_quotes
@@ -683,6 +691,8 @@ function! delimitMate#ExtraMappings() "{{{
 	inoremap <silent> <buffer> <Right> <C-R>=delimitMate#Finish()<CR><Right>
 	inoremap <silent> <buffer> <Up> <C-R>=delimitMate#Finish()<CR><Up>
 	inoremap <silent> <buffer> <Down> <C-R>=delimitMate#Finish()<CR><Down>
+	inoremap <silent> <buffer> <Home> <C-R>=delimitMate#Finish()<CR><Home>
+	inoremap <silent> <buffer> <End> <C-R>=delimitMate#Finish()<CR><End>
 
 	inoremap <silent> <buffer> <Del> <C-R>=delimitMate#Del()<CR>
 
@@ -690,7 +700,7 @@ function! delimitMate#ExtraMappings() "{{{
 	" the escape sequence for terminal keys, see 'ttimeout' for a rough
 	" explanation, this just forces it to work
 	if !has('gui_running')
-		inoremap <silent> <C-[>OC <RIGHT>
+		imap <silent> <C-[>OC <RIGHT>
 	endif
 endfunction "}}}
 

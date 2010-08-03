@@ -2,7 +2,7 @@
 "
 " Language:     Perl with MooseX::Declare and Moose keywords
 " Maintainer:   Rafael Kitover <rkitover@cpan.org>
-" Last Change:  2009-09-30
+" Last Change:  2010-07-25
 " Contributors: Denis Pokataev
 "
 " ORIGINAL VERSION:
@@ -56,7 +56,10 @@ syn match perlStatementProc		"\<\%(subtype\|coerce\|as\|from\|via\|message\|enum
 " already highlighted.)
 syn match perlStatementProc             "\<\%(plan\|use_ok\|require_ok\|ok\|isnt\|diag\|like\|unlike\|cmp_ok\|is_deeply\|skip\|can_ok\|isa_ok\|pass\|fail\|BAIL_OUT\|meta_ok\|does_ok\|has_attribute_ok\|throws_ok\|dies_ok\|lives_ok\|lives_and\)\>"
 
-syn match perlMethodName +\%(\h\|::\|['"]\)\%(\w\|::\)\+["']\?\_s*\|+ contained nextgroup=perlPossibleComma
+" Try::Tiny
+syn match perlStatementProc		"\<\%(try\|catch\|finally\)\>"
+
+syn match perlMethodName +\%(\h\|::\|['"]\)\%(\w\|::\|\$\)\+["']\?\_s*\|+ contained nextgroup=perlPossibleComma
 
 syn match perlPossibleComma +\_s*\%(=>\|,\)\?\_s*\|+ contained nextgroup=perlAnonSubOrMethod
 

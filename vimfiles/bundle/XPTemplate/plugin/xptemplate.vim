@@ -894,8 +894,12 @@ fun! s:ParseRepetition( snipObject )
     while stack != []
         let matchpos = stack[-1]
         unlet stack[-1]
-        let bef = tmpl[:matchpos-1]
-        let rest = tmpl[matchpos : ]
+        if matchpos == 0
+            let bef = ''
+        else
+            let bef = tmpl[ : matchpos-1 ]
+        endif
+        let rest = tmpl[ matchpos : ]
         let indentNr = s:GetIndentBeforeEdge( tmplObj, bef )
         let repeatPart = matchstr(rest, repContPtn)
         let repeatPart = 'BuildIfNoChange(' . string( repeatPart ) . ')'
@@ -1467,12 +1471,13 @@ fun! s:ShiftForward( action )
                 endif
             endif
         endif
+        return XPTforceForward( a:action )
     else
         if XPPhasSession()
             call XPPend()
         endif
+        return "\<C-v>\<C-v>\<BS>\<C-r>" . '=XPTforceForward(' . string( a:action ) . ")\<CR>"
     endif
-    return XPTforceForward( a:action )
 endfunction 
 fun! XPTforceForward( action ) 
     if s:FinishCurrent( a:action ) < 0
@@ -1876,6 +1881,10 @@ fun! XPTmappingEval( str )
         else
             return "\<C-v>\<C-v>\<BS>\<C-r>=XPTmappingEval(" . string(a:str) . ")\<CR>"
         endif
+    endif
+    let rc = s:XPTupdate()
+    if rc != 0
+        return ''
     endif
     let x = b:xptemplateData
     let typed = s:TextBetween(

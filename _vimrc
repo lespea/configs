@@ -264,7 +264,7 @@ noremap \u :sort u<CR>:g/^$/d<CR>
 noremap \= :Align =><CR>
 noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>:1,$y+<CR>
 noremap \fd :%s/\v(\d{1,2})\/(\d{1,2})\/(\d{4})/\3\/\1\/\2/<CR>
-noremap \fc :new<CR>"+p"+:2,$y+<CR>:bd!<CR>
+noremap \fc :new<CR>"+p"+:1,$y+<CR>:bd!<CR>
 noremap \dbs :%s/\./\t/<CR>:%s/^\([^\t]\+\)\ze\t[^\t]\+$/\1\t\1<CR>
 noremap \dn :tabnew<CR>:diffthis<CR>:vne<CR>:diffthis<CR>
 noremap \dt :diffthis<CR>:vne<CR>:diffthis<CR>
@@ -290,7 +290,7 @@ noremap ,i :g/^$/d<CR>:%s/\v^(.*)$/   ,'\1'/<CR>:1s/   ,/(\r    <CR>:$s/$/\r)<CR
 noremap ,sa :SessionOpen scratcha<CR>
 noremap ,sb :SessionOpen scratchb<CR>
 noremap ,qs :SessionOpen quitscrach<CR>
-noremap ,cab :tab sball<CR>:tabdo :bd!<CR>
+noremap ,cab :tab sball<CR>:tabdo :bd!<CR>:tab sball<CR>:tabdo :bd!<CR>
 noremap ,cd :cd %\..<CR>
 noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>:silent noh<CR>
 noremap ,dupe :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>yyp:%s/^\(.\+\)\n\1\+/\1/<CR>:g/^$/d<CR>:silent noh<CR>

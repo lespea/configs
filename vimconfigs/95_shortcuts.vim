@@ -128,7 +128,7 @@ noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>:1,$y+<CR>
 noremap \fd :%s/\v(\d{1,2})\/(\d{1,2})\/(\d{4})/\3\/\1\/\2/<CR>
 
 "  Pastes and copies a bunch of text (to remove formatting)
-noremap \fc :new<CR>"+p"+:2,$y+<CR>:bd!<CR>
+noremap \fc :new<CR>"+p"+:1,$y+<CR>:bd!<CR>
 
 "  Split the "databases" into their different parts
 noremap \dbs :%s/\./\t/<CR>:%s/^\([^\t]\+\)\ze\t[^\t]\+$/\1\t\1<CR>

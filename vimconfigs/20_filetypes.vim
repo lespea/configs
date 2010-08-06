@@ -34,7 +34,9 @@ autocmd FileType c,cpp,slang        set cindent
 autocmd FileType c set formatoptions+=ro
 
 "  For Perl programming, have things in braces indenting themselves
-autocmd FileType perl set smartindent
+"      Actually not -- this just makes me angry.  perl will indent fine by
+"      itself
+"autocmd FileType perl set smartindent
 
 "  Python formatting
 autocmd FileType python set formatoptions-=t

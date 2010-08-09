@@ -128,7 +128,6 @@ autocmd FileType perl set errorformat=%f:%l:%m
 autocmd FileType perl set autowrite
 autocmd FileType c,cpp,slang        set cindent
 autocmd FileType c set formatoptions+=ro
-autocmd FileType perl set smartindent
 autocmd FileType python set formatoptions-=t
 autocmd FileType css set smartindent
 autocmd FileType html  set formatoptions+=tl

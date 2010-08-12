@@ -31,6 +31,19 @@ XPTinclude
 XPTinclude
       \ _loops/c.while.like
 
+
+" ========================= Function and Variables =============================
+
+
+" ================================= Snippets ===================================
+
+
+" perl has no NULL value
+XPT fornn hidden=1
+
+XPT whilenn hidden=1
+
+
 XPT perl " #!/usr/bin/env perl
 #!/usr/bin/env perl
 

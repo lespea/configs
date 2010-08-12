@@ -201,7 +201,6 @@ let g:fuzzy_ceiling = 50000
 let g:fuzzy_ignore = "*.log;*.pyc;*.svn;"
 map <silent> \f :FufFile<CR>
 map <silent> \b :FufBuffer<CR>
-let g:SuperTabDefaultCompletionType="context"
 let g:xptemplate_brace_complete = ''
 let g:xptemplate_key = '<C-Space>'
 let g:xptemplate_pum_tab_nav = 1

@@ -41,14 +41,6 @@ map <silent> \b :FufBuffer<CR>
 
 
 
-"  --------------
-"  |  SuperTab  |
-"  --------------
-
-let g:SuperTabDefaultCompletionType="context"
-
-
-
 "  ----------------
 "  |  XPTemplate  |
 "  ----------------
@@ -123,6 +115,10 @@ let g:delimitMate_expand_cr = 1
 ""
 "" let g:SuperTabMappingForward = '<C-tab>'
 "" let g:SuperTabMappingTabLiteral = '<S-C-tab>'
+"" let g:SuperTabDefaultCompletionType="context"
+
+
+
 ""
 ""
 "" "  ---------------------

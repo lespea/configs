@@ -111,6 +111,9 @@ line = #########################################################################
 line = #  For any technical difficulties, please file a bug report on CPAN or github  #
 line = ################################################################################
 line =
+
+[@Git]
+;   Makes sure we're synced with git repo + auto add a tag for me
 __END_TEXT
 close $dist_fh;
 

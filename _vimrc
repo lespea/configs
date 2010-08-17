@@ -12,7 +12,7 @@ if has("gui_running")
     else
         set guifont=Anonymous\ Pro\ 12
     endif
-    colorscheme molokai
+    colorscheme tangoshady
 else
     colorscheme desert256
 endif

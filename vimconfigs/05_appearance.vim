@@ -18,7 +18,7 @@ if has("gui_running")
     endif
 
     "  Gvim color scheme
-    colorscheme molokai
+    colorscheme tangoshady
 
 "  Console vim
 else

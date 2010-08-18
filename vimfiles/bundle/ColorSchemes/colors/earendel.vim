@@ -9,11 +9,12 @@ let colors_name = "earendel"
 execute "command! -nargs=1 Colo set background=<args>"
 
 if &background == "light"
-    hi Normal ctermbg=15 ctermfg=0 guibg=#ffffff guifg=#000000 gui=none
+    hi Normal ctermbg=15 ctermfg=0 guibg=#f7f7f7 guifg=#000000 gui=none
 
+    hi ColorColumn ctermbg=7 ctermfg=fg guibg=#d5d5d5 gui=none
     hi Cursor guibg=#000000 guifg=#ffffff gui=none
-    hi CursorColumn ctermbg=7 ctermfg=fg guibg=#dfdfdf gui=none
-    hi CursorLine ctermbg=7 ctermfg=fg guibg=#dfdfdf gui=none
+    hi CursorColumn ctermbg=7 ctermfg=fg guibg=#e0e0e0 gui=none
+    hi CursorLine ctermbg=7 ctermfg=fg guibg=#e0e0e0 gui=none
     hi DiffAdd guibg=#bae981 guifg=fg gui=none
     hi DiffChange guibg=#8495e6 guifg=fg gui=none
     hi DiffDelete guibg=#ff95a5 guifg=fg gui=none
@@ -81,6 +82,7 @@ if &background == "light"
 else
     hi Normal ctermbg=0 ctermfg=7 guibg=#181818 guifg=#cacaca gui=none
 
+    hi ColorColumn ctermbg=8 ctermfg=15 guibg=#4a4a4a gui=none
     hi Cursor guibg=#e5e5e5 guifg=#000000 gui=none
     hi CursorColumn ctermbg=8 ctermfg=15 guibg=#404040 gui=none
     hi CursorLine ctermbg=8 ctermfg=15 guibg=#404040 gui=none

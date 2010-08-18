@@ -7,7 +7,7 @@
     aa = add -A
     ca = commit -a
     co = checkout
-    st = status -a
+    st = status
 
 [apply]
     whitespace = strip

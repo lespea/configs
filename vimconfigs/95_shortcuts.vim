@@ -201,7 +201,7 @@ noremap ,qs :SessionOpen quitscrach<CR>
 noremap ,cab :tab sball<CR>:tabdo :bd!<CR>:tab sball<CR>:tabdo :bd!<CR>
 
 "  CD to the current file directory
-noremap ,cd :cd %\..<CR>
+noremap ,cd :cd %:p:h<CR>
 
 "  Seperate the lines by a newline if the first word isn't the first word on the following line
 noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>:silent noh<CR>

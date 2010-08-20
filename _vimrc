@@ -1,3 +1,9 @@
+set nocompatible
+autocmd!
+filetype off
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
+filetype plugin indent on
 syntax on
 set background=dark
 if has("gui_running")
@@ -11,6 +17,130 @@ else
     colorscheme desert256
 endif
 set cursorline
+behave xterm
+set mousemodel=popup
+set viminfo=/50,'50,h
+set backspace=indent,eol,start
+set number
+set showmatch
+set matchpairs+=<:>
+set comments=s1:/*,mb:*,ex:*/,f://,b:#,:%,:XCOMM,n:>,fb:-
+set encoding=utf-8
+set nobackup
+set history=100
+set report=0
+set previewheight=8
+set ls=2
+set lcs=
+execute 'set listchars+=tab:' . nr2char(187) . nr2char(183)
+execute 'set listchars+=eol:' . nr2char(183)
+set lcs+=trail:-
+set lcs+=nbsp:%
+set lcs+=extends:>,precedes:<
+set showbreak=>\
+au CursorHold * checktim
+set softtabstop=4
+set shiftwidth=4
+set tabstop=4
+set smarttab
+set expandtab
+set shiftround
+set sidescrolloff=2
+set scrolloff=3
+set numberwidth=4
+set title
+set ruler
+set showmode
+set showcmd
+set wildmode=list:longest
+set wildchar=<TAB>
+set wildignore=*~,#*#,*.sw?,*.o,*.obj,*.bak,*.exe,*.pyc,*.DS_Store,*.db,*.class,*.java.html,*.cgi.html,*.html.html,.viminfo,*.pdf
+set suffixes=.bak,~,.svn,.git,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
+set shortmess=aoOtTI
+set splitbelow splitright
+set noequalalways
+set hlsearch
+set ignorecase
+set smartcase
+set incsearch
+set gdefault
+set mousehide
+set wrap
+set linebreak
+set whichwrap=h,l,~,[,]
+set formatoptions=cq
+set textwidth=80
+set comments+=b:\"
+function! SetCursorPosition()
+  if &filetype !~ 'commit\c'
+    if line("'\"") > 0 && line("'\"") <= line("$")
+     exe "normal g`\""
+    endif
+  end
+endfunction
+autocmd BufReadPost * call SetCursorPosition()
+set lazyredraw
+set ttyfast
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+set list
+set virtualedit=block
+set selectmode=""
+if has("gui_win32")       " NT Windows
+        autocmd GUIEnter * :simalt ~x
+endif
+let $FENCVIEW_TELLENC="fencview"
+let g:netrw_hide              = 1
+let g:netrw_list_hide         = '^\.svn.*'
+let g:netrw_menu              = 0
+let g:netrw_silent            = 1
+let g:netrw_special_syntax    = 1
+set statusline=
+set statusline+=%f\
+set statusline+=%h%m%r%w
+set statusline+=[%{strlen(&ft)?&ft:'none'},
+set statusline+=%{strlen(&fenc)?&fenc:&enc},
+set statusline+=%{&fileformat}]
+set statusline+=%=
+set statusline+=%b,0x%-8B\
+set statusline+=%c,%l/
+set statusline+=%L\ %P
+function! InsertStatuslineColor(mode)
+  if a:mode == 'i'
+    hi statusline guibg=orange
+  elseif a:mode == 'r'
+    hi statusline guibg=red
+  else
+    hi statusline guibg=green
+  endif
+endfunction
+au InsertEnter * call InsertStatuslineColor(v:insertmode)
+au InsertLeave * hi statusline guibg=cyan
+hi statusline guibg=cyan
+au FileType helpfile set nonumber
+au FileType helpfile nnoremap <buffer><cr> <c-]>
+au FileType helpfile nnoremap <buffer><bs> <c-T>
+au BufNewFile,BufRead *.html        setf xhtml
+au BufNewFile,BufRead *.pl,*.pm,*.t setf perl
+autocmd FileType perl noremap K :!echo <cWORD> <cword> <bar> perl -e '$line = <STDIN>; if ($line =~ /(\w+::\w+)/){exec("perldoc $1")} elsif($line =~ /(\w+)/){exec "perldoc -f $1 <bar><bar> perldoc $1"}'<cr><cr>
+autocmd FileType perl set makeprg=perl\ -c\ -T\ \"%\"\ $*
+autocmd FileType perl set errorformat=%f:%l:%m
+autocmd FileType perl set autowrite
+autocmd FileType c,cpp,slang        set cindent
+autocmd FileType c set formatoptions+=ro
+autocmd FileType python set formatoptions-=t
+autocmd FileType css set smartindent
+autocmd FileType html  set formatoptions+=tl
+autocmd FileType xhtml set formatoptions+=tl
+let perl_include_pod = 1
+let perl_extended_vars = 1
+autocmd FileType html        set  omnifunc=htmlcomplete#CompleteTags
+autocmd FileType python      set  omnifunc=pythoncomplete#Complete
+autocmd FileType javascript  set  omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType css         set  omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml         set  omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php         set  omnifunc=phpcomplete#CompletePHP
+autocmd FileType c           set  omnifunc=ccomplete#Complete
 function! s:swap_lines(n1, n2)
     let line1 = getline(a:n1)
     let line2 = getline(a:n2)
@@ -53,6 +183,37 @@ function! s:CopyMatches(line1, line2, reg)
     endwhile
   endfor
 endfunction
+let g:slimv_python = 'C:/Python26/python.exe'
+let g:slimv_lisp = '"java -cp C:/clojure/clojure.jar;C:/clojure/clojure-contrib.jar clojure.main"'
+let g:lisp_rainbow = 1
+map <silent> \e :NERDTreeToggle<CR>
+let NERDTreeWinPos='left'
+let NERDTreeChDirMode='2'
+let NERDTreeIgnore=['\.vim$', '\~$', '\.pyo$', '\.pyc$', '\.svn[\//]$', '\.swp$']
+let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$',  '\.bak$', '\~$']
+if !exists('g:FuzzyFinderOptions')
+    let g:FuzzyFinderOptions = { 'Base':{}, 'Buffer':{}, 'File':{}, 'Dir':{}, 'MruFile':{}, 'MruCmd':{}, 'Bookmark':{}, 'Tag':{}, 'TaggedFile':{}}
+    let g:FuzzyFinderOptions.File.excluded_path = '\v\~$|\.o$|\.exe$|\.bak$|\.swp$|((^|[/\\])\.{1,2}[/\\]$)|\.pyo$|\.pyc$|\.svn[/\\]$'
+    let g:FuzzyFinderOptions.Base.key_open_Tabpage = '<Space>'
+endif
+let g:fuzzy_matching_limit = 60
+let g:fuzzy_ceiling = 50000
+let g:fuzzy_ignore = "*.log;*.pyc;*.svn;"
+map <silent> \f :FufFile<CR>
+map <silent> \b :FufBuffer<CR>
+let g:xptemplate_brace_complete = ''
+let g:xptemplate_key = '<C-Space>'
+let g:xptemplate_pum_tab_nav = 1
+let g:NeoComplCache_EnableAtStartup = 1
+let g:NeoComplCache_SmartCase = 1
+let g:NeoComplCache_EnableUnderbarCompletion = 1
+let g:NeoComplCache_MinSyntaxLength = 3
+let g:NeoComplCache_ManualCompletionStartLength = 0
+let g:NeoComplCache_MinKeywordLength = 3
+au FileType vim  let b:delimitMate_quotes = " ' ` *"
+let g:delimitMate_matchpairs = "(:),[:],{:}"
+let g:delimitMate_expand_space = 1
+let g:delimitMate_expand_cr = 1
 noremap <Space> <PageDown>
 inoremap jj <Esc>
 inoremap jk <Esc>
@@ -132,90 +293,6 @@ noremap ,cd :cd %:p:h<CR>
 noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>:silent noh<CR>
 noremap ,dupe :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>yyp:%s/^\(.\+\)\n\1\+/\1/<CR>:g/^$/d<CR>:silent noh<CR>
 noremap ,conf :tabnew $HOME\\vimconfigs\\
-set nocompatible
-autocmd!
-filetype off
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
-filetype plugin indent on
-behave xterm
-set mousemodel=popup
-set viminfo=/50,'50,h
-set backspace=indent,eol,start
-set number
-set showmatch
-set matchpairs+=<:>
-set comments=s1:/*,mb:*,ex:*/,f://,b:#,:%,:XCOMM,n:>,fb:-
-set encoding=utf-8
-set nobackup
-set history=100
-set report=0
-set previewheight=8
-set ls=2
-set lcs=
-execute 'set listchars+=tab:' . nr2char(187) . nr2char(183)
-execute 'set listchars+=eol:' . nr2char(183)
-set lcs+=trail:-
-set lcs+=nbsp:%
-set lcs+=extends:>,precedes:<
-set showbreak=>\
-au CursorHold * checktim
-set softtabstop=4
-set shiftwidth=4
-set tabstop=4
-set smarttab
-set expandtab
-set shiftround
-set sidescrolloff=2
-set scrolloff=3
-set numberwidth=4
-set title
-set ruler
-set showmode
-set showcmd
-set wildmode=list:longest
-set wildchar=<TAB>
-set wildignore=*~,#*#,*.sw?,*.o,*.obj,*.bak,*.exe,*.pyc,*.DS_Store,*.db,*.class,*.java.html,*.cgi.html,*.html.html,.viminfo,*.pdf
-set suffixes=.bak,~,.svn,.git,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
-set shortmess=aoOtTI
-set splitbelow splitright
-set noequalalways
-set hlsearch
-set ignorecase
-set smartcase
-set incsearch
-set gdefault
-set mousehide
-set wrap
-set linebreak
-set whichwrap=h,l,~,[,]
-set formatoptions=cq
-set textwidth=80
-set comments+=b:\"
-function! SetCursorPosition()
-  if &filetype !~ 'commit\c'
-    if line("'\"") > 0 && line("'\"") <= line("$")
-     exe "normal g`\""
-    endif
-  end
-endfunction
-autocmd BufReadPost * call SetCursorPosition()
-set lazyredraw
-set ttyfast
-vnoremap <Tab> >gv
-vnoremap <S-Tab> <gv
-set list
-set virtualedit=block
-set selectmode=""
-if has("gui_win32")       " NT Windows
-        autocmd GUIEnter * :simalt ~x
-endif
-let $FENCVIEW_TELLENC="fencview"
-let g:netrw_hide              = 1
-let g:netrw_list_hide         = '^\.svn.*'
-let g:netrw_menu              = 0
-let g:netrw_silent            = 1
-let g:netrw_special_syntax    = 1
 abb teh the
 abb fo of
 abb taht that
@@ -224,80 +301,3 @@ inoremap qw/<SPACE>     qw/<SPACE><SPACE>/<Left><Left>
 inoremap qw/;     qw/<SPACE><SPACE>/;<Left><Left><Left>
 inoremap qw/<CR> qw/<CR>/;<Esc>O<Tab>
 inoremap qr{<CR> qr{<CR>}xms;<Esc>O<Tab>
-let g:slimv_python = 'C:/Python26/python.exe'
-let g:slimv_lisp = '"java -cp C:/clojure/clojure.jar;C:/clojure/clojure-contrib.jar clojure.main"'
-let g:lisp_rainbow = 1
-map <silent> \e :NERDTreeToggle<CR>
-let NERDTreeWinPos='left'
-let NERDTreeChDirMode='2'
-let NERDTreeIgnore=['\.vim$', '\~$', '\.pyo$', '\.pyc$', '\.svn[\//]$', '\.swp$']
-let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$',  '\.bak$', '\~$']
-if !exists('g:FuzzyFinderOptions')
-    let g:FuzzyFinderOptions = { 'Base':{}, 'Buffer':{}, 'File':{}, 'Dir':{}, 'MruFile':{}, 'MruCmd':{}, 'Bookmark':{}, 'Tag':{}, 'TaggedFile':{}}
-    let g:FuzzyFinderOptions.File.excluded_path = '\v\~$|\.o$|\.exe$|\.bak$|\.swp$|((^|[/\\])\.{1,2}[/\\]$)|\.pyo$|\.pyc$|\.svn[/\\]$'
-    let g:FuzzyFinderOptions.Base.key_open_Tabpage = '<Space>'
-endif
-let g:fuzzy_matching_limit = 60
-let g:fuzzy_ceiling = 50000
-let g:fuzzy_ignore = "*.log;*.pyc;*.svn;"
-map <silent> \f :FufFile<CR>
-map <silent> \b :FufBuffer<CR>
-let g:xptemplate_brace_complete = ''
-let g:xptemplate_key = '<C-Space>'
-let g:xptemplate_pum_tab_nav = 1
-let g:NeoComplCache_EnableAtStartup = 1
-let g:NeoComplCache_SmartCase = 1
-let g:NeoComplCache_EnableUnderbarCompletion = 1
-let g:NeoComplCache_MinSyntaxLength = 3
-let g:NeoComplCache_ManualCompletionStartLength = 0
-let g:NeoComplCache_MinKeywordLength = 3
-au FileType vim  let b:delimitMate_quotes = " ' ` *"
-let g:delimitMate_matchpairs = "(:),[:],{:}"
-let g:delimitMate_expand_space = 1
-let g:delimitMate_expand_cr = 1
-set statusline=
-set statusline+=%f\
-set statusline+=%h%m%r%w
-set statusline+=[%{strlen(&ft)?&ft:'none'},
-set statusline+=%{strlen(&fenc)?&fenc:&enc},
-set statusline+=%{&fileformat}]
-set statusline+=%=
-set statusline+=%b,0x%-8B\
-set statusline+=%c,%l/
-set statusline+=%L\ %P
-function! InsertStatuslineColor(mode)
-  if a:mode == 'i'
-    hi statusline guibg=orange
-  elseif a:mode == 'r'
-    hi statusline guibg=red
-  else
-    hi statusline guibg=green
-  endif
-endfunction
-au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * hi statusline guibg=cyan
-hi statusline guibg=cyan
-au FileType helpfile set nonumber
-au FileType helpfile nnoremap <buffer><cr> <c-]>
-au FileType helpfile nnoremap <buffer><bs> <c-T>
-au BufNewFile,BufRead *.html        setf xhtml
-au BufNewFile,BufRead *.pl,*.pm,*.t setf perl
-autocmd FileType perl noremap K :!echo <cWORD> <cword> <bar> perl -e '$line = <STDIN>; if ($line =~ /(\w+::\w+)/){exec("perldoc $1")} elsif($line =~ /(\w+)/){exec "perldoc -f $1 <bar><bar> perldoc $1"}'<cr><cr>
-autocmd FileType perl set makeprg=perl\ -c\ -T\ \"%\"\ $*
-autocmd FileType perl set errorformat=%f:%l:%m
-autocmd FileType perl set autowrite
-autocmd FileType c,cpp,slang        set cindent
-autocmd FileType c set formatoptions+=ro
-autocmd FileType python set formatoptions-=t
-autocmd FileType css set smartindent
-autocmd FileType html  set formatoptions+=tl
-autocmd FileType xhtml set formatoptions+=tl
-let perl_include_pod = 1
-let perl_extended_vars = 1
-autocmd FileType html        set  omnifunc=htmlcomplete#CompleteTags
-autocmd FileType python      set  omnifunc=pythoncomplete#Complete
-autocmd FileType javascript  set  omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType css         set  omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml         set  omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php         set  omnifunc=phpcomplete#CompletePHP
-autocmd FileType c           set  omnifunc=ccomplete#Complete

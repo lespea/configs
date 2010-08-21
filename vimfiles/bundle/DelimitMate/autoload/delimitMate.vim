@@ -6,8 +6,9 @@
 " Maintainer:  Israel Chauca F. <israelchauca@gmail.com>
 " Manual:      Read ":help delimitMate".
 
-let delimitMate_loaded = 1
 " Utilities {{{
+
+let delimitMate_loaded = 1
 
 function! delimitMate#ShouldJump() "{{{
 	" Returns 1 if the next character is a closing delimiter.
@@ -451,15 +452,16 @@ function! delimitMate#Finish() " {{{
 	let len = len(b:_l_delimitMate_buffer)
 	if len > 0
 		let buffer = join(b:_l_delimitMate_buffer, '')
+		let len2 = len(buffer)
 		" Reset buffer:
 		let b:_l_delimitMate_buffer = []
 		let line = getline('.')
 		let col = col('.') -2
 		"echom 'col: ' . col . '-' . line[:col] . "|" . line[col+len+1:] . '%' . buffer
 		if col < 0
-			call setline('.', line[col+len+1:])
+			call setline('.', line[col+len2+1:])
 		else
-			call setline('.', line[:col] . line[col+len+1:])
+			call setline('.', line[:col] . line[col+len2+1:])
 		endif
 		let i = 1
 		let lefts = "\<Left>"
@@ -555,6 +557,9 @@ function! delimitMate#TestMappings() "{{{
 	for map in imaps
 		if maparg(map, "i") !~? 'delimitMate'
 			let output = ''
+			if map == '|'
+				let map = '<Bar>'
+			endif
 			redir => output | execute "verbose imap ".map | redir END
 			let ibroken = ibroken + [map.": is not set:"] + split(output, '\n')
 		endif
@@ -570,6 +575,9 @@ function! delimitMate#TestMappings() "{{{
 	for map in vmaps
 		if maparg(vleader . map, "v") !~? "delimitMate"
 			let output = ''
+			if map == '|'
+				let map = '<Bar>'
+			endif
 			redir => output | execute "verbose imap ".map | redir END
 			let vbroken = vbroken + [vleader.map.": is not set:"] + split(output,'\n')
 		endif

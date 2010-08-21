@@ -23,97 +23,70 @@ say $dist_fh <<'__END_TEXT';
 
 
 
-[PodWeaver]
-;   Inserts POD into my modules                   {usefull}
-
-;[@Basic]
-;   I don't like all of the modules this provides so I'll just comment out the ones I dislike
+; -- fetch & generate files
 [GatherDir]
-;   Gathers file into build dir                 {required}
-[PruneCruft]
-;   Gets rid of useless garbage                 {usefull}
-[ManifestSkip]
-;   Uses MANIFEST.SKIP to skip files            {required}
-[MetaYAML]
-;   Creates Meta.yml file                       {required}
-[License]
-;   Creates license file                        {required}
-;[Readme]
-;   Basic readme                                {using ReadmeFromPod for now}
-[ExtraTests]
-;   Test anything in the xt directory           {usefull}
-;[ExecDir]
-;   Installs directory as exes                  {no exes as of yet}
-;[ShareDir]
-;   Installs dir content as ShareDir            {not sharing anything in this module}
-;[MakeMaker]
-;   Creates MakeMaker build script --           {MakeMaker is a POS so skip this}
-[Manifest]
-;   Creates Manifest file                       {required}
-;[TestRelease]
-;   Run tests before a release                  {Not using a release}
-;[ConfirmRelease]
-;   Confirm you want to release a dist          {Not using a release}
-;[UploadToCPAN]
-;   Uploads file to CPAN                        {Not uploading to CPAN so skip}
-
-
-[MetaJSON]
-;   Creates the new json meta file              {required}
-[MinimumPerl]
-;   Finds the bare minimum version of Perl      {usefull}
-
-
-[ModuleBuild]
-;   Creates Module::Build (build.pl)            {required}
-;
-
-[AutoPrereq]
-;   Auto generate the prereqs                   {required}
-;skip =
-
-;MetaRecommends]
-;   Adds "recommended" modules                  {not used for this module}
-;ModuleName = 0
-
 [CompileTests]
-;   Makes sure everything compiles              {required}
-[UnusedVarsTests]
-;   Tests for any unused variables              {usefull}
-[SynopsisTests]
-;   Tests that all synopsis code blocks work    {usefull}
-[PortabilityTests]
-;   Tests that the filenames are OS portable    {usefull}
-;[PodSpellingTests]
-;   Tests spelling in all POD documentation     {not in PPM :@}
-[CheckChangesTests]
-;   Makes sure you have the current version in
-;       the changelog                           {usefull}
-[PodSyntaxTests]
+[MinimumPerl]
+[CriticTests]
+[HasVersionTests]
+[MetaTests]
+[MinimumVersionTests]
 [PodCoverageTests]
-;   These two test for POD syntax and coverage  {usefull}
-
-[InstallGuide]
-;   Generates a generic install guide           {usefull}
-
+;[PodSpellingTests]
+[PodSyntaxTests]
+[PortabilityTests]
+[SynopsisTests]
+[UnusedVarsTests]
 ;[ReadmeMarkdownFromPod]
-;   Generates readme using markdown             {usefull}
 [ReadmeFromPod]
-;   Create useful readme                        {required}
-
-[PerlCritic]
+[KwaliteeTests]
 
 
-[Prepender]
-;   Adds info to the top of your madules        {usefull}
-line =
-line = ################################################################################
-line = #  For any technical difficulties, please file a bug report on CPAN or github  #
-line = ################################################################################
-line =
+; -- remove some files
+[PruneCruft]
+[ManifestSkip]
 
-[@Git]
-;   Makes sure we're synced with git repo + auto add a tag for me
+; -- get prereqs
+[AutoPrereq]
+
+; -- munge files
+[ExtraTests]
+[PkgVersion]
+
+; -- dynamic meta-information
+[ExecDir]
+[ShareDir]
+[Bugtracker]
+[Repository]
+[MetaConfig]
+
+; -- generate meta files
+[License]
+[ModuleBuild]
+[InstallGuide]
+[MetaYAML]
+[MetaJSON]
+[PodWeaver]
+[Manifest] ; should come last
+
+; -- release
+[CheckChangeLog]
+[CheckChangesTests]
+[CheckChangesHasContent]
+[Git::Check]
+[TestRelease]
+[ConfirmRelease]
+
+; releaser
+[UploadToCPAN]
+
+[Git::Tag]
+tag_format = release-%v
+
+[Git::Commit / Commit_Changes]
+
+[Git::Push]
+push_to = origin
 __END_TEXT
 close $dist_fh;
 
@@ -147,6 +120,7 @@ command = func
 [Region  / postlude]
 
 [Authors]
+[Support]
 [Legal]
 
 

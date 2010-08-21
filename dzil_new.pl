@@ -58,7 +58,6 @@ say $dist_fh <<'__END_TEXT';
 [ShareDir]
 [Bugtracker]
 [Repository]
-[MetaConfig]
 
 ; -- generate meta files
 [License]

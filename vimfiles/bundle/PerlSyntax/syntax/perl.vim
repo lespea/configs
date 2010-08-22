@@ -598,6 +598,10 @@ endif
 syn sync match perlSyncPOD	grouphere perlPOD "^=pod"
 syn sync match perlSyncPOD	grouphere perlPOD "^=head"
 syn sync match perlSyncPOD	grouphere perlPOD "^=item"
+syn sync match perlSyncPOD	grouphere perlPOD "^=for"
+syn sync match perlSyncPOD	grouphere perlPOD "^=attr"
+syn sync match perlSyncPOD	grouphere perlPOD "^=method"
+syn sync match perlSyncPOD	grouphere perlPOD "^=func"
 syn sync match perlSyncPOD	grouphere NONE "^=cut"
 
 let b:current_syntax = "perl"

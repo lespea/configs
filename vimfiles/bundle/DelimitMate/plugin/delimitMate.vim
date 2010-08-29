@@ -73,6 +73,9 @@ function! s:init() "{{{
 	let enabled = len(b:_l_delimitMate_excluded_regions_list) > 0
 	call s:option_init("excluded_regions_enabled", enabled)
 
+	" excluded filetypes
+	call s:option_init("excluded_ft", "")
+
 	" visual_leader
 	let leader = exists('b:maplocalleader') ? b:maplocalleader :
 					\ exists('g:mapleader') ? g:mapleader : "\\"
@@ -210,6 +213,7 @@ function! s:Unmap() " {{{
 endfunction " }}} s:Unmap()
 
 function! s:TestMappingsDo() "{{{
+	%d
 	if !exists("g:delimitMate_testing")
 		silent call delimitMate#TestMappings()
 	else
@@ -297,7 +301,8 @@ function! s:NoAutoClose() "{{{
 		if delim == '|'
 			let delim = '<Bar>'
 		endif
-		exec 'silent! inoremap <unique> <silent> <buffer> ' . delim . ' <C-R>=delimitMate#SkipDelim("' . escape(delim,'"') . '")<CR>'
+		exec 'inoremap <silent> <Plug>delimitMate' . delim . ' <C-R>=delimitMate#SkipDelim("' . escape(delim,'"') . '")<CR>'
+		exec 'silent! imap <unique> <buffer> '.delim.' <Plug>delimitMate'.delim
 	endfor
 endfunction "}}}
 
@@ -308,13 +313,15 @@ function! s:AutoClose() "{{{
 	while i < len(b:_l_delimitMate_matchpairs_list)
 		let ld = b:_l_delimitMate_left_delims[i] == '|' ? '<bar>' : b:_l_delimitMate_left_delims[i]
 		let rd = b:_l_delimitMate_right_delims[i] == '|' ? '<bar>' : b:_l_delimitMate_right_delims[i]
-		exec 'silent! inoremap <unique> <silent> <buffer> ' . ld . ' ' . ld . '<C-R>=delimitMate#ParenDelim("' . escape(rd, '|') . '")<CR>'
+		exec 'inoremap <silent> <Plug>delimitMate' . ld . ' ' . ld . '<C-R>=delimitMate#ParenDelim("' . escape(rd, '|') . '")<CR>'
+		exec 'silent! imap <unique> <buffer> '.ld.' <Plug>delimitMate'.ld
 		let i += 1
 	endwhile
 
 	" Exit from inside the matching pair:
 	for delim in b:_l_delimitMate_right_delims
-		exec 'silent! inoremap <unique> <silent> <buffer> ' . delim . ' <C-R>=delimitMate#JumpOut("\' . delim . '")<CR>'
+		exec 'inoremap <silent> <Plug>delimitMate' . delim . ' <C-R>=delimitMate#JumpOut("\' . delim . '")<CR>'
+		exec 'silent! imap <unique> <buffer> ' . delim . ' <Plug>delimitMate'. delim
 	endfor
 
 	" Add matching quote and jump to the midle, or exit if inside a pair of matching quotes:
@@ -323,13 +330,15 @@ function! s:AutoClose() "{{{
 		if delim == '|'
 			let delim = '<Bar>'
 		endif
-		exec 'silent! inoremap <unique> <silent> <buffer> ' . delim . ' <C-R>=delimitMate#QuoteDelim("\' . delim . '")<CR>'
+		exec 'inoremap <silent> <Plug>delimitMate' . delim . ' <C-R>=delimitMate#QuoteDelim("\' . delim . '")<CR>'
+		exec 'silent! imap <unique> <buffer> ' . delim . ' <Plug>delimitMate' . delim
 	endfor
 
 	" Try to fix the use of apostrophes (kept for backward compatibility):
 	" inoremap <silent> <buffer> n't n't
 	for map in b:_l_delimitMate_apostrophes_list
-		exec "silent! inoremap <unique> <silent> <buffer> " . map . " " . map
+		exec "inoremap <silent> " . map . " " . map
+		exec 'silent! imap <unique> <buffer> ' . map . ' <Plug>delimitMate' . map
 	endfor
 endfunction "}}}
 
@@ -338,7 +347,8 @@ function! s:VisualMaps() " {{{
 	let vleader = b:_l_delimitMate_visual_leader
 	" Wrap the selection with matching pairs, but do nothing if blockwise visual mode is active:
 	for del in b:_l_delimitMate_right_delims + b:_l_delimitMate_left_delims + b:_l_delimitMate_quotes_list
-		exec "silent! vnoremap <unique> <silent> <buffer> <expr> " . vleader . del . ' delimitMate#Visual("' . escape(del, '")|') . '")'
+		exec "vnoremap <silent> <expr> <Plug>delimitMateVisual" . del . ' delimitMate#Visual("' . escape(del, '")|') . '")'
+		exec 'silent! vmap <unique> <buffer> ' . vleader . del . ' <Plug>delimitMateVisual' . del
 	endfor
 endfunction "}}}
 
@@ -346,13 +356,13 @@ function! s:ExtraMappings() "{{{
 	" If pair is empty, delete both delimiters:
 	inoremap <silent> <Plug>delimitMateBS <C-R>=delimitMate#BS()<CR>
 	" If pair is empty, delete closing delimiter:
-	inoremap <silent> <expr> <Plug>delimitMateSBS delimitMate#WithinEmptyPair() ? "\<C-R>=delimitMate#Del()\<CR>" : "\<S-BS>"
+	inoremap <silent> <expr> <Plug>delimitMateS-BS delimitMate#WithinEmptyPair() ? "\<C-R>=delimitMate#Del()\<CR>" : "\<S-BS>"
 	" Expand return if inside an empty pair:
-	inoremap <silent> <Plug>delimitMateER <C-R>=delimitMate#ExpandReturn()<CR>
+	inoremap <silent> <Plug>delimitMateCR <C-R>=delimitMate#ExpandReturn()<CR>
 	" Expand space if inside an empty pair:
-	inoremap <silent> <Plug>delimitMateES <C-R>=delimitMate#ExpandSpace()<CR>
+	inoremap <silent> <Plug>delimitMateSpace <C-R>=delimitMate#ExpandSpace()<CR>
 	" Jump out ot any empty pair:
-	inoremap <silent> <Plug>delimitMateSTab <C-R>=delimitMate#JumpAny("\<S-Tab>")<CR>
+	inoremap <silent> <Plug>delimitMateS-Tab <C-R>=delimitMate#JumpAny("\<S-Tab>")<CR>
 	" Change char buffer on Del:
 	inoremap <silent> <Plug>delimitMateDel <C-R>=delimitMate#Del()<CR>
 	" Flush the char buffer on movement keystrokes or when leaving insert mode:
@@ -384,17 +394,17 @@ function! s:ExtraMappings() "{{{
 	if !hasmapto('<Plug>delimitMateBS','i')
 		silent! imap <unique> <buffer> <BS> <Plug>delimitMateBS
 	endif
-	if !hasmapto('<Plug>delimitMateSBS','i')
-		silent! imap <unique> <buffer> <S-BS> <Plug>delimitMateSBS
+	if !hasmapto('<Plug>delimitMateS-BS','i')
+		silent! imap <unique> <buffer> <S-BS> <Plug>delimitMateS-BS
 	endif
-	if b:_l_delimitMate_expand_cr != 0 && !hasmapto('<Plug>delimitMateER', 'i')
-		silent! imap <unique> <buffer> <CR> <Plug>delimitMateER
+	if b:_l_delimitMate_expand_cr != 0 && !hasmapto('<Plug>delimitMateCR', 'i')
+		silent! imap <unique> <buffer> <CR> <Plug>delimitMateCR
 	endif
-	if b:_l_delimitMate_expand_space != 0 && !hasmapto('<Plug>delimitMateES', 'i')
-		silent! imap <unique> <buffer> <Space> <Plug>delimitMateES
+	if b:_l_delimitMate_expand_space != 0 && !hasmapto('<Plug>delimitMateSpace', 'i')
+		silent! imap <unique> <buffer> <Space> <Plug>delimitMateSpace
 	endif
-	if b:_l_delimitMate_tab2exit && !hasmapto('<Plug>delimitMateSTab', 'i')
-		silent! imap <unique> <buffer> <S-Tab> <Plug>delimitMateSTab
+	if b:_l_delimitMate_tab2exit && !hasmapto('<Plug>delimitMateS-Tab', 'i')
+		silent! imap <unique> <buffer> <S-Tab> <Plug>delimitMateS-Tab
 	endif
 	" The following simply creates an ambiguous mapping so vim fully processes
 	" the escape sequence for terminal keys, see 'ttimeout' for a rough

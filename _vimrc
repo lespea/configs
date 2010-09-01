@@ -8,9 +8,9 @@ syntax on
 set background=dark
 if has("gui_running")
     if has("gui_win32")
-        set guifont=Anonymous_Pro:h12
+        set guifont=DejaVu_Sans_Mono:h11
     else
-        set guifont=Anonymous\ Pro\ 12
+        set guifont=DejaVu\ Sans\ Mono\ 11
     endif
     colorscheme tangoshady
 else

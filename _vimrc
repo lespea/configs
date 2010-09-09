@@ -141,6 +141,13 @@ autocmd FileType css         set  omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml         set  omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php         set  omnifunc=phpcomplete#CompletePHP
 autocmd FileType c           set  omnifunc=ccomplete#Complete
+function! g:ToggleNuMode()
+    if(&rnu == 1)
+        set nu
+    else
+        set rnu
+    endif
+endfunc
 function! s:swap_lines(n1, n2)
     let line1 = getline(a:n1)
     let line2 = getline(a:n2)
@@ -277,7 +284,7 @@ nnoremap \script  :tabnew C:\\Work\\irm_vm\\Scripts\\trunk\\
 noremap \sa :SessionSaveAs scratcha<CR>
 noremap \sb :SessionSaveAs scratchb<CR>
 noremap \qs :SessionSaveAs quitscrach<CR>:qa!<CR>
-noremap ,h :RN<CR>
+noremap ,h :call g:ToggleNuMode()<CR>
 noremap ,v :vne<CR>
 noremap ,q  qqqqq
 noremap ,m :CopyMatches<CR>

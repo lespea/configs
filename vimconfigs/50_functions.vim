@@ -2,6 +2,19 @@
 " |  A bunch of custom functions (mostly from forums  |
 " -----------------------------------------------------
 
+" ------------------------------
+" |  Toggle Relative Numbering  |
+" ------------------------------
+
+function! g:ToggleNuMode()
+    if(&rnu == 1)
+        set nu
+    else
+        set rnu
+    endif
+endfunc 
+
+
 " --------------------
 " |  Swap two lines  |
 " --------------------

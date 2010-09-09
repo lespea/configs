@@ -168,7 +168,7 @@ noremap \qs :SessionSaveAs quitscrach<CR>:qa!<CR>
 " -----------
 
 "  Use relavent line numbers
-noremap ,h :RN<CR>
+noremap ,h :call g:ToggleNuMode()<CR>
 
 "  Vertical split in a new buffer
 noremap ,v :vne<CR>

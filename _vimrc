@@ -190,22 +190,23 @@ function! s:CopyMatches(line1, line2, reg)
     endwhile
   endfor
 endfunction
-let g:slimv_python = 'C:/Python26/python.exe'
-let g:slimv_lisp = '"java -cp C:/clojure/clojure.jar;C:/clojure/clojure-contrib.jar clojure.main"'
-let g:lisp_rainbow = 1
+let g:slimv_python      = 'C:/Python26/python.exe'
+let g:slimv_lisp        = '"java -cp C:/clojure/clojure.jar;C:/clojure/clojure-contrib.jar clojure.main"'
+let g:lisp_rainbow      = 1
+let g:slimv_repl_return = 1
 map <silent> \e :NERDTreeToggle<CR>
-let NERDTreeWinPos='left'
-let NERDTreeChDirMode='2'
-let NERDTreeIgnore=['\.vim$', '\~$', '\.pyo$', '\.pyc$', '\.svn[\//]$', '\.swp$']
-let NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$',  '\.bak$', '\~$']
+let NERDTreeWinPos    = 'left'
+let NERDTreeChDirMode = '2'
+let NERDTreeIgnore    = ['\.vim$', '\~$', '\.pyo$', '\.pyc$', '\.svn[\//]$', '\.swp$']
+let NERDTreeSortOrder = ['^__\.py$', '\/$', '*', '\.swp$',  '\.bak$', '\~$']
 if !exists('g:FuzzyFinderOptions')
-    let g:FuzzyFinderOptions = { 'Base':{}, 'Buffer':{}, 'File':{}, 'Dir':{}, 'MruFile':{}, 'MruCmd':{}, 'Bookmark':{}, 'Tag':{}, 'TaggedFile':{}}
-    let g:FuzzyFinderOptions.File.excluded_path = '\v\~$|\.o$|\.exe$|\.bak$|\.swp$|((^|[/\\])\.{1,2}[/\\]$)|\.pyo$|\.pyc$|\.svn[/\\]$'
+    let g:FuzzyFinderOptions                       = { 'Base':{}, 'Buffer':{}, 'File':{}, 'Dir':{}, 'MruFile':{}, 'MruCmd':{}, 'Bookmark':{}, 'Tag':{}, 'TaggedFile':{}}
+    let g:FuzzyFinderOptions.File.excluded_path    = '\v\~$|\.o$|\.exe$|\.bak$|\.swp$|((^|[/\\])\.{1,2}[/\\]$)|\.pyo$|\.pyc$|\.svn[/\\]$'
     let g:FuzzyFinderOptions.Base.key_open_Tabpage = '<Space>'
 endif
 let g:fuzzy_matching_limit = 60
-let g:fuzzy_ceiling = 50000
-let g:fuzzy_ignore = "*.log;*.pyc;*.svn;"
+let g:fuzzy_ceiling        = 50000
+let g:fuzzy_ignore         = "*.log;*.pyc;*.svn;"
 map <silent> \f :FufFile<CR>
 map <silent> \b :FufBuffer<CR>
 let g:xptemplate_brace_complete = ''

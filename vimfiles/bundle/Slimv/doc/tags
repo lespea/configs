@@ -23,6 +23,7 @@ g:slimv_python	slimv.txt	/*g:slimv_python*
 g:slimv_repl_dir	slimv.txt	/*g:slimv_repl_dir*
 g:slimv_repl_file	slimv.txt	/*g:slimv_repl_file*
 g:slimv_repl_open	slimv.txt	/*g:slimv_repl_open*
+g:slimv_repl_return	slimv.txt	/*g:slimv_repl_return*
 g:slimv_repl_split	slimv.txt	/*g:slimv_repl_split*
 g:slimv_repl_wait	slimv.txt	/*g:slimv_repl_wait*
 g:slimv_repl_wrap	slimv.txt	/*g:slimv_repl_wrap*

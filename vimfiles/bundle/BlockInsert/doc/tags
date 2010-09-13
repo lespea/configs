@@ -1,0 +1,10 @@
+blockinsert-append	blockinsert.txt	/*blockinsert-append*
+blockinsert-both	blockinsert.txt	/*blockinsert-both*
+blockinsert-commands	blockinsert.txt	/*blockinsert-commands*
+blockinsert-delete	blockinsert.txt	/*blockinsert-delete*
+blockinsert-insert	blockinsert.txt	/*blockinsert-insert*
+blockinsert-mappings	blockinsert.txt	/*blockinsert-mappings*
+blockinsert-normal	blockinsert.txt	/*blockinsert-normal*
+blockinsert-record	blockinsert.txt	/*blockinsert-record*
+blockinsert-visual	blockinsert.txt	/*blockinsert-visual*
+blockinsert.txt	blockinsert.txt	/*blockinsert.txt*

@@ -204,11 +204,6 @@ set virtualedit=block
 "  Make it so mouse and keyboard don't exit select mode
 set selectmode=""
 
-"  Fullscreen start for windows
-if has("gui_win32")       " NT Windows
-        autocmd GUIEnter * :simalt ~x
-endif
-
 "  File encoding setup
 let $FENCVIEW_TELLENC="fencview"
 
@@ -218,3 +213,6 @@ let g:netrw_list_hide         = '^\.svn.*'
 let g:netrw_menu              = 0
 let g:netrw_silent            = 1
 let g:netrw_special_syntax    = 1
+
+"  Use relative numbering by default (I like it better + can still toggle with ,h)
+set rnu

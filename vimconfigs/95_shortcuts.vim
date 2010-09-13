@@ -15,6 +15,7 @@ cmap w!! w !sudo tee % >/dev/null
 
 "  Fast command mode
 nnoremap ; :
+vnoremap ; :
 
 "  Use space to page down
 noremap <Space> <PageDown>
@@ -95,11 +96,12 @@ noremap  <C-S-space> lBi <esc>Ea <esc>B
 
 "  Pasting
 noremap     <S-Insert> "+gP
+noremap     <S-C-V>    "+gP
 vnoremap    <S-Insert> "+gP
 cnoremap    <S-Insert> <C-R>+
 
 "  Yanking
-vnoremap <C-C>      "+y
+vnoremap <S-C-C>    "+y
 vnoremap <C-Insert> "+y
 
 "  Open up a new tab
@@ -165,12 +167,6 @@ nnoremap \ca :1,$y+<CR>
 nnoremap \s :source $MYVIMRC<CR>
 nnoremap \v :tabnew $MYVIMRC<CR>
 
-"  Jump to the IRM module folder
-nnoremap \mod  :tabnew C:\\Work\\irm_vm\\Modules\\trunk\\IRM\\
-
-"  Jump to the IRM script folder
-nnoremap \script  :tabnew C:\\Work\\irm_vm\\Scripts\\trunk\\
-
 "  Shortcuts to save various "scratch" sessions
 noremap \sa :SessionSaveAs scratcha<CR>
 noremap \sb :SessionSaveAs scratchb<CR>
@@ -224,4 +220,10 @@ noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>:silent noh<CR>
 noremap ,dupe :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>yyp:%s/^\(.\+\)\n\1\+/\1/<CR>:g/^$/d<CR>:silent noh<CR>
 
 "  Shortcut to edit the conf files
-noremap ,conf :tabnew $HOME\\vimconfigs\\
+noremap ,conf :tabnew $HOME/vimconfigs/
+
+"  Jump to the IRM module folder
+nnoremap ,mod     :cd C:/Work/irm_vm/Modules/trunk/IRM/<CR>
+
+"  Jump to the IRM script folder
+nnoremap ,script  :cd C:/Work/irm_vm/Scripts/trunk/<CR>

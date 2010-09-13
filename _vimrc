@@ -9,6 +9,7 @@ set background=dark
 if has("gui_running")
     if has("gui_win32")
         set guifont=DejaVu_Sans_Mono:h11
+        autocmd GUIEnter * :simalt ~x
     else
         set guifont=DejaVu\ Sans\ Mono\ 11
     endif
@@ -87,15 +88,13 @@ vnoremap <S-Tab> <gv
 set list
 set virtualedit=block
 set selectmode=""
-if has("gui_win32")       " NT Windows
-        autocmd GUIEnter * :simalt ~x
-endif
 let $FENCVIEW_TELLENC="fencview"
 let g:netrw_hide              = 1
 let g:netrw_list_hide         = '^\.svn.*'
 let g:netrw_menu              = 0
 let g:netrw_silent            = 1
 let g:netrw_special_syntax    = 1
+set rnu
 set statusline=
 set statusline+=%f\
 set statusline+=%h%m%r%w
@@ -233,6 +232,7 @@ nmap <leader>[]  <plug>blockinsert-b
 nmap <leader>q[] <plug>blockinsert-qb
 cmap w!! w !sudo tee % >/dev/null
 nnoremap ; :
+vnoremap ; :
 noremap <Space> <PageDown>
 inoremap jj <Esc>
 inoremap jk <Esc>
@@ -267,6 +267,7 @@ inoremap <S-CR> <Esc>
 nnoremap <S-space> i <esc>la <esc>h
 noremap  <C-S-space> lBi <esc>Ea <esc>B
 noremap     <S-Insert> "+gP
+noremap     <S-C-V>    "+gP
 vnoremap    <S-Insert> "+gP
 cnoremap    <S-Insert> <C-R>+
 vnoremap <C-C>      "+y
@@ -293,8 +294,6 @@ nnoremap \tl :set invlist!<CR>
 nnoremap \ca :1,$y+<CR>
 nnoremap \s :source $MYVIMRC<CR>
 nnoremap \v :tabnew $MYVIMRC<CR>
-nnoremap \mod  :tabnew C:\\Work\\irm_vm\\Modules\\trunk\\IRM\\
-nnoremap \script  :tabnew C:\\Work\\irm_vm\\Scripts\\trunk\\
 noremap \sa :SessionSaveAs scratcha<CR>
 noremap \sb :SessionSaveAs scratchb<CR>
 noremap \qs :SessionSaveAs quitscrach<CR>:qa!<CR>
@@ -313,7 +312,9 @@ noremap ,cab :tab sball<CR>:tabdo :bd!<CR>:tab sball<CR>:tabdo :bd!<CR>
 noremap ,cd :cd %:p:h<CR>
 noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>:silent noh<CR>
 noremap ,dupe :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>yyp:%s/^\(.\+\)\n\1\+/\1/<CR>:g/^$/d<CR>:silent noh<CR>
-noremap ,conf :tabnew $HOME\\vimconfigs\\
+noremap ,conf :tabnew $HOME/vimconfigs/
+nnoremap ,mod     :cd C:/Work/irm_vm/Modules/trunk/IRM/<CR>
+nnoremap ,script  :cd C:/Work/irm_vm/Scripts/trunk/<CR>
 abb teh the
 abb fo of
 abb taht that

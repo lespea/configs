@@ -12,6 +12,9 @@ if has("gui_running")
     if has("gui_win32")
         set guifont=DejaVu_Sans_Mono:h11
 
+        "  Also use full screen in windows
+        autocmd GUIEnter * :simalt ~x
+
     "  Anything else (Linux)
     else
         set guifont=DejaVu\ Sans\ Mono\ 11

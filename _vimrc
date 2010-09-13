@@ -222,6 +222,14 @@ au FileType vim  let b:delimitMate_quotes = " ' ` *"
 let g:delimitMate_matchpairs = "(:),[:],{:}"
 let g:delimitMate_expand_space = 1
 let g:delimitMate_expand_cr = 1
+vmap <leader>i  <plug>blockinsert-i
+vmap <leader>a  <plug>blockinsert-a
+nmap <leader>i  <plug>blockinsert-i
+nmap <leader>a  <plug>blockinsert-a
+vmap <leader>[]  <plug>blockinsert-b
+vmap <leader>q[] <plug>blockinsert-qb
+nmap <leader>[]  <plug>blockinsert-b
+nmap <leader>q[] <plug>blockinsert-qb
 noremap <Space> <PageDown>
 inoremap jj <Esc>
 inoremap jk <Esc>

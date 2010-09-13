@@ -103,6 +103,22 @@ let g:delimitMate_expand_cr = 1
 
 
 
+"  ----------------
+"  |  BlockInsert  |
+"  ----------------
+
+vmap <leader>i  <plug>blockinsert-i
+vmap <leader>a  <plug>blockinsert-a
+
+nmap <leader>i  <plug>blockinsert-i
+nmap <leader>a  <plug>blockinsert-a
+
+vmap <leader>[]  <plug>blockinsert-b
+vmap <leader>q[] <plug>blockinsert-qb
+
+nmap <leader>[]  <plug>blockinsert-b
+nmap <leader>q[] <plug>blockinsert-qb
+
 
 
 

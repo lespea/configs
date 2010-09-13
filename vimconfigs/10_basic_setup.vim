@@ -27,8 +27,9 @@ set comments=s1:/*,mb:*,ex:*/,f://,b:#,:%,:XCOMM,n:>,fb:-
 "  This being the 21st century, I use Unicode
 set encoding=utf-8
 
-"  Don't keep a backup file
+"  Don't keep a backup file or swap file
 set nobackup
+set noswapfile
 
 "  Keep 100 lines of command line history
 set history=100

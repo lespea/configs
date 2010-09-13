@@ -27,6 +27,7 @@ set matchpairs+=<:>
 set comments=s1:/*,mb:*,ex:*/,f://,b:#,:%,:XCOMM,n:>,fb:-
 set encoding=utf-8
 set nobackup
+set noswapfile
 set history=100
 set report=0
 set previewheight=8
@@ -230,15 +231,19 @@ vmap <leader>[]  <plug>blockinsert-b
 vmap <leader>q[] <plug>blockinsert-qb
 nmap <leader>[]  <plug>blockinsert-b
 nmap <leader>q[] <plug>blockinsert-qb
+cmap w!! w !sudo tee % >/dev/null
+nnoremap ; :
 noremap <Space> <PageDown>
 inoremap jj <Esc>
 inoremap jk <Esc>
+nnoremap j gj
+nnoremap k gk
 nnoremap Q gqap
 vnoremap Q gq
 noremap Y y$
 nnoremap <F1> :help<Space>
 vnoremap <F1> <C-C><F1>
-noremap <F1> <C-C><F1>
+noremap  <F1> <C-C><F1>
 noremap! <F1> <C-C><F1>
 noremap <F9> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))<CR>
 noremap <F10> :retab<CR>
@@ -253,10 +258,10 @@ nnoremap <silent><A-j> m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
 nnoremap <silent><A-k> m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
 nnoremap <silent><C-j> :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <silent><C-k> :set paste<CR>m`O<Esc>``:set nopaste<CR>
-nnoremap <silent><A-m> m`:s/\v(<\k*%#\k*>)(\_.{-})(<\k+>)/\3\2\1/<CR>``:noh<CR>
-nnoremap <silent><A-n> m`:s/\v(<\k+>)(.{-})(<\k*%#\k*>)/\3\2\1/<CR>``:noh<CR>
-noremap <M-,> k:call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
-noremap <M-.> :call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
+nnoremap <silent><M-m> m`:s/\v(<\k*%#\k*>)(\_.{-})(<\k+>)/\3\2\1/<CR>``:noh<CR>
+nnoremap <silent><M-n> m`:s/\v(<\k+>)(.{-})(<\k*%#\k*>)/\3\2\1/<CR>``:noh<CR>
+noremap <silent><M-k> k:call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
+noremap <silent><M-j> :call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
 noremap <silent> <C-N> :silent noh<CR>
 inoremap <S-CR> <Esc>
 nnoremap <S-space> i <esc>la <esc>h

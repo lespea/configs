@@ -6,12 +6,26 @@
 " |  Normal  |
 " ------------
 
+"  For when you forget sudo
+cmap w!! w !sudo tee % >/dev/null
+
+" ------------
+" |  Normal  |
+" ------------
+
+"  Fast command mode
+nnoremap ; :
+
 "  Use space to page down
 noremap <Space> <PageDown>
 
 "  Super fast insert-mode exiting
 inoremap jj <Esc>
 inoremap jk <Esc>
+
+"  Move correctly for wrapped lines
+nnoremap j gj
+nnoremap k gk
 
 "  Have Q reformat the current paragraph (or selected text if there is any):
 nnoremap Q gqap
@@ -28,7 +42,7 @@ noremap Y y$
 "  Have <F1> prompt for a help topic, rather than displaying the introduction page
 nnoremap <F1> :help<Space>
 vnoremap <F1> <C-C><F1>
-noremap <F1> <C-C><F1>
+noremap  <F1> <C-C><F1>
 noremap! <F1> <C-C><F1>
 
 "  Remove all trailing spaces
@@ -64,12 +78,12 @@ nnoremap <silent><C-j> :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <silent><C-k> :set paste<CR>m`O<Esc>``:set nopaste<CR>
 
 "  Swap the next/previous word
-nnoremap <silent><A-m> m`:s/\v(<\k*%#\k*>)(\_.{-})(<\k+>)/\3\2\1/<CR>``:noh<CR>
-nnoremap <silent><A-n> m`:s/\v(<\k+>)(.{-})(<\k*%#\k*>)/\3\2\1/<CR>``:noh<CR>
+nnoremap <silent><M-m> m`:s/\v(<\k*%#\k*>)(\_.{-})(<\k+>)/\3\2\1/<CR>``:noh<CR>
+nnoremap <silent><M-n> m`:s/\v(<\k+>)(.{-})(<\k*%#\k*>)/\3\2\1/<CR>``:noh<CR>
 
 " Move up or down with same indent level
-noremap <M-,> k:call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
-noremap <M-.> :call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
+noremap <silent><M-k> k:call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
+noremap <silent><M-j> :call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
 
 " Turn off highlighted search
 noremap <silent> <C-N> :silent noh<CR>
@@ -161,7 +175,6 @@ nnoremap \script  :tabnew C:\\Work\\irm_vm\\Scripts\\trunk\\
 noremap \sa :SessionSaveAs scratcha<CR>
 noremap \sb :SessionSaveAs scratchb<CR>
 noremap \qs :SessionSaveAs quitscrach<CR>:qa!<CR>
-
 
 " -----------
 " |  Comma  |

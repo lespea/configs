@@ -87,12 +87,12 @@ noremap <silent><S-C-k> k:call search ("^". matchstr (getline (line (".")+ 1), '
 noremap <silent><S-C-j> :call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
 
 " Turn off highlighted search
-noremap <silent> <C-N> :silent noh<CR>
+noremap <silent><C-N> :silent noh<CR>
 
 "  Shortcuts that insert surrounding space as reqeuested
 inoremap <S-CR> <Esc>
 nnoremap <S-space> i <esc>la <esc>h
-noremap  <C-S-space> lBi <esc>Ea <esc>B
+noremap  <S-C-space> m`lBi <esc>Ea <esc>``l
 
 "  Pasting
 noremap     <S-Insert> "+gP

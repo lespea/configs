@@ -262,10 +262,10 @@ nnoremap <silent><S-C-l> m`:s/\v(<\k*%#\k*>)(\_.{-})(<\k+>)/\3\2\1/<CR>``:noh<CR
 nnoremap <silent><S-C-h> m`:s/\v(<\k+>)(.{-})(<\k*%#\k*>)/\3\2\1/<CR>``:noh<CR>
 noremap <silent><S-C-k> k:call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
 noremap <silent><S-C-j> :call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
-noremap <silent> <C-N> :silent noh<CR>
+noremap <silent><C-N> :silent noh<CR>
 inoremap <S-CR> <Esc>
 nnoremap <S-space> i <esc>la <esc>h
-noremap  <C-S-space> lBi <esc>Ea <esc>B
+noremap  <S-C-space> m`lBi <esc>Ea <esc>``l
 noremap     <S-Insert> "+gP
 noremap     <S-C-V>    "+gP
 vnoremap    <S-Insert> "+gP

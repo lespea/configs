@@ -258,19 +258,19 @@ nnoremap <silent><A-j> m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
 nnoremap <silent><A-k> m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
 nnoremap <silent><C-j> :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <silent><C-k> :set paste<CR>m`O<Esc>``:set nopaste<CR>
-nnoremap <silent><S-C-l> m`:s/\v(<\k*%#\k*>)(\_.{-})(<\k+>)/\3\2\1/<CR>``:noh<CR>
-nnoremap <silent><S-C-h> m`:s/\v(<\k+>)(.{-})(<\k*%#\k*>)/\3\2\1/<CR>``:noh<CR>
-noremap <silent><S-C-k> k:call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
-noremap <silent><S-C-j> :call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
+nnoremap <silent><C-.> m`:s/\v(<\k*%#\k*>)(\_.{-})(<\k+>)/\3\2\1/<CR>``:noh<CR>
+nnoremap <silent><C-,> m`:s/\v(<\k+>)(.{-})(<\k*%#\k*>)/\3\2\1/<CR>``:noh<CR>
+noremap <silent><C-n> k:call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
+noremap <silent><C-m> :call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
 noremap <silent><C-N> :silent noh<CR>
-inoremap <S-CR> <Esc>
 nnoremap <S-space> i <esc>la <esc>h
 noremap  <S-C-space> m`lBi <esc>Ea <esc>``l
-noremap     <S-Insert> "+gP
-noremap     <S-C-V>    "+gP
-vnoremap    <S-Insert> "+gP
-cnoremap    <S-Insert> <C-R>+
-vnoremap <S-C-C>    "+y
+noremap     <S-Insert>  "+gP
+noremap     <C-S>       "+gP
+vnoremap    <S-Insert>  "+gP
+cnoremap    <S-Insert>  <C-R>+
+cnoremap    <C-S>       <C-R>+
+vnoremap <C-C>      "+y
 vnoremap <C-Insert> "+y
 noremap <C-T> :tabnew<CR>
 nnoremap <C-F4> :bd<CR>

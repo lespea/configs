@@ -79,29 +79,29 @@ nnoremap <silent><C-j> :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <silent><C-k> :set paste<CR>m`O<Esc>``:set nopaste<CR>
 
 "  Swap the next/previous word
-nnoremap <silent><S-C-l> m`:s/\v(<\k*%#\k*>)(\_.{-})(<\k+>)/\3\2\1/<CR>``:noh<CR>
-nnoremap <silent><S-C-h> m`:s/\v(<\k+>)(.{-})(<\k*%#\k*>)/\3\2\1/<CR>``:noh<CR>
+nnoremap <silent><C-.> m`:s/\v(<\k*%#\k*>)(\_.{-})(<\k+>)/\3\2\1/<CR>``:noh<CR>
+nnoremap <silent><C-,> m`:s/\v(<\k+>)(.{-})(<\k*%#\k*>)/\3\2\1/<CR>``:noh<CR>
 
 " Move up or down with same indent level
-noremap <silent><S-C-k> k:call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
-noremap <silent><S-C-j> :call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
+noremap <silent><C-n> k:call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
+noremap <silent><C-m> :call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
 
 " Turn off highlighted search
 noremap <silent><C-N> :silent noh<CR>
 
 "  Shortcuts that insert surrounding space as reqeuested
-inoremap <S-CR> <Esc>
 nnoremap <S-space> i <esc>la <esc>h
 noremap  <S-C-space> m`lBi <esc>Ea <esc>``l
 
 "  Pasting
-noremap     <S-Insert> "+gP
-noremap     <S-C-V>    "+gP
-vnoremap    <S-Insert> "+gP
-cnoremap    <S-Insert> <C-R>+
+noremap     <S-Insert>  "+gP
+noremap     <C-S>       "+gP
+vnoremap    <S-Insert>  "+gP
+cnoremap    <S-Insert>  <C-R>+
+cnoremap    <C-S>       <C-R>+
 
 "  Yanking
-vnoremap <S-C-C>    "+y
+vnoremap <C-C>      "+y
 vnoremap <C-Insert> "+y
 
 "  Open up a new tab

@@ -234,7 +234,6 @@ cmap w!! w !sudo tee % >/dev/null
 nnoremap ; :
 vnoremap ; :
 noremap <Space> <PageDown>
-inoremap jj <Esc>
 inoremap jk <Esc>
 nnoremap j gj
 nnoremap k gk

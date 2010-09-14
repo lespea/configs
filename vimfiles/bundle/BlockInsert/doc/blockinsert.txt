@@ -1,4 +1,4 @@
-*blockinsert.txt* For Vim version 7               Last change: 13 September 2010
+*blockinsert.txt* For Vim version 7               Last change: 14 September 2010
 
 
                    Easy Insert/Append to a paragraph of text~
@@ -115,9 +115,6 @@ QInsert    Define your actions here
 QAppend    Define your actions here
 Both       Write your text here
 QBoth      Define your actions here
-
-*Todo make :Both and :QBoth accept two arguments,
-      use text2 and <f-args> (<f-args>[0]?) ...
 
 *Todo make the commands accept a count as their first argument
 

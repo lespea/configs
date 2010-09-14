@@ -31,6 +31,7 @@ your |vimrc| file:
     1.3 Delete                             |blockinsert-delete|
     1.4 Act on both ends                   |blockinsert-both|
     1.5 Record                             |blockinsert-record|
+    1.6 Repeat                             |blockinsert-repeat|
 
 Blockinsert can take a range but if no such is given it will act upon the
 current paragraph.
@@ -89,6 +90,13 @@ Example with \qa gUaW:
     **Yet another ONE>>****
         **Last line of CODE>>****
 <
+1.6 Repeat                                 *blockinsert-repeat*
+
+This plugin integrates with Tim Pope's repeat plugin. It means that you can use
+|.| to repeat any blockinsert mapping you just used!
+
+For more information see: http://github.com/tpope/vim-repeat
+
 ================================================================================
 2. Visual mode                                               *blockinsert-visual*
 

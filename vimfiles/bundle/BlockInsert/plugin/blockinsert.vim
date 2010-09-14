@@ -19,6 +19,9 @@ let g:loaded_blockinsert = 1
 
 function! blockinsert#do (operation, com, _count, text) range
 
+    let virtualedit_bak = &virtualedit
+    set virtualedit=
+
     " Called from a :command
     if !empty(a:com)
 
@@ -55,7 +58,6 @@ function! blockinsert#do (operation, com, _count, text) range
 
     elseif 'a' == a:operation
 
-        let virtualedit_bak = &virtualedit
         set virtualedit=onemore
 
         let operation = '$l' . _count . 'X'
@@ -104,6 +106,8 @@ function! blockinsert#do (operation, com, _count, text) range
 
         let &virtualedit = virtualedit_bak
     endif
+
+    silent! call repeat#set("\<plug>blockinsert-" . a:operation , _count)
 
 endfunction
 

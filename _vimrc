@@ -231,10 +231,8 @@ vmap <leader>q[] <plug>blockinsert-qb
 nmap <leader>[]  <plug>blockinsert-b
 nmap <leader>q[] <plug>blockinsert-qb
 cmap w!! w !sudo tee % >/dev/null
-nnoremap ; :
 vnoremap ; :
 noremap <Space> <PageDown>
-inoremap jj <Esc>
 inoremap jk <Esc>
 nnoremap j gj
 nnoremap k gk

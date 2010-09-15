@@ -14,7 +14,6 @@ cmap w!! w !sudo tee % >/dev/null
 " ------------
 
 "  Fast command mode
-nnoremap ; :
 vnoremap ; :
 
 "  Use space to page down

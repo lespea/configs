@@ -79,8 +79,8 @@ nnoremap <silent><A-.> m`:s/\v(<\k*%#\k*>)(\_.{-})(<\k+>)/\3\2\1/<CR>``:noh<CR>
 nnoremap <silent><A-,> m`:s/\v(<\k+>)(.{-})(<\k*%#\k*>)/\3\2\1/<CR>``:noh<CR>
 
 " Move up or down with same indent level
-noremap <silent><A-N> k:call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
-noremap <silent><A-M> :call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
+noremap <silent><A-n> k:call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
+noremap <silent><A-m> :call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
 
 " Turn off highlighted search
 noremap <silent><C-N> :silent noh<CR>

@@ -20,6 +20,9 @@ au BufNewFile,BufRead *.pl,*.pm,*.t setf perl
 "au FileType perl setlocal keywordprg=perldoc\ -T\ -f
 autocmd FileType perl noremap K :!echo <cWORD> <cword> <bar> perl -e '$line = <STDIN>; if ($line =~ /(\w+::\w+)/){exec("perldoc $1")} elsif($line =~ /(\w+)/){exec "perldoc -f $1 <bar><bar> perldoc $1"}'<cr><cr>
 
+"  Ensure relativenumber is set
+au BufRead * set rnu
+
 
 " check perl code with :make
 autocmd FileType perl set makeprg=perl\ -c\ -T\ \"%\"\ $*

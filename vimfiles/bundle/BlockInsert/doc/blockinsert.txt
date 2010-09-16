@@ -1,4 +1,4 @@
-*blockinsert.txt* For Vim version 7               Last change: 14 September 2010
+*blockinsert.txt* For Vim version 7               Last change: 16 September 2010
 
 
                    Easy Insert/Append to a paragraph of text~
@@ -103,6 +103,25 @@ For more information see: http://github.com/tpope/vim-repeat
 The visual mappings do the same work as the normal ones |blockinsert-normal|,
 The only difference is that here the range is defined by the selected lines.
 
+There is one special case. When selecting text in visual block mode, the
+boundaries of the text acted upon are defined by the limits of the visual area.
+
+Example: (the <bar>s represent our selection)
+>
+    Some text here                |stridx(    |       end of this line
+    Some other text...            |strridx(   |       text after a function
+    Let's start a third line      |strlen(    |       ...finish this line
+    End of paragraph              |substitute(|       end indeed.
+<
+Now that a selection has been defined, all you need to do is type:
+\a followed by )~
+and your text will become:
+>
+    Some text here                 stridx()           end of this line
+    Some other text...             strridx()          text after a function
+    Let's start a third line       strlen()           ...finish this line
+    End of paragraph               substitute()       end indeed.
+<
 ================================================================================
 3. Commands                                                *blockinsert-commands*
 

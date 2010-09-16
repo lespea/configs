@@ -17,10 +17,6 @@ let g:loaded_blockinsert = 1
 
 function! blockinsert#do_exe (operation, text, start, end)
 
-    " When enabled (my case :), it is causing problems
-    let virtualedit_bak = &virtualedit
-    set virtualedit=
-
     if !empty(a:text)
 
         if 'a' == a:operation
@@ -33,11 +29,11 @@ function! blockinsert#do_exe (operation, text, start, end)
 
         elseif 'qa' == a:operation
 
-            let operation = v:count1 . '$' . a:text . "\<esc>"
+            let operation = '$' . v:count1 . a:text . "\<esc>"
 
         elseif 'qi' == a:operation
 
-            let operation = v:count1 . '^' . a:text . "\<esc>"
+            let operation = '^' . v:count1 . a:text . "\<esc>"
         endif
 
     elseif 'a' == a:operation
@@ -47,7 +43,7 @@ function! blockinsert#do_exe (operation, text, start, end)
             let _count = v:count1 - 1
             let operation = '$' . _count . 'hD'
         else
-            let operation = '$D'
+            let operation = '$x'
         endif
 
     elseif 'i' == a:operation
@@ -64,14 +60,13 @@ function! blockinsert#do_exe (operation, text, start, end)
         +
     endfor
 
-    if empty(a:text) && 'a' == a:operation
-
-        let &virtualedit = virtualedit_bak
-    endif
-
 endfunction
 
 function! blockinsert#do (operation1, operation2, start, end, text1, text2) range
+
+    " When enabled (my case :), it is causing problems
+    let virtualedit_bak = &virtualedit
+    set virtualedit=
 
     if !empty(a:text1) || empty(a:operation1)
 
@@ -161,6 +156,8 @@ function! blockinsert#do (operation1, operation2, start, end, text1, text2) rang
                 \"', '" . text2        .
                 \"')\<cr>"
                 \)
+
+    let &virtualedit = virtualedit_bak
 
 endfunction
 

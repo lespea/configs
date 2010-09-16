@@ -46,8 +46,12 @@ function! s:swap_down()
     exec n + 1
 endfunction
 
-noremap <silent> <c-s-up> :call <SID>swap_up()<CR>
-noremap <silent> <c-s-down> :call <SID>swap_down()<CR>
+noremap  <silent> <C-S-UP>   :call <SID>swap_up()<CR>
+noremap  <silent> <C-S-DOWN> :call <SID>swap_down()<CR>
+
+noremap  <silent> <A-k>      :call <SID>swap_up()<CR>
+noremap  <silent> <A-j>      :call <SID>swap_down()<CR>
+
 
 " -----------------
 " |  CopyMatches  |

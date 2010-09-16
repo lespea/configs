@@ -171,8 +171,10 @@ function! s:swap_down()
     call s:swap_lines(n, n + 1)
     exec n + 1
 endfunction
-noremap <silent> <c-s-up> :call <SID>swap_up()<CR>
-noremap <silent> <c-s-down> :call <SID>swap_down()<CR>
+noremap  <silent> <C-S-UP>   :call <SID>swap_up()<CR>
+noremap  <silent> <C-S-DOWN> :call <SID>swap_down()<CR>
+noremap  <silent> <A-k>      :call <SID>swap_up()<CR>
+noremap  <silent> <A-j>      :call <SID>swap_down()<CR>
 command! -range=% -register CopyMatches call s:CopyMatches(<line1>, <line2>, '<reg>')
 function! s:CopyMatches(line1, line2, reg)
   let reg = empty(a:reg) ? '+' : a:reg
@@ -253,14 +255,12 @@ noremap <F7> :setlocal spell! spell?<CR>
 noremap <F2> :tab sball<CR>
 nnoremap <C-L> :tabnext<CR>
 nnoremap <C-H> :tabprevious<CR>
-nnoremap <silent><A-j> m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
-nnoremap <silent><A-k> m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
 nnoremap <silent><C-j> :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <silent><C-k> :set paste<CR>m`O<Esc>``:set nopaste<CR>
-nnoremap <silent><C-.> m`:s/\v(<\k*%#\k*>)(\_.{-})(<\k+>)/\3\2\1/<CR>``:noh<CR>
-nnoremap <silent><C-,> m`:s/\v(<\k+>)(.{-})(<\k*%#\k*>)/\3\2\1/<CR>``:noh<CR>
-noremap <silent><C-n> k:call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
-noremap <silent><C-m> :call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
+nnoremap <silent><A-.> m`:s/\v(<\k*%#\k*>)(\_.{-})(<\k+>)/\3\2\1/<CR>``:noh<CR>
+nnoremap <silent><A-,> m`:s/\v(<\k+>)(.{-})(<\k*%#\k*>)/\3\2\1/<CR>``:noh<CR>
+noremap <silent><A-N> k:call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
+noremap <silent><A-M> :call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
 noremap <silent><C-N> :silent noh<CR>
 nnoremap <S-space> i <esc>la <esc>h
 noremap  <S-C-space> m`lBi <esc>Ea <esc>``l

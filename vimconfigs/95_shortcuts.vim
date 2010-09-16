@@ -71,18 +71,16 @@ nnoremap <C-L> :tabnext<CR>
 nnoremap <C-H> :tabprevious<CR>
 
 "  Above/below adding and creating lines
-nnoremap <silent><A-j> m`:silent +g/\m^\s*$/d<CR>``:noh<CR>
-nnoremap <silent><A-k> m`:silent -g/\m^\s*$/d<CR>``:noh<CR>
 nnoremap <silent><C-j> :set paste<CR>m`o<Esc>``:set nopaste<CR>
 nnoremap <silent><C-k> :set paste<CR>m`O<Esc>``:set nopaste<CR>
 
 "  Swap the next/previous word
-nnoremap <silent><C-.> m`:s/\v(<\k*%#\k*>)(\_.{-})(<\k+>)/\3\2\1/<CR>``:noh<CR>
-nnoremap <silent><C-,> m`:s/\v(<\k+>)(.{-})(<\k*%#\k*>)/\3\2\1/<CR>``:noh<CR>
+nnoremap <silent><A-.> m`:s/\v(<\k*%#\k*>)(\_.{-})(<\k+>)/\3\2\1/<CR>``:noh<CR>
+nnoremap <silent><A-,> m`:s/\v(<\k+>)(.{-})(<\k*%#\k*>)/\3\2\1/<CR>``:noh<CR>
 
 " Move up or down with same indent level
-noremap <silent><C-n> k:call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
-noremap <silent><C-m> :call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
+noremap <silent><A-N> k:call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
+noremap <silent><A-M> :call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
 
 " Turn off highlighted search
 noremap <silent><C-N> :silent noh<CR>

@@ -47,7 +47,9 @@ XPT whilenn hidden=1
 XPT perl " #!/usr/bin/env perl
 #!/usr/bin/env perl
 
-use Modern::Perl;
+use strict;
+use warnings;
+
 
 ..XPT
 

@@ -1,5 +1,6 @@
 blockinsert-append	blockinsert.txt	/*blockinsert-append*
 blockinsert-both	blockinsert.txt	/*blockinsert-both*
+blockinsert-both-same	blockinsert.txt	/*blockinsert-both-same*
 blockinsert-commands	blockinsert.txt	/*blockinsert-commands*
 blockinsert-delete	blockinsert.txt	/*blockinsert-delete*
 blockinsert-insert	blockinsert.txt	/*blockinsert-insert*

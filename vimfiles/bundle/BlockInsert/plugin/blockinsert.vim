@@ -6,8 +6,10 @@
 " http://github.com/kurkale6ka/vimfiles/blob/master/plugin/blockinsert.vim
 "
 " todo: make the :commands accept a count as their first argument
+"
 " todo: :Both, :QBoth -> how to give them an empty arg in input:
 "       :Both '' Second\ Argument
+"
 " todo: When hitting <esc> after 'Enter text:', it should abort, not delete
 
 if exists('g:loaded_blockinsert')
@@ -28,7 +30,7 @@ function! blockinsert#do_exe (mode, operation, col1, col2, row1, row2, text)
         let block = 1
     endif
 
-    if !empty(a:text)
+    if '_delete_please' != a:text
 
         if 'a' == a:operation
 
@@ -50,72 +52,164 @@ function! blockinsert#do_exe (mode, operation, col1, col2, row1, row2, text)
 
         elseif 'qa' == a:operation
 
-            let operation = go_end . v:count1 . a:text . "\<esc>"
+            if v:count1 > 1 && a:text !~ '^[[:space:]]*[[:digit:]]'
+
+                let operation = go_end . v:count1 . a:text . "\<esc>"
+            else
+                let operation = go_end . a:text . "\<esc>"
+            endif
 
         elseif 'qi' == a:operation
 
-            let operation = go_start . v:count1 . a:text . "\<esc>"
+            if v:count1 > 1 && a:text !~ '^[[:space:]]*[[:digit:]]'
+
+                let operation = go_start . v:count1 . a:text . "\<esc>"
+            else
+                let operation = go_start . a:text . "\<esc>"
+            endif
         endif
 
-    elseif 'a' == a:operation
+    elseif a:operation =~ 'a'
 
         if v:count1 > 1
 
-            let _count    = v:count1 - 1
-            let operation = go_end . _count . 'hD'
-        else
-            let operation = go_end . 'x'
+            let _count = v:count1 - 1
+            let go_end = go_end . _count . 'h'
         endif
 
-    elseif 'i' == a:operation
+        let operation = go_end . v:count1 . 'x'
+
+    elseif a:operation =~ 'i'
 
         let operation = go_start . v:count1 . 'x'
     endif
 
-    for i in range(0, a:row2 - a:row1)
+    if !empty(a:col1)
 
-        if getline('.') !~ '^[[:space:]]*$'
+        let current_line = getline('.')
 
-            execute 'normal ' . operation
+        let _col1 = a:col1 + 1
+        let _col2 = a:col2 + 1
+
+        let str_to_col1 = substitute(current_line, '\%' . _col1 . 'v.*', '', '')
+        let str_to_col2 = substitute(current_line, '\%' . _col2 . 'v.*', '', '')
+
+        let _col1 = strlen(str_to_col1)
+        let _col2 = strlen(str_to_col2)
+
+        for i in range(1, a:row2 - a:row1 + 1)
+
+            if strpart(getline('.'), _col1 - 1, _col2 - _col1 + 1) =~ '[^[:space:]]\+'
+
+                execute 'normal ' . operation
+            endif
+            +
+        endfor
+    else
+        for i in range(1, a:row2 - a:row1 + 1)
+
+            if getline('.') !~ '^[[:space:]]*$'
+
+                execute 'normal ' . operation
+            endif
+            +
+        endfor
+    endif
+
+endfunction
+
+function! blockinsert#get_text (ope, text1, text2)
+
+    if !empty(a:text1)
+
+        let text1 = a:text1
+
+    elseif a:ope !~ 'u'
+
+        if a:ope =~ 'i' && !&rightleft || a:ope =~ 'a' && &rightleft
+
+            if a:ope !~ 'q'
+
+                let text1 = input('Left text: ')
+            else
+                let text1 = input('Left actions: ')
+            endif
+        else
+            if a:ope !~ 'q'
+
+                let text1 = input('Right text: ')
+            else
+                let text1 = input('Right actions: ')
+            endif
         endif
-        +
-    endfor
+
+    elseif a:ope =~ 'u'
+
+        if !empty(a:text2)
+
+            let text1 = a:text2
+        else
+            if a:ope !~ 'q'
+
+                let text1 = input('Surround text: ')
+            else
+                let text1 = input('Surround actions: ')
+            endif
+        endif
+    endif
+
+    if empty(text1)
+
+        let text1 = '_delete_please'
+    endif
+
+    return text1
 
 endfunction
 
 function! blockinsert#do (mode, ope1, ope2, col1, col2, row1, row2, text1, text2) range
 
-    " When enabled (my case :), it is causing problems
-    let virtualedit_bak = &virtualedit
-    set virtualedit=
+    if !empty(a:ope1)
 
-    if !empty(a:text1) || empty(a:ope1)
-
-        let text1 = a:text1
+        let text1 = blockinsert#get_text (a:ope1, a:text1, '')
     else
-        let text1 = input('Enter text: ')
+        let text1 = ''
     endif
 
-    if !empty(a:text2) || empty(a:ope2)
+    if !empty(a:ope2)
 
-        let text2 = a:text2
+        let text2 = blockinsert#get_text (a:ope2, a:text2, text1)
     else
-        let text2 = input('Enter text: ')
+        let text2 = ''
     endif
 
-    " edge case: \q[] or \[] in visual block mode
+    if (a:ope1 !~ 'u')
+
+        let ope1 = a:ope1
+        let ope2 = a:ope2
+    else
+        let ope1 = substitute(a:ope1, 'u', '', '')
+        let ope2 = substitute(a:ope2, 'u', '', '')
+    endif
+
     if 'v' == a:mode
 
         if "\<c-v>" == visualmode()
 
-            let col1 = virtcol("'<")
-            let col2 = virtcol("'>") + len(text1)
+            if virtcol("'<") < virtcol("'>")
+
+                let col1 = virtcol("'<")
+                let col2 = virtcol("'>")
+            else
+                let col1 = virtcol("'>")
+                let col2 = virtcol("'<")
+            endif
         endif
 
         if !empty(a:col1)
 
             let col1 = virtcol('.')
-            let col2 = col1 + a:col2 - a:col1 + len(text1)
+            let col2 = col1 + a:col2 - a:col1
         endif
     endif
 
@@ -125,8 +219,8 @@ function! blockinsert#do (mode, ope1, ope2, col1, col2, row1, row2, text1, text2
         let col2 = 0
     endif
 
-    " no range given or current line selected (pointless)
-    if a:firstline == a:lastline && empty(a:row1)
+    " no range given
+    if empty(a:row1) && 'n' == a:mode
 
         '{
 
@@ -164,30 +258,34 @@ function! blockinsert#do (mode, ope1, ope2, col1, col2, row1, row2, text1, text2
         let _row2 = a:lastline
     endif
 
-    if !empty(a:ope1) && !empty(a:ope2)
+    if !empty(ope1) && !empty(ope2)
 
         let line_bak = line('.')
     endif
 
-    if !empty(a:ope1)
+    if !empty(ope2)
 
-        call blockinsert#do_exe (a:mode, a:ope1, col1, col2, row1, row2, text1)
+        call blockinsert#do_exe (a:mode, ope2, col1, col2, row1, row2, text2)
 
-        if !empty(a:ope2)
+        if !empty(ope1)
 
             execute line_bak
         endif
     endif
 
-    if !empty(a:ope2)
+    if !empty(ope1)
 
-        call blockinsert#do_exe (a:mode, a:ope2, col1, col2, row1, row2, text2)
+        call blockinsert#do_exe (a:mode, ope1, col1, col2, row1, row2, text1)
     endif
+
+    " When enabled (my case :), it is causing problems
+    let virtualedit_bak = &virtualedit
+    set virtualedit=
 
     silent! call repeat#set(":\<c-u>call blockinsert#do ('" .
                 \         a:mode .
-                \"', '" . a:ope1 .
-                \"', '" . a:ope2 .
+                \"', '" .   ope1 .
+                \"', '" .   ope2 .
                 \"',  " .   col1 .
                 \" ,  " .   col2 .
                 \" ,  " .  _row1 .
@@ -201,23 +299,32 @@ function! blockinsert#do (mode, ope1, ope2, col1, col2, row1, row2, text1, text2
 
 endfunction
 
-command! -nargs=* -range Insert
-            \ <line1>,<line2>call blockinsert#do ('c', '', 'i',  0, 0, 0, 0, '', <q-args>)
+if exists('g:blockinsert_commands') && g:blockinsert_commands == 1
 
-command! -nargs=* -range Append
-            \ <line1>,<line2>call blockinsert#do ('c', '', 'a',  0, 0, 0, 0, '', <q-args>)
+    command! -nargs=* -range BlockInsert
+                \ <line1>,<line2>call blockinsert#do ('c', '', 'i',  0, 0, 0, 0, '', <q-args>)
 
-command! -nargs=* -range QInsert
-            \ <line1>,<line2>call blockinsert#do ('c', '', 'qi', 0, 0, 0, 0, '', <q-args>)
+    command! -nargs=* -range BlockAppend
+                \ <line1>,<line2>call blockinsert#do ('c', '', 'a',  0, 0, 0, 0, '', <q-args>)
 
-command! -nargs=* -range QAppend
-            \ <line1>,<line2>call blockinsert#do ('c', '', 'qa', 0, 0, 0, 0, '', <q-args>)
+    command! -nargs=* -range BlockQInsert
+                \ <line1>,<line2>call blockinsert#do ('c', '', 'qi', 0, 0, 0, 0, '', <q-args>)
 
-command! -nargs=* -range Both
-            \ <line1>,<line2>call blockinsert#do ('c', 'i',  'a',  0, 0, 0, 0, <f-args>)
+    command! -nargs=* -range BlockQAppend
+                \ <line1>,<line2>call blockinsert#do ('c', '', 'qa', 0, 0, 0, 0, '', <q-args>)
 
-command! -nargs=* -range QBoth
-            \ <line1>,<line2>call blockinsert#do ('c', 'qi', 'qa', 0, 0, 0, 0, <f-args>)
+    command! -nargs=* -range BlockBoth
+                \ <line1>,<line2>call blockinsert#do ('c', 'i',  'a',  0, 0, 0, 0, <f-args>)
+
+    command! -nargs=* -range BlockBothSame
+                \ <line1>,<line2>call blockinsert#do ('c', 'iu',  'au',  0, 0, 0, 0, <q-args>, '')
+
+    command! -nargs=* -range BlockQBoth
+                \ <line1>,<line2>call blockinsert#do ('c', 'qi', 'qa', 0, 0, 0, 0, <f-args>)
+
+    command! -nargs=* -range BlockQBothSame
+                \ <line1>,<line2>call blockinsert#do ('c', 'qiu', 'qau', 0, 0, 0, 0, <q-args>, '')
+endif
 
 " Insert / Append
 vmap <plug>blockinsert-i  :call blockinsert#do ('v', '', 'i',  0, 0, 0, 0, '', '')<cr>
@@ -232,8 +339,12 @@ nmap <plug>blockinsert-qi :<c-u>call blockinsert#do ('n', '', 'qi', 0, 0, 0, 0, 
 nmap <plug>blockinsert-qa :<c-u>call blockinsert#do ('n', '', 'qa', 0, 0, 0, 0, '', '')<cr>
 
 " Both Insert & Append
-vmap <plug>blockinsert-b  :call blockinsert#do ('v', 'i',  'a',  0, 0, 0, 0, '', '')<cr>
-vmap <plug>blockinsert-qb :call blockinsert#do ('v', 'qi', 'qa', 0, 0, 0, 0, '', '')<cr>
+vmap <plug>blockinsert-b   :call blockinsert#do ('v', 'i',   'a',   0, 0, 0, 0, '', '')<cr>
+vmap <plug>blockinsert-ub  :call blockinsert#do ('v', 'iu',  'au',  0, 0, 0, 0, '', '')<cr>
+vmap <plug>blockinsert-qb  :call blockinsert#do ('v', 'qi',  'qa',  0, 0, 0, 0, '', '')<cr>
+vmap <plug>blockinsert-uqb :call blockinsert#do ('v', 'qiu', 'qau', 0, 0, 0, 0, '', '')<cr>
 
-nmap <plug>blockinsert-b  :<c-u>call blockinsert#do ('n', 'i',  'a',  0, 0, 0, 0, '', '')<cr>
-nmap <plug>blockinsert-qb :<c-u>call blockinsert#do ('n', 'qi', 'qa', 0, 0, 0, 0, '', '')<cr>
+nmap <plug>blockinsert-b   :<c-u>call blockinsert#do ('n', 'i',   'a',   0, 0, 0, 0, '', '')<cr>
+nmap <plug>blockinsert-ub  :<c-u>call blockinsert#do ('n', 'iu',  'au',  0, 0, 0, 0, '', '')<cr>
+nmap <plug>blockinsert-qb  :<c-u>call blockinsert#do ('n', 'qi',  'qa',  0, 0, 0, 0, '', '')<cr>
+nmap <plug>blockinsert-uqb :<c-u>call blockinsert#do ('n', 'qiu', 'qau', 0, 0, 0, 0, '', '')<cr>

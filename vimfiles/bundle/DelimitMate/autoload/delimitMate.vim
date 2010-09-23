@@ -1,7 +1,7 @@
 " ============================================================================
 " File:        autoload/delimitMate.vim
-" Version:     2.4.1
-" Modified:    2010-07-31
+" Version:     2.5
+" Modified:    2010-09-22
 " Description: This plugin provides auto-completion for quotes, parens, etc.
 " Maintainer:  Israel Chauca F. <israelchauca@gmail.com>
 " Manual:      Read ":help delimitMate".
@@ -598,9 +598,9 @@ function! delimitMate#TestMappings() "{{{
 	" }}}
 endfunction "}}}
 
-function! delimitMate#OptionsList()
+function! delimitMate#OptionsList() "{{{
 	return {'autoclose' : 1,'matchpairs': &matchpairs, 'quotes' : '" '' `', 'nesting_quotes' : [], 'visual_leader' : ( exists('mapleader') ? mapleader : exists('b:maplocalleader') ? b:maplocalleader : '\' ), 'expand_cr' : 0, 'expand_space' : 0, 'smart_quotes' : 1, 'balance_matchpairs' : 0, 'excluded_regions' : 'Comment', 'excluded_ft' : '', 'apostrophes' : ''}
-endfunction
+endfunction " delimitMate#OptionsList }}}
 "}}}
 
 " vim:foldmethod=marker:foldcolumn=4

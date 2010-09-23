@@ -25,8 +25,6 @@
 :DelimitMateSwitch	delimitMate.txt	/*:DelimitMateSwitch*
 :DelimitMateTest	delimitMate.txt	/*:DelimitMateTest*
 delimitMate	delimitMate.txt	/*delimitMate*
-delimitMate#ExpandReturn()	delimitMate.txt	/*delimitMate#ExpandReturn()*
-delimitMate#ExpandSpace()	delimitMate.txt	/*delimitMate#ExpandSpace()*
 delimitMate#JumpAny()	delimitMate.txt	/*delimitMate#JumpAny()*
 delimitMate#ShouldJump()	delimitMate.txt	/*delimitMate#ShouldJump()*
 delimitMate-contents	delimitMate.txt	/*delimitMate-contents*
@@ -43,6 +41,7 @@ delimitMateFunctions	delimitMate.txt	/*delimitMateFunctions*
 delimitMateHistory	delimitMate.txt	/*delimitMateHistory*
 delimitMateIntro	delimitMate.txt	/*delimitMateIntro*
 delimitMateMaintainer	delimitMate.txt	/*delimitMateMaintainer*
+delimitMateMappings	delimitMate.txt	/*delimitMateMappings*
 delimitMateOptionDetails	delimitMate.txt	/*delimitMateOptionDetails*
 delimitMateOptionSummary	delimitMate.txt	/*delimitMateOptionSummary*
 delimitMateOptions	delimitMate.txt	/*delimitMateOptions*

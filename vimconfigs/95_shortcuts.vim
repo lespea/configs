@@ -223,3 +223,14 @@ nnoremap ,mod     :cd C:/Work/irm_vm/Modules/trunk/IRM/<CR>
 
 "  Jump to the IRM script folder
 nnoremap ,script  :cd C:/Work/irm_vm/Scripts/trunk/<CR>
+
+
+"  Disable the arrow keys :)
+inoremap  <Up>     <NOP>
+inoremap  <Down>   <NOP>
+inoremap  <Left>   <NOP>
+inoremap  <Right>  <NOP>
+noremap   <Up>     <NOP>
+noremap   <Down>   <NOP>
+noremap   <Left>   <NOP>
+noremap   <Right>  <NOP>

@@ -6,7 +6,6 @@
 'b:delimitMate_nesting_quotes'	delimitMate.txt	/*'b:delimitMate_nesting_quotes'*
 'b:delimitMate_quotes'	delimitMate.txt	/*'b:delimitMate_quotes'*
 'b:delimitMate_smart_quotes'	delimitMate.txt	/*'b:delimitMate_smart_quotes'*
-'b:delimitMate_visual_leader'	delimitMate.txt	/*'b:delimitMate_visual_leader'*
 'b:loaded_delimitMate'	delimitMate.txt	/*'b:loaded_delimitMate'*
 'delimitMate_apostrophes'	delimitMate.txt	/*'delimitMate_apostrophes'*
 'delimitMate_autoclose'	delimitMate.txt	/*'delimitMate_autoclose'*
@@ -19,7 +18,6 @@
 'delimitMate_nesting_quotes'	delimitMate.txt	/*'delimitMate_nesting_quotes'*
 'delimitMate_quotes'	delimitMate.txt	/*'delimitMate_quotes'*
 'delimitMate_smart_quotes'	delimitMate.txt	/*'delimitMate_smart_quotes'*
-'delimitMate_visual_leader'	delimitMate.txt	/*'delimitMate_visual_leader'*
 'loaded_delimitMate'	delimitMate.txt	/*'loaded_delimitMate'*
 :DelimitMateReload	delimitMate.txt	/*:DelimitMateReload*
 :DelimitMateSwitch	delimitMate.txt	/*:DelimitMateSwitch*
@@ -48,5 +46,4 @@ delimitMateOptions	delimitMate.txt	/*delimitMateOptions*
 delimitMateSmartQuotes	delimitMate.txt	/*delimitMateSmartQuotes*
 delimitMateSyntax	delimitMate.txt	/*delimitMateSyntax*
 delimitMateTodo	delimitMate.txt	/*delimitMateTodo*
-delimitMateVisualWrapping	delimitMate.txt	/*delimitMateVisualWrapping*
 delimitMate_WithinEmptyPair()	delimitMate.txt	/*delimitMate_WithinEmptyPair()*

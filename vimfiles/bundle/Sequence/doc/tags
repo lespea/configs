@@ -1,0 +1,4 @@
+sequence-custom-mappings	sequence.txt	/*sequence-custom-mappings*
+sequence-repeat	sequence.txt	/*sequence-repeat*
+sequence-usage	sequence.txt	/*sequence-usage*
+sequence.txt	sequence.txt	/*sequence.txt*

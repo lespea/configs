@@ -1,0 +1,87 @@
+*sequence.txt* For Vim version 7                     Last change: 6 October 2010
+
+
+                  Increment / Decrement a sequence of numbers~
+
+
+                              By Dimitar Dimitrov
+                                   kurkale6ka
+                                mitkofr@yahoo.fr
+
+                                Reference Manual~
+
+
+Latest version at:
+http://github.com/kurkale6ka/vimfiles/blob/master/doc/sequence.txt
+
+
+
+1. Usage                                                         |sequence-usage|
+    1.1 Repeat                                                  |sequence-repeat|
+
+2. Custom mappings                                     |sequence-custom-mappings|
+
+The functionality mentioned here is a plugin, see |add-plugin|. You can avoid
+loading this plugin by setting the sequence global variable in your |vimrc|
+file:
+>
+    :let g:loaded_sequence = 1
+<
+================================================================================
+1. Usage                                                         *sequence-usage*
+
+Put the cursor anywhere on these lines. The range will be guessed and the first
+sequence of numbers will be transformed. If you want to transform the second
+sequence of numbers you must use a visual block selection (dashes in this
+example).
+
+array [1] = 9              array [1] = -9-              array [1] = 9
+array [1] = 9              array [2] = -9-              array [2] = 8
+array [1] = 9    alt-a:    array [3] = -9-    alt-x:    array [3] = 7
+array [1] = 9              array [4] = -9-              array [4] = 6
+array [1] = 9              array [5] = -9-              array [5] = 5
+
+With a count:~
+
+array [1] = 9                array [1] = -9-                array [1] = 9
+array [1] = 9                array [3] = -9-                array [3] = 7
+array [1] = 9    2 alt-a:    array [5] = -9-    2 alt-x:    array [5] = 5
+array [1] = 9                array [7] = -9-                array [7] = 3
+array [1] = 9                array [9] = -9-                array [9] = 1
+
+Note: If the range is not easy to guess, use a selection instead
+
+If you wanted to increment / decrement all numbers by only one, select your
+lines and press ^a / ^x
+
+   v mode                     ^v mode~
+array [1] = 8             array [6] = -8-             array [6] = 5
+array [1] = 8             array [6] = -8-             array [6] = 5
+array [1] = 8    5 ^a:    array [6] = -8-    3 ^x:    array [6] = 5
+array [1] = 8             array [6] = -8-             array [6] = 5
+array [1] = 8             array [6] = -8-             array [6] = 5
+
+1.1 Repeat                                                      *sequence-repeat*
+
+This plugin integrates with Tim Pope's repeat plugin. It means that you can use
+|.| to repeat any normal mode (for now) sequence mapping you just used!
+
+For more information see: http://github.com/tpope/vim-repeat
+
+================================================================================
+2. Custom mappings                                     *sequence-custom-mappings*
+
+You have the possibility to define your own custom mappings in your |vimrc|:
+>
+    vmap <m-a> <plug>SequenceV_Increment
+    vmap <m-x> <plug>SequenceV_Decrement
+    nmap <m-a> <plug>SequenceN_Increment
+    nmap <m-x> <plug>SequenceN_Decrement
+
+    vmap <c-a> <plug>SequenceAdd
+    vmap <c-x> <plug>SequenceSubtract
+<
+Note: You can replace Alt+a, Alt+x, Ctrl+a and Ctrl+x with whatever you like.
+
+================================================================================
+ vim: textwidth=80 tabstop=8 filetype=help

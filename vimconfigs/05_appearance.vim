@@ -23,6 +23,9 @@ if has("gui_running")
     "  Gvim color scheme
     colorscheme tangoshady
 
+    "  Anti-alias fonts"
+    set antialias
+
 "  Console vim
 else
     "  Console vim color scheme

@@ -6,9 +6,13 @@
 "  |  slimv  |
 "  -----------
 
-let g:slimv_python      = 'C:/Python27/python.exe'
-let g:slimv_lisp        = '"java -cp C:/clojure/clojure.jar;C:/clojure/clojure-contrib.jar clojure.main"'
-let g:lisp_rainbow      = 1
+let g:slimv_python           = 'C:/Python27/python.exe'
+let g:slimv_lisp             = '"java -cp C:/clojure/clojure.jar;C:/clojure/clojure-contrib.jar clojure.main"'
+let g:lisp_rainbow           = 1
+let g:clj_highlight_builtins = 1
+
+" Stupid plugin breaks delimitMate so forcibly remove it!
+let g:paredit_loaded         = 0
 
 
 

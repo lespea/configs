@@ -24,9 +24,9 @@ set diffcontext 3
 set selectbgcolor SystemHighlight
 set extdifftool meld
 set perfile_attrs 0
-set geometry(main) 1618x1008+187+125
+set geometry(main) 1601x1008+-33+0
 set geometry(state) zoomed
-set geometry(topwidth) 1618
+set geometry(topwidth) 1601
 set geometry(topheight) 225
 set geometry(pwsash0) "609 1"
 set geometry(pwsash1) "914 1"

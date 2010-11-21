@@ -13,7 +13,7 @@ if has("gui_running")
     else
         set guifont=DejaVu\ Sans\ Mono\ 11
     endif
-    colorscheme tangoshady
+    colorscheme void
     set antialias
 else
     colorscheme desert256
@@ -96,6 +96,7 @@ let g:netrw_menu              = 0
 let g:netrw_silent            = 1
 let g:netrw_special_syntax    = 1
 set rnu
+set wak=no
 set statusline=
 set statusline+=%f\
 set statusline+=%h%m%r%w

@@ -216,3 +216,6 @@ let g:netrw_special_syntax    = 1
 
 "  Use relative numbering by default (I like it better + can still toggle with ,h)
 set rnu
+
+" Don't use alt to open the menu (so I can use it to bind values)
+set wak=no

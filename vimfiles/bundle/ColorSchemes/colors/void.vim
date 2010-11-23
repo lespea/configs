@@ -64,6 +64,7 @@ hi Operator guifg=navajowhite cterm=NONE
 hi Ignore	guifg=grey40
 "hi Error
 hi Todo		guifg=orangered guibg=yellow2
+hi Todo		guifg=orange guibg=gray40
 
 " color terminal definitions
 hi SpecialKey	ctermfg=darkgreen

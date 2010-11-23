@@ -5,6 +5,7 @@
 'b:delimitMate_matchpairs'	delimitMate.txt	/*'b:delimitMate_matchpairs'*
 'b:delimitMate_nesting_quotes'	delimitMate.txt	/*'b:delimitMate_nesting_quotes'*
 'b:delimitMate_quotes'	delimitMate.txt	/*'b:delimitMate_quotes'*
+'b:delimitMate_smart_matchpairs'	delimitMate.txt	/*'b:delimitMate_smart_matchpairs'*
 'b:delimitMate_smart_quotes'	delimitMate.txt	/*'b:delimitMate_smart_quotes'*
 'b:loaded_delimitMate'	delimitMate.txt	/*'b:loaded_delimitMate'*
 'delimitMate_apostrophes'	delimitMate.txt	/*'delimitMate_apostrophes'*
@@ -17,6 +18,7 @@
 'delimitMate_matchpairs'	delimitMate.txt	/*'delimitMate_matchpairs'*
 'delimitMate_nesting_quotes'	delimitMate.txt	/*'delimitMate_nesting_quotes'*
 'delimitMate_quotes'	delimitMate.txt	/*'delimitMate_quotes'*
+'delimitMate_smart_matchpairs'	delimitMate.txt	/*'delimitMate_smart_matchpairs'*
 'delimitMate_smart_quotes'	delimitMate.txt	/*'delimitMate_smart_quotes'*
 'loaded_delimitMate'	delimitMate.txt	/*'loaded_delimitMate'*
 :DelimitMateReload	delimitMate.txt	/*:DelimitMateReload*
@@ -43,6 +45,7 @@ delimitMateMappings	delimitMate.txt	/*delimitMateMappings*
 delimitMateOptionDetails	delimitMate.txt	/*delimitMateOptionDetails*
 delimitMateOptionSummary	delimitMate.txt	/*delimitMateOptionSummary*
 delimitMateOptions	delimitMate.txt	/*delimitMateOptions*
+delimitMateSmartMatchpairs	delimitMate.txt	/*delimitMateSmartMatchpairs*
 delimitMateSmartQuotes	delimitMate.txt	/*delimitMateSmartQuotes*
 delimitMateSyntax	delimitMate.txt	/*delimitMateSyntax*
 delimitMateTodo	delimitMate.txt	/*delimitMateTodo*

@@ -32,17 +32,16 @@ set statusline+=%L\ %P
 "  Color function
 function! InsertStatuslineColor(mode)
   if a:mode == 'i'
-    hi statusline guibg=orange
+    hi statusline guibg=purple
   elseif a:mode == 'r'
     hi statusline guibg=red
+  elseif a:mode == 'v'
+    hi statusline guibg=blue
   else
-    hi statusline guibg=green
+    hi statusline guibg=black
   endif
 endfunction
 
 "  Insert mode defines the color of the statusline
 au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * hi statusline guibg=cyan
-
-"  Default the statusline to cyan when entering Vim
-hi statusline guibg=cyan
+au InsertLeave * call InsertStatuslineColor('n')

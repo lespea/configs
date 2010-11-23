@@ -109,16 +109,18 @@ set statusline+=%c,%l/
 set statusline+=%L\ %P
 function! InsertStatuslineColor(mode)
   if a:mode == 'i'
-    hi statusline guibg=orange
+    hi statusline guibg=purple
   elseif a:mode == 'r'
     hi statusline guibg=red
+  elseif a:mode == 'v'
+    hi statusline guibg=blue
   else
-    hi statusline guibg=green
+    hi statusline guibg=black
   endif
 endfunction
 au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * hi statusline guibg=cyan
-hi statusline guibg=cyan
+au InsertLeave * call InsertStatuslineColor('n')
+"hi statusline guibg=black
 au FileType helpfile set nonumber
 au FileType helpfile nnoremap <buffer><cr> <c-]>
 au FileType helpfile nnoremap <buffer><bs> <c-T>

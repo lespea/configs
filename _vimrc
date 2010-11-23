@@ -120,7 +120,6 @@ function! InsertStatuslineColor(mode)
 endfunction
 au InsertEnter * call InsertStatuslineColor(v:insertmode)
 au InsertLeave * call InsertStatuslineColor('n')
-"hi statusline guibg=black
 au FileType helpfile set nonumber
 au FileType helpfile nnoremap <buffer><cr> <c-]>
 au FileType helpfile nnoremap <buffer><bs> <c-T>
@@ -318,8 +317,6 @@ noremap ,cd :cd %:p:h<CR>
 noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>:silent noh<CR>
 noremap ,dupe :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>yyp:%s/^\(.\+\)\n\1\+/\1/<CR>:g/^$/d<CR>:silent noh<CR>
 noremap ,conf :tabnew $HOME/vimconfigs/
-nnoremap ,mod     :cd C:/Work/irm_vm/Modules/trunk/IRM/<CR>
-nnoremap ,script  :cd C:/Work/irm_vm/Scripts/trunk/<CR>
 inoremap  <Up>     <NOP>
 inoremap  <Down>   <NOP>
 inoremap  <Left>   <NOP>

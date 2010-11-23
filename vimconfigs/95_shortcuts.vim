@@ -218,12 +218,6 @@ noremap ,dupe :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>yyp:%s/^\(.\+\)\n\1\+/\1/<CR>:g/^
 "  Shortcut to edit the conf files
 noremap ,conf :tabnew $HOME/vimconfigs/
 
-"  Jump to the IRM module folder
-nnoremap ,mod     :cd C:/Work/irm_vm/Modules/trunk/IRM/<CR>
-
-"  Jump to the IRM script folder
-nnoremap ,script  :cd C:/Work/irm_vm/Scripts/trunk/<CR>
-
 
 "  Disable the arrow keys :)
 inoremap  <Up>     <NOP>

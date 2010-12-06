@@ -59,7 +59,7 @@ hi Statement	guifg=darkkhaki		" #bbccee
 hi PreProc	guifg=#c8e0b0
 hi Type		guifg=darkkhaki
 hi Special	guifg=#bbccee cterm=bold term=bold
-hi Operator guifg=navajowhite cterm=NONE
+hi Operator guifg=SeaGreen cterm=NONE
 "hi Underlined
 hi Ignore	guifg=grey40
 "hi Error
@@ -103,4 +103,10 @@ hi Ignore	cterm=bold ctermfg=7
 hi Ignore	ctermfg=darkgrey
 hi Error	cterm=bold ctermfg=7 ctermbg=1
 
+hi link htmlTag              xmlTag
+hi link htmlTagName          xmlTagName
+hi link htmlEndTag           xmlEndTag
 
+hi xmlTag                    guifg=#E8BF6A
+hi xmlTagName                guifg=#E8BF6A
+hi xmlEndTag                 guifg=#E8BF6A

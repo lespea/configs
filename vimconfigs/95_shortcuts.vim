@@ -228,3 +228,8 @@ noremap   <Up>     <NOP>
 noremap   <Down>   <NOP>
 noremap   <Left>   <NOP>
 noremap   <Right>  <NOP>
+
+
+"  URL decoding
+noremap ,ud :silent s/%\([0-9A-Fa-f]\{2\}\)/\=nr2char('0x'.submatch(1))/e<CR>
+vnoremap ,ud :silent <C-U>%s/\%V%\([0-9A-Fa-f]\{2\}\)/\=nr2char('0x'.submatch(1))/e<CR>:silent noh<CR>

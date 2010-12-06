@@ -251,7 +251,7 @@ nnoremap <F1> :help<Space>
 vnoremap <F1> <C-C><F1>
 noremap  <F1> <C-C><F1>
 noremap! <F1> <C-C><F1>
-noremap <F9>  :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))<CR>
+noremap <F9> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))<CR>
 noremap <F10> :retab<CR>
 nnoremap <F4> \tp
 inoremap <F4> <C-O>\tp
@@ -325,6 +325,8 @@ noremap   <Up>     <NOP>
 noremap   <Down>   <NOP>
 noremap   <Left>   <NOP>
 noremap   <Right>  <NOP>
+noremap ,ud :silent s/%\([0-9A-Fa-f]\{2\}\)/\=nr2char('0x'.submatch(1))/e<CR>
+vnoremap ,ud :silent <C-U>%s/\%V%\([0-9A-Fa-f]\{2\}\)/\=nr2char('0x'.submatch(1))/e<CR>:silent noh<CR>
 abb teh the
 abb fo of
 abb taht that

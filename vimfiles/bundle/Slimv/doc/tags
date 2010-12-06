@@ -1,6 +1,7 @@
 g:paredit_matchlines	slimv.txt	/*g:paredit_matchlines*
 g:paredit_mode	slimv.txt	/*g:paredit_mode*
 g:paredit_shortmaps	slimv.txt	/*g:paredit_shortmaps*
+g:slimv_browser_cmd	slimv.txt	/*g:slimv_browser_cmd*
 g:slimv_clhs_root	slimv.txt	/*g:slimv_clhs_root*
 g:slimv_clhs_user_db	slimv.txt	/*g:slimv_clhs_user_db*
 g:slimv_clhs_user_root	slimv.txt	/*g:slimv_clhs_user_root*

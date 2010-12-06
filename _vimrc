@@ -196,7 +196,7 @@ function! s:CopyMatches(line1, line2, reg)
     endwhile
   endfor
 endfunction
-let g:slimv_python           = 'C:/Python27/python.exe'
+let g:slimv_python           = 'C:/Python31/python.exe'
 let g:slimv_lisp             = '"java -cp C:/clojure/clojure.jar;C:/clojure/clojure-contrib.jar clojure.main"'
 let g:lisp_rainbow           = 1
 let g:clj_highlight_builtins = 1

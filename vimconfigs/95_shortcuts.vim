@@ -48,7 +48,7 @@ noremap! <F1> <C-C><F1>
 noremap <F9> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))<CR>
 
 "  Changes tabs back to spaces
-noremap <F10> :retab<CR>
+noremap <F10> :set expandtab<CR>:retab<CR>
 
 "  Paste toggler
 nnoremap <F4> \tp

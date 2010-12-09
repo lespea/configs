@@ -55,6 +55,8 @@ nnoremap <F4> \tp
 inoremap <F4> <C-O>\tp
 set pastetoggle=<F4>
 
+nnoremap <F5> :GundoToggle<CR>
+
 "  Spellcheck the current file
 noremap <F7> :setlocal spell! spell?<CR>
 
@@ -169,7 +171,7 @@ noremap \sb :SessionSaveAs scratchb<CR>
 noremap \qs :SessionSaveAs quitscrach<CR>:qa!<CR>
 
 "  Fix K&R style braces
-noremap \fb mc:g/^ *{ *$/norm kJ:s/ *{ *$/ {/<CR>:silent :noh<CR>`c
+noremap \fb mcHmt:g/^ *{ *$/norm kJ:s/ *{ *$/ {/<CR>:silent :noh<CR>'tzt`c
 
 
 " -----------
@@ -223,4 +225,4 @@ noremap ,dupe :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>yyp:%s/^\(.\+\)\n\1\+/\1/<CR>:g/^
 noremap ,conf :tabnew $HOME/vimconfigs/
 
 "  Split up args
-noremap ,fa 0f(a$F)ik:s/,\zs */\rvib=:silent :noh
+noremap ,fa :let b:l=matchend(getline('.'), '^ *')<CR>0f(a<CR><ESC>$F)i<CR><ESC>:s/^ */\=repeat(' ', b:l)<CR>k:s/,\zs */\r<CR>vibkV:s/^ */\=repeat(' ', b:l+4)<CR>:silent :noh<CR>

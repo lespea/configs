@@ -302,6 +302,7 @@ nnoremap \v :tabnew $MYVIMRC<CR>
 noremap \sa :SessionSaveAs scratcha<CR>
 noremap \sb :SessionSaveAs scratchb<CR>
 noremap \qs :SessionSaveAs quitscrach<CR>:qa!<CR>
+noremap \fb mc:g/^ *{ *$/norm kJ:s/ *{ *$/ {/<CR>:silent :noh<CR>`c
 noremap ,h :call g:ToggleNuMode()<CR>
 noremap ,v :vne<CR>
 noremap ,q  qqqqq
@@ -318,6 +319,7 @@ noremap ,cd :cd %:p:h<CR>
 noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>:silent noh<CR>
 noremap ,dupe :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>yyp:%s/^\(.\+\)\n\1\+/\1/<CR>:g/^$/d<CR>:silent noh<CR>
 noremap ,conf :tabnew $HOME/vimconfigs/
+noremap ,fa 0f(a$F)ik:s/,\zs */\rvib=:silent :noh
 inoremap  <Up>     <NOP>
 inoremap  <Down>   <NOP>
 inoremap  <Left>   <NOP>

@@ -168,6 +168,10 @@ noremap \sa :SessionSaveAs scratcha<CR>
 noremap \sb :SessionSaveAs scratchb<CR>
 noremap \qs :SessionSaveAs quitscrach<CR>:qa!<CR>
 
+"  Fix K&R style braces
+noremap \fb mc:g/^ *{ *$/norm kJ:s/ *{ *$/ {/<CR>:silent :noh<CR>`c
+
+
 " -----------
 " |  Comma  |
 " -----------
@@ -217,6 +221,9 @@ noremap ,dupe :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>yyp:%s/^\(.\+\)\n\1\+/\1/<CR>:g/^
 
 "  Shortcut to edit the conf files
 noremap ,conf :tabnew $HOME/vimconfigs/
+
+"  Split up args
+noremap ,fa 0f(a$F)ik:s/,\zs */\rvib=:silent :noh
 
 
 "  Disable the arrow keys :)

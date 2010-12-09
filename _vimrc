@@ -320,16 +320,6 @@ noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>:silent noh<CR>
 noremap ,dupe :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>yyp:%s/^\(.\+\)\n\1\+/\1/<CR>:g/^$/d<CR>:silent noh<CR>
 noremap ,conf :tabnew $HOME/vimconfigs/
 noremap ,fa 0f(a$F)ik:s/,\zs */\rvib=:silent :noh
-inoremap  <Up>     <NOP>
-inoremap  <Down>   <NOP>
-inoremap  <Left>   <NOP>
-inoremap  <Right>  <NOP>
-noremap   <Up>     <NOP>
-noremap   <Down>   <NOP>
-noremap   <Left>   <NOP>
-noremap   <Right>  <NOP>
-noremap ,ud :silent s/%\([0-9A-Fa-f]\{2\}\)/\=nr2char('0x'.submatch(1))/e<CR>
-vnoremap ,ud :silent <C-U>%s/\%V%\([0-9A-Fa-f]\{2\}\)/\=nr2char('0x'.submatch(1))/e<CR>:silent noh<CR>
 abb teh the
 abb fo of
 abb taht that

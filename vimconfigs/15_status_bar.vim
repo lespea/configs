@@ -32,14 +32,14 @@ set statusline+=%L\ %P
 "  Color function
 function! InsertStatuslineColor(mode)
   if a:mode == 'i'
-    hi statusline guibg=purple
+    hi statusline guibg=#9b601a
   elseif a:mode == 'r'
-    hi statusline guibg=red
+    hi statusline guibg=#9b3535
   elseif a:mode == 'v'
-    hi statusline guibg=blue
+    hi statusline guibg=#a7a863
   else
-    hi statusline guibg=black
-  endif
+    hi statusline guibg=#727272
+endif
 endfunction
 
 "  Insert mode defines the color of the statusline

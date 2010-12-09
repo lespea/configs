@@ -110,14 +110,14 @@ set statusline+=%c,%l/
 set statusline+=%L\ %P
 function! InsertStatuslineColor(mode)
   if a:mode == 'i'
-    hi statusline guibg=purple
+    hi statusline guibg=#9b601a
   elseif a:mode == 'r'
-    hi statusline guibg=red
+    hi statusline guibg=#9b3535
   elseif a:mode == 'v'
-    hi statusline guibg=blue
+    hi statusline guibg=#a7a863
   else
-    hi statusline guibg=black
-  endif
+    hi statusline guibg=#727272
+endif
 endfunction
 au InsertEnter * call InsertStatuslineColor(v:insertmode)
 au InsertLeave * call InsertStatuslineColor('n')

@@ -13,7 +13,8 @@ if has("gui_running")
     else
         set guifont=DejaVu\ Sans\ Mono\ 11
     endif
-    colorscheme void
+    let g:zenesque_colors=3
+    colorscheme zenesque
     set antialias
 else
     colorscheme desert256

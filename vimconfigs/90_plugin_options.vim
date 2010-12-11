@@ -64,29 +64,36 @@ let g:xptemplate_pum_tab_nav = 1
 "  |  NeoComplCache  |
 "  -------------------
 
-"  Use neocomplcache.
-let g:NeoComplCache_EnableAtStartup = 1
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
 
-"  Use smartcase.
-let g:NeoComplCache_SmartCase = 1
+" Use neocomplcache.
+let g:neocomplcache_enable_at_startup = 1
 
-"  Use camel case completion.
-"let g:NeoComplCache_EnableCamelCaseCompletion = 1
+" Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
 
-"  Use underbar completion.
-let g:NeoComplCache_EnableUnderbarCompletion = 1
+" Use camel case completion.
+let g:neocomplcache_enable_camel_case_completion = 1
 
-"  Set minimum syntax keyword length.
-let g:NeoComplCache_MinSyntaxLength = 3
+" Use underbar completion.
+let g:neocomplcache_enable_underbar_completion = 1
 
-"  Set manual completion length.
-let g:NeoComplCache_ManualCompletionStartLength = 0
+" Set minimum syntax keyword length.
+let g:neocomplcache_min_syntax_length = 3
 
-"  Set minimum keyword length.
-let g:NeoComplCache_MinKeywordLength = 3
+" SuperTab like snippets behavior.
+imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
 
-"  Print caching percent in statusline.
-"let g:NeoComplCache_CachingPercentInStatusline = 1
+" <CR>: close popup and save indent.
+inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
+
 
 
 

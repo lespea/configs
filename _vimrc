@@ -139,13 +139,13 @@ autocmd FileType html  set formatoptions+=tl
 autocmd FileType xhtml set formatoptions+=tl
 let perl_include_pod = 1
 let perl_extended_vars = 1
-autocmd FileType html        set  omnifunc=htmlcomplete#CompleteTags
-autocmd FileType python      set  omnifunc=pythoncomplete#Complete
-autocmd FileType javascript  set  omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType css         set  omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml         set  omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php         set  omnifunc=phpcomplete#CompletePHP
-autocmd FileType c           set  omnifunc=ccomplete#Complete
+autocmd FileType php  setlocal  omnifunc=phpcomplete#CompletePHP
+autocmd FileType c    setlocal  omnifunc=ccomplete#Complete
+autocmd FileType css            setlocal  omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown  setlocal  omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript     setlocal  omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python         setlocal  omnifunc=pythoncomplete#Complete
+autocmd FileType xml            setlocal  omnifunc=xmlcomplete#CompleteTags
 function! g:ToggleNuMode()
     if(&rnu == 1)
         set nu
@@ -220,12 +220,18 @@ map <silent> \b :FufBuffer<CR>
 let g:xptemplate_brace_complete = ''
 let g:xptemplate_key = '<C-Space>'
 let g:xptemplate_pum_tab_nav = 1
-let g:NeoComplCache_EnableAtStartup = 1
-let g:NeoComplCache_SmartCase = 1
-let g:NeoComplCache_EnableUnderbarCompletion = 1
-let g:NeoComplCache_MinSyntaxLength = 3
-let g:NeoComplCache_ManualCompletionStartLength = 0
-let g:NeoComplCache_MinKeywordLength = 3
+let g:acp_enableAtStartup = 0
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_enable_camel_case_completion = 1
+let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplcache_min_syntax_length = 3
+imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
 au FileType vim  let b:delimitMate_quotes = " ' ` *"
 let g:delimitMate_matchpairs = "(:),[:],{:}"
 let g:delimitMate_expand_space = 1

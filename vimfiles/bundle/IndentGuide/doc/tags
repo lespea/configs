@@ -1,0 +1,16 @@
+'indent_guides_auto_colors'	indent_guides.txt	/*'indent_guides_auto_colors'*
+'indent_guides_color_change_percent'	indent_guides.txt	/*'indent_guides_color_change_percent'*
+'indent_guides_indent_levels'	indent_guides.txt	/*'indent_guides_indent_levels'*
+:IndentGuidesDisable	indent_guides.txt	/*:IndentGuidesDisable*
+:IndentGuidesEnable	indent_guides.txt	/*:IndentGuidesEnable*
+:IndentGuidesToggle	indent_guides.txt	/*:IndentGuidesToggle*
+indent-guides	indent_guides.txt	/*indent-guides*
+indent-guides-about	indent_guides.txt	/*indent-guides-about*
+indent-guides-changelog	indent_guides.txt	/*indent-guides-changelog*
+indent-guides-commands	indent_guides.txt	/*indent-guides-commands*
+indent-guides-contents	indent_guides.txt	/*indent-guides-contents*
+indent-guides-introduction	indent_guides.txt	/*indent-guides-introduction*
+indent-guides-license	indent_guides.txt	/*indent-guides-license*
+indent-guides-mappings	indent_guides.txt	/*indent-guides-mappings*
+indent-guides-options	indent_guides.txt	/*indent-guides-options*
+indent_guides.txt	indent_guides.txt	/*indent_guides.txt*

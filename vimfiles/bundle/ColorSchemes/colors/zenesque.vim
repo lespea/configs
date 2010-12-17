@@ -210,7 +210,7 @@ elseif exists('g:zenesque_colors') && g:zenesque_colors==2
 
     hi IncSearch    guifg=#000000          guibg=#adadad   gui=NONE
     hi Search       guifg=#000000          guibg=#c5c3c3   gui=NONE
-    hi MatchParen   guifg=#000000          guibg=#a8a8a8   gui=bold
+    hi MatchParen   guifg=#000000          guibg=#73221A   gui=bold
     hi ModeMsg      guifg=#ffffff          guibg=#767676   gui=bold
     hi MoreMsg      guifg=#7c7c7c          guibg=bg        gui=bold
     hi NonText      guifg=#7e7e7e          guibg=bg        gui=bold
@@ -292,7 +292,7 @@ elseif exists('g:zenesque_colors') && g:zenesque_colors==3
 
     hi IncSearch    guifg=#000000          guibg=#adadad   gui=NONE
     hi Search       guifg=#000000          guibg=#c5c3c3   gui=NONE
-    hi MatchParen   guifg=#000000          guibg=#a8a8a8   gui=bold
+    hi MatchParen   guifg=#000000          guibg=#73221A   gui=bold
     hi ModeMsg      guifg=#ffffff          guibg=#767676   gui=bold
     hi MoreMsg      guifg=#7c7c7c          guibg=bg        gui=bold
     hi NonText      guifg=#7e7e7e          guibg=bg        gui=bold

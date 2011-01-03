@@ -20,4 +20,4 @@ for  my $file  (sort grep {/\.(?:txt|vim)$/i} read_dir($BASE)){
     }
 }
 
-write_file ($CONF_FILE, {atomic => 1}, \@out);
+write_file ($CONF_FILE, {atomic => 1, binmode => ':raw'}, \@out);

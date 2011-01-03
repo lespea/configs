@@ -13,4 +13,5 @@ indent-guides-introduction	indent_guides.txt	/*indent-guides-introduction*
 indent-guides-license	indent_guides.txt	/*indent-guides-license*
 indent-guides-mappings	indent_guides.txt	/*indent-guides-mappings*
 indent-guides-options	indent_guides.txt	/*indent-guides-options*
+indent-guides-terminal-vim	indent_guides.txt	/*indent-guides-terminal-vim*
 indent_guides.txt	indent_guides.txt	/*indent_guides.txt*

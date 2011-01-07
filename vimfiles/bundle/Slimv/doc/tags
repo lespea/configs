@@ -10,7 +10,6 @@ g:slimv_cljapi_root	slimv.txt	/*g:slimv_cljapi_root*
 g:slimv_cljapi_user_db	slimv.txt	/*g:slimv_cljapi_user_db*
 g:slimv_cljapi_user_root	slimv.txt	/*g:slimv_cljapi_user_root*
 g:slimv_ctags	slimv.txt	/*g:slimv_ctags*
-g:slimv_debug_client	slimv.txt	/*g:slimv_debug_client*
 g:slimv_impl	slimv.txt	/*g:slimv_impl*
 g:slimv_javadoc_root	slimv.txt	/*g:slimv_javadoc_root*
 g:slimv_keybindings	slimv.txt	/*g:slimv_keybindings*

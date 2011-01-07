@@ -1,6 +1,6 @@
 " slimv.vim:    The Superior Lisp Interaction Mode for VIM
-" Version:      0.7.3
-" Last Change:  27 Nov 2010
+" Version:      0.7.5
+" Last Change:  02 Jan 2011
 " Maintainer:   Tamas Kovacs <kovisoft at gmail dot com>
 " License:      This file is placed in the public domain.
 "               No warranty, express or implied.
@@ -15,11 +15,13 @@ endif
 
 let g:slimv_loaded = 1
 
+let g:slimv_windows = 0
+let g:slimv_cygwin  = 0
+
 if has( 'win32' ) || has( 'win95' ) || has( 'win64' ) || has( 'win16' )
     let g:slimv_windows = 1
-else
-    " This means Linux only at the moment
-    let g:slimv_windows = 0
+elseif has( 'win32unix' )
+    let g:slimv_cygwin = 1
 endif
 
 
@@ -29,12 +31,13 @@ endif
 
 " Try to autodetect Python executable
 function! SlimvAutodetectPython()
-    if executable( 'python' )
+    if !g:slimv_cygwin && executable( 'python' )
         return 'python'
     endif
 
-    if g:slimv_windows
+    if g:slimv_windows || g:slimv_cygwin
         " Try to find Python on the standard installation places
+        " For Cygwin we need to use the Windows Python instead of the Cygwin Python
         let pythons = split( globpath( 'c:/python*,c:/Program Files/python*', 'python.exe' ), '\n' )
         if len( pythons ) > 0
             return pythons[0]
@@ -91,11 +94,22 @@ function! SlimvClientCommand()
     endif
 endfunction
 
+" Convert Cygwin path to Windows path, if needed
+function! s:Cygpath( path )
+    let path = a:path
+    if g:slimv_cygwin
+        let path = system( 'cygpath -w ' . path )
+        let path = substitute( path, "\n", "", "g" )
+        let path = substitute( path, "\\", "/", "g" )
+    endif
+    return path
+endfunction
+
 " Find slimv.py in the Vim ftplugin directory (if not given in vimrc)
 if !exists( 'g:slimv_path' )
     let plugins = split( globpath( &runtimepath, 'ftplugin/**/slimv.py'), '\n' )
     if len( plugins ) > 0
-        let g:slimv_path = plugins[0]
+        let g:slimv_path = s:Cygpath( plugins[0] )
     else
         let g:slimv_path = 'slimv.py'
     endif
@@ -121,12 +135,6 @@ endfunction
 " =====================================================================
 "  Global variable definitions
 " =====================================================================
-
-" Leave client window open for debugging purposes
-" (works only on Windows at the moment)
-if !exists( 'g:slimv_debug_client' )
-    let g:slimv_debug_client = 0
-endif
 
 " TCP port number to use
 if !exists( 'g:slimv_port' )
@@ -163,7 +171,7 @@ if !exists( 'g:slimv_repl_dir' )
     if g:slimv_windows
         let g:slimv_repl_dir = matchstr( tempname(), '.*\\' )
     else
-        let g:slimv_repl_dir = '/tmp/'
+        let g:slimv_repl_dir = s:Cygpath( '/tmp/' )
     endif
 endif
 
@@ -392,23 +400,19 @@ endfunction
 
 " Position the cursor at the end of the REPL buffer
 " Optionally mark this position in Vim mark 's'
-function! SlimvEndOfReplBuffer( markpos, insert )
+function! SlimvEndOfReplBuffer()
     if !g:slimv_repl_open
         " User does not want to display REPL in Vim
         return
     endif
     normal! G$
-    if a:markpos
-        " Remember the end of the buffer: user may enter commands here
-        " Also remember the prompt, because the user may overwrite it
-        call setpos( "'s", [0, line('$'), col('$'), 0] )
-        let s:prompt = getline( "'s" )
-        if a:insert
-            " We are in insert mode, so we end up appending to the last line
-            startinsert!
-        endif
-    endif
-    set nomodified
+endfunction
+
+" Remember the end of the REPL buffer: user may enter commands here
+" Also remember the prompt, because the user may overwrite it
+function! SlimvMarkBufferEnd()
+    call setpos( "'s", [0, line('$'), col('$'), 0] )
+    let s:prompt = getline( "'s" )
 endfunction
 
 " Reload the contents of the REPL buffer from the output file if changed
@@ -433,7 +437,6 @@ function! SlimvRefreshReplBuffer()
         endif
         return
     endif
-    let s:last_size = size
     let this_buf = bufnr( "%" )
     if repl_buf != this_buf
         " Switch to the REPL buffer/window
@@ -452,20 +455,18 @@ function! SlimvRefreshReplBuffer()
     if g:slimv_updatetime > 0
         let &updatetime = g:slimv_updatetime
     endif
-    let s:last_update = localtime()
 
     try
         execute "silent view! " . s:repl_name
+        let s:last_size = size
+        let s:last_update = localtime()
     catch /.*/
         " Oops, something went wrong, the buffer will not be refreshed this time
     endtry
     syntax on
     setlocal autoread
-    let insert = 0
-    if mode() == 'i' || mode() == 'I'
-        let insert = 1
-    endif
-    call SlimvEndOfReplBuffer( 0, insert )
+    call SlimvEndOfReplBuffer()
+    set nomodified
 
     if repl_buf != this_buf
         " Switch back to the caller buffer/window
@@ -511,10 +512,6 @@ function! SlimvRefreshModeOff()
     execute "au! CursorHold"
     execute "au! CursorHoldI"
     set noreadonly
-
-    " Remember the end of the buffer and the actual prompt
-    call setpos( "'s", [0, line('$'), col('$'), 0] )
-    let s:prompt = getline( "'s" )
 endfunction
 
 " Called when entering REPL buffer
@@ -522,7 +519,8 @@ function! SlimvReplEnter()
     call SlimvAddReplMenu()
     execute "au FileChangedRO " . g:slimv_repl_file . " :call SlimvRefreshModeOff()"
     call SlimvRefreshModeOn()
-    call SlimvEndOfReplBuffer( 1, 0 )
+    call SlimvRefreshReplBuffer()
+    call SlimvMarkBufferEnd()
 endfunction
 
 " Called when leaving REPL buffer
@@ -535,12 +533,12 @@ function! SlimvReplLeave()
         " REPL menu not found, we cannot remove it
     endtry
     call SlimvRefreshModeOn()
-    call SlimvEndOfReplBuffer( 1, 0 )
+    call SlimvRefreshReplBuffer()
+    call SlimvMarkBufferEnd()
 endfunction
 
 " Open a new REPL buffer or switch to the existing one
 function! SlimvOpenReplBuffer()
-    "TODO: check if this works without 'set hidden'
     let repl_buf = bufnr( s:repl_name )
     if repl_buf == -1
         " Create a new REPL buffer
@@ -621,7 +619,6 @@ function! SlimvOpenReplBuffer()
     redraw
     let s:last_size = 0
 
-    call SlimvSend( ['SLIMV::OUTPUT::' . s:repl_name ], 0 )
     call SlimvRefreshReplBuffer()
 endfunction
 
@@ -646,11 +643,13 @@ endfunction
 " Select bottom level form the cursor is inside and copy it to register 's'
 function! SlimvSelectForm()
     " Search the opening '(' if we are standing on a special form prefix character
+    let save_cpo = &cpoptions
     let c = col( '.' ) - 1
     while match( "'`#", getline( '.' )[c] ) >= 0
         normal! l
         let c = c + 1
     endwhile
+    set cpoptions+=%    " Needed for correct () handling
     normal! va(o
     " Handle '() or #'() etc. type special syntax forms
     let c = col( '.' ) - 2
@@ -659,6 +658,7 @@ function! SlimvSelectForm()
         let c = c - 1
     endwhile
     normal! "sy
+    let &cpoptions = save_cpo
 endfunction
 
 " Select top level form the cursor is inside and copy it to register 's'
@@ -677,21 +677,23 @@ endfunction
 function! SlimvFindAddSel( string )
     normal ms
     let found = 0
-    while search( '(\s*' . a:string . '\s', 'bcW' )
+    let searching = search( '(\s*' . a:string . '\s', 'bcW' )
+    while searching
         " Search for the previos occurrence
         if synIDattr( synID( line('.'), col('.'), 0), 'name' ) !~ '[Ss]tring\|[Cc]omment'
             " It is not inside a comment or string
             let found = 1
             break
         endif
+        let searching = search( '(\s*' . a:string . '\s', 'bW' )
     endwhile
     if found
         " Put the form just found at the beginning of the selection
         let sel = SlimvGetSelection()
         normal! v%"sy
         call setreg( '"s', SlimvGetSelection() . "\n" . sel )
-        normal `s
     endif
+    normal `s
 endfunction
 
 " Find and add language specific package/namespace definition before the
@@ -721,31 +723,16 @@ function! SlimvSend( args, open_buffer )
         call SlimvOpenReplBuffer()
     endif
 
-    " Build a temporary file from the form to be evaluated
-    let ar = []
-    let i = 0
-    while i < len( a:args )
-        call extend( ar, split( a:args[i], '\n' ) )
-        let i = i + 1
-    endwhile
-
-    let tmp = tempname()
-    try
-        call writefile( ar, tmp )
-
-        " Send the file to the client for evaluation
-        if g:slimv_debug_client == 0
-            let result = system( g:slimv_client . ' -f ' . tmp )
-        else
-            execute '!' . g:slimv_client . ' -f ' . tmp
-        endif
-    finally
-        call delete(tmp)
-    endtry
+    " Send the lines to the client for evaluation
+    let text = join( a:args, "\n" ) . "\n"
+    let result = system( g:slimv_client . ' -o ' . s:repl_name, text )
+    if result != ''
+        " Treat any output as error message
+        call SlimvErrorWait( result )
+    endif
 
     if a:open_buffer
-        " Wait a little for the REPL output and refresh REPL buffer
-        " then return to the caller buffer/window
+        " Refresh REPL buffer then return to the caller buffer/window
         call SlimvRefreshReplBuffer()
         if g:slimv_repl_split && repl_win == -1
             execute "normal! \<C-w>p"
@@ -781,7 +768,8 @@ function! SlimvSetCommandLine( cmd )
     endif
     let line = line . a:cmd
     call setline( ".", line )
-    call SlimvEndOfReplBuffer( 0, 0 )
+    call SlimvEndOfReplBuffer()
+    set nomodified
 endfunction
 
 " Add command list to the command history
@@ -793,7 +781,10 @@ function! SlimvAddHistory( cmd )
     while i < len( a:cmd )
         " Trim trailing whitespaces from the command
         let command = substitute( a:cmd[i], "\\(.*[^ ]\\)\\s*", "\\1", "g" )
-        call add( g:slimv_cmdhistory, command )
+        if len( a:cmd ) > 1 || len( g:slimv_cmdhistory ) == 0 || command != g:slimv_cmdhistory[-1]
+            " Add command only if differs from the last one
+            call add( g:slimv_cmdhistory, command )
+        endif
         let i = i + 1
     endwhile
     let g:slimv_cmdhistorypos = len( g:slimv_cmdhistory )
@@ -901,13 +892,15 @@ function! SlimvSendCommand( close )
                     let i = i - 1
                 endwhile
                 call setline( ".", indent )
-                call SlimvEndOfReplBuffer( 0, 0 )
+                call SlimvEndOfReplBuffer()
             endif
         endif
     else
         call append( '$', "Slimv error: previous EOF mark not found, re-enter last form:" )
         call append( '$', "" )
-        call SlimvEndOfReplBuffer( 1, 0 )
+        call SlimvEndOfReplBuffer()
+        call SlimvMarkBufferEnd()
+        set nomodified
     endif
 endfunction
 
@@ -969,6 +962,12 @@ endfunction
 " Handle insert mode 'Up' keypress in the REPL buffer
 function! SlimvHandleUp()
     if line( "." ) >= line( "'s" )
+        if exists( 'g:slimv_cmdhistory' ) && g:slimv_cmdhistorypos == len( g:slimv_cmdhistory )
+            call SlimvRefresh()
+            call SlimvEndOfReplBuffer()
+            call SlimvMarkBufferEnd()
+            startinsert!
+        endif
         call s:PreviousCommand()
     else
         normal! gk
@@ -986,7 +985,7 @@ endfunction
 
 " Go to command line and recall previous command from command history
 function! SlimvPreviousCommand()
-    call SlimvEndOfReplBuffer( 0, 0 )
+    call SlimvEndOfReplBuffer()
     if line( "." ) >= line( "'s" )
         call s:PreviousCommand()
     endif
@@ -994,7 +993,7 @@ endfunction
 
 " Go to command line and recall next command from command history
 function! SlimvNextCommand()
-    call SlimvEndOfReplBuffer( 0, 0 )
+    call SlimvEndOfReplBuffer()
     if line( "." ) >= line( "'s" )
         call s:NextCommand()
     endif
@@ -1009,7 +1008,6 @@ endfunction
 " Start and connect slimv server
 " This is a quite dummy function that just evaluates the empty string
 function! SlimvConnectServer()
-    "call SlimvEval( [''] )
     call SlimvSend( ['SLIMV::OUTPUT::' . s:repl_name ], 0 )
 endfunction
 
@@ -1025,6 +1023,8 @@ function! SlimvRefresh()
     else
         try
             execute "silent view! " . s:repl_name
+            let s:last_size = getfsize( s:repl_name )
+            let s:last_update = localtime()
         catch /.*/
             " Oops, something went wrong, the buffer will not be refreshed this time
         endtry
@@ -1317,10 +1317,11 @@ endfunction
 
 " Compile the current top-level form
 function! SlimvCompileDefun()
-    "TODO: handle double quote characters in form
     call SlimvSelectToplevelForm()
     call SlimvFindPackage()
-    call SlimvEvalForm1( g:slimv_template_compile_string, SlimvGetSelection() )
+    let form = SlimvGetSelection()
+    let form = substitute( form, '"', '\\\\"', 'g' )
+    call SlimvEvalForm1( g:slimv_template_compile_string, form )
 endfunction
 
 " Compile and load whole file
@@ -1338,9 +1339,9 @@ function! SlimvCompileFile()
 endfunction
 
 function! SlimvCompileRegion() range
-    "TODO: handle double quote characters in form
     let lines = SlimvGetRegion()
     let region = join( lines, ' ' )
+    let region = substitute( region, '"', '\\\\"', 'g' )
     call SlimvEvalForm1( g:slimv_template_compile_string, region )
 endfunction
 

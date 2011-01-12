@@ -22,7 +22,7 @@ if has("gui_running")
 
     "  Gvim color scheme
     let g:zenesque_colors=3
-    colorscheme zenesque
+    colorscheme neverland
 
     "  Anti-alias fonts"
     set antialias

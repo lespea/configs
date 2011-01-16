@@ -58,6 +58,9 @@ let g:xptemplate_key = '<C-Space>'
 "  Use <tab>/<S-tab> to navigate through pum. Optional
 let g:xptemplate_pum_tab_nav = 1
 
+let g:xptemplate_vars="$author=Adam Lesperance"
+let g:xptemplate_vars="$email=lespea@gmail.com"
+
 
 
 "  -----------------

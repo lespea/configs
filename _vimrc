@@ -220,6 +220,8 @@ map <silent> \b :FufBuffer<CR>
 let g:xptemplate_brace_complete = ''
 let g:xptemplate_key = '<C-Space>'
 let g:xptemplate_pum_tab_nav = 1
+let g:xptemplate_vars="$author=Adam Lesperance"
+let g:xptemplate_vars="$email=lespea@gmail.com"
 au FileType vim  let b:delimitMate_quotes = " ' ` *"
 let g:delimitMate_matchpairs = "(:),[:],{:}"
 let g:delimitMate_expand_space = 1

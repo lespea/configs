@@ -101,7 +101,7 @@ call vimclojure#MapCommandPlug("n", "lw", "DocLookupWord")
 call vimclojure#MapCommandPlug("n", "li", "DocLookupInteractive")
 call vimclojure#MapCommandPlug("n", "jw", "JavadocLookupWord")
 call vimclojure#MapCommandPlug("n", "ji", "JavadocLookupInteractive")
-call vimclojure#MapCommandPlug("n", "fd", "FindDoc")
+call vimclojure#MapCommandPlug("n", "dd", "FindDoc")
 
 call vimclojure#MapCommandPlug("n", "mw", "MetaLookupWord")
 call vimclojure#MapCommandPlug("n", "mi", "MetaLookupInteractive")

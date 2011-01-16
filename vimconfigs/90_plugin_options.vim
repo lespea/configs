@@ -2,18 +2,6 @@
 " |  Configures all the plugin options  |
 " ---------------------------------------
 
-"  -----------
-"  |  slimv  |
-"  -----------
-
-let g:slimv_python           = 'C:/Python31/python.exe'
-let g:slimv_lisp             = '"java -cp C:/clojure/clojure.jar;C:/clojure/clojure-contrib.jar clojure.main"'
-let g:lisp_rainbow           = 1
-let g:clj_highlight_builtins = 1
-
-" Stupid plugin breaks delimitMate so forcibly remove it!
-let g:paredit_loaded         = 0
-
 
 
 "  --------------
@@ -25,6 +13,18 @@ let NERDTreeWinPos    = 'left'
 let NERDTreeChDirMode = '2'
 let NERDTreeIgnore    = ['\.vim$', '\~$', '\.pyo$', '\.pyc$', '\.svn[\//]$', '\.swp$']
 let NERDTreeSortOrder = ['^__\.py$', '\/$', '*', '\.swp$',  '\.bak$', '\~$']
+
+
+
+"  -----------------
+"  |  VimClojure   |
+"  -----------------
+let g:vimclojure#ParenRainbow        = 1
+let g:vimclojure#DynamicHighlighting = 1
+let g:vimclojure#WantNailgun = 1
+let g:vimclojure#SplitPos = "bottom"
+let g:vimclojure#SplitSize = 13
+
 
 
 
@@ -159,3 +159,17 @@ nmap <leader>q[] <plug>blockinsert-qb
 "inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
 "inoremap <expr><C-y>  neocomplcache#close_popup()
 "inoremap <expr><C-e>  neocomplcache#cancel_popup()
+
+
+
+""  -----------
+""  |  slimv  |
+""  -----------
+"
+"let g:slimv_python           = 'C:/Python31/python.exe'
+"let g:slimv_lisp             = '"java -cp C:/clojure/clojure.jar;C:/clojure/clojure-contrib.jar clojure.main"'
+"let g:lisp_rainbow           = 1
+"let g:clj_highlight_builtins = 1
+"
+"" Stupid plugin breaks delimitMate so forcibly remove it!
+"let g:paredit_loaded         = 0

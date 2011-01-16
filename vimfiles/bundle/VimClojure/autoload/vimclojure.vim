@@ -183,7 +183,7 @@ endfunction
 
 function! vimclojure#MapPlug(mode, keys, plug)
 	if !hasmapto("<Plug>Clojure" . a:plug)
-		execute a:mode . "map <buffer> <unique> <silent> <LocalLeader>" . a:keys
+		execute a:mode . "map <buffer> <unique> <silent> ," . a:keys
 					\ . " <Plug>Clojure" . a:plug
 	endif
 endfunction

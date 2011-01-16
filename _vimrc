@@ -256,7 +256,7 @@ nnoremap <F1> :help<Space>
 vnoremap <F1> <C-C><F1>
 noremap  <F1> <C-C><F1>
 noremap! <F1> <C-C><F1>
-noremap <F9> :%s/\s\+$<CR>
+noremap <F9> mc:silent %s/\s\+$//e<CR>`c
 noremap <F10> :set expandtab<CR>:retab<CR>
 nnoremap <F4> \tp
 inoremap <F4> <C-O>\tp

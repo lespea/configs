@@ -1,6 +1,8 @@
 'indent_guides_auto_colors'	indent_guides.txt	/*'indent_guides_auto_colors'*
 'indent_guides_color_change_percent'	indent_guides.txt	/*'indent_guides_color_change_percent'*
+'indent_guides_guide_size'	indent_guides.txt	/*'indent_guides_guide_size'*
 'indent_guides_indent_levels'	indent_guides.txt	/*'indent_guides_indent_levels'*
+'indent_guides_start_level'	indent_guides.txt	/*'indent_guides_start_level'*
 :IndentGuidesDisable	indent_guides.txt	/*:IndentGuidesDisable*
 :IndentGuidesEnable	indent_guides.txt	/*:IndentGuidesEnable*
 :IndentGuidesToggle	indent_guides.txt	/*:IndentGuidesToggle*

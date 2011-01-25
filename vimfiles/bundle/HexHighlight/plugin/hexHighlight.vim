@@ -23,6 +23,16 @@ function! HexHighlight()
                     let hexGroup += 1
                     let hexLineMatch += 1
                 endwhile
+                while match(currentLine, '0x[0-9a-fA-F]\{6}[^0-9a-fA-F]', 0, hexLineMatch) != -1
+                    let hexMatch = matchstr(currentLine, '[0-9a-fA-F]\{6}', 0, hexLineMatch)
+                    let hexMatchColor = '#'.hexMatch
+                    let hexMatchStr   = '0x'.hexMatch
+                    exe 'hi hexColor'.hexGroup.' guifg='.hexMatchColor.' guibg='.hexMatchColor
+                    exe 'let m = matchadd("hexColor'.hexGroup.'", "'.hexMatchStr.'", 25, '.hexGroup.')'
+                    let s:HexColors += ['hexColor'.hexGroup]
+                    let hexGroup += 1
+                    let hexLineMatch += 1
+                endwhile
                 let lineNumber += 1
             endwhile
             unlet lineNumber hexGroup

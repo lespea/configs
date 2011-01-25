@@ -285,7 +285,7 @@ inoremap \ttt <Esc>:execute "normal a" . strftime("%x %X (%Z)")<Esc>a
 noremap \u :sort u<CR>:g/^$/d<CR>
 noremap \= :Align =><CR>
 noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>:1,$y+<CR>
-noremap \fd :%s/\v(\d{1,2})\/(\d{1,2})\/(\d{4})/\3\/\1\/\2/<CR>
+noremap \fd :silent 1,$!perl -nMDateTime::Format::DateParse -E"my $dt = DateTime::Format::DateParse->parse_datetime($_);say $dt ? $dt->strftime('\%Y-\%m-\%d \%H:\%M:\%S') : $_"<CR>
 noremap \fc :new<CR>"+p"+:1,$y+<CR>:bd!<CR>
 noremap \dbs :%s/\./\t/<CR>:%s/^\([^\t]\+\)\ze\t[^\t]\+$/\1\t\1<CR>
 noremap \dn :tabnew<CR>:diffthis<CR>:vne<CR>:diffthis<CR>
@@ -317,6 +317,7 @@ noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>:silent noh<CR>
 noremap ,dupe :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>yyp:%s/^\(.\+\)\n\1\+/\1/<CR>:g/^$/d<CR>:silent noh<CR>
 noremap ,conf :tabnew $HOME/vimconfigs/
 noremap ,fa :let b:l=matchend(getline('.'), '^ *')<CR>0f(a<CR><ESC>$F)i<CR><ESC>:s/^ */\=repeat(' ', b:l)<CR>k:s/,\zs */\r<CR>vibkV:s/^ */\=repeat(' ', b:l+4)<CR>:silent :noh<CR>
+:noremap \md gg/^"*date<CR>"ayy:silent bufdo /^"*date/1,$y A<CR>:tabnew<CR>V"ap:%s/,/\t/e\|%s/^"*\(\w\+-\)\%(\d\d\)*\(\d\d\)"*\ze\t/\120\2<CR>:2,$sort<CR>:nohlsearch<CR>:1,$y+<CR>
 abb teh the
 abb fo of
 abb taht that

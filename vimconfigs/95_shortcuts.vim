@@ -1,6 +1,3 @@
-" ----------------------------------------------
-" |  Configures my personal shortcut noremappings  |
-" ----------------------------------------------
 
 " ------------
 " |  Normal  |
@@ -138,8 +135,8 @@ noremap \= :Align =><CR>
 "  Copy the matches to a new buffer, remove the duplicates/blank lines, and copy to the clipboard
 noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>:1,$y+<CR>
 
-"  Takes a bunch of "invalid" dates and makes them usable in Excel
-noremap \fd :%s/\v(\d{1,2})\/(\d{1,2})\/(\d{4})/\3\/\1\/\2/<CR>
+"  Uses perl to fix pretty much any date into a format Excel will actually parse :)
+noremap \fd :silent 1,$!perl -nMDateTime::Format::DateParse -E"my $dt = DateTime::Format::DateParse->parse_datetime($_);say $dt ? $dt->strftime('\%Y-\%m-\%d \%H:\%M:\%S') : $_"<CR>
 
 "  Pastes and copies a bunch of text (to remove formatting)
 noremap \fc :new<CR>"+p"+:1,$y+<CR>:bd!<CR>
@@ -226,3 +223,6 @@ noremap ,conf :tabnew $HOME/vimconfigs/
 
 "  Split up args
 noremap ,fa :let b:l=matchend(getline('.'), '^ *')<CR>0f(a<CR><ESC>$F)i<CR><ESC>:s/^ */\=repeat(' ', b:l)<CR>k:s/,\zs */\r<CR>vibkV:s/^ */\=repeat(' ', b:l+4)<CR>:silent :noh<CR>
+
+"  Pull out the usefull information in the monthly reports
+:noremap \md gg/^"*date<CR>"ayy:silent bufdo /^"*date/1,$y A<CR>:tabnew<CR>V"ap:%s/,/\t/e\|%s/^"*\(\w\+-\)\%(\d\d\)*\(\d\d\)"*\ze\t/\120\2<CR>:2,$sort<CR>:nohlsearch<CR>:1,$y+<CR>

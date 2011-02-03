@@ -17,7 +17,7 @@ if has("gui_running")
     colorscheme neverland
     set antialias
 else
-    colorscheme desert256
+    colorscheme neverland
 endif
 set cursorline
 behave xterm

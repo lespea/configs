@@ -235,6 +235,7 @@ vmap <leader>[]  <plug>blockinsert-b
 vmap <leader>q[] <plug>blockinsert-qb
 nmap <leader>[]  <plug>blockinsert-b
 nmap <leader>q[] <plug>blockinsert-qb
+let g:indent_guides_enable_on_vim_startup = 1
 cmap w!! w !sudo tee % >/dev/null
 vnoremap ; :
 noremap <Space> <PageDown>

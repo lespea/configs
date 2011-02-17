@@ -105,6 +105,43 @@ let g:indent_guides_enable_on_vim_startup = 1
 
 
 
+"  -------------------
+"  |  NeoComplCache  |
+"  -------------------
+
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+
+" Use neocomplcache.
+let g:neocomplcache_enable_at_startup = 1
+
+" Use smartcase.
+let g:neocomplcache_enable_smart_case = 0
+
+" Use camel case completion.
+let g:neocomplcache_enable_camel_case_completion = 0
+
+" Use underbar completion.
+let g:neocomplcache_enable_underbar_completion = 1
+
+" Set minimum syntax keyword length.
+" let g:neocomplcache_min_syntax_length = 3
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" <CR>: close popup and save indent.
+inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+
+
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-h>  neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
+
+
+
 
 "==================================================
 "==                   DISABLED                   ==
@@ -131,42 +168,6 @@ let g:indent_guides_enable_on_vim_startup = 1
 "" let g:miniBufExplModSelTarget       = 1
 "" let g:miniBufExplorerMoreThanOne    = 1
 "" let g:miniBufExplUseSingleClick     = 1
-
-
-
-""  -------------------
-""  |  NeoComplCache  |
-""  -------------------
-"
-"" Disable AutoComplPop.
-"let g:acp_enableAtStartup = 0
-"
-"" Use neocomplcache.
-"let g:neocomplcache_enable_at_startup = 1
-"
-"" Use smartcase.
-"let g:neocomplcache_enable_smart_case = 1
-"
-"" Use camel case completion.
-"let g:neocomplcache_enable_camel_case_completion = 1
-"
-"" Use underbar completion.
-"let g:neocomplcache_enable_underbar_completion = 1
-"
-"" Set minimum syntax keyword length.
-"let g:neocomplcache_min_syntax_length = 3
-"
-"" SuperTab like snippets behavior.
-"imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-"
-"" <CR>: close popup and save indent.
-""inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-"
-"" <C-h>, <BS>: close popup and delete backword char.
-""inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-"inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-"inoremap <expr><C-y>  neocomplcache#close_popup()
-"inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
 
 

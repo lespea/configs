@@ -14,7 +14,11 @@ csv-configuration	ft_csv.txt	/*csv-configuration*
 csv-delimiter	ft_csv.txt	/*csv-delimiter*
 csv-higroup	ft_csv.txt	/*csv-higroup*
 csv-installation	ft_csv.txt	/*csv-installation*
+csv-mbyte	ft_csv.txt	/*csv-mbyte*
 csv-motion	ft_csv.txt	/*csv-motion*
+csv-slow	ft_csv.txt	/*csv-slow*
+csv-stl	ft_csv.txt	/*csv-stl*
+csv-strict	ft_csv.txt	/*csv-strict*
 csv-tips	ft_csv.txt	/*csv-tips*
 csv-toc	ft_csv.txt	/*csv-toc*
 ft_csv.txt	ft_csv.txt	/*ft_csv.txt*

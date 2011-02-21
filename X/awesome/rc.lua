@@ -39,8 +39,8 @@ layouts =
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
     awful.layout.suit.spiral,
-    awful.layout.suit.magnifier
-    awful.layout.suit.floating,
+    awful.layout.suit.magnifier,
+    awful.layout.suit.floating
 }
 -- }}}
 
@@ -203,6 +203,7 @@ globalkeys = awful.util.table.join(
 
     -- My programs
     awful.key({ modkey,           }, "b", function () awful.util.spawn("firefox")      end),
+    awful.key({ modkey,           }, "k", function () awful.util.spawn("konversation") end),
     awful.key({ modkey,           }, "u", function () awful.util.spawn("uzbl-browser") end),
     awful.key({ modkey,           }, "v", function () awful.util.spawn("gvim")         end),
 

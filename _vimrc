@@ -73,7 +73,7 @@ set wrap
 set linebreak
 set whichwrap=h,l,~,[,]
 set formatoptions=cq
-set textwidth=140
+set textwidth=100
 set comments+=b:\"
 function! SetCursorPosition()
   if &filetype !~ 'commit\c'

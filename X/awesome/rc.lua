@@ -30,17 +30,17 @@ modkey = "Mod4"
 layouts =
 {
     awful.layout.suit.spiral.dwindle,
-    awful.layout.suit.spiral,
-    awful.layout.suit.floating,
+    awful.layout.suit.max,
+    awful.layout.suit.max.fullscreen,
+    awful.layout.suit.fair,
+    awful.layout.suit.fair.horizontal,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
-    awful.layout.suit.fair,
-    awful.layout.suit.fair.horizontal,
-    awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier
+    awful.layout.suit.spiral,
+    awful.layout.suit.magnifier,
+    awful.layout.suit.floating
 }
 -- }}}
 
@@ -137,7 +137,7 @@ for s = 1, screen.count() do
                                           end, mytasklist.buttons)
 
     -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "bottom", screen = s })
+    mywibox[s] = awful.wibox({ position = "top", screen = s })
     -- Add widgets to the wibox - order matters
     mywibox[s].widgets = {
         {
@@ -203,6 +203,7 @@ globalkeys = awful.util.table.join(
 
     -- My programs
     awful.key({ modkey,           }, "b", function () awful.util.spawn("firefox")      end),
+    awful.key({ modkey,           }, "k", function () awful.util.spawn("konversation") end),
     awful.key({ modkey,           }, "u", function () awful.util.spawn("uzbl-browser") end),
     awful.key({ modkey,           }, "v", function () awful.util.spawn("gvim")         end),
 
@@ -317,7 +318,7 @@ awful.rules.rules = {
 -- Signal function to execute when a new client appears.
 client.add_signal("manage", function (c, startup)
     -- Add a titlebar
-    awful.titlebar.add(c, { modkey = modkey })
+    --awful.titlebar.add(c, { modkey = modkey })
 
     -- Enable sloppy focus
     --c:add_signal("mouse::enter", function(c)

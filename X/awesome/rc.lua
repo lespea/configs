@@ -203,7 +203,7 @@ globalkeys = awful.util.table.join(
 
     -- My programs
     awful.key({ modkey,           }, "b", function () awful.util.spawn("firefox")      end),
-    awful.key({ modkey,           }, "k", function () awful.util.spawn("konversation") end),
+    awful.key({ modkey,           }, "n", function () awful.util.spawn("konversation") end),
     awful.key({ modkey,           }, "u", function () awful.util.spawn("uzbl-browser") end),
     awful.key({ modkey,           }, "v", function () awful.util.spawn("gvim")         end),
 

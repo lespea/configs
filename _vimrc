@@ -20,6 +20,8 @@ else
     colorscheme neverland
 endif
 set cursorline
+set guioptions-=T
+set guioptions-=m
 behave xterm
 set mousemodel=popup
 set viminfo=/50,'50,h
@@ -328,6 +330,7 @@ noremap ,dupe :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>yyp:%s/^\(.\+\)\n\1\+/\1/<CR>:g/^
 noremap ,conf :tabnew $HOME/vimconfigs/
 noremap ,fa :let b:l=matchend(getline('.'), '^ *')<CR>0f(a<CR><ESC>$F)i<CR><ESC>:s/^ */\=repeat(' ', b:l)<CR>k:s/,\zs */\r<CR>vibkV:s/^ */\=repeat(' ', b:l+4)<CR>:silent :noh<CR>
 :noremap \md gg/^"*date<CR>"ayy:silent bufdo /^"*date/1,$y A<CR>:tabnew<CR>V"ap:%s/,/\t/e\|%s/^"*\(\w\+-\)\%(\d\d\)*\(\d\d\)"*\ze\t/\120\2/e\|%s/^"*\(\d\d\)-\(\w\+\)"*\ze\t/\2-20\1/e<CR>:2,$sort<CR>:nohlsearch<CR>:1,$y+<CR>
+:nmap <silent> <C-F11> :if &guioptions=~'m' \| set guioptions-=m \| else \| set guioptions+=m \| endif<cr>
 abb teh the
 abb fo of
 abb taht that

@@ -36,3 +36,7 @@ endif
 
 "  Highlight the current line
 set cursorline
+
+"  Disable the icon/menu bar
+set guioptions-=T
+set guioptions-=m

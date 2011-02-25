@@ -1,11 +1,15 @@
 ArrangeColumn_CSV	ft_csv.txt	/*ArrangeColumn_CSV*
+Copy_CSV	ft_csv.txt	/*Copy_CSV*
 DeleteColumn_CSV	ft_csv.txt	/*DeleteColumn_CSV*
+HeaderToggle_CSV	ft_csv.txt	/*HeaderToggle_CSV*
 Header_CSV	ft_csv.txt	/*Header_CSV*
 HiColumn_CSV	ft_csv.txt	/*HiColumn_CSV*
 InitCSV	ft_csv.txt	/*InitCSV*
 NrColumns_CSV	ft_csv.txt	/*NrColumns_CSV*
 SearchInColumn_CSV	ft_csv.txt	/*SearchInColumn_CSV*
 Sort_CSV	ft_csv.txt	/*Sort_CSV*
+VHeaderToggle_CSV	ft_csv.txt	/*VHeaderToggle_CSV*
+VHeader_CSV	ft_csv.txt	/*VHeader_CSV*
 WhatColumn_CSV	ft_csv.txt	/*WhatColumn_CSV*
 csv-changelog	ft_csv.txt	/*csv-changelog*
 csv-column	ft_csv.txt	/*csv-column*

@@ -18,13 +18,13 @@ set statusline=
 " cursor column/total lines
 " total lines/percentage in file
 
-set statusline+=%f\
+set statusline+=%f/
 set statusline+=%h%m%r%w
 set statusline+=[%{strlen(&ft)?&ft:'none'},
 set statusline+=%{strlen(&fenc)?&fenc:&enc},
 set statusline+=%{&fileformat}]
 set statusline+=%=
-set statusline+=%b,0x%-8B\
+set statusline+=%b,0x%-8B
 set statusline+=%c,%l/
 set statusline+=%L\ %P
 

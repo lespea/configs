@@ -40,3 +40,6 @@ set cursorline
 "  Disable the icon/menu bar
 set guioptions-=T
 set guioptions-=m
+
+"  Always show the tab bar
+set showtabline=2

@@ -22,6 +22,7 @@ endif
 set cursorline
 set guioptions-=T
 set guioptions-=m
+set showtabline=2
 behave xterm
 set mousemodel=popup
 set viminfo=/50,'50,h
@@ -85,7 +86,6 @@ function! SetCursorPosition()
   end
 endfunction
 autocmd BufReadPost * call SetCursorPosition()
-set lazyredraw
 set ttyfast
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
@@ -101,13 +101,13 @@ let g:netrw_special_syntax    = 1
 set rnu
 set wak=no
 set statusline=
-set statusline+=%f\
+set statusline+=%f/
 set statusline+=%h%m%r%w
 set statusline+=[%{strlen(&ft)?&ft:'none'},
 set statusline+=%{strlen(&fenc)?&fenc:&enc},
 set statusline+=%{&fileformat}]
 set statusline+=%=
-set statusline+=%b,0x%-8B\
+set statusline+=%b,0x%-8B
 set statusline+=%c,%l/
 set statusline+=%L\ %P
 function! InsertStatuslineColor(mode)

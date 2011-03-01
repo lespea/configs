@@ -187,7 +187,8 @@ autocmd BufReadPost * call SetCursorPosition()
 
 
 "  Do not update screen while executing macros
-set lazyredraw
+" Disabled due to broken csv plugin
+"set lazyredraw
 "  Faster text updates
 set ttyfast
 

@@ -14,10 +14,10 @@ if has("gui_running")
         set guifont=DejaVu\ Sans\ Mono\ 11
     endif
     let g:zenesque_colors=3
-    colorscheme neverland
+    colorscheme molokai
     set antialias
 else
-    colorscheme neverland
+    colorscheme molokai
 endif
 set cursorline
 set guioptions-=T

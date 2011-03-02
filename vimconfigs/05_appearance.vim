@@ -22,7 +22,7 @@ if has("gui_running")
 
     "  Gvim color scheme
     let g:zenesque_colors=3
-    colorscheme neverland
+    colorscheme molokai
 
     "  Anti-alias fonts"
     set antialias
@@ -30,7 +30,7 @@ if has("gui_running")
 "  Console vim
 else
     "  Console vim color scheme
-    colorscheme neverland
+    colorscheme molokai
 endif
 
 

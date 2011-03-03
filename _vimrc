@@ -199,6 +199,15 @@ function! s:CopyMatches(line1, line2, reg)
     endwhile
   endfor
 endfunction
+function! s:StripTrailingWhitespaces()
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    let @/=_s
+    call cursor(l, c)
+endfunction
+command! -range=% -register StripTrailingWhitespaces call s:StripTrailingWhitespaces()
 map <silent> \e :NERDTreeToggle<CR>
 let NERDTreeWinPos    = 'left'
 let NERDTreeChDirMode = '2'
@@ -260,7 +269,7 @@ nnoremap <F1> :help<Space>
 vnoremap <F1> <C-C><F1>
 noremap  <F1> <C-C><F1>
 noremap! <F1> <C-C><F1>
-noremap <F9> mc:silent %s/\s\+$//e<CR>`c
+noremap <F9> :StripTrailingWhitespaces<CR>
 noremap <F10> :set expandtab<CR>:retab<CR>
 nnoremap <F4> \tp
 inoremap <F4> <C-O>\tp

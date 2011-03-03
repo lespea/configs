@@ -42,7 +42,7 @@ noremap  <F1> <C-C><F1>
 noremap! <F1> <C-C><F1>
 
 "  Remove all trailing spaces
-noremap <F9> mc:silent %s/\s\+$//e<CR>`c
+noremap <F9> :StripTrailingWhitespaces<CR>
 
 "  Changes tabs back to spaces
 noremap <F10> :set expandtab<CR>:retab<CR>

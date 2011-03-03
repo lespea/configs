@@ -80,3 +80,20 @@ function! s:CopyMatches(line1, line2, reg)
     endwhile
   endfor
 endfunction
+
+
+" -----------------
+" |  CopyMatches  |
+" -----------------
+
+" Clears whitespace at the end of every line w/cleanup
+" Strips the trailing whitespace from a file
+function! s:StripTrailingWhitespaces()
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    let @/=_s
+    call cursor(l, c)
+endfunction
+command! -range=% -register StripTrailingWhitespaces call s:StripTrailingWhitespaces()

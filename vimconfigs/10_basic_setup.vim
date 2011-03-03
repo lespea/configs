@@ -45,14 +45,14 @@ set ls=2
 
 
 "  When using list, keep tabs at their full width and display `arrows':
-"  (Character 187 is a right double-chevron, and 183 a mid-dot.)
+"  (Character 187 is a right double-chevron, and 739 a cross-like-thing.)
 set lcs=
 execute 'set listchars+=tab:' . nr2char(187) . nr2char(183)
-execute 'set listchars+=eol:' . nr2char(183)
+execute 'set listchars+=eol:' . nr2char(739)
 
 "  Set the trailing/newline characters to be displayed when wrapping lines
-set lcs+=trail:-
-set lcs+=nbsp:%
+"set lcs+=trail:-
+set lcs+=nbsp:char2nr(9251)
 set lcs+=extends:>,precedes:<
 set showbreak=>\
 

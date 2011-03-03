@@ -4,6 +4,9 @@
 
 "  Basic syntax coloring
 syntax on
+
+autocmd ColorScheme * highlight EOLWS  ctermbg=darkgreen guibg=darkgreen
+autocmd ColorScheme * highlight PEP8WS ctermbg=darkgreen guibg=darkgreen
 set background=dark
 
 "  Running gvim
@@ -43,3 +46,13 @@ set guioptions-=m
 
 "  Always show the tab bar
 set showtabline=2
+
+
+augroup vimrcExEOLWS
+    au!
+    highlight EOLWS  ctermbg=darkgreen guibg=darkgreen
+    highlight PEP8WS ctermbg=darkgreen guibg=darkgreen
+    autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/ containedin=ALL
+    autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$\| \+\ze\t\|[^\t]\zs\t\+/ containedin=ALL
+    autocmd FileType python syn match PEP8WS excludenl /^\t\+/ containedin=ALL
+augroup END

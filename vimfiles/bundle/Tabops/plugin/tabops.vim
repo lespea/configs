@@ -13,6 +13,8 @@
 "   2. (optional) let g:Tabops_use??? variables 0 if you want to disable some features.
 "   3. start editing
 "
+"   X. execute :Tabops command with some parameters (see Feature section)
+"
 " Feature:
 "
 "   * the default prefix is <Tab>
@@ -31,26 +33,31 @@
 "       {prefix}l: swap the current tab with the right one.
 "       {prefix}h: swap the cerrent tab with the left one.
 "
-"   :TabopsSortByPath
-"       sorts tabs comparing their paths.
 "
-"   :TabopsSortByBufnr
-"       sorts tabs comparing their internal numbers.
+"   :Tabops [Close | Open | ...]
+"       Close
+"           Right
+"           Left
+"               closes right/left tabs except the current tab.
+"       Open
+"           Siblings [LOADED]
+"               scans buffers that are in the same directory, and open them in tabs.
+"               with LOADED, only loaded buffers are read in tabs. (not globbed)
+"           WndInNewTab
+"               (in splitted window) closes the current window and opens it in new tab.
+"       Reopen
+"           re-opens a closed tab.
+"       Sort
+"           ByPath
+"               sorts tabs comparing their paths.
+"           ByBufnr
+"               sorts tabs comparing their internal numbers.
+"           ByLastChange
+"               sorts tabs comparing their recently-changed timestamps.
+"               the most recent tab comes to left.
+"       Uniq
+"           closes duplicate tabs.
 "
-"   :TabopsSortByLastChange
-"       sorts tabs comparing their recently-changed timestamps.
-"       the most recent tab comes to left.
-"
-"   :TabopsUniq
-"       closes duplicate tabs.
-"
-"   :TabopsCloseRight
-"   :TabopsCloseLeft
-"       closes right/left tabs except a current tab.
-"
-"   :TabopsOpenSiblings [LOADED]
-"       scans buffers that are in the same directory, and open them in tabs.
-"       with LOADED, only loaded buffers are read in tabs. (not globbed)
 
 if !exists('g:Tabops_prefix')
     let g:Tabops_prefix = '<Tab>'
@@ -80,15 +87,101 @@ augroup Tabops
     autocmd  BufWinLeave * call <SID>Tabops_onBufWinLeave()
 augroup END
 
-command!  TabopsSortByPath       :call <SID>Tabops_sortByPath()
-command!  TabopsSortByBufnr      :call <SID>Tabops_sortByBufnr()
-command!  TabopsSortByLastChange :call <SID>Tabops_sortByLastChange()
-command!  TabopsReopenClosedTab  :call <SID>Tabops_reopenClosedTab()
-command!  TabopsUniq             :call <SID>Tabops_uniq()
-command!  TabopsCloseRight       :call <SID>Tabops_closeRight()
-command!  TabopsCloseLeft        :call <SID>Tabops_closeLeft()
-command!  -nargs=? -complete=customlist,<SID>Tabops_openSiblings__complete  TabopsOpenSiblings  :call <SID>Tabops_openSiblings(<q-args>)
 
+function! s:Tabops__defineCommandsOnStartup()
+    command!  -nargs=+ -complete=customlist,<SID>Tabops__complete  Tabops  :call <SID>Tabops_execute(<q-args>)
+
+    "command!  TabopsSortByPath       :call <SID>Tabops_sortByPath()
+    "command!  TabopsSortByBufnr      :call <SID>Tabops_sortByBufnr()
+    "command!  TabopsSortByLastChange :call <SID>Tabops_sortByLastChange()
+    "command!  TabopsReopenClosedTab  :call <SID>Tabops_reopenClosedTab()
+    "command!  TabopsUniq             :call <SID>Tabops_uniq()
+    "command!  TabopsCloseRight       :call <SID>Tabops_closeRight()
+    "command!  TabopsCloseLeft        :call <SID>Tabops_closeLeft()
+    "command!  TabopsOpenWndInNewTab  :call <SID>Tabops_openWndInNewTab()
+    "command!  -nargs=? -complete=customlist,<SID>Tabops_openSiblings__complete  TabopsOpenSiblings  :call <SID>Tabops_openSiblings(<q-args>)
+
+    let s:Tabops__commandTree = {
+                \   'Close' : {
+                    \   'Right' : function('s:Tabops_closeRight')
+                    \ , 'Left' : function('s:Tabops_closeLeft')
+                    \ }
+                \ , 'Open' : {
+                    \   'Siblings' : {
+                        \   'LOADED' : function('s:Tabops_openSiblingsLoaded')
+                        \ , ' ' : function('s:Tabops_openSiblingsUnloaded')
+                        \ }
+                    \ , 'WndInNewTab' : function('s:Tabops_openWndInNewTab')
+                    \ }
+                \ , 'Reopen' : function('s:Tabops_reopenClosedTab')
+                \ , 'Sort' : {
+                    \   'ByPath' : function('s:Tabops_sortByPath')
+                    \ , 'ByBufnr' : function('s:Tabops_sortByBufnr')
+                    \ , 'ByLastChange' : function('s:Tabops_sortByLastChange')
+                    \ }
+                \ , 'Uniq' : function('s:Tabops_uniq')
+                \ }
+endfunction
+
+function! s:Tabops__complete(argLead, cmdLine, cursorPos)
+    let args = split(a:cmdLine, '\V\s\+')
+    let p = s:Tabops__commandTree
+    "echom 'args: ' . join(args, ', ')
+    for i in args[1:]
+        if !has_key(p, i) || i ==? a:argLead
+            return sort(filter(keys(p), 'v:val =~? "^' . a:argLead . '"'))
+        endif
+
+        "echom 'p['.i.']:'.string(p[i])
+        if type(p[i]) == type({})
+            let p = p[i]
+        else
+            return []
+        endif
+    endfor
+
+    return sort(keys(p))
+endfunction
+
+function! s:Tabops_execute(arg)
+    let args = split(a:arg, '\V\s\+')
+    let p = s:Tabops__commandTree
+    for i in args
+        if !has_key(p, i)
+            echo 'select command within [' . join(sort(keys(p)), ', ') . ']'
+            return
+        endif
+        "echom 'p['.i.']:'.string(p[i])
+        if type(p[i]) == type({})
+            "echom 'type{}'
+            let p = p[i]
+        else
+            "echom 'type funcref'
+            let Func = p[i]
+            call Func()
+            return
+        endif
+    endfor
+
+    "echom string(p)
+    let defaultKey = ' '
+    if has_key(p, defaultKey) && type(p[defaultKey]) != type({})
+        let Func = p[defaultKey]
+        call Func()
+        return
+    endif
+
+    echo 'select command within [' . join(sort(keys(p)), ', ') . ']'
+endfunction
+
+
+function! s:Tabops_openSiblingsLoaded()
+    return s:Tabops_openSiblings('LOADED')
+endfunction
+
+function! s:Tabops_openSiblingsUnloaded()
+    return s:Tabops_openSiblings('')
+endfunction
 
 function! s:Tabops_openSiblings(arg)
     let ld = &lazyredraw
@@ -282,41 +375,35 @@ function! s:Tabops_sortByLastChange__Evalfunc(tabidx)
     call s:Tabops__goto(a:tabidx)
     "let currbufnr = bufnr('%')
 
-    redir => ul_as_str
-    silent undolist
-    redir END
-
-    let ul = split(ul_as_str, '\n')[1:]
-    if len(ul) == 0
-        return ''
-    else
-        let lastchange = matchstr(ul[-1], '\V\(\d\+:\d\+:\d\+\)')
-        if lastchange !~ '\V\(\d\+:\d\+:\d\+\)'
-            let seconds = 0 + matchstr(ul[-1], '\V\(\d\+\)', '\1', '')
-            let lastchange = strftime('%H:%M:%S', localtime() - seconds)
+    "get last changed datetime
+    "echom ' ' . bufname('%')
+    let last_time = 0
+    let ut = undotree()
+    if has_key(ut, 'seq_last')
+        let seq_last = ut.seq_last
+        "echom 'seq_last:' . seq_last
+        let ee = copy(ut.entries)
+        call filter(ee, 'v:val.seq == ' . seq_last)
+        if len(ee) > 0
+            let last_time = ee[0].time
+            "echom 'last_time:' . last_time
         endif
-        return lastchange
     endif
+    if last_time == 0
+        "couldn't fetch time -> try to fetch file timestamp
+        let last_time = getftime(expand('%'))
+        if last_time == -1
+            "new and clean buffers
+            let last_time = localtime()
+        endif
+    endif
+
+    "echom strftime('%Y%m%d %H:%M:%S', last_time)
+    return strftime('%Y%m%d %H:%M:%S', last_time)
 endfunction
 
 function! s:Tabops_sortByLastChange__Cmpfunc(v1, v2)
-    if a:v1.value == a:v2.value
-        return 0
-    elseif  a:v1.value == ''
-        return 1
-    elseif  a:v2.value == ''
-        return -1
-    else
-        "undolist doesn't have DATE column...
-        let now = strftime('%H:%M:%S', localtime())
-        if a:v1.value > now && a:v2.value > now || a:v1.value < now && a:v2.value < now
-            return a:v1.value < a:v2.value ? 1 : -1
-        elseif a:v2.value > now
-            return 1
-        else
-            return -1
-        endif
-    endif
+    return a:v1.value == a:v2.value ? 0 : a:v1.value < a:v2.value ? 1 : -1
 endfunction
 
 
@@ -405,6 +492,19 @@ function! s:Tabops_closeLeft()
 endfunction
 
 
+function! s:Tabops_openWndInNewTab()
+    if winnr('$') == 1 | return | endif
+    let currbufnr = bufnr('%')
+
+    let ld = &lazyredraw
+    let &lazyredraw = 1
+    close
+    tabedit
+    execute currbufnr . 'buffer'
+    let &lazyredraw = ld
+endfunction
+
+
 function! s:Tabops_reopenClosedTab()
     if len(g:Tabops__closedTabHistory) == 0 | return | endif
 
@@ -464,5 +564,7 @@ function! s:Tabops__swapPrev()
 
     execute 'tabmove ' . string(desttabidx)
 endfunction
+
+call s:Tabops__defineCommandsOnStartup()
 
 " vim: set et ft=vim sts=4 sw=4 ts=4 tw=78 : 

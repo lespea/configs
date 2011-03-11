@@ -4,10 +4,11 @@
 
 
 [alias]
-    aa = add -A
-    ca = commit -a
-    co = checkout
-    st = status
+    aa  = add -A
+    ca  = commit -a
+    co  = checkout
+    st  = status
+    gca = gc --aggressive
 
 [apply]
     whitespace = strip
@@ -29,3 +30,6 @@
 
 [merge]
     conflictstyle = diff3
+
+[core]
+    eol = unix

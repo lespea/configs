@@ -16,10 +16,10 @@ if has("gui_running")
         set guifont=DejaVu\ Sans\ Mono\ 11
     endif
     let g:zenesque_colors=3
-    colorscheme molokai
+    colorscheme risto
     set antialias
 else
-    colorscheme molokai
+    colorscheme risto
 endif
 set cursorline
 set guioptions-=T
@@ -315,7 +315,7 @@ inoremap \ttt <Esc>:execute "normal a" . strftime("%x %X (%Z)")<Esc>a
 noremap \u :sort u<CR>:g/^$/d<CR>
 noremap \= :Align =><CR>
 noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>:1,$y+<CR>
-noremap \fd :silent! 1,$!perl -nMDateTime::Format::DateParse -E"my $line = $_;chomp $line;my $dt = DateTime::Format::DateParse->parse_datetime($line);say $dt ? $dt->strftime('\%Y-\%m-\%d \%H:\%M:\%S') : $line"<CR>:norm \ca<CR>
+noremap \fd :silent! 1,$!perl -nMDateTime::Format::DateParse -E"my $line = $_;chomp $line;my $dt = DateTime::Format::DateParse->parse_datetime($line);say $dt ? ($dt->set_time_zone('America/Chicago') and $dt->strftime('\%Y-\%m-\%d \%H:\%M:\%S')) : $line"<CR>:norm \ca<CR>
 noremap \fc :new<CR>"+p"+:1,$y+<CR>:bd!<CR>
 noremap \dbs :%s/\./\t/<CR>:%s/^\([^\t]\+\)\ze\t[^\t]\+$/\1\t\1<CR>
 noremap \dn :tabnew<CR>:diffthis<CR>:vne<CR>:diffthis<CR>

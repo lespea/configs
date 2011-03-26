@@ -136,7 +136,7 @@ noremap \= :Align =><CR>
 noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>:1,$y+<CR>
 
 "  Uses perl to fix pretty much any date into a format Excel will actually parse :)
-noremap \fd :silent! 1,$!perl -nMDateTime::Format::DateParse -E"my $line = $_;chomp $line;my $dt = DateTime::Format::DateParse->parse_datetime($line);say $dt ? $dt->strftime('\%Y-\%m-\%d \%H:\%M:\%S') : $line"<CR>:norm \ca<CR>
+noremap \fd :silent! 1,$!perl -nMDateTime::Format::DateParse -E"my $line = $_;chomp $line;my $dt = DateTime::Format::DateParse->parse_datetime($line);say $dt ? ($dt->set_time_zone('America/Chicago') and $dt->strftime('\%Y-\%m-\%d \%H:\%M:\%S')) : $line"<CR>:norm \ca<CR>
 
 "  Pastes and copies a bunch of text (to remove formatting)
 noremap \fc :new<CR>"+p"+:1,$y+<CR>:bd!<CR>

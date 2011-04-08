@@ -142,6 +142,13 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
 
 
+"  ----------------
+"  |  EasyMotion  |
+"  ----------------
+"  <leader> is too far away
+let g:EasyMotion_leader_key = ','
+
+
 
 "==================================================
 "==                   DISABLED                   ==

@@ -1,28 +1,12 @@
-From Stefan Matthias Aust's website (http://www.3plus4.de/scala/):
+This is a "bundle" for Vim that builds off of the initial Scala plugin modules
+by Stefan Matthias Aust and adds some more "stuff" that I find useful, including
+all of my notes and customizations.
 
-* How to use it
+It's free for anyone to fork, clone, etc... no licensing or whatever... just do
+whatever you want with it, but you can't take credit for my stuff :)
 
-The Vim editor (http://www.vim.org/) can be customized using the
-following two resources located either in your home directory or
-in some system-specific directory:
-
-    .vimrc  is the main configuration file; it should at least
-            contain the command "syn on" to enable syntax
-            hightlighting
-
-    .vim    is the Vim configuration directory; it contains scripts
-            (http://www.vim.org/scripts/) in predefined locations.
-            The support files for Scala are contained in the three
-            directories "indent", "syntax" and "ftdetect"; simply
-            copy them to your Vim configuration directory.
-
-Vim searchs for user-specific resources at the following locations:
-
-    - under Linux, Solaris, etc. usually /home/<username>/.vimrc
-    - under Mac OS X: /Users/<username>/.vimrc
-    - under Windows:  %HOMEDRIVE%%HOMEPATH%\_vimrc
-
-* Thanks
-
-scala.vim was contributed by Stefan Matthias Aust (nobody@3plus4.de)
+You really should be using Tim Pope's Pathogen module for Vim
+(https://github.com/tpope/vim-pathogen and
+http://tammersaleh.com/posts/the-modern-vim-config-with-pathogen) if you're
+going to clone this repository because, well... you should.
 

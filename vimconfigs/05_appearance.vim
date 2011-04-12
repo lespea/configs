@@ -24,8 +24,7 @@ if has("gui_running")
     endif
 
     "  Gvim color scheme
-    let g:zenesque_colors=3
-    colorscheme risto
+    colorscheme darkZ
 
     "  Anti-alias fonts"
     set antialias
@@ -33,7 +32,7 @@ if has("gui_running")
 "  Console vim
 else
     "  Console vim color scheme
-    colorscheme risto
+    colorscheme darkZ
 endif
 
 

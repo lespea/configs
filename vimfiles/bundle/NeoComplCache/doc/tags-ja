@@ -14,13 +14,15 @@
 :NeoComplCacheEnableCaching	neocomplcache.jax	/*:NeoComplCacheEnableCaching*
 :NeoComplCacheLock	neocomplcache.jax	/*:NeoComplCacheLock*
 :NeoComplCacheOutputKeyword	neocomplcache.jax	/*:NeoComplCacheOutputKeyword*
-:NeoComplCachePrintSnippets	neocomplcache.jax	/*:NeoComplCachePrintSnippets*
 :NeoComplCachePrintSource	neocomplcache.jax	/*:NeoComplCachePrintSource*
 :NeoComplCacheToggle	neocomplcache.jax	/*:NeoComplCacheToggle*
-:NeoComplCacheUnLock	neocomplcache.jax	/*:NeoComplCacheUnLock*
+:NeoComplCacheUnlock	neocomplcache.jax	/*:NeoComplCacheUnlock*
 <Plug>(neocomplcache_snippets_expand)	neocomplcache.jax	/*<Plug>(neocomplcache_snippets_expand)*
 <Plug>(neocomplcache_snippets_force_expand)	neocomplcache.jax	/*<Plug>(neocomplcache_snippets_force_expand)*
+<Plug>(neocomplcache_snippets_force_jump)	neocomplcache.jax	/*<Plug>(neocomplcache_snippets_force_jump)*
 <Plug>(neocomplcache_snippets_jump)	neocomplcache.jax	/*<Plug>(neocomplcache_snippets_jump)*
+<Plug>(neocomplcache_start_unite_complete)	neocomplcache.jax	/*<Plug>(neocomplcache_start_unite_complete)*
+<Plug>(neocomplcache_start_unite_snippet)	neocomplcache.jax	/*<Plug>(neocomplcache_start_unite_snippet)*
 abbrev_complete	neocomplcache.jax	/*abbrev_complete*
 completefunc_complete	neocomplcache.jax	/*completefunc_complete*
 dictionary_complete	neocomplcache.jax	/*dictionary_complete*
@@ -34,7 +36,7 @@ g:neocomplcache_delimiter_patterns	neocomplcache.jax	/*g:neocomplcache_delimiter
 g:neocomplcache_dictionary_filetype_lists	neocomplcache.jax	/*g:neocomplcache_dictionary_filetype_lists*
 g:neocomplcache_disable_auto_complete	neocomplcache.jax	/*g:neocomplcache_disable_auto_complete*
 g:neocomplcache_disable_auto_select_buffer_name_pattern	neocomplcache.jax	/*g:neocomplcache_disable_auto_select_buffer_name_pattern*
-g:neocomplcache_disable_caching_buffer_name_pattern	neocomplcache.jax	/*g:neocomplcache_disable_caching_buffer_name_pattern*
+g:neocomplcache_disable_caching_file_path_pattern	neocomplcache.jax	/*g:neocomplcache_disable_caching_file_path_pattern*
 g:neocomplcache_disable_select_mode_mappings	neocomplcache.jax	/*g:neocomplcache_disable_select_mode_mappings*
 g:neocomplcache_enable_at_startup	neocomplcache.jax	/*g:neocomplcache_enable_at_startup*
 g:neocomplcache_enable_auto_delimiter	neocomplcache.jax	/*g:neocomplcache_enable_auto_delimiter*
@@ -87,6 +89,7 @@ neocomplcache#manual_omni_complete()	neocomplcache.jax	/*neocomplcache#manual_om
 neocomplcache#smart_close_popup()	neocomplcache.jax	/*neocomplcache#smart_close_popup()*
 neocomplcache#sources#snippets_complete#expandable()	neocomplcache.jax	/*neocomplcache#sources#snippets_complete#expandable()*
 neocomplcache#undo_completion()	neocomplcache.jax	/*neocomplcache#undo_completion()*
+neocomplcache-asyncronous	neocomplcache.jax	/*neocomplcache-asyncronous*
 neocomplcache-changelog	neocomplcache.jax	/*neocomplcache-changelog*
 neocomplcache-commands	neocomplcache.jax	/*neocomplcache-commands*
 neocomplcache-contents	neocomplcache.jax	/*neocomplcache-contents*
@@ -100,6 +103,10 @@ neocomplcache-plugins	neocomplcache.jax	/*neocomplcache-plugins*
 neocomplcache-plugins-neco-ghc	neocomplcache.jax	/*neocomplcache-plugins-neco-ghc*
 neocomplcache-plugins-neco-ruby	neocomplcache.jax	/*neocomplcache-plugins-neco-ruby*
 neocomplcache-snippet-completion	neocomplcache.jax	/*neocomplcache-snippet-completion*
+neocomplcache-unite-action-snippet	neocomplcache.jax	/*neocomplcache-unite-action-snippet*
+neocomplcache-unite-source-neocomplcache	neocomplcache.jax	/*neocomplcache-unite-source-neocomplcache*
+neocomplcache-unite-source-snippet	neocomplcache.jax	/*neocomplcache-unite-source-snippet*
+neocomplcache-unite-sources	neocomplcache.jax	/*neocomplcache-unite-sources*
 neocomplcache-user-plugins	neocomplcache.jax	/*neocomplcache-user-plugins*
 neocomplcache-variables	neocomplcache.jax	/*neocomplcache-variables*
 neocomplcache-version5	neocomplcache.jax	/*neocomplcache-version5*

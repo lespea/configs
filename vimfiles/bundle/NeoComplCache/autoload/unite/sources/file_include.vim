@@ -1,7 +1,8 @@
 "=============================================================================
-" FILE: abbrev_complete.vim
+" FILE: neocomplcache.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 17 Aug 2010
+"          manga_osyo (Original)
+" Last Modified: 22 Apr 2011.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -27,43 +28,43 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
+function! unite#sources#file_include#define()
+  return s:source
+endfunction
+
 let s:source = {
-      \ 'name' : 'abbrev_complete',
-      \ 'kind' : 'plugin',
+      \ 'name' : 'file_include',
+      \ 'description' : 'candidates from include files',
+      \ 'hooks' : {},
       \}
-
-function! s:source.initialize()"{{{
-  " Initialize.
+function! s:source.hooks.on_init(args, context)"{{{
+  " From neocomplcache include files.
+  let a:context.source__include_files =
+        \ neocomplcache#sources#include_complete#get_include_files(bufnr('%'))
+  let a:context.source__path = &path
 endfunction"}}}
 
-function! s:source.finalize()"{{{
-endfunction"}}}
+function! s:source.gather_candidates(args, context)"{{{
+  let l:files = map(a:context.source__include_files, '{
+        \ "word" : unite#util#substitute_path_separator(v:val),
+        \ "abbr" : unite#util#substitute_path_separator(v:val),
+        \ "source" : "file_include",
+        \ "kind" : "file",
+        \ "action__path" : v:val
+        \ }')
 
-function! s:source.get_keyword_list(cur_keyword_str)"{{{
-  " Get current abbrev list.
-  let l:abbrev_list = ''
-  redir => l:abbrev_list
-  silent! iabbrev
-  redir END
-
-  let l:list = []
-  for l:line in split(l:abbrev_list, '\n')
-    let l:abbrev = split(l:line)
-
-    if l:abbrev[0] !~ '^[!i]$'
-      " No abbreviation found.
-      return []
-    endif
-
-    call add(l:list, 
-          \{ 'word' : l:abbrev[1], 'menu' : printf('[A] %.'. g:neocomplcache_max_filename_width.'s', l:abbrev[2]) })
+  for word in l:files
+    " Path search.
+    for path in map(split(a:context.source__path, ','),
+          \ 'unite#util#substitute_path_separator(v:val)')
+      if path != '' && neocomplcache#head_match(word.word, path . '/')
+        let l:word.abbr = l:word.abbr[len(path)+1 : ]
+        break
+      endif
+    endfor
   endfor
 
-  return neocomplcache#keyword_filter(l:list, a:cur_keyword_str)
-endfunction"}}}
-
-function! neocomplcache#sources#abbrev_complete#define()"{{{
-  return s:source
+  return l:files
 endfunction"}}}
 
 let &cpo = s:save_cpo

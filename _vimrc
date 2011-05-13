@@ -286,6 +286,7 @@ set pastetoggle=<F4>
 nnoremap <F5> :GundoToggle<CR>
 noremap <F7> :setlocal spell! spell?<CR>
 noremap <F2> :tab sball<CR>
+noremap <F3> :Rearrangetabsbypath 1<CR>
 nnoremap <C-L> :tabnext<CR>
 nnoremap <C-H> :tabprevious<CR>
 nnoremap <silent><C-j> :set paste<CR>m`o<Esc>``:set nopaste<CR>

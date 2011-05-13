@@ -60,6 +60,9 @@ noremap <F7> :setlocal spell! spell?<CR>
 "  Turn all the buffers to tabs
 noremap <F2> :tab sball<CR>
 
+"  Rearrange all of the tabs by their path
+noremap <F3> :Rearrangetabsbypath 1<CR>
+
 
 " --------------
 " |  Modified  |

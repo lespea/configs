@@ -1,0 +1,12 @@
+:Fullscreen	shell.txt	/*:Fullscreen*
+:Open	shell.txt	/*:Open*
+g:shell_fullscreen_items	shell.txt	/*g:shell_fullscreen_items*
+g:shell_mappings_enabled	shell.txt	/*g:shell_mappings_enabled*
+shell-background	shell.txt	/*shell-background*
+shell-contact	shell.txt	/*shell-contact*
+shell-license	shell.txt	/*shell-license*
+shell-other-full-screen-implementations	shell.txt	/*shell-other-full-screen-implementations*
+shell-references	shell.txt	/*shell-references*
+shell-usage	shell.txt	/*shell-usage*
+shell.txt	shell.txt	/*shell.txt*
+xolox#shell#execute()	shell.txt	/*xolox#shell#execute()*

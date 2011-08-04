@@ -5,8 +5,6 @@ call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 filetype plugin indent on
 syntax on
-autocmd ColorScheme * highlight EOLWS  ctermbg=darkgreen guibg=darkgreen
-autocmd ColorScheme * highlight PEP8WS ctermbg=darkgreen guibg=darkgreen
 set background=dark
 if has("gui_running")
     if has("gui_win32")
@@ -15,10 +13,10 @@ if has("gui_running")
     else
         set guifont=DejaVu\ Sans\ Mono\ 11
     endif
-    colorscheme darkZ
+    colorscheme lucius
     set antialias
 else
-    colorscheme darkZ
+    colorscheme lucius
 endif
 set cursorline
 set guioptions-=T

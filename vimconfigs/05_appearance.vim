@@ -5,8 +5,8 @@
 "  Basic syntax coloring
 syntax on
 
-autocmd ColorScheme * highlight EOLWS  ctermbg=darkgreen guibg=darkgreen
-autocmd ColorScheme * highlight PEP8WS ctermbg=darkgreen guibg=darkgreen
+"autocmd ColorScheme * highlight EOLWS  ctermbg=darkgreen guibg=darkgreen
+"autocmd ColorScheme * highlight PEP8WS ctermbg=darkgreen guibg=darkgreen
 set background=dark
 
 "  Running gvim
@@ -24,7 +24,7 @@ if has("gui_running")
     endif
 
     "  Gvim color scheme
-    colorscheme darkZ
+    colorscheme lucius
 
     "  Anti-alias fonts"
     set antialias
@@ -32,7 +32,7 @@ if has("gui_running")
 "  Console vim
 else
     "  Console vim color scheme
-    colorscheme darkZ
+    colorscheme lucius
 endif
 
 

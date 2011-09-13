@@ -13,10 +13,10 @@ if has("gui_running")
     else
         set guifont=DejaVu\ Sans\ Mono\ 11
     endif
-    colorscheme lucius
+    colorscheme wombat256
     set antialias
 else
-    colorscheme lucius
+    colorscheme wombat256
 endif
 set cursorline
 set guioptions-=T

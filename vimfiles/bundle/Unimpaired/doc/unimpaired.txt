@@ -1,6 +1,6 @@
 *unimpaired.txt*  Pairs of handy bracket mappings
 
-Author:  Tim Pope <vimNOSPAM@tpope.org>         *unimpaired-author*
+Author:  Tim Pope <http://tpo.pe/>
 License: Same terms as Vim itself (see |license|)
 
 This plugin is only available if 'compatible' is not set.
@@ -31,6 +31,10 @@ is "args" and for the "q" commands is "quickfix".
 *]q* |:cnext|
 *[Q* |:cfirst|
 *]Q* |:clast|
+*[t* |:tprevious|
+*]t* |:tnext|
+*[T* |:tfirst|
+*]T* |:tlast|
 
                                                 *[o*
 [o                      Go to the file preceding the current one
@@ -93,8 +97,6 @@ Mnenomic: encoding always comes before decoding; "[" always comes before "]".
 {Visual}]y
 
 TODO                                            *unimpaired-todo*
-
-Descend into and ascend from directories with |[o| and |]o|.
 
 Avoid munging null characters when encoding and decoding.
 

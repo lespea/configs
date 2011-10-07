@@ -3,12 +3,14 @@
 [B	unimpaired.txt	/*[B*
 [L	unimpaired.txt	/*[L*
 [Q	unimpaired.txt	/*[Q*
+[T	unimpaired.txt	/*[T*
 [a	unimpaired.txt	/*[a*
 [b	unimpaired.txt	/*[b*
 [e	unimpaired.txt	/*[e*
 [l	unimpaired.txt	/*[l*
 [o	unimpaired.txt	/*[o*
 [q	unimpaired.txt	/*[q*
+[t	unimpaired.txt	/*[t*
 [u	unimpaired.txt	/*[u*
 [uu	unimpaired.txt	/*[uu*
 [x	unimpaired.txt	/*[x*
@@ -20,12 +22,14 @@
 ]B	unimpaired.txt	/*]B*
 ]L	unimpaired.txt	/*]L*
 ]Q	unimpaired.txt	/*]Q*
+]T	unimpaired.txt	/*]T*
 ]a	unimpaired.txt	/*]a*
 ]b	unimpaired.txt	/*]b*
 ]e	unimpaired.txt	/*]e*
 ]l	unimpaired.txt	/*]l*
 ]o	unimpaired.txt	/*]o*
 ]q	unimpaired.txt	/*]q*
+]t	unimpaired.txt	/*]t*
 ]u	unimpaired.txt	/*]u*
 ]uu	unimpaired.txt	/*]uu*
 ]x	unimpaired.txt	/*]x*
@@ -33,7 +37,6 @@
 ]y	unimpaired.txt	/*]y*
 ]yy	unimpaired.txt	/*]yy*
 unimpaired	unimpaired.txt	/*unimpaired*
-unimpaired-author	unimpaired.txt	/*unimpaired-author*
 unimpaired-encoding	unimpaired.txt	/*unimpaired-encoding*
 unimpaired-lines	unimpaired.txt	/*unimpaired-lines*
 unimpaired-next	unimpaired.txt	/*unimpaired-next*

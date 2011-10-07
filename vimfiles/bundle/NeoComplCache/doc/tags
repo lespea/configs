@@ -5,7 +5,6 @@
 :NeoComplCacheCachingDisable	neocomplcache.txt	/*:NeoComplCacheCachingDisable*
 :NeoComplCacheCachingEnable	neocomplcache.txt	/*:NeoComplCacheCachingEnable*
 :NeoComplCacheCachingInclude	neocomplcache.txt	/*:NeoComplCacheCachingInclude*
-:NeoComplCacheCachingSnippets	neocomplcache.txt	/*:NeoComplCacheCachingSnippets*
 :NeoComplCacheCachingSyntax	neocomplcache.txt	/*:NeoComplCacheCachingSyntax*
 :NeoComplCacheCachingTags	neocomplcache.txt	/*:NeoComplCacheCachingTags*
 :NeoComplCacheCreateTags	neocomplcache.txt	/*:NeoComplCacheCreateTags*
@@ -14,12 +13,10 @@
 :NeoComplCacheEditSnippets	neocomplcache.txt	/*:NeoComplCacheEditSnippets*
 :NeoComplCacheEnable	neocomplcache.txt	/*:NeoComplCacheEnable*
 :NeoComplCacheLock	neocomplcache.txt	/*:NeoComplCacheLock*
-:NeoComplCacheLockPlugin	neocomplcache.txt	/*:NeoComplCacheLockPlugin*
 :NeoComplCacheOutputKeyword	neocomplcache.txt	/*:NeoComplCacheOutputKeyword*
 :NeoComplCachePrintSource	neocomplcache.txt	/*:NeoComplCachePrintSource*
 :NeoComplCacheToggle	neocomplcache.txt	/*:NeoComplCacheToggle*
 :NeoComplCacheUnlock	neocomplcache.txt	/*:NeoComplCacheUnlock*
-:NeoComplCacheUnlockPlugin	neocomplcache.txt	/*:NeoComplCacheUnlockPlugin*
 <Plug>(neocomplcache_snippets_expand)	neocomplcache.txt	/*<Plug>(neocomplcache_snippets_expand)*
 <Plug>(neocomplcache_snippets_force_expand)	neocomplcache.txt	/*<Plug>(neocomplcache_snippets_force_expand)*
 <Plug>(neocomplcache_snippets_force_jump)	neocomplcache.txt	/*<Plug>(neocomplcache_snippets_force_jump)*
@@ -38,7 +35,6 @@ g:neocomplcache_ctags_program	neocomplcache.txt	/*g:neocomplcache_ctags_program*
 g:neocomplcache_cursor_hold_i_time	neocomplcache.txt	/*g:neocomplcache_cursor_hold_i_time*
 g:neocomplcache_delimiter_patterns	neocomplcache.txt	/*g:neocomplcache_delimiter_patterns*
 g:neocomplcache_dictionary_filetype_lists	neocomplcache.txt	/*g:neocomplcache_dictionary_filetype_lists*
-g:neocomplcache_dictionary_patterns	neocomplcache.txt	/*g:neocomplcache_dictionary_patterns*
 g:neocomplcache_disable_auto_complete	neocomplcache.txt	/*g:neocomplcache_disable_auto_complete*
 g:neocomplcache_disable_caching_file_path_pattern	neocomplcache.txt	/*g:neocomplcache_disable_caching_file_path_pattern*
 g:neocomplcache_disable_select_mode_mappings	neocomplcache.txt	/*g:neocomplcache_disable_select_mode_mappings*
@@ -57,7 +53,6 @@ g:neocomplcache_filetype_include_lists	neocomplcache.txt	/*g:neocomplcache_filet
 g:neocomplcache_force_caching_buffer_name_pattern	neocomplcache.txt	/*g:neocomplcache_force_caching_buffer_name_pattern*
 g:neocomplcache_force_overwrite_completefunc	neocomplcache.txt	/*g:neocomplcache_force_overwrite_completefunc*
 g:neocomplcache_include_exprs	neocomplcache.txt	/*g:neocomplcache_include_exprs*
-g:neocomplcache_include_max_processes	neocomplcache.txt	/*g:neocomplcache_include_max_processes*
 g:neocomplcache_include_paths	neocomplcache.txt	/*g:neocomplcache_include_paths*
 g:neocomplcache_include_patterns	neocomplcache.txt	/*g:neocomplcache_include_patterns*
 g:neocomplcache_keyword_patterns	neocomplcache.txt	/*g:neocomplcache_keyword_patterns*
@@ -79,7 +74,6 @@ g:neocomplcache_quick_match_patterns	neocomplcache.txt	/*g:neocomplcache_quick_m
 g:neocomplcache_quick_match_table	neocomplcache.txt	/*g:neocomplcache_quick_match_table*
 g:neocomplcache_same_filetype_lists	neocomplcache.txt	/*g:neocomplcache_same_filetype_lists*
 g:neocomplcache_snippets_dir	neocomplcache.txt	/*g:neocomplcache_snippets_dir*
-g:neocomplcache_snippets_disable_runtime_snippets	neocomplcache.txt	/*g:neocomplcache_snippets_disable_runtime_snippets*
 g:neocomplcache_tags_filter_patterns	neocomplcache.txt	/*g:neocomplcache_tags_filter_patterns*
 g:neocomplcache_temporary_dir	neocomplcache.txt	/*g:neocomplcache_temporary_dir*
 g:neocomplcache_text_mode_filetypes	neocomplcache.txt	/*g:neocomplcache_text_mode_filetypes*

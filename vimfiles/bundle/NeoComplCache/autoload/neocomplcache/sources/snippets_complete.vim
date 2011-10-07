@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: snippets_complete.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 04 Aug 2011.
+" Last Modified: 20 Jun 2011.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -46,18 +46,13 @@ function! s:source.initialize()"{{{
   let s:end_snippet = 0
   let s:snippet_holder_cnt = 1
 
-  if !exists('g:neocomplcache_snippets_disable_runtime_snippets')
-    let g:neocomplcache_snippets_disable_runtime_snippets = 0
-  endif
-
-  let s:snippets_dir = []
+  " Set snippets dir.
   let s:runtime_dir = split(globpath(&runtimepath, 'autoload/neocomplcache/sources/snippets_complete'), '\n')
 
-  if !g:neocomplcache_snippets_disable_runtime_snippets
-    " Set snippets dir.
-    let s:snippets_dir += (exists('g:snippets_dir') ?
-          \ split(g:snippets_dir, ',') : split(globpath(&runtimepath, 'snippets'), '\n'))
-          \ + s:runtime_dir
+  if exists('g:snippets_dir')
+      let s:snippets_dir = split(g:snippets_dir, ',') + s:runtime_dir
+  else
+      let s:snippets_dir = split(globpath(&runtimepath, 'snippets'), '\n') + s:runtime_dir
   endif
 
   if exists('g:neocomplcache_snippets_dir')
@@ -82,12 +77,8 @@ function! s:source.initialize()"{{{
           \ '\${\d\+\%(:.\{-}\)\?\\\@<!}\|\$<\d\+\%(:.\{-}\)\?\\\@<!>\|\$\d\+'
   augroup END"}}}
 
-  command! -nargs=? -complete=customlist,neocomplcache#filetype_complete
-        \ NeoComplCacheEditSnippets call s:edit_snippets(<q-args>, 0)
-  command! -nargs=? -complete=customlist,neocomplcache#filetype_complete
-        \ NeoComplCacheEditRuntimeSnippets call s:edit_snippets(<q-args>, 1)
-  command! -nargs=? -complete=customlist,neocomplcache#filetype_complete
-        \ NeoComplCacheCachingSnippets call s:caching_snippets(<q-args>)
+  command! -nargs=? -complete=customlist,neocomplcache#filetype_complete NeoComplCacheEditSnippets call s:edit_snippets(<q-args>, 0)
+  command! -nargs=? -complete=customlist,neocomplcache#filetype_complete NeoComplCacheEditRuntimeSnippets call s:edit_snippets(<q-args>, 1)
 
   hi def link NeoComplCacheExpandSnippets Special
 
@@ -120,7 +111,6 @@ endfunction"}}}
 function! s:source.finalize()"{{{
   delcommand NeoComplCacheEditSnippets
   delcommand NeoComplCacheEditRuntimeSnippets
-  delcommand NeoComplCacheCachingSnippets
 
   hi clear NeoComplCacheExpandSnippets
 
@@ -323,17 +313,14 @@ function! s:edit_snippets(filetype, isruntime)"{{{
 endfunction"}}}
 
 function! s:caching_snippets(filetype)"{{{
-  let l:filetype = a:filetype == '' ?
-        \ &filetype : a:filetype
-
   let l:snippet = {}
-  let l:snippets_files = split(globpath(join(s:snippets_dir, ','), l:filetype .  '.snip*'), '\n')
-        \ + split(globpath(join(s:snippets_dir, ','), l:filetype .  '_*.snip*'), '\n')
+  let l:snippets_files = split(globpath(join(s:snippets_dir, ','), a:filetype .  '.snip*'), '\n')
+        \ + split(globpath(join(s:snippets_dir, ','), a:filetype .  '_*.snip*'), '\n')
   for snippets_file in l:snippets_files
     call s:load_snippets(l:snippet, snippets_file)
   endfor
 
-  let s:snippets[l:filetype] = l:snippet
+  let s:snippets[a:filetype] = l:snippet
 endfunction"}}}
 
 function! s:load_snippets(snippet, snippets_file)"{{{

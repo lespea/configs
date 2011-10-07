@@ -100,13 +100,6 @@ COMMANDS 						*neocomplcache-commands*
 :NeoComplCacheUnlock					*:NeoComplCacheUnlock*
 		Unlock neocomplcache.
 
-:NeoComplCacheLockPlugin {plugin-name}			*:NeoComplCacheLockPlugin*
-		Disable {plugin-name} plugin completion. Disable state is
-		buffer local.
-
-:NeoComplCacheUnlockPlugin {plugin-name}		*:NeoComplCacheUnlockPlugin*
-		Unlock {plugin-name} plugin completion.
-
 :NeoComplCacheAutoCompletionLength			*:NeoComplCacheAutoCompletionLength*
 		Change start length of automatic completion.
 		This length is buffer local.
@@ -125,16 +118,12 @@ COMMANDS 						*neocomplcache-commands*
 		Caching [filetype] dictionary file.
 		Select current buffer filetype when [filetype] omitted.
 
-:NeoComplCacheCachingTags [bufname]			*:NeoComplCacheCachingTags*
-		Caching [bufname] tags file.
-		Select current buffer filetype when [bufname] omitted.
+:NeoComplCacheCachingTags [filetype]			*:NeoComplCacheCachingTags*
+		Caching [filetype] tags file.
+		Select current buffer filetype when [filetype] omitted.
 
-:NeoComplCacheCachingInclude [bufname]			*:NeoComplCacheCachingInclude*
-		Caching [bufname] include file.
-		Select current buffer name when [bufname] omitted.
-
-:NeoComplCacheCachingSnippets [filetype]		*:NeoComplCacheCachingSnippets*
-		Caching [filetype] snippet file.
+:NeoComplCacheCachingInclude [filetype]			*:NeoComplCacheCachingInclude*
+		Caching [filetype] include file.
 		Select current buffer filetype when [filetype] omitted.
 
 :NeoComplCacheCachingDisable [bufname]			*:NeoComplCacheCachingDisable*
@@ -308,6 +297,8 @@ g:neocomplcache_enable_underbar_completion		*g:neocomplcache_enable_underbar_com
 		neocomplcache takes an ambiguous searching as an end of the
 		words in it.  For example, neocomplcache come to match it
 		with 'public_html' when you input it with 'p_h'.
+		And, match 'g:neocomplcache_enable_underbar_completion' with
+		when you input with 'g:neo_euc'.
 		
 		Default value is 0.
 
@@ -439,14 +430,6 @@ g:neocomplcache_dictionary_filetype_lists		*g:neocomplcache_dictionary_filetype_
 		
 		Default value is {}.
 
-g:neocomplcache_dictionary_patterns			*g:neocomplcache_dictionary_patterns*
-		It is a dictionary to dictionary keyword patterns.  The
-		dictionary's key is filetype and value is keyword pattern.
-		If this variable is empty, neocomplcache use
-		|g:neocomplcache_keyword_patterns| option.
-		
-		Default value is {}.
-
 g:neocomplcache_filetype_include_lists			*g:neocomplcache_filetype_include_lists*
 		It is a dictionary to define a filetype which includes another filetype.
 		The item is a list of dictionary. The keys and values are below.
@@ -484,8 +467,7 @@ g:neocomplcache_disable_select_mode_mappings		*g:neocomplcache_disable_select_mo
 		Default value is 1.
 
 g:neocomplcache_ctags_program				*g:neocomplcache_ctags_program*
-		It is the path to the ctags command.  If this command is not
-		installed, include_complete is disabled.
+		It is the path to the ctags command.
 		
 		Default value is "ctags".
 
@@ -508,7 +490,7 @@ g:neocomplcache_include_paths				*g:neocomplcache_include_paths*
 		Because it is complicated, refer to s:source.initialize() in
 		autoload/neocomplcache/sources/include_complete.vim for the
 		initial value.
-
+                
 g:neocomplcache_include_exprs				*g:neocomplcache_include_exprs*
 		It is the expression string of the line analysis to perform
 		to acquire an include file name.  When there is not it,
@@ -519,7 +501,7 @@ g:neocomplcache_include_exprs				*g:neocomplcache_include_exprs*
 		Because it is complicated, refer to s:source.initialize() in
 		autoload/neocomplcache/sources/include_complete.vim for the
 		initial value.
-
+                
 g:neocomplcache_include_patterns			*g:neocomplcache_include_patterns*
 		This variable appoints the pattern of the include command.
 		When there is not it, 'include' is used.  Refer to 'include'
@@ -529,12 +511,6 @@ g:neocomplcache_include_patterns			*g:neocomplcache_include_patterns*
 		Because it is complicated, refer to s:source.initialize() in
 		autoload/neocomplcache/sources/include_complete.vim for the
 		initial value.
-
-g:neocomplcache_include_max_processes			*g:neocomplcache_include_max_processes*
-		This variable appoints the max number of include processes.
-		When this variable is 0, include process will be disabled.
-		
-		Default value is 20.
 
 g:neocomplcache_member_prefix_patterns			*g:neocomplcache_member_prefix_patterns*
 		This variable appoints a keyword pattern to complete a member
@@ -624,13 +600,6 @@ g:neocomplcache_force_overwrite_completefunc		*g:neocomplcache_force_overwrite_c
 		plugin overwrite 'completefunc'.  But other plugin's
 		'completefunc' is disabled.
 		
-		Default value is 0.
-
-g:neocomplcache_snippets_disable_runtime_snippets
-							*g:neocomplcache_snippets_disable_runtime_snippets*
-		If this variable is 1, runtime snippets isn't loaded.
-		This variable is useful to avoid conflicting snippets.
-
 		Default value is 0.
 
 ------------------------------------------------------------------------------
@@ -843,10 +812,7 @@ include_complete.vim					*include_complete*
 		refers to to candidate.  It is convenient, because you do
 		not need to prepare a tags file and a dictionary file.
 		But it is necessary for 'path' and 'include',
-		'includeexpr' to be set adequately. If vimproc is installed,
-		neocomplcache will cache. But if not installed, auto caching
-		feature is disabled. Please execute
-		|:NeoComplCacheCachingInclude| manually.
+		'includeexpr' to be set adequately.
  
 vim_complete.vim					*vim_complete*
 		This plugin analyzes context and start Omni completion of
@@ -1037,99 +1003,9 @@ ability of neocomplcache will spread by creating plugin by yourself.
 ==============================================================================
 CHANGELOG						*neocomplcache-changelog*
 
-2011-08-20
-- Improved warning message.
-- Released Ver.6.1.
-
-2011-08-12
-- Fixed tag caching error.
-
-2011-08-09
-- Improved include filename complete.
-- Deleted underbar completion enhancements.
-- Improved default keyword patterns.
-- Fixed path search.
-- Substitute "namespace foobar" to "foobar <namespace>".
-- Improved asyncronous tags caching.
-
-2011-08-08
-- Added g:neocomplcache_include_max_processes option.
-- Improved filename_complete.
-- Improved async tags.
-- Fixed include complete caching.
-
-2011-08-06
-- Optimized dictionary filter.
-
-2011-08-05
-- Fixed tags caching error.
-
-2011-08-04
-- Added :NeoComplCacheCachingSnippets command.
-
-2011-08-03
-- Improved neocomplcache#get_syn_name().
-- Fixed check uname.
-- Improved filename_complete.
-
-2011-08-02
-- Fixed include_complete caching.
-
-2011-08-01
-- Improved cache loading.
-- Improved vim_complete.
-
-2011-07-31
-- Fixed get_cur_text error.
-- Improved syntax_complete cache.
-
-2011-07-23
-- Fixed vim_complete error.
-
-2011-07-22
-- Fixed asyncronous caching bug.
-- Added :NeoComplCacheLockPlugin and :NeoComplCacheUnlockPlugin commands.
-- Don't use swapfile in asyncronous caching.
-- Fixed filename_complete.
-
-2011-07-21
-- Fixed keyword pattern.
-
-2011-07-20
-- Fixed include_complete error.
-
-2011-07-18
-- Disabled auto caching in include_complete when vimproc is not installed.
-
-2011-07-17
-- Added g:neocomplcache_dictionary_patterns option.
-- Changed keyword_pattern(experimental).
-
-2011-07-16
-- Improved python include filetype.
-
-2011-07-15
-- Fixed php delimiter pattern.
-
-2011-07-14
-- Fixed include_complete freeze in Windows environment.
-
-2011-07-13
-- Improved include_complete source caching timing.
-
-2011-07-12
-- Optimized memory usage.
-- Supported coq keyword pattern.
-- Implemented asyncronous caching in tags_complete.
-- Implemented asyncronous caching in include_complete.
-
-2011-07-11
-- Renamed g:neocomplcache_snippets_complete_disable_runtime_snippets to g:neocomplcache_snippets_disable_runtime_snippets.
-
 2011-07-10
 - Fixed doc.
 - Enabled auto-preview.
-- Added g:neocomplcache_snippets_complete_disable_runtime_snippets option.
 
 2011-07-09
 - Supported vcs.vim.

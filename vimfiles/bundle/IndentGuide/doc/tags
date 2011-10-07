@@ -3,6 +3,7 @@
 'indent_guides_enable_on_vim_startup'	indent_guides.txt	/*'indent_guides_enable_on_vim_startup'*
 'indent_guides_guide_size'	indent_guides.txt	/*'indent_guides_guide_size'*
 'indent_guides_indent_levels'	indent_guides.txt	/*'indent_guides_indent_levels'*
+'indent_guides_space_guides'	indent_guides.txt	/*'indent_guides_space_guides'*
 'indent_guides_start_level'	indent_guides.txt	/*'indent_guides_start_level'*
 :IndentGuidesDisable	indent_guides.txt	/*:IndentGuidesDisable*
 :IndentGuidesEnable	indent_guides.txt	/*:IndentGuidesEnable*

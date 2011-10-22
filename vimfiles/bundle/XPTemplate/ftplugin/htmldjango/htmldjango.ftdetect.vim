@@ -4,6 +4,7 @@ endif
 let g:__HTMLDJANGO_FTDETECT_VIM__ = 1
 
 
+
 if &filetype !~ 'htmldjango'
     finish
 endif
@@ -38,7 +39,7 @@ let s:pattern = {
             \   },
             \}
 
-let s:topFT = 'htmldjango'
+let s:topFT = 'html'
 
 fun! XPT_htmldjangoFiletypeDetect() "{{{
     let pos = [ line( "." ), col( "." ) ]

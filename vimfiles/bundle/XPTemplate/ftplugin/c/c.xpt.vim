@@ -45,31 +45,31 @@ XSET elts=c_printf_elts( R( 'pattern' ), ',' )
 
 
 XPT printf	" printf\(...)
-printf(`$SParg^`:_printfElts:^`$SParg^)
+printf(`$SPop^`:_printfElts:^`$SPop^)
 
 
 XPT sprintf	" sprintf\(...)
-sprintf(`$SParg^`str^,`$SPop^`:_printfElts:^`$SParg^)
+sprintf(`$SPop^`str^,`$SPop^`:_printfElts:^`$SPop^)
 
 
 XPT snprintf	" snprintf\(...)
-snprintf(`$SParg^`str^,`$SPop^`size^,`$SPop^`:_printfElts:^`$SParg^)
+snprintf(`$SPop^`str^,`$SPop^`size^,`$SPop^`:_printfElts:^`$SPop^)
 
 
 XPT fprintf	" fprintf\(...)
-fprintf(`$SParg^`stream^,`$SPop^`:_printfElts:^`$SParg^)
+fprintf(`$SPop^`stream^,`$SPop^`:_printfElts:^`$SPop^)
 
 XPT memcpy " memcpy (..., ..., sizeof (...) ... )
-memcpy(`$SParg^`dest^,`$SPop^`source^,`$SPop^sizeof(`type^int^)`$SPop^*`$SPop^`count^`$SParg^)
+memcpy( `dest^, `source^, sizeof(`type^int^) * `count^ )
 
 XPT memset " memset (..., ..., sizeof (...) ... )
-memset(`$SParg^`buffer^,`$SPop^`what^0^,`$SPop^sizeof(`$SParg^`type^int^`$SParg^)`$SPop^*`$SPop^`count^`$SParg^)
+memset( `buffer^, `what^0^, sizeof( `type^int^ ) * `count^ )
 
 XPT malloc " malloc ( ... );
-(`type^int^*)malloc(`$SParg^sizeof(`$SParg^`type^`$SParg^)`$SPop^*`$SPop^`count^`$SParg^)
+(`type^int^*)malloc( sizeof( `type^ ) * `count^ )
 
 XPT assert	" assert (.., msg)
-assert(`$SParg^`isTrue^,`$SPop^"`text^"`$SParg^)
+assert(`$SPop^`isTrue^,`$SPop^"`text^"`$SPop^)
 
 
 XPT fcomment
@@ -106,5 +106,5 @@ XSET cursor|pre=CURSOR
 
 
 XPT call wraponly=param " ..( .. )
-`name^(`$SParg^`param^`$SParg^)
+`name^(`$SPop^`param^`$SPop^)
 

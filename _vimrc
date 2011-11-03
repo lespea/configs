@@ -13,7 +13,7 @@ if has("gui_running")
     else
         set guifont=DejaVu\ Sans\ Mono\ 11
     endif
-    colorscheme wombat256
+    colorscheme xoria256
     set antialias
 else
     colorscheme wombat256

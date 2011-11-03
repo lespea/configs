@@ -24,7 +24,7 @@ if has("gui_running")
     endif
 
     "  Gvim color scheme
-    colorscheme wombat256
+    colorscheme xoria256
 
     "  Anti-alias fonts"
     set antialias

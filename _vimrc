@@ -346,8 +346,9 @@ noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>:silent noh<CR>
 noremap ,dupe :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>yyp:%s/^\(.\+\)\n\1\+/\1/<CR>:g/^$/d<CR>:silent noh<CR>
 noremap ,conf :tabnew $HOME/vimconfigs/
 noremap \fa :let b:l=matchend(getline('.'), '^ *')<CR>0f(a<CR><ESC>$F)i<CR><ESC>:s/^ */\=repeat(' ', b:l)<CR>k:s/,\zs */\r<CR>vibkV:s/^ */\=repeat(' ', b:l+4)<CR>:silent :noh<CR>
-:noremap \md gg/^"*date<CR>"ayy:silent bufdo /^"*date/1,$y A<CR>:tabnew<CR>V"ap:g/^[^,]*,[^,]*$/s/,/,CISCO,Raw,/<CR>:%s/,/\t/e\|%s/^"*\(\w\+-\)\%(\d\d\)*\(\d\d\)"*\ze\t/\120\2/e\|%s/^"*\(\d\d\)-\(\w\+\)"*\ze\t/\2-20\1/e<CR>:2,$sort<CR>:nohlsearch<CR>:1,$y+<CR>
-:nmap <silent> <C-F11> :if &guioptions=~'m' \| set guioptions-=m \| else \| set guioptions+=m \| endif<cr>
+noremap \md gg/^"*date<CR>"ayy:silent bufdo /^"*date/1,$y A<CR>:tabnew<CR>V"ap:g/^[^,]*,[^,]*$/s/,/,CISCO,Raw,/<CR>:%s/,/\t/e\|%s/^"*\(\w\+-\)\%(\d\d\)*\(\d\d\)"*\ze\t/\120\2/e\|%s/^"*\(\d\d\)-\(\w\+\)"*\ze\t/\2-20\1/e<CR>:2,$sort<CR>:nohlsearch<CR>:1,$y+<CR>
+nmap <silent> <C-F11> :if &guioptions=~'m' \| set guioptions-=m \| else \| set guioptions+=m \| endif<CR>
+noremap <silent> \fh :silent %s/\r\+\%$//e \| silent %s/^.\{-}\ze\%(POST\\|GET\)//e \| silent %s/$/\r\r\r/e \| silent %s/\\r\\n/\r/e \| silent exe "g/^\\%(GET\\\\|POST\\)/norm ]u$" \| silent exe "g//s/.*\\zs\\zeHTTP\\//\\r    /e" \| silent exe "g/^\\%(GET\\\\|POST\\)/s/[?&;]\\+/\\r    /e" \| silent exe "g/^Cookie:/s/\\%(^Cookie:\\\\|;\\)\\zs \\+/\\r    /e" \| silent exe "nohlsearch" \| silent norm gg<CR>
 abb teh the
 abb fo of
 abb taht that

@@ -196,7 +196,7 @@ noremap ,u :sort u<CR>:g/^$/d<CR>
 "  Clear the (a)ll register
 noremap ,a  qaq
 
-"  Trim the domain from every line (abc.uhc.com => abc)  -- Is a little smart and doesn't clobber IPs
+"  Trim the domain from every line (abc => abc)  -- Is a little smart and doesn't clobber IPs
 "  and such.  Also, tries to keep the trimming to the current word. Not tested as much as I'd like!!!
 noremap ,t :%s/\(\<[a-zA-Z0-9_-]*[a-zA-Z][a-zA-Z0-9_-]*\)\.[a-zA-Z0-9_.-]*\>/\1/<CR>:silent noh<CR>
 
@@ -234,4 +234,4 @@ noremap \md gg/^"*date<CR>"ayy:silent bufdo /^"*date/1,$y A<CR>:tabnew<CR>V"ap:g
 nmap <silent> <C-F11> :if &guioptions=~'m' \| set guioptions-=m \| else \| set guioptions+=m \| endif<CR>
 
 "  Fix network dumps of http traffic for easier analysis
-noremap <silent> \fh :silent %s/^.\{-}\ze\%(POST\\|GET\)//e \| silent %s/$/\r\r\r/e \| silent %s/\\r\\n/\r/e \| silent exe "g/^\\%(GET\\\\|POST\\)/norm ]u$" \| silent exe "g//s/.*\\zs\\zeHTTP\\//\\r    /e" \| silent exe "g/^\\%(GET\\\\|POST\\)/s/[?&;]\\+/\\r    /e" \| silent exe "g/^Cookie:/s/\\%(^Cookie:\\\\|;\\)\\zs \\+/\\r    /e" \| silent %s/\n\+\%$//e \| silent exe "nohlsearch" \| silent norm gg<CR>
+noremap <silent> \fh :silent %s/^.\{-}\ze\%(POST\\|GET\)//e \| silent %s/$/\r\r\r/e \| silent %s/\\r\\n/\r/e \| silent exe "g/^\\%(GET\\\\|POST\\)/norm 0]u$0]u$0]u$" \| silent exe "g//s/.*\\zs\\zeHTTP\\//\\r    /e" \| silent exe "g/^\\%(GET\\\\|POST\\)/s/[?&;]\\+/\\r    /e" \| silent exe "g/^Cookie:/s/\\%(^Cookie:\\\\|;\\)\\zs \\+/\\r    /e" \| silent %s/\n\+\%$//e \| silent exe "nohlsearch" \| silent norm gg<CR>

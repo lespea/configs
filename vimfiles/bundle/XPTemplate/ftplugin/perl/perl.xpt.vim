@@ -47,6 +47,15 @@ XPT whilenn hidden=1
 XPT perl " #!/usr/bin/env perl
 #!/usr/bin/env perl
 
+use Modern::Perl;
+use v5.12;
+
+use autodie;
+use autovivification;
+use Const::Fast;
+use Try::Tiny;
+
+
 ..XPT
 
 

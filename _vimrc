@@ -278,9 +278,7 @@ noremap  <F1> <C-C><F1>
 noremap! <F1> <C-C><F1>
 noremap <F9> :StripTrailingWhitespaces<CR>
 noremap <F10> :set expandtab<CR>:retab<CR>
-nnoremap <F4> \tp
-inoremap <F4> <C-O>\tp
-set pastetoggle=<F4>
+nnoremap <F4> :set nowrap!<CR>
 nnoremap <F5> :GundoToggle<CR>
 noremap <F7> :setlocal spell! spell?<CR>
 noremap <F2> :tab sball<CR>

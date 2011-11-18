@@ -48,9 +48,7 @@ noremap <F9> :StripTrailingWhitespaces<CR>
 noremap <F10> :set expandtab<CR>:retab<CR>
 
 "  Paste toggler
-nnoremap <F4> \tp
-inoremap <F4> <C-O>\tp
-set pastetoggle=<F4>
+nnoremap <F4> :set nowrap!<CR>
 
 nnoremap <F5> :GundoToggle<CR>
 

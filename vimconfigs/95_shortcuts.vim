@@ -17,7 +17,7 @@ vnoremap ; :
 noremap <Space> <PageDown>
 
 "  Super fast insert-mode exiting
-inoremap jk <Esc>
+inoremap kj <Esc>
 
 "  Move correctly for wrapped lines
 nnoremap j gj

@@ -266,7 +266,7 @@ let g:EasyMotion_leader_key = ','
 cmap w!! w !sudo tee % >/dev/null
 vnoremap ; :
 noremap <Space> <PageDown>
-inoremap jk <Esc>
+inoremap kj <Esc>
 nnoremap j gj
 nnoremap k gk
 nnoremap Q gqap

@@ -312,9 +312,9 @@ function! s:CleanURL( URL )
         decoded    = tmpDecoded
         tmpDecoded = s:UrlDecode(decoded)
     endwhile
-    let parts = s:AlignChar( '=', map( split( decoded, '\ze[?&;]' ), 'substitute( v:val, ''^\(.\)'', ''\1 '', "" )'))
-    let rtn = map( parts, '"    " . v:val' )
-    return ([rtn[0], ''] + rtn[1:])
+    let [target; params] = split( decoded, '\ze[?&;]' )
+    let rtn = s:AlignChar( '=', map( params, 'substitute( v:val, ''^\(.\)'', ''    \1 '', "")' ) )
+    return ['    ' . target, ''] + rtn
 endfunction
 function! s:CleanLine( line )
     let line = a:line
@@ -331,7 +331,7 @@ function! s:CleanLine( line )
         let rest = substitute( rest, '^\%(\\r\\n\)\+\s*\|\s*\%(\\r\\n\)\+\$', '', 'g' )
         let restLines = s:AlignChar( ':', split( rest, '\s*\%(\\r\\n\)\+\s*' ) )
         for restLine in restLines
-            if restLine =~ '^Cookie:'
+            if restLine =~ '^Cookie'
                 let [cookieStr; cookies] = map( split( restLine, '\%(^Cookie\zs:\|;\) \+' ), '"    " . v:val' )
                 call add( tmpLines, 'Cookies:' )
                 call extend( tmpLines, s:AlignChar( '=', cookies) )

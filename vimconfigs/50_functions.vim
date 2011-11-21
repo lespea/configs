@@ -267,7 +267,7 @@ function! s:CleanLine( line )
                 endif
             endif
         endfor
-    else
+    elseif line != ''
         call add( tmpLines, line )
     endif
 
@@ -286,16 +286,19 @@ function! s:CleanUpSourcefire()
     let curLine = 1
     let firstItem = 1
     for line in allLines
-        if ! firstItem
-            call setline( curLine, spacer )
-            let curLine = curLine + len( spacer )
-        else
-            let firstItem = 0
-        endif
-
         let cleanedLines = s:CleanLine( line )
-        call setline( curLine, cleanedLines )
-        let curLine = curLine + len( cleanedLines )
+
+        if len(cleanedLines) > 0
+            if !firstItem
+                call setline( curLine, spacer )
+                let curLine = curLine + len( spacer )
+            else
+                let firstItem = 0
+            endif
+
+            call setline( curLine, cleanedLines )
+            let curLine = curLine + len( cleanedLines )
+        endif
     endfor
 endfunction
 command! -register CleanUpSourcefire call s:CleanUpSourcefire()

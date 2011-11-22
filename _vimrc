@@ -502,7 +502,7 @@ noremap \fa :let b:l=matchend(getline('.'), '^ *')<CR>0f(a<CR><ESC>$F)i<CR><ESC>
 noremap \md gg/^"*date<CR>"ayy:silent bufdo /^"*date/1,$y A<CR>:tabnew<CR>V"ap:g/^[^,]*,[^,]*$/s/,/,CISCO,Raw,/<CR>:%s/,/\t/e\|%s/^"*\(\w\+-\)\%(\d\d\)*\(\d\d\)"*\ze\t/\120\2/e\|%s/^"*\(\d\d\)-\(\w\+\)"*\ze\t/\2-20\1/e<CR>:2,$sort<CR>:nohlsearch<CR>:1,$y+<CR>
 nmap <silent> <C-F11> :if &guioptions=~'m' \| set guioptions-=m \| else \| set guioptions+=m \| endif<CR>
 noremap <silent> \fh :silent :CleanUpSourcefire<CR>
-noremap <silent> \fid :silent %s/abcat\d\+//e \| silent %s/id=\d\+//e \| silent %s/pcmcat\d\+//e \| silent %s/pcmprd\d\+//e \| silent sort u<CR>
+noremap <silent> \fid :silent %s/\<\%(\%(ab\\|p\\|pcm\)cat\\|\%(\%([ap]\\|sku\\|cjp\\|skurep\\|product\)\?id\\|d\\|ref\\|loc\\|st\)=\\|pcmprd\\|_dynsessconf=\?\)\zs-\?\d\+/###/e \| silent sort u \| silent g/^\s*$/d
 abb teh the
 abb fo of
 abb taht that

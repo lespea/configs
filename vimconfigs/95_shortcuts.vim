@@ -235,4 +235,4 @@ nmap <silent> <C-F11> :if &guioptions=~'m' \| set guioptions-=m \| else \| set g
 noremap <silent> \fh :silent :CleanUpSourcefire<CR>
 
 "  Clean up a lot of the IDs so it's easy to go through results
-noremap <silent> \fid :silent %s/\<\%(\%(ab\\|p\\|pcm\)cat\\|\%(\%([ap]\\|sku\\|cjp\\|skurep\\|product\)\?id\\|d\\|ref\\|loc\\|st\)=\\|pcmprd\\|_dynsessconf=\?\)\zs-\?\d\+/###/e \| silent sort u \| silent g/^\s*$/d<CR>
+noremap <silent> \fid :silent %s/\<\%(\%(\%([ap]\\|sku\\|cjp\\|devicesku\\|skurep\\|product\%(category\)\?\\|category\)\?id\\|d\\|ref\\|loc\\|st\)=\\|pcmprd\\|_dynsessconf=\?\)\%(\%(ab\\|p\\|pcm\)\?cat\)\?-\?\d\+&\?//e \| silent sort u \| silent g/^\s*$/d<CR>

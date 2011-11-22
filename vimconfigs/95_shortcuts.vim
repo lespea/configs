@@ -232,5 +232,7 @@ noremap \md gg/^"*date<CR>"ayy:silent bufdo /^"*date/1,$y A<CR>:tabnew<CR>V"ap:g
 nmap <silent> <C-F11> :if &guioptions=~'m' \| set guioptions-=m \| else \| set guioptions+=m \| endif<CR>
 
 "  Fix network dumps of http traffic for easier analysis
-"  noremap <silent> \fh :silent %s/^.\{-}\ze\%(POST\\|PUT\\|GET\)//e \| silent %s/\n\+\%$//e \| silent %s/$/\r\r\r\r*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\r\r\r/e \| silent %s/\\r\\n/\r/e \| silent exe "g/^\\%(PUT\\\\|GET\\\\|POST\\)/norm 0]u$0]u$0]u$" \| silent exe "g//s/.*\\zs\\zeHTTP\\//\\r  /e" \| silent exe "g/^\\%(PUT\\\\|GET\\\\|POST\\)/s/\\ze[?&;]\\+/\\r    /e" \| silent exe "g/^Cookie:/s/\\%(^Cookie\\zs:\\\\|;\\) \\+/\\r    /e" \| silent %s/\n\+\%$//e \| silent %s/\s\+$//e \| silent let @q='V/^\%(Cookie\\|$\)\\|\%$/?\S\+::Align! =p0P0 ^[^:]\+:\s\+j' \| silent exe "g/^  HTTP\\/1/norm j@q" \| silent exe "g/^referer/norm 0]uj" \| set nowrap \| silent exe "nohlsearch" \| silent norm gg<CR>
 noremap <silent> \fh :silent :CleanUpSourcefire<CR>
+
+"  Clean up a lot of the IDs so it's easy to go through results
+noremap <silent> \fid :silent %s/abcat\d\+//e \| silent %s/id=\d\+//e \| silent %s/pcmcat\d\+//e \| silent %s/pcmprd\d\+//e \| silent sort u<CR>

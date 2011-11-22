@@ -208,12 +208,12 @@ endfunction
 
 
 function! s:CleanURL( URL )
-    let decoded    = s:UrlDecode(a:URL)
-    let tmpDecoded = s:UrlDecode(decoded)
+    let decoded    = s:UrlDecode(substitute(a:URL, '\&amp;', '\&', 'g'))
+    let tmpDecoded = s:UrlDecode(substitute(decoded, '\&amp;', '\&', 'g'))
 
     while decoded != tmpDecoded
-        decoded    = tmpDecoded
-        tmpDecoded = s:UrlDecode(decoded)
+        let decoded    = tmpDecoded
+        let tmpDecoded = s:UrlDecode(substitute(decoded, '\&amp;', '\&', 'g'))
     endwhile
 
     let [target; params] = split( decoded, '\ze[?&;]' )

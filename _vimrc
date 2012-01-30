@@ -16,7 +16,11 @@ if has("gui_running")
     colorscheme solarized
     set antialias
 else
-    colorscheme solarized
+    if has("win32")
+        colorscheme candy
+    else
+        colorscheme solarized
+    endif
 endif
 let g:solarized_visibility="high"
 set cursorline

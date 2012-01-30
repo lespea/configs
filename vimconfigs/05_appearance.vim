@@ -31,8 +31,12 @@ if has("gui_running")
 
 "  Console vim
 else
-    "  Console vim color scheme
-    colorscheme solarized
+    "  The windows terminal is utter crap
+    if has("win32")
+        colorscheme candy
+    else
+        colorscheme solarized
+    endif
 endif
 let g:solarized_visibility="high"
 

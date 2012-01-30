@@ -13,23 +13,16 @@ if has("gui_running")
     else
         set guifont=DejaVu\ Sans\ Mono\ 11
     endif
-    colorscheme xoria256
+    colorscheme solarized
     set antialias
 else
-    colorscheme wombat256
+    colorscheme solarized
 endif
+let g:solarized_visibility="high"
 set cursorline
 set guioptions-=T
 set guioptions-=m
 set showtabline=2
-augroup vimrcExEOLWS
-    au!
-    highlight EOLWS  ctermbg=darkgreen guibg=darkgreen
-    highlight PEP8WS ctermbg=darkgreen guibg=darkgreen
-    autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/ containedin=ALL
-    autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$\| \+\ze\t\|[^\t]\zs\t\+/ containedin=ALL
-    autocmd FileType python syn match PEP8WS excludenl /^\t\+/ containedin=ALL
-augroup END
 behave xterm
 set mousemodel=popup
 set viminfo=/50,'50,h
@@ -46,9 +39,10 @@ set report=0
 set previewheight=8
 set ls=2
 set lcs=
-execute 'set listchars+=tab:'  . nr2char(187) . nr2char(183)
-execute 'set listchars+=eol:'  . nr2char(739)
-execute 'set listchars+=nbsp:' . nr2char(9251)
+execute 'set listchars+=tab:'   . nr2char(187) . nr2char(183)
+execute 'set listchars+=eol:'   . nr2char(739)
+execute 'set listchars+=nbsp:'  . nr2char(9251)
+execute 'set listchars+=trail:' . nr2char(1776)
 set lcs+=extends:>,precedes:<
 set showbreak=>\
 au CursorHold * checktim

@@ -59,6 +59,35 @@ use Try::Tiny;
 ..XPT
 
 
+XPT csvn "New CSV wrtier"
+my $`csv^ = Text::CSV_XS->new ({ binary => 1, eol => $/, quote_null => 0 }) or
+    die "Cannot use CSV: ".Text::CSV_XS->error_diag ();
+`cursor^
+
+
+XPT csvw "Write CSV line"
+$`csv^->print($`fh^, `array_ref^)  or  die $`csv^->error_diag;
+`cursor^
+
+
+XPT csve "Check eof for CSV"
+$`csv^->eof  or  die $`csv^->error_diag;
+`cursor^
+
+
+XPT csvr "Full CSV read"
+open my $`fh^, "<:encoding(utf8)", $`in_file^;
+
+`pre-condition^
+while (my $row = $`csv^->getline($`fh^)) {
+    my ($desc, $cidr) = @$row;
+    `cursor^
+}
+
+$`csv^->eof  or  die $`csv^->error_diag;
+close $`fh^;
+
+
 XPT xif " .. if ..;
 `expr^ if `cond^;
 

@@ -24,16 +24,21 @@ if has("gui_running")
     endif
 
     "  Gvim color scheme
-    colorscheme xoria256
+    colorscheme solarized
 
     "  Anti-alias fonts"
     set antialias
 
 "  Console vim
 else
-    "  Console vim color scheme
-    colorscheme wombat256
+    "  The windows terminal is utter crap
+    if has("win32")
+        colorscheme candy
+    else
+        colorscheme solarized
+    endif
 endif
+let g:solarized_visibility="high"
 
 
 "  Highlight the current line
@@ -47,11 +52,11 @@ set guioptions-=m
 set showtabline=2
 
 
-augroup vimrcExEOLWS
-    au!
-    highlight EOLWS  ctermbg=darkgreen guibg=darkgreen
-    highlight PEP8WS ctermbg=darkgreen guibg=darkgreen
-    autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/ containedin=ALL
-    autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$\| \+\ze\t\|[^\t]\zs\t\+/ containedin=ALL
-    autocmd FileType python syn match PEP8WS excludenl /^\t\+/ containedin=ALL
-augroup END
+" augroup vimrcExEOLWS
+"     au!
+"     highlight EOLWS  ctermbg=darkgreen guibg=darkgreen
+"     highlight PEP8WS ctermbg=darkgreen guibg=darkgreen
+"     autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/ containedin=ALL
+"     autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$\| \+\ze\t\|[^\t]\zs\t\+/ containedin=ALL
+"     autocmd FileType python syn match PEP8WS excludenl /^\t\+/ containedin=ALL
+" augroup END

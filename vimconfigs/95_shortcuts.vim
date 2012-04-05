@@ -191,6 +191,9 @@ noremap ,m :CopyMatches<CR>
 "  Remove dupes
 noremap ,u :sort u<CR>:g/^$/d<CR>
 
+"  Count all of the lines
+noremap ,cl :sort<CR>:%!uniq -c<CR>:sort! n<CR>
+
 "  Clear the (a)ll register
 noremap ,a  qaq
 

@@ -416,6 +416,7 @@ inoremap <expr><C-h>  neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
 let g:EasyMotion_leader_key = ','
+let g:colorizer_auto_filetype='css,html,xhtml,less'
 cmap w!! w !sudo tee % >/dev/null
 vnoremap ; :
 noremap <Space> <PageDown>
@@ -485,6 +486,7 @@ noremap ,v :vne<CR>
 noremap ,q  qqqqq
 noremap ,m :CopyMatches<CR>
 noremap ,u :sort u<CR>:g/^$/d<CR>
+noremap ,cl :sort<CR>:%!uniq -c<CR>:sort! n<CR>
 noremap ,a  qaq
 noremap ,t :%s/\(\<[a-zA-Z0-9_-]*[a-zA-Z][a-zA-Z0-9_-]*\)\.[a-zA-Z0-9_.-]*\>/\1/<CR>:silent noh<CR>
 noremap ,i :g/^$/d<CR>:%s/\v^(.*)$/   ,'\1'/<CR>:1s/   ,/(\r    <CR>:$s/$/\r)<CR>:silent noh<CR>"+:1,$y+<CR>

@@ -27,7 +27,7 @@ set cpo&vim
 " define commands "{{{1
 command! -bang -range=%  ColorHighlight
         \ :call Colorizer#DoColor(<q-bang>, <q-line1>, <q-line2>)
-command! -bang -nargs=1  RGB2Xterm  
+command! -bang -nargs=1  RGB2Xterm
         \ :call Colorizer#RGB2Term(<q-args>)
 
 command! -bang    ColorClear    :call Colorizer#ColorOff()
@@ -61,7 +61,7 @@ if exists("g:colorizer_auto_filetype")
     " Setup some autocommands for specific filetypes.
     aug FT_ColorizerPlugin
         au!
-        exe "au Filetype" g:colorizer_auto_filetype 
+        exe "au Filetype" g:colorizer_auto_filetype
                     \ "call Colorizer#LocalFTAutoCmds(1)\|
                     \ :ColorHighlight"
     aug END

@@ -10,6 +10,9 @@ if has("gui_running")
     if has("gui_win32")
         set guifont=DejaVu_Sans_Mono:h11
         autocmd GUIEnter * :simalt ~x
+    elseif has(gui_macvim)
+        set guifont=DejaVu_Sans_Mono:h11
+        set lines=999 columns=999
     else
         set guifont=DejaVu\ Sans\ Mono\ 11
     endif
@@ -18,6 +21,8 @@ if has("gui_running")
 else
     if has("win32")
         colorscheme candy
+    elseif has('mac')
+        colorscheme desert256
     else
         colorscheme solarized
     endif
@@ -107,7 +112,7 @@ set wak=no
 set statusline=
 set statusline+=%f/
 set statusline+=%h%m%r%w
-set statusline+=[%{strlen(&ft)?&ft:'none'},
+set statusline+=[%{strlen(&ft)?&ft:'NONE'},
 set statusline+=%{strlen(&fenc)?&fenc:&enc},
 set statusline+=%{&fileformat}]
 set statusline+=%=
@@ -498,11 +503,8 @@ noremap ,cd :cd %:p:h<CR>
 noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>:silent noh<CR>
 noremap ,dupe :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>yyp:%s/^\(.\+\)\n\1\+/\1/<CR>:g/^$/d<CR>:silent noh<CR>
 noremap ,conf :tabnew $HOME/vimconfigs/
-noremap \fa :let b:l=matchend(getline('.'), '^ *')<CR>0f(a<CR><ESC>$F)i<CR><ESC>:s/^ */\=repeat(' ', b:l)<CR>k:s/,\zs */\r<CR>vibkV:s/^ */\=repeat(' ', b:l+4)<CR>:silent :noh<CR>
-noremap \md gg/^"*date<CR>"ayy:silent bufdo /^"*date/1,$y A<CR>:tabnew<CR>V"ap:g/^[^,]*,[^,]*$/s/,/,CISCO,Raw,/<CR>:%s/,/\t/e\|%s/^"*\(\w\+-\)\%(\d\d\)*\(\d\d\)"*\ze\t/\120\2/e\|%s/^"*\(\d\d\)-\(\w\+\)"*\ze\t/\2-20\1/e<CR>:2,$sort<CR>:nohlsearch<CR>:1,$y+<CR>
 nmap <silent> <C-F11> :if &guioptions=~'m' \| set guioptions-=m \| else \| set guioptions+=m \| endif<CR>
-noremap <silent> \fh :silent :CleanUpSourcefire<CR>
-noremap <silent> \fid :silent %s/\<\%(\%(\%([ap]\\|sku\\|cjp\\|devicesku\\|skurep\\|product\%(category\)\?\\|category\)\?id\\|d\\|ref\\|loc\\|st\)=\\|pcmprd\\|_dynsessconf=\?\)\%(\%(ab\\|p\\|pcm\)\?cat\)\?-\?\d\+&\?//e \| silent sort u \| silent g/^\s*$/d<CR>
+noremap <silent> \rti :silent %!perl -nMNet::IP -MNet::Netmask -MModern::Perl -e'chomp;my $n = Net::IP->new(Net::Netmask->new($_));say join "\t", $n->intip, $n->last_int'<CR>
 abb teh the
 abb fo of
 abb taht that

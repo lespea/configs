@@ -20,7 +20,7 @@ set statusline=
 
 set statusline+=%f/
 set statusline+=%h%m%r%w
-set statusline+=[%{strlen(&ft)?&ft:'none'},
+set statusline+=[%{strlen(&ft)?&ft:'NONE'},
 set statusline+=%{strlen(&fenc)?&fenc:&enc},
 set statusline+=%{&fileformat}]
 set statusline+=%=

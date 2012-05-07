@@ -18,6 +18,13 @@ if has("gui_running")
         "  Also use full screen in windows
         autocmd GUIEnter * :simalt ~x
 
+    "  Mac
+    elseif has(gui_macvim)
+        set guifont=DejaVu_Sans_Mono:h11
+
+        "  Fullscreen hack for mac"
+        set lines=999 columns=999
+
     "  Anything else (Linux)
     else
         set guifont=DejaVu\ Sans\ Mono\ 11
@@ -34,6 +41,8 @@ else
     "  The windows terminal is utter crap
     if has("win32")
         colorscheme candy
+    elseif has('mac')
+        colorscheme desert256
     else
         colorscheme solarized
     endif

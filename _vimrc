@@ -6,11 +6,11 @@ call pathogen#helptags()
 filetype plugin indent on
 syntax on
 set background=dark
-if has("gui_running")
-    if has("gui_win32")
+if has('gui_running')
+    if has('gui_win32')
         set guifont=DejaVu_Sans_Mono:h11
         autocmd GUIEnter * :simalt ~x
-    elseif has(gui_macvim)
+    elseif has('gui_macvim')
         set guifont=DejaVu_Sans_Mono:h11
         set lines=999 columns=999
     else
@@ -19,7 +19,7 @@ if has("gui_running")
     colorscheme solarized
     set antialias
 else
-    if has("win32")
+    if has('win32')
         colorscheme candy
     elseif has('mac')
         colorscheme desert256
@@ -27,7 +27,7 @@ else
         colorscheme solarized
     endif
 endif
-let g:solarized_visibility="high"
+let g:solarized_visibility='high'
 set cursorline
 set guioptions-=T
 set guioptions-=m

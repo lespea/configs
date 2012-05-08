@@ -10,16 +10,16 @@ syntax on
 set background=dark
 
 "  Running gvim
-if has("gui_running")
+if has('gui_running')
     "  Widnows
-    if has("gui_win32")
+    if has('gui_win32')
         set guifont=DejaVu_Sans_Mono:h11
 
         "  Also use full screen in windows
         autocmd GUIEnter * :simalt ~x
 
     "  Mac
-    elseif has(gui_macvim)
+    elseif has('gui_macvim')
         set guifont=DejaVu_Sans_Mono:h11
 
         "  Fullscreen hack for mac"
@@ -39,7 +39,7 @@ if has("gui_running")
 "  Console vim
 else
     "  The windows terminal is utter crap
-    if has("win32")
+    if has('win32')
         colorscheme candy
     elseif has('mac')
         colorscheme desert256
@@ -47,7 +47,7 @@ else
         colorscheme solarized
     endif
 endif
-let g:solarized_visibility="high"
+let g:solarized_visibility='high'
 
 
 "  Highlight the current line

@@ -191,6 +191,9 @@ noremap ,m :CopyMatches<CR>
 "  Remove dupes
 noremap ,u :sort u<CR>:g/^$/d<CR>
 
+"  Count all of the lines
+noremap ,cl :sort<CR>:%!uniq -c<CR>:sort! n<CR>
+
 "  Clear the (a)ll register
 noremap ,a  qaq
 
@@ -222,17 +225,8 @@ noremap ,dupe :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>yyp:%s/^\(.\+\)\n\1\+/\1/<CR>:g/^
 "  Shortcut to edit the conf files
 noremap ,conf :tabnew $HOME/vimconfigs/
 
-"  Split up args
-noremap \fa :let b:l=matchend(getline('.'), '^ *')<CR>0f(a<CR><ESC>$F)i<CR><ESC>:s/^ */\=repeat(' ', b:l)<CR>k:s/,\zs */\r<CR>vibkV:s/^ */\=repeat(' ', b:l+4)<CR>:silent :noh<CR>
-
-"  Pull out the usefull information in the monthly reports
-noremap \md gg/^"*date<CR>"ayy:silent bufdo /^"*date/1,$y A<CR>:tabnew<CR>V"ap:g/^[^,]*,[^,]*$/s/,/,CISCO,Raw,/<CR>:%s/,/\t/e\|%s/^"*\(\w\+-\)\%(\d\d\)*\(\d\d\)"*\ze\t/\120\2/e\|%s/^"*\(\d\d\)-\(\w\+\)"*\ze\t/\2-20\1/e<CR>:2,$sort<CR>:nohlsearch<CR>:1,$y+<CR>
-
 "  Turn the file menu on or off
 nmap <silent> <C-F11> :if &guioptions=~'m' \| set guioptions-=m \| else \| set guioptions+=m \| endif<CR>
 
-"  Fix network dumps of http traffic for easier analysis
-noremap <silent> \fh :silent :CleanUpSourcefire<CR>
-
 "  Clean up a lot of the IDs so it's easy to go through results
-noremap <silent> \fid :silent %s/\<\%(\%(\%([ap]\\|sku\\|cjp\\|devicesku\\|skurep\\|product\%(category\)\?\\|category\)\?id\\|d\\|ref\\|loc\\|st\)=\\|pcmprd\\|_dynsessconf=\?\)\%(\%(ab\\|p\\|pcm\)\?cat\)\?-\?\d\+&\?//e \| silent sort u \| silent g/^\s*$/d<CR>
+noremap <silent> \rti :silent %!perl -nMNet::IP -MNet::Netmask -MModern::Perl -e'chomp;my $n = Net::IP->new(Net::Netmask->new($_));say join "\t", $n->intip, $n->last_int'<CR>

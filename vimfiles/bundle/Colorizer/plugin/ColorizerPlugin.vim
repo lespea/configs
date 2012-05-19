@@ -1,10 +1,10 @@
 " Plugin:       Highlight Colornames and Values
 " Maintainer:   Christian Brabandt <cb@256bit.org>
 " URL:          http://www.github.com/chrisbra/color_highlight
-" Last Change: Tue, 03 Apr 2012 15:19:30 +0200
+" Last Change: Thu, 17 May 2012 21:03:52 +0200
 " Licence:      Vim License (see :h License)
-" Version:      0.5
-" GetLatestVimScripts: 3963 5 :AutoInstall: Colorizer.vim
+" Version:      0.6
+" GetLatestVimScripts: 3963 6 :AutoInstall: Colorizer.vim
 "
 " This plugin was inspired by the css_color.vim plugin from Nikolaus Hofer.
 " Changes made: - make terminal colors work more reliably and with all
@@ -27,12 +27,12 @@ set cpo&vim
 " define commands "{{{1
 command! -bang -range=%  ColorHighlight
         \ :call Colorizer#DoColor(<q-bang>, <q-line1>, <q-line2>)
-command! -bang -nargs=1  RGB2Xterm
+command! -bang -nargs=1  RGB2Xterm  
         \ :call Colorizer#RGB2Term(<q-args>)
 
 command! -bang    ColorClear    :call Colorizer#ColorOff()
 command! -bang    ColorToggle   :call Colorizer#ColorToggle()
-command! -nargs=1 HSL2RGB       :echo Colorizer#ColorHSLValues(<q-args>)
+command! -nargs=1 HSL2RGB       :call Colorizer#HSL2Term(<q-args>)
 command!          ColorContrast :call Colorizer#SwitchContrast()
 command!          ColorSwapFgBg :call Colorizer#SwitchFGBG()
 
@@ -61,7 +61,7 @@ if exists("g:colorizer_auto_filetype")
     " Setup some autocommands for specific filetypes.
     aug FT_ColorizerPlugin
         au!
-        exe "au Filetype" g:colorizer_auto_filetype
+        exe "au Filetype" g:colorizer_auto_filetype 
                     \ "call Colorizer#LocalFTAutoCmds(1)\|
                     \ :ColorHighlight"
     aug END

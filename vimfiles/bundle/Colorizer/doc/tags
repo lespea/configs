@@ -6,6 +6,7 @@
 :RGB2Xterm	Colorizer.txt	/*:RGB2Xterm*
 Colorizer	Colorizer.txt	/*Colorizer*
 Colorizer-auto	Colorizer.txt	/*Colorizer-auto*
+Colorizer-comments	Colorizer.txt	/*Colorizer-comments*
 Colorizer-config	Colorizer.txt	/*Colorizer-config*
 Colorizer-contrast	Colorizer.txt	/*Colorizer-contrast*
 Colorizer-feedback	Colorizer.txt	/*Colorizer-feedback*

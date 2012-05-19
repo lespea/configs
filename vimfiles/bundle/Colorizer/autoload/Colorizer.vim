@@ -1,10 +1,10 @@
 " Plugin:       Highlight Colornames and Values
 " Maintainer:   Christian Brabandt <cb@256bit.org>
 " URL:          http://www.github.com/chrisbra/color_highlight
-" Last Change: Tue, 03 Apr 2012 15:19:30 +0200
+" Last Change: Thu, 17 May 2012 21:03:52 +0200
 " Licence:      Vim License (see :h License)
-" Version:      0.5
-" GetLatestVimScripts: 3963 5 :AutoInstall: Colorizer.vim
+" Version:      0.6
+" GetLatestVimScripts: 3963 6 :AutoInstall: Colorizer.vim
 "
 " This plugin was inspired by the css_color.vim plugin from Nikolaus Hofer.
 " Changes made: - make terminal colors work more reliably and with all
@@ -957,7 +957,8 @@ function! s:SetMatcher(clr, pattern) "{{{1
     if s:DidColor(a:clr, a:pattern)
         return
     endif
-    call matchadd(a:clr, a:pattern)
+    " let 'hls' overrule our syntax highlighting
+    call matchadd(a:clr, a:pattern, -1)
     call add(s:match_list, a:pattern)
 endfunction
 
@@ -1102,6 +1103,11 @@ function! s:Check16ColorTerm(rgblist, minlist) "{{{1
 endfunction
 
 function! s:PreviewColorName(color) "{{{1
+    if s:skip_comments &&
+        \ synIDattr(synIDtrans(synID(line('.'), col('.'),1)), 'name') == "Comment"
+        " skip coloring comments
+        return a:color
+    endif
     let name=tolower(a:color)
     let clr = s:colors[name]
     call s:SetMatcher(clr[1:], '\<'.name.'\>\c')
@@ -1109,6 +1115,11 @@ function! s:PreviewColorName(color) "{{{1
 endfu
 
 function! s:PreviewColorHex(match) "{{{1
+    if s:skip_comments &&
+        \ synIDattr(synIDtrans(synID(line('.'), col('.'),1)), 'name') == 'Comment'
+        " skip coloring comments
+        return a:match
+    endif
     let color = (a:match[0] == '#' ? a:match[1:] : a:match)
     let pattern = color
     if len(color) == 3
@@ -1148,7 +1159,7 @@ function! s:Init(...) "{{{1
     "            \ 'rgba\=(\s*\%(\d\+%\?\D*\)\{3,4})':
     "            \ function('<sid>ColorRGBValues'),
     "            \ 'hsla\=(\s*\%(\d\+%\?\D*\)\{3,4})':
-    "            \ function('Colorizer#ColorHSLValues')}
+    "            \ function('s:ColorHSLValues')}
 
     " Cache old values
     if !exists("s:old_tCo")
@@ -1166,6 +1177,12 @@ function! s:Init(...) "{{{1
 
     if exists("g:colorizer_debug")
         let s:debug = 1
+    endif
+
+    if exists("g:colorizer_skip_comments")
+        let s:skip_comments = g:colorizer_skip_comments
+    else
+        let s:skip_comments = 0
     endif
 
     " foreground / background contrast
@@ -1194,6 +1211,10 @@ function! s:Init(...) "{{{1
     endif
 
     if exists("g:colorizer_colornames")
+        if exists("s:color_names") &&
+        \ s:color_names != g:colorizer_colornames
+            let s:force_hl = 1
+        endif
         let s:color_names = g:colorizer_colornames
     else
         let s:color_names = 1
@@ -1210,6 +1231,7 @@ function! s:Init(...) "{{{1
     if s:old_tCo != &t_Co
         unlet! s:colortable
     endif
+
     if !exists("s:init_css") || !exists("s:colortable") ||
         \ empty(s:colortable)
 	" Only calculate the colortable when running
@@ -1235,12 +1257,13 @@ function! s:Init(...) "{{{1
 	let s:match_list = s:GetMatchList()
 	" If the syntax highlighting got reset, force recreating it
 	if ((empty(s:match_list) || !hlexists(s:match_list[0].group) ||  
-	    \ empty(synIDattr(hlID(s:match_list[0].group), 'fg'))) && !s:force_hl)
+	    \ empty(synIDattr(hlID(s:match_list[0].group), 'fg'))) &&
+            \ !s:force_hl)
 	    let s:force_hl = 1
 	endif
         if &t_Co > 16 || has("gui_running")
-            let s:colors = (exists("g:colorizer_x11_names") ? s:x11_color_names
-                \ : s:w3c_color_names)
+            let s:colors = (exists("g:colorizer_x11_names") ?
+                \ s:x11_color_names : s:w3c_color_names)
         elseif &t_Co == 16
             " should work with 16 colors terminals
             let s:colors = s:xterm_16colors
@@ -1278,14 +1301,22 @@ function! s:SaveOptions(list) "{{{1
     return save
 endfunction
 
-function! s:StripParantheses(val) "{{{1
-    return split(matchstr(a:val, '^\(hsl\|rgb\)a\?(\zs.*\ze)$'), '\s*,')
+function! s:StripParentheses(val) "{{{1
+    return split(matchstr(a:val, '^\(hsl\|rgb\)a\?\s*(\zs[^)]*\ze)'), '\s*,')
 endfunction
 
 function! s:ColorRGBValues(val) "{{{1
+    if s:skip_comments &&
+        \ synIDattr(synIDtrans(synID(line('.'), col('.'),1)), 'name') == "Comment"
+        " skip coloring comments
+        return a:val
+    endif
     " strip parantheses and split on comma
-    let rgb = s:StripParantheses(a:val)
-    if len(rgb) == 4
+    let rgb = s:StripParentheses(a:val)
+    if empty(rgb)
+        call s:Warn("Error in expression". a:val. "! Please report as bug.")
+        return a:val
+    elseif len(rgb) == 4
         " drop alpha channel
         call remove(rgb, 3)
     endif
@@ -1307,10 +1338,28 @@ function! s:ColorRGBValues(val) "{{{1
     return a:val
 endfunction
 
+function! s:ColorHSLValues(val) "{{{1
+    if s:skip_comments &&
+        \ synIDattr(synIDtrans(synID(line('.'), col('.'),1)), 'name') == "Comment"
+        " skip coloring comments
+        return a:val
+    endif
+    " strip parantheses and split on comma
+    let hsl = s:StripParentheses(a:val)
+    if empty(hsl)
+        call s:Warn("Error in expression". a:val. "! Please report as bug.")
+        return a:val
+    endif
+    let str = s:PrepareHSLArgs(hsl)
+
+    call s:SetMatcher(str, a:val)
+    return a:val
+endfu
+
 function! s:HSL2RGB(h, s, l) "{{{1
     let s = a:s + 0.0
     let l = a:l + 0.0
-    if l <= 0.5
+    if  l <= 0.5
         let m2 = l * (s + 1)
     else
         let m2 = l + s - l * s
@@ -1323,11 +1372,11 @@ function! s:HSL2RGB(h, s, l) "{{{1
 endfunction
 
 function! s:Hue2RGB(m1, m2, h) "{{{1
-    let h = (a:h + 0.0)/255
+    let h = (a:h + 0.0)/360
     if h < 0
         let h = h + 1
     elseif h > 1
-        let h = h -1 
+        let h = h - 1
     endif
     if h * 6 < 1
         let res = a:m1 + (a:m2 - a:m1) * h * 6
@@ -1443,6 +1492,17 @@ function! s:HasColorPattern() "{{{1
     return found
 endfunction
 
+function! s:PrepareHSLArgs(list) "{{{1
+    let hsl=a:list
+    if len(hsl) == 4
+        " drop alpha channel
+        call remove(hsl, 3)
+    endif
+    let hsl[0] = (matchstr(hsl[0], '\d\+') + 360)%360
+    let hsl[1] = (matchstr(hsl[1], '\d\+') + 0.0)/100
+    let hsl[2] = (matchstr(hsl[2], '\d\+') + 0.0)/100
+    return s:HSL2RGB(hsl[0], hsl[1], hsl[2])
+endfu
 function! Colorizer#ColorToggle() "{{{1
     if !exists("s:match_list") || empty(s:match_list)
         call Colorizer#DoColor(0, 1, line('$'))
@@ -1496,19 +1556,19 @@ function! Colorizer#DoColor(force, line1, line2) "{{{1
     " CSS rgb(255,0,0)
     "     rgba(255,0,0,1)
     "     rgb(10%,0,100%)
-    "     hsl(0,100%,50%) -> hvl2rgb conversion RED
+    "     hsl(0,100%,50%) -> hsl2rgb conversion RED
     "     hsla(120,100%,50%,1) Lime
     "     hsl(120,100%,25%) Darkgreen
     "     hsl(120, 100%, 75%) lightgreen
     "     hsl(120, 75%, 75%) pastelgreen
     " highlight rgb(X,X,X) values
-    ":sil %s/rgba\?(\s*\%(\d\+%\?\D*\)\{3,4})/\=s:ColorRGBValues(submatch(0))/egi
-        let cmd = printf(':sil %d,%ds/rgba\=(\s*\%%(\d\+%%\?\D*\)\{3,4})/'. 
+        let pat = '\s*(\s*\%%(\d\+%%\?[^0-9)]*\)\{3,4})'
+        let cmd = printf(':sil %d,%ds/rgba\='. pat. '/'. 
             \ '\=s:ColorRGBValues(submatch(0))/egi', a:line1, a:line2)
         exe cmd
-        " highlight hvl(X,X,X) values
-        let cmd = printf(':sil %d,%ds/hsla\=(\s*\%%(\d\+%%\?\D*\)\{3,4})'.
-            \'/\=Colorizer#ColorHSLValues(submatch(0))/egi', a:line1, a:line2)
+        " highlight hsl(X,X,X) values
+        let cmd = printf(':sil %d,%ds/hsla\='. pat. '/'.
+            \'\=s:ColorHSLValues(submatch(0))/egi', a:line1, a:line2)
         exe cmd
     endif
     " highlight Colornames
@@ -1522,27 +1582,32 @@ function! Colorizer#DoColor(force, line1, line2) "{{{1
     call winrestview(_a)
 endfu
 
-function! Colorizer#ColorHSLValues(val) "{{{1
-    " strip parantheses and split on comma
-    let hsl = s:StripParantheses(a:val)
-    if len(hsl) == 4
-        " drop alpha channel
-        call remove(hsl, 3)
-    endif
-    let hsl[0] = (hsl[0]+360)%360
-    let hsl[1] = (matchstr(hsl[1], '\d\+') + 0.0)/100
-    let hsl[2] = (matchstr(hsl[2], '\d\+') + 0.0)/100
-
-    let str = s:HSL2RGB(hsl[0], hsl[1], hsl[2])
-    call s:SetMatcher(str, a:val)
-    return a:val
-endfu
-
 function! Colorizer#RGB2Term(arg) "{{{1
-    let color  = a:arg[0] == '#' ? a:arg : '#'. a:arg
+    if a:arg =~ '^rgb'
+        let clr    = s:StripParentheses(a:arg)
+        let color  = printf("#%02X%02X%02X", clr[0], clr[1], clr[2])
+    else
+        let color  = a:arg[0] == '#' ? a:arg : #.a:arg
+    endif
+
     let tcolor = s:Rgb2xterm(color)
     call s:DoHlGroup(color[1:])
     exe "echohl" color[1:]
+    echo a:arg. " => ". tcolor
+    echohl None
+endfu
+
+function! Colorizer#HSL2Term(arg) "{{{1
+    let hsl = s:StripParentheses(a:arg)
+    if empty(hsl)
+        call s:Warn("Error evaluating expression". a:val. "! Please report as bug.")
+        return a:val
+    endif
+    let str = s:PrepareHSLArgs(hsl)
+
+    let tcolor = s:Rgb2xterm('#'.str)
+    call s:DoHlGroup(str)
+    exe "echohl" str
     echo a:arg. " => ". tcolor
     echohl None
 endfu

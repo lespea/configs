@@ -30,3 +30,5 @@ vimfiles/.netrwhist
 VirtualBox\ VMs
 .DS_Store
 .cpanplus
+.terminator/
+.terminfo/

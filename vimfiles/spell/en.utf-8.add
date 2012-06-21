@@ -100,3 +100,8 @@ configs
 CISCO
 Cisco
 ConfigInfo
+Excel's
+binmode
+wks
+wkb
+autofilters

@@ -25,6 +25,9 @@ if has('gui_running')
         "  Fullscreen hack for mac"
         set lines=999 columns=999
 
+        "  Turn on light transparency
+        set transparency=7
+
     "  Anything else (Linux)
     else
         set guifont=DejaVu\ Sans\ Mono\ 11

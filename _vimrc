@@ -13,6 +13,7 @@ if has('gui_running')
     elseif has('gui_macvim')
         set guifont=DejaVu_Sans_Mono:h11
         set lines=999 columns=999
+        set transparency=7
     else
         set guifont=DejaVu\ Sans\ Mono\ 11
     endif

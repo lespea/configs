@@ -1,0 +1,5 @@
+--regex-perl=/^[[:space:]]*has[[:space:]]+['"]?([0-9a-zA-Z_]+)/\1/a,attribute/
+--regex-perl=/^[[:space:]]*with[[:space:]]+(['"])(.+)\1/\2/r,role/
+--regex-perl=/^[[:space:]]*extends[[:space:]]+(['"])(.+)\1/\2/e,extends/
+--regex-perl=/^[[:space:]]*use[[:space:]]+([^ ;]+)/\1/u,use/
+--regex-perl=/^[[:space:]]*(const|readonly([^[:space:]]+)?)[[:space:]]+(my[[:space:]]+)?([^[:space:]]+)/\4/t,const/

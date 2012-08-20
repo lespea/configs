@@ -29,6 +29,9 @@ autocmd FileType perl set makeprg=perl\ -c\ -T\ \"%\"\ $*
 autocmd FileType perl set errorformat=%f:%l:%m
 autocmd FileType perl set autowrite
 
+"  use taglist with perl
+autocmd FileType perl Tlist
+
 "  For C-like programming, have automatic indentation
 autocmd FileType c,cpp,slang        set cindent
 

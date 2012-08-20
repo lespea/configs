@@ -143,7 +143,7 @@ au BufRead * set rnu
 autocmd FileType perl set makeprg=perl\ -c\ -T\ \"%\"\ $*
 autocmd FileType perl set errorformat=%f:%l:%m
 autocmd FileType perl set autowrite
-autocmd FileType perl Tlist
+autocmd BufWinEnter *.pl,*.pm,*.t TlistOpen
 autocmd FileType c,cpp,slang        set cindent
 autocmd FileType c set formatoptions+=ro
 autocmd FileType python set formatoptions-=t
@@ -426,7 +426,7 @@ inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
 let g:EasyMotion_leader_key = ','
 let g:colorizer_auto_filetype='css,html,xhtml,less'
-let tlist_perl_settings = 'perl;p:package;u:use;r:role;e:extends;c:constant;t:const;a:attribute;s:subroutine;l:label'
+let tlist_perl_settings = 'perl;u:use;r:role;e:extends;c:constant;t:const;a:attribute;s:subroutine;m:mooose doc'
 let Tlist_Show_One_File = 1
 let Tlist_Use_Right_Window = 1
 let Tlist_Sort_Type = "name"

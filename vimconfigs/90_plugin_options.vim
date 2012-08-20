@@ -159,7 +159,7 @@ let g:colorizer_auto_filetype='css,html,xhtml,less'
 "  -------------
 "  |  TagList  |
 "  -------------
-let tlist_perl_settings = 'perl;p:package;u:use;r:role;e:extends;c:constant;t:const;a:attribute;s:subroutine;l:label'
+let tlist_perl_settings = 'perl;u:use;r:role;e:extends;c:constant;t:const;a:attribute;s:subroutine;m:mooose doc'
 let Tlist_Show_One_File = 1
 let Tlist_Use_Right_Window = 1
 let Tlist_Sort_Type = "name"

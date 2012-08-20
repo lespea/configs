@@ -8,7 +8,7 @@
 "  |  NERDTree  |
 "  --------------
 
-map <silent> \e :NERDTreeToggle<CR>
+map <silent> \e :NERDTreeMirrorToggle<CR>
 let NERDTreeWinPos    = 'left'
 let NERDTreeChDirMode = '2'
 let NERDTreeIgnore    = ['\.vim$', '\~$', '\.pyo$', '\.pyc$', '\.svn[\//]$', '\.swp$']

@@ -143,7 +143,6 @@ au BufRead * set rnu
 autocmd FileType perl set makeprg=perl\ -c\ -T\ \"%\"\ $*
 autocmd FileType perl set errorformat=%f:%l:%m
 autocmd FileType perl set autowrite
-autocmd BufWinEnter *.pl,*.pm,*.t TlistOpen
 autocmd FileType c,cpp,slang        set cindent
 autocmd FileType c set formatoptions+=ro
 autocmd FileType python set formatoptions-=t
@@ -451,14 +450,16 @@ nnoremap <F5> :GundoToggle<CR>
 noremap <F7> :setlocal spell! spell?<CR>
 noremap <F2> :tab sball<CR>
 noremap <F3> :Rearrangetabsbypath 1<CR>
-nnoremap <C-L> :tabnext<CR>
-nnoremap <C-H> :tabprevious<CR>
-nnoremap <silent><C-j> :set paste<CR>m`o<Esc>``:set nopaste<CR>
-nnoremap <silent><C-k> :set paste<CR>m`O<Esc>``:set nopaste<CR>
+nnoremap <S-l> :tabnext<CR>
+nnoremap <S-h> :tabprevious<CR>
 nnoremap <silent><A-.> m`:s/\v(<\k*%#\k*>)(\_.{-})(<\k+>)/\3\2\1/<CR>``:noh<CR>
 nnoremap <silent><A-,> m`:s/\v(<\k+>)(.{-})(<\k*%#\k*>)/\3\2\1/<CR>``:noh<CR>
 noremap <silent><A-n> k:call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
 noremap <silent><A-m> :call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
+noremap <silent><C-h> h
+noremap <silent><C-j> j
+noremap <silent><C-k> k
+noremap <silent><C-l> l
 noremap <silent><C-N> :silent noh<CR>
 nnoremap <S-space> i <esc>la <esc>h
 noremap  <S-C-space> m`lBi <esc>Ea <esc>``l
@@ -512,6 +513,7 @@ noremap ,cd :cd %:p:h<CR>
 noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>:silent noh<CR>
 noremap ,dupe :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>yyp:%s/^\(.\+\)\n\1\+/\1/<CR>:g/^$/d<CR>:silent noh<CR>
 noremap ,conf :tabnew $HOME/vimconfigs/
+noremap ,lo :Tlist<CR>h
 nmap <silent> <C-F11> :if &guioptions=~'m' \| set guioptions-=m \| else \| set guioptions+=m \| endif<CR>
 noremap <silent> \rti :silent %!perl -nMNet::IP -MNet::Netmask -MModern::Perl -e'chomp;my $n = Net::IP->new(Net::Netmask->new($_));say join "\t", $n->intip, $n->last_int'<CR>
 abb teh the

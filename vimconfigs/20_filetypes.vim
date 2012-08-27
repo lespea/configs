@@ -30,7 +30,7 @@ autocmd FileType perl set errorformat=%f:%l:%m
 autocmd FileType perl set autowrite
 
 "  use taglist with perl
-autocmd BufWinEnter *.pl,*.pm,*.t TlistOpen
+"autocmd BufWinEnter *.pl,*.pm,*.t TlistOpen
 
 "  For C-like programming, have automatic indentation
 autocmd FileType c,cpp,slang        set cindent

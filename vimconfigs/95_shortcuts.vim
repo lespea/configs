@@ -50,7 +50,7 @@ noremap <F10> :set expandtab<CR>:retab<CR>
 "  Paste toggler
 nnoremap <F4> :set nowrap!<CR>
 
-nnoremap <F5> :GundoToggle<CR>
+nnoremap <F5> :UndotreeToggle<CR>
 
 "  Spellcheck the current file
 noremap <F7> :setlocal spell! spell?<CR>

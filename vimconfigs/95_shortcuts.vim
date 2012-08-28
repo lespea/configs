@@ -138,6 +138,10 @@ noremap \u :sort u<CR>:g/^$/d<CR>
 
 "  Align on =>  (useful for hash assignments)
 noremap \= :Align =><CR>
+noremap \p= vip:Align =><CR>
+noremap \b= vib:Align =><CR>
+noremap \B= viB:Align =><CR>
+noremap \]= vi]:Align =><CR>
 
 "  Copy the matches to a new buffer, remove the duplicates/blank lines, and copy to the clipboard
 noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>:1,$y+<CR>
@@ -232,7 +236,7 @@ noremap ,dupe :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>yyp:%s/^\(.\+\)\n\1\+/\1/<CR>:g/^
 noremap ,conf :tabnew $HOME/vimconfigs/
 
 "  Open the taglist browser
-noremap ,lo :Tlist<CR>h
+noremap ,lo :Tlist<CR>
 
 "  Turn the file menu on or off
 nmap <silent> <C-F11> :if &guioptions=~'m' \| set guioptions-=m \| else \| set guioptions+=m \| endif<CR>

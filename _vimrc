@@ -480,6 +480,10 @@ nnoremap \ttt :execute "normal a" . strftime("%x %X (%Z)")<Esc>
 inoremap \ttt <Esc>:execute "normal a" . strftime("%x %X (%Z)")<Esc>a
 noremap \u :sort u<CR>:g/^$/d<CR>
 noremap \= :Align =><CR>
+noremap \p= vip:Align =><CR>
+noremap \b= vib:Align =><CR>
+noremap \B= viB:Align =><CR>
+noremap \]= vi]:Align =><CR>
 noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>:1,$y+<CR>
 noremap \fd :silent! 1,$!perl -nMDateTime::Format::DateParse -E"BEGIN{sub fd{my $line = shift;chomp $line;my $dt = DateTime::Format::DateParse->parse_datetime($line, 'America/Chicago');$dt ? ($dt->set_time_zone('America/Chicago') and $dt->strftime('\%Y-\%m-\%d \%H:\%M:\%S')) : $line}; use Memoize; memoize 'fd'}say fd($_)"<CR>:norm \ca<CR>
 noremap \fc :new<CR>"+p"+:1,$y+<CR>:bd!<CR>
@@ -513,7 +517,7 @@ noremap ,cd :cd %:p:h<CR>
 noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>:silent noh<CR>
 noremap ,dupe :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>yyp:%s/^\(.\+\)\n\1\+/\1/<CR>:g/^$/d<CR>:silent noh<CR>
 noremap ,conf :tabnew $HOME/vimconfigs/
-noremap ,lo :Tlist<CR>h
+noremap ,lo :Tlist<CR>
 nmap <silent> <C-F11> :if &guioptions=~'m' \| set guioptions-=m \| else \| set guioptions+=m \| endif<CR>
 noremap <silent> \rti :silent %!perl -nMNet::IP -MNet::Netmask -MModern::Perl -e'chomp;my $n = Net::IP->new(Net::Netmask->new($_));say join "\t", $n->intip, $n->last_int'<CR>
 abb teh the

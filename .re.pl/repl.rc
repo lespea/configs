@@ -1,0 +1,12 @@
+use utf8;
+use Modern::Perl / 2012 /;
+use autovivification;
+use autobox;
+use autodie;
+use Try::Tiny;
+use IO::File;
+use File::Slurp;
+use List::AllUtils qw/ :all /;
+use List::Gen qw/ :all !zip /;
+
+load_plugin('DataPrinter');

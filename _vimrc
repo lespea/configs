@@ -159,6 +159,7 @@ autocmd FileType python         setlocal  omnifunc=pythoncomplete#Complete
 autocmd FileType xml            setlocal  omnifunc=xmlcomplete#CompleteTags
 au BufNewFile,BufRead *.tt2 setf tt2
 au BufNewFile,BufRead *.tt2html setf tt2html
+au BufNewFile,BufRead *.tt2h setf tt2html
 function! g:ToggleNuMode()
     if(&rnu == 1)
         set nu

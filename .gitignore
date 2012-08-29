@@ -36,3 +36,5 @@ VirtualBox\ VMs
 .sbt/target/
 .sbt/plugins/project
 .sbt/plugins/target
+.ttreerc
+.perlreplhist

@@ -9,6 +9,12 @@ syntax on
 "autocmd ColorScheme * highlight PEP8WS ctermbg=darkgreen guibg=darkgreen
 set background=dark
 
+"  Enable powerline to show nice symbols (do this early)
+let g:Powerline_symbols = 'fancy'
+let g:Powerline_theme = 'default'
+let g:Powerline_colorscheme = 'default'
+let g:Powerline_stl_path_style = 'short'
+
 "  Running gvim
 if has('gui_running')
     "  Widnows
@@ -20,10 +26,14 @@ if has('gui_running')
 
     "  Mac
     elseif has('gui_macvim')
-        set guifont=DejaVu_Sans_Mono:h11
+        "set guifont=DejaVu_Sans_Mono:h11
+        set guifont=Droid\ Sans\ Mono\ Slashed\ for\ Powerline:h11
 
         "  Fullscreen hack for mac"
         set lines=999 columns=999
+
+        "  Turn on light transparency
+        set transparency=7
 
     "  Anything else (Linux)
     else

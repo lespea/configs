@@ -1,0 +1,6 @@
+--regex-perl=/^[[:space:]]*has[[:space:]]+(['"]?([0-9a-zA-Z_]+)|[[](qw\/[[:space:]]*)?([0-9a-zA-Z_'"[:space:]]*[0-9a-zA-Z_]))/\2\4/a,attribute/i
+--regex-perl=/^[[:space:]]*=(attr|method)[[:space:]]+['"]?([0-9a-zA-Z_]+)/\2/m,moose doc/i
+--regex-perl=/^[[:space:]]*with[[:space:]]+(['"])(.+)\1/\2/r,role/i
+--regex-perl=/^[[:space:]]*extends[[:space:]]+(['"])(.+)\1/\2/e,extends/i
+--regex-perl=/^[[:space:]]*use[[:space:]]+([^ ;]+)/\1/u,use/i
+--regex-perl=/^[[:space:]]*(const|Readonly[^[:space:]]*)[[:space:]]+((my|our)[[:space:]]+)?([^[:space:]]+)/\4/t,const/i

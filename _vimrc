@@ -4,15 +4,21 @@ filetype off
 call pathogen#infect()
 call pathogen#helptags()
 filetype plugin indent on
+set encoding=utf-8
 syntax on
 set background=dark
+let g:Powerline_symbols = 'fancy'
+let g:Powerline_theme = 'default'
+let g:Powerline_colorscheme = 'default'
+let g:Powerline_stl_path_style = 'short'
 if has('gui_running')
     if has('gui_win32')
         set guifont=DejaVu_Sans_Mono:h11
         autocmd GUIEnter * :simalt ~x
     elseif has('gui_macvim')
-        set guifont=DejaVu_Sans_Mono:h11
+        set guifont=Droid\ Sans\ Mono\ Slashed\ for\ Powerline:h11
         set lines=999 columns=999
+        set transparency=7
     else
         set guifont=DejaVu\ Sans\ Mono\ 11
     endif
@@ -109,29 +115,6 @@ let g:netrw_silent            = 1
 let g:netrw_special_syntax    = 1
 set rnu
 set wak=no
-set statusline=
-set statusline+=%f/
-set statusline+=%h%m%r%w
-set statusline+=[%{strlen(&ft)?&ft:'NONE'},
-set statusline+=%{strlen(&fenc)?&fenc:&enc},
-set statusline+=%{&fileformat}]
-set statusline+=%=
-set statusline+=%b,0x%-8B
-set statusline+=%c,%l/
-set statusline+=%L\ %P
-function! InsertStatuslineColor(mode)
-  if a:mode == 'i'
-    hi statusline guibg=#9b601a
-  elseif a:mode == 'r'
-    hi statusline guibg=#9b3535
-  elseif a:mode == 'v'
-    hi statusline guibg=#a7a863
-  else
-    hi statusline guibg=#727272
-endif
-endfunction
-au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * call InsertStatuslineColor('n')
 au FileType helpfile set nonumber
 au FileType helpfile nnoremap <buffer><cr> <c-]>
 au FileType helpfile nnoremap <buffer><bs> <c-T>
@@ -375,7 +358,7 @@ function! s:CleanUpSourcefire()
     endfor
 endfunction
 command! -register CleanUpSourcefire call s:CleanUpSourcefire()
-map <silent> \e :NERDTreeToggle<CR>
+map <silent> \e :NERDTreeMirrorToggle<CR>
 let NERDTreeWinPos    = 'left'
 let NERDTreeChDirMode = '2'
 let NERDTreeIgnore    = ['\.vim$', '\~$', '\.pyo$', '\.pyc$', '\.svn[\//]$', '\.swp$']
@@ -425,6 +408,11 @@ inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
 let g:EasyMotion_leader_key = ','
 let g:colorizer_auto_filetype='css,html,xhtml,less'
+let tlist_perl_settings = 'perl;u:use;r:role;e:extends;c:constant;t:const;a:attribute;s:subroutine;m:mooose doc'
+let Tlist_Show_One_File = 1
+let Tlist_Use_Right_Window = 1
+let Tlist_Sort_Type = "name"
+let Tlist_WinWidth = 45
 cmap w!! w !sudo tee % >/dev/null
 vnoremap ; :
 noremap <Space> <PageDown>
@@ -441,18 +429,20 @@ noremap! <F1> <C-C><F1>
 noremap <F9> :StripTrailingWhitespaces<CR>
 noremap <F10> :set expandtab<CR>:retab<CR>
 nnoremap <F4> :set nowrap!<CR>
-nnoremap <F5> :GundoToggle<CR>
+nnoremap <F5> :UndotreeToggle<CR>
 noremap <F7> :setlocal spell! spell?<CR>
 noremap <F2> :tab sball<CR>
 noremap <F3> :Rearrangetabsbypath 1<CR>
-nnoremap <C-L> :tabnext<CR>
-nnoremap <C-H> :tabprevious<CR>
-nnoremap <silent><C-j> :set paste<CR>m`o<Esc>``:set nopaste<CR>
-nnoremap <silent><C-k> :set paste<CR>m`O<Esc>``:set nopaste<CR>
+nnoremap <S-l> :tabnext<CR>
+nnoremap <S-h> :tabprevious<CR>
 nnoremap <silent><A-.> m`:s/\v(<\k*%#\k*>)(\_.{-})(<\k+>)/\3\2\1/<CR>``:noh<CR>
 nnoremap <silent><A-,> m`:s/\v(<\k+>)(.{-})(<\k*%#\k*>)/\3\2\1/<CR>``:noh<CR>
 noremap <silent><A-n> k:call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
 noremap <silent><A-m> :call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
+noremap <silent><C-h> h
+noremap <silent><C-j> j
+noremap <silent><C-k> k
+noremap <silent><C-l> l
 noremap <silent><C-N> :silent noh<CR>
 nnoremap <S-space> i <esc>la <esc>h
 noremap  <S-C-space> m`lBi <esc>Ea <esc>``l
@@ -473,6 +463,10 @@ nnoremap \ttt :execute "normal a" . strftime("%x %X (%Z)")<Esc>
 inoremap \ttt <Esc>:execute "normal a" . strftime("%x %X (%Z)")<Esc>a
 noremap \u :sort u<CR>:g/^$/d<CR>
 noremap \= :Align =><CR>
+noremap ,ap vip:Align =><CR>
+noremap ,ab vib:Align =><CR>
+noremap ,aB viB:Align =><CR>
+noremap ,a] vi]:Align =><CR>
 noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>:1,$y+<CR>
 noremap \fd :silent! 1,$!perl -nMDateTime::Format::DateParse -E"BEGIN{sub fd{my $line = shift;chomp $line;my $dt = DateTime::Format::DateParse->parse_datetime($line, 'America/Chicago');$dt ? ($dt->set_time_zone('America/Chicago') and $dt->strftime('\%Y-\%m-\%d \%H:\%M:\%S')) : $line}; use Memoize; memoize 'fd'}say fd($_)"<CR>:norm \ca<CR>
 noremap \fc :new<CR>"+p"+:1,$y+<CR>:bd!<CR>
@@ -506,6 +500,7 @@ noremap ,cd :cd %:p:h<CR>
 noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>:silent noh<CR>
 noremap ,dupe :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>yyp:%s/^\(.\+\)\n\1\+/\1/<CR>:g/^$/d<CR>:silent noh<CR>
 noremap ,conf :tabnew $HOME/vimconfigs/
+noremap ,lo :Tlist<CR>
 nmap <silent> <C-F11> :if &guioptions=~'m' \| set guioptions-=m \| else \| set guioptions+=m \| endif<CR>
 noremap <silent> \rti :silent %!perl -nMNet::IP -MNet::Netmask -MModern::Perl -e'chomp;my $n = Net::IP->new(Net::Netmask->new($_));say join "\t", $n->intip, $n->last_int'<CR>
 abb teh the

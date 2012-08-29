@@ -8,7 +8,7 @@
 "  |  NERDTree  |
 "  --------------
 
-map <silent> \e :NERDTreeToggle<CR>
+map <silent> \e :NERDTreeMirrorToggle<CR>
 let NERDTreeWinPos    = 'left'
 let NERDTreeChDirMode = '2'
 let NERDTreeIgnore    = ['\.vim$', '\~$', '\.pyo$', '\.pyc$', '\.svn[\//]$', '\.swp$']
@@ -154,6 +154,19 @@ let g:EasyMotion_leader_key = ','
 "  |  Colorizer  |
 "  ---------------
 let g:colorizer_auto_filetype='css,html,xhtml,less'
+
+
+"  -------------
+"  |  TagList  |
+"  -------------
+let tlist_perl_settings = 'perl;u:use;r:role;e:extends;c:constant;t:const;a:attribute;s:subroutine;m:mooose doc'
+let Tlist_Show_One_File = 1
+let Tlist_Use_Right_Window = 1
+let Tlist_Sort_Type = "name"
+let Tlist_WinWidth = 45
+
+
+
 "==================================================
 "==                   DISABLED                   ==
 "==================================================

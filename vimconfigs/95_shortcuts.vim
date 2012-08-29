@@ -50,7 +50,7 @@ noremap <F10> :set expandtab<CR>:retab<CR>
 "  Paste toggler
 nnoremap <F4> :set nowrap!<CR>
 
-nnoremap <F5> :GundoToggle<CR>
+nnoremap <F5> :UndotreeToggle<CR>
 
 "  Spellcheck the current file
 noremap <F7> :setlocal spell! spell?<CR>
@@ -67,12 +67,12 @@ noremap <F3> :Rearrangetabsbypath 1<CR>
 " --------------
 
 "  Cycle through the tabs
-nnoremap <C-L> :tabnext<CR>
-nnoremap <C-H> :tabprevious<CR>
+nnoremap <S-l> :tabnext<CR>
+nnoremap <S-h> :tabprevious<CR>
 
 "  Above/below adding and creating lines
-nnoremap <silent><C-j> :set paste<CR>m`o<Esc>``:set nopaste<CR>
-nnoremap <silent><C-k> :set paste<CR>m`O<Esc>``:set nopaste<CR>
+"nnoremap <silent><C-j> :set paste<CR>m`o<Esc>``:set nopaste<CR>
+"nnoremap <silent><C-k> :set paste<CR>m`O<Esc>``:set nopaste<CR>
 
 "  Swap the next/previous word
 nnoremap <silent><A-.> m`:s/\v(<\k*%#\k*>)(\_.{-})(<\k+>)/\3\2\1/<CR>``:noh<CR>
@@ -81,6 +81,12 @@ nnoremap <silent><A-,> m`:s/\v(<\k+>)(.{-})(<\k*%#\k*>)/\3\2\1/<CR>``:noh<CR>
 " Move up or down with same indent level
 noremap <silent><A-n> k:call search ("^". matchstr (getline (line (".")+ 1), '\(\s*\)') ."\\S", 'b')<CR>^
 noremap <silent><A-m> :call search ("^". matchstr (getline (line (".")), '\(\s*\)') ."\\S")<CR>^
+
+" Move around the windows
+noremap <silent><C-h> h
+noremap <silent><C-j> j
+noremap <silent><C-k> k
+noremap <silent><C-l> l
 
 " Turn off highlighted search
 noremap <silent><C-N> :silent noh<CR>
@@ -132,6 +138,10 @@ noremap \u :sort u<CR>:g/^$/d<CR>
 
 "  Align on =>  (useful for hash assignments)
 noremap \= :Align =><CR>
+noremap ,ap vip:Align =><CR>
+noremap ,ab vib:Align =><CR>
+noremap ,aB viB:Align =><CR>
+noremap ,a] vi]:Align =><CR>
 
 "  Copy the matches to a new buffer, remove the duplicates/blank lines, and copy to the clipboard
 noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>:1,$y+<CR>
@@ -224,6 +234,9 @@ noremap ,dupe :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>yyp:%s/^\(.\+\)\n\1\+/\1/<CR>:g/^
 
 "  Shortcut to edit the conf files
 noremap ,conf :tabnew $HOME/vimconfigs/
+
+"  Open the taglist browser
+noremap ,lo :Tlist<CR>
 
 "  Turn the file menu on or off
 nmap <silent> <C-F11> :if &guioptions=~'m' \| set guioptions-=m \| else \| set guioptions+=m \| endif<CR>

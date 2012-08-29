@@ -13,3 +13,6 @@ filetype off
 call pathogen#infect()
 call pathogen#helptags()
 filetype plugin indent on
+
+"  Enable utf8 in our configs
+set encoding=utf-8

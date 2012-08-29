@@ -138,10 +138,10 @@ noremap \u :sort u<CR>:g/^$/d<CR>
 
 "  Align on =>  (useful for hash assignments)
 noremap \= :Align =><CR>
-noremap \p= vip:Align =><CR>
-noremap \b= vib:Align =><CR>
-noremap \B= viB:Align =><CR>
-noremap \]= vi]:Align =><CR>
+noremap ,ap vip:Align =><CR>
+noremap ,ab vib:Align =><CR>
+noremap ,aB viB:Align =><CR>
+noremap ,a] vi]:Align =><CR>
 
 "  Copy the matches to a new buffer, remove the duplicates/blank lines, and copy to the clipboard
 noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>:1,$y+<CR>

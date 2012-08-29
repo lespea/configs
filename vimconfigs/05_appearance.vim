@@ -19,7 +19,7 @@ let g:Powerline_stl_path_style = 'short'
 if has('gui_running')
     "  Widnows
     if has('gui_win32')
-        set guifont=DejaVu_Sans_Mono:h11
+        set guifont=DejaVu_Sans_Mono_for_Powerline:h11
 
         "  Also use full screen in windows
         autocmd GUIEnter * :simalt ~x

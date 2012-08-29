@@ -4,14 +4,19 @@ filetype off
 call pathogen#infect()
 call pathogen#helptags()
 filetype plugin indent on
+set encoding=utf-8
 syntax on
 set background=dark
+let g:Powerline_symbols = 'fancy'
+let g:Powerline_theme = 'default'
+let g:Powerline_colorscheme = 'default'
+let g:Powerline_stl_path_style = 'short'
 if has('gui_running')
     if has('gui_win32')
         set guifont=DejaVu_Sans_Mono:h11
         autocmd GUIEnter * :simalt ~x
     elseif has('gui_macvim')
-        set guifont=DejaVu_Sans_Mono:h11
+        set guifont=Droid\ Sans\ Mono\ Slashed\ for\ Powerline:h11
         set lines=999 columns=999
         set transparency=7
     else
@@ -110,29 +115,6 @@ let g:netrw_silent            = 1
 let g:netrw_special_syntax    = 1
 set rnu
 set wak=no
-set statusline=
-set statusline+=%f/
-set statusline+=%h%m%r%w
-set statusline+=[%{strlen(&ft)?&ft:'NONE'},
-set statusline+=%{strlen(&fenc)?&fenc:&enc},
-set statusline+=%{&fileformat}]
-set statusline+=%=
-set statusline+=%b,0x%-8B
-set statusline+=%c,%l/
-set statusline+=%L\ %P
-function! InsertStatuslineColor(mode)
-  if a:mode == 'i'
-    hi statusline guibg=#9b601a
-  elseif a:mode == 'r'
-    hi statusline guibg=#9b3535
-  elseif a:mode == 'v'
-    hi statusline guibg=#a7a863
-  else
-    hi statusline guibg=#727272
-endif
-endfunction
-au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * call InsertStatuslineColor('n')
 au FileType helpfile set nonumber
 au FileType helpfile nnoremap <buffer><cr> <c-]>
 au FileType helpfile nnoremap <buffer><bs> <c-T>

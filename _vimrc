@@ -13,7 +13,7 @@ let g:Powerline_colorscheme = 'default'
 let g:Powerline_stl_path_style = 'short'
 if has('gui_running')
     if has('gui_win32')
-        set guifont=DejaVu_Sans_Mono_for_Powerline:h11
+        set guifont=DejaVu_Sans_Mono_for_Powerline:h10
         autocmd GUIEnter * :simalt ~x
     elseif has('gui_macvim')
         set guifont=Droid\ Sans\ Mono\ Slashed\ for\ Powerline:h11

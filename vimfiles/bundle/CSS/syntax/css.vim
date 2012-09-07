@@ -3,7 +3,7 @@
 " Original Author: lepture <sopheryoung@gmail.com> , 
 " Claudio Fleiner <claudio@fleiner.com>
 " Modify By: fremff <claffar@hotmail.com>
-" Last Change:	Aug 29, 2012
+" Last Change:	Sep 07, 2012
 
 " For version 5.x: Clear all syntax items
 " For version 6.x: Quit when a syntax file was already loaded
@@ -181,8 +181,9 @@ syn match cssError contained "{@<>"
 syn region cssDefinition transparent matchgroup=cssBraces start='{' end='}' contains=css.*Attr,css.*Prop,cssComment,cssValue.*,cssColor,cssURL,cssImportant,cssError,cssStringQ,cssStringQQ,cssFunction,cssUnicodeEscape
 syn match cssBraceError "}"
 
-syn match cssPseudoClass ":\S*" contains=cssPseudoClassId,cssPseudoClassNot,cssUnicodeEscape,cssClassName,cssSelectorOp2,cssSelectorOp,cssStringQQ,cssTagName,cssBracketsValue
-syn keyword cssPseudoClassId contained link visited active hover focus before after left right
+syn match cssPseudoClass ":\(\S\({\)\@!\)*" contains=cssPseudoClassId,cssPseudoElement,cssUnicodeEscape,cssClassName,cssSelectorOp2,cssSelectorOp,cssStringQQ,cssTagName,cssBracketsValue
+syn keyword cssPseudoClassId contained link visited active hover focus
+syn keyword cssPseudoElement contained before after
 syn match cssPseudoClassId contained "\<first\(-\(line\|letter\|child\)\)\=\>"
 syn region cssPseudoClassLang matchgroup=cssPseudoClassId start=":lang(" end=")" oneline
 
@@ -210,29 +211,33 @@ syn keyword cssCommonAttr contained itemprop list subject spellcheck dropzone
 syn match cssUIProp contained "\<nav-\(index\|up\|right\|down\|left\)\>\s*\(:\)\@="
 syn keyword cssUIProp contained resize outline
 " Other modules
-syn match cssBoxProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)column\(-\(width\|span\|rule\|gap\|fill\|count\)\)\=\>\s*\(:\)\@="
-syn match cssBoxProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)column-rule-\(color\|width\|style\)\>\s*\(:\)\@="
+syn match cssBoxProp contained "\(-\(moz\|webkit\)-\|\)column-\(width\|rule\|gap\|fill\|count\)\>\s*\(:\)\@="
+syn match cssBoxProp contained "\(-moz-\)column-fill\>\s*\(:\)\@="
+syn match cssBoxProp contained "\(-webkit-\)column-\(width\|span\)\>\s*\(:\)\@="
+syn match cssBoxProp contained "\(-\(moz\|webkit\)-\|\)columns\>\s*\(:\)\@="
+syn match cssBoxProp contained "\(-\(moz\|webkit\)-\|\)column-rule-\(color\|width\|style\)\>\s*\(:\)\@="
 syn match cssBoxProp contained "\<column-break-\(after\|before\)\>\s*\(:\)\@="
 
 syn match cssColorProp contained "\<opacity\>\s*\(:\)\@="
 
-syn match cssGeneratedContentProp contained "\<background\(-\(origin\|clip\|repeat\|color\|image\|attachment\|position\)\)\=\>\s*\(:\)\@="
+syn match cssGeneratedContentProp contained "\<background\(-\(origin\|clip\|repeat\|color\|image\|attachment\|position\|size\)\)\=\>\s*\(:\)\@="
 
 syn match cssTextProp contained "\<break-\(word\|all\)\>\s*\(:\)\@="
-syn match cssBoxProp contained "\(-\(webkit\|ms\|o\)-\|\)\(-moz-\)\@<!border-\(image\|radius\)\>\s*\(:\)\@="
+syn match cssBoxProp contained "\(-\(webkit\|o\)-\|\)\(-moz-\)\@<!border-image\>\s*\(:\)\@="
+syn match cssBoxProp contained "\<border-radius\>\s*\(:\)\@="
 syn match cssBoxProp contained "\<border-\(bottom\|top\)-\(left\|right\)-radius\>\s*\(:\)\@="
 
 
 
 syn keyword cssTagName source figcaption bdi wbr summary track
 
-syn match cssTextProp contained "\<text-\(justify\|\outline\|overflow\|warp\|indent\)\>\s*\(:\)\@=" 
-syn match cssRenderProp contained "\(-\(webkit\|ms\|o\)-\|\)\(-moz-\)\@<!transform\(-\(origin\|style\)\)\=\>\s*\(:\)\@="
+syn match cssTextProp contained "\<text-\(justify\|\outline\|overflow\|warp\|indent\)\>\s*\(:\)\@="
+syn match cssRenderProp contained "\(-\(webkit\|o\)-\|\)\(-moz-\)\@<!transform\(-\(origin\|style\)\)\=\>\s*\(:\)\@="
 syn match cssTextProp contained "\<word-\(break\|\wrap\)\>\s*\(:\)\@="
 syn match cssRenderProp contained "\(-\(webkit\|o\)-\|\)\(-moz-\)\@<!transition\(-\(delay\|duration\|property\|timing-function\)\)\=\>\s*\(:\)\@="
 
 syn match cssRenderAttr contained "\<ease\(-\(in-out\|out\|in\)\)\=\>"
-syn match cssCommonAttr contained "\(-\(moz\|webkit\|ms\|o\)-\|\)initial\>"
+syn match cssCommonAttr contained "\(-moz-\)initial\>"
 syn keyword cssRenderAttr contained infinite linear running paused alternate
 syn keyword cssRenderAttr contained forwards backwards both  preserve-3d flat
 syn keyword cssBoxAttr contained content-box padding-box border-box manual
@@ -244,11 +249,11 @@ syn keyword cssGeneratedContentAttr contained bounding-box each-box
 
 syn match cssBoxProp contained "\<marquee\(-\(direction\|play-count\|speed\|style\)\)\=\>\s*\(:\)\@="
 syn match cssBoxProp contained "\<overflow-\(x\|y\|style\)\>\s*\(:\)\@="
-syn match cssBoxProp contained "\<perspective\(-origin\)\=\>\s*\(:\)\@="
-syn match cssRenderProp contained "\<animation\(-\(fill-mode\|direction\|name\|duration\|timing-function\|delay\|iteration-cout\|play-state\)\)\=\>\s*\(:\)\@="
-syn match cssUIProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)appearance\>\s*\(:\)\@="
-syn match cssBoxProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)box-\(align\|direction\|flex\|ordinal-group\|orient\|pack\|shadow\|sizing\)\>\s*\(:\)\@="
-
+syn match cssBoxProp contained "\(-webkit-\)\(-moz-\)\@<!perspective\(-origin\)\=\>\s*\(:\)\@="
+syn match cssRenderProp contained "\(-\(webkit\|o\)-\|\)\(-moz-\)\@<!animation\(-\(fill-mode\|direction\|name\|duration\|timing-function\|delay\|iteration-cout\|play-state\)\)\=\>\s*\(:\)\@="
+syn match cssUIProp contained "\(-webkit-\)appearance\>\s*\(:\)\@="
+syn match cssBoxProp contained "\(-\(moz\|webkit\)-\|\)box-\(align\|direction\|flex\|ordinal-group\|orient\|pack\|sizing\)\>\s*\(:\)\@="
+syn match cssBoxProp contained "\<box-shadow\>\s*\(:\)\@="
 syn match cssPseudoClassId contained "\<\(last\|only\)-child\>"
 syn match cssPseudoClassId contained "\<\(first\|last\|only\)-of-type\>"
 syn match cssPseudoClassId contained "\<\(nth\|nth-last\)-\(of-type\|child\)\>" nextgroup=cssBracketsValue
@@ -256,23 +261,23 @@ syn keyword cssPseudoClassId contained root empty target enabled disabled checke
 syn match cssPseudoClassId contained "\(-\(moz\|webkit\)-\|\)any\>"
 syn region cssPseudoClassNot matchgroup=cssPseudoClassId start=":not(" end=")" oneline contains=cssAttributeSelector,cssSelectorOp2,cssStringQQ
 
-syn match cssBoxProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)border-\(\(top\|right\|bottom\|left\)-colors\)\>\s*\(:\)\@="
+syn match cssBoxProp contained "\(-moz-\)border-\(\(top\|right\|bottom\|left\)-colors\)\>\s*\(:\)\@="
 syn match cssBoxProp contained "\<border-image-\(source\|width\|repeat\|outset\|slice\)\>\s*\(:\)\@="
-syn match cssBoxProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)\(\(margin\|padding\|border\)-\(end\|start\)\)\>\s*\(:\)\@="
-syn match cssBoxProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)perspective\(-\(origin\)\)\=\>\s*\(:\)\@="
-syn match cssTextProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)text-\(align-last\|blink\)\>\s*\(:\)\@="
-syn match cssTextProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)text-decoration-\(line\|color\|style\)\>\s*\(:\)\@="
-syn match cssBoxProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)hyphens\>\s*\(:\)\@="
-syn match cssFontProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)font-feature-settings\>\s*\(:\)\@="
-syn match cssBoxProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)backface-visibility\>\s*\(:\)\@="
-syn match cssBoxProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)binding\>\s*\(:\)\@="
-syn match cssBoxProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)orient\>\s*\(:\)\@="
-syn match cssUIProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)outline-radius\(-\(bottomleft\|bottomright\|topleft\|topright\)\)\=\>\s*\(:\)\@="
-syn match cssUIProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)outline\(-\(width\|style\|offset\|color\)\)\=\>\s*\(:\)\@="
-syn match cssUIProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)user-\(focus\|input\|modify\|select\)\>\s*\(:\)\@="
+syn match cssBoxProp contained "\(-moz-\)\(\(margin\|padding\|border\)-\(end\|start\)\)\>\s*\(:\)\@="
+syn match cssTextProp contained "\(-moz-\)text-\(align-last\|blink\)\>\s*\(:\)\@="
+syn match cssTextProp contained "\(-moz-\)text-decoration-\(line\|color\|style\)\>\s*\(:\)\@="
+syn match cssBoxProp contained "\(-\(moz\|webkit\|ms\)-\|\)hyphens\>\s*\(:\)\@="
+syn match cssFontProp contained "\(-\(moz\|webkit\)-\|\)font-feature-settings\>\s*\(:\)\@="
+syn match cssBoxProp contained "\(-webkit-\)\(-moz-\)\@<!backface-visibility\>\s*\(:\)\@="
+syn match cssBoxProp contained "\(-moz-\)binding\>\s*\(:\)\@="
+syn match cssBoxProp contained "\(-moz-\)orient\>\s*\(:\)\@="
+syn match cssUIProp contained "\(-moz-\)outline-radius\(-\(bottomleft\|bottomright\|topleft\|topright\)\)\=\>\s*\(:\)\@="
+syn match cssUIProp contained "\<outline\(-\(width\|style\|offset\|color\)\)\=\>\s*\(:\)\@="
+syn match cssUIProp contained "\(-moz-\)user-\(focus\|input\|modify\)\>\s*\(:\)\@="
+syn match cssUIProp contained "\<user-select\>\s*\(:\)\@="
 syn match cssRenderProp contained "\<filter\>\s*\(:\)\@="
-syn match cssGeneratedContentProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)background\(-\(inline-policy\|size\)\)\=\>\s*\(:\)\@="
-syn match cssGeneratedContentProp contained "\(-\(moz\|webkit\|ms\|o\)-\|\)image-region\>\s*\(:\)\@="
+syn match cssGeneratedContentProp contained "\(-moz-\)background-inline-policy\>\s*\(:\)\@="
+syn match cssGeneratedContentProp contained "\(-moz-\)image-region\>\s*\(:\)\@="
 syn match cssBoxProp contained "\<mask\>\s*\(:\)\@="
 syn match cssBoxProp contained "\<clip-path\>\s*\(:\)\@="
 syn match cssUIProp contained "\<pointer-events\>\s*\(:\)\@="
@@ -330,6 +335,7 @@ if version >= 508 || !exists("did_css_syn_inits")
   HiLink cssUIAttr Type
   HiLink cssCommonAttr Type
   HiLink cssPseudoClassId PreProc
+  HiLink cssPseudoElement PreProc
   HiLink cssPseudoClassLang Constant
   HiLink cssValueLength Number
   HiLink cssValueInteger Number

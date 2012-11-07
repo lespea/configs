@@ -2,4 +2,4 @@ seq(npSettings: _*)
 
 EclipseKeys.withSource := true
 
-EclipseKeys.executionEnvironment := Some(EclipseExecutionEnvironment.JavaSE16)
+EclipseKeys.executionEnvironment := Some(EclipseExecutionEnvironment.JavaSE17)

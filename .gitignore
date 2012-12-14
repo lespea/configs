@@ -38,3 +38,4 @@ VirtualBox\ VMs
 .sbt/plugins/target
 .ttreerc
 .perlreplhist
+.pause

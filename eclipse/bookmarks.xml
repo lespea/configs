@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bookmarks>
+   <site url="http://ccw.cgrand.net/updatesite/" selected="true" name="Clockwise"/>
+   <site url="http://download.jboss.org/jbosstools/updates/stable/juno" selected="true" name="JBoss Tools 4.0 - Core - Stable Release Update Site"/>
+   <site url="http://download.jboss.org/jbosstools/updates/juno/SR1a/" selected="true" name="JBoss Tools Target Platform Site"/>
+   <site url="http://download.eclipse.org/releases/juno" selected="true" name="Juno"/>
+   <site url="http://download.eclipse.org/linuxtools/update" selected="false" name="Linux Tools"/>
+   <site url="http://download.eclipse.org/linuxtools/updates-nightly" selected="false" name="Linux Tools"/>
+   <site url="http://download.eclipse.org/mylyn/releases/juno" selected="true" name="Mylyn for Eclipse Juno"/>
+   <site url="http://download.scala-ide.org/sdk/e38/scala210/dev/site/" selected="true" name="Scala IDE"/>
+   <site url="http://download.eclipse.org/eclipse/updates/4.2" selected="true" name="The Eclipse Project Updates"/>
+   <site url="http://download.eclipse.org/webtools/repository/juno" selected="true" name="The Eclipse Web Tools Platform (WTP) software repository"/>
+   <site url="http://download.eclipse.org/mylyn/releases/3.8" selected="false" name=""/>
+   <site url="http://download.eclipse.org/webtools/repository/indigo" selected="false" name=""/>
+   <site url="http://download.eclipse.org/webtools/updates" selected="false" name=""/>
+   <site url="http://download.scala-ide.org/update-current" selected="false" name=""/>
+   <site url="http://download.scala-ide.org/update-current-35" selected="false" name=""/>
+   <site url="http://scala-ide.dreamhosters.com/nightly-update-worksheet-scalaide21-210/site/" selected="false" name=""/>
+</bookmarks>

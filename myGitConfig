@@ -34,3 +34,5 @@
 [core]
     eol      = unix
     autocrlf = false
+[push]
+	default = simple

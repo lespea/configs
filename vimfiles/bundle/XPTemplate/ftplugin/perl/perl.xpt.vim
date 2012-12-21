@@ -47,8 +47,7 @@ XPT whilenn hidden=1
 XPT perl " #!/usr/bin/env perl
 #!/usr/bin/env perl
 
-use Modern::Perl;
-use v5.12;
+use Modern::Perl qw/ 2011 /;
 
 use autodie;
 use autovivification;
@@ -61,7 +60,7 @@ use Try::Tiny;
 
 XPT csvn "New CSV wrtier"
 my $`csv^ = Text::CSV_XS->new ({ binary => 1, eol => $/, quote_null => 0 }) or
-    die "Cannot use CSV: ".Text::CSV_XS->error_diag ();
+    die 'Cannot use CSV: '.Text::CSV_XS->error_diag ();
 `cursor^
 
 

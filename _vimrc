@@ -30,7 +30,7 @@ else
     elseif has('mac')
         colorscheme desert256
     else
-        colorscheme solarized
+        colorscheme candyman
     endif
 endif
 let g:solarized_visibility='high'

@@ -2,7 +2,6 @@
     name = Adam Lesperance
     email = lespea@gmail.com
 
-
 [alias]
     aa  = add -A
     ca  = commit -a
@@ -34,5 +33,6 @@
 [core]
     eol      = unix
     autocrlf = false
+
 [push]
-	default = simple
+    default = simple

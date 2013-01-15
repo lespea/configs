@@ -30,7 +30,7 @@ else
     elseif has('mac')
         colorscheme desert256
     else
-        colorscheme solarized
+        colorscheme candyman
     endif
 endif
 let g:solarized_visibility='high'
@@ -503,6 +503,7 @@ noremap ,conf :tabnew $HOME/vimconfigs/
 noremap ,lo :Tlist<CR>
 nmap <silent> <C-F11> :if &guioptions=~'m' \| set guioptions-=m \| else \| set guioptions+=m \| endif<CR>
 noremap <silent> \rti :silent %!perl -nMNet::IP -MNet::Netmask -MModern::Perl -e'chomp;my $n = Net::IP->new(Net::Netmask->new($_));say join "\t", $n->intip, $n->last_int'<CR>
+noremap <silent> \tip :silent %!perl -MModern::Perl=2011 -MNet::IP -ne "chomp;say /^(?:\d{1,3}\.){3}\d{1,3}$/ ? Net::IP->new($_)->intip : $_"<CR>
 abb teh the
 abb fo of
 abb taht that

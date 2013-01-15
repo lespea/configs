@@ -358,7 +358,7 @@ function! s:CleanUpSourcefire()
     endfor
 endfunction
 command! -register CleanUpSourcefire call s:CleanUpSourcefire()
-map <silent> \e :NERDTreeMirrorToggle<CR>
+map <silent> \e :NERDTreeToggle<CR>
 let NERDTreeWinPos    = 'left'
 let NERDTreeChDirMode = '2'
 let NERDTreeIgnore    = ['\.vim$', '\~$', '\.pyo$', '\.pyc$', '\.svn[\//]$', '\.swp$']

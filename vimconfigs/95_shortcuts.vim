@@ -247,3 +247,5 @@ noremap <silent> \rti :silent %!perl -nMNet::IP -MNet::Netmask -MModern::Perl -e
 "  Turn all of the lines that look like IPs into int ips
 noremap <silent> \tip :silent %!perl -MModern::Perl=2011 -MNet::IP -ne "chomp;say /^(?:\d{1,3}\.){3}\d{1,3}$/ ? Net::IP->new($_)->intip : $_"<CR>
 
+"  Make the IP list for grep_reseal
+noremap <silent> \rs "+p:%s/\s\+/\r/e<CR>:sort u<CR>ggVGJ"+VyV

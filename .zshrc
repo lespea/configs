@@ -1,61 +1,49 @@
-# The following lines were added by compinstall
+# Path to your oh-my-zsh configuration.
+ZSH=$HOME/.oh-my-zsh
 
-zstyle ':completion:*' auto-description 'specify: %d'
-zstyle ':completion:*' completer _expand _complete _ignored _match _approximate _prefix
-zstyle ':completion:*' expand prefix suffix
-zstyle ':completion:*' format 'Completing %d'
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' ignore-parents parent pwd directory
-zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} r:|[._-]=* r:|=*'
-zstyle ':completion:*' max-errors 2 numeric
-zstyle ':completion:*' menu select=long
-zstyle ':completion:*' original false
-zstyle ':completion:*' preserve-prefix '//[^/]##/'
-zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-zstyle ':completion:*' verbose true
-zstyle :compinstall filename '/home/adam/.zshrc'
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+ZSH_THEME="blinks"
 
-autoload -Uz compinit zcalc
-compinit
-# End of lines added by compinstall
-# Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
-setopt appendhistory autocd nomatch
-unsetopt beep extendedglob notify
-bindkey -e
-# End of lines configured by zsh-newuser-install
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Set to this to use case-sensitive completion
+# CASE_SENSITIVE="true"
+
+# Comment this out to disable bi-weekly auto-update checks
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment to change how many often would you like to wait before auto-updates occur? (in days)
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment following line if you want to disable colors in ls
+# DISABLE_LS_COLORS="true"
+
+# Uncomment following line if you want to disable autosetting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment following line if you want red dots to be displayed while waiting for completion
+# COMPLETION_WAITING_DOTS="true"
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+#gpg-agent 
+plugins=(git archlinux command-not-found encode64 git-extras git-flow lein mercurial mvn screen svn systemd urltools)
+
+source $ZSH/oh-my-zsh.sh
+
+# Customize to your needs...
+export PATH=/home/adam/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/bin/core_perl:usr/bin/site_perl/:$PATH
 
 
-setopt RM_STAR_WAIT
-setopt ZLE
-setopt NO_BEEP
-setopt NUMERIC_GLOB_SORT
-setopt EXTENDED_GLOB
-setopt SHARE_HISTORY
-setopt HIST_IGNORE_DUPS
-setopt HIST_REDUCE_BLANKS
-
-# If a line starts with a space, don't save it.
-setopt HIST_IGNORE_SPACE
-setopt HIST_NO_STORE
-
-# When using a hist thing, make a newline show the change before executing it.
-setopt HIST_VERIFY
-
-# Save the time and how long a command ran
-setopt EXTENDED_HISTORY
-
-setopt HIST_SAVE_NO_DUPS
-setopt HIST_EXPIRE_DUPS_FIRST
-setopt HIST_FIND_NO_DUPS
+eval "$(fasd --init auto)"
 
 export EDITOR="vim"
-
-export PATH="/home/adam//bin:$PATH"
 
 alias ls='ls --color'
 
@@ -74,8 +62,10 @@ alias hkk='history -c;exit'
 
 alias gitk='gitk --all'
 
-alias -g xz='-print0|xargs -0'
-alias -g xzo='-print0|xargs -0 -I{}'
+alias re='re.pl'
+
+alias -g xzo='-print0|xargs -0'
+alias -g xzoo='-print0|xargs -0 -I{}'
 alias -g G='| grep'
 alias -g Gi='| grep -i'
 alias -g L='| less'
@@ -97,43 +87,3 @@ bindkey '\e[D' backward-char
 
 bindkey '\eOC' forward-char
 bindkey '\eOD' backward-char
-
-
-host_color=cyan
-history_color=yellow
-user_color=green
-root_color=red
-directory_color=magenta
-error_color=red
-jobs_color=green
-
-host_prompt="%{$fg_bold[$host_color]%}%m%{$reset_color%}"
-
-jobs_prompt1="%{$fg_bold[$jobs_color]%}(%{$reset_color%}"
-
-jobs_prompt2="%{$fg[$jobs_color]%}%j%{$reset_color%}"
-
-jobs_prompt3="%{$fg_bold[$jobs_color]%})%{$reset_color%}"
-
-jobs_total="%(1j.${jobs_prompt1}${jobs_prompt2}${jobs_prompt3} .)"
-
-history_prompt1="%{$fg_bold[$history_color]%}[%{$reset_color%}"
-
-history_prompt2="%{$fg[$history_color]%}%h%{$reset_color%}"
-
-history_prompt3="%{$fg_bold[$history_color]%}]%{$reset_color%}"
-
-history_total="${history_prompt1}${history_prompt2}${history_prompt3}"
-
-error_prompt1="%{$fg_bold[$error_color]%}<%{$reset_color%}"
-
-error_prompt2="%{$fg[$error_color]%}%?%{$reset_color%}"
-
-error_prompt3="%{$fg_bold[$error_color]%}>%{$reset_color%}"
-
-error_total="%(?..${error_prompt1}${error_prompt2}${error_prompt3} )"
-
-
-insert_sudo () { zle beginning-of-line; zle -U "sudo " }
-zle -N insert-sudo insert_sudo
-bindkey "^[s" insert-sudo

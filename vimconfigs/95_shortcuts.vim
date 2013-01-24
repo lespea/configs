@@ -249,3 +249,12 @@ noremap <silent> \tip :silent %!perl -MModern::Perl=2011 -MNet::IP -ne "chomp;sa
 
 "  Make the IP list for grep_reseal
 noremap <silent> \rs ggdG"+p:%s/\s\+/\r/e<CR>:sort u<CR>ggVGJ:s/#N[\/\\]A\>\s*/<CR>"+Vy:silent noh<CR>V
+
+"  Run the current program like it's a perl script through Tube
+noremap <silent> ,run :Tube perl %<CR>
+
+"  Run the last Tube command
+noremap <silent> ,rl :Tube<CR>
+
+"  Pipe whatever is selected into Tube (best for perl repl)
+noremap <silent> ,re :Tube @<CR>

@@ -1,6 +1,6 @@
 ## Tube.vim
 
-**v0.3.0**
+**v0.3.1**
 
 This plugin provides a tiny interface for sending commands from MacVim to a
 separate iTerm or Terminal window without leaving MacVim.
@@ -11,7 +11,7 @@ separate iTerm or Terminal window without leaving MacVim.
 * Mac OS X 10.6+ (note that this plugin has been tested only on Mac OS X 10.6
   but should work even with successive versions)
 * iTerm2 or Terminal installed
-* MacVim compiled with python 2.x+
+* MacVim compiled with python 2.x
 
 
 ## Installation
@@ -86,7 +86,7 @@ let g:tube_terminal = 'terminal'   " if you use Terminal.app
 |                                   | -------------> .                                  .
 |                                   |                .                                  .
 |___________________________________|                ....................................
-|:Tube cd #{Foo(1,'@')} && do sth   |          _____ |:Tube cd project_root && do sth   |
+|:Tube cd #{Foo(1^^'@')} && do sth  |          _____ |:Tube cd project_root && do sth   |
 --------------|---°------------------         |      ....................................
               |    \_____________________     |
  Your .vimrc  |                          |    |       Terminal
@@ -99,17 +99,26 @@ let g:tube_terminal = 'terminal'   " if you use Terminal.app
 |                                   |    |           |                                  |
 -------------------------------------    |           ------------------------------------
                                          |
-              __________________________/ \___________
-             /                                        \
+              __________________________/ \__________________________
+             /                                                       \
    In this example we used the special            As you can see only string arguments require
    character @ as one of the arguments.           quotes. Also, you do not have to bother about
    Doing so we pass the selection right           escaping yourself the string since it's done
-   into the function as a normal argument         automatically for you. Note however that all
-   (note the quotes). This might be useful        arguments are passed to the function as strings.
-   if you need to perform some kind of 
-   formatting on the selection before sending 
-   it to the terminal.
+   into the function as a normal argument         automatically for you. 
+   (note the quotes). This might be useful        
+   if you need to perform some kind of            Note the awkward ^^ arguments separator. Since            
+   formatting on the selection before             you are not required to escape yourself the
+   passing it to the function.                    arguments (since they might come from an arbitrary
+                                                  selection and injected via the @ character) there
+                                                  is no way to determine where an arguments start or 
+                                                  end. Commas just don't fit as separator since they
+                                                  are so common, so I picked up a sequence of characters
+                                                  scarcely used (at least by the author). You can change 
+                                                  the separator sequence via the g:tube_funargs_separator
+                                                  setting.
 ```
+
+You can see some useful examples of function injection further in the ducumentation.
 
 ### Aliasing
 ```
@@ -135,8 +144,8 @@ let g:tube_terminal = 'terminal'   " if you use Terminal.app
 --------°-----------°----------------    |           -------------------------------------
         |            \____________________\
         |                                   Selection, function and buffer injection
-      You can define aliases in your        still work with aliasing.
-      .vimrc file or at runtime. Keep
+      You can define aliases in your        still work with aliasing.                
+      .vimrc file or at runtime. Keep        
       in mind that in the latter case
       you'll lose those aliases once 
       you quit MacVim.
@@ -428,8 +437,104 @@ Set this variable to 1 to to enable shortcuts for the most important commands:
 * `Tad`: TubeAddAlias
 * `Tall`: TubeAliases
 
+### g:tube_funargs_separator
+```
+values: any string
+default: ^^
+```
+
+This variable let you define your own preferred characters sequence to 
+separate arguments of injected function. The default string has been selected
+because of its rare usage by the plugin author. You can change that as long as
+you don't use your separator sequence in arguments.
+
+
+## Useful examples of function injection
+
+### For the python programmer
+
+The function below might be used by a python programmer to test an arbitrary
+selected function, assuming that the python interpreter is running in the terminal
+window:
+
+```
+:'<,'>Tube #{PyFun('@')}       
+```          
+
+This function is smart enough to ask the user the required arguments. 
+```
+    function! PyFun(function_text)
+        let g:py_fun = a:function_text
+        python << END
+        import vim, itertools
+
+        flines = vim.eval('g:py_fun').split('\r')
+
+        # delete blank lines
+        flines = [l for l in flines if l != '']
+
+        # adjust indentation according to the first line
+        groups = [(k, len(list(g))) for k, g in itertools.groupby(flines[0])]
+        if groups[0][0] == ' ':
+            flines = [l[groups[0][1]:] for l in flines]
+
+        match = re.match('def (?P<fun>\w+)\((?P<params>.*)\)', flines[0])
+
+        # if the function requires arguments, ask the user for them
+        fparams = match.group('params')
+        if fparams:
+            args = vim.eval("input('args (use commas to separate them): ')")
+        else:
+            args = ''
+
+        # append a call to the function with the given arguments
+        flines.append("\r{0}({1})".format(match.group('fun'), args))
+
+        vim.command("let g:py_fun = '{0}'".format('\r'.join(flines)))
+        END
+        return g:py_fun
+    endfunction
+```
+
+
+### For the android programmer
+
+The function below might be used by an android programmer to run the android project
+compilation from wherever he is in the android project directory tree:
+
+```
+:Tube cd #{AndroidProjectRoot} && ant clean debug
+```
+
+```
+function! AndroidProjectRoot()
+    python << END
+    import vim, os
+
+    def android_project_root(path):
+        if path == os.path.sep:
+            return ''    
+        else:
+            for f in os.listdir(path):
+                if f == 'AndroidManifest.xml':
+                    return path
+            return android_project_root(os.path.split(path)[0])
+
+    cwd = vim.eval('getcwd()')
+    vim.command("let g:and_project_root = '{0}'".format(android_project_root(cwd)))
+    END
+    return g:and_project_root
+endfunction
+```
 
 ## Changelog
+
+###v0.3.1
+* fixed commas-related problems when passing arguments to injected function.
+  Now to separate arguments is required the special sequence '^^'
+* added g:tube_funargs_separator setting to let the user define its own
+  preferred characters sequence to separate arguments of injected function.
+* fixed escaping for the '$' character.
 
 ### v0.3.0
 * new feature: selection injection into the command with the @ character.

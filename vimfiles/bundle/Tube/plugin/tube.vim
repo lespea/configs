@@ -4,7 +4,7 @@
 " Mantainer: Giacomo Comitti (https://github.com/gcmt)
 " Url: https://github.com/gcmt/tube.vim
 " License: MIT
-" Version: 0.3.0
+" Version: 0.3.1
 " Last Changed: 22 Jan 2013
 " ============================================================================
 "
@@ -135,17 +135,18 @@ class TubeUtils:
             """Call the matched function and inject its return value."""
             fun_name = match.group('fun')
             args = match.group('args')
+            args_separator = TubeUtils.setting('funargs_separator')
 
             if args:   
                 argv = [escape(a.strip()) 
-                       for a in args.strip(" ,").split(',')]
+                        for a in args.split(args_separator)]
             else:
                 argv = []
 
             if fun_name:
                 if '1' == vim.eval("exists('*{0}')".format(fun_name)):
                     try:
-                        return vim.command("call {0}({1})".format(
+                        return vim.eval("call('{0}',[{1}])".format(
                                     fun_name, ','.join(argv)))
                     except vim.error:
                         pass
@@ -176,7 +177,8 @@ class Tube:
             'bufname_expansion': 1,
             'selection_expansion': 1,
             'function_expansion': 1,
-            'enable_shortcuts': 0
+            'enable_shortcuts': 0,
+            'funargs_separator': '^^'
         }
 
         for s in settings:
@@ -194,7 +196,7 @@ class Tube:
 
         clr = 'clear;' if clear else ''
         os.popen('{0} "{1}"'.format(
-            base, clr + command.replace('"', '\\"').strip()))
+            base, clr + command.replace('"', '\\"').replace('$', '\$').strip()))
     # }}}
 
     def run_command(self, start, end, cmd, clear=False, parse=True): # {{{

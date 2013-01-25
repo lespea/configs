@@ -44,7 +44,7 @@ XPT fornn hidden=1
 XPT whilenn hidden=1
 
 
-XPT perl " #!/usr/bin/env perl
+XPT perl "Common perl header"
 #!/usr/bin/env perl
 
 use Modern::Perl qw/ 2011 /;
@@ -56,6 +56,136 @@ use Try::Tiny;
 
 
 ..XPT
+
+
+XPT moose "Create a new localized moose package"
+package `package^
+
+use Moose;
+use namespace::autoclean;
+
+`cursor^
+
+__PACKAGE__->meta->make_immutable;
+1;
+
+
+..XPT
+
+
+
+XPT attr_counter "Creates a counter attribute that mimics a normal counter"
+    has '`name^' => (
+        is      => 'ro',
+        isa     => 'Num',
+        traits  => ['Counter'],
+        default => 0,
+        handles => {
+            inc_`name^   => 'inc',
+            dec_`name^   => 'dec',
+            reset_`name^ => 'reset',
+        },
+    );
+
+
+XPT attr_bool "Creates a bool attribute that mimics a normal bool"
+    has '`name^' => (
+        is      => 'ro',
+        isa     => 'Num',
+        traits  => ['Bool'],
+        default => 0,
+        handles => {
+            not_`name^    => 'not',
+            toggle_`name^ => 'toggle',
+            set_`name^    => 'set',
+            unset_`name^  => 'unset',
+        },
+    );
+
+
+XPT attr_code "Creates a code attribute that mimics a normal code"
+    has '`name^_cb' => (
+        is      => 'ro',
+        isa     => 'CodeRef',
+        traits  => ['Code'],
+        default => sub { sub {} },
+        handles => {
+            `name^ => 'execute',
+        },
+    );
+
+
+XPT attr_num "Creates a number attribute that mimics a normal number"
+    has '`name^' => (
+        is      => 'ro',
+        isa     => 'Num',
+        traits  => ['Number'],
+        default => 0,
+        handles => {
+            set_`name^ => 'set',
+            add_`name^ => 'add',
+            sub_`name^ => 'sub',
+            mul_`name^ => 'mul',
+            div_`name^ => 'div',
+            mod_`name^ => 'mod',
+            abs_`name^ => 'abs',
+        },
+    );
+
+
+XPT attr_hash "Creates a hash attribute that mimics a normal hash"
+    has '`name^' => (
+        is      => 'ro',
+        isa     => 'HashRef[`type^]',
+        traits  => ['Hash'],
+        default => sub {{}},
+        handles => {
+            `name^_ids            => 'keys',
+            `name^_pairs          => 'kv',
+            `name^_values         => 'values',
+            clear_`name^`plural^  => 'clear',
+            delete_`name^         => 'delete',
+            get_`name^            => 'get',
+            has_`name^            => 'exists',
+            has_no_`name^`plural^ => 'is_empty',
+            num_`name^`plural^    => 'count',
+            set_`name^            => 'set',
+        },
+    );
+
+
+
+XPT attr_array "Creates a array attribute that mimics a normal array"
+    has '`name^' => (
+        is      => 'ro',
+        isa     => 'ArrayRef[`type^]',
+        traits  => ['Array'],
+        default => sub {[]},
+        handles => {
+            add_`name^                 => 'push',
+            all_`name^`plural^         => 'elements',
+            delete_`name^`plural^      => 'delete',
+            filter_`name^`plural^      => 'grep',
+            first_`name^`plural^       => 'first',
+            first_index_`name^`plural^ => 'first_index',
+            get_`name^                 => 'get',
+            has_`name^`plural^         => 'count',
+            has_no_`name^`plural^      => 'is_empty',
+            insert_`name^`plural^      => 'insert',
+            join_`name^`plural^        => 'join',
+            map_`name^`plural^         => 'map',
+            natatime_`name^`plural^    => 'natatime',
+            pop_`name^`plural^         => 'pop',
+            reduce_`name^`plural^      => 'reduce',
+            set_`name^`plural^         => 'set',
+            shift_`name^`plural^       => 'shift',
+            shuffle_`name^`plural^     => 'shuffle',
+            sorted_`name^`plural^      => 'sort',
+            splice_`name^`plural^      => 'splice',
+            uniq_`name^`plural^        => 'uniq',
+            unshift_`name^`plural^     => 'unshift',
+        },
+    );
 
 
 XPT csvn "New CSV wrtier"

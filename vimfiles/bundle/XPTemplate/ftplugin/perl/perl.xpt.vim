@@ -44,6 +44,40 @@ XPT fornn hidden=1
 XPT whilenn hidden=1
 
 
+XPT plog "Setup logging"
+use Log::Log4perl qw/ get_logger /;
+BEGIN {
+    my $DEBUG    = `debug^;
+    my $LOG_FILE = `log_to_file^;
+
+    my $LOG_LEVEL_STR = sprintf '%s, %s',
+        ($DEBUG    ? 'DEBUG' : 'INFO'),
+        ($LOG_FILE ? 'Logfile, ' : q{}) . 'Screen';
+
+    #########################
+    #  Module Base Logging  #
+    #########################
+    my $LOG4PERL_CONF = {
+        'log4perl.rootLogger'                                => $LOG_LEVEL_STR,
+
+        'log4perl.appender.Logfile'                          => 'Log::Log4perl::Appender::File',
+        'log4perl.appender.Logfile.filename'                 => '`debug^.log',
+        'log4perl.appender.Logfile.utf8'                     => '1',
+        'log4perl.appender.Logfile.layout'                   => 'Log::Log4perl::Layout::PatternLayout',
+        'log4perl.appender.Logfile.mode'                     => 'clobber',
+        'log4perl.appender.Logfile.layout.ConversionPattern' => '%p [%d] (%r) %M:%L :: %m{chomp}%n',
+
+        'log4perl.appender.Screen'                           => 'Log::Log4perl::Appender::Screen',
+        'log4perl.appender.Screen.stderr'                    => '0',
+        'log4perl.appender.Screen.layout'                    => 'Log::Log4perl::Layout::SimpleLayout',
+    };
+
+    Log::Log4perl->init_once( $LOG4PERL_CONF );
+}
+my $logger = get_logger();
+
+..XPT
+
 XPT perl "Common perl header"
 #!/usr/bin/env perl
 
@@ -59,15 +93,16 @@ use Try::Tiny;
 
 
 XPT moose "Create a new localized moose package"
-package `package^
+package `package^;
+    use Moose;
+    use namespace::autoclean;
 
-use Moose;
-use namespace::autoclean;
+    with 'MooseX::Log::Log4perl';
 
-`cursor^
+    `cursor^
 
-__PACKAGE__->meta->make_immutable;
-1;
+    __PACKAGE__->meta->make_immutable;
+    1;
 
 
 ..XPT
@@ -185,7 +220,7 @@ has '`name^' => (
         clear_`name^`plural^  => 'clear',
         delete_`name^         => 'delete',
         get_`name^            => 'get',
-        has_`name^`plural^    => 'exists',
+        has_`name^            => 'exists',
         has_no_`name^`plural^ => 'is_empty',
         num_`name^`plural^    => 'count',
         set_`name^            => 'set',

@@ -7,9 +7,9 @@ filetype plugin indent on
 set encoding=utf-8
 syntax on
 set background=dark
-let g:Powerline_symbols = 'fancy'
-let g:Powerline_theme = 'default'
-let g:Powerline_colorscheme = 'default'
+let g:Powerline_symbols        = 'fancy'
+let g:Powerline_theme          = 'default'
+let g:Powerline_colorscheme    = 'solarized256'
 let g:Powerline_stl_path_style = 'short'
 if has('gui_running')
     if has('gui_win32')

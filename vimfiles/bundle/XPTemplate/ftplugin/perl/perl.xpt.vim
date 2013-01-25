@@ -73,6 +73,17 @@ __PACKAGE__->meta->make_immutable;
 ..XPT
 
 
+XPT m_sattr "Create a small generic moose attribute"
+has '`name^' => (
+    is        => 'ro',
+    isa       => 'Str',
+    required  => 1,
+    lazy      => 0,
+    default   => '',
+    init_arg  => undef,
+);
+
+
 XPT m_attr "Create a generic moose attribute"
 has '`name^' => (
     is        => 'ro',
@@ -174,7 +185,7 @@ has '`name^' => (
         clear_`name^`plural^  => 'clear',
         delete_`name^         => 'delete',
         get_`name^            => 'get',
-        has_`name^            => 'exists',
+        has_`name^`plural^    => 'exists',
         has_no_`name^`plural^ => 'is_empty',
         num_`name^`plural^    => 'count',
         set_`name^            => 'set',

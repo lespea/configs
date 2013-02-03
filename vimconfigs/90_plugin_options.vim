@@ -166,6 +166,11 @@ let Tlist_Sort_Type = "name"
 let Tlist_WinWidth = 45
 
 
+"  -----------------
+"  |  FuzzyFinder  |
+"  -----------------
+let g:tube_terminal         = 'iterm'
+let g:tube_enable_shortcuts = 1
 
 "==================================================
 "==                   DISABLED                   ==

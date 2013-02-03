@@ -10,9 +10,9 @@ syntax on
 set background=dark
 
 "  Enable powerline to show nice symbols (do this early)
-let g:Powerline_symbols = 'fancy'
-let g:Powerline_theme = 'default'
-let g:Powerline_colorscheme = 'default'
+let g:Powerline_symbols        = 'fancy'
+let g:Powerline_theme          = 'default'
+let g:Powerline_colorscheme    = 'default'
 let g:Powerline_stl_path_style = 'short'
 
 "  Running gvim

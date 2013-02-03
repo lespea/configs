@@ -7,9 +7,9 @@ filetype plugin indent on
 set encoding=utf-8
 syntax on
 set background=dark
-let g:Powerline_symbols = 'fancy'
-let g:Powerline_theme = 'default'
-let g:Powerline_colorscheme = 'default'
+let g:Powerline_symbols        = 'fancy'
+let g:Powerline_theme          = 'default'
+let g:Powerline_colorscheme    = 'default'
 let g:Powerline_stl_path_style = 'short'
 if has('gui_running')
     if has('gui_win32')
@@ -413,6 +413,8 @@ let Tlist_Show_One_File = 1
 let Tlist_Use_Right_Window = 1
 let Tlist_Sort_Type = "name"
 let Tlist_WinWidth = 45
+let g:tube_terminal         = 'iterm'
+let g:tube_enable_shortcuts = 1
 cmap w!! w !sudo tee % >/dev/null
 vnoremap ; :
 noremap <Space> <PageDown>
@@ -504,7 +506,10 @@ noremap ,lo :Tlist<CR>
 nmap <silent> <C-F11> :if &guioptions=~'m' \| set guioptions-=m \| else \| set guioptions+=m \| endif<CR>
 noremap <silent> \rti :silent %!perl -nMNet::IP -MNet::Netmask -MModern::Perl -e'chomp;my $n = Net::IP->new(Net::Netmask->new($_));say join "\t", $n->intip, $n->last_int'<CR>
 noremap <silent> \tip :silent %!perl -MModern::Perl=2011 -MNet::IP -ne "chomp;say /^(?:\d{1,3}\.){3}\d{1,3}$/ ? Net::IP->new($_)->intip : $_"<CR>
-noremap <silent> \rs ggdG"+p:%s/\s\+/\r/e<CR>:sort u<CR>ggVGJ:s/#N[\/\\]A\>\s*/<CR>"+Vy:silent noh<CR>V
+noremap <silent> \rs ggdG"+p:%s/\s\+/\r/e<CR>:sort u<CR>ggVGJ:s/#N[\/\\]A\>\s*//ie<CR>"+Vy:silent noh<CR>V
+noremap <silent> ,run :Tube perl %<CR>
+noremap <silent> ,rl :Tube<CR>
+noremap <silent> ,re :Tube @<CR>
 abb teh the
 abb fo of
 abb taht that

@@ -1,22 +1,19 @@
-let g:Powerline#Themes#default#theme = Pl#Theme#Create(
+" Authors:
+"   @stephenmckinney
+"
+let g:Powerline#Themes#solarized16#theme = Pl#Theme#Create(
 	\ Pl#Theme#Buffer(''
-		\ , 'paste_indicator'
-		\ , 'mode_indicator'
 		\ , 'fugitive:branch'
-		\ , 'hgrev:branch'
 		\ , 'fileinfo'
+		\ , 'flags.mod'
 		\ , 'syntastic:errors'
 		\ , Pl#Segment#Truncate()
-		\ , 'tagbar:currenttag'
 		\ , Pl#Segment#Split()
+		\ , 'sass:status'
 		\ , 'rvm:string'
-		\ , 'virtualenv:statusline'
-		\ , 'fileformat'
-		\ , 'fileencoding'
 		\ , 'filetype'
-		\ , 'charcode'
 		\ , 'scrollpercent'
-		\ , 'lineinfo'
+		\ , 'paste_indicator'
 	\ ),
 	\
 	\ Pl#Theme#Buffer('command_t'

@@ -240,6 +240,7 @@ has '`attr_name^' => (
     handles   => {
         `name^_elements         => 'elements',
         add_`name^              => 'push',
+        clear_`name^`plural^    => 'clear',
         delete_`name^`plural^   => 'delete',
         filter_`name^`plural^   => 'grep',
         first_`name^            => 'first',

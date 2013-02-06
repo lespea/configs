@@ -306,10 +306,10 @@ function! s:AutoClose() "{{{
 	endwhile
 
 	" Exit from inside the matching pair:
-	for delim in b:_l_delimitMate_right_delims
-		exec 'inoremap <silent> <Plug>delimitMate' . delim . ' <C-R>=delimitMate#JumpOut("\' . delim . '")<CR>'
-		exec 'silent! imap <unique> <buffer> ' . delim . ' <Plug>delimitMate'. delim
-	endfor
+	"for delim in b:_l_delimitMate_right_delims
+		"exec 'inoremap <silent> <Plug>delimitMate' . delim . ' <C-R>=delimitMate#JumpOut("\' . delim . '")<CR>'
+		"exec 'silent! imap <unique> <buffer> ' . delim . ' <Plug>delimitMate'. delim
+	"endfor
 
 	" Add matching quote and jump to the midle, or exit if inside a pair of matching quotes:
 	" inoremap <silent> <buffer> " <C-R>=delimitMate#QuoteDelim("\"")<CR>

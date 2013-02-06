@@ -466,9 +466,17 @@ inoremap \ttt <Esc>:execute "normal a" . strftime("%x %X (%Z)")<Esc>a
 noremap \u :sort u<CR>:g/^$/d<CR>
 noremap \= :Align =><CR>
 noremap ,ap vip:Align =><CR>
-noremap ,ab vib:Align =><CR>
+noremap ,ab vibwk:Align =><CR>
 noremap ,aB viB:Align =><CR>
 noremap ,a] vi]:Align =><CR>
+noremap ,sp vip:sort<CR>
+noremap ,sb vibwk:sort<CR>
+noremap ,sB viB:sort<CR>
+noremap ,s] vi]:sort<CR>
+noremap ,asp vip:Align =><CR>vip:sort<CR>
+noremap ,asb vibwk:Align =><CR>vibwk:sort<CR>
+noremap ,asB viB:Align =><CR>viB:sort<CR>
+noremap ,as] vi]:Align =><CR>vi]:sort<CR>
 noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>:1,$y+<CR>
 noremap \fd :silent! 1,$!perl -nMDateTime::Format::DateParse -E"BEGIN{sub fd{my $line = shift;chomp $line;my $dt = DateTime::Format::DateParse->parse_datetime($line, 'America/Chicago');$dt ? ($dt->set_time_zone('America/Chicago') and $dt->strftime('\%Y-\%m-\%d \%H:\%M:\%S')) : $line}; use Memoize; memoize 'fd'}say fd($_)"<CR>:norm \ca<CR>
 noremap \fc :new<CR>"+p"+:1,$y+<CR>:bd!<CR>
@@ -481,9 +489,6 @@ nnoremap \tl :set invlist!<CR>
 nnoremap \ca :1,$y+<CR>
 nnoremap \s :source $MYVIMRC<CR>
 nnoremap \v :tabnew $MYVIMRC<CR>
-noremap \sa :SessionSaveAs scratcha<CR>
-noremap \sb :SessionSaveAs scratchb<CR>
-noremap \qs :SessionSaveAs quitscrach<CR>:qa!<CR>
 noremap \fb mcHmt:g/^ *{ *$/norm kJ:s/ *{ *$/ {/<CR>:silent :noh<CR>'tzt`c
 noremap ,h :call g:ToggleNuMode()<CR>
 noremap ,v :vne<CR>
@@ -494,9 +499,6 @@ noremap ,cl :sort<CR>:%!uniq -c<CR>:sort! n<CR>
 noremap ,a  qaq
 noremap ,t :%s/\(\<[a-zA-Z0-9_-]*[a-zA-Z][a-zA-Z0-9_-]*\)\.[a-zA-Z0-9_.-]*\>/\1/<CR>:silent noh<CR>
 noremap ,i :g/^$/d<CR>:%s/\v^(.*)$/   ,'\1'/<CR>:1s/   ,/(\r    <CR>:$s/$/\r)<CR>:silent noh<CR>"+:1,$y+<CR>
-noremap ,sa :SessionOpen scratcha<CR>
-noremap ,sb :SessionOpen scratchb<CR>
-noremap ,qs :SessionOpen quitscrach<CR>
 noremap ,cab :tab sball<CR>:tabdo :bd!<CR>:tab sball<CR>:tabdo :bd!<CR>
 noremap ,cd :cd %:p:h<CR>
 noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>:silent noh<CR>

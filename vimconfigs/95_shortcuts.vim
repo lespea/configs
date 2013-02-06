@@ -139,9 +139,21 @@ noremap \u :sort u<CR>:g/^$/d<CR>
 "  Align on =>  (useful for hash assignments)
 noremap \= :Align =><CR>
 noremap ,ap vip:Align =><CR>
-noremap ,ab vib:Align =><CR>
+noremap ,ab vibwk:Align =><CR>
 noremap ,aB viB:Align =><CR>
 noremap ,a] vi]:Align =><CR>
+
+"  Sort inner things
+noremap ,sp vip:sort<CR>
+noremap ,sb vibwk:sort<CR>
+noremap ,sB viB:sort<CR>
+noremap ,s] vi]:sort<CR>
+
+"  Sort and align inner things
+noremap ,asp vip:Align =><CR>vip:sort<CR>
+noremap ,asb vibwk:Align =><CR>vibwk:sort<CR>
+noremap ,asB viB:Align =><CR>viB:sort<CR>
+noremap ,as] vi]:Align =><CR>vi]:sort<CR>
 
 "  Copy the matches to a new buffer, remove the duplicates/blank lines, and copy to the clipboard
 noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>:1,$y+<CR>
@@ -172,11 +184,6 @@ nnoremap \ca :1,$y+<CR>
 "  Easy edit/sourcing of vimrc
 nnoremap \s :source $MYVIMRC<CR>
 nnoremap \v :tabnew $MYVIMRC<CR>
-
-"  Shortcuts to save various "scratch" sessions
-noremap \sa :SessionSaveAs scratcha<CR>
-noremap \sb :SessionSaveAs scratchb<CR>
-noremap \qs :SessionSaveAs quitscrach<CR>:qa!<CR>
 
 "  Fix K&R style braces
 noremap \fb mcHmt:g/^ *{ *$/norm kJ:s/ *{ *$/ {/<CR>:silent :noh<CR>'tzt`c
@@ -213,11 +220,6 @@ noremap ,t :%s/\(\<[a-zA-Z0-9_-]*[a-zA-Z][a-zA-Z0-9_-]*\)\.[a-zA-Z0-9_.-]*\>/\1/
 
 "  Takes all of the lines and formats them for a sql "IN" query part
 noremap ,i :g/^$/d<CR>:%s/\v^(.*)$/   ,'\1'/<CR>:1s/   ,/(\r    <CR>:$s/$/\r)<CR>:silent noh<CR>"+:1,$y+<CR>
-
-"  Shortcuts to save various "scratch" sessions
-noremap ,sa :SessionOpen scratcha<CR>
-noremap ,sb :SessionOpen scratchb<CR>
-noremap ,qs :SessionOpen quitscrach<CR>
 
 "  Close all of the open buffers (force close so be careful!)
 noremap ,cab :tab sball<CR>:tabdo :bd!<CR>:tab sball<CR>:tabdo :bd!<CR>

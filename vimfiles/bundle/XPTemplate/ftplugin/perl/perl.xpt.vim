@@ -47,8 +47,8 @@ XPT whilenn hidden=1
 XPT plog "Setup logging"
 use Log::Log4perl qw/ get_logger /;
 BEGIN {
-    my $DEBUG    = `debug^;
-    my $LOG_FILE = `log_to_file^;
+    my $DEBUG    = `debug_option^;
+    my $LOG_FILE = `log_to_file_option^;
 
     my $LOG_LEVEL_STR = sprintf '%s, %s',
         ($DEBUG    ? 'DEBUG' : 'INFO'),
@@ -140,7 +140,7 @@ trigger => sub {
 
 
 XPT attr_counter "Creates a counter attribute that mimics a normal counter"
-has '`name^' => (
+has '`attr_name^' => (
     is        => 'ro',
     isa       => 'Num',
     traits    => ['Counter'],
@@ -148,15 +148,15 @@ has '`name^' => (
     lazy      => 1,
     required  => 1,
     handles   => {
-        inc_`name^   => 'inc',
-        dec_`name^   => 'dec',
-        reset_`name^ => 'reset',
+        inc_`trait_name^   => 'inc',
+        dec_`trait_name^   => 'dec',
+        reset_`trait_name^ => 'reset',
     },
 );
 
 
 XPT attr_bool "Creates a bool attribute that mimics a normal bool"
-has '`name^' => (
+has '`attr_name^' => (
     is        => 'ro',
     isa       => 'Num',
     traits    => ['Bool'],
@@ -164,16 +164,16 @@ has '`name^' => (
     lazy      => 1,
     required  => 1,
     handles   => {
-        not_`name^    => 'not',
-        toggle_`name^ => 'toggle',
-        set_`name^    => 'set',
-        unset_`name^  => 'unset',
+        not_`trait_name^    => 'not',
+        toggle_`trait_name^ => 'toggle',
+        set_`trait_name^    => 'set',
+        unset_`trait_name^  => 'unset',
     },
 );
 
 
 XPT attr_code "Creates a code attribute that mimics a normal code"
-has '`name^_cb' => (
+has '`attr_name^_cb' => (
     is        => 'ro',
     isa       => 'CodeRef',
     traits    => ['Code'],
@@ -181,13 +181,13 @@ has '`name^_cb' => (
     lazy      => 1,
     required  => 1,
     handles   => {
-        `name^ => 'execute',
+        `trait_name^ => 'execute',
     },
 );
 
 
 XPT attr_num "Creates a number attribute that mimics a normal number"
-has '`name^' => (
+has '`attr_name^' => (
     is        => 'ro',
     isa       => 'Num',
     traits    => ['Number'],
@@ -195,19 +195,19 @@ has '`name^' => (
     lazy      => 1,
     required  => 1,
     handles   => {
-        set_`name^ => 'set',
-        add_`name^ => 'add',
-        sub_`name^ => 'sub',
-        mul_`name^ => 'mul',
-        div_`name^ => 'div',
-        mod_`name^ => 'mod',
-        abs_`name^ => 'abs',
+        set_`trait_name^ => 'set',
+        add_`trait_name^ => 'add',
+        sub_`trait_name^ => 'sub',
+        mul_`trait_name^ => 'mul',
+        div_`trait_name^ => 'div',
+        mod_`trait_name^ => 'mod',
+        abs_`trait_name^ => 'abs',
     },
 );
 
 
 XPT attr_hash "Creates a hash attribute that mimics a normal hash"
-has '`name^' => (
+has '`attr_name^' => (
     is        => 'ro',
     isa       => 'HashRef[`type^]',
     traits    => ['Hash'],
@@ -215,22 +215,22 @@ has '`name^' => (
     lazy      => 1,
     required  => 1,
     handles   => {
-        `name^_ids            => 'keys',
-        `name^_pairs          => 'kv',
-        `name^_values         => 'values',
-        clear_`name^`plural^  => 'clear',
-        delete_`name^         => 'delete',
-        get_`name^            => 'get',
-        has_`name^            => 'exists',
-        has_no_`name^`plural^ => 'is_empty',
-        num_`name^`plural^    => 'count',
-        set_`name^            => 'set',
+        `trait_name^_keys           => 'keys',
+        `trait_name^_pairs          => 'kv',
+        `trait_name^_values         => 'values',
+        clear_`trait_name^`plural^  => 'clear',
+        delete_`trait_name^         => 'delete',
+        get_`trait_name^            => 'get',
+        has_`trait_name^            => 'exists',
+        has_no_`trait_name^`plural^ => 'is_empty',
+        num_`trait_name^`plural^    => 'count',
+        set_`trait_name^            => 'set',
     },
 );
 
 
 XPT attr_array "Creates a array attribute that mimics a normal array"
-has '`name^' => (
+has '`attr_name^' => (
     is        => 'ro',
     isa       => 'ArrayRef[`type^]',
     traits    => ['Array'],
@@ -238,28 +238,29 @@ has '`name^' => (
     lazy      => 1,
     required  => 1,
     handles   => {
-        add_`name^                 => 'push',
-        all_`name^`plural^         => 'elements',
-        delete_`name^`plural^      => 'delete',
-        filter_`name^`plural^      => 'grep',
-        first_`name^`plural^       => 'first',
-        first_index_`name^`plural^ => 'first_index',
-        get_`name^                 => 'get',
-        has_`name^`plural^         => 'count',
-        has_no_`name^`plural^      => 'is_empty',
-        insert_`name^`plural^      => 'insert',
-        join_`name^`plural^        => 'join',
-        map_`name^`plural^         => 'map',
-        natatime_`name^`plural^    => 'natatime',
-        pop_`name^`plural^         => 'pop',
-        reduce_`name^`plural^      => 'reduce',
-        set_`name^`plural^         => 'set',
-        shift_`name^`plural^       => 'shift',
-        shuffle_`name^`plural^     => 'shuffle',
-        sorted_`name^`plural^      => 'sort',
-        splice_`name^`plural^      => 'splice',
-        uniq_`name^`plural^        => 'uniq',
-        unshift_`name^`plural^     => 'unshift',
+        `name^_elements         => 'elements',
+        add_`name^              => 'push',
+        delete_`name^`plural^   => 'delete',
+        filter_`name^`plural^   => 'grep',
+        first_`name^            => 'first',
+        first_index_`name^      => 'first_index',
+        get_`name^              => 'get',
+        has_`name^`plural^      => 'count',
+        has_no_`name^`plural^   => 'is_empty',
+        insert_`name^`plural^   => 'insert',
+        join_`name^`plural^     => 'join',
+        map_`name^`plural^      => 'map',
+        natatime_`name^`plural^ => 'natatime',
+        num_`name^`plural^      => 'count',
+        pop_`name^`plural^      => 'pop',
+        reduce_`name^`plural^   => 'reduce',
+        set_`name^`plural^      => 'set',
+        shift_`name^`plural^    => 'shift',
+        shuffle_`name^`plural^  => 'shuffle',
+        sorted_`name^`plural^   => 'sort',
+        splice_`name^`plural^   => 'splice',
+        uniq_`name^`plural^     => 'uniq',
+        unshift_`name^`plural^  => 'unshift',
     },
 );
 
@@ -375,20 +376,49 @@ if`$SPcmd^(`$SParg^`cond^`$SParg^)`$BRif^{
     `cursor^
 }`}}^
 
-XPT package " 
-package `className^;
+XPT package "
+use strict;
+use warnings;
+use utf8;
 
-use base qw(`parent^);
+package `package^;
 
-sub new`$BRfun^{
-    my $class = shift;
-    $class = ref $class if ref $class;
-    my $self = bless {}, $class;
-    $self;
-}
+#ABSTRACT:  `abstract^
 
+use Modern::Perl qw/ 2012 /;
+
+use Moose;
+use namespace::autoclean;
+
+with 'MooseX::Log::Log4perl';
+
+#  Aliases
+use  MooseX::Aliases;
+#  use aliased '`package^',
+
+#  Extra modules
+use Data::Printer;
+
+
+=encoding utf8
+
+=for Pod::Coverage
+
+=head1 SYNOPSIS
+
+    use MooseX::Aliases;
+    use aliased '`package^';
+
+=head1 DESCRIPTION
+
+`description^
+
+=cut
+
+
+#  For speed
+__PACKAGE__->meta->make_immutable;
 1;
-
 ..XPT
 
 

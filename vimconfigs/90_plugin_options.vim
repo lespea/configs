@@ -78,7 +78,7 @@ let g:delimitMate_expand_space = 1
 let g:delimitMate_expand_cr = 1
 let g:delimitMate_balance_matchpairs = 1
 
-au FileType c,perl,javascript,java let b:delimitMate_eol_marker = ";"
+"au FileType c,perl,javascript,java let b:delimitMate_eol_marker = ";"
 
 
 "  ----------------

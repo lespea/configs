@@ -64,7 +64,7 @@ BEGIN {
         'log4perl.appender.Logfile.filename'                 => '`debug^.log',
         'log4perl.appender.Logfile.utf8'                     => '1',
         'log4perl.appender.Logfile.layout'                   => 'Log::Log4perl::Layout::PatternLayout',
-        'log4perl.appender.Logfile.mode'                     => 'clobber',
+        'log4perl.appender.Logfile.mode'                     => 'append',
         'log4perl.appender.Logfile.layout.ConversionPattern' => '%p [%d] (%r) %M:%L :: %m{chomp}%n',
 
         'log4perl.appender.Screen'                           => 'Log::Log4perl::Appender::Screen',
@@ -137,6 +137,7 @@ XPT m_trigger "Add a trigger to an attribute"
 trigger => sub {
     `code^
 },
+
 
 XPT attr_counter "Creates a counter attribute that mimics a normal counter"
 has '`name^' => (
@@ -228,7 +229,6 @@ has '`name^' => (
 );
 
 
-
 XPT attr_array "Creates a array attribute that mimics a normal array"
 has '`name^' => (
     is        => 'ro',
@@ -265,7 +265,7 @@ has '`name^' => (
 
 
 XPT csvn "New CSV wrtier"
-my $`csv^ = Text::CSV_XS->new ({ binary => 1, eol => $/, quote_null => 0 }) or
+my $`csv^ = Text::CSV_XS->new ({ binary => 1, eol => $/, quote_null => 0, auto_diag => 1, }) or
     die 'Cannot use CSV: '.Text::CSV_XS->error_diag ();
 `cursor^
 
@@ -311,6 +311,7 @@ XPT xforeach " .. foreach ..;
 
 XPT sub " sub .. { .. }
 sub `fun_name^`$BRfun^{
+    my (`args^) = @_;
     `cursor^
 }
 

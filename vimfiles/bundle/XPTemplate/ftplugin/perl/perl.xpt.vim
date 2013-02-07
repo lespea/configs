@@ -137,12 +137,12 @@ has '`name^' => (
 XPT m_meth "Creates a moose method"
 =method `method^
 
-`desc^`Args?..{{^
+`desc^
 
 
 =head3 Arguments
 
-=begin :List`...{{^
+`HasArgs?..{{^=begin :List`args...{{^
 
 1. `param^
 
@@ -150,22 +150,22 @@ XPT m_meth "Creates a moose method"
 * `^Required
 * C<`param_type^>
 * `param_desc^
-`...^`}}^
-=end :List
-`}}^
+`args...^`}}^
+
+=end :List`}}^`NoArgs?...{{^No arguments are used`}}^
+
 
 =head3 Returns
-`some...?{{^
-=begin :List`...{{^
+
+`HasReturnValues...?{{^=begin :List`return_itmes...{{^
 
 1. `return_name^
 
 =for :List
 * C<`return_type^>
 * `return_desc^
-`...^`}}^
-=end :List`}}^`None?...{{^
-Nothing is returned`}}^
+`return_itmes...^`}}^
+=end :List`}}^`NoReturnValues?...{{^Nothing is returned`}}^
 
 =cut
 
@@ -362,12 +362,12 @@ XPT xforeach " .. foreach ..;
 XPT m_sub "Creates a subroutine"
 =sub `method^
 
-`desc^`Args?..{{^
+`desc^
 
 
 =head3 Arguments
 
-=begin :List`...{{^
+`HasArgs?..{{^=begin :List`args...{{^
 
 1. `param^
 
@@ -375,22 +375,22 @@ XPT m_sub "Creates a subroutine"
 * `^Required
 * C<`param_type^>
 * `param_desc^
-`...^`}}^
-=end :List
-`}}^
+`args...^`}}^
+
+=end :List`}}^`NoArgs?...{{^No arguments are used`}}^
+
 
 =head3 Returns
-`some...?{{^
-=begin :List`...{{^
+
+`HasReturnValues...?{{^=begin :List`return_itmes...{{^
 
 1. `return_name^
 
 =for :List
 * C<`return_type^>
 * `return_desc^
-`...^`}}^
-=end :List`}}^`None?...{{^
-Nothing is returned`}}^
+`return_itmes...^`}}^
+=end :List`}}^`NoReturnValues?...{{^Nothing is returned`}}^
 
 =cut
 

@@ -152,7 +152,7 @@ XPT m_meth "Creates a moose method"
 * `param_desc^
 `args...^`}}^
 
-=end :List`}}^`NoArgs?...{{^No arguments are used`}}^
+=end :List`}}^`NoArgs?...{{^I<No arguments are used>`}}^
 
 
 =head3 Returns
@@ -165,7 +165,7 @@ XPT m_meth "Creates a moose method"
 * C<`return_type^>
 * `return_desc^
 `return_itmes...^`}}^
-=end :List`}}^`NoReturnValues?...{{^Nothing is returned`}}^
+=end :List`}}^`NoReturnValues?...{{^I<Nothing is returned>`}}^
 
 =cut
 
@@ -377,7 +377,7 @@ XPT m_sub "Creates a subroutine"
 * `param_desc^
 `args...^`}}^
 
-=end :List`}}^`NoArgs?...{{^No arguments are used`}}^
+=end :List`}}^`NoArgs?...{{^I<No arguments are used>`}}^
 
 
 =head3 Returns
@@ -390,7 +390,7 @@ XPT m_sub "Creates a subroutine"
 * C<`return_type^>
 * `return_desc^
 `return_itmes...^`}}^
-=end :List`}}^`NoReturnValues?...{{^Nothing is returned`}}^
+=end :List`}}^`NoReturnValues?...{{^I<Nothing is returned>`}}^
 
 =cut
 

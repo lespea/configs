@@ -133,6 +133,53 @@ has '`name^' => (
 );
 
 
+
+XPT m_meth "Creates a moose method"
+=method `method^
+
+`desc^`Args?..{{^
+
+
+=head3 Arguments
+
+=begin :List`...{{^
+
+1. `param^
+
+=for :List
+* `^Required
+* C<`param_type^>
+* `param_desc^
+`...^`}}^
+=end :List
+`}}^
+
+=head3 Returns
+`some...?{{^
+=begin :List`...{{^
+
+1. `return_name^
+
+=for :List
+* C<`return_type^>
+* `return_desc^
+`...^`}}^
+=end :List`}}^`None?...{{^
+Nothing is returned`}}^
+
+=cut
+
+sub `method^ {
+    my ($self`, `args?^) = @_;
+
+    `cursor^
+}
+
+..XPT
+
+
+
+
 XPT m_trigger "Add a trigger to an attribute"
 trigger => sub {
     `code^
@@ -309,6 +356,51 @@ XPT xunless " .. unless ..;
 
 XPT xforeach " .. foreach ..;
 `expr^ foreach @`array^;
+
+
+
+XPT m_sub "Creates a subroutine"
+=sub `method^
+
+`desc^`Args?..{{^
+
+
+=head3 Arguments
+
+=begin :List`...{{^
+
+1. `param^
+
+=for :List
+* `^Required
+* C<`param_type^>
+* `param_desc^
+`...^`}}^
+=end :List
+`}}^
+
+=head3 Returns
+`some...?{{^
+=begin :List`...{{^
+
+1. `return_name^
+
+=for :List
+* C<`return_type^>
+* `return_desc^
+`...^`}}^
+=end :List`}}^`None?...{{^
+Nothing is returned`}}^
+
+=cut
+
+sub `method^ {
+    `args...{{^my (`args^) = @_;
+
+    `}}^`cursor^
+}
+
+..XPT
 
 
 XPT sub " sub .. { .. }

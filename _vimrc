@@ -512,6 +512,7 @@ noremap <silent> \rs ggdG"+p:%s/\s\+/\r/e<CR>:sort u<CR>ggVGJ:s/#N[\/\\]A\>\s*//
 noremap <silent> ,run :Tube perl %<CR>
 noremap <silent> ,rl :Tube<CR>
 noremap <silent> ,re :Tube @<CR>
+noremap <silent> ,sl :%s/\t/\r/<CR>
 abb teh the
 abb fo of
 abb taht that

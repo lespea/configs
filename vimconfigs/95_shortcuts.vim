@@ -260,3 +260,6 @@ noremap <silent> ,rl :Tube<CR>
 
 "  Pipe whatever is selected into Tube (best for perl repl)
 noremap <silent> ,re :Tube @<CR>
+
+"  Split a line full of tabs into newlines
+noremap <silent> ,sl :%s/\t/\r/<CR>

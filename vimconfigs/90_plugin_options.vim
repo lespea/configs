@@ -118,13 +118,13 @@ let g:acp_enableAtStartup = 0
 let g:neocomplcache_enable_at_startup = 1
 
 " Use smartcase.
-let g:neocomplcache_enable_smart_case = 0
+let g:neocomplcache_enable_smart_case = 1
 
 " Use camel case completion.
 let g:neocomplcache_enable_camel_case_completion = 0
 
 " Use underbar completion.
-let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplcache_enable_underbar_completion = 0
 
 " Set minimum syntax keyword length.
 " let g:neocomplcache_min_syntax_length = 3
@@ -133,7 +133,7 @@ let g:neocomplcache_enable_underbar_completion = 1
 imap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " <CR>: close popup and save indent.
-"inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 
 
 " <C-h>, <BS>: close popup and delete backword char.

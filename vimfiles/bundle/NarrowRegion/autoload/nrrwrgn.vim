@@ -1,8 +1,8 @@
 " nrrwrgn.vim - Narrow Region plugin for Vim
 " -------------------------------------------------------------
-" Version:	   0.30
+" Version:	   0.31
 " Maintainer:  Christian Brabandt <cb@256bit.org>
-" Last Change: Fri, 25 Jan 2013 12:29:11 +0100
+" Last Change: Sat, 16 Feb 2013 22:28:31 +0100
 "
 " Script: http://www.vim.org/scripts/script.php?script_id=3075 
 " Copyright:   (c) 2009, 2010, 2011, 2012, 2013 by Christian Brabandt
@@ -11,7 +11,7 @@
 "			   instead of "Vim".
 "			   No warranty, express or implied.
 "	 *** ***   Use At-Your-Own-Risk!   *** ***
-" GetLatestVimScripts: 3075 30 :AutoInstall: NrrwRgn.vim
+" GetLatestVimScripts: 3075 31 :AutoInstall: NrrwRgn.vim
 "
 " Functions:
 
@@ -157,7 +157,8 @@ fun! <sid>ParseList(list) "{{{1
 		 " list consists only of consecutive items
 		 let result[i] = [a:list[0], a:list[-1]]
 	 endif
-	 if get(result, (i-1), 0) && result[i-1][1] != item
+	 " Make sure the last item is included in the selection
+	 if get(result, (i-1), 0)[0] && result[i-1][1] != item
 		 let result[i]=[start,item]
 	 endif
      return result
@@ -371,7 +372,7 @@ fun! <sid>Options(search) "{{{1
 		"call setreg('a', reg_a[0], reg_a[1])
 		call filter(b, 'v:val =~ "^''"')
 		" the following options should be set
-		let filter_opt='\%(modifi\%(ed\|able\)\|readonly\|noswapfile\|'.
+		let filter_opt='\%(modifi\%(ed\|able\)\|readonly\|swapfile\|'.
 				\ 'buftype\|bufhidden\|foldcolumn\|buflisted\)'
 		call filter(b, 'v:val !~ "^''".filter_opt."''"')
 		for item in b
@@ -721,14 +722,6 @@ fun! nrrwrgn#NrrwRgnDoPrepare(...) "{{{1
 	let win=<sid>NrrwRgnWin(bang)
 	if bang
 		let s:nrrw_rgn_lines[s:instn].single = 1
-	else
-		noa wincmd p
-		" Set highlighting in original window
-		call <sid>AddMatches(<sid>GeneratePattern(
-			\s:nrrw_rgn_lines[s:instn].start[1:2], 
-			\s:nrrw_rgn_lines[s:instn].end[1:2], 
-			\'V'), s:instn)
-		exe ':noa ' win 'wincmd w'
 	endif
 	let b:orig_buf = orig_buf
 	call setline(1, buffer)

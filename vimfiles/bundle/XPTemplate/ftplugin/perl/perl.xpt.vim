@@ -133,6 +133,44 @@ has '`name^' => (
 );
 
 
+XPT m_regex "Creates a regular expression constant"
+=attr `regex_name^
+
+`desc^
+
+=head3 Definition
+
+
+=head3 Captures
+
+`HasCaptures?..{{^=begin :List`args...{{^
+
+1. `group^
+
+=for :List
+* `Not ^Optional
+* C<`param_type^>
+* `param_desc^
+`args...^`}}^
+
+=end :List`}}^`HasCaptures?...{{^I<Nothing is captured>`}}^
+
+=cut
+
+has `regex_name^ => (
+    is       => 'ro',
+    isa      => 'RegexpRef',
+    lazy     => 1,
+    init_arg => undef,
+    default  => sub {
+        my ($self) = @_;
+        return qr/
+            `cursor^
+        /xmsi;
+    },
+);
+
+
 
 XPT m_meth "Creates a moose method"
 =method `method^
@@ -480,13 +518,14 @@ package `package^;
 
 use Modern::Perl qw/ 2012 /;
 
-use Moose;
 use namespace::autoclean;
+use Moose;
+# use MooseX::Singleton;
 
 with 'MooseX::Log::Log4perl';
 
 #  Aliases
-use  MooseX::Aliases;
+#  use  MooseX::Aliases;
 #  use aliased '`package^',
 
 #  Extra modules

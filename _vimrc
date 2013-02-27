@@ -512,6 +512,7 @@ noremap <silent> \tip :silent %!perl -MModern::Perl=2011 -MNet::IP -ne "chomp;sa
 noremap <silent> \rs :set nowrap<CR>ggdG"+p:%s/\s\+/\r/e<CR>:silent noh<CR>:sort u<CR>ggVGJ:s/#N[\/\\]A\>\s*//ie<CR>:silent noh<CR>$V
 noremap <silent> ,run :Tube perl %<CR>
 noremap <silent> ,rl :Tube<CR>
+noremap <silent> ,rt :w<CR>:Tube test<CR>
 noremap <silent> ,re :Tube @<CR>
 noremap <silent> ,sl :%s/\t/\r/<CR>
 noremap <silent> \el :silent %!perl -MModern::Perl=2011 -MHTML::TreeBuilder -MText::Trim -e 'my$h=HTML::TreeBuilder->new;while(<>){$h->parse($_)}$h->eof;my \%l;for my $li(@{$h->elementify->extract_links}){my $ln=trim $li->[0];$l{$ln}++ unless $ln =~ /^(?:\#<bar>\s*$)/;}say $_ for sort keys \%l'<CR>

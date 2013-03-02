@@ -923,6 +923,13 @@ g:neocomplcache_skip_auto_completion_time
 		Default value is "0.3".
 		{only available when compiled with the |+reltime| feature}
 
+g:neocomplcache_enable_auto_close_preview
+				*g:neocomplcache_enable_auto_close_preview*
+		If it is non-zero, neocomplcache will close preview window
+		automatically.
+
+		Default value is 0.
+
 ------------------------------------------------------------------------------
 FUNCTIONS 					*neocomplcache-functions*
 
@@ -1084,6 +1091,8 @@ EXAMPLES					*neocomplcache-examples*
 	inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 	inoremap <expr><C-y>  neocomplcache#close_popup()
 	inoremap <expr><C-e>  neocomplcache#cancel_popup()
+	" Close popup by <Space>.
+	"inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() : "\<Space>"
 
 	" For cursor moving in insert mode(Not recommended)
 	"inoremap <expr><Left>  neocomplcache#close_popup() . "\<Left>"
@@ -1208,7 +1217,7 @@ suffix of complete candidates in popup menu declaration.
     snippets_complete(neosnippet)
                                -> [Snip] (none or one placeholder) or
                                   <Snip> (contains multiple placeholders,
-                                          you must jump)
+                                  `Snip` (contains evaluation)
     vim_complete               -> [vim] type
     omni_complete              -> [O]
     tags_complete              -> [T]
@@ -1497,6 +1506,20 @@ Improve cache behavior in current buffer.
 ==============================================================================
 CHANGELOG					*neocomplcache-changelog*
 
+2013-02-24
+- Improved initialization.
+
+2013-02-22
+- Improved filename pattern.
+
+2013-02-17
+- Added g:neocomplcache_enable_auto_close_preview.
+
+2013-02-16
+- Fixed neocomplcache#complete_common_string().
+- Improved for caching buffer.
+- Improved default sort behavior.
+
 2013-02-11
 - Fixed skip behavior.
 
@@ -1640,7 +1663,7 @@ CHANGELOG					*neocomplcache-changelog*
 - Use fnameescape().
 
 2012-10-27
-- Fixed documentaion for neosnippet.
+- Fixed documentation for neosnippet.
 - Improved documentation.
 - Improved skip.
 - Added neocomplcache#compare_human compare function.

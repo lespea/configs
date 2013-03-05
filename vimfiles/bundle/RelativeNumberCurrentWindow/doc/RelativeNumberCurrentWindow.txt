@@ -1,0 +1,119 @@
+*RelativeNumberCurrentWindow.txt*	Only show relative numbers in the currently active window.
+
+	       RELATIVE NUMBER CURRENT WINDOW    by Ingo Karkat
+					     *RelativeNumberCurrentWindow.vim*
+description			|RelativeNumberCurrentWindow-description|
+usage				|RelativeNumberCurrentWindow-usage|
+installation			|RelativeNumberCurrentWindow-installation|
+configuration			|RelativeNumberCurrentWindow-configuration|
+limitations			|RelativeNumberCurrentWindow-limitations|
+known problems			|RelativeNumberCurrentWindow-known-problems|
+todo				|RelativeNumberCurrentWindow-todo|
+history				|RelativeNumberCurrentWindow-history|
+
+==============================================================================
+DESCRIPTION			     *RelativeNumberCurrentWindow-description*
+
+The 'relativenumber' setting helps you use the [|count|] for even quicker
+navigation and manipulation, but it's only useful in the current window, where
+the cursor is. For all other windows, the absolute line numbers offer a better
+orientation (e.g. when you have the same buffer in splits above and below your
+current window, and you need to decide which contains a location you want to
+go to).
+
+This plugin sets up autocmds to show relative numbers only in the current
+window, and switches them to absolute numbers when the window is left. Windows
+that do not have 'relativenumber' set are left as-is.
+
+SEE ALSO								     *
+
+- The CursorLineCurrentWindow plugin (vimscript #4178) enables the
+  'cursorline' setting only for the current window.
+
+RELATED WORKS								     *
+
+- RelOps (vimscript #4212) switches to relative numbering only when in
+  operator-pending mode.
+- vim-numbertoggle (http://jeffkreeftmeijer.com/2012/relative-line-numbers-in-vim-for-super-fast-movement/)
+  turns off relative numbering in insert mode, or when the focus is lost.
+- numbers.vim (https://github.com/myusuf3/numbers.vim) will alternate between
+  relative numbering in normal mode and absolute in insert mode.
+
+==============================================================================
+USAGE					   *RelativeNumberCurrentWindow-usage*
+
+Globally enable 'relativenumber' in your |vimrc| via >
+    :set relativenumber
+After sourcing this plugin, 'relativenumber' will only be active for the
+current window. So with multiple split windows, only one of them, the one
+where the cursor is in, will have the 'relativenumber'; all others will have
+'number' set.
+
+==============================================================================
+INSTALLATION			    *RelativeNumberCurrentWindow-installation*
+
+This script is packaged as a |vimball|. If you have the "gunzip" decompressor
+in your PATH, simply edit the *.vmb.gz package in Vim; otherwise, decompress
+the archive first, e.g. using WinZip. Inside Vim, install by sourcing the
+vimball or via the |:UseVimball| command. >
+    vim RelativeNumberCurrentWindow*.vmb.gz
+    :so %
+To uninstall, use the |:RmVimball| command.
+
+DEPENDENCIES			    *RelativeNumberCurrentWindow-dependencies*
+
+- Requires Vim 7.0 or higher.
+
+==============================================================================
+CONFIGURATION			   *RelativeNumberCurrentWindow-configuration*
+
+			*g:RelativeNumberCurrentWindow_SameNumberWidth*
+For the relative numbers, the necessary space is determined by the window
+height; for absolute numbers, it's the number of lines in the buffer. This
+discrepancy can lead to changes in the width of the number column when
+switching from one setting to the other. Because this shifting of the buffer
+contents is visually distracting, the plugin sets up an autocmd that presets
+'numberwidth' to a high-enough value so that this doesn't happen. If you don't
+want this, set: >
+    let g:RelativeNumberCurrentWindow_SameNumberWidth = 0
+<
+				       *g:RelativeNumberCurrentWindow_OnFocus*
+The relative numbers don't help when Vim isn't the active application, but
+absolute numbers can be beneficial, because compiler or test output may refer
+to lines currently open in Vim. Therefore, relative numbers for the current
+window are switched to absolute when Vim loses the focus |FocusLost|. If you
+don't want this, set: >
+    let g:RelativeNumberCurrentWindow_OnFocus = 0
+<
+				      *g:RelativeNumberCurrentWindow_OnInsert*
+Likewise, in insert mode, relative numbers are useless, as you rarely do
+movements in that mode and cannot prepend a [count], anyway. Absolute numbers
+require less screen updates and provide better orientation, so relative
+numbers are switched to absolute when in insert mode. To disable this, set: >
+    let g:RelativeNumberCurrentWindow_OnInsert = 0
+<
+==============================================================================
+LIMITATIONS			     *RelativeNumberCurrentWindow-limitations*
+
+KNOWN PROBLEMS			  *RelativeNumberCurrentWindow-known-problems*
+
+TODO					    *RelativeNumberCurrentWindow-todo*
+
+IDEAS					   *RelativeNumberCurrentWindow-ideas*
+
+==============================================================================
+HISTORY					 *RelativeNumberCurrentWindow-history*
+
+1.00	04-Mar-2013
+First published version.
+
+0.01	04-Sep-2012
+Started development.
+
+==============================================================================
+Copyright: (C) 2012-2013 Ingo Karkat
+The VIM LICENSE applies to this script; see |copyright|.
+
+Maintainer:	Ingo Karkat <ingo@karkat.de>
+==============================================================================
+ vim:tw=78:ts=8:ft=help:norl:

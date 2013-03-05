@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: neocomplcache.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 11 Feb 2013.
+" Last Modified: 22 Feb 2013.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -94,8 +94,8 @@ function! s:initialize_others() "{{{
         \ 'g:neocomplcache_keyword_patterns',
         \'filename',
         \ neocomplcache#util#is_windows() ?
-        \'\%(\a\+:[/\\]\)\?\%([\\/[:alnum:]()$+_\~.\x80-\xff-]\|[^[:print:]]\)\+' :
-        \'\%(\\.\|[/\[\][:alnum:]()$+_\~.-]\|[^[:print:]]\)\+')
+        \'\%(\a\+:/\)\?\%([/[:alnum:]()$+_\~.\x80-\xff-]\|[^[:print:]]\|\\[ ;*?[]"={}'']\)\+' :
+        \'\%([/\[\][:alnum:]()$+_\~.-]\|[^[:print:]]\|\\[ ;*?[]"={}'']\)\+')
   call neocomplcache#util#set_default_dictionary(
         \'g:neocomplcache_keyword_patterns',
         \'lisp,scheme,clojure,int-gosh,int-clisp,int-clj',
@@ -1720,6 +1720,11 @@ function! neocomplcache#get_cur_keyword_pos(complete_results) "{{{
 endfunction"}}}
 function! neocomplcache#get_complete_words(complete_results, cur_keyword_pos, cur_keyword_str) "{{{
   let frequencies = s:get_frequencies()
+  if exists('*neocomplcache#sources#buffer_complete#get_frequencies')
+    let frequencies = extend(copy(
+          \ neocomplcache#sources#buffer_complete#get_frequencies()),
+          \ frequencies)
+  endif
 
   let sources = neocomplcache#available_sources()
 
@@ -2298,9 +2303,16 @@ function! neocomplcache#complete_common_string() "{{{
     let &ignorecase = g:neocomplcache_enable_ignore_case
   endif
 
-  let neocomplcache = neocomplcache#get_current_neocomplcache()
-  let complete_words = neocomplcache#keyword_filter(
-        \ copy(neocomplcache.complete_words), cur_keyword_str)
+  let is_fuzzy = g:neocomplcache_enable_fuzzy_completion
+
+  try
+    let g:neocomplcache_enable_fuzzy_completion = 0
+    let neocomplcache = neocomplcache#get_current_neocomplcache()
+    let complete_words = neocomplcache#keyword_filter(
+          \ copy(neocomplcache.complete_words), cur_keyword_str)
+  finally
+    let g:neocomplcache_enable_fuzzy_completion = is_fuzzy
+  endtry
 
   if empty(complete_words)
     let &ignorecase = ignorecase_save
@@ -2386,6 +2398,12 @@ function! s:on_moved_i() "{{{
       call neocomplcache#sources#member_complete#caching_current_line()
     endif
   endif
+
+  if g:neocomplcache_enable_auto_close_preview &&
+        \ bufname('%') !=# '[Command Line]'
+    " Close preview window.
+    pclose!
+  endif
 endfunction"}}}
 function! s:on_insert_leave() "{{{
   let neocomplcache = neocomplcache#get_current_neocomplcache()
@@ -2409,6 +2427,12 @@ function! s:on_insert_leave() "{{{
             \ 'neocomplcache_foldinfo', {})
     endfor
   endfor
+
+  if g:neocomplcache_enable_auto_close_preview &&
+        \ bufname('%') !=# '[Command Line]'
+    " Close preview window.
+    pclose!
+  endif
 endfunction"}}}
 function! s:save_foldinfo() "{{{
   " Save foldinfo.
@@ -2451,10 +2475,10 @@ function! s:on_complete_done() "{{{
 
   let frequencies = s:get_frequencies()
   if !has_key(frequencies, candidate)
-    let frequencies[candidate] = 0
+    let frequencies[candidate] = 20
   endif
 
-  let frequencies[candidate] += 1
+  let frequencies[candidate] += 20
 endfunction"}}}
 function! s:change_update_time() "{{{
   if &updatetime > g:neocomplcache_cursor_hold_i_time
@@ -2721,7 +2745,9 @@ function! s:get_frequencies() "{{{
     let s:filetype_frequencies[filetype] = {}
   endif
 
-  return s:filetype_frequencies[filetype]
+  let frequencies = s:filetype_frequencies[filetype]
+
+  return frequencies
 endfunction"}}}
 function! neocomplcache#get_current_neocomplcache() "{{{
   if !exists('b:neocomplcache')

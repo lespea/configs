@@ -38,6 +38,7 @@ g:neocomplcache_disable_auto_complete	neocomplcache.txt	/*g:neocomplcache_disabl
 g:neocomplcache_disable_caching_file_path_pattern	neocomplcache.txt	/*g:neocomplcache_disable_caching_file_path_pattern*
 g:neocomplcache_disabled_sources_list	neocomplcache.txt	/*g:neocomplcache_disabled_sources_list*
 g:neocomplcache_enable_at_startup	neocomplcache.txt	/*g:neocomplcache_enable_at_startup*
+g:neocomplcache_enable_auto_close_preview	neocomplcache.txt	/*g:neocomplcache_enable_auto_close_preview*
 g:neocomplcache_enable_auto_delimiter	neocomplcache.txt	/*g:neocomplcache_enable_auto_delimiter*
 g:neocomplcache_enable_auto_select	neocomplcache.txt	/*g:neocomplcache_enable_auto_select*
 g:neocomplcache_enable_caching_message	neocomplcache.txt	/*g:neocomplcache_enable_caching_message*

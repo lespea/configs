@@ -41,7 +41,7 @@ if has('gui_running')
     endif
 
     "  Gvim color scheme
-    colorscheme solarized
+    colorscheme kolor
 
     "  Anti-alias fonts"
     set antialias
@@ -50,11 +50,11 @@ if has('gui_running')
 else
     "  The windows terminal is utter crap
     if has('win32')
-        colorscheme candy
+        colorscheme desert
     elseif has('mac')
-        colorscheme desert256
+        colorscheme kolor
     else
-        colorscheme candyman
+        colorscheme kolor
     endif
 endif
 let g:solarized_visibility='high'

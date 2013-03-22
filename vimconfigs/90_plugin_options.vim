@@ -155,7 +155,7 @@ let g:EasyMotion_leader_key = ','
 "  ---------------
 "  |  Colorizer  |
 "  ---------------
-let g:colorizer_auto_filetype='css,html,xhtml,less'
+"let g:colorizer_auto_filetype='css,html,xhtml,less'
 
 
 "  -------------

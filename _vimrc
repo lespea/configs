@@ -408,7 +408,6 @@ inoremap <expr><C-h>  neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
 let g:EasyMotion_leader_key = ','
-let g:colorizer_auto_filetype='css,html,xhtml,less'
 let tlist_perl_settings = 'perl;u:use;r:role;e:extends;c:constant;t:const;a:attribute;s:subroutine;m:mooose doc'
 let Tlist_Show_One_File = 1
 let Tlist_Use_Right_Window = 1

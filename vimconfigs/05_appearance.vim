@@ -4,6 +4,7 @@
 
 "  Basic syntax coloring
 syntax on
+set synmaxcol=150
 
 "autocmd ColorScheme * highlight EOLWS  ctermbg=darkgreen guibg=darkgreen
 "autocmd ColorScheme * highlight PEP8WS ctermbg=darkgreen guibg=darkgreen

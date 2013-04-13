@@ -10,7 +10,12 @@
 "
 "============================================================================
 
-function! SyntaxCheckers_twig_GetHighlightRegex(item)
+if exists("g:loaded_syntastic_twig_twiglint_checker")
+    finish
+endif
+let g:loaded_syntastic_twig_twiglint_checker=1
+
+function! SyntaxCheckers_twig_twiglint_GetHighlightRegex(item)
     " Let's match the full line for now
     return '\V'
 endfunction

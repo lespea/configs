@@ -4,6 +4,11 @@
 "Author:      Parantapa Bhattacharya <parantapa at gmail dot com>
 "
 "============================================================================
+if exists("g:loaded_syntastic_python_pylint_checker")
+    finish
+endif
+let g:loaded_syntastic_python_pylint_checker=1
+
 function! SyntaxCheckers_python_pylint_IsAvailable()
     return executable('pylint')
 endfunction
@@ -13,7 +18,11 @@ function! SyntaxCheckers_python_pylint_GetLocList()
                 \ 'exe': 'pylint',
                 \ 'args': ' -f parseable -r n -i y',
                 \ 'subchecker': 'pylint' })
-    let errorformat = '%f:%l:%m,%Z,%-GNo config %m'
+    let errorformat =
+                \ '%A%f:%l:%m,' .
+                \ '%A%f:(%l):%m,' .
+                \ '%-Z%p^%.%#,' .
+                \ '%-G%.%#'
 
     let loclist=SyntasticMake({ 'makeprg': makeprg, 'errorformat': errorformat })
 

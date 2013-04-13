@@ -11,9 +11,18 @@
 "
 "============================================================================
 
+if exists("g:loaded_syntastic_java_javac_checker")
+    finish
+endif
+let g:loaded_syntastic_java_javac_checker=1
+
 " Global Options
 if !exists("g:syntastic_java_javac_executable")
     let g:syntastic_java_javac_executable = 'javac'
+endif
+
+if !exists("g:syntastic_java_maven_executable")
+    let g:syntastic_java_maven_executable = 'mvn'
 endif
 
 if !exists("g:syntastic_java_javac_options")
@@ -137,7 +146,7 @@ command! SyntasticJavacEditClasspath call s:EditClasspath()
 function! s:GetMavenClasspath()
     if filereadable('pom.xml')
         if g:syntastic_java_javac_maven_pom_ftime != getftime('pom.xml') || g:syntastic_java_javac_maven_pom_cwd != getcwd()
-            let mvn_classpath_output = split(system('mvn dependency:build-classpath'),"\n")
+            let mvn_classpath_output = split(system(g:syntastic_java_maven_executable.' dependency:build-classpath'),"\n")
             let class_path_next = 0
             for line in mvn_classpath_output
                 if class_path_next == 1

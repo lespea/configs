@@ -11,3 +11,5 @@ addSbtPlugin("com.orrsella" % "sbt-stats" % "1.0.2")
 resolvers += Resolver.url("sbt-plugin-releases", new URL("http://scalasbt.artifactoryonline.com/scalasbt/sbt-plugin-releases/"))(Resolver.ivyStylePatterns)
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-pgp" % "0.8")
+
+addSbtPlugin("com.typesafe.sbt" % "sbt-scalariform" % "1.0.1")

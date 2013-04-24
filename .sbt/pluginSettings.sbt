@@ -10,7 +10,7 @@ EclipseKeys.withSource := true
 
 EclipseKeys.executionEnvironment := Some(EclipseExecutionEnvironment.JavaSE17)
 
-defaultScalariformSettings
+scalariformSettings
 
 ScalariformKeys.preferences := FormattingPreferences()
   .setPreference(AlignSingleLineCaseStatements, true)

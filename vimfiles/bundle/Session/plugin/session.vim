@@ -1,6 +1,6 @@
 " Vim script
 " Author: Peter Odding
-" Last Change: November 11, 2011
+" Last Change: April 20, 2013
 " URL: http://peterodding.com/code/vim/session/
 
 " Support for automatic update using the GLVS plug-in.
@@ -54,6 +54,12 @@ if !exists('g:session_directory')
   endif
 endif
 
+" Define session command aliases of the form "Session" + Action in addition
+" to the real command names which are of the form Action + "Session"?
+if !exists('g:session_command_aliases')
+  let g:session_command_aliases = 0
+endif
+
 " Make sure the session scripts directory exists and is writable.
 let s:directory = fnamemodify(g:session_directory, ':p')
 if !isdirectory(s:directory)
@@ -73,7 +79,6 @@ augroup PluginSession
   au VimEnter * nested call xolox#session#auto_load()
   au VimLeavePre * call xolox#session#auto_save()
   au VimLeavePre * call xolox#session#auto_unlock()
-  au BufEnter * call xolox#session#auto_dirty_check()
 augroup END
 
 " Define commands that enable users to manage multiple named sessions.
@@ -81,8 +86,18 @@ command! -bar -bang -nargs=? -complete=customlist,xolox#session#complete_names O
 command! -bar -nargs=? -complete=customlist,xolox#session#complete_names ViewSession call xolox#session#view_cmd(<q-args>)
 command! -bar -bang -nargs=? -complete=customlist,xolox#session#complete_names SaveSession call xolox#session#save_cmd(<q-args>, <q-bang>)
 command! -bar -bang -nargs=? -complete=customlist,xolox#session#complete_names DeleteSession call xolox#session#delete_cmd(<q-args>, <q-bang>)
-command! -bar -bang CloseSession call xolox#session#close_cmd(<q-bang>, 0)
+command! -bar -bang CloseSession call xolox#session#close_cmd(<q-bang>, 0, 1)
 command! -bang -nargs=* -complete=command RestartVim call xolox#session#restart_cmd(<q-bang>, <q-args>)
+
+if g:session_command_aliases
+  " Define command aliases of the form "Session" + Action in addition to
+  " the real command names which are of the form Action + "Session" (above).
+  command! -bar -bang -nargs=? -complete=customlist,xolox#session#complete_names SessionOpen call xolox#session#open_cmd(<q-args>, <q-bang>)
+  command! -bar -nargs=? -complete=customlist,xolox#session#complete_names SessionView call xolox#session#view_cmd(<q-args>)
+  command! -bar -bang -nargs=? -complete=customlist,xolox#session#complete_names SessionSave call xolox#session#save_cmd(<q-args>, <q-bang>)
+  command! -bar -bang -nargs=? -complete=customlist,xolox#session#complete_names SessionDelete call xolox#session#delete_cmd(<q-args>, <q-bang>)
+  command! -bar -bang SessionClose call xolox#session#close_cmd(<q-bang>, 0, 1)
+endif
 
 " Don't reload the plug-in once it has loaded successfully.
 let g:loaded_session = 1

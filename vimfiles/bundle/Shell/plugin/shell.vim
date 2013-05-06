@@ -1,36 +1,33 @@
 " Vim plug-in
 " Author: Peter Odding <peter@peterodding.com>
-" Last Change: June 17, 2011
+" Last Change: May 2, 2013
 " URL: http://peterodding.com/code/vim/shell/
-" License: MIT
-" Version: 0.9.6
 
 " Support for automatic update using the GLVS plug-in.
 " GetLatestVimScripts: 3123 1 :AutoInstall: shell.zip
 
+" Don't source the plug-in when it's already been loaded or &compatible is set.
+if &cp || exists('g:loaded_shell')
+  finish
+endif
+
 " Configuration defaults. {{{1
+
+if !exists('g:shell_fullscreen_always_on_top')
+  " Set this to false (0) if you don't like the "always on top" behavior.
+  let g:shell_fullscreen_always_on_top = 1
+endif
 
 if !exists('g:shell_mappings_enabled')
   " Set this to false (0) if you don't like the default mappings.
   let g:shell_mappings_enabled = 1
 endif
 
-if !exists('g:shell_fullscreen_items')
-  " Change this if :Fullscreen shouldn't hide the menu/toolbar/tabline.
-  let g:shell_fullscreen_items = 'mTe'
-endif
-
-if !exists('g:shell_hl_exclude')
-  " URL highlighting breaks highlighting of <a href="..."> tags in HTML.
-  let g:shell_hl_exclude = '^\(x|ht\)ml$'
-endif
-
-if !exists('g:shell_patt_url')
- let g:shell_patt_url = '\<\w\{3,}://\(\S*\w\)\+[/?#]\?'
-endif
-
-if !exists('g:shell_patt_mail')
- let g:shell_patt_mail = '\<\w[^@ \t\r]*\w@\w[^@ \t\r]\+\w\>'
+if !exists('g:shell_verify_urls')
+  " Set this to true if your URLs include significant trailing punctuation and
+  " your Vim is compiled with Python support. XXX In this case the shell
+  " plug-in will perform HTTP HEAD requests on your behalf.
+  let g:shell_verify_urls = 0
 endif
 
 " Automatic commands. {{{1
@@ -43,15 +40,22 @@ augroup END
 " Regular commands. {{{1
 
 command! -bar -nargs=? -complete=file Open call xolox#shell#open_cmd(<q-args>)
+command! -bar Maximize call xolox#shell#maximize()
 command! -bar Fullscreen call xolox#shell#fullscreen()
+command! -bar -bang -nargs=? MakeWithShell :call xolox#shell#make(<q-bang>, <q-args>)
 
 " Default key mappings. {{{1
 
 if g:shell_mappings_enabled
-  inoremap <F11> <C-o>:Fullscreen<CR>
-  nnoremap <F11> :Fullscreen<CR>
   inoremap <F6> <C-o>:Open<CR>
   nnoremap <F6> :Open<CR>
+  inoremap <F11> <C-o>:Fullscreen<CR>
+  nnoremap <F11> :Fullscreen<CR>
+  inoremap <C-F11> <C-o>:Maximize<CR>
+  nnoremap <C-F11> :Maximize<CR>
 endif
+
+" Make sure the plug-in is only loaded once.
+let g:loaded_shell = 1
 
 " vim: ts=2 sw=2 et fdm=marker

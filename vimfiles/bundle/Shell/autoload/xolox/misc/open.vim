@@ -1,12 +1,11 @@
 " Vim auto-load script
 " Author: Peter Odding <peter@peterodding.com>
-" Last Change: May 25, 2011
+" Last Change: November 21, 2011
 " URL: http://peterodding.com/code/vim/misc/
 
-if !exists('s:script')
-  let s:script = expand('<sfile>:p:~')
-  let s:enoimpl = "%s: %s() hasn't been implemented for your platform!"
-  let s:enoimpl .= " If you have suggestions, please contact peter@peterodding.com."
+if !exists('s:version')
+  let s:version = '1.1'
+  let s:enoimpl = "open.vim %s: %s() hasn't been implemented for your platform! If you have suggestions, please contact peter@peterodding.com."
   let s:handlers = ['gnome-open', 'kde-open', 'exo-open', 'xdg-open']
 endif
 
@@ -16,7 +15,7 @@ function! xolox#misc#open#file(path, ...)
       call xolox#shell#open_with_windows_shell(a:path)
     catch /^Vim\%((\a\+)\)\=:E117/
       let command = '!start CMD /C START "" %s'
-      silent execute printf(command, shellescape(a:path))
+      silent execute printf(command, xolox#misc#escape#shell(a:path))
     endtry
     return
   elseif has('macunix')
@@ -26,7 +25,7 @@ function! xolox#misc#open#file(path, ...)
   else
     for handler in s:handlers + a:000
       if executable(handler)
-        call xolox#misc#msg#debug("%s: Using `%s' to open %s", s:script, handler, a:path)
+        call xolox#misc#msg#debug("open.vim %s: Using '%s' to open '%s'.", s:version, handler, a:path)
         let cmd = shellescape(handler) . ' ' . shellescape(a:path) . ' 2>&1'
         call s:handle_error(cmd, system(cmd))
         return
@@ -59,12 +58,12 @@ endfunction
 
 function! s:handle_error(cmd, output)
   if v:shell_error
-    let message = "%s: Failed to execute program! (command line: %s%s)"
+    let message = "open.vim %s: Failed to execute program! (command line: %s%s)"
     let output = strtrans(xolox#misc#str#trim(a:output))
     if output != ''
       let output = ", output: " . string(output)
     endif
-    throw printf(message, s:script, a:cmd, output)
+    throw printf(message, s:version, a:cmd, output)
   endif
 endfunction
 

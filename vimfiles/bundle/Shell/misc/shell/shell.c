@@ -18,7 +18,7 @@
  *     CL /LD shell.c shell32.lib user32.lib
  *
  * This should create the dynamic link library "shell.dll" which you can call
- * from Vim using for example :call libcall('c:/shell.dll', 'fullscreen', 1).
+ * from Vim using for example :call libcall('c:/shell.dll', 'fullscreen', 'enable').
  *
  * Happy vimming!
  *
@@ -26,8 +26,10 @@
  */
 
 #define _WIN32_WINNT 0x0500 /* GetConsoleWindow() */
-#define WIN32_LEAN_AND_MEAN /* but keep it simple */
+#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
+#include <ctype.h>
+#include <string.h>
 #include <shellapi.h> /* ShellExecute? */
 
 /* Dynamic strings are returned using a static buffer to avoid memory leaks */
@@ -36,9 +38,9 @@ static char buffer[1024 * 10];
 #undef MessageBox
 #define MessageBox(message) MessageBoxA(NULL, message, "Vim Library", 0)
 
-static char *GetError(void) /* {{{1 */
+static const char *GetError(void) /* {{{1 */
 {
-	int i;
+	size_t i;
 
 	FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
 			NULL, GetLastError(), 0, buffer, sizeof buffer, NULL);
@@ -50,19 +52,19 @@ static char *GetError(void) /* {{{1 */
 	return buffer;
 }
 
-static char *Success(char *result) /* {{{1 */
+static const char *Success(const char *result) /* {{{1 */
 {
 	/* printf("OK\n"); */
 	return result;
 }
 
-static char *Failure(char *result) /* {{{1 */
+static const char *Failure(const char *result) /* {{{1 */
 {
 	/* if (result && strlen(result)) MessageBox(result); */
 	return result;
 }
 
-static char *execute(char *command, int wait) /* {{{1 */
+static const char *execute(char *command, int wait) /* {{{1 */
 {
 	STARTUPINFO si;
 	PROCESS_INFORMATION pi;
@@ -84,81 +86,101 @@ static char *execute(char *command, int wait) /* {{{1 */
 }
 
 __declspec(dllexport)
-char *execute_synchronous(char *command) /* {{{1 */
+const char *execute_synchronous(char *command) /* {{{1 */
 {
 	return execute(command, 1);
 }
 
 __declspec(dllexport)
-char *execute_asynchronous(char *command) /* {{{1 */
+const char *execute_asynchronous(char *command) /* {{{1 */
 {
 	return execute(command, 0);
 }
 
 __declspec(dllexport)
-char *libversion(char *ignored) /* {{{1 */
+const char *libversion(const char *ignored) /* {{{1 */
 {
 	(void)ignored;
-	return Success("0.2");
+	return Success("0.5");
 }
 
 __declspec(dllexport)
-char *openurl(char *path) /* {{{1 */
+const char *openurl(const char *path) /* {{{1 */
 {
 	ShellExecute(NULL, "open", path, NULL, NULL, SW_SHOWNORMAL);
 	return Success(NULL);
 }
 
 __declspec(dllexport)
-char *fullscreen(long enable) /* {{{1 */
+const char *fullscreen(const char *options) /* {{{1 */
 {
 	HWND window;
-	LONG styles;
+	LONG styles, exStyle, enable, always_on_top;
 	HMONITOR monitor;
 	MONITORINFO info = { sizeof info };
 
-	if (!(window = GetForegroundWindow()))
+	enable = (strstr(options, "enable") != NULL);
+	always_on_top = (strstr(options, "always on top") != NULL);
+
+	window = GetForegroundWindow();
+	if (!window)
 		return Failure("Could not get handle to foreground window!");
 
-	if (!(styles = GetWindowLong(window, GWL_STYLE)))
+	styles = GetWindowLong(window, GWL_STYLE);
+	if (!styles)
 		return Failure("Could not query window styles!");
 
-	if (enable) styles ^= WS_CAPTION | WS_THICKFRAME;
-	else        styles |= WS_CAPTION | WS_THICKFRAME;
+	exStyle = GetWindowLong(window, GWL_EXSTYLE);
+	if (!exStyle)
+		return Failure("Could not query window ex style!");
+
+	if (enable) { 
+		styles ^= WS_CAPTION | WS_THICKFRAME;
+		if (always_on_top)
+			exStyle |= WS_EX_TOPMOST;
+	} else {
+		styles |= WS_CAPTION | WS_THICKFRAME;
+		if (always_on_top)
+			exStyle &= ~WS_EX_TOPMOST;
+	}
 
 	if (!SetWindowLong(window, GWL_STYLE, styles))
 		return Failure("Could not apply window styles!");
 
+	if (!SetWindowLong(window, GWL_EXSTYLE, exStyle))
+		return Failure("Could not apply window ex style!");
+
 	if (enable) {
-		if (!(monitor = MonitorFromWindow(window, MONITOR_DEFAULTTONEAREST)))
+		monitor = MonitorFromWindow(window, MONITOR_DEFAULTTONEAREST);
+		if (!monitor)
 			return Failure("Could not get handle to monitor!");
 		if (!GetMonitorInfo(monitor, &info))
 			return Failure("Could not get monitor information!");
-		if (!SetWindowPos(window, HWND_TOP,
+		if (!SetWindowPos(window,
+					always_on_top ? HWND_TOPMOST : HWND_TOP,
 					info.rcMonitor.left,
 					info.rcMonitor.top,
 					info.rcMonitor.right - info.rcMonitor.left,
 					info.rcMonitor.bottom - info.rcMonitor.top,
 					SWP_SHOWWINDOW))
 			return Failure("Could not resize window!");
-	} else if (!SetWindowPos(window, HWND_TOP, 0, 0, 0, 0,
-				SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED))
+	} else if (!SetWindowPos(window, HWND_NOTOPMOST, 0, 0, 0, 0,
+				SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED))
 		return Failure("Could not restore window!");
 
 	return Success(NULL);
 }
 
 __declspec(dllexport)
-char *console(char *command) /* {{{1 */
+const char *console(char *command) /* {{{1 */
 {
 	/* TODO: The quest to embedding a command prompt in Vim :)
 	 * This doesn't quite work and I'm afraid it never will.
 	 */
-
 	HWND gvim, console;
-	LONG styles;
 
-	if (!(gvim = GetForegroundWindow()))
+	gvim = GetForegroundWindow();
+	if (!gvim)
 		return Failure("Could not get handle to foreground window");
 
 	// destroy old console?
@@ -169,7 +191,8 @@ char *console(char *command) /* {{{1 */
 		return Failure("Could not allocate console");
 
 	// get handle to console window
-	if (!(console = GetConsoleWindow()))
+	console = GetConsoleWindow();
+	if (!console)
 		return Failure("Could not get handle to console window");
 
 	// embed console inside foreground window

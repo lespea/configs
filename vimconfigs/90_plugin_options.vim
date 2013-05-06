@@ -174,6 +174,15 @@ let Tlist_WinWidth = 45
 let g:tube_terminal         = 'iterm'
 let g:tube_enable_shortcuts = 1
 
+
+"  -------------
+"  |  Session  |
+"  -------------
+:let g:session_autosave = 'no'
+
+
+
+
 "==================================================
 "==                   DISABLED                   ==
 "==================================================

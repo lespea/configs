@@ -416,6 +416,7 @@ let Tlist_Sort_Type = "name"
 let Tlist_WinWidth = 45
 let g:tube_terminal         = 'iterm'
 let g:tube_enable_shortcuts = 1
+:let g:session_autosave = 'no'
 cmap w!! w !sudo tee % >/dev/null
 vnoremap ; :
 noremap <Space> <PageDown>

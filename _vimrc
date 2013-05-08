@@ -5,6 +5,7 @@ call pathogen#infect()
 call pathogen#helptags()
 filetype plugin indent on
 set encoding=utf-8
+let $VIMHOME=fnamemodify(resolve(expand('<sfile>:p')), ':h')
 syntax on
 set synmaxcol=250
 set background=dark
@@ -506,7 +507,7 @@ noremap ,cab :tab sball<CR>:tabdo :bd!<CR>:tab sball<CR>:tabdo :bd!<CR>
 noremap ,cd :cd %:p:h<CR>
 noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>:silent noh<CR>
 noremap ,dupe :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>yyp:%s/^\(.\+\)\n\1\+/\1/<CR>:g/^$/d<CR>:silent noh<CR>
-noremap ,conf :tabnew $HOME/vimconfigs/
+noremap ,conf :tabnew $VIMHOME/vimconfigs/
 noremap ,lo :Tlist<CR>
 nmap <silent> <C-F11> :if &guioptions=~'m' \| set guioptions-=m \| else \| set guioptions+=m \| endif<CR>
 noremap <silent> \rti :silent %!perl -nMNet::IP -MNet::Netmask -MModern::Perl -e'chomp;my $n = Net::IP->new(Net::Netmask->new($_));say join "\t", $n->intip, $n->last_int'<CR>

@@ -235,7 +235,7 @@ noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>:silent noh<CR>
 noremap ,dupe :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>yyp:%s/^\(.\+\)\n\1\+/\1/<CR>:g/^$/d<CR>:silent noh<CR>
 
 "  Shortcut to edit the conf files
-noremap ,conf :tabnew $HOME/vimconfigs/
+noremap ,conf :tabnew $VIMHOME/vimconfigs/
 
 "  Open the taglist browser
 noremap ,lo :Tlist<CR>

@@ -16,3 +16,5 @@ filetype plugin indent on
 
 "  Enable utf8 in our configs
 set encoding=utf-8
+
+let $VIMHOME=fnamemodify(resolve(expand('<sfile>:p')), ':h')

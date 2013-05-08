@@ -6,7 +6,7 @@ call pathogen#helptags()
 filetype plugin indent on
 set encoding=utf-8
 syntax on
-set synmaxcol=150
+set synmaxcol=250
 set background=dark
 let g:Powerline_symbols        = 'fancy'
 let g:Powerline_theme          = 'default'

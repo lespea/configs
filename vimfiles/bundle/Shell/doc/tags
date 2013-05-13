@@ -15,6 +15,6 @@ shell-other-full-screen-implementations	shell.txt	/*shell-other-full-screen-impl
 shell-references	shell.txt	/*shell-references*
 shell-usage-(commands-functions)	shell.txt	/*shell-usage-(commands-functions)*
 shell.txt	shell.txt	/*shell.txt*
-xolox#shell#execute()	shell.txt	/*xolox#shell#execute()*
+xolox#misc#os#exec()	shell.txt	/*xolox#misc#os#exec()*
 xolox#shell#fullscreen()	shell.txt	/*xolox#shell#fullscreen()*
 xolox#shell#is_fullscreen()	shell.txt	/*xolox#shell#is_fullscreen()*

@@ -1,11 +1,11 @@
 " Vim auto-load script
 " Author: Peter Odding <peter@peterodding.com>
-" Last Change: May 13, 2013
+" Last Change: May 20, 2013
 " URL: http://peterodding.com/code/vim/shell/
 
-let g:xolox#shell#version = '0.12.1'
+let g:xolox#shell#version = '0.12.5'
 
-call xolox#misc#compat#check('shell', 3)
+call xolox#misc#compat#check('shell.vim', g:xolox#shell#version, 9)
 
 if !exists('s:fullscreen_enabled')
   let s:enoimpl = "%s() hasn't been implemented on your platform! %s"
@@ -154,8 +154,13 @@ endfunction
 function! s:make_cmd(command)
   let command = a:command . ' 2>&1'
   let result = xolox#misc#os#exec({'command': command, 'check': 0})
+  let g:xolox#shell#make_exit_code = result['exit_code']
   return join(result['stdout'], "\n")
 endfunction
+
+if !exists('g:xolox#shell#make_exit_code')
+  let g:xolox#shell#make_exit_code = 0
+endif
 
 function! xolox#shell#maximize(...) " {{{1
   " Show/hide Vim's menu, tool bar and/or tab line.
@@ -332,6 +337,7 @@ function! xolox#shell#can_use_dll() " {{{1
   " Check whether the compiled DLL is usable in the current environment.
   if xolox#misc#os#is_win()
     try
+      call xolox#misc#msg#debug("shell.vim %s: Checking if compiled DDL is supported ..", g:xolox#shell#version)
       return s:library_call('libversion', '') == '0.5'
     catch
       return 0
@@ -347,8 +353,9 @@ if xolox#misc#os#is_win()
   let s:library = expand('<sfile>:p:h:h:h') . '\misc\shell\shell-' . s:cpu_arch . '.dll'
 
   function! s:library_call(fn, arg)
+    let starttime = xolox#misc#timer#start()
     let result = libcall(s:library, a:fn, a:arg)
-    call xolox#misc#msg#debug("Called %s:%s, returning %s", s:library, a:fn, result)
+    call xolox#misc#timer#stop("shell.vim %s: Called %s:%s, returning %s in %s", g:xolox#shell#version, s:library, a:fn, result, starttime)
     return result
   endfunction
 

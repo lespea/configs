@@ -1,5 +1,6 @@
 :HighlightTags	easytags.txt	/*:HighlightTags*
 :UpdateTags	easytags.txt	/*:UpdateTags*
+customizing-easytags-plug-in	easytags.txt	/*customizing-easytags-plug-in*
 easytags-a-note-about-windows	easytags.txt	/*easytags-a-note-about-windows*
 easytags-commands	easytags.txt	/*easytags-commands*
 easytags-contact	easytags.txt	/*easytags-contact*
@@ -19,6 +20,7 @@ g:easytags_autorecurse	easytags.txt	/*g:easytags_autorecurse*
 g:easytags_by_filetype	easytags.txt	/*g:easytags_by_filetype*
 g:easytags_cmd	easytags.txt	/*g:easytags_cmd*
 g:easytags_dynamic_files	easytags.txt	/*g:easytags_dynamic_files*
+g:easytags_events	easytags.txt	/*g:easytags_events*
 g:easytags_file	easytags.txt	/*g:easytags_file*
 g:easytags_ignored_syntax_groups	easytags.txt	/*g:easytags_ignored_syntax_groups*
 g:easytags_include_members	easytags.txt	/*g:easytags_include_members*
@@ -29,3 +31,4 @@ g:easytags_python_script	easytags.txt	/*g:easytags_python_script*
 g:easytags_resolve_links	easytags.txt	/*g:easytags_resolve_links*
 g:easytags_suppress_ctags_warning	easytags.txt	/*g:easytags_suppress_ctags_warning*
 g:easytags_updatetime_min	easytags.txt	/*g:easytags_updatetime_min*
+g:easytags_updatetime_warn	easytags.txt	/*g:easytags_updatetime_warn*

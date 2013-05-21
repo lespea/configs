@@ -16,29 +16,33 @@ Contents ~
   3. The |g:easytags_file| option
   4. The |g:easytags_dynamic_files| option
   5. The |g:easytags_by_filetype| option
-  6. The |g:easytags_always_enabled| option
-  7. The |g:easytags_on_cursorhold| option
-  8. The |g:easytags_updatetime_min| option
-  9. The |g:easytags_auto_update| option
-  10. The |g:easytags_auto_highlight| option
-  11. The |g:easytags_autorecurse| option
-  12. The |g:easytags_include_members| option
-  13. The |g:easytags_resolve_links| option
-  14. The |g:easytags_suppress_ctags_warning| option
-  15. The |g:easytags_ignored_syntax_groups| option
- 5. Faster syntax highlighting using Python |easytags-faster-syntax-highlighting-using-python|
+  6. The |g:easytags_events| option
+  7. The |g:easytags_always_enabled| option
+  8. The |g:easytags_on_cursorhold| option
+  9. The |g:easytags_updatetime_min| option
+  10. The |g:easytags_updatetime_warn| option
+  11. The |g:easytags_auto_update| option
+  12. The |g:easytags_auto_highlight| option
+  13. The |g:easytags_autorecurse| option
+  14. The |g:easytags_include_members| option
+  15. The |g:easytags_resolve_links| option
+  16. The |g:easytags_suppress_ctags_warning| option
+  17. The |g:easytags_ignored_syntax_groups| option
+ 5. Customizing the easytags plug-in              |customizing-easytags-plug-in|
+  1. Passing custom command line arguments to Exuberant Ctags
+  2. Update & highlight tags immediately after save
+  3. How to customize the highlighting colors?
+ 6. Faster syntax highlighting using Python |easytags-faster-syntax-highlighting-using-python|
   1. The |g:easytags_python_enabled| option
   2. The |g:easytags_python_script| option
- 6. How to customize the highlighting colors?
- 7. Passing custom command line arguments to Exuberant Ctags
- 8. Troubleshooting                                   |easytags-troubleshooting|
+ 7. Troubleshooting                                   |easytags-troubleshooting|
   1. |:HighlightTags| only works for the tags file created by |:UpdateTags|
   2. The plug-in complains that Exuberant Ctags isn't installed
   3. Vim locks up while the plug-in is running
   4. Failed to highlight tags because pattern is too big!
   5. The plug-in doesn't seem to work in Cygwin
- 9. Contact                                                   |easytags-contact|
- 10. License                                                  |easytags-license|
+ 8. Contact                                                   |easytags-contact|
+ 9. License                                                   |easytags-license|
 
 ===============================================================================
                                                          *easytags-introduction*
@@ -255,6 +259,24 @@ If you already have a global tags file you can create file type specific tags
 files from the global tags file using the command ':TagsByFileType'.
 
 -------------------------------------------------------------------------------
+The *g:easytags_events* option
+
+This option can be used to customize the events that trigger the automatic
+updating and highlighting performed by the easytags plug-in. The |g:easytags_always_enabled|
+and |g:easytags_on_cursorhold| options are more user friendly but limited ways
+to accomplish the same thing.
+
+Here's an example: Say you want the easytags plug-in to automatically update &
+highlight tags for the current file right after you save the file. You can
+accomplish this by adding the following line to your |vimrc| script:
+>
+    :let g:easytags_events = ['BufWritePost']
+
+Note that if you set |g:easytags_events| in your |vimrc| script, the values of
+the options |g:easytags_always_enabled| and |g:easytags_on_cursorhold| will be
+ignored completely.
+
+-------------------------------------------------------------------------------
 The *g:easytags_always_enabled* option
 
 By default the plug-in automatically generates and highlights tags when you
@@ -291,17 +313,43 @@ your |vimrc| script.
 -------------------------------------------------------------------------------
 The *g:easytags_updatetime_min* option
 
-Vim has a setting which influences how often the plug-in is automatically
-executed. When this setting is too low, the plug-in can break. For this reason
-the plug-in compensates by keeping track of when it was last executed. You'll
-get one warning when the plug-in first notices the low value, after that it
-will shut up. The default value of this option is 4000 milliseconds (4
-seconds).
+Vim's |'updatetime'| option controls how often the easytags plug-in is
+automatically executed. A lot of popular Vim plug-ins manipulate this option
+to control how often they are called. Unfortunately some of those plug-ins set
+|'updatetime'| to a very low value (less than a second) and this can break the
+easytags plug-in.
 
-If you really want the plug-in to be executed more than once every 4 seconds
-you can lower the minimum acceptable updatetime by setting this option (as the
-number of milliseconds) however note that subsecond granularity is not
-supported.
+Because of this the easytags plug-in compensates by keeping track of when it
+was last executed. You'll get one warning when the plug-in first notices a
+very low value of |'updatetime'|, after that the plug-in will shut up (until you
+restart Vim) and simply compensate by not executing until its time has come.
+If you want to silence the warning message forever, see the |g:easytags_updatetime_warn|
+option.
+
+The default value of Vim's 'updatetime (see |'updatetime'|) option and the
+|g:easytags_updatetime_min| option is 4000 milliseconds (4 seconds).
+
+If you know what you're doing and you really want the easytags plug-in to be
+executed more than once every 4 seconds you can lower the minimum acceptable
+updatetime by setting |g:easytags_updatetime_min| to the number of
+milliseconds (an integer).
+
+Note that although |g:easytags_updatetime_min| counts in milliseconds, the
+easytags plug-in does not support subsecond granularity because it is limited
+by Vim's |localtime()| function which has one-second resolution.
+
+-------------------------------------------------------------------------------
+The *g:easytags_updatetime_warn* option
+
+Since the easytags plug-in now compensates for low |'updatetime'| values (see
+the |g:easytags_updatetime_min| option above) the warning message shown by the
+easytags plug-in has become kind of redundant (and probably annoying?). For
+now it can be completely disabled by setting |g:easytags_updatetime_warn| to 0
+(false).
+
+When the feature that compensates for low |'updatetime'| values has proven to be
+a reliable workaround I will probably remove the warning message and the
+|g:easytags_updatetime_warn| option.
 
 -------------------------------------------------------------------------------
 The *g:easytags_auto_update* option
@@ -396,28 +444,37 @@ This variable is a string of comma separated names of syntax groups in which
 dynamic highlighting is not applied. It defaults to '.*String.*,.*Comment.*,cIncluded'.
 
 ===============================================================================
-                              *easytags-faster-syntax-highlighting-using-python*
-Faster syntax highlighting using Python ~
+                                                  *customizing-easytags-plug-in*
+Customizing the easytags plug-in ~
 
-The Vim script implementation of dynamic syntax highlighting is quite slow on
-large tags files. When the Python Interface to Vim is enabled the easytags
-plug-in will therefor automatically use a Python script that performs dynamic
-syntax highlighting about twice as fast as the Vim script implementation. The
-following options are available to change the default configuration.
+Advanced users may wish to customize how the easytags plug-in works beyond the
+point of changing configuration defaults. This section contains some hints
+about this. If you have suggestions, please feel free to submit them.
 
 -------------------------------------------------------------------------------
-The *g:easytags_python_enabled* option
+Passing custom command line arguments to Exuberant Ctags ~
 
-To disable the Python implementation of dynamic syntax highlighting you can
-set this option to false (0).
+You may want to run Exuberant Ctags with specific command line options, for
+example the code_complete [13] plug-in requires the signature field to be
+present. To do this you can create a configuration file for Exuberant Ctags,
+e.g. '~/.ctags' on UNIX or '%USERPROFILE%\ctags.cnf' on Windows. The file
+should contain one command line option per line. See the Exuberant Ctags
+manual [14] for details.
 
 -------------------------------------------------------------------------------
-The *g:easytags_python_script* option
+Update & highlight tags immediately after save ~
 
-This option defines the pathname of the script that contains the Python
-implementation of dynamic syntax highlighting.
+By default the easytags plug-in automatically updates & highlights tags for
+the current file after several seconds of inactivity. This is done to prevent
+the easytags plug-in from interrupting your workflow.
 
-===============================================================================
+If you want the easytags plug-in to automatically update & highlight tags for
+the current file right after you save the file, you can add the following line
+to your |vimrc| script:
+>
+    :let g:easytags_events = ['BufWritePost']
+
+-------------------------------------------------------------------------------
 How to customize the highlighting colors? ~
 
 The easytags plug-in defines new highlighting groups for dynamically
@@ -457,14 +514,26 @@ tried to match the existing highlighting groups defined by popular syntax
 modes (except of course for the 'Tag' suffix).
 
 ===============================================================================
-Passing custom command line arguments to Exuberant Ctags ~
+                              *easytags-faster-syntax-highlighting-using-python*
+Faster syntax highlighting using Python ~
 
-You may want to run Exuberant Ctags with specific command line options, for
-example the code_complete [13] plug-in requires the signature field to be
-present. To do this you can create a configuration file for Exuberant Ctags,
-e.g. '~/.ctags' on UNIX or '%USERPROFILE%\ctags.cnf' on Windows. The file
-should contain one command line option per line. See the Exuberant Ctags
-manual [14] for details.
+The Vim script implementation of dynamic syntax highlighting is quite slow on
+large tags files. When the Python Interface to Vim is enabled the easytags
+plug-in will therefor automatically use a Python script that performs dynamic
+syntax highlighting about twice as fast as the Vim script implementation. The
+following options are available to change the default configuration.
+
+-------------------------------------------------------------------------------
+The *g:easytags_python_enabled* option
+
+To disable the Python implementation of dynamic syntax highlighting you can
+set this option to false (0).
+
+-------------------------------------------------------------------------------
+The *g:easytags_python_script* option
+
+This option defines the pathname of the script that contains the Python
+implementation of dynamic syntax highlighting.
 
 ===============================================================================
                                                       *easytags-troubleshooting*
@@ -581,8 +650,8 @@ If you like this plug-in please vote for it on Vim Online [16].
                                                               *easytags-license*
 License ~
 
-This software is licensed under the MIT license [17]. Copyright 2013 Peter
-Odding <peter@peterodding.com>.
+This software is licensed under the MIT license [17]. ÂŠ 2013 Peter Odding
+<peter@peterodding.com>.
 
 ===============================================================================
                                                            *easytags-references*

@@ -1,19 +1,73 @@
-" Vim auto-load script
+" Operating system interfaces.
+"
 " Author: Peter Odding <peter@peterodding.com>
-" Last Change: May 13, 2013
+" Last Change: May 20, 2013
 " URL: http://peterodding.com/code/vim/misc/
 
-let g:xolox#misc#os#version = '0.2'
+let g:xolox#misc#os#version = '0.4'
 
 function! xolox#misc#os#is_win() " {{{1
-  " Check whether Vim is running on Microsoft Windows.
+  " Returns 1 (true) when on Microsoft Windows, 0 (false) otherwise.
   return has('win16') || has('win32') || has('win64')
 endfunction
 
+function! xolox#misc#os#find_vim() " {{{1
+  " Returns the program name of Vim as a string. On Windows and UNIX this
+  " simply returns [v:progname] [progname] while on Mac OS X there is some
+  " special magic to find MacVim's executable even though it's usually not on
+  " the executable search path.
+  "
+  " [progname]: http://vimdoc.sourceforge.net/htmldoc/eval.html#v:progname
+  let progname = ''
+  if has('macunix')
+    " Special handling for Mac OS X where MacVim is usually not on the $PATH.
+    call xolox#misc#msg#debug("os.vim %s: Trying MacVim workaround to find Vim executable ..", g:xolox#misc#os#version)
+    let segments = xolox#misc#path#split($VIMRUNTIME)
+    if segments[-3:] == ['Resources', 'vim', 'runtime']
+      let progname = xolox#misc#path#join(segments[0:-4] + ['MacOS', 'Vim'])
+      call xolox#misc#msg#debug("os.vim %s: The MacVim workaround resulted in the Vim executable %s.", g:xolox#misc#os#version, string(progname))
+    endif
+  endif
+  if empty(progname)
+    call xolox#misc#msg#debug("os.vim %s: Looking for Vim executable named %s on search path ..", g:xolox#misc#os#version, string(v:progname))
+    let candidates = xolox#misc#path#which(v:progname)
+    if !empty(candidates)
+      call xolox#misc#msg#debug("os.vim %s: Found %i candidate(s) on search path: %s.", g:xolox#misc#os#version, len(candidates), string(candidates))
+      let progname = candidates[0]
+    endif
+  endif
+  call xolox#misc#msg#debug("os.vim %s: Reporting Vim executable %s.", g:xolox#misc#os#version, string(progname))
+  return progname
+endfunction
+
 function! xolox#misc#os#exec(options) " {{{1
-  " Execute an external command (hiding the console on Windows when possible).
-  " NB: Everything below is wrapped in a try/finally block to guarantee
-  " cleanup of temporary files.
+  " Execute an external command (hiding the console on Microsoft Windows when
+  " my [vim-shell plug-in] [vim-shell] is installed).
+  "
+  " Expects a dictionary with the following key/value pairs as the first
+  " argument:
+  "
+  " - **command** (required): The command line to execute
+  " - **async** (optional): set this to 1 (true) to execute the command in the
+  "   background (asynchronously)
+  " - **stdin** (optional): a string or list of strings with the input for the
+  "   external command
+  " - **check** (optional): set this to 0 (false) to disable checking of the
+  "   exit code of the external command (by default an exception will be
+  "   raised when the command fails)
+  "
+  " Returns a dictionary with one or more of the following key/value pairs:
+  "
+  " - **command** (always available): the generated command line that was used
+  "   to run the external command
+  " - **exit_code** (only in synchronous mode): the exit status of the
+  "   external command (an integer, zero on success)
+  " - **stdout** (only in synchronous mode): the output of the command on the
+  "   standard output stream (a list of strings, one for each line)
+  " - **stderr** (only in synchronous mode): the output of the command on the
+  "   standard error stream (as a list of strings, one for each line)
+  "
+  " [vim-shell]: http://peterodding.com/code/vim/shell/
   try
 
     " Unpack the options.
@@ -38,9 +92,7 @@ function! xolox#misc#os#exec(options) " {{{1
     if !async
       let tempout = tempname()
       let temperr = tempname()
-      let cmd = printf('(%s) 1>%s 2>%s', cmd,
-            \ xolox#misc#escape#shell(tempout),
-            \ xolox#misc#escape#shell(temperr))
+      let cmd = printf('(%s) 1>%s 2>%s', cmd, xolox#misc#escape#shell(tempout), xolox#misc#escape#shell(temperr))
     endif
 
     " If A) we're on Windows, B) the vim-shell plug-in is installed and C) the
@@ -72,6 +124,14 @@ function! xolox#misc#os#exec(options) " {{{1
         endif
       endif
 
+      " Execute the command line using 'sh' instead of the default shell,
+      " because we assume that standard output and standard error can be
+      " redirected separately, but (t)csh does not support this.
+      if has('unix')
+        call xolox#misc#msg#debug("os.vim %s: Generated shell expression: %s", g:xolox#misc#os#version, cmd)
+        let cmd = printf('sh -c %s', xolox#misc#escape#shell(cmd))
+      endif
+
       " Let the user know what's happening (in case they're interested).
       call xolox#misc#msg#debug("os.vim %s: Executing external command using system() function: %s", g:xolox#misc#os#version, cmd)
       call system(cmd)
@@ -79,19 +139,29 @@ function! xolox#misc#os#exec(options) " {{{1
 
     endif
 
-    let result = {}
+    " Return the results as a dictionary with one or more key/value pairs.
+    let result = {'command': cmd}
     if !async
+      let result['exit_code'] = exit_code
+      let result['stdout'] = s:readfile(tempout)
+      let result['stderr'] = s:readfile(temperr)
       " If we just executed a synchronous command and the caller didn't
       " specifically ask us *not* to check the exit code of the external
       " command, we'll do so now.
       if get(a:options, 'check', 1) && exit_code != 0
-        let msg = "os.vim %s: External command failed with exit code %d: %s"
-        throw printf(msg, g:xolox#misc#os#version, result['exit_code'], result['command'])
+        " Prepare an error message with enough details so the user can investigate.
+        let msg = printf("os.vim %s: External command failed with exit code %d!", g:xolox#misc#os#version, result['exit_code'])
+        let msg .= printf("\nCommand line: %s", result['command'])
+        " If the external command reported an error, we'll include it in our message.
+        if !empty(result['stderr'])
+          " This is where we would normally expect to find an error message.
+          let msg .= printf("\nOutput on standard output stream:\n%s", join(result['stderr'], "\n"))
+        elseif !empty(result['stdout'])
+          " Exuberant Ctags on Windows XP reports errors on standard output :-x.
+          let msg .= printf("\nOutput on standard error stream:\n%s", join(result['stdout'], "\n"))
+        endif
+        throw msg
       endif
-      " Return the results as a dictionary with three key/value pairs.
-      let result['exit_code'] = exit_code
-      let result['stdout'] = s:readfile(tempout)
-      let result['stderr'] = s:readfile(temperr)
     endif
     return result
 

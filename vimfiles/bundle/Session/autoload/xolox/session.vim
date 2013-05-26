@@ -1,11 +1,9 @@
 " Vim script
 " Author: Peter Odding
-" Last Change: May 20, 2013
+" Last Change: May 25, 2013
 " URL: http://peterodding.com/code/vim/session/
 
-let g:xolox#session#version = '2.3.2'
-
-call xolox#misc#compat#check('session.vim', g:xolox#session#version, 9)
+let g:xolox#session#version = '2.3.7'
 
 " Public API for session persistence. {{{1
 
@@ -22,6 +20,9 @@ function! xolox#session#save_session(commands, filename) " {{{2
   call add(a:commands, '" Created by session.vim ' . g:xolox#session#version . ' on ' . strftime('%d %B %Y at %H:%M:%S.'))
   call add(a:commands, '" Open this file in Vim and run :source % to restore your session.')
   call add(a:commands, '')
+  if &verbose >= 1
+    call add(a:commands, 'set verbose=' . &verbose)
+  endif
   if is_all_tabs
     call add(a:commands, 'set guioptions=' . escape(&go, ' "\'))
     call add(a:commands, 'silent! set guifont=' . escape(&gfn, ' "\'))
@@ -77,16 +78,19 @@ endfunction
 
 function! xolox#session#save_fullscreen(commands) " {{{2
   try
-    if xolox#shell#is_fullscreen()
-      call add(a:commands, "if has('gui_running')")
-      call add(a:commands, "  try")
-      call add(a:commands, "    call xolox#shell#fullscreen()")
-      " XXX Without this hack Vim on GTK doesn't restore &lines and &columns.
-      call add(a:commands, "    call feedkeys(\":set lines=" . &lines . " columns=" . &columns . "\\<CR>\")")
-      call add(a:commands, "  catch " . '/^Vim\%((\a\+)\)\=:E117/')
-      call add(a:commands, "    \" Ignore missing full-screen plug-in.")
-      call add(a:commands, "  endtry")
-      call add(a:commands, "endif")
+    let commands = xolox#shell#persist_fullscreen()
+    if !empty(commands)
+      call add(a:commands, "try")
+      for line in commands
+        call add(a:commands, "  " . line)
+      endfor
+      if has('gui_running') && (has('gui_gtk') || has('gui_gtk2') || has('gui_gnome'))
+        " Without this hack GVim on GTK doesn't preserve the window size.
+        call add(a:commands, "  call feedkeys(\":set lines=" . &lines . " columns=" . &columns . "\\<CR>\")")
+      endif
+      call add(a:commands, "catch " . '/^Vim\%((\a\+)\)\=:E117/')
+      call add(a:commands, "  \" Ignore missing full-screen plug-in.")
+      call add(a:commands, "endtry")
     endif
   catch /^Vim\%((\a\+)\)\=:E117/
     " Ignore missing full-screen functionality.
@@ -444,16 +448,17 @@ function! xolox#session#open_cmd(name, bang, command) abort " {{{2
     elseif a:bang == '!' || !s:session_is_locked(path, a:command)
       let oldcwd = s:nerdtree_persist()
       call xolox#session#close_cmd(a:bang, 1, name != s:get_name('', 0), a:command)
-      if xolox#session#include_tabs()
-        let g:session_old_cwd = oldcwd
-      else
-        let t:session_old_cwd = oldcwd
-      endif
       call s:lock_session(path)
       execute 'source' fnameescape(path)
+      if xolox#session#is_tab_scoped()
+        let t:session_old_cwd = oldcwd
+        let session_type = 'tab scoped'
+      else
+        let g:session_old_cwd = oldcwd
+        let session_type = 'global'
+      endif
       call s:last_session_persist(name)
       call s:flush_session()
-      let session_type = xolox#session#include_tabs() ? 'global' : 'tab scoped'
       call xolox#misc#timer#stop("session.vim %s: Opened %s %s session in %s.", g:xolox#session#version, session_type, string(name), starttime)
       call xolox#misc#msg#info("session.vim %s: Opened %s %s session from %s.", g:xolox#session#version, session_type, string(name), fnamemodify(path, ':~'))
     endif
@@ -629,7 +634,7 @@ function! xolox#session#restart_cmd(bang, args) abort " {{{2
     if name == '' | let name = 'restart' | endif
     call xolox#session#save_cmd(name, a:bang, 'RestartVim')
     " Generate the Vim command line.
-    let progname = xolox#misc#escape#shell(fnameescape(xolox#misc#os#find_vim()))
+    let progname = xolox#misc#escape#shell(xolox#misc#os#find_vim())
     let command = progname . ' -g -c ' . xolox#misc#escape#shell('OpenSession\! ' . fnameescape(name))
     let args = matchstr(a:args, '^\s*|\s*\zs.\+$')
     if !empty(args)

@@ -9,6 +9,7 @@ g:shell_verify_urls	shell.txt	/*g:shell_verify_urls*
 shell-background	shell.txt	/*shell-background*
 shell-contact	shell.txt	/*shell-contact*
 shell-contents	shell.txt	/*shell-contents*
+shell-installation	shell.txt	/*shell-installation*
 shell-introduction	shell.txt	/*shell-introduction*
 shell-license	shell.txt	/*shell-license*
 shell-other-full-screen-implementations	shell.txt	/*shell-other-full-screen-implementations*

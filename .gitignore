@@ -44,3 +44,5 @@ VirtualBox\ VMs
 .zenmap
 .pyfa
 .matplotlib
+.neocomplcache
+_vimtags

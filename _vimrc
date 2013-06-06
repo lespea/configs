@@ -28,7 +28,7 @@ if has('gui_running')
     set antialias
 else
     if has('win32')
-        colorscheme seoul256
+        colorscheme desert
     elseif has('mac')
         colorscheme seoul256
     else

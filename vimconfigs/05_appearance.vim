@@ -51,7 +51,7 @@ if has('gui_running')
 else
     "  The windows terminal is utter crap
     if has('win32')
-        colorscheme seoul256
+        colorscheme desert
     elseif has('mac')
         colorscheme seoul256
     else

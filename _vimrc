@@ -24,15 +24,15 @@ if has('gui_running')
     else
         set guifont=DejaVu\ Sans\ Mono\ 11
     endif
-    colorscheme kolor
+    colorscheme seoul256
     set antialias
 else
     if has('win32')
-        colorscheme desert
+        colorscheme seoul256
     elseif has('mac')
-        colorscheme kolor
+        colorscheme seoul256
     else
-        colorscheme kolor
+        colorscheme seoul256
     endif
 endif
 let g:solarized_visibility='high'

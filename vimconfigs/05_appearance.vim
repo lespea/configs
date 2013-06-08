@@ -42,7 +42,7 @@ if has('gui_running')
     endif
 
     "  Gvim color scheme
-    colorscheme kolor
+    colorscheme seoul256
 
     "  Anti-alias fonts"
     set antialias
@@ -53,9 +53,9 @@ else
     if has('win32')
         colorscheme desert
     elseif has('mac')
-        colorscheme kolor
+        colorscheme seoul256
     else
-        colorscheme kolor
+        colorscheme seoul256
     endif
 endif
 let g:solarized_visibility='high'

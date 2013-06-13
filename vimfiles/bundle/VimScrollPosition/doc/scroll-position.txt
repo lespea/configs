@@ -1,0 +1,107 @@
+vim-scroll-position         *vim-scroll-position*  *scroll-position*
+
+Author: Junegunn Choi <https://github.com/junegunn>
+
+This plugin displays the relative position of the cursor within the buffer
+on the left side of the screen using the `sign` feature.
+
+https://github.com/junegunn/vim-scroll-position
+
+
+=====================================================================
+CUSTOMIZATION
+
+
+Highlighting example                      *scroll-position-highlight*
+---------------------------------------------------------------------
+:set t_Co=256
+:highlight ScrollPositionMarker ctermfg=208 ctermbg=232
+:highlight ScrollPositionVisualBegin ctermfg=196 ctermbg=232
+:highlight ScrollPositionVisualMiddle ctermfg=196 ctermbg=232
+:highlight ScrollPositionVisualEnd ctermfg=196 ctermbg=232
+:highlight ScrollPositionVisualOverlap ctermfg=196 ctermbg=232
+:highlight ScrollPositionChange ctermfg=124 ctermbg=232
+:highlight ScrollPositionJump ctermfg=131 ctermbg=232
+:highlight SignColumn ctermbg=232
+
+
+*g:scroll_position_marker*
+---------------------------------------------------------------------
+(default: ">")
+Marker for current position.
+
+
+*g:scroll_position_visual*
+---------------------------------------------------------------------
+(default: 1)
+Ways to display visual range.
+0: Do not display visual range (fast)
+1: Place signs on the beginning and the end of the range
+2: Displays the entire range with signs (slow)
+
+
+*g:scroll_position_visual_begin*
+---------------------------------------------------------------------
+(default: "^")
+Marker for the beginning of the visual block.
+
+
+*g:scroll_position_visual_middle*
+---------------------------------------------------------------------
+(default: ":")
+Marker for the middle part of the visual block.
+
+
+*g:scroll_position_visual_end*
+---------------------------------------------------------------------
+(default: "v")
+Marker for the end of the visual block.
+
+
+*g:scroll_position_visual_overlap*
+---------------------------------------------------------------------
+(default: "<>")
+Marker for the visual block whose begin and end overlap
+
+
+*g:scroll_position_jump*
+---------------------------------------------------------------------
+(default: undefined)
+Marker for the latest jump position.
+
+
+*g:scroll_position_change*
+---------------------------------------------------------------------
+(default: undefined)
+Marker for the latest change position.
+
+
+*g:scroll_position_exclusion*
+---------------------------------------------------------------------
+(default: "&buftype == 'nofile'")
+Vimscript condition for disabling scroller.
+
+
+*g:scroll_position_auto_enable*
+---------------------------------------------------------------------
+(default: undefined)
+Set g:scroll_position_auto_enable to 0 in order not to enable plugin
+by default. You can later enable it with :ScrollPositionShow command.
+
+
+=====================================================================
+COMMANDS
+
+*:ScrollPositionShow*
+---------------------------------------------------------------------
+Enable plugin
+
+
+*:ScrollPositionHide*
+---------------------------------------------------------------------
+Disable plugin
+
+
+*:ScrollPositionToggle*
+---------------------------------------------------------------------
+Toggle plugin

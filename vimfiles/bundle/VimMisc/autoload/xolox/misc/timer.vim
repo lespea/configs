@@ -1,7 +1,7 @@
 " Timing of long during operations.
 "
 " Author: Peter Odding <peter@peterodding.com>
-" Last Change: May 20, 2013
+" Last Change: June 2, 2013
 " URL: http://peterodding.com/code/vim/misc/
 
 if !exists('g:timer_enabled')
@@ -13,11 +13,12 @@ if !exists('g:timer_verbosity')
 endif
 
 let s:has_reltime = has('reltime')
+let s:unique_marker = 'xolox#misc#timer#value'
 
 function! xolox#misc#timer#start() " {{{1
   " Start a timer. This returns a list which can later be passed to
   " `xolox#misc#timer#stop()`.
-  return s:has_reltime ? reltime() : [localtime()]
+  return [s:unique_marker, s:has_reltime ? reltime() : localtime()]
 endfunction
 
 function! xolox#misc#timer#stop(...) " {{{1
@@ -46,58 +47,16 @@ function! xolox#misc#timer#force(...) " {{{1
 endfunction
 
 function! s:convert_value(value) " {{{1
-  if type(a:value) != type([])
-    return a:value
-  elseif !empty(a:value)
+  if type(a:value) == type([]) && len(a:value) == 2 && a:value[0] == s:unique_marker
     if s:has_reltime
-      let ts = xolox#misc#str#trim(reltimestr(reltime(a:value)))
+      let ts = xolox#misc#str#trim(reltimestr(reltime(a:value[1])))
     else
-      let ts = localtime() - a:value[0]
+      let ts = localtime() - a:value[1]
     endif
-    return xolox#misc#timer#format_timespan(ts)
+    return xolox#misc#format#timestamp(ts)
   else
-    return '?'
+    return a:value
   endif
-endfunction
-
-" Format number of seconds as human friendly description.
-
-let s:units = [['day', 60 * 60 * 24], ['hour', 60 * 60], ['minute', 60], ['second', 1]]
-
-function! xolox#misc#timer#format_timespan(ts) " {{{1
-  " Format a time stamp (a string containing a formatted floating point
-  " number) into a human friendly format, for example 70 seconds is phrased as
-  " "1 minute and 10 seconds".
-
-  " Convert timespan to integer.
-  let seconds = a:ts + 0
-
-  " Fast common case with extra precision from reltime().
-  if seconds < 5
-    let extract = matchstr(a:ts, '^\d\+\(\.0*[1-9][1-9]\?\)\?')
-    if extract =~ '[123456789]'
-      return extract . ' second' . (extract != '1' ? 's' : '')
-    endif
-  endif
-
-  " Generic but slow code.
-  let result = []
-  for [name, size] in s:units
-    if seconds >= size
-      let counter = seconds / size
-      let seconds = seconds % size
-      let suffix = counter != 1 ? 's' : ''
-      call add(result, printf('%i %s%s', counter, name, suffix))
-    endif
-  endfor
-
-  " Format the resulting text?
-  if len(result) == 1
-    return result[0]
-  else
-    return join(result[0:-2], ', ') . ' and ' . result[-1]
-  endif
-
 endfunction
 
 " vim: ts=2 sw=2 et

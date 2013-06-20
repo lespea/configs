@@ -1,11 +1,11 @@
 " Pathname manipulation functions.
 "
 " Author: Peter Odding <peter@peterodding.com>
-" Last Change: May 24, 2013
+" Last Change: June 19, 2013
 " URL: http://peterodding.com/code/vim/misc/
 
 let s:windows_compatible = xolox#misc#os#is_win()
-let s:mac_os_x_compatible = has('macunix')
+let s:mac_os_x_compatible = xolox#misc#os#is_mac()
 
 function! xolox#misc#path#which(...) " {{{1
   " Scan the executable search path (`$PATH`) for one or more external
@@ -44,7 +44,7 @@ function! xolox#misc#path#which(...) " {{{1
       endif
     endfor
   endfor
-  return matches
+  return xolox#misc#list#unique(matches)
 endfunction
 
 function! xolox#misc#path#split(path) " {{{1
@@ -93,7 +93,7 @@ function! xolox#misc#path#join(parts) " {{{1
   if type(a:parts) == type([])
     if s:windows_compatible
       return join(a:parts, xolox#misc#path#directory_separator())
-    elseif a:parts[0] == '/'
+    elseif get(a:parts, 0) == '/'
       " Absolute path on UNIX (non-Windows).
       return '/' . join(a:parts[1:], '/')
     else

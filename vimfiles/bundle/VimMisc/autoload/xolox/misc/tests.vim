@@ -1,7 +1,7 @@
 " Tests for the miscellaneous Vim scripts.
 "
 " Author: Peter Odding <peter@peterodding.com>
-" Last Change: June 2, 2013
+" Last Change: June 23, 2013
 " URL: http://peterodding.com/code/vim/misc/
 "
 " The Vim auto-load script `autoload/xolox/misc/tests.vim` contains the
@@ -17,6 +17,8 @@ function! xolox#misc#tests#run() " {{{1
   call s:test_list_handling()
   call s:test_option_handling()
   call s:test_command_execution()
+  call s:test_string_handling()
+  call s:test_version_handling()
   " Report a short summary to the user.
   call xolox#misc#test#summarize()
 endfunction
@@ -227,4 +229,62 @@ function! xolox#misc#tests#asynchronous_command_execution() " {{{2
   endwhile
   call xolox#misc#test#assert_true(filereadable(tempfile))
   call xolox#misc#test#assert_equals([expected_value], readfile(tempfile))
+endfunction
+
+" Tests for autoload/xolox/misc/str.vim {{{1
+
+function! s:test_string_handling()
+  call xolox#misc#test#wrap('xolox#misc#tests#string_case_transformation')
+  call xolox#misc#test#wrap('xolox#misc#tests#string_whitespace_compaction')
+  call xolox#misc#test#wrap('xolox#misc#tests#string_whitespace_trimming')
+  call xolox#misc#test#wrap('xolox#misc#tests#multiline_string_dedent')
+endfunction
+
+function! xolox#misc#tests#string_case_transformation()
+  " Test string case transformation with `xolox#misc#str#ucfirst()`.
+  call xolox#misc#test#assert_equals('Foo', xolox#misc#str#ucfirst('foo'))
+  call xolox#misc#test#assert_equals('BAR', xolox#misc#str#ucfirst('BAR'))
+endfunction
+
+function! xolox#misc#tests#string_whitespace_compaction()
+  " Test compaction of whitespace in strings with `xolox#misc#str#compact()`.
+  call xolox#misc#test#assert_equals('foo bar baz', xolox#misc#str#compact(' foo bar  baz  '))
+  call xolox#misc#test#assert_equals('test', xolox#misc#str#compact("\ntest "))
+endfunction
+
+function! xolox#misc#tests#string_whitespace_trimming()
+  " Test trimming of whitespace in strings with `xolox#misc#str#trim()`.
+  call xolox#misc#test#assert_equals('foo bar  baz', xolox#misc#str#trim("\nfoo bar  baz "))
+endfunction
+
+function! xolox#misc#tests#multiline_string_dedent()
+  " Test dedenting of multi-line strings with `xolox#misc#str#dedent()`.
+  call xolox#misc#test#assert_equals('test', xolox#misc#str#dedent('  test'))
+  call xolox#misc#test#assert_equals("1\n\n2", xolox#misc#str#dedent(" 1\n\n 2"))
+  call xolox#misc#test#assert_equals("1\n\n 2", xolox#misc#str#dedent(" 1\n\n  2"))
+endfunction
+
+" Tests for autoload/xolox/misc/version.vim {{{1
+
+function! s:test_version_handling()
+  call xolox#misc#test#wrap('xolox#misc#tests#version_string_parsing')
+  call xolox#misc#test#wrap('xolox#misc#tests#version_string_comparison')
+endfunction
+
+function! xolox#misc#tests#version_string_parsing() " {{{2
+  " Test parsing of version strings with `xolox#misc#version#parse()`.
+  call xolox#misc#test#assert_equals([1], xolox#misc#version#parse('1'))
+  call xolox#misc#test#assert_equals([1, 5], xolox#misc#version#parse('1.5'))
+  call xolox#misc#test#assert_equals([1, 22, 3333, 44444, 55555], xolox#misc#version#parse('1.22.3333.44444.55555'))
+  call xolox#misc#test#assert_equals([1, 5], xolox#misc#version#parse('1x.5y'))
+endfunction
+
+function! xolox#misc#tests#version_string_comparison() " {{{2
+  " Test comparison of version strings with `xolox#misc#version#at_least()`.
+  call xolox#misc#test#assert_true(xolox#misc#version#at_least('1', '1'))
+  call xolox#misc#test#assert_true(!xolox#misc#version#at_least('1', '0'))
+  call xolox#misc#test#assert_true(xolox#misc#version#at_least('1', '2'))
+  call xolox#misc#test#assert_true(xolox#misc#version#at_least('1.2.3', '1.2.3'))
+  call xolox#misc#test#assert_true(!xolox#misc#version#at_least('1.2.3', '1.2'))
+  call xolox#misc#test#assert_true(xolox#misc#version#at_least('1.2.3', '1.2.4'))
 endfunction

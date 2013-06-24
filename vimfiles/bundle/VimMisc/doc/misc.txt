@@ -56,9 +56,12 @@ Contents ~
    11. The |xolox#misc#path#is_relative()| function
    12. The |xolox#misc#path#tempdir()| function
   11. String handling                                    |misc-string-handling|
-   1. The |xolox#misc#str#ucfirst()| function
-   2. The |xolox#misc#str#compact()| function
-   3. The |xolox#misc#str#trim()| function
+   1. The |xolox#misc#str#slug()| function
+   2. The |xolox#misc#str#ucfirst()| function
+   3. The |xolox#misc#str#compact()| function
+   4. The |xolox#misc#str#trim()| function
+   5. The |xolox#misc#str#indent()| function
+   6. The |xolox#misc#str#dedent()| function
   12. Test runner & infrastructure for Vim plug-ins |misc-test-runner-infrastructure-for-vim-plug-ins|
    1. The |xolox#misc#test#reset()| function
    2. The |xolox#misc#test#summarize()| function
@@ -86,10 +89,19 @@ function
    14. The |xolox#misc#tests#synchronous_command_execution_without_raising_errors()|
 function
    15. The |xolox#misc#tests#asynchronous_command_execution()| function
+   16. The |xolox#misc#tests#string_case_transformation()| function
+   17. The |xolox#misc#tests#string_whitespace_compaction()| function
+   18. The |xolox#misc#tests#string_whitespace_trimming()| function
+   19. The |xolox#misc#tests#multiline_string_dedent()| function
+   20. The |xolox#misc#tests#version_string_parsing()| function
+   21. The |xolox#misc#tests#version_string_comparison()| function
   14. Timing of long during operations  |misc-timing-of-long-during-operations|
    1. The |xolox#misc#timer#start()| function
    2. The |xolox#misc#timer#stop()| function
    3. The |xolox#misc#timer#force()| function
+  15. Version string handling                    |misc-version-string-handling|
+   1. The |xolox#misc#version#parse()| function
+   2. The |xolox#misc#version#at_least()| function
  4. Contact                                                      |misc-contact|
  5. License                                                      |misc-license|
  6. References                                                |misc-references|
@@ -137,8 +149,8 @@ For those who are curious: The function descriptions given below were extracted
 from the source code of the miscellaneous scripts using the Python module
 'vimdoctool.py' included in vim-tools [5].
 
-The documentation of the 68 functions below was extracted from 15 Vim scripts
-on June 19, 2013 at 22:53.
+The documentation of the 79 functions below was extracted from 15 Vim scripts
+on June 25, 2013 at 00:11.
 
 -------------------------------------------------------------------------------
                                              *misc-handling-of-special-buffers*
@@ -556,20 +568,36 @@ Create a temporary directory and return the pathname of the directory.
 String handling ~
 
 -------------------------------------------------------------------------------
+The *xolox#misc#str#slug()* function
+
+Convert a string to a "slug" - something that can be safely used in filenames
+and URLs without worrying about quoting/escaping of special characters.
+
+-------------------------------------------------------------------------------
 The *xolox#misc#str#ucfirst()* function
 
-Uppercase the first character in a string.
+Uppercase the first character in a string (the first argument).
 
 -------------------------------------------------------------------------------
 The *xolox#misc#str#compact()* function
 
-Compact whitespace in the string given as the first argument.
+Compact whitespace in a string (the first argument).
 
 -------------------------------------------------------------------------------
 The *xolox#misc#str#trim()* function
 
-Trim all whitespace from the start and end of the string given as the first
-argument.
+Trim all whitespace from the start and end of a string (the first argument).
+
+-------------------------------------------------------------------------------
+The *xolox#misc#str#indent()* function
+
+Indent all lines in a multi-line string (the first argument) with a specific
+number of _space characters_ (the second argument, an integer).
+
+-------------------------------------------------------------------------------
+The *xolox#misc#str#dedent()* function
+
+Remove common whitespace from a multi line string.
 
 -------------------------------------------------------------------------------
                              *misc-test-runner-infrastructure-for-vim-plug-ins*
@@ -724,6 +752,36 @@ Test basic functionality of asynchronous command execution with
 |xolox#misc#os#exec()|.
 
 -------------------------------------------------------------------------------
+The *xolox#misc#tests#string_case_transformation()* function
+
+Test string case transformation with |xolox#misc#str#ucfirst()|.
+
+-------------------------------------------------------------------------------
+The *xolox#misc#tests#string_whitespace_compaction()* function
+
+Test compaction of whitespace in strings with |xolox#misc#str#compact()|.
+
+-------------------------------------------------------------------------------
+The *xolox#misc#tests#string_whitespace_trimming()* function
+
+Test trimming of whitespace in strings with |xolox#misc#str#trim()|.
+
+-------------------------------------------------------------------------------
+The *xolox#misc#tests#multiline_string_dedent()* function
+
+Test dedenting of multi-line strings with |xolox#misc#str#dedent()|.
+
+-------------------------------------------------------------------------------
+The *xolox#misc#tests#version_string_parsing()* function
+
+Test parsing of version strings with |xolox#misc#version#parse()|.
+
+-------------------------------------------------------------------------------
+The *xolox#misc#tests#version_string_comparison()* function
+
+Test comparison of version strings with |xolox#misc#version#at_least()|.
+
+-------------------------------------------------------------------------------
                                         *misc-timing-of-long-during-operations*
 Timing of long during operations ~
 
@@ -751,6 +809,21 @@ Show a formatted message to the user. This function has the same argument
 handling as Vim's |printf()| function with one difference: At the point where
 you want the elapsed time to be embedded, you write '%s' and you pass the list
 returned by |xolox#misc#timer#start()| as an argument.
+
+-------------------------------------------------------------------------------
+                                                 *misc-version-string-handling*
+Version string handling ~
+
+-------------------------------------------------------------------------------
+The *xolox#misc#version#parse()* function
+
+Convert a version string to a list of integers.
+
+-------------------------------------------------------------------------------
+The *xolox#misc#version#at_least()* function
+
+Check whether the second version string is equal to or greater than the first
+version string. Returns 1 (true) when it is, 0 (false) otherwise.
 
 ===============================================================================
                                                                  *misc-contact*

@@ -43,6 +43,7 @@ xolox#misc#option#join()	misc.txt	/*xolox#misc#option#join()*
 xolox#misc#option#join_tags()	misc.txt	/*xolox#misc#option#join_tags()*
 xolox#misc#option#split()	misc.txt	/*xolox#misc#option#split()*
 xolox#misc#option#split_tags()	misc.txt	/*xolox#misc#option#split_tags()*
+xolox#misc#os#can_use_dll()	misc.txt	/*xolox#misc#os#can_use_dll()*
 xolox#misc#os#exec()	misc.txt	/*xolox#misc#os#exec()*
 xolox#misc#os#find_vim()	misc.txt	/*xolox#misc#os#find_vim()*
 xolox#misc#os#is_mac()	misc.txt	/*xolox#misc#os#is_mac()*
@@ -75,7 +76,6 @@ xolox#misc#test#summarize()	misc.txt	/*xolox#misc#test#summarize()*
 xolox#misc#test#wrap()	misc.txt	/*xolox#misc#test#wrap()*
 xolox#misc#tests#asynchronous_command_execution()	misc.txt	/*xolox#misc#tests#asynchronous_command_execution()*
 xolox#misc#tests#binary_insertion()	misc.txt	/*xolox#misc#tests#binary_insertion()*
-xolox#misc#tests#evaluation_of_tags_option()	misc.txt	/*xolox#misc#tests#evaluation_of_tags_option()*
 xolox#misc#tests#finding_vim_on_the_search_path()	misc.txt	/*xolox#misc#tests#finding_vim_on_the_search_path()*
 xolox#misc#tests#getting_configuration_options()	misc.txt	/*xolox#misc#tests#getting_configuration_options()*
 xolox#misc#tests#joining_of_multi_valued_options()	misc.txt	/*xolox#misc#tests#joining_of_multi_valued_options()*
@@ -91,6 +91,7 @@ xolox#misc#tests#string_whitespace_trimming()	misc.txt	/*xolox#misc#tests#string
 xolox#misc#tests#substitute_escaping()	misc.txt	/*xolox#misc#tests#substitute_escaping()*
 xolox#misc#tests#synchronous_command_execution()	misc.txt	/*xolox#misc#tests#synchronous_command_execution()*
 xolox#misc#tests#synchronous_command_execution_with_raising_of_errors()	misc.txt	/*xolox#misc#tests#synchronous_command_execution_with_raising_of_errors()*
+xolox#misc#tests#synchronous_command_execution_with_stderr()	misc.txt	/*xolox#misc#tests#synchronous_command_execution_with_stderr()*
 xolox#misc#tests#synchronous_command_execution_without_raising_errors()	misc.txt	/*xolox#misc#tests#synchronous_command_execution_without_raising_errors()*
 xolox#misc#tests#version_string_comparison()	misc.txt	/*xolox#misc#tests#version_string_comparison()*
 xolox#misc#tests#version_string_parsing()	misc.txt	/*xolox#misc#tests#version_string_parsing()*

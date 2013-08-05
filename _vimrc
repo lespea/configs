@@ -405,7 +405,7 @@ let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_enable_camel_case_completion = 0
 let g:neocomplcache_enable_underbar_completion = 0
 imap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <CR> <C-R>=neocomplcache#smart_close_popup()<CR><CR>
+imap <expr> <CR> pumvisible() ? neocomplcache#close_popup() : '<Plug>delimitMateCR'
 inoremap <expr><C-h>  neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()

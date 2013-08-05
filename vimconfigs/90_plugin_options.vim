@@ -133,7 +133,7 @@ let g:neocomplcache_enable_underbar_completion = 0
 imap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " <CR>: close popup and save indent.
-inoremap <CR> <C-R>=neocomplcache#smart_close_popup()<CR><CR>
+imap <expr> <CR> pumvisible() ? neocomplcache#close_popup() : '<Plug>delimitMateCR'
 
 
 " <C-h>, <BS>: close popup and delete backword char.

@@ -1,11 +1,11 @@
-" "  _____             _ ___ ___ ___      "
-" " |   __|___ ___ _ _| |_  |  _|  _|     "
-" " |__   | -_| . | | | |  _|_  | . |     "
-" " |_____|___|___|___|_|___|___|___|.vim "
+" "  _____             _ ___ ___ ___            "
+" " |   __|___ ___ _ _| |_  |  _|  _|           "
+" " |__   | -_| . | | | |  _|_  | . |           "
+" " |_____|___|___|___|_|___|___|___|-light.vim "
 "
-" " Low-contrast dark Vim color scheme using Seoul Colors "
+" " Low-contrast light Vim color scheme using Seoul Colors "
 "
-" File:         seoul256.vim
+" File:         seoul256-light.vim
 " URL:          github.com/junegunn/seoul256.vim
 " Author:       Junegunn Choi (junegunn.c@gmail.com)
 " Version:      1.2.11
@@ -88,16 +88,20 @@ let s:rgb_map = {
 \ }
 
 function! s:hi(item, fg, bg)
+  let fg = a:fg > 255 ? 231 : a:fg
+  let bg = a:bg > 255 ? 231 : a:bg
   if empty(a:bg)
-    execute printf("highlight %s ctermfg=%s guifg=%s", a:item, a:fg, s:rgb_map[a:fg])
+    execute printf("highlight %s ctermfg=%s guifg=%s", a:item, fg, s:rgb_map[fg])
   elseif empty(a:fg)
-    execute printf("highlight %s ctermbg=%s guibg=%s", a:item, a:bg, s:rgb_map[a:bg])
+    execute printf("highlight %s ctermbg=%s guibg=%s", a:item, bg, s:rgb_map[bg])
   else
-    execute printf("highlight %s ctermfg=%s guifg=%s ctermbg=%s guibg=%s", a:item, a:fg, s:rgb_map[a:fg], a:bg, s:rgb_map[a:bg])
+    execute printf("highlight %s ctermfg=%s guifg=%s ctermbg=%s guibg=%s", a:item, fg, s:rgb_map[fg], bg, s:rgb_map[bg])
   endif
 endfunction
 
-let s:seoul256_background = min([max([get(g:, 'seoul256_background', 237), 234]), 239])
+let s:seoul256_background = min([max([get(g:, 'seoul256_background', 253), 252]), 256])
+let s:seoul256_background1 = min([s:seoul256_background + 1, 255])
+let s:seoul256_background2 = min([s:seoul256_background + 2, 255])
 
 if !has('gui_running')
   set t_Co=256
@@ -108,52 +112,52 @@ hi clear
 if exists("syntax_on")
   syntax reset
 endif
-call s:hi('Normal', 252, s:seoul256_background)
-set background=dark
+call s:hi('Normal', 239, s:seoul256_background)
+set background=light
 
-call s:hi('LineNr', 101, s:seoul256_background + 1)
-call s:hi('Visual', '', 23)
-call s:hi('VisualNOS', '', 23)
+call s:hi('LineNr', 101, s:seoul256_background - 2)
+call s:hi('Visual', '', 152)
+call s:hi('VisualNOS', '', 152)
 
 call s:hi('Comment', 65, '')
-call s:hi('Number', 222, '')
-call s:hi('Float', 222, '')
-call s:hi('Boolean', 103, '')
-call s:hi('String', 109, '')
-call s:hi('Constant', 73, '')
-call s:hi('Character', 174, '')
-call s:hi('Delimiter', 137, '')
-call s:hi('StringDelimiter', 137, '')
-call s:hi('Statement', 108, '')
+call s:hi('Number', 95, '')
+call s:hi('Float', 95, '')
+call s:hi('Boolean', 168, '')
+call s:hi('String', 30, '')
+call s:hi('Constant', 23, '')
+call s:hi('Character', 168, '')
+call s:hi('Delimiter', 94, '')
+call s:hi('StringDelimiter', 94, '')
+call s:hi('Statement', 66, '')
 " case, default, etc.
 " hi Label ctermfg=
 
 " if else end
-call s:hi('Conditional', 110, '')
+call s:hi('Conditional', 31, '')
 
 " while end
-call s:hi('Repeat', 68, '')
-call s:hi('Todo', 161, s:seoul256_background - 2)
-call s:hi('Function', 187, '')
+call s:hi('Repeat', 67, '')
+call s:hi('Todo', 125, s:seoul256_background2)
+call s:hi('Function', 58, '')
 
 " Macros
-call s:hi('Define', 173, '')
-call s:hi('Macro', 173, '')
-call s:hi('Include', 173, '')
-call s:hi('PreCondit', 173, '')
+call s:hi('Define', 131, '')
+call s:hi('Macro', 131, '')
+call s:hi('Include', 131, '')
+call s:hi('PreCondit', 131, '')
 
 
 " #!
-call s:hi('PreProc', 143, '')
+call s:hi('PreProc', 58, '')
 
 " @abc
-call s:hi('Identifier', 217, '')
+call s:hi('Identifier', 96, '')
 
 " AAA Abc
-call s:hi('Type', 179, '')
+call s:hi('Type', 94, '')
 
 " + - * / <<
-call s:hi('Operator', 186, '')
+call s:hi('Operator', 131, '')
 
 " super yield
 call s:hi('Keyword', 168, '')
@@ -162,16 +166,16 @@ call s:hi('Keyword', 168, '')
 call s:hi('Exception', 161, '')
 "
 " hi StorageClass ctermfg=
-call s:hi('Structure', 116, '')
+call s:hi('Structure', 23, '')
 " hi Typedef ctermfg=
 
-call s:hi('Error', 252, 52)
-call s:hi('ErrorMsg', 252, 52)
-call s:hi('Underlined', 181, '')
+call s:hi('Error', s:seoul256_background1, 174)
+call s:hi('ErrorMsg', s:seoul256_background1, 168)
+call s:hi('Underlined', 168, '')
 
 " set textwidth=80
 " set colorcolumn=+1
-call s:hi('ColorColumn', '', s:seoul256_background - 1)
+call s:hi('ColorColumn', '', s:seoul256_background - 2)
 
 " GVIM only
 " hi Cursor ctermfg=
@@ -182,21 +186,20 @@ call s:hi('CursorLine', '', s:seoul256_background - 1)
 call s:hi('CursorLineNr', 131, s:seoul256_background - 1)
 call s:hi('CursorColumn', '', s:seoul256_background - 1)
 
-call s:hi('Directory', 187, '')
+call s:hi('Directory', 95, '')
 
-call s:hi('DiffAdd', 'NONE', 24)
-call s:hi('DiffDelete', 'NONE', 95)
-call s:hi('DiffChange', 'NONE', 240)
-call s:hi('DiffText', 'NONE', 52)
+call s:hi('DiffAdd', 'NONE', 189)
+call s:hi('DiffDelete', 'NONE', 181)
+call s:hi('DiffChange', 'NONE', 151)
+call s:hi('DiffText', 'NONE', 224)
 
-call s:hi('DiffText', 'NONE', 52)
-call s:hi('VertSplit', s:seoul256_background - 2, s:seoul256_background - 2)
-call s:hi('Folded', 101, s:seoul256_background + 1)
+call s:hi('VertSplit', s:seoul256_background - 3, s:seoul256_background - 3)
+call s:hi('Folded', 101, s:seoul256_background - 2)
 
 " set foldcolumn=1
-call s:hi('FoldColumn', 144, s:seoul256_background + 1)
+call s:hi('FoldColumn', 94, s:seoul256_background - 2)
 
-call s:hi('MatchParen', 232, '')
+call s:hi('MatchParen', s:seoul256_background2, '')
 
 " -- INSERT --
 call s:hi('ModeMsg', 173, '')
@@ -207,23 +210,23 @@ call s:hi('NonText', 101, '')
 call s:hi('MoreMsg', 173, '')
 
 " Popup menu
-call s:hi('Pmenu', s:seoul256_background + 1, 224)
+call s:hi('Pmenu', 238, 224)
 call s:hi('PmenuSel', 252, 89)
 call s:hi('PmenuSbar', '', 65)
 call s:hi('PmenuThumb', '', 23)
 
-call s:hi('Search', 252, 24)
-call s:hi('IncSearch', 220, s:seoul256_background + 1)
+call s:hi('Search', 255, 74)
+call s:hi('IncSearch', 220, 238)
 
 " String delimiter, interpolation
-call s:hi('Special', 216, '')
+call s:hi('Special', 173, '')
 " hi SpecialChar ctermfg=
 " hi SpecialComment ctermfg=
 " hi Tag ctermfg=
 " hi Debug ctermfg=
 
 " :map, listchars
-call s:hi('SpecialKey', 59, '')
+call s:hi('SpecialKey', 145, '')
 
 " TODO: spell check
 call s:hi('SpellBad', 252, 95)
@@ -233,20 +236,20 @@ call s:hi('SpellRare', 252, 95)
 
 "
 call s:hi('StatusLine', 95, 187)
-call s:hi('StatusLineNC', s:seoul256_background + 2, 187)
-call s:hi('TabLineFill', s:seoul256_background + 2, '')
-call s:hi('TabLineSel', 187, 23)
-call s:hi('TabLine', s:seoul256_background + 12, s:seoul256_background + 4)
+call s:hi('StatusLineNC', s:seoul256_background - 2, 238)
+call s:hi('TabLineFill', s:seoul256_background - 2, '')
+call s:hi('TabLineSel', 187, 66)
+call s:hi('TabLine', s:seoul256_background - 12, s:seoul256_background - 4)
 call s:hi('WildMenu', 95, 184)
 
 " :set all
-call s:hi('Title', 181, '')
+call s:hi('Title', 88, '')
 
 " TODO
-call s:hi('Question', 179, '')
+call s:hi('Question', 88, '')
 
 " Search hit bottom
-call s:hi('WarningMsg', 179, '')
+call s:hi('WarningMsg', 88, '')
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 " Plugins
@@ -254,27 +257,27 @@ call s:hi('WarningMsg', 179, '')
 
 " indentLine
 " ----------
-call s:hi('Conceal', s:seoul256_background + 1, s:seoul256_background)
-call s:hi('Ignore', s:seoul256_background + 1, s:seoul256_background)
-let g:indentLine_color_term = s:seoul256_background + 1
-let g:indentLine_color_gui  = s:rgb_map[s:seoul256_background + 1]
+call s:hi('Conceal', s:seoul256_background - 2, s:seoul256_background)
+call s:hi('Ignore', s:seoul256_background - 2, s:seoul256_background)
+let g:indentLine_color_term = s:seoul256_background - 2
+let g:indentLine_color_gui  = s:rgb_map[s:seoul256_background - 2]
 
 " vim-indent-guides
 " -----------------
 let g:indent_guides_auto_colors = 0
-call s:hi('IndentGuidesOdd', '', s:seoul256_background - 1)
-call s:hi('IndentGuidesEven', '', s:seoul256_background + 1)
+call s:hi('IndentGuidesOdd', '', s:seoul256_background + 1)
+call s:hi('IndentGuidesEven', '', s:seoul256_background - 1)
 
 " vim-scroll-position
 " -------------------
 call s:hi('SignColumn', 173, s:seoul256_background)
-call s:hi('ScrollPositionMarker', 173, s:seoul256_background + 1)
-call s:hi('ScrollPositionVisualBegin', 168, s:seoul256_background + 1)
-call s:hi('ScrollPositionVisualMiddle', 168, s:seoul256_background + 1)
-call s:hi('ScrollPositionVisualEnd', 168, s:seoul256_background + 1)
-call s:hi('ScrollPositionVisualOverlap', 168, s:seoul256_background + 1)
-call s:hi('ScrollPositionChange', 173, s:seoul256_background + 1)
-call s:hi('ScrollPositionJump', 173, s:seoul256_background + 1)
+call s:hi('ScrollPositionMarker', 173, s:seoul256_background - 2)
+call s:hi('ScrollPositionVisualBegin', 88, s:seoul256_background - 2)
+call s:hi('ScrollPositionVisualMiddle', 88, s:seoul256_background - 2)
+call s:hi('ScrollPositionVisualEnd', 88, s:seoul256_background - 2)
+call s:hi('ScrollPositionVisualOverlap', 88, s:seoul256_background - 2)
+call s:hi('ScrollPositionChange', 173, s:seoul256_background - 2)
+call s:hi('ScrollPositionJump', 173, s:seoul256_background - 2)
 
 " vim-gitgutter
 " -------------
@@ -285,7 +288,7 @@ call s:hi('GitGutterChangeDelete', 168, '')
 
 " http://vim.wikia.com/wiki/Highlight_unwanted_spaces     
 " ---------------------------------------------------^^^^^
-call s:hi('ExtraWhitespace', '', s:seoul256_background - 1)
+call s:hi('ExtraWhitespace', '', s:seoul256_background - 2)
 
 " vim-ruby
 " --------
@@ -293,17 +296,17 @@ call s:hi('ExtraWhitespace', '', s:seoul256_background - 1)
 let ruby_operators = 1
 call s:hi('rubyClass', 31, '')
 " call s:hi('rubyInstanceVariable', 189, '')
-call s:hi('rubyRegexp', 186, '')
+call s:hi('rubyRegexp', 101, '')
 call s:hi('rubyRegexpDelimiter', 168, '')
-call s:hi('rubyArrayDelimiter', 67, '')
-call s:hi('rubyBlockParameterList', 186, '')
-call s:hi('rubyCurlyBlockDelimiter', 144, '')
+call s:hi('rubyArrayDelimiter', 38, '')
+call s:hi('rubyBlockParameterList', 94, '')
+call s:hi('rubyCurlyBlockDelimiter', 101, '')
 
 " ARGV $stdout
-call s:hi('rubyPredefinedIdentifier', 230, '')
+call s:hi('rubyPredefinedIdentifier', 52, '')
 " hi rubyRegexpSpecial
 
 hi CursorLine cterm=NONE
 hi CursorLineNr cterm=NONE
 
-let g:colors_name = "seoul256"
+let g:colors_name = 'seoul256-light'

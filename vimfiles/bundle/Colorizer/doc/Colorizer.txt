@@ -1,10 +1,10 @@
 *Colorizer.txt*   A plugin to color colornames and codes
 
 Author:     Christian Brabandt <cb@256bit.org>
-Version:    0.6 Thu, 17 May 2012 21:03:52 +0200
-Copyright:  (c) 2009, 2010, 2011, 2012 by Christian Brabandt         
+Version:    0.9 Wed, 14 Aug 2013 22:13:54 +0200
+Copyright:  (c) 2009-2013 by Christian Brabandt
             The VIM LICENSE applies to Colorizer.txt
-            (see |copyright|) except use NrrwRgnPlugin instead of "Vim".
+            (see |copyright|) except use ColorizerPlugin instead of "Vim".
             NO WARRANTY, EXPRESS OR IMPLIED.  USE AT-YOUR-OWN-RISK.
 
 
@@ -19,6 +19,7 @@ Contents                                                        *Colorizer*
                 1.4 :HSL2RGB.............................|:HSL2RGB|
                 1.5 :ColorContrast.......................|:ColorContrast|
                 1.6 :ColorSwapFgBg.......................|:ColorSwapFgBg|
+                1.7 :ColorToggle.........................|:ColorToggle|
         2.  Configuration................................|Colorizer-config|
                 2.1 Automatic loading....................|Colorizer-auto|
                 2.2 Automatically highlight filetypes....|Colorizer-hl-ft|
@@ -26,6 +27,8 @@ Contents                                                        *Colorizer*
                 2.4 Adjust the contrast..................|Colorizer-contrast|
                 2.5 Highlight colornames.................|Colorizer-hl-names|
                 2.6 Use X11 colornames...................|Colorizer-names|
+                2.7 Use syntax highlighting..............|Colorizer-syntax|
+                2.8 Specify patterns to highlight........|Colorizer-pattern|
         3.  Colorizer Mappings...........................|Colorizer-maps|
         4.  Colorizer Tips...............................|Colorizer-tips|
         5.  Colorizer Feedback...........................|Colorizer-feedback|
@@ -57,10 +60,18 @@ matches in the file.
 This plugin defines the following commands:
 
                                                               *:ColorHighlight*
-:[range]ColorHighlight[!]   Scan the lines given by [range] for color codes
-                            names and highlight those. If [range] is omitted,
-                            the whole file will be scanned. If the ! is used,
-                            the plugin will redefine all highlighting groups.
+:[range]ColorHighlight[!] [args]
+
+Scan the lines given by [range] for color codes names and highlight those. If
+[range] is omitted, the whole file will be scanned. If the ! is used, the
+plugin will redefine all highlighting groups. If ! is not used, it will also
+skip patterns, that would take too long and make Vim unresponsive.
+
+[args] can by any of "syntax" or "match". Syntax means to convert the
+highlighting to syntax highlighting. This is useful, so a plugin like
+|2html.vim| can convert the colors correctly to website. The default is
+"match", which means to use the |matchadd()| function. (Prepending a "no" is
+allowed, to disable that setting and use the opposite).
 
                                                                  *:ColorClear*
 :ColorClear                 Turn off Color highlighting.
@@ -72,7 +83,7 @@ This plugin defines the following commands:
                             format #RRGGBB (the hex format of the colors reg,
                             green and blue the '#' is optional or
                             alternatively like rgb(X,X,X)
-                            
+
                             Uses the number of colors your terminal is capable
                             to handle (or 256 colors for gVim).
 
@@ -95,7 +106,9 @@ This plugin defines the following commands:
                             highlight the foreground color back to normal
                             forground background color.
 
-
+                                                               *:ColorToggle*
+:ColorToggle                Switch between highlighting colors and no
+                            highlighting.
 
 ==============================================================================
 2 Colorizer Configuration                                   *Colorizer-config*
@@ -172,6 +185,45 @@ the CSS Specification. To use the X11 color names, set the variable
     let g:colorizer_x11_names = 1
 <
 
+2.7 Use syntax highlighting                                     *Colorizer-syntax*
+---------------------------
+
+The plugin by default uses the |matchadd()| functions for highlighting colors
+on the fly. Unfortunately, this is a problem, if you want to have the result
+successfully transformed to html file with the |2html.vim| plugin. Therefore,
+the Colorizer plugin can also convert the highlighting to correct syntax
+highlighting. Use either the >
+
+    :ColorHighlight syntax
+<
+command (see |:ColorHighlight|) or set the variable 'g:colorizer_syntax' to 1,
+e.g. in your |.vimrc| put >
+
+    let g:colorizer_syntax = 1
+<
+
+2.8 Specify pattern to highlight                         *Colorizer-pattern*
+--------------------------------
+
+By default, Colorizer detects the following patterns and highlight them as hex
+colors (for better readibility separated into 3 parts by whitespace): >
+
+        #	%(\x\{3}\|\x\{6}\)	\%(\>\|[-_]\)\@=/'
+<
+
+This means it always looks for a '#' followed by either a 3 or 6 hexadecimal
+digits denoting the RGB hex color codes, followed by either the word-boundary
+(|/\>|) or be either a hyphen or a underscore. But highlighted will be only
+the first and middle part (e.g. the RGB color codes).
+
+You can of course specify a different pattern for your needs by setting the
+g:colorizer_hex_pattern variable. e.g. to display '#RRGGBB' and have all of it
+highlighted, use >
+
+        let g:colorizer_hex_pattern = ['#', '\%(\x\{3}\|\x\{6}\)', '']
+
+<
+
 ==============================================================================
 3. Colorizer Mappings                                      *Colorizer-maps*
 ==============================================================================
@@ -236,10 +288,40 @@ looking at my Amazon whishlist: http://www.amazon.de/wishlist/2BKAHE8J7Z6UW
 6. Colorizer History                                       *Colorizer-history*
 ==============================================================================
 
+0.9 Aug 14, 2013: {{{1
+- https://github.com/chrisbra/color_highlight/issues/15 (rgba highlighting
+  didn't work for floating point value of alpha, reported by LiTuX.S, thanks!)
+- https://github.com/chrisbra/color_highlight/issues/16 (rgb() pattern did
+  match too much, reported by taecilla, thanks!)
+- https://github.com/chrisbra/color_highlight/issues/19 (error on calling
+  ColorWinEnter() command, reported by wedgwood, thanks!)
+- https://github.com/chrisbra/color_highlight/issues/20 and
+  https://github.com/chrisbra/color_highlight/issues/21
+  (also color on split commands, reported by wedgwood and Andri Möll, Thanks!)
+- https://github.com/chrisbra/color_highlight/issues/22 (Make sure, patterns
+  like white-space won't get colored, reported by Andri Möll, Thanks!)
+- https://github.com/chrisbra/color_highlight/issues/23 (ColorToggle got
+  confused when several windows with highlighting exists, reported by Andri
+  Möll, Thanks!)
+- https://github.com/chrisbra/color_highlight/issues/24 (turning off coloring
+  should also remove the autocommands, reported by Andri Möll, Thanks!)
+
+0.8: Dec 14, 2012 {{{1
+- https://github.com/chrisbra/color_highlight/issues/13 (colorizing should not
+  stop at word-boundaries, reported by teschmitz, thanks!)
+- https://github.com/chrisbra/color_highlight/issues/14 (convert highlighting
+  to syntax groups, so TOhtml works, reported by teschmitz, thanks!)
+
+0.7: Jul 25, 2012 {{{1
+- Highlight rgb colors with whitespace after comma (reported by sergey-vlasov
+  in https://github.com/chrisbra/color_highlight/issues/12, thanks!)
+- Save and restore the search register, so the plugin doesn't clobber it
+- check for 'ed' and 'gd' defaults
+
 0.6: May 17, 2012 {{{1
-- Fix various issues with hsl coloring (reported by teschmitz in 
+- Fix various issues with hsl coloring (reported by teschmitz in
   https://github.com/chrisbra/color_highlight/issues/9, thanks!)
-- Make it possible, to skip coloring comments (reported by teschmitz in 
+- Make it possible, to skip coloring comments (reported by teschmitz in
   https://github.com/chrisbra/color_highlight/issues/10, thanks!)
 - search highlighting should overrule color highlighting(reported by teschmitz
   in https://github.com/chrisbra/color_highlight/issues/11, thanks!)
@@ -284,7 +366,6 @@ looking at my Amazon whishlist: http://www.amazon.de/wishlist/2BKAHE8J7Z6UW
 0.1: Mar 02, 2012 {{{1
 - first internal version
   }}}
-
 ==============================================================================
 Modeline:
 vim:tw=78:ts=8:ft=help:et:fdm=marker:fdl=0:norl

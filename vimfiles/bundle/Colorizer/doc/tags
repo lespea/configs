@@ -2,6 +2,7 @@
 :ColorContrast	Colorizer.txt	/*:ColorContrast*
 :ColorHighlight	Colorizer.txt	/*:ColorHighlight*
 :ColorSwapFgBg	Colorizer.txt	/*:ColorSwapFgBg*
+:ColorToggle	Colorizer.txt	/*:ColorToggle*
 :HSL2RGB	Colorizer.txt	/*:HSL2RGB*
 :RGB2Xterm	Colorizer.txt	/*:RGB2Xterm*
 Colorizer	Colorizer.txt	/*Colorizer*
@@ -16,5 +17,7 @@ Colorizer-hl-names	Colorizer.txt	/*Colorizer-hl-names*
 Colorizer-manual	Colorizer.txt	/*Colorizer-manual*
 Colorizer-maps	Colorizer.txt	/*Colorizer-maps*
 Colorizer-names	Colorizer.txt	/*Colorizer-names*
+Colorizer-pattern	Colorizer.txt	/*Colorizer-pattern*
+Colorizer-syntax	Colorizer.txt	/*Colorizer-syntax*
 Colorizer-tips	Colorizer.txt	/*Colorizer-tips*
 Colorizer.txt	Colorizer.txt	/*Colorizer.txt*

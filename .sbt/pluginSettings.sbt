@@ -2,9 +2,14 @@ import AssemblyKeys._
 
 import scalariform.formatter.preferences._
 
+import de.johoop.jacoco4sbt._
+import JacocoPlugin._
+
 assemblySettings
 
 seq(npSettings: _*)
+
+seq(jacoco.settings : _*)
 
 EclipseKeys.withSource := true
 

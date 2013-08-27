@@ -32,6 +32,11 @@ VirtualBox\ VMs
 .cpanplus
 .terminator/
 .terminfo/
+.sbt/0.13/boot
+.sbt/0.13/target/
+.sbt/0.13/plugins/project
+.sbt/0.13/plugins/target
+.sbt/0.13/cache
 .sbt/boot
 .sbt/target/
 .sbt/plugins/project

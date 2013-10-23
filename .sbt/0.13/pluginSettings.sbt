@@ -22,3 +22,5 @@ ScalariformKeys.preferences := FormattingPreferences()
 site.settings
 
 net.virtualvoid.sbt.graph.Plugin.graphSettings
+
+org.scalastyle.sbt.ScalastylePlugin.Settings

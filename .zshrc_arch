@@ -106,6 +106,6 @@ alias sbtd='sbt -mem 4096 -Dcom.sun.management.jmxremote -Dcom.sun.management.jm
 
 
 #  If we have custom things we need to setup, do that now
-if [[ -f ".zsh_custom" ]]; then
-    source ".zsh_custom"
+if [[ -f ~/.zsh_custom ]]; then
+    source ~/.zsh_custom
 fi

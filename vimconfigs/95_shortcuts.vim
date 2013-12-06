@@ -247,7 +247,7 @@ nmap <silent> <C-F11> :if &guioptions=~'m' \| set guioptions-=m \| else \| set g
 noremap <silent> \rti :silent %!perl -nMNet::IP -MNet::Netmask -MModern::Perl -e'chomp;my $n = Net::IP->new(Net::Netmask->new($_));say join "\t", $n->intip, $n->last_int'<CR>
 
 "  Turn all of the lines that look like IPs into int ips
-noremap <silent> \tip :silent %!perl -MModern::Perl=2011 -MNet::IP -ne "chomp;say /^(?:\d{1,3}\.){3}\d{1,3}$/ ? Net::IP->new($_)->intip : $_"<CR>
+noremap <silent> \tip :silent %!perl -MModern::Perl=2011 -MNet::IP -ne 'chomp;say /^(?:\d{1,3}\.){3}\d{1,3}$/ ? Net::IP->new($_)->intip : $_'<CR>
 
 "  Make the IP list for grep_reseal
 noremap <silent> \rs :set nowrap<CR>ggdG"+p:%s/\s\+/\r/e<CR>:silent noh<CR>:sort u<CR>ggVGJ:s/#N[\/\\]A\>\s*//ie<CR>:silent noh<CR>$V
@@ -269,3 +269,4 @@ noremap <silent> ,sl :%s/\t/\r/<CR>
 
 "  Extract all of the links out of the current file
 noremap <silent> \el :silent %!perl -MModern::Perl=2011 -MHTML::TreeBuilder -MText::Trim -e 'my$h=HTML::TreeBuilder->new;while(<>){$h->parse($_)}$h->eof;my \%l;for my $li(@{$h->elementify->extract_links}){my $ln=trim $li->[0];$l{$ln}++ unless $ln =~ /^(?:\#<bar>\s*$)/;}say $_ for sort keys \%l'<CR>
+

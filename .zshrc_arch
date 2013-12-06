@@ -32,20 +32,21 @@ ZSH_THEME="blinks"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-#gpg-agent 
-plugins=(git archlinux command-not-found encode64 git-extras git-flow lein mercurial mvn screen svn systemd urltools)
+#gpg-agent
+
+#  Makes browsing large repos bearable
+#DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+plugins=(git archlinux command-not-found encode64 git-extras git-flow lein mercurial mvn screen svn systemd urltools yaourt)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/home/adam/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/bin/core_perl:usr/bin/site_perl/:$PATH
-
-
-eval "$(fasd --init auto)"
+export PATH=/home/$USERNAME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/bin/core_perl:usr/bin/site_perl/:$PATH
 
 export EDITOR="vim"
 
-alias ls='ls --color'
+alias ls='ls -h --color'
 
 alias ll='ls -l'
 alias la='ls -A'
@@ -64,12 +65,13 @@ alias gitk='gitk --all'
 
 alias re='re.pl'
 
-alias -g xzo='-print0|xargs -0'
-alias -g xzoo='-print0|xargs -0 -I{}'
-alias -g G='| grep'
-alias -g Gi='| grep -i'
-alias -g L='| less'
-alias -g Li='| wc -l'
+alias -g G='| grep --color=always'
+alias -g Gi='| grep -i --color=always'
+alias -g Gp='| grep -P --color=always'
+alias -g Gpi='| grep -P -i --color=always'
+alias -g L='| less -r'
+alias -g LC='| wc -l'
+alias -g WC='| wc -l'
 
 
 # Who doesn't want home and end to work?
@@ -87,3 +89,23 @@ bindkey '\e[D' backward-char
 
 bindkey '\eOC' forward-char
 bindkey '\eOD' backward-char
+
+alias gup='git svn fetch && git svn rebase'
+alias gsp='git svn dcommit'
+
+#  Setup go
+export GOPATH=/home/$USERNAME/.go
+mkdir -p $GOPATH
+
+# Double quote single quotes to "escape" them inside a single-quoted string
+setopt rcquotes
+
+# SBT Helpers
+alias sbt='sbt -mem 2048 -J-XX:+UseConcMarkSweepGC'
+alias sbtd='sbt -mem 4096 -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.port=1099 -J-XX:+UseG1GC'
+
+
+#  If we have custom things we need to setup, do that now
+if [[ -f ~/.zsh_custom ]]; then
+    source ~/.zsh_custom
+fi

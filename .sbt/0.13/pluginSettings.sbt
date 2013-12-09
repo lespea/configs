@@ -24,3 +24,7 @@ site.settings
 net.virtualvoid.sbt.graph.Plugin.graphSettings
 
 org.scalastyle.sbt.ScalastylePlugin.Settings
+
+packSettings
+
+packageArchetype.java_application

@@ -101,8 +101,10 @@ mkdir -p $GOPATH
 setopt rcquotes
 
 # SBT Helpers
-alias sbt='sbt -mem 2048 -J-XX:+UseConcMarkSweepGC'
-alias sbtd='sbt -mem 4096 -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.port=1099 -J-XX:+UseG1GC'
+alias sbt='sbt -mem 1024 -J-XX:+UseConcMarkSweepGC'
+alias sbtd='sbt -mem 4096 -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.port=1099 -J-XX:+UseConcMarkSweepGC'
+
+alias wstart='echo start|entr ./start'
 
 
 #  If we have custom things we need to setup, do that now

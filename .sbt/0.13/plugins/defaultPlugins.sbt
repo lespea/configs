@@ -14,7 +14,7 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-scalariform" % "1.2.1")
 
 addSbtPlugin("org.xerial.sbt" % "sbt-pack" % "0.3.6")
 
-//addSbtPlugin("com.typesafe.sbt" % "sbt-start-script" % "0.10.0")
+addSbtPlugin("com.typesafe.sbt" % "sbt-start-script" % "0.10.0")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-site" % "0.7.1")
 
@@ -22,9 +22,9 @@ addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.7.4")
 
 addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.1.2")
 
-resolvers += "linter" at "http://hairyfotr.github.io/linteRepo/releases"
+//resolvers += "linter" at "http://hairyfotr.github.io/linteRepo/releases"
 
-addCompilerPlugin("com.foursquare.lint" %% "linter" % "0.1-SNAPSHOT")
+//addCompilerPlugin("com.foursquare.lint" %% "linter" % "0.1-SNAPSHOT")
 
 addSbtPlugin("org.scalastyle" %% "scalastyle-sbt-plugin" % "0.3.2")
 

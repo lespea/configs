@@ -2,6 +2,8 @@ import AssemblyKeys._
 
 import scalariform.formatter.preferences._
 
+import com.typesafe.sbt.SbtStartScript
+
 assemblySettings
 
 seq(npSettings: _*)
@@ -26,5 +28,9 @@ net.virtualvoid.sbt.graph.Plugin.graphSettings
 org.scalastyle.sbt.ScalastylePlugin.Settings
 
 packSettings
+
+seq(SbtStartScript.startScriptForClassesSettings: _*)
+
+//seq(SbtStartScript.startScriptForJarSettings: _*)
 
 packageArchetype.java_application

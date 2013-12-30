@@ -270,3 +270,7 @@ noremap <silent> ,sl :%s/\t/\r/<CR>
 "  Extract all of the links out of the current file
 noremap <silent> \el :silent %!perl -MModern::Perl=2011 -MHTML::TreeBuilder -MText::Trim -e 'my$h=HTML::TreeBuilder->new;while(<>){$h->parse($_)}$h->eof;my \%l;for my $li(@{$h->elementify->extract_links}){my $ln=trim $li->[0];$l{$ln}++ unless $ln =~ /^(?:\#<bar>\s*$)/;}say $_ for sort keys \%l'<CR>
 
+
+
+"  Join lines with commas
+noremap <silent> ,jl :silent :%s/^\s*\(.\{-}\)\s*$/,"\1"<CR> ggVGgJ0x

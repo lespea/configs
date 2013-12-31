@@ -104,6 +104,8 @@ setopt rcquotes
 alias sbt='sbt -mem 2048 -J-XX:+UseConcMarkSweepGC'
 alias sbtd='sbt -mem 4096 -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.port=1099 -J-XX:+UseG1GC'
 
+alias genSrc='mkdir -p src/{main,test}/{java,scala,resources} && touch src/{main,test}/{java,scala,resources}/.keep'
+
 
 #  If we have custom things we need to setup, do that now
 if [[ -f ~/.zsh_custom ]]; then

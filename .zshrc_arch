@@ -42,7 +42,7 @@ plugins=(git archlinux command-not-found encode64 git-extras git-flow lein mercu
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/home/$USERNAME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/bin/core_perl:/usr/bin/site_perl/:$PATH
+export PATH=/home/$USERNAME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/bin/core_perl:/usr/bin/site_perl:$PATH
 
 export EDITOR="vim"
 

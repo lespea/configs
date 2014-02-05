@@ -1,3 +1,6 @@
+use strict;
+use warnings;
+
 use utf8;
 use Modern::Perl '2012';
 use autovivification;
@@ -9,4 +12,22 @@ use File::Slurp;
 use List::AllUtils qw/ :all /;
 use List::Gen qw/ :all !zip /;
 
-load_plugin('DataPrinter');
+my @plugins = (qw/
+    Colors
+    Completion
+    CompletionDriver::Globals
+    CompletionDriver::INC
+    CompletionDriver::Keywords
+    CompletionDriver::LexEnv
+    CompletionDriver::Methods
+    DataPrinter
+    FancyPrompt
+    History
+    Interrupt
+    MultiLine::PPI
+    Peek
+/);
+
+load_plugin($_)  for  @plugins;
+
+package main;

@@ -42,7 +42,9 @@ plugins=(git archlinux command-not-found encode64 git-extras git-flow lein mercu
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/home/$USERNAME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/bin/core_perl:/usr/bin/site_perl:$PATH
+
+source /usr/share/chruby/chruby.sh
+export PATH=/home/$USERNAME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/bin/core_perl:/usr/bin/site_perl:/home/$USERNAME/.gem/ruby/2.1.0/bin:$PATH
 
 export EDITOR="vim"
 
@@ -113,3 +115,5 @@ alias genSrc='mkdir -p src/{main,test}/{java,scala,resources} && touch src/{main
 if [[ -f ~/.zsh_custom ]]; then
     source ~/.zsh_custom
 fi
+
+export JAVA_OPTS="-server -Xms512m -Xmx2048m -XX:MaxPermSize=128m -XX:+UseConcMarkSweepGC"

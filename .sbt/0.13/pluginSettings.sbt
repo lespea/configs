@@ -34,3 +34,5 @@ seq(SbtStartScript.startScriptForClassesSettings: _*)
 //seq(SbtStartScript.startScriptForJarSettings: _*)
 
 packageArchetype.java_application
+
+addCommandAlias("pluginUpdates", "; reload plugins; dependencyUpdates; reload return")

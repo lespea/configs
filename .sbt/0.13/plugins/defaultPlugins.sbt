@@ -4,15 +4,15 @@ addSbtPlugin("me.lessis" % "np" % "0.2.0")
 
 addSbtPlugin("com.github.mpeltonen" % "sbt-idea" % "1.6.0")
 
-addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.10.2")
+addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.11.1")
 
 addSbtPlugin("com.orrsella" % "sbt-stats" % "1.0.5")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-pgp" % "0.8.1")
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-scalariform" % "1.2.1")
+addSbtPlugin("com.typesafe.sbt" % "sbt-scalariform" % "1.3.0")
 
-addSbtPlugin("org.xerial.sbt" % "sbt-pack" % "0.4.3")
+addSbtPlugin("org.xerial.sbt" % "sbt-pack" % "0.5.1")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-start-script" % "0.10.0")
 

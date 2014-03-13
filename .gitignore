@@ -34,7 +34,9 @@ VirtualBox\ VMs
 .terminfo/
 .sbt/0.13/boot
 .sbt/0.13/target/
-.sbt/0.13/plugins/project
+!.sbt/0.13/plugins/project/plugins.sbt
+.sbt/0.13/plugins/project/target
+.sbt/0.13/plugins/project/project
 .sbt/0.13/plugins/target
 .sbt/0.13/cache
 .sbt/boot

@@ -271,6 +271,8 @@ noremap <silent> ,sl :%s/\t/\r/<CR>
 noremap <silent> \el :silent %!perl -MModern::Perl=2011 -MHTML::TreeBuilder -MText::Trim -e 'my$h=HTML::TreeBuilder->new;while(<>){$h->parse($_)}$h->eof;my \%l;for my $li(@{$h->elementify->extract_links}){my $ln=trim $li->[0];$l{$ln}++ unless $ln =~ /^(?:\#<bar>\s*$)/;}say $_ for sort keys \%l'<CR>
 
 
+"  Get the deps out of a scala published script
+noremap <silent> \deps :let @q=':v/^declare.*app_classpath=/d<c-v><cr>dt"lds":%s/:*\$lib_dir\//\rwrapper.java.classpath.1 = lib\/<c-v><cr>ggddf1<c-v><c-v>1234j:I<c-v><cr>\ca'<ESC>@q
 
 "  Join lines with commas
 noremap <silent> ,jl :silent :%s/^\s*\(.\{-}\)\s*$/,"\1"<CR> ggVGgJ0x

@@ -116,7 +116,11 @@ if [[ -f ~/.zsh_custom ]]; then
     source ~/.zsh_custom
 fi
 
-export JAVA_OPTS="-server -Xms512m -Xmx2048m -XX:MaxPermSize=128m -XX:+UseConcMarkSweepGC"
+# Java 7
+#export JAVA_OPTS="-server -Xms512m -Xmx2048m -XX:MaxPermSize=128m -XX:+UseConcMarkSweepGC"
+
+# Java 8
+export JAVA_OPTS="-server -Xms512m -Xmx2048m -XX:+UseConcMarkSweepGC"
 
 #  Make cpanm always use sudo
 alias cpanm='cpanm --sudo'

@@ -44,6 +44,7 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 
 source /usr/share/chruby/chruby.sh
+source /usr/share/chruby/auto.sh
 export PATH=/home/$USERNAME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/bin/core_perl:/usr/bin/site_perl:/home/$USERNAME/.gem/ruby/2.1.0/bin:$PATH
 
 export EDITOR="vim"
@@ -103,8 +104,8 @@ mkdir -p $GOPATH
 setopt rcquotes
 
 # SBT Helpers
-alias sbt='sbt -mem 1024 -J-XX:+UseConcMarkSweepGC'
-alias sbtd='sbt -mem 4096 -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.port=1099 -J-XX:+UseConcMarkSweepGC'
+#alias sbt='sbt -mem 1024 -J-XX:+UseConcMarkSweepGC'
+alias sbtd='sbt -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.port=1099 -J-XX:+UseConcMarkSweepGC'
 
 alias wstart='echo start|entr ./start'
 
@@ -121,6 +122,8 @@ fi
 
 # Java 8
 export JAVA_OPTS="-server -Xms512m -Xmx2048m -XX:+UseConcMarkSweepGC"
+
+export SBT_OPTS="-Xms512M -Xmx2048M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC"
 
 #  Make cpanm always use sudo
 alias cpanm='cpanm --sudo'

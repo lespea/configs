@@ -36,3 +36,13 @@ seq(SbtStartScript.startScriptForClassesSettings: _*)
 packageArchetype.java_application
 
 addCommandAlias("pluginUpdates", "; reload plugins; dependencyUpdates; reload return")
+
+autoCompilerPlugins := true
+
+addCompilerPlugin("org.brianmckenna" %% "wartremover" % "0.8")
+
+scalacOptions in (Compile, compile) += "-P:wartremover:only-warn-traverser:org.brianmckenna.wartremover.warts.Unsafe"
+
+resolvers += "linter" at "http://hairyfotr.github.io/linteRepo/releases"
+
+addCompilerPlugin("com.foursquare.lint" %% "linter" % "0.1.2")

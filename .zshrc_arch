@@ -75,6 +75,7 @@ alias -g Gpi='| grep -P -i --color=always'
 alias -g L='| less -r'
 alias -g LC='| wc -l'
 alias -g WC='| wc -l'
+alias -g UC='| sort | uniq -c | sort -rh'
 
 
 # Who doesn't want home and end to work?

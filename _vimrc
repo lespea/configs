@@ -15,7 +15,7 @@ let g:Powerline_colorscheme    = 'default'
 let g:Powerline_stl_path_style = 'short'
 if has('gui_running')
     if has('gui_win32')
-        set guifont=DejaVu_Sans_Mono_for_Powerline:h10
+        set guifont=Droid_Sans_Mono_Slashed_for_Pow:h10
         autocmd GUIEnter * :simalt ~x
     elseif has('gui_macvim')
         set guifont=Droid\ Sans\ Mono\ Slashed\ for\ Powerline:h11
@@ -57,7 +57,7 @@ set previewheight=8
 set ls=2
 set lcs=
 execute 'set listchars+=tab:'   . nr2char(187) . nr2char(183)
-execute 'set listchars+=eol:'   . nr2char(739)
+execute 'set listchars+=eol:'   . nr2char(172)
 execute 'set listchars+=nbsp:'  . nr2char(9251)
 execute 'set listchars+=trail:' . nr2char(1776)
 set lcs+=extends:>,precedes:<

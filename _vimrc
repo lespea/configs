@@ -482,7 +482,7 @@ noremap ,asb vibwk:Align =><CR>vibwk:sort<CR>
 noremap ,asB viB:Align =><CR>viB:sort<CR>
 noremap ,as] vi]:Align =><CR>vi]:sort<CR>
 noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>:1,$y+<CR>
-noremap \fd :tabnew<CR>V"+p:silent %!perl -MModern::Perl -MDateTime::Format::DateParse -ne"BEGIN{sub fd{my $line = shift;chomp $line;my $dt = DateTime::Format::DateParse->parse_datetime($line, 'America/Chicago');$dt ? ($dt->set_time_zone('America/Chicago') and $dt->strftime('\%Y-\%m-\%d \%H:\%M:\%S')) : $line}; use Memoize; memoize 'fd'}say join qq{\t}, map {fd($_)} split qq{\t}, $_"<CR>"+1,$y<CR>
+noremap \fd :tabnew<CR>V"+p:silent %!perl -MModern::Perl -MDateTimeX::Easy -ne"BEGIN{sub fd{my $line = shift;chomp $line;my $dt = DateTimeX::Easy->parse($line);$dt ? ($dt->year < 1950 ? $dt->add(years => 100) : $dt)->strftime('\%Y-\%m-\%d \%H:\%M:\%S') : $line}; use Memoize; memoize 'fd'}say join qq{\t}, map {fd($_)} split qq{\t}, $_"<CR>"+1,$y<CR>
 noremap \fc :new<CR>"+p"+:1,$y+<CR>:bd!<CR>
 noremap \dbs :%s/\./\t/<CR>:%s/^\([^\t]\+\)\ze\t[^\t]\+$/\1\t\1<CR>
 noremap \dn :tabnew<CR>:diffthis<CR>:vne<CR>:diffthis<CR>

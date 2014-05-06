@@ -22,7 +22,7 @@ if has('gui_running')
         set lines=999 columns=999
         set transparency=7
     else
-        set guifont=DejaVu\ Sans\ Mono\ 11
+        set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
     endif
     colorscheme seoul256
     set antialias

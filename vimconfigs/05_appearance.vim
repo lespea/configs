@@ -38,7 +38,7 @@ if has('gui_running')
 
     "  Anything else (Linux)
     else
-        set guifont=DejaVu\ Sans\ Mono\ 11
+        set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
     endif
 
     "  Gvim color scheme

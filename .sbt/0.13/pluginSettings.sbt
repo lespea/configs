@@ -40,7 +40,7 @@ addCommandAlias("pluginUpdates", "; reload plugins; dependencyUpdates; reload re
 autoCompilerPlugins := true
 
 //  Many checks broken right now + no way to whitelist? wtf?
-//addCompilerPlugin("org.brianmckenna" %% "wartremover" % "0.9")
+//addCompilerPlugin("org.brianmckenna" %% "wartremover" % "0.10")
 //scalacOptions in (Compile, compile) += "-P:wartremover:only-warn-traverser:org.brianmckenna.wartremover.warts.Unsafe"
 
 resolvers += "linter" at "http://hairyfotr.github.io/linteRepo/releases"

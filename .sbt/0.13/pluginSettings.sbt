@@ -6,8 +6,6 @@ import com.typesafe.sbt.SbtStartScript
 
 assemblySettings
 
-seq(npSettings: _*)
-
 EclipseKeys.withSource := true
 
 EclipseKeys.executionEnvironment := Some(EclipseExecutionEnvironment.JavaSE17)
@@ -45,4 +43,4 @@ autoCompilerPlugins := true
 
 resolvers += "linter" at "http://hairyfotr.github.io/linteRepo/releases"
 
-addCompilerPlugin("com.foursquare.lint" %% "linter" % "0.1.3")
+addCompilerPlugin("com.foursquare.lint" %% "linter" % "0.1-SNAPSHOT")

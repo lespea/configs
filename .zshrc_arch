@@ -134,9 +134,9 @@ fi
 #export JAVA_OPTS="-server -Xms512m -Xmx2048m -XX:MaxPermSize=128m -XX:+UseConcMarkSweepGC"
 
 # Java 8
-export JAVA_OPTS="-server -Xms512m -Xmx2048m -XX:+UseConcMarkSweepGC"
+export JAVA_OPTS="-server -XX:+UseG1GC -Xms512m -Xmx4G"
 
-export SBT_OPTS="-server -Xms512M -Xmx2048M -Xss1M -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC"
+export SBT_OPTS="-server -XX:+UseG1GC -Xms512M -Xmx4G -XX:+CMSClassUnloadingEnabled"
 
 #  Make cpanm always use sudo
 #alias cpanm='cpanm --sudo'

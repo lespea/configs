@@ -32,7 +32,7 @@ testScalaStyle := {
   org.scalastyle.sbt.PluginKeys.scalastyle.toTask(" q w").value
 }
 
-(test in Test) <<= (test in Test) dependsOn testScalaStyle
+//(test in Test) <<= (test in Test) dependsOn testScalaStyle
 
 packSettings
 

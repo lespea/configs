@@ -1,20 +1,53 @@
+" vim: et sw=2 sts=2
+
 " Plugin:      https://github.com/mhinz/vim-startify
 " Description: Start screen displaying recently used stuff.
 " Maintainer:  Marco Hinz <http://github.com/mhinz>
-" Version:     1.6
+" Version:     1.8
 
-if exists('g:autoloaded_startify') || &cp
+if exists('g:autoloaded_startify') || &compatible
   finish
 endif
 let g:autoloaded_startify = 1
 
 " Init: values {{{1
-let s:cmd              = (get(g:, 'startify_change_to_dir', 1) ? ' <bar> lcd %:h' : '') . '<cr>'
 let s:numfiles         = get(g:, 'startify_files_number', 10)
 let s:show_special     = get(g:, 'startify_enable_special', 1)
 let s:restore_position = get(g:, 'startify_restore_position')
+let s:delete_buffers   = get(g:, 'startify_session_delete_buffers')
+let s:relative_path    = get(g:, 'startify_relative_path')
 let s:session_dir      = resolve(expand(get(g:, 'startify_session_dir',
       \ has('win32') ? '$HOME\vimfiles\session' : '~/.vim/session')))
+
+if exists('g:startify_list_order')
+  let s:lists = g:startify_list_order
+else
+  let s:lists = [
+        \ ['   Last recently opened files:'],
+        \ 'files',
+        \ ['   Last recently modified files in the current directory:'],
+        \ 'dir',
+        \ ['   My sessions:'],
+        \ 'sessions',
+        \ ['   My bookmarks:'],
+        \ 'bookmarks',
+        \ ]
+endif
+
+let s:secoff = type(s:lists[0]) == 3 ? (len(s:lists[0]) + 1) : 0
+let s:section_header_lines = []
+
+" Function: #get_separator {{{1
+function! startify#get_separator() abort
+  return !exists('+shellslash') || &shellslash ? '/' : '\'
+endfunction
+
+let s:sep = startify#get_separator()
+
+" Function: #get_lastline {{{1
+function! startify#get_lastline() abort
+  return s:lastline
+endfunction
 
 " Function: #insane_in_the_membrane {{{1
 function! startify#insane_in_the_membrane() abort
@@ -27,40 +60,65 @@ function! startify#insane_in_the_membrane() abort
   endif
 
   setlocal noswapfile nobuflisted buftype=nofile bufhidden=wipe
-  setlocal nonumber nolist statusline=\ startify
-  setfiletype startify
+  setlocal nonumber nocursorline nocursorcolumn nolist statusline=\ startify
+  set filetype=startify
 
   if v:version >= 703
     setlocal norelativenumber
   endif
 
   let cnt = 0
-  let s:offset_header = 0
+  let s:headoff = 2
 
   if exists('g:startify_custom_header')
     call append('$', g:startify_custom_header)
-    let s:offset_header += len(g:startify_custom_header)
+    let s:headoff += len(g:startify_custom_header)
   endif
 
   if s:show_special
     call append('$', ['   [e]  <empty buffer>', ''])
   endif
 
-  for list in get(g:, 'startify_list_order', ['files', 'sessions', 'bookmarks'])
-    let cnt = s:show_{list}(cnt)
-    call append('$', '')
+  if get(g:, 'startify_session_detection', 1) && filereadable('Session.vim')
+    call append('$', ['   [0]  '. getcwd() . s:sep .'Session.vim', ''])
+    execute 'nnoremap <buffer> 0 :source Session.vim<cr>'
+    let cnt = 1
+  endif
+
+  for item in s:lists
+    if type(item) == 1
+      let cnt = s:show_{item}(cnt)
+    else
+      let s:last_message = item
+    endif
+    unlet item
+  endfor
+
+  silent $delete _
+
+  for item in s:section_header_lines
+    execute 'syntax region StartifySection start=/\%'. item .'l/ end=/$/'
   endfor
 
   if s:show_special
-    call append('$', '   [q]  <quit>')
+    call append('$', ['', '   [q]  <quit>'])
+  endif
+
+  let s:firstline = s:show_special ? s:headoff : (s:headoff + s:secoff)
+  let s:lastline  = line('$')
+
+  if exists('g:startify_custom_footer')
+    call append('$', g:startify_custom_footer)
   endif
 
   setlocal nomodifiable nomodified
 
   nnoremap <buffer><silent> e             :enew<cr>
   nnoremap <buffer><silent> i             :enew <bar> startinsert<cr>
+  nnoremap <buffer><silent> <insert>      :enew <bar> startinsert<cr>
   nnoremap <buffer><silent> b             :call <sid>set_mark('B')<cr>
   nnoremap <buffer><silent> s             :call <sid>set_mark('S')<cr>
+  nnoremap <buffer><silent> t             :call <sid>set_mark('T')<cr>
   nnoremap <buffer><silent> v             :call <sid>set_mark('V')<cr>
   nnoremap <buffer>         <cr>          :call <sid>open_buffers(expand('<cword>'))<cr>
   nnoremap <buffer>         <2-LeftMouse> :execute 'normal' matchstr(getline('.'), '\w\+')<cr>
@@ -75,8 +133,9 @@ function! startify#insane_in_the_membrane() abort
     autocmd startify BufReadPost * call s:restore_position()
   endif
 
-  1
-  call cursor((s:show_special ? 4 : 2) + s:offset_header, 5)
+  call cursor((s:show_special ? 2 : 0) + s:headoff + s:secoff, 5)
+
+  silent! doautocmd <nomodeline> startify User Startified
 endfunction
 
 " Function: #session_load {{{1
@@ -88,7 +147,8 @@ function! startify#session_load(...) abort
     echo 'There are no sessions...'
     return
   endif
-  let spath = s:session_dir . startify#get_separator() . (exists('a:1')
+  call startify#session_delete_buffers()
+  let spath = s:session_dir . s:sep . (exists('a:1')
         \ ? a:1
         \ : input('Load this session: ', fnamemodify(v:this_session, ':t'), 'custom,startify#session_list_as_string'))
         \ | redraw
@@ -103,7 +163,7 @@ endfunction
 function! startify#session_save(...) abort
   if !isdirectory(s:session_dir)
     if exists('*mkdir')
-      echo 'The session directory does not exist: '. s:session_dir .'. Create it?  [y/n]' | redraw
+      echo 'The session directory does not exist: '. s:session_dir .'. Create it?  [y/n]'
       if (nr2char(getchar()) == 'y')
         call mkdir(s:session_dir, 'p')
       else
@@ -115,6 +175,7 @@ function! startify#session_save(...) abort
       return
     endif
   endif
+
   if exists('a:1')
     let sname = a:1
   else
@@ -125,16 +186,47 @@ function! startify#session_save(...) abort
       return
     endif
   endif
-  let spath = s:session_dir . startify#get_separator() . sname
+
+  let spath = s:session_dir . s:sep . sname
   if !filereadable(spath)
-    execute 'mksession '. fnameescape(spath) | echo 'Session saved under: '. spath
+    call startify#session_write(fnameescape(spath))
+    echo 'Session saved under: '. spath
     return
   endif
+
   echo 'Session already exists. Overwrite?  [y/n]' | redraw
   if nr2char(getchar()) == 'y'
-    execute 'mksession! '. fnameescape(spath) | echo 'Session saved under: '. spath
+    call startify#session_write(fnameescape(spath))
+    echo 'Session saved under: '. spath
   else
     echo 'Did NOT save the session!'
+  endif
+endfunction
+
+" Function: #session_write {{{1
+function! startify#session_write(spath)
+  let ssop = &sessionoptions
+  try
+    set sessionoptions-=options
+    execute 'mksession!' a:spath
+  catch
+    execute 'echoerr' string(v:exception)
+  finally
+    let &sessionoptions = ssop
+  endtry
+
+  if exists('g:startify_session_savevars') || exists('g:startify_session_savecmds')
+    execute 'split' a:spath
+
+    " put existing variables from savevars into session file
+    call append(line('$')-3, map(filter(get(g:, 'startify_session_savevars', []), 'exists(v:val)'), '"let ". v:val ." = ". strtrans(string(eval(v:val)))'))
+
+    " put commands from savecmds into session file
+    call append(line('$')-3, get(g:, 'startify_session_savecmds', []))
+
+    setlocal bufhidden=delete
+    silent update
+    silent hide
   endif
 endfunction
 
@@ -147,10 +239,12 @@ function! startify#session_delete(...) abort
     echo 'There are no sessions...'
     return
   endif
-  let spath = s:session_dir . startify#get_separator() . (exists('a:1')
+
+  let spath = s:session_dir . s:sep . (exists('a:1')
         \ ? a:1
         \ : input('Delete this session: ', fnamemodify(v:this_session, ':t'), 'custom,startify#session_list_as_string'))
         \ | redraw
+
   echo 'Really delete '. spath .'? [y/n]' | redraw
   if (nr2char(getchar()) == 'y')
     if delete(spath) == 0
@@ -163,6 +257,20 @@ function! startify#session_delete(...) abort
   endif
 endfunction
 
+" Function: #session_delete_buffers {{{1
+function! startify#session_delete_buffers() abort
+  if !s:delete_buffers
+    return
+  endif
+  let n = 1
+  while n <= bufnr('$')
+    if buflisted(n)
+      silent execute 'bdelete' n
+    endif
+    let n += 1
+  endwhile
+endfunction
+
 " Function: #session_list {{{1
 function! startify#session_list(lead, ...) abort
   return map(split(globpath(s:session_dir, '*'.a:lead.'*'), '\n'), 'fnamemodify(v:val, ":t")')
@@ -173,56 +281,25 @@ function! startify#session_list_as_string(lead, ...) abort
   return join(map(split(globpath(s:session_dir, '*'.a:lead.'*'), '\n'), 'fnamemodify(v:val, ":t")'), "\n")
 endfunction
 
-" Function: #get_separator {{{1
-function! startify#get_separator() abort
-  return !exists('+shellslash') || &shellslash ? '/' : '\'
-endfunction
-
 " Function: s:show_dir {{{1
 function! s:show_dir(cnt) abort
-  let cnt   = a:cnt
-  let files = []
+  if empty(v:oldfiles)
+    return a:cnt
+  endif
 
-  for fname in split(glob('.\=*'))
-    if isdirectory(fname)
-          \ || (exists('g:startify_skiplist') && s:is_in_skiplist(resolve(fnamemodify(fname, ':p'))))
-      continue
-    endif
-    call add(files, [getftime(fname), fname])
-  endfor
-
-  function! l:compare(x, y)
-    return a:y[0] - a:x[0]
-  endfunction
-
-  call sort(files, 'l:compare')
-
-  for items in files
-    let index = s:get_index_as_string(cnt)
-    let fname = items[1]
-
-    call append('$', '   ['. index .']'. repeat(' ', (3 - strlen(index))) . fname)
-    execute 'nnoremap <buffer>' index ':edit' fnameescape(fname) '<cr>'
-
-    let cnt += 1
-
-    if (cnt == s:numfiles)
-      break
-    endif
-  endfor
-
-  return cnt
-endfunction
-
-" Function: s:show_files {{{1
-function! s:show_files(cnt) abort
   let cnt     = a:cnt
   let num     = s:numfiles
   let entries = {}
+  let cwd     = escape(getcwd(), '\')
+  let files   = filter(map(copy(v:oldfiles), 'resolve(fnamemodify(v:val, ":p"))'), 'match(v:val, cwd) == 0')
 
-  if !empty(v:oldfiles)
-    for fname in v:oldfiles
-      let fullpath = resolve(fnamemodify(fname, ':p'))
+  if !empty(files)
+    if exists('s:last_message')
+      call s:print_section_header()
+    endif
+
+    for fname in files
+      let fullpath = resolve(fnamemodify(glob(fname), ':p'))
 
       " filter duplicates, bookmarks and entries from the skiplist
       if has_key(entries, fullpath)
@@ -234,9 +311,10 @@ function! s:show_files(cnt) abort
 
       let entries[fullpath] = 1
       let index = s:get_index_as_string(cnt)
+      let display_fname = s:relative_path ? fnamemodify(glob(fname), ':.') : fnamemodify(glob(fname), ':p:~')
 
-      call append('$', '   ['. index .']'. repeat(' ', (3 - strlen(index))) . fname)
-      execute 'nnoremap <buffer>' index ':edit' fnameescape(fname) s:cmd
+      call append('$', '   ['. index .']'. repeat(' ', (3 - strlen(index))) . display_fname)
+      execute 'nnoremap <buffer>' index ':edit' fnameescape(fname) '<bar> call <sid>check_user_options()<cr>'
 
       let cnt += 1
       let num -= 1
@@ -245,7 +323,54 @@ function! s:show_files(cnt) abort
         break
       endif
     endfor
+
+    call append('$', '')
   endif
+
+  return cnt
+endfunction
+
+" Function: s:show_files {{{1
+function! s:show_files(cnt) abort
+  if empty(v:oldfiles)
+    return a:cnt
+  endif
+
+  if exists('s:last_message')
+    call s:print_section_header()
+  endif
+
+  let cnt     = a:cnt
+  let num     = s:numfiles
+  let entries = {}
+
+  for fname in v:oldfiles
+    let fullpath = resolve(fnamemodify(glob(fname), ':p'))
+
+    " filter duplicates, bookmarks and entries from the skiplist
+    if has_key(entries, fullpath)
+          \ || !filereadable(fullpath)
+          \ || (exists('g:startify_skiplist')  && s:is_in_skiplist(fullpath))
+          \ || (exists('g:startify_bookmarks') && s:is_bookmark(fullpath))
+      continue
+    endif
+
+    let entries[fullpath] = 1
+    let index = s:get_index_as_string(cnt)
+    let display_fname = s:relative_path ? fnamemodify(glob(fname), ':.') : fnamemodify(glob(fname), ':p:~')
+
+    call append('$', '   ['. index .']'. repeat(' ', (3 - strlen(index))) . display_fname)
+    execute 'nnoremap <buffer>' index ':edit' fnameescape(fname) '<bar> call <sid>check_user_options()<cr>'
+
+    let cnt += 1
+    let num -= 1
+
+    if !num
+      break
+    endif
+  endfor
+
+  call append('$', '')
 
   return cnt
 endfunction
@@ -255,35 +380,55 @@ function! s:show_sessions(cnt) abort
   let sfiles = split(globpath(s:session_dir, '*'), '\n')
 
   if empty(sfiles)
+    if exists('s:last_message')
+      unlet s:last_message
+    endif
     return a:cnt
   endif
 
-  let cnt = a:cnt
+  if exists('s:last_message')
+    call s:print_section_header()
+  endif
 
-  for i in range(len(sfiles))
-    let idx = (i + cnt)
-    let index = s:get_index_as_string(idx)
+  let cnt  = a:cnt
+  let slen = len(sfiles)
+
+  for i in range(slen)
+    let index = s:get_index_as_string(cnt)
 
     call append('$', '   ['. index .']'. repeat(' ', (3 - strlen(index))) . fnamemodify(sfiles[i], ':t:r'))
-    execute 'nnoremap <buffer> '. index .' :source '. fnameescape(sfiles[i]) .'<cr>'
+    execute 'nnoremap <buffer>' index ':source' fnameescape(sfiles[i]) '<cr>'
+
+    let cnt += 1
   endfor
 
-  return idx
+  call append('$', '')
+
+  return cnt
 endfunction
 
 " Function: s:show_bookmarks {{{1
 function! s:show_bookmarks(cnt) abort
+  if !exists('g:startify_bookmarks')
+    return a:cnt
+  endif
+
+  if exists('s:last_message')
+    call s:print_section_header()
+  endif
+
   let cnt = a:cnt
 
-  if exists('g:startify_bookmarks')
-    for fname in g:startify_bookmarks
-      let cnt  += 1
-      let index = s:get_index_as_string(cnt)
+  for fname in g:startify_bookmarks
+    let index = s:get_index_as_string(cnt)
 
-      call append('$', '   ['. index .']'. repeat(' ', (3 - strlen(index))) . fname)
-      execute 'nnoremap <buffer> '. index .' :edit '. fnameescape(fname) . s:cmd
-    endfor
-  endif
+    call append('$', '   ['. index .']'. repeat(' ', (3 - strlen(index))) . fname)
+    execute 'nnoremap <buffer>' index ':edit' fnameescape(fname) '<bar> call <sid>check_user_options()<cr>'
+
+    let cnt += 1
+  endfor
+
+  call append('$', '')
 
   return cnt
 endfunction
@@ -299,7 +444,6 @@ endfunction
 
 " Function: s:is_bookmark {{{1
 function! s:is_bookmark(arg) abort
-  "for foo in filter(map(copy(g:startify_bookmarks), 'resolve(fnamemodify(v:val, ":p"))'), '!isdirectory(v:val)')
   for foo in map(filter(copy(g:startify_bookmarks), '!isdirectory(v:val)'), 'resolve(fnamemodify(v:val, ":p"))')
     if foo == a:arg
       return 1
@@ -309,96 +453,147 @@ endfunction
 
 " Function: s:set_cursor {{{1
 function! s:set_cursor() abort
-  let s:line_old = exists('s:line_new') ? s:line_new : 5
-  let s:line_new = line('.')
-  let offset     = s:offset_header + 2
-  if empty(getline(s:line_new))
-    if (s:line_new > s:line_old)
-      let s:line_new += 1
-      call cursor(s:line_new, 5) " going down
-    else
-      let s:line_new -= 1
-      call cursor((s:line_new < offset ? offset : s:line_new), 5) " going up
-    endif
-  else
-    call cursor((s:line_new < offset ? offset : 0), 5) " hold cursor in column
+  let s:oldline = exists('s:newline') ? s:newline : 5
+  let s:newline = line('.')
+
+  " going up (-1) or down (1)
+  let movement = 2 * (s:newline > s:oldline) - 1
+
+  " skip section headers lines until an entry is found
+  while index(s:section_header_lines, s:newline) != -1
+    let s:newline += movement
+  endwhile
+
+  " skip blank lines between lists
+  if empty(getline(s:newline))
+    let s:newline += movement
   endif
+
+  " don't go beyond first or last entry
+  let s:newline = max([s:firstline, min([s:lastline, s:newline])])
+
+  call cursor(s:newline, 5)
 endfunction
 
 " Function: s:set_mark {{{1
 "
 " Markers are saved in the s:marked dict using the follow format:
-"   - s:marked[0]: ID (for sorting)
-"   - s:marked[1]: what the brackets contained before
-"   - s:marked[2]: the actual path
-"   - s:marked[3]: type (buffer, split, vsplit)
+"   - s:marked[0]: ID
+"   - s:marked[1]: path
+"   - s:marked[2]: type (buffer, split, vsplit)
 "
 function! s:set_mark(type) abort
   if !exists('s:marked')
-    let s:marked  = {}
-    let s:nmarked = 0
+    let s:marked = {}
   endif
-  " matches[1]: content between brackets
-  " matches[2]: path
-  let matches = matchlist(getline('.'), '\v\[(.*)\]\s+(.*)')
-  if matches[2] =~ '\V<empty buffer>\|<quit>' || matches[2] =~ '^\w\+$'
+
+  let [id, path] = matchlist(getline('.'), '\v\[(.*)\]\s+(.*)')[1:2]
+
+  if path =~# '\V<empty buffer>\|<quit>' || path =~# '^\w\+$'
     return
   endif
+
   setlocal modifiable
-  if matches[1] =~ 'B\|S\|V'
-    let s:nmarked -= 1
-    execute 'normal! ci]'. remove(s:marked, line('.'))[1]
+
+  " set markers
+  if id =~# '[BSTV]'
+    " replace marker by old ID
+    execute 'normal! ci]'. remove(s:marked, line('.'))[0]
   else
-    let s:marked[line('.')] = [s:nmarked, matches[1], matches[2], a:type]
-    let s:nmarked += 1
-    execute 'normal! ci]'. repeat(a:type, len(matches[1]))
+    " save ID and replace it by the marker of the given type
+    let s:marked[line('.')] = [id, path, a:type]
+    execute 'normal! ci]'. repeat(a:type, len(id))
   endif
+
   setlocal nomodifiable nomodified
 endfunction
 
 " Function: s:open_buffers {{{1
 function! s:open_buffers(cword) abort
+  " markers found; open one or more buffers
   if exists('s:marked') && !empty(s:marked)
     enew
     setlocal nobuflisted
-    for i in range(len(s:marked))
-      for val in values(s:marked)
-        if val[0] == i
-          if val[3] == 'S'
-            if line2byte('$') == -1
-              execute 'edit' val[2]
-            else
-              execute 'split' val[2]
-            endif
-          elseif val[3] == 'V'
-            if line2byte('$') == -1
-              execute 'edit' val[2]
-            else
-              execute 'vsplit' val[2]
-            endif
-          else
-            execute 'edit' val[2]
-          endif
-          continue
-        endif
-      endfor
+
+    for val in values(s:marked)
+      let [path, type] = val[1:2]
+      let path = fnameescape(path)
+
+      if line2byte('$') == -1
+        " open in current window
+        execute 'edit' path
+      elseif type == 'S'
+        " open in split
+        execute 'split' path
+      elseif type == 'V'
+        " open in vsplit
+        execute 'vsplit' path
+      elseif type == 'T'
+        " open in tab
+        execute 'tabnew' path
+      else
+        " open in current window
+        execute 'edit' path
+      endif
+
+      call s:check_user_options()
     endfor
+
+    " remove markers for next instance of :Startify
+    if exists('s:marked')
+      unlet s:marked
+    endif
+  " no markers found; open a single buffer
   else
-    execute 'normal' a:cword
+    try
+      execute 'normal' a:cword
+    catch /E832/  " don't ask for undo encryption key twice
+      edit
+    catch /E325/  " swap file found
+    endtry
   endif
-  if exists('s:marked')
-    unlet s:marked
-    unlet s:nmarked
+endfunction
+
+" Function: s:check_user_options {{{1
+function! s:check_user_options() abort
+  let path    = expand('%')
+  let session = path . s:sep .'Session.vim'
+
+  " autoload session
+  if get(g:, 'startify_session_autoload') && filereadable(session)
+    execute 'source' session
+  " change to VCS root directory
+  elseif get(g:, 'startify_change_to_vcs_root')
+    call s:cd_to_vcs_root(path)
+  " change directory
+  elseif get(g:, 'startify_change_to_dir', 1)
+    if isdirectory(path)
+      lcd %
+    else
+      lcd %:h
+    endif
   endif
+endfunction
+
+" Function: s:cd_to_vcs_root {{{1
+function! s:cd_to_vcs_root(path) abort
+  let dir = fnamemodify(a:path, ':p:h')
+  for vcs in [ '.git', '.hg', '.bzr', '.svn' ]
+    let root = finddir(vcs, dir .';')
+    if !empty(root)
+      execute 'cd '. fnamemodify(root, ':h')
+      return
+    endif
+  endfor
 endfunction
 
 " Function: s:close {{{1
 function! s:close() abort
   if len(filter(range(0, bufnr('$')), 'buflisted(v:val)'))
     if bufloaded(bufnr('#'))
-      b #
+      buffer #
     else
-      bn
+      bnext
     endif
   else
     quit
@@ -423,4 +618,15 @@ function! s:restore_position() abort
   endif
 endfunction
 
-" vim: et sw=2 sts=2
+" Function: s:print_section_header {{{1
+function! s:print_section_header() abort
+  $
+  let curline = line('.')
+
+  for lnum in range(curline, curline + len(s:last_message) + 1)
+    call add(s:section_header_lines, lnum)
+  endfor
+
+  call append('$', s:last_message + [''])
+  unlet s:last_message
+endfunction

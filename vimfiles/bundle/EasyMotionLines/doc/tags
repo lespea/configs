@@ -1,0 +1,9 @@
+<Plug>(easyoperator-line-delete)	easyoperator_line.txt	/*<Plug>(easyoperator-line-delete)*
+<Plug>(easyoperator-line-select)	easyoperator_line.txt	/*<Plug>(easyoperator-line-select)*
+<Plug>(easyoperator-line-yank)	easyoperator_line.txt	/*<Plug>(easyoperator-line-yank)*
+easyoperator-line-custom-mappings	easyoperator_line.txt	/*easyoperator-line-custom-mappings*
+easyoperator-line-default-mappings	easyoperator_line.txt	/*easyoperator-line-default-mappings*
+easyoperator-line-introduction	easyoperator_line.txt	/*easyoperator-line-introduction*
+easyoperator-line-requirements	easyoperator_line.txt	/*easyoperator-line-requirements*
+easyoperator_line.txt	easyoperator_line.txt	/*easyoperator_line.txt*
+easyoperator_line_contents	easyoperator_line.txt	/*easyoperator_line_contents*

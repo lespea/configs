@@ -1,0 +1,9 @@
+<Plug>(easyoperator-phrase-delete)	easyoperator_phrase.txt	/*<Plug>(easyoperator-phrase-delete)*
+<Plug>(easyoperator-phrase-select)	easyoperator_phrase.txt	/*<Plug>(easyoperator-phrase-select)*
+<Plug>(easyoperator-phrase-yank)	easyoperator_phrase.txt	/*<Plug>(easyoperator-phrase-yank)*
+easyoperator-phrase-custom-mappings	easyoperator_phrase.txt	/*easyoperator-phrase-custom-mappings*
+easyoperator-phrase-default-mappings	easyoperator_phrase.txt	/*easyoperator-phrase-default-mappings*
+easyoperator-phrase-introduction	easyoperator_phrase.txt	/*easyoperator-phrase-introduction*
+easyoperator-phrase-requirements	easyoperator_phrase.txt	/*easyoperator-phrase-requirements*
+easyoperator_phrase.txt	easyoperator_phrase.txt	/*easyoperator_phrase.txt*
+easyoperator_phrase_contents	easyoperator_phrase.txt	/*easyoperator_phrase_contents*

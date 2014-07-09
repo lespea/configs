@@ -21,21 +21,16 @@ if exists("g:loaded_syntastic_c_oclint_checker")
 endif
 let g:loaded_syntastic_c_oclint_checker = 1
 
-function! SyntaxCheckers_c_oclint_IsAvailable()
-    return executable("oclint")
-endfunction
-
 if !exists('g:syntastic_oclint_config_file')
     let g:syntastic_oclint_config_file = '.syntastic_oclint_config'
 endif
 
-function! SyntaxCheckers_c_oclint_GetLocList()
-    let makeprg = syntastic#makeprg#build({
-        \ 'exe': 'oclint',
-        \ 'args': '-text',
-        \ 'post_args': '-- -c ' . syntastic#c#ReadConfig(g:syntastic_oclint_config_file),
-        \ 'filetype': 'c',
-        \ 'subchecker': 'oclint' })
+let s:save_cpo = &cpo
+set cpo&vim
+
+function! SyntaxCheckers_c_oclint_GetLocList() dict
+    let makeprg = self.makeprgBuild({
+        \ 'post_args_before': '-- -c ' . syntastic#c#ReadConfig(g:syntastic_oclint_config_file) })
 
     let errorformat =
         \ '%E%f:%l:%c: %m P1 ,' .
@@ -46,13 +41,23 @@ function! SyntaxCheckers_c_oclint_GetLocList()
         \ '%W%f:%l:%c: warning: %m,' .
         \ '%-G%.%#'
 
-    return SyntasticMake({
+    let loclist = SyntasticMake({
         \ 'makeprg': makeprg,
         \ 'errorformat': errorformat,
         \ 'subtype': 'Style',
-        \ 'postprocess': ['compressWhitespace', 'sort'] })
+        \ 'postprocess': ['compressWhitespace'],
+        \ 'returns': [0, 3, 5] })
+
+    call self.setWantSort(1)
+
+    return loclist
 endfunction
 
 call g:SyntasticRegistry.CreateAndRegisterChecker({
     \ 'filetype': 'c',
     \ 'name': 'oclint'})
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
+
+" vim: set et sts=4 sw=4:

@@ -172,5 +172,11 @@ let g:tube_enable_shortcuts = 1
 "  -------------
 "  |  Session  |
 "  -------------
-:let g:session_autosave = 'no'
-:let g:session_autoload = 'no'
+let g:session_autosave = 'no'
+let g:session_autoload = 'no'
+
+"  ---------------
+"  |  Syntastic  |
+"  ---------------
+let g:syntastic_enable_perl_checker = 1
+let g:loaded_syntastic_perl_perlcritic_checker = 1

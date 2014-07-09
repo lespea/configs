@@ -1,7 +1,8 @@
 "============================================================================
-"File:        ycm.vim
-"Description: Syntax checking plugin for syntastic.vim
-"Maintainer:  Val Markovic <val at markovic dot io>
+"File:        recess.vim
+"Description: Syntax checking plugin for syntastic.vim using `recess`
+"             (http://twitter.github.io/recess/).
+"Maintainer:  Tim Carry <tim at pixelastic dot com>
 "License:     This program is free software. It comes without any warranty,
 "             to the extent permitted by applicable law. You can redistribute
 "             it and/or modify it under the terms of the Do What The Fuck You
@@ -10,25 +11,16 @@
 "
 "============================================================================
 
-if exists("g:loaded_syntastic_cpp_ycm_checker")
+if exists("g:loaded_syntastic_css_recess_checker")
     finish
 endif
-let g:loaded_syntastic_cpp_ycm_checker = 1
+let g:loaded_syntastic_css_recess_checker = 1
 
-function! SyntaxCheckers_cpp_ycm_IsAvailable()
-    return SyntaxCheckers_c_ycm_IsAvailable()
-endfunction
-
-if !exists('g:loaded_youcompleteme')
-    finish
-endif
-
-function! SyntaxCheckers_cpp_ycm_GetLocList()
-    return SyntaxCheckers_c_ycm_GetLocList()
-endfunction
+runtime! syntax_checkers/less/*.vim
 
 call g:SyntasticRegistry.CreateAndRegisterChecker({
-    \ 'filetype': 'cpp',
-    \ 'name': 'ycm'})
+    \ 'filetype': 'css',
+    \ 'name': 'recess',
+    \ 'redirect': 'less/recess'})
 
-runtime! syntax_checkers/c/*.vim
+" vim: set et sts=4 sw=4:

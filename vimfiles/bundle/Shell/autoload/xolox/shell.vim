@@ -1,9 +1,9 @@
 " Vim auto-load script
 " Author: Peter Odding <peter@peterodding.com>
-" Last Change: May 28, 2013
+" Last Change: July 7, 2014
 " URL: http://peterodding.com/code/vim/shell/
 
-let g:xolox#shell#version = '0.12.9'
+let g:xolox#shell#version = '0.13.6'
 
 if !exists('s:fullscreen_enabled')
   let s:enoimpl = "%s() hasn't been implemented on your platform! %s"
@@ -121,7 +121,19 @@ endfunction
 function! xolox#shell#execute_with_dll(cmd, async) " {{{1
   " Execute external commands on Windows using the compiled DLL.
   let fn = 'execute_' . (a:async ? 'a' : '') . 'synchronous'
-  let cmd = &shell . ' ' . &shellcmdflag . ' ' . a:cmd
+  " Command line parsing on Windows is batshit insane. I intended to define
+  " exactly how it happens here, but the Microsoft documentation can't even
+  " explain it properly, so I won't bother either. Suffice to say that the
+  " outer double quotes with unescaped double quotes in between are
+  " intentional... Here's a small excerpt from "help cmd":
+  "
+  "   Otherwise, old behavior is to see if the first character is a quote
+  "   character and if so, strip the leading character and remove the last
+  "   quote character on the command line, preserving any text after the last
+  "   quote character.
+  "
+  let cmd = printf('cmd.exe /c "%s"', a:cmd)
+  call xolox#misc#msg#debug("shell.vim %s: Executing external command: %s", g:xolox#shell#version, cmd)
   let result = s:library_call(fn, cmd)
   if result =~ '^exit_code=\d\+$'
     return matchstr(result, '^exit_code=\zs\d\+$') + 0
@@ -134,25 +146,28 @@ function! xolox#shell#execute_with_dll(cmd, async) " {{{1
   endif
 endfunction
 
-function! xolox#shell#make(bang, args) " {{{1
+function! xolox#shell#make(mode, bang, args) " {{{1
   " Run :make silent (without a console window).
   let command = &makeprg
   if a:args =~ '\S'
     let command .= ' ' . a:args
   endif
-  call xolox#misc#msg#info("shell.vim %s: Running make command %s ..", g:xolox#shell#version, command)
+  call xolox#misc#msg#info("shell.vim %s: Running make command: %s", g:xolox#shell#version, command)
   if a:bang == '!'
-    cgetexpr s:make_cmd(command)
+    execute printf('%sgetexpr s:make_cmd(a:mode, command)', a:mode)
   else
-    cexpr s:make_cmd(command)
+    execute printf('%sexpr s:make_cmd(a:mode, command)', a:mode)
   endif
-  cwindow
+  execute a:mode . 'window'
 endfunction
 
-function! s:make_cmd(command)
+function! s:make_cmd(mode, command)
+  let event = (a:mode == 'l') ? 'lmake' : 'make'
+  execute 'silent doautocmd QuickFixCmdPre' event
   let command = a:command . ' 2>&1'
   let result = xolox#misc#os#exec({'command': command, 'check': 0})
   let g:xolox#shell#make_exit_code = result['exit_code']
+  execute 'silent doautocmd QuickFixCmdPost' event
   return join(result['stdout'], "\n")
 endfunction
 
@@ -218,6 +233,12 @@ function! xolox#shell#fullscreen() " {{{1
       if error != ''
         throw "shell.dll failed with: " . error
       endif
+    elseif has('macunix') && has('gui')
+      if !s:fullscreen_enabled
+        set fullscreen
+      else
+        set nofullscreen
+      endif
     elseif has('unix')
       if !executable('wmctrl')
         let msg = "Full-screen on UNIX requires the `wmctrl' program!"
@@ -258,7 +279,7 @@ function! xolox#shell#fullscreen() " {{{1
   let s:fullscreen_enabled = !s:fullscreen_enabled
 
   " Let the user know how to leave full-screen mode?
-  if s:fullscreen_enabled
+  if s:fullscreen_enabled && g:shell_fullscreen_message
     " Take a moment to let Vim's GUI finish redrawing (:redraw is
     " useless here because it only redraws Vim's internal state).
     sleep 50 m
@@ -352,8 +373,19 @@ function! xolox#shell#can_use_dll() " {{{1
   if xolox#misc#os#is_win()
     try
       call xolox#misc#msg#debug("shell.vim %s: Checking if compiled DDL is supported ..", g:xolox#shell#version)
-      return s:library_call('libversion', '') == '0.5'
+      if !xolox#misc#option#get('shell_use_dll', 1)
+        call xolox#misc#msg#debug("shell.vim %s: Use of DDL is disabled using 'g:shell_use_dll'.", g:xolox#shell#version)
+        return 0
+      endif
+      let expected_version = '0.5'
+      let actual_version = s:library_call('libversion', '')
+      if actual_version == expected_version
+        call xolox#misc#msg#debug("shell.vim %s: Yes the DDL works. Good for you! :-)", g:xolox#shell#version)
+        return 1
+      endif
+      call xolox#misc#msg#debug("shell.vim %s: The DDL works but reports version %s while I was expecting %s!", g:xolox#shell#version, string(actual_version), string(expected_version))
     catch
+      call xolox#misc#msg#debug("shell.vim %s: Looks like the DDL is not working! (Vim raised an exception: %s)", g:xolox#shell#version, v:exception)
       return 0
     endtry
   endif

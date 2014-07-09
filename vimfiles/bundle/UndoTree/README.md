@@ -1,7 +1,7 @@
 ### [Link to Vim.org](http://www.vim.org/scripts/script.php?script_id=4177)
 
 ### Screenshot
-![](http://files.myopera.com/mbbill/files/undotree.png)
+![](https://sites.google.com/site/mbbill/undotree.png)
 
 ### Description
 Vim 7.0 added a new feature named **Undo branches**. Basically it's a kind of ability to go back to the text after any change, even if they were undone. Vim stores undo history in a tree which you can browse and manipulate through a bunch of commands. But that was not enough straightforward and a bit hard to use. You may use `:help new-undo-branches` or `:help undo-tree` to get more detailed help.
@@ -14,34 +14,35 @@ Now this plug-in will free you from those commands and bring back the power of u
     * The current position is marked as **>seq<**.
     * The next change that will be restored by `:redo` or `<ctrl-r>` is marked as **{seq}**, it's the same as *curhead* returned by *undotree()*
     * The **[seq]** marks the last change and where further changes will be added, it's the same as *newhead* returned by *undotree()*
-    * Saved changes are marked as **s** and the current change is **S**
+    * Saved changes are marked as **s** and the capitalized **S** indicates the last saved change.
  1. Live updated diff panel.
- 1. Highlight changed text.
- 1. Revert to a specific change by mouse click or enter key.
- 1. Hotkey support.
+ 1. Highlight for added and changed text.
+ 1. Revert to a specific change by a single mouse click or key stroke.
+ 1. Customizable hotkeys and highlighting.
  1. Display changes in diff panel.
 
 ### [Download](https://github.com/mbbill/undotree/tags)
 
 ### Install
- 1. Unpack all scripts into *plugin* directory and that's all. This script is written purely in Vim script with no additional dependency.
+ 1. Unpack all scripts into *.vim* directory and that's all. This script is written purely in Vim script with no additional dependency.
+ 1. It's highly recommend using **pathogen** or **Vundle** to manage your plug-ins.
 
 ### Usage
  1. Use `:UndotreeToggle` to toggle the undo-tree panel. You may want to map this command to whatever hotkey by adding the following line to your vimrc, take F5 for example.
 
-    nnoremap    <F5>    :UndotreeToggle<cr>
+    nnoremap    &lt;F5&gt;    :UndotreeToggle&lt;cr&gt;
 
  1. Then you can try to do some modification, and the undo tree will automatically updated afterwards.
- 1. There are a bunch of hotkeys provided by vim to switch between the changes in history, like `u`, `<ctrl-r>`, `g+`, `g-` as well as the `:earlier` and `:later` commands.
+ 1. There are some hotkeys provided by vim to switch between the changes in history, like `u`, `<ctrl-r>`, `g+`, `g-` as well as the `:earlier` and `:later` commands.
  1. You may also switch to undotree panel and use the hotkeys to switch between history versions. Press `?` in undotree window for quick help of hotkeys.
- 1. You can monitor the changed text in diff panel which is automatically updated with undotree panel.
+ 1. You can monitor the changed text in diff panel which is automatically updated when undo/redo happens.
  1. Persistent undo
-    * It is highly recommend to enable the persistent undo. If you don't like your working directory be messed up with the undo file everywhere.
+    * It is highly recommend to enable the persistent undo. If you don't like your working directory be messed up with the undo file everywhere, you may add the following line to your *vimrc* in order to make them stored together.
 
-Add the following line to your *vimrc* in order to make them stored together.
+// In your vimrc
 
     if has("persistent_undo")
-        set undodir = '/path/to/what/you/want/'
+        set undodir='~/.undodir/'
         set undofile
     endif
 
@@ -74,4 +75,4 @@ Someone asked me about the difference with [Gundo](http://sjl.bitbucket.org/gund
 **BSD**
 
 ### Author
-Ming Bai  `<mbbill AT gmail DOT COM>`
+Ming Bai  &lt;mbbill AT gmail DOT COM&gt;

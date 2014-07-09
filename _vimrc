@@ -390,14 +390,8 @@ let g:delimitMate_matchpairs = "(:),[:],{:}"
 let g:delimitMate_expand_space = 1
 let g:delimitMate_expand_cr = 1
 let g:delimitMate_balance_matchpairs = 1
-vmap <leader>i  <plug>blockinsert-i
-vmap <leader>a  <plug>blockinsert-a
-nmap <leader>i  <plug>blockinsert-i
-nmap <leader>a  <plug>blockinsert-a
-vmap <leader>[]  <plug>blockinsert-b
-vmap <leader>q[] <plug>blockinsert-qb
-nmap <leader>[]  <plug>blockinsert-b
-nmap <leader>q[] <plug>blockinsert-qb
+vmap <Enter> <Plug>(EasyAlign)
+nmap <Leader>a <Plug>(EasyAlign)
 let g:indent_guides_enable_on_vim_startup = 1
 let g:acp_enableAtStartup = 0
 let g:neocomplcache_enable_at_startup = 1

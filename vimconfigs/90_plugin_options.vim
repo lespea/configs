@@ -81,21 +81,15 @@ let g:delimitMate_balance_matchpairs = 1
 "au FileType c,perl,javascript,java let b:delimitMate_eol_marker = ";"
 
 
-"  ----------------
-"  |  BlockInsert  |
-"  ----------------
+"  ---------------
+"  |  EasyAlign  |
+"  ---------------
 
-vmap <leader>i  <plug>blockinsert-i
-vmap <leader>a  <plug>blockinsert-a
+" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vmap <Enter> <Plug>(EasyAlign)
 
-nmap <leader>i  <plug>blockinsert-i
-nmap <leader>a  <plug>blockinsert-a
-
-vmap <leader>[]  <plug>blockinsert-b
-vmap <leader>q[] <plug>blockinsert-qb
-
-nmap <leader>[]  <plug>blockinsert-b
-nmap <leader>q[] <plug>blockinsert-qb
+" Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
+nmap <Leader>a <Plug>(EasyAlign)
 
 
 
@@ -180,46 +174,3 @@ let g:tube_enable_shortcuts = 1
 "  -------------
 :let g:session_autosave = 'no'
 :let g:session_autoload = 'no'
-
-
-
-
-"==================================================
-"==                   DISABLED                   ==
-"==================================================
-""
-"" "  --------------
-"" "  |  SuperTab  |
-"" "  --------------
-""
-"" let g:SuperTabMappingForward = '<C-tab>'
-"" let g:SuperTabMappingTabLiteral = '<S-C-tab>'
-"" let g:SuperTabDefaultCompletionType="context"
-
-
-
-""
-""
-"" "  ---------------------
-"" "  |  miniBufExplorer  |
-"" "  ---------------------
-""
-"" let g:miniBufExplMapWindowNavArrows = 1
-"" let g:miniBufExplMapCTabSwitchBufs  = 1
-"" let g:miniBufExplModSelTarget       = 1
-"" let g:miniBufExplorerMoreThanOne    = 1
-"" let g:miniBufExplUseSingleClick     = 1
-
-
-
-""  -----------
-""  |  slimv  |
-""  -----------
-"
-"let g:slimv_python           = 'C:/Python31/python.exe'
-"let g:slimv_lisp             = '"java -cp C:/clojure/clojure.jar;C:/clojure/clojure-contrib.jar clojure.main"'
-"let g:lisp_rainbow           = 1
-"let g:clj_highlight_builtins = 1
-"
-"" Stupid plugin breaks delimitMate so forcibly remove it!
-"let g:paredit_loaded         = 0

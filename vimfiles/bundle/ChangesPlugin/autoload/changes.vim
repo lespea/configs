@@ -1,9 +1,8 @@
 " Changes.vim - Using Signs for indicating changed lines
 " ---------------------------------------------------------------
 " Version:  0.14
-" Authors:  Christian Brabandt <cb@256bit.org>
+" Author:  Christian Brabandt <cb@256bit.org>
 " Last Change: Wed, 14 Aug 2013 22:10:39 +0200
-" Script:  http://www.vim.org/scripts/script.php?script_id=3052
 " License: VIM License
 " Documentation: see :help changesPlugin.txt
 " GetLatestVimScripts: 3052 14 :AutoInstall: ChangesPlugin.vim
@@ -11,32 +10,41 @@
 " Documentation: "{{{1
 " See :h ChangesPlugin.txt
 
+scriptencoding utf-8
+let s:i_path = fnamemodify(expand("<sfile>"), ':p:h'). '/changes_icons/'
+
+fu! <sid>GetSID()
+    return matchstr(expand('<sfile>'), '<SNR>\zs\d\+\ze_GetSID$')
+endfu
+
+let s:sid    = <sid>GetSID()
+delf <sid>GetSID "not needed anymore
+
 " Check preconditions
 fu! s:Check() "{{{1
-    " Check for the existence of unsilent
-    if exists(":unsilent")
-	let s:echo_cmd='unsilent echo'
-    else
-	let s:echo_cmd='echo'
+    if !exists("s:msg")
+	let s:msg=[]
     endif
-
     if !has("diff")
-	call add(s:msg,"Diff support not available in your Vim version.")
-	call add(s:msg,"changes plugin will not be working!")
+	call s:StoreMessage("Diff support not available in your Vim version.")
 	throw 'changes:abort'
     endif
 
     if  !has("signs")
-	call add(s:msg,"Sign Support support not available in your Vim version.")
-	call add(s:msg,"changes plugin will not be working!")
+	call s:StoreMessage("Sign Support support not available in your Vim.")
 	throw 'changes:abort'
     endif
 
     if !executable("diff") || executable("diff") == -1
-	call add(s:msg,"No diff executable found")
-	call add(s:msg,"changes plugin will not be working!")
+	call s:StoreMessage("No diff executable found")
 	throw 'changes:abort'
     endif
+    if !get(g:, 'changes_respect_SignColumn', 0)
+	" Make the Sign column not standout
+	hi! clear SignColumn
+	hi! link SignColumn Normal
+    endif
+    let s:numeric_sort = v:version > 704 || v:version == 704 && has("patch341")
 
     " This variable is a prefix for all placed signs.
     " This is needed, to not mess with signs placed by the user
@@ -47,32 +55,21 @@ fu! s:Check() "{{{1
     let s:ids["ch"]    = hlID("DiffChange")
     let s:ids["ch2"]   = hlID("DiffText")
 
-    call s:DefineSigns()
+    call s:SetupSignTextHl()
+    call s:DefineSigns(0)
 endfu
 
-fu! s:AuCmd(arg) "{{{1
-    if a:arg
-	augroup Changes
-	    autocmd!
-	    let s:verbose=0
-	    au InsertLeave,CursorHold,BufWritePost * :call s:UpdateView()
-	augroup END
-    else
-	augroup Changes
-	    autocmd!
-	augroup END
-	augroup! Changes
-    endif
-endfu
-
-fu! s:DefineSigns() "{{{1
-    if !empty(s:DefinedSignsNotExists())
-	for key in keys(s:signs)
-	    exe "silent sign undefine " key
-	endfor
-    endif
+fu! s:DefineSigns(undef) "{{{1
     for key in keys(s:signs)
-	exe "sign define" key s:signs[key]
+	if a:undef
+	    let s:changes_signs_undefined=1
+	    try
+		" Try undefining first, so that refining will actually work!
+		exe "sil! sign undefine " key
+	    catch /^Vim\%((\a\+)\)\=:E155/	" sign does not exist
+	    endtry
+	endif
+	exe "sign define" s:signs[key]
     endfor
 endfu
 
@@ -81,11 +78,6 @@ fu! s:CheckLines(arg) "{{{1
     " a:arg  1: check original buffer
     "        0: check diffed scratch buffer
     let line=1
-    " This should not be necessary, since b:diffhl for the scratch buffer
-    " should never be accessed. But just to be sure, we define it here
-"    if (!a:arg) && !exists("b:diffhl")
-"	let b:diffhl = {'del': []}
-"    endif
     while line <= line('$')
 	let id=diff_hlID(line,1)
 	if  (id == 0)
@@ -105,16 +97,49 @@ fu! s:CheckLines(arg) "{{{1
     endw
 endfu
 
-fu! s:UpdateView() "{{{1
+fu! s:UpdateView(...) "{{{1
+    " if a:1 is given, force update!
+    let force = exists("a:1") && a:1
     if !exists("b:changes_chg_tick")
 	let b:changes_chg_tick = 0
     endif
+    let b:changes_last_line = get(b:, 'changes_last_line', line('$'))
+    if exists("s:ignore")
+	if get(s:ignore, bufnr('%'), 0) && !force
+	    return
+	endif
+    endif
     " Only update, if there have been changes to the buffer
-    if  b:changes_chg_tick != b:changedtick
-	" Turn off displaying the Caption
-	let s:verbose=0
-	call s:GetDiff(1, '')
+    if exists("b:diffhl") &&
+	\ line("'[") == line("']") &&
+	\ !empty(b:diffhl) &&
+	\ index(b:diffhl['add'] + b:diffhl['ch'] + b:diffhl['del'], line("'[")) > -1 &&
+	\ b:changes_last_line == line('$')
+	" there already is a sign on the current line, so
+	" skip an expensive call to create diff (might happen with many
+	" rx commands on the same line and triggered TextChanged autocomands)
+	" and should make Vim more responsive (at the cost of being a little
+	" bit more unprecise.)
 	let b:changes_chg_tick = b:changedtick
+    endif
+    if &buftype==?"help" || &ro
+	" Skip Vim help files and readonly files
+	return
+    endif
+	
+    if  b:changes_chg_tick != b:changedtick || force
+	try
+	    call changes#Init()
+	    call s:GetDiff(1, '')
+	    call s:HighlightTextChanges()
+	    let b:changes_chg_tick = b:changedtick
+	    let b:changes_last_line = line('$')
+	catch
+	    call s:StoreMessage(s:msg, v:exception)
+	    " Make sure, the message is actually displayed!
+	    verbose call changes#WarningMsg()
+	    call changes#CleanUp()
+	endtry
     endif
 endfu
 
@@ -126,37 +151,38 @@ fu! s:PlaceSignDummy(place) "{{{1
 	return
     endif
     if a:place
-	if empty(s:DefinedSignsNotExists())
-	    call s:DefineSigns()
-	endif
 	let b = copy(s:placed_signs[0])
 	if !empty(b)
 	    " only place signs, if signs have been defined
-	    exe "sign place " s:sign_prefix.'0 line=1 name=dummy buffer='. bufnr('')
+	    exe "sign place " s:sign_prefix.'0 line='.(line('$')+1). ' name=dummy buffer='. bufnr('')
 	endif
     else
-	exe "sign unplace " s:sign_prefix.'0'
+	exe "sil sign unplace " s:sign_prefix.'0'
     endif
 endfu
 
-fu! s:DefinedSignsNotExists() "{{{1
-    if !exists("s:sign_definition")
-	redir => a|exe "sil sign list"|redir end
-	let s:sign_definition = split(a, "\n")
+
+fu! s:SetupSignTextHl() "{{{1
+    if !hlID('ChangesSignTextAdd') || empty(synIDattr(hlID('ChangesSignTextAdd'), 'fg'))
+	" highlighting group does not exist yet
+	hi ChangesSignTextAdd ctermbg=46  ctermfg=black guibg=green
     endif
-    let pat = join(map(keys(s:signs),'"^sign ".v:val'), '\|')
-    let b = filter(copy(s:sign_definition), 'v:val =~ pat')
-    return b
+    if !hlID('ChangesSignTextDel') || empty(synIDattr(hlID('ChangesSignTextDel'), 'fg'))
+	hi ChangesSignTextDel ctermbg=160 ctermfg=black guibg=red
+    endif
+    if !hlID('ChangesSignTextCh') || empty(synIDattr(hlID('ChangesSignTextCh'), 'fg'))
+	hi ChangesSignTextCh  ctermbg=21  ctermfg=white guibg=blue
+    endif
 endfu
 
 fu! s:PlaceSigns(dict) "{{{1
-    if empty(s:DefinedSignsNotExists())
-	call s:DefineSigns()
-    endif
     let b = copy(s:placed_signs[1])
-    let b = map(b, 'matchstr(v:val, ''line=\zs\d\+'')')
-    for [ id, lines ] in items(a:dict)
-	for item in lines
+    " signs by other plugins
+    let changes_signs=[]
+    " Give changes a higher prio than adds
+    for id in ['add', 'ch', 'del']
+	let prev_line = -1 
+	for item in a:dict[id]
 	    " One special case could occur:
 	    " You could delete the last lines. In that case, we couldn't place
 	    " here the deletion marks. If this happens, place the deletion
@@ -164,70 +190,104 @@ fu! s:PlaceSigns(dict) "{{{1
 	    if item > line('$')
 		let item=line('$')
 	    endif
-	    " There already exists a sign in this line, we might skip placing
-	    " a sign here  
-	    if index(b, string(item)) > -1 &&
-	    \  get(g:, 'changes_respect_other_signs', 0)
+	    if index(changes_signs, item) > -1
+		" There is already a Changes sign placed
 		continue
 	    endif
-	    exe "sil sign place " s:sign_prefix . item . " line=" . item .
-		\ " name=" . id . " buffer=" . bufnr('')
+	    " There already exists a sign in this line, skip now
+	    if index(b, item) > -1
+		continue
+	    endif
+	    let name=id
+	    " Make sure, 'dummych' ==? 'ch'
+	    " or 'dummydel' ==? 'del'
+	    if prev_line+1 == item || s:SignType(s:PrevDictHasKey(item-1)) ==? id
+		if id=='del'
+		    " don't need to place more deleted signs on those lines,
+		    " skip
+		    let prev_line = item
+		    continue
+		else
+		    let name='dummy'.id
+		endif
+	    endif
+	    let cmd=printf("sil sign place %d line=%d name=%s buffer=%d",
+			\ s:sign_prefix.item, item, name, bufnr(''))
+	    exe cmd
+	    " remember line number, so that we don't place a second sign
+	    " there!
+	    call add(changes_signs, item)
+	    let prev_line = item
 	endfor
     endfor
+endfu
+
+fu! s:MySortValues(i1, i2) "{{{1
+    return (a:i1+0) == (a:i2+0) ? 0 : (a:i1+0) > (a:i2+0) ? 1 : -1
 endfu
 
 fu! s:UnPlaceSigns(force) "{{{1
     if !exists("s:sign_prefix")
 	return
     endif
-    let b = s:PlacedSigns()[0]
-    let b=map(b, 'matchstr(v:val, ''id=\zs\d\+'')')
-    for id in sort(b)
-	if id == s:sign_prefix.'0' && !a:force
-	    " Keep dummy, so the sign column does not vanish
-	    continue
-	endif
-	exe "sign unplace" id
-    endfor
+    if a:force
+	" only changes sign present, can remove all of them now
+	exe "sign unplace * buffer=".bufnr('')
+	return
+    endif
+    if !exists("b:diffhl")
+	return
+    endif
+    let s:placed_signs = s:PlacedSigns()
+    call s:UnPlaceSpecificSigns(s:placed_signs[0])
 endfu
 
 fu! s:Cwd() "{{{1
     return escape(getcwd(), ' ')
 endfu
 
-fu! s:Writefile(name) "{{{1
-    let a = getline(1,'$')
-    if &ff ==? 'dos'
-	" TODO: What about mac format?
-	call map(a, 'v:val.nr2char(13)')
+fu! s:StoreMessage(msg, ...) "{{{1
+    if !exists("a:1")
+	let level=0
+    else
+	let level=a:1
     endif
-    if writefile(a + [''], a:name, 'b') == -1
-	throw "changes:abort"
+    if &vbs>level
+	call add(s:msg, a:msg)
     endif
 endfu
-
 fu! s:PreviewDiff(file) "{{{1
     try
-	if	!exists('g:changes_did_startup') || !get(g:, 'changes_diff_preview', 0)
-		    \ || &diff
+	if !get(g:, 'changes_diff_preview', 0) || &diff
 	    return
 	endif
-	let bufcontent = readfile(a:file)
-	if len(bufcontent) > 2
-	    let bufcontent[0] = substitute(bufcontent[0], s:diff_in_old, expand("%"), '')
-	    let bufcontent[1] = substitute(bufcontent[1], s:diff_in_cur, expand("%")." (cur)", '')
-	    call writefile(bufcontent, a:file)
+	if getfsize(a:file) <= 0
+	    " getfsize() returns -1 on error (e.g. file does not exists!)
+	    if bufwinnr(a:file) > 0
+		sil! pclose
+	    endif
+	    return
 	endif
-
-	let bufnr = bufnr('')
 	let cur = exists("b:current_line") ? b:current_line : 0
-	if cur
-	    exe printf(':noa sil! pedit +/@@\ -%d.*\\n\\zs %s', cur, a:file)
-	    call setbufvar(a:file, "&ft", "diff")
-	    call setbufvar(a:file, '&bt', 'nofile')
-	    exe "noa" bufwinnr(bufnr)."wincmd w"
-	else
-	    sil! pclose
+	let _ar=&g:ar
+	" Avoid W11 message (:h W11)
+	set ar
+	try
+	    exe printf(':noa keepp noswap sil pedit +/@@\ -%d.*\\n\\zs %s', cur, a:file)
+	    let &g:ar=_ar
+	    noa wincmd P
+	    " execute commands in preview window
+	    setl nofoldenable syntax=diff bt=nofile ft=diff
+	    sil keepp noa g/^[+-]\{3\}/d_
+	catch
+	finally
+	    " Be sure, to stay in the original window
+	    noa wincmd p
+	endtry
+	if get(g:, 'neocomplcache_enable_auto_close_preview', 0)
+	    " Neocomplache closes preview window, GRR!
+	    " don't close preview window
+	    let g:neocomplcache_enable_auto_close_preview = 0
 	endif
     catch
     endtry
@@ -238,23 +298,18 @@ fu! s:MakeDiff_new(file) "{{{1
     try
 	let _pwd = s:ChangeDir()
 	unlet! b:current_line
-	call s:Writefile(s:diff_in_cur)
-	" exe ":sil noa :w" s:diff_in_cur
+	exe ":sil keepalt noa :w!" s:diff_in_cur
 	if !s:vcs || !empty(a:file)
 	    let file = !empty(a:file) ? a:file : bufname('')
 	    if empty(file)
 		throw "changes:abort"
 	    endif
-	    if !s:Is('unix')
-		let output = system("copy ". shellescape(file). " ". s:diff_in_old)
-	    else
-		let output = system("cp -- ". shellescape(file). " ". s:diff_in_old)
-	    endif
+	    let cp = (!s:Is('unix') ? 'copy ' : 'cp ')
+	    let output = system(cp. shellescape(file). " ". s:diff_in_old)
 	    if v:shell_error
-		call add(s:msg, output[:-2])
+		call s:StoreMessage(output[:-2])
 		throw "changes:abort"
 	    endif
-	    "exe ':sil !diff -u '.  shellescape(bufname(''),1). ' '. s:diff_in_cur. '>' s:diff_out
 	else
 	    if b:vcs_type == 'git'
 		let git_rep_p = s:ReturnGitRepPath()
@@ -268,12 +323,13 @@ fu! s:MakeDiff_new(file) "{{{1
 		" to consider CVSROOT
 		exe 'lcd' fnamemodify(expand('%'), ':p:h')
 	    endif
-	    let cmd = printf("%s %s%s > %s", (b:vcs_type==?'rcs'?'':b:vcs_type),
-			\ s:vcs_cat[b:vcs_type], shellescape(expand('%')),
+	    let cmd = printf("%s %s%s > %s", (b:vcs_type==?'rcs'?'':
+			\ b:vcs_type), s:vcs_cat[b:vcs_type],
+			\ shellescape(fnamemodify(resolve(expand('%')), ':.')),
 			\ s:diff_in_old)
 	    let output = system(cmd)
 	    if v:shell_error
-		call add(s:msg, output[:-2])
+		call s:StoreMessage(output[:-2])
 		throw "changes:abort"
 	    endif
 	endif
@@ -282,33 +338,33 @@ fu! s:MakeDiff_new(file) "{{{1
 	let output = system(cmd)
 	if v:shell_error >= 2 || v:shell_error < 0
 	    " diff returns 2 on errors
-	    call add(s:msg, output[:-2])
+	    call s:StoreMessage(output[:-2])
 	    throw "changes:abort"
 	endif
 	if getfsize(s:diff_out) == 0
-	    call add(s:msg,"No differences found!")
+	    call s:StoreMessage("No differences found!",1)
 	    return
 	endif
 	call s:ParseDiffOutput(s:diff_out)
     finally
 	call s:PreviewDiff(s:diff_out)
-	for file in [s:diff_in_cur, s:diff_in_old, s:diff_out]
-	    call delete(file)
-	endfor
+	if !get(g:, 'changes_debug', 0)
+	    for file in [s:diff_in_cur, s:diff_in_old, s:diff_out]
+		call delete(file)
+	    endfor
+	endif
 	exe 'lcd' _pwd
     endtry
 endfu
 
-fu! s:ChangeDir()
+fu! s:ChangeDir() "{{{1
     let _pwd = s:Cwd()
     exe "lcd " fnameescape(fnamemodify(expand("%"), ':h'))
     return _pwd
 endfu
 
-
 fu! s:MakeDiff(...) "{{{1
-    " Old version, only needed, when GetDiff(3) is called (or argument 1 is
-    " non-empty)
+    " Old version, only needed, when GetDiff(3) is called (or argument 1 is non-empty)
     " Get diff for current buffer with original
     let o_pwd = s:ChangeDir()
     let bnr = bufnr('%')
@@ -336,20 +392,20 @@ fu! s:MakeDiff(...) "{{{1
 	    endif
 	    let output = system((vcs==?'rcs'?'':vcs) . ' '. s:vcs_cat[vcs] .  expand("#") . '>'.  s:diff_out)
 	    if v:shell_error
-		call add(s:msg, output[:-2])
+		call s:StoreMessage(output[:-2])
 		throw "changes:abort"
 	    endif
 	    let fsize=getfsize(s:diff_out)
 	    if fsize == 0
 		call delete(s:diff_out)
-		call add(s:msg,"Couldn't get VCS output, aborting")
+		call s:StoreMessage("Couldn't get VCS output, aborting")
 		"call s:MoveToPrevWindow()
 		exe "noa" bufwinnr(bnr) "wincmd w"
 		throw "changes:abort"
 	    endif
 	    exe ':silent :r' s:diff_out
         catch /^changes: No git Repository found/
-	    call add(s:msg,"Unable to find git Top level repository.")
+	    call s:StoreMessage("Unable to find git Top level repository.")
 	    echo v:errmsg
 	    exe "noa" bufwinnr(bnr) "wincmd w"
 	    throw "changes:abort"
@@ -374,8 +430,8 @@ endfu
 fu! s:ParseDiffOutput(file) "{{{1
     let b:current_line = 1000000 
     for line in filter(readfile(a:file), 'v:val=~''^@@''')
-	let submatch = matchlist(line, '@@ -\(\d\+\),\?\(\d*\) +\(\d\+\),\?\(\d*\) @@')
-
+	let submatch = matchlist(line,
+	    \ '@@ -\(\d\+\),\?\(\d*\) +\(\d\+\),\?\(\d*\) @@')
 	if empty(submatch)
 	    " There was probably an error, skip parsing now
 	    return
@@ -389,20 +445,36 @@ fu! s:ParseDiffOutput(file) "{{{1
 	    endif
 	endif
 
-	" Line added
+	" 2 Lines added
+	" @@ -4,0 +4,2 @@
 	if old_count == 0 && new_count > 0
 	    let b:diffhl.add += range(new_line, new_line + new_count - 1)
+
+	" 2 lines deleted:
+	" @@ -4,2 +3,0 @@
 	elseif old_count > 0 && new_count == 0
 	    if new_line == 0
 		let new_line = 1
 	    endif
 	    let b:diffhl.del += range(new_line, new_line + old_count - 1)
-	" Line changed
+
+	" Lines changed
+	" 2 deleted, 2 changed
+	" @@ -3,4 +3,2 @@
 	elseif old_count >= new_count
 	    let b:diffhl.ch += range(new_line, new_line + new_count - 1)
-	else
+	    if new_line + new_count <= old_line+old_count
+		let b:diffhl.del+= range(new_count + new_line, old_line + old_count - 1)
+	    endif
+
+	" Lines changed
+	" 3 added, 2 changed
+	" @@ -4,2 +4,5 @@
+	else " old_count < new_count
 	    let b:diffhl.ch += range(new_line, new_line + old_count - 1)
-	    let b:diffhl.add += range(new_line, new_line + new_count - 1)
+	    if new_line + old_count <= new_line+new_count-1
+		let b:diffhl.add += range(new_line + old_count, new_line + new_count - 1)
+	    endif
 	endif
     endfor
 endfu
@@ -410,7 +482,7 @@ endfu
 fu! s:ReturnGitRepPath() "{{{1
     " return the top level of the repository path. This is needed, so
     " git show will correctly return the file
-    "exe 'lcd' fnamemodify(expand('%'), ':h')
+    exe 'lcd' fnamemodify(resolve(expand('%')), ':h')
     let git_path = system('git rev-parse --git-dir')
     if !v:shell_error
 	" we need the directory right above the .git metatdata directory
@@ -436,16 +508,27 @@ fu! s:ReturnGitRepPath() "{{{1
 endfu
 
 fu! s:ShowDifferentLines() "{{{1
-    let b=copy(s:placed_signs[0])
-    let b=map(b, 'matchstr(v:val, ''line=\zs\d\+'')')
-    let b=map(b, '''\%(^\%''.v:val.''l\)''')
-    if !empty(b)
-	exe ":silent! lvimgrep /".join(b, '\|').'/gj %'
-	lw
+    if !exists("b:diffhl")
+	return
     else
-	" This should not happen!
-	call setloclist(winnr(),[],'a')
-	lclose
+	let list=[]
+	let placed={}
+	let types={'ch':'*', 'add': '+', 'del': '-'}
+	for type in ['ch', 'del', 'add']
+	    for line in b:diffhl[type]
+		if has_key(placed, line)
+		    continue
+		endif
+		call add(list, {'bufnr': bufnr(''),
+		    \ 'lnum': line, 'text': getline(line),
+		    \ 'type': types[type]})
+		let placed.line=1
+	    endfor
+	endfor
+    endif
+    if !empty(list)
+	call setloclist(winnr(), list)
+	lopen
     endif
 endfun
 
@@ -457,14 +540,25 @@ fu! s:PlacedSigns() "{{{1
     let b=split(a,"\n")[1:]
     if empty(b)
 	return [[],[]]
-    else
-	" Filter from the second item. The first one contains the buffer name:
-	" Signs for [NULL]: or  Signs for <buffername>:
-	let b=b[1:]
     endif
+    let dict={}
+    let mlist=[]
+    " Filter from the second item. The first one contains the buffer name:
+    " Signs for [NULL]: or  Signs for <buffername>:
+    let b=b[1:]
     let c=filter(copy(b), 'v:val =~ "id=".s:sign_prefix')
+    for item in c
+	let t = split(item)
+	let dict.line = split(t[0], '=')[1]
+	let dict.id   = split(t[1], '=')[1]
+	let dict.type = split(t[2], '=')[1]
+	call add(mlist, copy(dict))
+    endfor
+
+    "let c=map(c, 'matchstr(v:val, ''line=\zs\d\+\ze'')+0')
     let d=filter(copy(b), 'v:val !~ "id=".s:sign_prefix')
-    return [c,d]
+    let d=map(d, 'matchstr(v:val, ''^\s*\w\+=\zs\d\+\ze'')+0')
+    return [mlist,d]
 endfu
 
 fu! s:GuessVCSSystem() "{{{1
@@ -476,7 +570,7 @@ fu! s:GuessVCSSystem() "{{{1
 	    return vcs
 	endif
     endif
-    let file = fnamemodify(expand("%"), ':p')
+    let file = fnamemodify(resolve(expand("%")), ':p')
     let path = escape(fnamemodify(file, ':h'), ' ')
     " First try git and hg, they seem to be the most popular ones these days
     if !empty(finddir('.git',path.';'))
@@ -500,42 +594,6 @@ fu! s:GuessVCSSystem() "{{{1
 	return 'svk'
     else
 	return ''
-    endif
-endfu
-
-fu! s:CheckDeletedLines() "{{{1
-    " If there are consecutive deleted lines,
-    " we keep only the first of the deleted lines
-    let i=0
-    for item in b:diffhl['del']
-	if item > line('$')
-	    let b:diffhl['del'][i]=line('$')
-	    return
-	endif
-	if i==0
-	    let i+=1
-	    let last_line = item
-	    continue
-	endif
-	if last_line ==? (item-1)
-	    call remove(b:diffhl['del'], i)
-	    let last_line=item
-	    continue
-	endif
-	let last_line=item
-	let i+=1
-    endfor
-endfu
-
-fu! s:MoveToPrevWindow() "{{{1
-    let winnr = winnr()
-    noa wincmd p
-    if winnr() == winnr
-	" Best effort, there doesn't exist a previous window
-	" where wincmd p can jump to, so move to the next window
-	" (e.g. latexsuite does this:
-	" https://github.com/chrisbra/changesPlugin/issues/5
-	noa wincmd w
     endif
 endfu
 
@@ -570,20 +628,17 @@ fu! s:GetDiff(arg, bang, ...) "{{{1
     
     " If error happened, don't try to get a diff list
     try
-	if (exists("s:ignore") && get(s:ignore, bufnr('%'), 0) && empty(a:bang)) ||
-	    \ !empty(&l:bt) ||
+	if (exists("s:ignore") && get(s:ignore, bufnr('%'), 0) &&
+	    \ empty(a:bang)) || !empty(&l:bt) ||
 	    \ line2byte(line('$')) == -1
-	    call add(s:msg, 'Buffer is ignored, use ! to force command')
-	    " ignore error messages
-	    if get(s:ignore, bufnr('%'), 0)
-		call remove(s:ignore, bufnr('%'))
-	    endif
+	    call s:StoreMessage('Buffer is ignored, use ! to force command')
 	    return
+	elseif !empty(a:bang) && get(s:ignore, bufnr('%'), 0)
+	    " remove buffer from ignore list
+	    call remove(s:ignore, bufnr('%'))
 	endif
 
 	" Save some settings
-	" fdm, wrap, and fdc will be reset by :diffoff!
-	let _settings = [ &fdm, &lz, &fdc, &wrap, &diff ]
 	let _wsv   = winsaveview()
 	" Lazy redraw
 	setl lz
@@ -591,22 +646,16 @@ fu! s:GetDiff(arg, bang, ...) "{{{1
 	let scratchbuf = 0
 
 	try
-	    call s:PlaceSignDummy(1)
-	    call changes#Init()
-
 	    if !filereadable(bufname(''))
-		call add(s:msg,"You've opened a new file so viewing changes ".
-		    \ "is disabled until the file is saved ".
-		    \ "(You have to reenable it if not using autocmd).")
-		let s:verbose = 0
+		call s:StoreMessage("You've opened a new file so viewing changes ".
+		    \ "is disabled until the file is saved ")
 		return
 	    endif
 
 	    " Does not make sense to check an empty buffer
 	    if empty(bufname(''))
-		call add(s:msg,"The buffer does not contain a name. Check aborted!")
-		let s:ignore[bufnr('%')] = 1
-		let s:verbose = 0
+		call s:StoreMessage("The buffer does not contain a name. Aborted!")
+		" don't ignore buffer, it could get a name later...
 		return
 	    endif
 
@@ -619,65 +668,65 @@ fu! s:GetDiff(arg, bang, ...) "{{{1
 		call s:CheckLines(1)
 		exe "noa" bufwinnr(scratchbuf) "wincmd w"
 		exe "setl ft=". _ft
-		"call s:MoveToPrevWindow()
 		call s:CheckLines(0)
 		" Switch to other buffer and check for deleted lines
-		"call s:MoveToPrevWindow()
 		exe "noa" bufwinnr(curbuf) "wincmd w"
 		let b:diffhl['del'] = s:temp['del']
 	    else
-		let scratchbuf = s:MakeDiff_new(exists("a:1") ? a:1 : '')
+		" parse diff output
+		call s:MakeDiff_new(exists("a:1") ? a:1 : '')
 	    endif
+	    call s:SortDiffHl()
 
 	    " Check for empty dict of signs
-	    if (empty(values(b:diffhl)[0]) && 
-	    \empty(values(b:diffhl)[1]) && 
-	    \empty(values(b:diffhl)[2]))
-		call add(s:msg, 'No differences found!')
-		let s:verbose=0
+	    if !exists("b:diffhl") || 
+	    \ ((b:diffhl ==? {'add': [], 'del': [], 'ch': []})
+	    \ && empty(s:placed_signs[0]))
+		" Make sure, diff and previous diff are different,
+		" otherwise, we might forget to update the signs
+		call s:StoreMessage('No differences found!',1)
 		let s:nodiff=1
-	    else
+	    elseif exists("s:changes_signs_undefined") && s:changes_signs_undefined
+		let s:diffhl = s:CheckInvalidSigns()
+		" remove invalid signs
+		call s:UnPlaceSpecificSigns(s:diffhl[0])
 		call s:PlaceSigns(b:diffhl)
+	    else
+		let s:diffhl = s:CheckInvalidSigns()
+		" diffhl[0] - invalid lines, that need to be removed
+		" diffhl[1] - valid lines, that need to be added
+		call s:UnPlaceSpecificSigns(s:diffhl[0])
+		" Make sure to only place new signs!
+		call s:PlaceSigns(s:diffhl[1])
 	    endif
-	    " :diffoff resets some options (see :h :diffoff
-	    " so we need to restore them here
-	    " We don't reset the fdm, in case we are staying in diff mode
 	    if a:arg != 3 || s:nodiff
-		if  _settings[2] == 1
-		    " When foldcolumn is 1, folds won't be shown because of
-		    " the signs, so increasing its value by 1 so that folds will
-		    " also be shown
-		    let _settings[2] += 1
-		endif
 		let b:changes_view_enabled=1
 	    endif
 	    if a:arg ==# 2
-	    call s:ShowDifferentLines()
-	    let s:verbose=0
+		call s:ShowDifferentLines()
 	    endif
 	catch /^Vim\%((\a\+)\)\=:E139/	" catch error E139
 	    return
 	catch /^changes/
 	    let b:changes_view_enabled=0
 	    let s:ignore[bufnr('%')] = 1
-	    let s:verbose = 0
+	catch
+	    call s:StoreMessage("Error occured: ".v:exception)
+	    call s:StoreMessage("Trace: ". v:throwpoint,1)
 	finally
 	    if scratchbuf && a:arg < 3
 		exe "bw" scratchbuf
 	    endif
-	    if s:vcs && exists("b:changes_view_enabled") && b:changes_view_enabled
-		call add(s:msg,"Check against " . fnamemodify(expand("%"),':t') . " from " . b:vcs_type)
+	    if s:vcs && exists("b:changes_view_enabled") &&
+			\ b:changes_view_enabled
+		" only add info here, when 'verbose' > 1
+		call s:StoreMessage("Check against ".
+		    \ fnamemodify(expand("%"),':t') . " from " . b:vcs_type, 1)
 	    endif
 	    " remove dummy sign
 	    call s:PlaceSignDummy(0)
 	    " redraw (there seems to be some junk left)
 	    redr!
-	    call changes#Output(0)
-	    if a:arg < 3
-		let [ &fdm, &lz, &fdc, &wrap, &diff ] = _settings
-	    else
-		let [ &lz, &fdc, &wrap ] = _settings[1:3]
-	    endif
 	    if isfolded == -1 && foldclosed('.') != -1
 		" resetting 'fdm' might fold the cursorline, reopen it
 		norm! zv
@@ -687,11 +736,179 @@ fu! s:GetDiff(arg, bang, ...) "{{{1
 	if exists("_wsv")
 	    call winrestview(_wsv)
 	endif
-	" make sure on next call, s:sign-definition will be recreated by
-	" DefinedSignsNotExists()
-	unlet! s:sign_definition
-	call changes#WarningMsg()
+	" Make sure, the message is actually displayed!
+	verbose call changes#WarningMsg()
+	" restore change marks
+	call s:SaveRestoreChangeMarks(0)
     endtry
+endfu
+fu! s:SortDiffHl() "{{{1
+    for i in ['add', 'ch', 'del']
+	call sort(b:diffhl[i], 's:MySortValues')
+	if exists("*uniq")
+	    call uniq(b:diffhl[i])
+	endif
+    endfor
+endfu
+fu! s:SignType(string) "{{{1
+    " returns type but skips dummy type
+    return matchstr(a:string, '\(dummy\)\?\zs.*$')
+endfu
+
+fu! s:CheckInvalidSigns() "{{{1
+    let list=[[],{'add': [], 'del': [], 'ch': []}]
+    let ind=0
+    for item in s:placed_signs[0]
+	if (item.type ==? '[Deleted]')
+	    " skip sign prefix '99'
+	    call add(list[0], item)
+	    continue
+	endif
+	if index(b:diffhl[s:SignType(item.type)], item.line+0) == -1
+	    call add(list[0], item)
+	    " remove item from the placed sign list, so that we
+	    " don't erroneously place a dummy sign later on
+	    call remove(s:placed_signs[0], ind)
+	else
+	    let ind+=1
+	endif
+    endfor
+    for id in ['add', 'ch', 'del']
+	for line in b:diffhl[id]
+	    if empty(s:PrevDictHasKey(line))
+		call add(list[1][id], line)
+	    endif
+	endfor
+    endfor
+    return list
+endfu
+
+fu! s:PrevDictHasKey(line) "{{{1
+    for item in s:placed_signs[0]
+	if get(item, 'line', -1) ==? a:line
+	    return item.type
+	endif
+    endfor
+    return ''
+endfu
+fu! s:UnPlaceSpecificSigns(dict) "{{{1
+    for sign in a:dict
+	exe "sign unplace ". sign.id. " buffer=".bufnr('')
+    endfor
+endfu
+
+fu! s:InitSignDef() "{{{1
+    let signs={}
+    let s:changes_sign_hi_style = get(s:, 'changes_sign_hi_style', 0)
+    let sign_hi = s:changes_sign_hi_style
+    if sign_hi == 2
+	let add = printf("%s texthl=SignColumn", "\<Char-0xa0>")
+	let del = printf("%s texthl=SignColumn", "\<Char-0xa0>")
+	let ch  = printf("%s texthl=SignColumn", "\<Char-0xa0>")
+    else
+	let add = printf("%s texthl=%s %s",
+		\ (get(g:, 'changes_sign_text_utf8', 0) ? '⨁' : '+'), 
+		\ (sign_hi<2 ? "ChangesSignTextAdd" : "SignColumn"),
+		\ (has("gui_running") ? 'icon='.s:i_path.'add1.bmp' : ''))
+	let del = printf("%s texthl=%s %s",
+		\ (get(g:, 'changes_sign_text_utf8', 0) ? '➖' : '-'),
+		\ (sign_hi<2 ? "ChangesSignTextDel" : "SignColumn"),
+		\ (has("gui_running") ? 'icon='.s:i_path.'delete1.bmp' : ''))
+	let ch  = printf("%s texthl=%s  %s",
+		\ (get(g:, 'changes_sign_text_utf8', 0) ? '★' : '*'),
+		\ (sign_hi<2 ? "ChangesSignTextCh" : "SignColumn"),
+		\ (has("gui_running") ? 'icon='.s:i_path.'warning1.bmp' : ''))
+    endif
+
+    let signs["add"] = "add text=".add
+    let signs["ch"]  = "ch  text=".ch
+    let signs["del"] = "del text=".del
+
+    " Add some more dummy signs
+    let signs["dummy"]    = "dummy text=\<Char-0xa0>\<Char-0xa0> texthl=SignColumn"
+    let signs["dummyadd"] = "dummyadd text=\<Char-0xa0>\<Char-0xa0> texthl=".
+		\ (sign_hi<2 ? "ChangesSignTextAdd" : "SignColumn")
+    let signs["dummych"]  = "dummych text=\<Char-0xa0>\<Char-0xa0> texthl=".
+		\ (sign_hi<2 ? "ChangesSignTextCh" : "SignColumn")
+
+    if sign_hi > 0
+	let signs['add'] .= ' linehl=DiffAdd'
+	let signs['ch'] .= ' linehl=DiffChange'
+	let signs['del'] .= ' linehl=DiffDelete'
+	let signs['dummyadd'] .= ' linehl=DiffAdd'
+	let signs['dummych'] .= ' linehl=DiffChange'
+    endif
+    return signs
+endfu
+fu! s:SaveRestoreChangeMarks(save) "{{{1
+    if a:save
+	let s:_change_mark = [getpos("'["), getpos("']")]
+    else
+	for i in [0,1]
+	    call setpos("'".(i?']':'['), s:_change_mark[i])
+	endfor
+    endif
+endfu
+fu! s:HighlightTextChanges() "{{{1
+    " use the '[ and '] marks (if they are valid)
+    " and highlight changes
+    let seq_last=undotree()['seq_last']
+    let seq_cur =undotree()['seq_cur']
+    if seq_last > seq_cur && exists("b:changes_linehi_diff_match") &&
+		\ len(b:changes_linehi_diff_match) > 0
+	" change was undo
+	" remove last highlighting (this is just a guess!)
+	for [change, val] in items(b:changes_linehi_diff_match)
+	    if change > seq_cur
+		sil call matchdelete(val)
+		unlet! b:changes_linehi_diff_match[change]
+	    endif
+	endfor
+	return
+    endif
+    if get(g:, 'changes_linehi_diff', 0) &&
+    \  (getpos("'[")[1] !=? 1 ||
+    \  getpos("']")[1] !=? line('$')) &&
+    \  getpos("']") !=? getpos("'[")
+    " ignore those marks, if they are
+    " - not set (e.g. they are [0,0,0,0]
+    " - or '[ and '] are the same (happens when deleting lines)
+    " - or they do not match the complete buffer
+	call s:AddMatches(
+	\ s:GenerateHiPattern(getpos("'[")[1:2], getpos("']")[1:2]))
+    endif
+endfu
+fu! s:GenerateHiPattern(startl, endl) "{{{1
+    " startl - Start Position [line, col]
+    " endl   - End Position   [line, col]
+    " Easy way: match within a line
+    if a:startl[0] == a:endl[0]
+	return '\%'.a:startl[0]. 'l\%>'.(a:startl[1]-1).'c.*\%<'.a:endl[1].'c'
+    else
+	" Need to generate concat 3 patterns:
+	"  1) from startline, startcolumn till end of line
+	"  2) all lines between startline and end line
+	"  3) from start of endline until end column
+	"
+	" example: Start at line 1 col. 6 until line 3 column 12:
+	" \%(\%1l\%>6v.*\)\|\(\%>1l\%<3l.*\)\|\(\%3l.*\%<12v\)
+    return  '\%(\%'.  a:startl[0]. 'l\%>'. (a:startl[1]-1). 'c.*\)\|'.
+	    \	'\%(\%>'. a:startl[0]. 'l\%<'. a:endl[0]. 'l.*\)\|'.
+	    \   '\%(\%'.  a:endl[0]. 'l.*\%<'. a:endl[1]. 'c\)'
+    endif
+endfu 
+fu! s:AddMatches(pattern) "{{{1
+    if  !empty(a:pattern)
+	if !exists("b:changes_linehi_diff_match")
+		let b:changes_linehi_diff_match = {}
+	endif
+	let b:changes_linehi_diff_match[changenr()] = matchadd('CursorLine', a:pattern)
+    endif
+endfu
+fu! changes#GetStats() "{{{1
+    return [  len(get(get(b:, 'diffhl', []), 'add', [])),
+	    \ len(get(get(b:, 'diffhl', []), 'ch',  [])),
+	    \ len(get(get(b:, 'diffhl', []), 'del', []))]
 endfu
 
 fu! changes#WarningMsg() "{{{1
@@ -703,12 +920,8 @@ fu! changes#WarningMsg() "{{{1
 	redraw!
 	let msg=["Changes.vim: " . s:msg[0]] + s:msg[1:]
 	echohl WarningMsg
-	" s:echo_cmd might not yet exist
-	if !exists("s:echo_cmd")
-	    let s:echo_cmd = 'echo'
-	endif
 	for mess in msg
-	    exe s:echo_cmd "mess"
+	    echomsg mess
 	endfor
 
 	echohl Normal
@@ -717,34 +930,46 @@ fu! changes#WarningMsg() "{{{1
     endif
 endfu
 
-fu! changes#Output(force) "{{{1
-    if s:verbose || a:force
-	echohl Title
-	echo "Differences will be highlighted like this:"
-	echohl Normal
-	echo "========================================="
-	echohl DiffAdd
-	echo "+ Added Lines"
-	echohl DiffDelete
-	echo "- Deleted Lines"
-	echohl DiffChange
-	echo "* Changed Lines"
-	echohl Normal
+fu! changes#Output() "{{{1
+    let add = '+'
+    let ch  = '*'
+    let del = '-'
+    let sign_def = s:signs
+    if !empty(sign_def)
+	let add = matchstr(sign_def['add'], 'text=\zs..')
+	let ch  = matchstr(sign_def['ch'], 'text=\zs..')
+	let del = matchstr(sign_def['del'], 'text=\zs..')
     endif
+    echohl Title
+    echo "Differences will be highlighted like this:"
+    echohl Normal
+    echo "========================================="
+    echohl ChangesSignTextAdd
+    echo add. " Added Lines"
+    echohl ChangesSignTextDel
+    echo del. " Deleted Lines"
+    echohl ChangesSignTextCh
+    echo ch. " Changed Lines"
+    echohl Normal
 endfu
 
 fu! changes#Init() "{{{1
     " Message queue, that will be displayed.
     let s:msg      = []
+    " save change marks
+    call s:SaveRestoreChangeMarks(1)
     " Ignore buffer
     let s:ignore   = {}
-    let s:hl_lines = get(g:, 'changes_hl_lines', 0)
-    let s:autocmd  = get(g:, 'changes_autocmd', 0)
-    let s:verbose  = get(g:, 'changes_verbose', &vbs)
+    let s:changes_signs_undefined=0
+    let s:autocmd  = get(g:, 'changes_autocmd', 1)
     " Check against a file in a vcs system
     let s:vcs      = get(g:, 'changes_vcs_check', 0)
     if !exists("b:vcs_type")
 	let b:vcs_type = (exists("g:changes_vcs_system")? g:changes_vcs_system : s:GuessVCSSystem())
+    endif
+    if s:vcs && empty(b:vcs_type)
+	" disable VCS checking...
+	let s:vcs=0
     endif
     if !exists("s:vcs_cat")
 	let s:vcs_cat  = {'git': 'show HEAD:', 
@@ -777,32 +1002,29 @@ fu! changes#Init() "{{{1
 "    endif
 
     " Settings for Version Control
-    if s:vcs
+    if s:vcs && !empty(b:vcs_type)
 	if get(s:vcs_cat, b:vcs_type, 'NONE') == 'NONE'
-	    call add(s:msg,"Don't know VCS " . b:vcs_type)
-	    call add(s:msg,"VCS check will be disabled for now.")
+	    call s:StoreMessage("Don't know VCS " . b:vcs_type)
+	    call s:StoreMessage("VCS check will be disabled for now.")
 	    let s:vcs=0
+	    " Probably file not in a repository/working dir
 	    throw 'changes:NoVCS'
 	endif
 	if !executable(b:vcs_type)
-	    call add(s:msg,'Guessing VCS: '. b:vcs_type)
-	    call add(s:msg,"Executable " . b:vcs_type . " not found! Aborting.")
-	    call add(s:msg,'You might want to set the g:changes_vcs_system variable to override!')
+	    call s:StoreMessage("Guessing VCS: ". b:vcs_type)
+	    call s:StoreMessage("Executable " . b:vcs_type . " not found! Aborting.")
+	    call s:StoreMessage("You might want to set the g:changes_vcs_system variable to override!")
 	    throw "changes:abort"
 	endif
     endif
     if !exists("s:diff_out")
 	let s:diff_out    = tempname()
-	let s:diff_in_cur = tempname()
-	let s:diff_in_old = tempname()
+	let s:diff_in_cur = s:diff_out.'cur'
+	let s:diff_in_old = s:diff_out.'old'
     endif
     let s:nodiff=0
-
-    let s:signs={}
-    let s:signs["add"] = "text=+ texthl=DiffAdd " . ( (s:hl_lines) ? " linehl=DiffAdd" : "")
-    let s:signs["del"] = "text=- texthl=DiffDelete " . ( (s:hl_lines) ? " linehl=DiffDelete" : "")
-    let s:signs["ch"] = "text=* texthl=DiffChange " . ( (s:hl_lines) ? " linehl=DiffChange" : "")
-    let s:signs["dummy"] = "text=_ texthl=SignColumn "
+    let s:old_signs = get(s:, 'signs', {})
+    let s:signs=s:InitSignDef()
 
     " Only check the first time this file is loaded
     " It should not be neccessary to check every time
@@ -810,67 +1032,92 @@ fu! changes#Init() "{{{1
 	try
 	    call s:Check()
 	catch
+	    call s:StoreMessage("changes plugin will not be working!")
 	    " Rethrow exception
-	    throw v:exception
+	    throw changes:abort
 	endtry
 	let s:precheck=1
     endif
-
     let s:placed_signs = s:PlacedSigns()
-    " Delete previously placed signs
-    call s:UnPlaceSigns(0)
-    if exists("s:sign_definition")
-	let def = s:DefinedSignsNotExists()
-	if (     match(def, s:signs.add) == -1
-	    \ || match (def, s:signs.del) == -1
-	    \ || match (def, s:signs.ch)  == -1)
-	    " Sign definition changed, redefine them
-	    call s:DefineSigns()
-	endif
-    else
-	call s:DefineSigns()
+    if !empty(s:placed_signs[1])
+	" when there are signs from other plugins, don't need dummy sign
+	call s:PlaceSignDummy(1)
     endif
-    call s:AuCmd(s:autocmd)
+    if s:old_signs !=? s:signs
+	" Sign definition changed, redefine them
+	call s:DefineSigns(1)
+	" need to parse placed signs again...
+	let s:placed_signs = s:PlacedSigns()
+    endif
+    call changes#AuCmd(s:autocmd)
 endfu
 
 fu! changes#EnableChanges(arg, bang, ...) "{{{1
     if exists("s:ignore") && get(s:ignore, bufnr('%'), 0)
 	call remove(s:ignore, bufnr('%'))
     endif
-    if exists("a:1")
-	call s:GetDiff(a:arg, a:bang, a:1)
-    else
-	call s:GetDiff(a:arg, a:bang)
-    endif
+    try
+	call changes#Init()
+	let arg = exists("a:1") ? a:1 : ''
+	call s:GetDiff(a:arg, a:bang, arg)
+    catch
+	call changes#CleanUp()
+    endtry
 endfu
 
 fu! changes#CleanUp() "{{{1
     " only delete signs, that have been set by this plugin
-    call s:UnPlaceSigns(1)
+    call s:UnPlaceSigns(0)
     let s:ignore[bufnr('%')] = 1
-    if !exists("s:signs") || !exists("s:autocmd")
-	return
-    endif
-    for key in keys(s:signs)
+    for key in keys(get(s:, 'signs', {}))
 	exe "sil! sign undefine " key
     endfor
     if s:autocmd
-	call s:AuCmd(0)
+	call changes#AuCmd(0)
+    endif
+    let b:changes_view_enabled = 0
+    if exists("b:changes_linehi_diff_match")
+	for val in values(b:changes_linehi_diff_match)
+	    " ignore possible errors
+	    sil! call matchdelete(val)
+	endfor
+    endif
+    unlet! b:diffhl s:signs s:old_signs b:changes_linehi_diff_match
+endfu
+fu! changes#AuCmd(arg) "{{{1
+    if a:arg
+	if !exists("#Changes")
+	    augroup Changes
+		autocmd!
+		au TextChanged,InsertLeave,FilterReadPost * :call s:UpdateView()
+		au FocusGained,BufWinEnter * :call s:UpdateView(1)
+		" make sure, hightlighting groups are not cleared
+		au GUIEnter * :try|call s:Check() |catch|endtry
+	    augroup END
+	endif
+    else
+	augroup Changes
+	    autocmd!
+	augroup END
+	augroup! Changes
     endif
 endfu
-
 fu! changes#TCV() "{{{1
     if  exists("b:changes_view_enabled") && b:changes_view_enabled
-	call s:UnPlaceSigns(1)
-	if exists("b:ofdc")
-	    let &fdc=b:ofdc
-	endif
+	call s:UnPlaceSigns(0)
         let b:changes_view_enabled = 0
         echo "Hiding changes since last save"
     else
-	call s:GetDiff(1, '')
-        let b:changes_view_enabled = 1
-        echo "Showing changes since last save"
+	try
+	    call changes#Init()
+	    call s:GetDiff(1, '')
+	    let b:changes_view_enabled = 1
+	    echo "Showing changes since last save"
+	catch
+	    " Make sure, the message is actually displayed!
+	    verbose call changes#WarningMsg()
+	    call changes#CleanUp()
+	endtry
     endif
 endfunction
 
@@ -886,69 +1133,112 @@ fu! changes#MoveToNextChange(fwd, cnt) "{{{1
     let lines = get(dict, "add", []) +
 	    \   get(dict, "del", []) +
 	    \   get(dict, "ch",  [])
+    if s:numeric_sort
+	let lines = sort(lines, 'n') " sort numerical
+    else
+	let lines = sort(lines, 's:MySortValues')
+    endif
+    if exists('*uniq')
+	" remove duplicates
+	let lines = uniq(lines)
+    endif
+    if mode() =~? '[vs]' && index(lines, cur) == -1
+	" in visual mode and not within a hunk!
+	return "\<esc>"
+    endif
+
+    let suffix = '0' " move to start of hunk
     let cnt = a:cnt-1
 
     " only keep the start/end of a bunch of successive lines
     let lines = s:RemoveConsecutiveLines(1, copy(lines)) +
 	      \ s:RemoveConsecutiveLines(0, copy(lines))
+    " sort again...
+    if s:numeric_sort
+	let lines = sort(lines, 'n') " sort numerical
+    else
+	let lines = sort(lines, 's:MySortValues')
+    endif
 
-    if !exists("b:diffhl") || empty(lines)
-	echomsg "There are no ". (a:fwd ? "next" : "previous"). " differences!"
+    if empty(lines)
+	echomsg   "There are no ". (a:fwd ? "next" : "previous").
+		\ " differences!"
 	return "\<esc>"
     elseif (a:fwd && max(lines) <= cur) ||
 	\ (!a:fwd && min(lines) >= cur)
-	echomsg "There are no more ". (a:fwd ? "next" : "previous"). " differences!"
+	echomsg   "There are no more ". (a:fwd ? "next" : "previous").
+		\ " differences!"
 	return "\<esc>"
     endif
     if a:fwd
 	call filter(lines, 'v:val > cur')
 	if empty(lines)
 	    return "\<esc>"
-	else
-	    call sort(lines)
 	endif
     else
 	call filter(lines, 'v:val < cur')
 	if empty(lines)
 	    return "\<esc>"
 	else
-	    call reverse(sort(lines))
+	    call reverse(lines)
 	endif
     endif
     if cnt > len(lines)
 	let cnt=length(lines)
     endif
 
-    if cnt > 0
-	" Cancel the user given count
-	" otherwise the count would be multiplied with
-	" the given line number
-	let prefix="\<esc>"
-    else
-	let prefix=""
-    endif
-    return prefix.lines[cnt]. "G"
+    " Cancel the user given count
+    " otherwise the count would be multiplied with
+    " the given line number
+    let prefix=(cnt > 0 ? "\<esc>" : "")
+    return prefix.lines[cnt]. "G".suffix
 endfu
 
 fu! changes#CurrentHunk() "{{{1
-    if changes#MoveToNextChange(0) == "\<Esc>"
+    if changes#MoveToNextChange(0,1) == "\<Esc>"
 	" outside of a hunk
 	return "\<Esc>"
     else
-	return "[ho]h"
+	return "[ho]h$"
     endif
 endfu
-" Old functions "{{{1
-fu! s:DiffOff() "{{{2
-    if !&diff
-	return
+fu! changes#FoldDifferences(enable) "{{{1
+    if empty(a:enable) && &fde!=?'index(g:lines,v:lnum)>-1?0:1'
+	let b:chg_folds = {'fen': &fen, 'fdm': &fdm, 'fde': &fde}
+	if s:numeric_sort
+	    let g:lines=sort(get(get(b:, 'diffhl', []), 'add', []) +
+		\ get(get(b:, 'diffhl', []), 'ch' , []) +
+		\ get(get(b:, 'diffhl', []), 'del', []), 'n')
+	else
+	    let g:lines=sort(get(get(b:, 'diffhl', []), 'add', []) +
+		\ get(get(b:, 'diffhl', []), 'ch' , []) +
+		\ get(get(b:, 'diffhl', []), 'del', []),
+		\ 's:MySortValues')
+	endif
+	if exists('*uniq')
+	    let lines=uniq(g:lines)
+	endif
+	setl fen fdm=expr fde=index(g:lines,v:lnum)>-1?0:1
+    else
+	for items in items(get(b:, 'chg_folds', {}))
+	    exe "let &".items[0]."=".string(items[1])
+	endfor
     endif
-    " Turn off Diff Mode and close buffer
-    call s:MoveToPrevWindow()
-    diffoff!
-    q
 endfu
 
-
+fu! changes#ToggleHiStyle() "{{{1
+    let s:changes_sign_hi_style += 1
+    if s:changes_sign_hi_style > 2
+	let s:changes_sign_hi_style = 0
+    endif
+    try
+	call changes#Init()
+	call s:GetDiff(1, '')
+    catch
+	" Make sure, the message is actually displayed!
+	verbose call changes#WarningMsg()
+	call changes#CleanUp()
+    endtry
+endfu
 " Modeline "{{{1
 " vi:fdm=marker fdl=0

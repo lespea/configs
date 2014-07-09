@@ -48,7 +48,7 @@ set ls=2
 "  (Character 187 is a right double-chevron, and 739 a cross-like-thing.)
 set lcs=
 execute 'set listchars+=tab:'   . nr2char(187) . nr2char(183)
-execute 'set listchars+=eol:'   . nr2char(739)
+execute 'set listchars+=eol:'   . nr2char(172)
 execute 'set listchars+=nbsp:'  . nr2char(9251)
 execute 'set listchars+=trail:' . nr2char(1776)
 

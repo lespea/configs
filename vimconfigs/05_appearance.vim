@@ -20,7 +20,7 @@ let g:Powerline_stl_path_style = 'short'
 if has('gui_running')
     "  Widnows
     if has('gui_win32')
-        set guifont=DejaVu_Sans_Mono_for_Powerline:h10
+        set guifont=Droid_Sans_Mono_Slashed_for_Pow:h10
 
         "  Also use full screen in windows
         autocmd GUIEnter * :simalt ~x
@@ -38,7 +38,7 @@ if has('gui_running')
 
     "  Anything else (Linux)
     else
-        set guifont=DejaVu\ Sans\ Mono\ 11
+        set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
     endif
 
     "  Gvim color scheme

@@ -15,14 +15,14 @@ let g:Powerline_colorscheme    = 'default'
 let g:Powerline_stl_path_style = 'short'
 if has('gui_running')
     if has('gui_win32')
-        set guifont=DejaVu_Sans_Mono_for_Powerline:h10
+        set guifont=Droid_Sans_Mono_Slashed_for_Pow:h10
         autocmd GUIEnter * :simalt ~x
     elseif has('gui_macvim')
         set guifont=Droid\ Sans\ Mono\ Slashed\ for\ Powerline:h11
         set lines=999 columns=999
         set transparency=7
     else
-        set guifont=DejaVu\ Sans\ Mono\ 11
+        set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
     endif
     colorscheme seoul256
     set antialias
@@ -57,7 +57,7 @@ set previewheight=8
 set ls=2
 set lcs=
 execute 'set listchars+=tab:'   . nr2char(187) . nr2char(183)
-execute 'set listchars+=eol:'   . nr2char(739)
+execute 'set listchars+=eol:'   . nr2char(172)
 execute 'set listchars+=nbsp:'  . nr2char(9251)
 execute 'set listchars+=trail:' . nr2char(1776)
 set lcs+=extends:>,precedes:<
@@ -482,7 +482,7 @@ noremap ,asb vibwk:Align =><CR>vibwk:sort<CR>
 noremap ,asB viB:Align =><CR>viB:sort<CR>
 noremap ,as] vi]:Align =><CR>vi]:sort<CR>
 noremap \m :CopyMatches<CR>:tabnew<CR>"+p<CR>:sort u<CR>:g/^$/d<CR>:1,$y+<CR>
-noremap \fd :tabnew<CR>V"+p:silent %!perl -MModern::Perl -MDateTime::Format::DateParse -ne"BEGIN{sub fd{my $line = shift;chomp $line;my $dt = DateTime::Format::DateParse->parse_datetime($line, 'America/Chicago');$dt ? ($dt->set_time_zone('America/Chicago') and $dt->strftime('\%Y-\%m-\%d \%H:\%M:\%S')) : $line}; use Memoize; memoize 'fd'}say join qq{\t}, map {fd($_)} split qq{\t}, $_"<CR>"+1,$y<CR>
+noremap \fd :tabnew<CR>V"+p:silent %!perl -MModern::Perl -MDateTimeX::Easy -ne"BEGIN{sub fd{my $line = shift;chomp $line;my $dt = DateTimeX::Easy->parse($line);$dt ? ($dt->year < 1950 ? $dt->add(years => 100) : $dt)->strftime('\%Y-\%m-\%d \%H:\%M:\%S') : $line}; use Memoize; memoize 'fd'}say join qq{\t}, map {fd($_)} split qq{\t}, $_"<CR>"+1,$y<CR>
 noremap \fc :new<CR>"+p"+:1,$y+<CR>:bd!<CR>
 noremap \dbs :%s/\./\t/<CR>:%s/^\([^\t]\+\)\ze\t[^\t]\+$/\1\t\1<CR>
 noremap \dn :tabnew<CR>:diffthis<CR>:vne<CR>:diffthis<CR>

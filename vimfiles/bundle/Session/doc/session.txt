@@ -28,10 +28,13 @@ Contents ~
   8. The |g:session_autosave_periodic| option
   9. The |g:session_verbose_messages| option
   10. The |g:session_default_to_last| option
-  11. The |g:session_persist_globals| option
-  12. The |g:session_restart_environment| option
-  13. The |g:session_command_aliases| option
-  14. The |g:loaded_session| option
+  11. The |g:session_persist_colors| option
+  12. The |g:session_persist_globals| option
+  13. The |g:session_restart_environment| option
+  14. The |g:session_command_aliases| option
+  15. The |g:session_menu| option
+  16. The |g:session_name_suggestion_function| option
+  17. The |g:loaded_session| option
  5. Compatibility with other plug-ins |session-compatibility-with-other-plug-ins|
  6. Known issues                                         |session-known-issues|
  7. Function reference                             |session-function-reference|
@@ -53,13 +56,16 @@ Contents ~
    15. The |xolox#session#path_to_name()| function
    16. The |xolox#session#get_names()| function
    17. The |xolox#session#complete_names()| function
-   18. The |xolox#session#is_tab_scoped()| function
-   19. The |xolox#session#find_current_session()| function
-   20. The |xolox#session#get_label()| function
-   21. The |xolox#session#options_include()| function
-   22. The |xolox#session#include_tabs()| function
-   23. The |xolox#session#change_tab_options()| function
-   24. The |xolox#session#restore_tab_options()| function
+   18. The |xolox#session#complete_names_with_suggestions()| function
+   19. The |xolox#session#is_tab_scoped()| function
+   20. The |xolox#session#find_current_session()| function
+   21. The |xolox#session#get_label()| function
+   22. The |xolox#session#options_include()| function
+   23. The |xolox#session#include_tabs()| function
+   24. The |xolox#session#change_tab_options()| function
+   25. The |xolox#session#restore_tab_options()| function
+  2. Example function for session name suggestions |example-function-for-session-name-suggestions|
+   1. The |xolox#session#suggestions#vcs_feature_branch()| function
  8. Contact                                                   |session-contact|
  9. License                                                   |session-license|
  10. Sample session script                              |sample-session-script|
@@ -363,6 +369,15 @@ you the dialog asking whether you want to restore the last used session. To get
 rid of the dialog you have to set |g:session_autoload| to "'yes'".
 
 -------------------------------------------------------------------------------
+The *g:session_persist_colors* option
+
+By default the plug-in will save the color scheme and the |'background'| option
+with the session to be reused the next time that session is loaded, this can be
+disabled by adding the following line to your |vimrc| script:
+>
+  :let g:session_persist_colors = 0
+<
+-------------------------------------------------------------------------------
 The *g:session_persist_globals* option
 
 The vim-session plug-in uses Vim's |:mksession| command but it changes
@@ -440,6 +455,23 @@ When you enable the aliases, the default command names will still be available.
 If you really don't like them, feel free to delete them using |:delcommand|.
 
 -------------------------------------------------------------------------------
+The *g:session_menu* option
+
+By default the plug-in installs a top level menu. If you don't like this you
+can disable it by adding the following line to your |vimrc| script:
+>
+  :let g:session_menu = 0
+<
+-------------------------------------------------------------------------------
+The *g:session_name_suggestion_function* option
+
+The default completion of the |:SaveSession| command is based on the names of
+the existing sessions. You can add your own suggestions using this option by
+setting the option to the name of a Vim script function. By default this option
+is set to an example function that suggests the name of the current git or
+Mercurial feature branch (when you're working in a version control repository).
+
+-------------------------------------------------------------------------------
 The *g:loaded_session* option
 
 This variable isn't really an option but if you want to avoid loading the vim-
@@ -480,8 +512,8 @@ might take a while...)
                                                    *session-function-reference*
 Function reference ~
 
-The documentation of the 34 functions below was extracted from 1 Vim scripts on
-July 5, 2013 at 00:31.
+The documentation of the 37 functions below was extracted from 2 Vim scripts on
+July 7, 2014 at 01:17.
 
 -------------------------------------------------------------------------------
                                            *public-api-for-vim-session-plug-in*
@@ -631,11 +663,22 @@ with |g:session_directory| for files that end with the suffix configured with
 |g:session_extension|, takes the base name of each file and decodes any URL
 encoded characters. Returns a list of strings.
 
+If the first argument is true (1) then the user defined function configured
+with |g:session_name_suggestion_function| is called to find suggested session
+names, which are prefixed to the list of available sessions, otherwise the
+argument should be false (0).
+
 -------------------------------------------------------------------------------
 The *xolox#session#complete_names()* function
 
 Completion function for user defined Vim commands. Used by commands like
-|:OpenSession| and |:DeleteSession| to support user friendly completion.
+|:OpenSession| and |:DeleteSession| (but not |:SaveSession|) to support user
+friendly completion.
+
+-------------------------------------------------------------------------------
+The *xolox#session#complete_names_with_suggestions()* function
+
+Completion function for the Vim command |:SaveSession|.
 
 -------------------------------------------------------------------------------
 The *xolox#session#is_tab_scoped()* function
@@ -683,6 +726,19 @@ The *xolox#session#restore_tab_options()* function
 Restore the original value of Vim's sessionoptions (see |'sessionoptions'|)
 option.
 
+-------------------------------------------------------------------------------
+                                *example-function-for-session-name-suggestions*
+Example function for session name suggestions ~
+
+-------------------------------------------------------------------------------
+The *xolox#session#suggestions#vcs_feature_branch()* function
+
+This function implements an example of a function that can be used with the
+|g:session_name_suggestion_function| option. It finds the name of the current
+git or Mercurial feature branch (if any) and suggests this name as the name for
+the session that is being saved with :SaveSession. Returns a list with one
+string on success and an empty list on failure.
+
 ===============================================================================
                                                               *session-contact*
 Contact ~
@@ -696,8 +752,11 @@ session. If you like the script please vote for it on Vim Online [19].
                                                               *session-license*
 License ~
 
-This software is licensed under the MIT license [20]. © 2013 Peter Odding
-<peter@peterodding.com>.
+This software is licensed under the MIT license [20]. ÂŠ 2014 Peter Odding
+<peter@peterodding.com> and Ingo Karkat.
+
+Thanks go out to everyone who has helped to improve the vim-session plug-in
+(whether through pull requests, bug reports or personal e-mails).
 
 ===============================================================================
                                                         *sample-session-script*

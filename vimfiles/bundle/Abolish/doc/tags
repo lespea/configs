@@ -3,8 +3,8 @@
 :Subvert	abolish.txt	/*:Subvert*
 abolish	abolish.txt	/*abolish*
 abolish-abbrev	abolish.txt	/*abolish-abbrev*
-abolish-author	abolish.txt	/*abolish-author*
 abolish-coercion	abolish.txt	/*abolish-coercion*
+abolish-coercion-reversible	abolish.txt	/*abolish-coercion-reversible*
 abolish-grep	abolish.txt	/*abolish-grep*
 abolish-patterns	abolish.txt	/*abolish-patterns*
 abolish-search	abolish.txt	/*abolish-search*

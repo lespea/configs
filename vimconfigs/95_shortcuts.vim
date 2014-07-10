@@ -256,13 +256,13 @@ noremap <silent> \rs :set nowrap<CR>ggdG"+p:%s/\s\+/\r/e<CR>:silent noh<CR>:sort
 noremap <silent> ,run :Tube perl %<CR>
 
 "  Run the last Tube command
-noremap <silent> ,rl :Tube<CR>
+"noremap <silent> ,rl :Tube<CR>
 
 "  Run the tube test commands
-noremap <silent> ,rt :w<CR>:Tube test<CR>
+"noremap <silent> ,rt :w<CR>:Tube test<CR>
 
 "  Pipe whatever is selected into Tube (best for perl repl)
-noremap <silent> ,re :Tube @<CR>
+"noremap <silent> ,re :Tube @<CR>
 
 "  Split a line full of tabs into newlines
 noremap <silent> ,sl :%s/\t/\r/<CR>

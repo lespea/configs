@@ -19,6 +19,7 @@
 :CSVSort	ft-csv.txt	/*:CSVSort*
 :CSVSubstitute	ft-csv.txt	/*:CSVSubstitute*
 :CSVSumCol	ft-csv.txt	/*:CSVSumCol*
+:CSVTable	ft-csv.txt	/*:CSVTable*
 :CSVTabularize	ft-csv.txt	/*:CSVTabularize*
 :CSVTranspose	ft-csv.txt	/*:CSVTranspose*
 :CSVUnArrangeColumn	ft-csv.txt	/*:CSVUnArrangeColumn*
@@ -53,7 +54,6 @@ SearchInColumn_CSV	ft-csv.txt	/*SearchInColumn_CSV*
 Sort_CSV	ft-csv.txt	/*Sort_CSV*
 Substitute_CSV	ft-csv.txt	/*Substitute_CSV*
 SumCol_CSV	ft-csv.txt	/*SumCol_CSV*
-Table	ft-csv.txt	/*Table*
 Transpose_CSV	ft-csv.txt	/*Transpose_CSV*
 UnArrangeColumn_CSV	ft-csv.txt	/*UnArrangeColumn_CSV*
 VHeaderToggle_CSV	ft-csv.txt	/*VHeaderToggle_CSV*

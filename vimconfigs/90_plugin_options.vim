@@ -135,8 +135,11 @@ map ,, <Plug>(easymotion-prefix)
 
 " Gif config
 nmap s <Plug>(easymotion-s2)
+vmap s <Plug>(easymotion-s2)
+omap f <Plug>(easymotion-s)
 nmap t <Plug>(easymotion-t2)
-omap t <Plug>(easymotion-bd-tl)
+vmap t <Plug>(easymotion-t2)
+omap t <Plug>(easymotion-bd-t)
 
 " Gif config
 map  / <Plug>(easymotion-sn)
@@ -157,15 +160,15 @@ map ,h <Plug>(easymotion-linebackward)
 let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 let g:EasyMotion_smartcase = 1
 
-omap <Leader>L <Plug>(easyoperator-line-select)
-xmap <Leader>L <Plug>(easyoperator-line-select)
-nmap d<Leader>L <Plug>(easyoperator-line-delete)
-nmap p<Leader>L <Plug>(easyoperator-line-yank)
+omap ,n <Plug>(easyoperator-line-select)
+xmap ,n <Plug>(easyoperator-line-select)
+nmap d,n <Plug>(easyoperator-line-delete)
+nmap p,n <Plug>(easyoperator-line-yank)
 
-omap <Leader>p <Plug>(easyoperator-phrase-select)
-xmap <Leader>p <Plug>(easyoperator-phrase-select)
-nmap d<Leader>p <Plug>(easyoperator-phrase-delete)
-nmap p<Leader>p <Plug>(easyoperator-phrase-yank)
+omap ,p <Plug>(easyoperator-phrase-select)
+xmap ,p <Plug>(easyoperator-phrase-select)
+nmap d,p <Plug>(easyoperator-phrase-delete)
+nmap p,p <Plug>(easyoperator-phrase-yank)
 
 
 

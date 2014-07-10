@@ -193,9 +193,6 @@ noremap \fb mcHmt:g/^ *{ *$/norm kJ:s/ *{ *$/ {/<CR>:silent :noh<CR>'tzt`c
 " |  Comma  |
 " -----------
 
-"  Use relavent line numbers
-noremap ,h :call g:ToggleNuMode()<CR>
-
 "  Vertical split in a new buffer
 noremap ,v :vne<CR>
 
@@ -216,7 +213,7 @@ noremap ,a  qaq
 
 "  Trim the domain from every line (abc => abc)  -- Is a little smart and doesn't clobber IPs
 "  and such.  Also, tries to keep the trimming to the current word. Not tested as much as I'd like!!!
-noremap ,t :%s/\(\<[a-zA-Z0-9_-]*[a-zA-Z][a-zA-Z0-9_-]*\)\.[a-zA-Z0-9_.-]*\>/\1/<CR>:silent noh<CR>
+noremap ,td :%s/\(\<[a-zA-Z0-9_-]*[a-zA-Z][a-zA-Z0-9_-]*\)\.[a-zA-Z0-9_.-]*\>/\1/<CR>:silent noh<CR>
 
 "  Takes all of the lines and formats them for a sql "IN" query part
 noremap ,i :g/^$/d<CR>:%s/\v^(.*)$/   ,'\1'/<CR>:1s/   ,/(\r    <CR>:$s/$/\r)<CR>:silent noh<CR>"+:1,$y+<CR>
@@ -238,7 +235,7 @@ noremap ,dupe :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>yyp:%s/^\(.\+\)\n\1\+/\1/<CR>:g/^
 noremap ,conf :tabnew $VIMHOME/vimconfigs/
 
 "  Open the taglist browser
-noremap ,lo :Tlist<CR>
+noremap ,tl :Tlist<CR>
 
 "  Turn the file menu on or off
 nmap <silent> <C-F11> :if &guioptions=~'m' \| set guioptions-=m \| else \| set guioptions+=m \| endif<CR>

@@ -145,13 +145,6 @@ autocmd FileType xml            setlocal  omnifunc=xmlcomplete#CompleteTags
 au BufNewFile,BufRead *.tt2 setf tt2
 au BufNewFile,BufRead *.tt2html setf tt2html
 au BufNewFile,BufRead *.tt2h setf tt2html
-function! g:ToggleNuMode()
-    if(&rnu == 1)
-        set nu
-    else
-        set rnu
-    endif
-endfunc
 function! s:swap_lines(n1, n2)
     let line1 = getline(a:n1)
     let line2 = getline(a:n2)
@@ -176,8 +169,6 @@ function! s:swap_down()
 endfunction
 noremap  <silent> <C-S-UP>   :call <SID>swap_up()<CR>
 noremap  <silent> <C-S-DOWN> :call <SID>swap_down()<CR>
-noremap  <silent> <A-k>      :call <SID>swap_up()<CR>
-noremap  <silent> <A-j>      :call <SID>swap_down()<CR>
 command! -range=% -register CopyMatches call s:CopyMatches(<line1>, <line2>, '<reg>')
 function! s:CopyMatches(line1, line2, reg)
   let reg = empty(a:reg) ? '+' : a:reg
@@ -365,11 +356,6 @@ let NERDTreeWinPos    = 'left'
 let NERDTreeChDirMode = '2'
 let NERDTreeIgnore    = ['\.vim$', '\~$', '\.pyo$', '\.pyc$', '\.svn[\//]$', '\.swp$']
 let NERDTreeSortOrder = ['^__\.py$', '\/$', '*', '\.swp$',  '\.bak$', '\~$']
-let g:vimclojure#ParenRainbow        = 1
-let g:vimclojure#DynamicHighlighting = 1
-let g:vimclojure#WantNailgun = 1
-let g:vimclojure#SplitPos = "bottom"
-let g:vimclojure#SplitSize = 13
 if !exists('g:FuzzyFinderOptions')
     let g:FuzzyFinderOptions                       = { 'Base':{}, 'Buffer':{}, 'File':{}, 'Dir':{}, 'MruFile':{}, 'MruCmd':{}, 'Bookmark':{}, 'Tag':{}, 'TaggedFile':{}}
     let g:FuzzyFinderOptions.File.excluded_path    = '\v\~$|\.o$|\.exe$|\.bak$|\.swp$|((^|[/\\])\.{1,2}[/\\]$)|\.pyo$|\.pyc$|\.svn[/\\]$'
@@ -377,7 +363,7 @@ if !exists('g:FuzzyFinderOptions')
 endif
 let g:fuzzy_matching_limit = 60
 let g:fuzzy_ceiling        = 50000
-let g:fuzzy_ignore         = "*.log;*.pyc;*.svn;"
+let g:fuzzy_ignore         = "*.log;*.pyc;*.svn;*.git"
 map <silent> \f :FufFile<CR>
 map <silent> \b :FufBuffer<CR>
 let g:xptemplate_brace_complete = ''
@@ -403,14 +389,33 @@ imap <expr> <CR> pumvisible() ? neocomplcache#close_popup() : '<Plug>delimitMate
 inoremap <expr><C-h>  neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
-let g:EasyMotion_leader_key = ','
+map ,, <Plug>(easymotion-prefix)
+nmap s <Plug>(easymotion-s2)
+nmap t <Plug>(easymotion-t2)
+omap t <Plug>(easymotion-bd-tl)
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+map n <Plug>(easymotion-next)
+map N <Plug>(easymotion-prev)
+map ,l <Plug>(easymotion-lineforward)
+map ,j <Plug>(easymotion-j)
+map ,k <Plug>(easymotion-k)
+map ,h <Plug>(easymotion-linebackward)
+let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
+let g:EasyMotion_smartcase = 1
+omap <Leader>L <Plug>(easyoperator-line-select)
+xmap <Leader>L <Plug>(easyoperator-line-select)
+nmap d<Leader>L <Plug>(easyoperator-line-delete)
+nmap p<Leader>L <Plug>(easyoperator-line-yank)
+omap <Leader>p <Plug>(easyoperator-phrase-select)
+xmap <Leader>p <Plug>(easyoperator-phrase-select)
+nmap d<Leader>p <Plug>(easyoperator-phrase-delete)
+nmap p<Leader>p <Plug>(easyoperator-phrase-yank)
 let tlist_perl_settings = 'perl;u:use;r:role;e:extends;c:constant;t:const;a:attribute;s:subroutine;m:mooose doc'
 let Tlist_Show_One_File = 1
 let Tlist_Use_Right_Window = 1
 let Tlist_Sort_Type = "name"
 let Tlist_WinWidth = 45
-let g:tube_terminal         = 'iterm'
-let g:tube_enable_shortcuts = 1
 let g:session_autosave = 'no'
 let g:session_autoload = 'no'
 let g:syntastic_enable_perl_checker = 1
@@ -490,29 +495,25 @@ nnoremap \ca :1,$y+<CR>
 nnoremap \s :source $MYVIMRC<CR>
 nnoremap \v :tabnew $MYVIMRC<CR>
 noremap \fb mcHmt:g/^ *{ *$/norm kJ:s/ *{ *$/ {/<CR>:silent :noh<CR>'tzt`c
-noremap ,h :call g:ToggleNuMode()<CR>
 noremap ,v :vne<CR>
 noremap ,q  qqqqq
 noremap ,m :CopyMatches<CR>
 noremap ,u :sort u<CR>:g/^$/d<CR>
 noremap ,cl :sort<CR>:%!uniq -c<CR>:sort! n<CR>
 noremap ,a  qaq
-noremap ,t :%s/\(\<[a-zA-Z0-9_-]*[a-zA-Z][a-zA-Z0-9_-]*\)\.[a-zA-Z0-9_.-]*\>/\1/<CR>:silent noh<CR>
+noremap ,td :%s/\(\<[a-zA-Z0-9_-]*[a-zA-Z][a-zA-Z0-9_-]*\)\.[a-zA-Z0-9_.-]*\>/\1/<CR>:silent noh<CR>
 noremap ,i :g/^$/d<CR>:%s/\v^(.*)$/   ,'\1'/<CR>:1s/   ,/(\r    <CR>:$s/$/\r)<CR>:silent noh<CR>"+:1,$y+<CR>
 noremap ,cab :tab sball<CR>:tabdo :bd!<CR>:tab sball<CR>:tabdo :bd!<CR>
 noremap ,cd :cd %:p:h<CR>
 noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>:silent noh<CR>
 noremap ,dupe :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>yyp:%s/^\(.\+\)\n\1\+/\1/<CR>:g/^$/d<CR>:silent noh<CR>
 noremap ,conf :tabnew $VIMHOME/vimconfigs/
-noremap ,lo :Tlist<CR>
+noremap ,tl :Tlist<CR>
 nmap <silent> <C-F11> :if &guioptions=~'m' \| set guioptions-=m \| else \| set guioptions+=m \| endif<CR>
 noremap <silent> \rti :silent %!perl -nMNet::IP -MNet::Netmask -MModern::Perl -e'chomp;my $n = Net::IP->new(Net::Netmask->new($_));say join "\t", $n->intip, $n->last_int'<CR>
 noremap <silent> \tip :silent %!perl -MModern::Perl=2011 -MNet::IP -ne 'chomp;say /^(?:\d{1,3}\.){3}\d{1,3}$/ ? Net::IP->new($_)->intip : $_'<CR>
 noremap <silent> \rs :set nowrap<CR>ggdG"+p:%s/\s\+/\r/e<CR>:silent noh<CR>:sort u<CR>ggVGJ:s/#N[\/\\]A\>\s*//ie<CR>:silent noh<CR>$V
 noremap <silent> ,run :Tube perl %<CR>
-noremap <silent> ,rl :Tube<CR>
-noremap <silent> ,rt :w<CR>:Tube test<CR>
-noremap <silent> ,re :Tube @<CR>
 noremap <silent> ,sl :%s/\t/\r/<CR>
 noremap <silent> \el :silent %!perl -MModern::Perl=2011 -MHTML::TreeBuilder -MText::Trim -e 'my$h=HTML::TreeBuilder->new;while(<>){$h->parse($_)}$h->eof;my \%l;for my $li(@{$h->elementify->extract_links}){my $ln=trim $li->[0];$l{$ln}++ unless $ln =~ /^(?:\#<bar>\s*$)/;}say $_ for sort keys \%l'<CR>
 noremap <silent> \deps :let @q=':v/^declare.*app_classpath=/d<c-v><cr>dt"lds":%s/:*\$lib_dir\//\rwrapper.java.classpath.1 = lib\/<c-v><cr>ggddf1<c-v><c-v>1234j:I<c-v><cr>\ca'<ESC>@q

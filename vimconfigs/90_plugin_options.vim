@@ -131,7 +131,41 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
 "  |  EasyMotion  |
 "  ----------------
 "  <leader> is too far away
-let g:EasyMotion_leader_key = ','
+map ,, <Plug>(easymotion-prefix)
+
+" Gif config
+nmap s <Plug>(easymotion-s2)
+nmap t <Plug>(easymotion-t2)
+omap t <Plug>(easymotion-bd-tl)
+
+" Gif config
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+
+" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
+" Without these mappings, `n` & `N` works fine. (These mappings just provide
+" different highlight method and have some other features )
+map n <Plug>(easymotion-next)
+map N <Plug>(easymotion-prev)
+
+" Gif config
+map ,l <Plug>(easymotion-lineforward)
+map ,j <Plug>(easymotion-j)
+map ,k <Plug>(easymotion-k)
+map ,h <Plug>(easymotion-linebackward)
+
+let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
+let g:EasyMotion_smartcase = 1
+
+omap <Leader>L <Plug>(easyoperator-line-select)
+xmap <Leader>L <Plug>(easyoperator-line-select)
+nmap d<Leader>L <Plug>(easyoperator-line-delete)
+nmap p<Leader>L <Plug>(easyoperator-line-yank)
+
+omap <Leader>p <Plug>(easyoperator-phrase-select)
+xmap <Leader>p <Plug>(easyoperator-phrase-select)
+nmap d<Leader>p <Plug>(easyoperator-phrase-delete)
+nmap p<Leader>p <Plug>(easyoperator-phrase-yank)
 
 
 
@@ -139,6 +173,7 @@ let g:EasyMotion_leader_key = ','
 "  |  Colorizer  |
 "  ---------------
 "let g:colorizer_auto_filetype='css,html,xhtml,less'
+
 
 
 "  -------------
@@ -151,11 +186,14 @@ let Tlist_Sort_Type = "name"
 let Tlist_WinWidth = 45
 
 
+
 "  -------------
 "  |  Session  |
 "  -------------
 let g:session_autosave = 'no'
 let g:session_autoload = 'no'
+
+
 
 "  ---------------
 "  |  Syntastic  |

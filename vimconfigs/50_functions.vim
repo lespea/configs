@@ -2,18 +2,6 @@
 " |  A bunch of custom functions (mostly from forums  |
 " -----------------------------------------------------
 
-" ------------------------------
-" |  Toggle Relative Numbering  |
-" ------------------------------
-
-function! g:ToggleNuMode()
-    if(&rnu == 1)
-        set nu
-    else
-        set rnu
-    endif
-endfunc
-
 
 " --------------------
 " |  Swap two lines  |
@@ -48,9 +36,6 @@ endfunction
 
 noremap  <silent> <C-S-UP>   :call <SID>swap_up()<CR>
 noremap  <silent> <C-S-DOWN> :call <SID>swap_down()<CR>
-
-noremap  <silent> <A-k>      :call <SID>swap_up()<CR>
-noremap  <silent> <A-j>      :call <SID>swap_down()<CR>
 
 
 " -----------------

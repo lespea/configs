@@ -1,6 +1,7 @@
 " ingo/window/cmdwin.vim: Functions for dealing with the command window.
 "
 " DEPENDENCIES:
+"   - ingo/list.vim autoload script
 "
 " Copyright: (C) 2008-2013 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
@@ -8,6 +9,9 @@
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.014.004	15-Oct-2013	Replace conditional with ingo#list#Make().
+"   1.011.003	23-Jul-2013	Change naming of augroup to match ingo-library
+"				convention.
 "   1.010.002	08-Jul-2013	Add prefix to exception thrown from
 "				ingo#window#cmdwin#UndefineMappingForCmdwin().
 "   1.004.001	08-Apr-2013	file creation from autoload/ingowindow.vim
@@ -36,15 +40,8 @@ function! ingo#window#cmdwin#UndefineMappingForCmdwin( mappings, ... )
 "*******************************************************************************
     let l:alternative = (a:0 > 0 ? (empty(a:1) ? '<Nop>' : a:1) : '')
 
-    if type(a:mappings) == type([])
-	let l:mappings = a:mappings
-    elseif type(a:mappings) == type('')
-	let l:mappings = [ a:mappings ]
-    else
-	throw 'UndefineMappingForCmdwin: Passed invalid type ' . type(a:mappings)
-    endif
-    for l:mapping in l:mappings
-	let s:CmdwinMappings[ l:mapping ] = l:alternative
+    for l:mapping in ingo#list#Make(a:mappings)
+	let s:CmdwinMappings[l:mapping] = l:alternative
     endfor
     return has('autocmd')
 endfunction
@@ -55,9 +52,8 @@ function! s:UndefineMappings()
     endfor
 endfunction
 if has('autocmd')
-    augroup ingowindowcmdwin
-	autocmd!
-	autocmd CmdwinEnter * call <SID>UndefineMappings()
+    augroup IngoLibraryCmdWin
+	autocmd! CmdwinEnter * call <SID>UndefineMappings()
     augroup END
 endif
 

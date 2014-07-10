@@ -1,13 +1,21 @@
 " ingo/cmdargs/substitute.vim: Functions for parsing of :substitute arguments.
 "
 " DEPENDENCIES:
+"   - ingo/list.vim autoload script
 "
-" Copyright: (C) 2012-2013 Ingo Karkat
+" Copyright: (C) 2012-2014 Ingo Karkat
 "   The VIM LICENSE applies to this script; see ':help copyright'.
 "
 " Maintainer:	Ingo Karkat <ingo@karkat.de>
 "
 " REVISION	DATE		REMARKS
+"   1.021.011	20-Jun-2014	FIX: ingo#cmdargs#substitute#Parse() branch for
+"				special case of {flags} without /pat/string/
+"				must only be entered when a:arguments is not
+"				empty.
+"   1.014.010	15-Oct-2013	Factor out s:EnsureList() to ingo/list.vim.
+"   1.011.009	24-Jul-2013	FIX: Use the rules for the /pattern/ separator
+"				as stated in :help E146.
 "   1.009.008	14-Jun-2013	Minor: Make matchlist() robust against
 "				'ignorecase'.
 "   1.007.007	01-Jun-2013	Move functions from ingo/cmdargs.vim to
@@ -51,9 +59,6 @@
 "				PatternsOnText.vim.
 "	001	25-Nov-2012	file creation from CaptureClipboard.vim.
 
-function! s:EnsureList( val )
-    return (type(a:val) == type([]) ? a:val : [a:val])
-endfunction
 function! s:ApplyEmptyFlags( emptyFlags, parsedFlags)
     return (empty(filter(copy(a:parsedFlags), '! empty(v:val)')) ? a:emptyFlags : a:parsedFlags)
 endfunction
@@ -80,9 +85,8 @@ function! ingo#cmdargs#substitute#Parse( arguments, ... )
 "   a:options.flagsMatchCount       Optional number of submatches captured by
 "				    a:options.flagsExpr. Defaults to 2 with the
 "				    default a:options.flagsExpr, to 1 with a
-"				    non-standard non-empty
-"				    a:options.flagsMatchCount, and 0 if
-"				    a:options.flagsMatchCount is empty.
+"				    non-standard non-empty a:options.flagsExpr,
+"				    and 0 if a:options.flagsExpr is empty.
 "   a:options.defaultReplacement    Replacement to use when the replacement part
 "				    is omitted. Empty by default.
 "   a:options.emptyPattern          Pattern to use when no arguments at all are
@@ -103,9 +107,11 @@ function! ingo#cmdargs#substitute#Parse( arguments, ... )
 "				    stand-alone a:options.flagsExpr (assuming
 "				    one is passed). On by default.
 "* RETURN VALUES:
-"   A list of [separator, pattern, replacement, flags, count] (default, count
-"   and flags may be omitted or more elements added depending on the
-"   a:options.flagsExpr and a:options.flagsMatchCount).
+"   A list of [separator, pattern, replacement, flags, count] (default)
+"   A list of [separator, pattern, replacement] when a:options.flagsExpr is
+"   empty or a:options.flagsMatchCount is 0.
+"   A list of [separator, pattern, replacement, flags, count, submatch1, ...];
+"   elements added depending on a:options.flagsMatchCount.
 "   flags and count are meant to be directly concatenated; count therefore keeps
 "   leading whitespace, but be aware that this is optional with :substitute,
 "   too!
@@ -124,33 +130,33 @@ function! ingo#cmdargs#substitute#Parse( arguments, ... )
     let l:emptyFlags = get(l:options, 'emptyFlags', ['&'] + repeat([''], l:flagsMatchCount - 1))
     let l:isAllowLoneFlags = get(l:options, 'isAllowLoneFlags', 1)
 
-    let l:matches = matchlist(a:arguments, '\C^\(\i\@!\S\)\(.\{-}\)\%(\%(^\|[^\\]\)\%(\\\\\)*\\\)\@<!\1\(.\{-}\)\%(\%(^\|[^\\]\)\%(\\\\\)*\\\)\@<!\1' . l:flagsExpr . '$')
+    let l:matches = matchlist(a:arguments, '\C^\([[:alnum:]\\"|]\@![\x00-\xFF]\)\(.\{-}\)\%(\%(^\|[^\\]\)\%(\\\\\)*\\\)\@<!\1\(.\{-}\)\%(\%(^\|[^\\]\)\%(\\\\\)*\\\)\@<!\1' . l:flagsExpr . '$')
     if ! empty(l:matches)
 	" Full /pat/repl/[flags].
 	return l:matches[1:3] + (l:isParseFlags ? l:matches[4:(4 + l:flagsMatchCount - 1)] : [])
     endif
 
-    let l:matches = matchlist(a:arguments, '\C^\(\i\@!\S\)\(.\{-}\)\%(\%(^\|[^\\]\)\%(\\\\\)*\\\)\@<!\1\(.\{-}\)$')
+    let l:matches = matchlist(a:arguments, '\C^\([[:alnum:]\\"|]\@![\x00-\xFF]\)\(.\{-}\)\%(\%(^\|[^\\]\)\%(\\\\\)*\\\)\@<!\1\(.\{-}\)$')
     if ! empty(l:matches)
 	" Partial /pat/[repl].
 	return l:matches[1:2] + [(empty(l:matches[3]) ? escape(l:defaultReplacement, l:matches[1]) : l:matches[3])] + l:defaultFlags
     endif
 
-    let l:matches = matchlist(a:arguments, '\C^\(\i\@!\S\)\(.\{-}\)$')
+    let l:matches = matchlist(a:arguments, '\C^\([[:alnum:]\\"|]\@![\x00-\xFF]\)\(.\{-}\)$')
     if ! empty(l:matches)
 	" Minimal /[pat].
 	return l:matches[1:2] + [escape(l:defaultReplacement, l:matches[1])] + l:defaultFlags
     endif
 
-    if l:isParseFlags && l:isAllowLoneFlags
-	let l:matches = matchlist(a:arguments, '\C^' . l:flagsExpr . '$')
-	if ! empty(l:matches)
-	    " Special case of {flags} without /pat/string/.
-	    return ['/', l:emptyPattern, escape(l:emptyReplacement, '/')] + s:ApplyEmptyFlags(s:EnsureList(l:emptyFlags), l:matches[1:(l:flagsMatchCount)])
-	endif
-    endif
-
     if ! empty(a:arguments)
+	if l:isParseFlags && l:isAllowLoneFlags
+	    let l:matches = matchlist(a:arguments, '\C^' . l:flagsExpr . '$')
+	    if ! empty(l:matches)
+		" Special case of {flags} without /pat/string/.
+		return ['/', l:emptyPattern, escape(l:emptyReplacement, '/')] + s:ApplyEmptyFlags(ingo#list#Make(l:emptyFlags), l:matches[1:(l:flagsMatchCount)])
+	    endif
+	endif
+
 	" Literal pat.
 	if ! empty(l:defaultReplacement)
 	    " Clients cannot concatentate the results without a separator, so
@@ -161,7 +167,7 @@ function! ingo#cmdargs#substitute#Parse( arguments, ... )
 	endif
     else
 	" Nothing.
-	return ['/', l:emptyPattern, escape(l:emptyReplacement, '/')] + (l:isParseFlags ? s:EnsureList(l:emptyFlags) : [])
+	return ['/', l:emptyPattern, escape(l:emptyReplacement, '/')] + (l:isParseFlags ? ingo#list#Make(l:emptyFlags) : [])
     endif
 endfunction
 

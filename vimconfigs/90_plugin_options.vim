@@ -16,17 +16,6 @@ let NERDTreeSortOrder = ['^__\.py$', '\/$', '*', '\.swp$',  '\.bak$', '\~$']
 
 
 
-"  -----------------
-"  |  VimClojure   |
-"  -----------------
-let g:vimclojure#ParenRainbow        = 1
-let g:vimclojure#DynamicHighlighting = 1
-let g:vimclojure#WantNailgun = 1
-let g:vimclojure#SplitPos = "bottom"
-let g:vimclojure#SplitSize = 13
-
-
-
 
 "  -----------------
 "  |  FuzzyFinder  |
@@ -39,7 +28,7 @@ if !exists('g:FuzzyFinderOptions')
 endif
 let g:fuzzy_matching_limit = 60
 let g:fuzzy_ceiling        = 50000
-let g:fuzzy_ignore         = "*.log;*.pyc;*.svn;"
+let g:fuzzy_ignore         = "*.log;*.pyc;*.svn;*.git"
 map <silent> \f :FufFile<CR>
 map <silent> \b :FufBuffer<CR>
 

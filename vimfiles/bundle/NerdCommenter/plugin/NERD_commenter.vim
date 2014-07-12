@@ -2739,7 +2739,7 @@ function! s:CreateMaps(modes, target, desc, combo)
         if strlen(a:combo)
             execute mode . plug_start . mode . plug_end
             if g:NERDCreateDefaultMappings && !hasmapto(plug, mode)
-                execute mode . 'map <leader>' . a:combo . ' ' . plug
+                execute mode . 'map ,' . a:combo . ' ' . plug
             endif
         endif
         " Check if the user wants the menu to be displayed.

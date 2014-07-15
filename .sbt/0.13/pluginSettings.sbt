@@ -23,14 +23,14 @@ site.settings
 
 net.virtualvoid.sbt.graph.Plugin.graphSettings
 
-org.scalastyle.sbt.ScalastylePlugin.Settings
+//org.scalastyle.sbt.ScalastylePlugin.Settings
 
 // Create a default Scala style task to run with tests
-lazy val testScalaStyle = taskKey[Unit]("testScalaStyle")
+//lazy val testScalaStyle = taskKey[Unit]("testScalaStyle")
 
-testScalaStyle := {
-  org.scalastyle.sbt.PluginKeys.scalastyle.toTask(" q w").value
-}
+//testScalaStyle := {
+  //org.scalastyle.sbt.PluginKeys.scalastyle.toTask(" q w").value
+//}
 
 //(test in Test) <<= (test in Test) dependsOn testScalaStyle
 

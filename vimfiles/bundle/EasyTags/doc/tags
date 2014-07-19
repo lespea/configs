@@ -21,6 +21,7 @@ easytags-update-highlight-tags-immediately-after-save	easytags.txt	/*easytags-up
 easytags-vim-locks-up-while-plug-in-is-running	easytags.txt	/*easytags-vim-locks-up-while-plug-in-is-running*
 easytags.txt	easytags.txt	/*easytags.txt*
 g:easytags_always_enabled	easytags.txt	/*g:easytags_always_enabled*
+g:easytags_async	easytags.txt	/*g:easytags_async*
 g:easytags_auto_highlight	easytags.txt	/*g:easytags_auto_highlight*
 g:easytags_auto_update	easytags.txt	/*g:easytags_auto_update*
 g:easytags_autorecurse	easytags.txt	/*g:easytags_autorecurse*
@@ -36,5 +37,6 @@ g:easytags_python_enabled	easytags.txt	/*g:easytags_python_enabled*
 g:easytags_python_script	easytags.txt	/*g:easytags_python_script*
 g:easytags_resolve_links	easytags.txt	/*g:easytags_resolve_links*
 g:easytags_suppress_ctags_warning	easytags.txt	/*g:easytags_suppress_ctags_warning*
+g:easytags_syntax_keyword	easytags.txt	/*g:easytags_syntax_keyword*
 g:easytags_updatetime_min	easytags.txt	/*g:easytags_updatetime_min*
-g:easytags_updatetime_warn	easytags.txt	/*g:easytags_updatetime_warn*
+vim-easytags-is-slow	easytags.txt	/*vim-easytags-is-slow*

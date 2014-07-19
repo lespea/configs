@@ -113,6 +113,7 @@ xolox#misc#tests#version_string_comparison()	misc.txt	/*xolox#misc#tests#version
 xolox#misc#tests#version_string_parsing()	misc.txt	/*xolox#misc#tests#version_string_parsing()*
 xolox#misc#timer#convert()	misc.txt	/*xolox#misc#timer#convert()*
 xolox#misc#timer#force()	misc.txt	/*xolox#misc#timer#force()*
+xolox#misc#timer#resumable()	misc.txt	/*xolox#misc#timer#resumable()*
 xolox#misc#timer#start()	misc.txt	/*xolox#misc#timer#start()*
 xolox#misc#timer#stop()	misc.txt	/*xolox#misc#timer#stop()*
 xolox#misc#version#at_least()	misc.txt	/*xolox#misc#version#at_least()*

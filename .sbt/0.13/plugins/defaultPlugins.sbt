@@ -24,5 +24,5 @@ addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.1.6")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "0.7.1")
 
-addSbtPlugin("org.scoverage" %% "sbt-scoverage" % "0.99.7")
+//addSbtPlugin("org.scoverage" %% "sbt-scoverage" % "0.99.7")
 

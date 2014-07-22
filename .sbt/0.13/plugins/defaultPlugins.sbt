@@ -22,7 +22,7 @@ addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.1.6")
 
 //addSbtPlugin("org.scalastyle" %% "scalastyle-sbt-plugin" % "0.5.0")
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "0.7.1")
+addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "0.7.2")
 
 //addSbtPlugin("org.scoverage" %% "sbt-scoverage" % "0.99.7")
 

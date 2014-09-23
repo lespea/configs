@@ -44,7 +44,7 @@ packageArchetype.java_application
 
 addCommandAlias("pluginUpdates", "; reload plugins; dependencyUpdates; reload return")
 
-autoCompilerPlugins := true
+//autoCompilerPlugins := true
 
 //  Many checks broken right now + no way to whitelist? wtf?
 //addCompilerPlugin("org.brianmckenna" %% "wartremover" % "0.10")

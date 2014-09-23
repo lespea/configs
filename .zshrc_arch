@@ -136,7 +136,7 @@ fi
 # Java 8
 export JAVA_OPTS="-server -XX:+UseG1GC -Xms512m -Xmx4G"
 
-export SBT_OPTS="-server -XX:+UseG1GC -Xms512M -Xmx4G -XX:+CMSClassUnloadingEnabled"
+export SBT_OPTS="-server -XX:+UseG1GC -Xms512M -Xmx3G -XX:+CMSClassUnloadingEnabled"
 
 #  Make cpanm always use sudo
 #alias cpanm='cpanm --sudo'

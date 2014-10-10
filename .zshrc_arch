@@ -149,3 +149,6 @@ bindkey '^F' zaw-ack
 zstyle ':filter-select' max-lines 10
 zstyle ':filter-select' case-insensitive yes
 zstyle ':filter-select' extended-search yes
+
+
+alias pssh='ssh -o PubkeyAuthentication=no'

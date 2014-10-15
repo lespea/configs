@@ -134,12 +134,8 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
 map ,, <Plug>(easymotion-prefix)
 
 " Gif config
-nmap s <Plug>(easymotion-s2)
-vmap s <Plug>(easymotion-s2)
-omap f <Plug>(easymotion-s)
-nmap t <Plug>(easymotion-t2)
-vmap t <Plug>(easymotion-t2)
-omap t <Plug>(easymotion-bd-t)
+nmap ,f <Plug>(easymotion-s2)
+nmap ,t <Plug>(easymotion-bd-t2)
 
 " Gif config
 "map  / <Plug>(easymotion-sn)

@@ -49,7 +49,8 @@ function! EasyMotion#init()
     " 1 -> Cancel
     let g:EasyMotion_ignore_exception = 0
     return ""
-endfunction "}}}
+endfunction
+"}}}
 " Reset: {{{
 function! EasyMotion#reset()
     let s:flag = {
@@ -103,6 +104,7 @@ function! EasyMotion#reset()
         "   visualmode and 'n' key motion, this value could be different.
     return ""
 endfunction "}}}
+
 " Motion Functions: {{{
 " -- Find Motion -------------------------
 " Note: {{{
@@ -197,8 +199,9 @@ function! EasyMotion#JK(visualmode, direction) " {{{
     if g:EasyMotion_startofline
         call s:EasyMotion('^\(\w\|\s*\zs\|$\)', a:direction, a:visualmode ? visualmode() : '', 0)
     else
-        let prev_column = getpos('.')[2] - 1
-        call s:EasyMotion('^.\{,' . prev_column . '}\zs\(.\|$\)', a:direction, a:visualmode ? visualmode() : '', 0)
+        let c = col('.')
+        let pattern = printf('^.\{-}\zs\(\%%<%dv.\%%>%dv\|$\)', c + 1, c)
+        call s:EasyMotion(pattern, a:direction, a:visualmode ? visualmode() : '', 0)
     endif
     return s:EasyMotion_is_cancelled
 endfunction " }}}
@@ -348,6 +351,8 @@ function! EasyMotion#NextPrevious(visualmode, direction) " {{{
     for _ in range(cnt)
         keepjumps call searchpos(re, search_direction)
     endfor
+
+    normal! zv
 
     call EasyMotion#reset()
     " -- Activate EasyMotion ----------------- {{{
@@ -878,6 +883,7 @@ function! s:CreateCoordKeyDict(groups, ...)
 endfunction
 " }}}
 " }}}
+"}}}
 " Core Functions: {{{
 function! s:PromptUser(groups) "{{{
     " Recursive
@@ -1064,6 +1070,7 @@ function! s:PromptUser(groups) "{{{
         " Restore undo tree {{{
         if s:should_use_wundo() && filereadable(s:undo_file)
             silent execute "rundo" s:undo_file
+            call delete(s:undo_file)
             unlet s:undo_file
         else
             " Break undo history (undobreak)
@@ -1521,9 +1528,9 @@ function! s:EasyMotion(regexp, direction, visualmode, is_inclusive) " {{{
     endtry
 endfunction " }}}
 "}}}
-" Call Init: {{{
+" }}}
+
 call EasyMotion#init()
-"}}}
 " Restore 'cpoptions' {{{
 let &cpo = s:save_cpo
 unlet s:save_cpo

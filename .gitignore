@@ -39,6 +39,7 @@ VirtualBox\ VMs
 .sbt/0.13/plugins/project/project
 .sbt/0.13/plugins/target
 .sbt/0.13/cache
+.sbt/0.13/dependency
 .sbt/boot
 .sbt/target/
 .sbt/plugins/project

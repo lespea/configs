@@ -4,11 +4,47 @@ import scalariform.formatter.preferences._
 
 import com.typesafe.sbt.SbtStartScript
 
-assemblySettings
+import NativePackagerKeys._
+
+
+
+////////////////////////
+//  Compiler Plugins  //
+////////////////////////
+
+resolvers += "linter" at "http://hairyfotr.github.io/linteRepo/releases"
+
+addCompilerPlugin("com.foursquare.lint" %% "linter" % "0.1-SNAPSHOT")
+
+
+
+////////////////////
+//  IDE Settings  //
+////////////////////
 
 EclipseKeys.withSource := true
 
-EclipseKeys.executionEnvironment := Some(EclipseExecutionEnvironment.JavaSE17)
+EclipseKeys.executionEnvironment := Some(EclipseExecutionEnvironment.JavaSE18)
+
+
+
+////////////////
+//  Builders  //
+////////////////
+
+assemblySettings
+
+packSettings
+
+seq(SbtStartScript.startScriptForClassesSettings: _*)
+
+packageArchetype.java_application
+
+
+
+//////////////////
+//  Formatters  //
+//////////////////
 
 scalariformSettings
 
@@ -19,9 +55,23 @@ ScalariformKeys.preferences := FormattingPreferences()
   .setPreference(IndentLocalDefs              , true)
   .setPreference(RewriteArrowSymbols          , true)
 
-site.settings
+
+
+////////////
+//  Misc  //
+////////////
 
 net.virtualvoid.sbt.graph.Plugin.graphSettings
+
+
+
+
+
+
+
+//////////////
+///  OLD  ////
+//////////////
 
 //org.scalastyle.sbt.ScalastylePlugin.Settings
 
@@ -34,15 +84,9 @@ net.virtualvoid.sbt.graph.Plugin.graphSettings
 
 //(test in Test) <<= (test in Test) dependsOn testScalaStyle
 
-packSettings
-
-seq(SbtStartScript.startScriptForClassesSettings: _*)
-
 //seq(SbtStartScript.startScriptForJarSettings: _*)
 
-packageArchetype.java_application
-
-addCommandAlias("pluginUpdates", "; reload plugins; dependencyUpdates; reload return")
+//addCommandAlias("pluginUpdates", "; reload plugins; dependencyUpdates; reload return")
 
 //autoCompilerPlugins := true
 
@@ -50,9 +94,4 @@ addCommandAlias("pluginUpdates", "; reload plugins; dependencyUpdates; reload re
 //addCompilerPlugin("org.brianmckenna" %% "wartremover" % "0.10")
 //scalacOptions in (Compile, compile) += "-P:wartremover:only-warn-traverser:org.brianmckenna.wartremover.warts.Unsafe"
 
-resolvers += "linter" at "http://hairyfotr.github.io/linteRepo/releases"
-
-addCompilerPlugin("com.foursquare.lint" %% "linter" % "0.1-SNAPSHOT")
-
 //instrumentSettings  // for scalariform
-

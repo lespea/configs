@@ -276,3 +276,7 @@ noremap <silent> ,jl :silent :%s/^\s*\(.\{-}\)\s*$/,"\1"<CR> ggVGgJ0x
 
 "  Turns a schema def (in scala) into the the 'this' part
 noremap \sqld :%s/:.*\zsInt/0/e<bar>%s/:.*\zsLong/0L/e<bar>%s/:.*\zsString/""/e<bar>%s/:.*\zsBigDecimal/BigDecimal(0)/e<bar>%s/:.*\zsTimestamp/new Timestamp(0L)/e<bar>%s/:.*\zsBoolean/true/e<bar>%s/:.*\zsDouble/0.0/e<bar>%s/: *\zsOption\[\(.*\)\]/Some(\1)/e<bar>%s/.*\s\(\S\+\):\s\+\(.\+\)\%(,\<bar>)\s*{.*\)\s*\%(\/\/\ze.*\)*$/\2, \/\/ \1/e<CR>
+
+"  Easy move up/down in the same column to the top/bottom of the doc
+noremap ,,j 9999999999j
+noremap ,,k 9999999999k

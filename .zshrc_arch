@@ -51,7 +51,7 @@ ZSH_THEME="blinks"
 #  Makes browsing large repos bearable
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-plugins=(git archlinux command-not-found encode64 git-extras git-flow lein mercurial mvn screen svn systemd urltools yaourt)
+plugins=(git archlinux command-not-found encode64 git-extras git-flow mercurial svn systemd urltools yaourt ssh-agent)
 
 source $ZSH/oh-my-zsh.sh
 

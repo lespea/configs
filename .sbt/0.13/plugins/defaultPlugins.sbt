@@ -4,7 +4,7 @@ addSbtPlugin("net.virtual-void"        % "sbt-dependency-graph" % "0.7.4"     )
 
 addSbtPlugin("com.github.mpeltonen"    % "sbt-idea"             % "1.6.0"     )
 
-addSbtPlugin("com.typesafe.sbt"        % "sbt-native-packager"  % "0.8.0-RC1" )
+addSbtPlugin("com.typesafe.sbt"        % "sbt-native-packager"  % "0.8.0-RC2" )
 
 addSbtPlugin("org.xerial.sbt"          % "sbt-pack"             % "0.6.5"     )
 
@@ -16,7 +16,7 @@ addSbtPlugin("com.typesafe.sbt"        % "sbt-start-script"     % "0.10.0"    )
 
 addSbtPlugin("com.orrsella"            % "sbt-stats"            % "1.0.5"     )
 
-addSbtPlugin("com.timushev.sbt"        % "sbt-updates"          % "0.1.6"     )
+addSbtPlugin("com.timushev.sbt"        % "sbt-updates"          % "0.1.7"     )
 
 addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin"    % "2.5.0"     )
 

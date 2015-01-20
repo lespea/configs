@@ -18,10 +18,10 @@ addSbtPlugin("com.orrsella"            % "sbt-stats"            % "1.0.5"  )
 
 addSbtPlugin("com.timushev.sbt"        % "sbt-updates"          % "0.1.7"  )
 
-addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin"    % "2.5.0"  )
 
 // OLD //
 
+//addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin"    % "3.0.0"  )
 //addSbtPlugin("org.scoverage" %% "sbt-scoverage" % "0.99.7")
 //addSbtPlugin("org.scalastyle" %% "scalastyle-sbt-plugin" % "0.5.0")
 //addSbtPlugin("com.typesafe.sbt" % "sbt-site" % "0.7.2")

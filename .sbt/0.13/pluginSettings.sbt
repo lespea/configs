@@ -1,10 +1,10 @@
-import AssemblyKeys._
+//import AssemblyKeys._
 
 import scalariform.formatter.preferences._
 
-import com.typesafe.sbt.SbtStartScript
+//import com.typesafe.sbt.SbtStartScript
 
-import NativePackagerKeys._
+//import NativePackagerKeys._
 
 
 
@@ -22,9 +22,6 @@ addCompilerPlugin("com.foursquare.lint" %% "linter" % "0.1-SNAPSHOT")
 //  IDE Settings  //
 ////////////////////
 
-EclipseKeys.withSource := true
-
-EclipseKeys.executionEnvironment := Some(EclipseExecutionEnvironment.JavaSE18)
 
 
 
@@ -32,13 +29,13 @@ EclipseKeys.executionEnvironment := Some(EclipseExecutionEnvironment.JavaSE18)
 //  Builders  //
 ////////////////
 
-assemblySettings
+//assemblySettings
 
-packSettings
+//packSettings
 
-seq(SbtStartScript.startScriptForClassesSettings: _*)
+//seq(SbtStartScript.startScriptForClassesSettings: _*)
 
-packageArchetype.java_application
+//packageArchetype.java_application
 
 
 
@@ -95,3 +92,7 @@ net.virtualvoid.sbt.graph.Plugin.graphSettings
 //scalacOptions in (Compile, compile) += "-P:wartremover:only-warn-traverser:org.brianmckenna.wartremover.warts.Unsafe"
 
 //instrumentSettings  // for scalariform
+
+//EclipseKeys.withSource := true
+//
+//EclipseKeys.executionEnvironment := Some(EclipseExecutionEnvironment.JavaSE18)

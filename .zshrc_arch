@@ -61,6 +61,8 @@ export PATH=/home/$USERNAME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/us
 
 export EDITOR="vim"
 
+alias cp='cp --reflink=auto'
+
 alias ls='ls -h --color'
 
 alias ll='ls -l'

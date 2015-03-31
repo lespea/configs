@@ -461,8 +461,8 @@ noremap \qa :qa!<CR>
 nnoremap \tn :set number!<Bar> set number?<CR>
 noremap \c :let @/ = ""<CR>
 nnoremap \r :e!<CR>
-nnoremap \ttt :execute "normal a" . strftime("%x %X (%Z)")<Esc>
-inoremap \ttt <Esc>:execute "normal a" . strftime("%x %X (%Z)")<Esc>a
+nnoremap \ttt :execute "normal a" . strftime("%F %T (%Z :: %z)")<Esc>
+inoremap \ttt <Esc>:execute "normal a" . strftime("%F %T (%Z :: %z)")<Esc>a
 noremap \u :sort u<CR>:g/^$/d<CR>
 noremap \= :Align =><CR>
 noremap ,ap vip:Align =><CR>

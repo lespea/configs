@@ -130,8 +130,8 @@ noremap \c :let @/ = ""<CR>
 nnoremap \r :e!<CR>
 
 "  Insert the time!
-nnoremap \ttt :execute "normal a" . strftime("%x %X (%Z)")<Esc>
-inoremap \ttt <Esc>:execute "normal a" . strftime("%x %X (%Z)")<Esc>a
+nnoremap \ttt :execute "normal a" . strftime("%F %T (%Z :: %z)")<Esc>
+inoremap \ttt <Esc>:execute "normal a" . strftime("%F %T (%Z :: %z)")<Esc>a
 
 "  Remove dupes (sorts as well)
 noremap \u :sort u<CR>:g/^$/d<CR>

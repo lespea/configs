@@ -146,6 +146,8 @@ export SBT_OPTS="-server -XX:+UseG1GC -Xms512M -Xmx3G -XX:+CMSClassUnloadingEnab
 
 source "$SCRIPT_PATH/zaw/zaw.zsh"
 
+source "$HOME/perl5/perlbrew/etc/bashrc"
+
 bindkey '^R' zaw-history
 bindkey '^F' zaw-ack
 zstyle ':filter-select' max-lines 10
@@ -154,3 +156,5 @@ zstyle ':filter-select' extended-search yes
 
 
 alias pssh='ssh -o PubkeyAuthentication=no'
+
+export LC_ALL=C

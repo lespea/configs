@@ -51,7 +51,7 @@ ZSH_THEME="blinks"
 #  Makes browsing large repos bearable
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-plugins=(git command-not-found encode64 git-extras git-flow mercurial urltools ssh-agent)
+plugins=(brew git command-not-found encode64 git-extras git-flow mercurial urltools ssh-agent pip npm)
 
 source $ZSH/oh-my-zsh.sh
 

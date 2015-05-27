@@ -1,6 +1,6 @@
 " Vim script
 " Author: Peter Odding <peter@peterodding.com>
-" Last Change: June 20, 2014
+" Last Change: November 13, 2014
 " URL: http://peterodding.com/code/vim/easytags/
 
 " This submodule of the vim-easytags plug-in translates between back and forth
@@ -31,9 +31,10 @@ let s:filetype_groups = {}
 function! xolox#easytags#filetypes#add_group(...) " {{{1
   " Define a group of Vim file types whose tags should be stored together.
   let canonical_filetype = tolower(a:1)
-  let s:filetype_groups[canonical_filetype] = a:000[1:]
-  for ft in s:filetype_groups[canonical_filetype]
-    let s:canonical_filetypes[tolower(ft)] = canonical_filetype
+  let other_filetypes = map(a:000[1:], 'tolower(v:val)')
+  let s:filetype_groups[canonical_filetype] = other_filetypes
+  for ft in other_filetypes
+    let s:canonical_filetypes[ft] = canonical_filetype
   endfor
 endfunction
 
@@ -74,7 +75,8 @@ endfunction
 function! xolox#easytags#filetypes#find_ctags_aliases(canonical_vim_filetype) " {{{1
   " Find Exuberant Ctags languages that correspond to a canonical, supported Vim file type.
   if has_key(s:filetype_groups, a:canonical_vim_filetype)
-    let filetypes = copy(s:filetype_groups[a:canonical_vim_filetype])
+    let filetypes = [a:canonical_vim_filetype]
+    call extend(filetypes, s:filetype_groups[a:canonical_vim_filetype])
     return map(filetypes, 'xolox#easytags#filetypes#to_ctags(v:val)')
   else
     return [xolox#easytags#filetypes#to_ctags(a:canonical_vim_filetype)]
@@ -85,10 +87,11 @@ function! s:discover_supported_filetypes() " {{{1
   " Initialize predefined groups & mappings and discover supported file types.
   if !s:discovered_filetypes
     " Discover the file types supported by Exuberant Ctags?
-    if !empty(g:easytags_cmd)
+    let command_line = xolox#easytags#ctags_command()
+    if !empty(command_line)
       let starttime = xolox#misc#timer#start()
-      let command = g:easytags_cmd . ' --list-languages'
-      for line in xolox#misc#os#exec({'command': command})['stdout']
+      let command_line .= ' --list-languages'
+      for line in xolox#misc#os#exec({'command': command_line})['stdout']
         if line =~ '\[disabled\]$'
           " Ignore languages that have been explicitly disabled using `--languages=-Vim'.
           continue
@@ -110,8 +113,22 @@ endfunction
 
 " }}}1
 
-" Define the default file type groups.
-call xolox#easytags#filetypes#add_group('c', 'cpp', 'objc', 'objcpp')
+" Define the default file type groups. It's important that C normalizes to C++
+" because of the following points:
+"
+"  - Vim and Exuberant Ctags consistently treat *.h files as C++. I guess this
+"    is because A) the filename extension is ambiguous and B) C++ is a
+"    superset of C so the mapping makes sense.
+"
+"  - Because of the above point, when you use file type specific tags files
+"    and you're editing C source code you'll be missing everything defined in
+"    your *.h files. Depending on your programming style those tags might be
+"    redundant or they might not be.
+"
+" To solve this dilemma the vim-easytags plug-in groups the C and C++ file
+" types together and tells Exuberant Ctags to treat it all as C++ because C++
+" is a superset of C.
+call xolox#easytags#filetypes#add_group('cpp', 'c')
 call xolox#easytags#filetypes#add_group('html', 'htmldjango')
 
 " Define the default file type mappings.

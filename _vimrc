@@ -42,7 +42,7 @@ set guioptions-=m
 set showtabline=2
 behave xterm
 set mousemodel=popup
-set viminfo=/50,'50,h
+set viminfo=/50,'50,h,<0,@0
 set backspace=indent,eol,start
 set number
 set showmatch

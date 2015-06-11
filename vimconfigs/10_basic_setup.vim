@@ -8,8 +8,9 @@ behave xterm
 "  Mouse has popup menus
 set mousemodel=popup
 
-"  Save last 50 search history items, last 50 edit marks, don't remember search highlights
-set viminfo=/50,'50,h
+"  Save last 50 search history items, last 50 edit marks, don't remember search highlights; don't
+"  remember registers and input line history as well
+set viminfo=/50,'50,h,<0,@0
 
 "  Make backspace work
 set backspace=indent,eol,start

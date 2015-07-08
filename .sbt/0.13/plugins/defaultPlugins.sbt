@@ -2,21 +2,21 @@
 
 addSbtPlugin("net.virtual-void"        % "sbt-dependency-graph" % "0.7.5"  )
 
-addSbtPlugin("com.github.mpeltonen"    % "sbt-idea"             % "1.6.0"  )
+//addSbtPlugin("com.github.mpeltonen"    % "sbt-idea"             % "1.6.0"  )
 
 //addSbtPlugin("com.typesafe.sbt"        % "sbt-native-packager"  % "0.8.0"  )
 
 //addSbtPlugin("org.xerial.sbt"          % "sbt-pack"             % "0.6.5"  )
 
-addSbtPlugin("com.typesafe.sbt"        % "sbt-pgp"              % "0.8.3"  )
+//addSbtPlugin("com.typesafe.sbt"        % "sbt-pgp"              % "0.8.3"  )
 
-addSbtPlugin("com.typesafe.sbt"        % "sbt-scalariform"      % "1.3.0"  )
+addSbtPlugin("org.scalariform"         % "sbt-scalariform"      % "1.4.0"  )
 
 //addSbtPlugin("com.typesafe.sbt"        % "sbt-start-script"     % "0.10.0" )
 
-addSbtPlugin("com.orrsella"            % "sbt-stats"            % "1.0.5"  )
+//addSbtPlugin("com.orrsella"            % "sbt-stats"            % "1.0.5"  )
 
-addSbtPlugin("com.timushev.sbt"        % "sbt-updates"          % "0.1.8"  )
+addSbtPlugin("com.timushev.sbt"        % "sbt-updates"          % "0.1.9"  )
 
 
 // OLD //

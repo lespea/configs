@@ -46,6 +46,8 @@ resolvers += "linter" at "http://hairyfotr.github.io/linteRepo/releases"
 scalariformSettings
 
 ScalariformKeys.preferences := FormattingPreferences()
+  .setPreference(AlignParameters              , true)
+  .setPreference(AlignArguments               , true)
   .setPreference(AlignSingleLineCaseStatements, true)
   .setPreference(CompactControlReadability    , false)
   .setPreference(DoubleIndentClassDeclaration , true)

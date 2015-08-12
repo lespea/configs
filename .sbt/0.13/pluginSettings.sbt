@@ -1,6 +1,6 @@
 //import AssemblyKeys._
 
-import scalariform.formatter.preferences._
+//import scalariform.formatter.preferences._
 
 //import com.typesafe.sbt.SbtStartScript
 
@@ -12,7 +12,7 @@ import scalariform.formatter.preferences._
 //  Compiler Plugins  //
 ////////////////////////
 
-resolvers += "linter" at "http://hairyfotr.github.io/linteRepo/releases"
+//esolvers += "linter" at "http://hairyfotr.github.io/linteRepo/releases"
 
 //addCompilerPlugin("com.foursquare.lint" %% "linter" % "0.1-SNAPSHOT")
 
@@ -43,16 +43,16 @@ resolvers += "linter" at "http://hairyfotr.github.io/linteRepo/releases"
 //  Formatters  //
 //////////////////
 
-scalariformSettings
-
-ScalariformKeys.preferences := FormattingPreferences()
-  .setPreference(AlignParameters              , true)
-  .setPreference(AlignArguments               , true)
-  .setPreference(AlignSingleLineCaseStatements, true)
-  .setPreference(CompactControlReadability    , false)
-  .setPreference(DoubleIndentClassDeclaration , true)
-  .setPreference(IndentLocalDefs              , true)
-  .setPreference(RewriteArrowSymbols          , true)
+//scalariformSettings
+//
+//ScalariformKeys.preferences := FormattingPreferences()
+//  .setPreference(AlignParameters              , true)
+//  .setPreference(AlignArguments               , true)
+//  .setPreference(AlignSingleLineCaseStatements, true)
+//  .setPreference(CompactControlReadability    , false)
+//  .setPreference(DoubleIndentClassDeclaration , true)
+//  .setPreference(IndentLocalDefs              , true)
+//  .setPreference(RewriteArrowSymbols          , true)
 
 
 

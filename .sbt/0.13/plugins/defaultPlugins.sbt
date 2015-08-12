@@ -10,7 +10,7 @@ addSbtPlugin("net.virtual-void"        % "sbt-dependency-graph" % "0.7.5"  )
 
 //addSbtPlugin("com.typesafe.sbt"        % "sbt-pgp"              % "0.8.3"  )
 
-addSbtPlugin("org.scalariform"         % "sbt-scalariform"      % "1.4.0"  )
+//addSbtPlugin("org.scalariform"         % "sbt-scalariform"      % "1.4.0"  )
 
 //addSbtPlugin("com.typesafe.sbt"        % "sbt-start-script"     % "0.10.0" )
 

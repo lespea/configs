@@ -45,6 +45,7 @@ VirtualBox\ VMs
 .sbt/plugins/project
 .sbt/plugins/target
 .sbt/cache
+.sbt/ghpages
 .ttreerc
 .perlreplhist
 .pause

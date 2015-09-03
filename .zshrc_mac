@@ -51,7 +51,41 @@ ZSH_THEME="blinks"
 #  Makes browsing large repos bearable
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-plugins=(brew git command-not-found encode64 git-extras git-flow mercurial urltools ssh-agent pip npm)
+plugins=(
+    osx
+    terminalapp
+    aws
+    brew
+    chruby
+    cpanm
+    dirhistory
+    encode64
+    gem
+    git
+    git-extras
+    git-flow
+    git-prompt
+    git-remote-branch
+    github
+    gitignore
+    go
+    man
+    mercurial
+    npm
+    perl
+    pip
+    pyenv
+    python
+    rsync
+    sbt
+    ssh-agent
+    thefuck
+    urltools
+    virtualenv
+    virtualenvwrapper
+)
+
+export DISABLE_VENV_CD=0
 
 source $ZSH/oh-my-zsh.sh
 
@@ -159,6 +193,7 @@ alias pssh='ssh -o PubkeyAuthentication=no'
 
 export LC_ALL=C
 
-source /usr/local/opt/chruby/share/chruby/chruby.sh
-source /usr/local/opt/chruby/share/chruby/auto.sh
+#source /usr/local/opt/chruby/share/chruby/chruby.sh
+#source /usr/local/opt/chruby/share/chruby/auto.sh
 
+chruby ruby-2.1.3

@@ -97,7 +97,7 @@ export EDITOR="vim"
 
 alias cp='cp --reflink=auto'
 
-alias ls='ls -h'
+alias ls='ls -h --color=always'
 
 alias ll='ls -l'
 alias la='ls -A'

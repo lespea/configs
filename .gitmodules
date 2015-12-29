@@ -43,3 +43,6 @@
 [submodule "vimfiles/bundle/EasyAlign"]
 	path = vimfiles/bundle/EasyAlign
 	url = https://github.com/junegunn/vim-easy-align.git
+[submodule "vimfiles/bundle/NerdCommenter"]
+	path = vimfiles/bundle/NerdCommenter
+	url = https://github.com/scrooloose/nerdcommenter.git

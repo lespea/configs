@@ -10,3 +10,9 @@
 [submodule "vimfiles/bundle/Abolish"]
 	path = vimfiles/bundle/Abolish
 	url = https://github.com/tpope/vim-abolish.git
+[submodule "vimfiles/bundle/Rust"]
+	path = vimfiles/bundle/Rust
+	url = https://github.com/rust-lang/rust.vim
+[submodule "vimfiles/bundle/Syntastic"]
+	path = vimfiles/bundle/Syntastic
+	url = https://github.com/scrooloose/syntastic.git

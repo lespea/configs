@@ -25,3 +25,6 @@
 [submodule "vimfiles/bundle/NeoComplete"]
 	path = vimfiles/bundle/NeoComplete
 	url = https://github.com/Shougo/neocomplete.vim.git
+[submodule "vimfiles/bundle/SudoEdit"]
+	path = vimfiles/bundle/SudoEdit
+	url = https://github.com/chrisbra/SudoEdit.vim.git

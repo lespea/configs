@@ -28,3 +28,6 @@
 [submodule "vimfiles/bundle/SudoEdit"]
 	path = vimfiles/bundle/SudoEdit
 	url = https://github.com/chrisbra/SudoEdit.vim.git
+[submodule "vimfiles/bundle/Surround"]
+	path = vimfiles/bundle/Surround
+	url = https://github.com/tpope/vim-surround.git

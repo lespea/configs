@@ -31,3 +31,6 @@
 [submodule "vimfiles/bundle/Surround"]
 	path = vimfiles/bundle/Surround
 	url = https://github.com/tpope/vim-surround.git
+[submodule "vimfiles/bundle/Startify"]
+	path = vimfiles/bundle/Startify
+	url = https://github.com/mhinz/vim-startify.git

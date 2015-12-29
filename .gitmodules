@@ -22,3 +22,6 @@
 [submodule "vimfiles/bundle/Markdown"]
 	path = vimfiles/bundle/Markdown
 	url = https://github.com/plasticboy/vim-markdown.git
+[submodule "vimfiles/bundle/NeoComplete"]
+	path = vimfiles/bundle/NeoComplete
+	url = https://github.com/Shougo/neocomplete.vim.git

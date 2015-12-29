@@ -16,3 +16,6 @@
 [submodule "vimfiles/bundle/Syntastic"]
 	path = vimfiles/bundle/Syntastic
 	url = https://github.com/scrooloose/syntastic.git
+[submodule "vimfiles/bundle/IndentLine"]
+	path = vimfiles/bundle/IndentLine
+	url = https://github.com/Yggdroot/indentLine.git

@@ -69,6 +69,8 @@ plugins=(
     github
     gitignore
     go
+    gpg-agent
+    ssh-agent
     man
     mercurial
     npm
@@ -78,12 +80,13 @@ plugins=(
     python
     rsync
     sbt
-    ssh-agent
     thefuck
     urltools
     virtualenv
     virtualenvwrapper
 )
+
+#setopt HIST_IGNORE_ALL_DUPS
 
 export DISABLE_VENV_CD=0
 
@@ -181,6 +184,7 @@ export SBT_OPTS="-server -XX:+UseG1GC -Xms512M -Xmx3G -XX:+CMSClassUnloadingEnab
 source "$SCRIPT_PATH/zaw/zaw.zsh"
 
 source "$HOME/perl5/perlbrew/etc/bashrc"
+alias mbrew='source "$HOME/perl5/perlbrew/etc/bashrc"'
 
 bindkey '^R' zaw-history
 bindkey '^F' zaw-ack

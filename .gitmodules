@@ -40,3 +40,6 @@
 [submodule "vimfiles/bundle/Unimpaired"]
 	path = vimfiles/bundle/Unimpaired
 	url = https://github.com/tpope/vim-unimpaired.git
+[submodule "vimfiles/bundle/EasyAlign"]
+	path = vimfiles/bundle/EasyAlign
+	url = https://github.com/junegunn/vim-easy-align.git

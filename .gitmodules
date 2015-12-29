@@ -19,3 +19,6 @@
 [submodule "vimfiles/bundle/IndentLine"]
 	path = vimfiles/bundle/IndentLine
 	url = https://github.com/Yggdroot/indentLine.git
+[submodule "vimfiles/bundle/Markdown"]
+	path = vimfiles/bundle/Markdown
+	url = https://github.com/plasticboy/vim-markdown.git

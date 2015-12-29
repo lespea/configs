@@ -4,3 +4,9 @@
 [submodule "vimfiles/bundle/EasyMotion"]
 	path = vimfiles/bundle/EasyMotion
 	url = https://github.com/easymotion/vim-easymotion
+[submodule "vimfiles/bundle/DelimitMate"]
+	path = vimfiles/bundle/DelimitMate
+	url = https://github.com/Raimondi/delimitMate.git
+[submodule "vimfiles/bundle/Abolish"]
+	path = vimfiles/bundle/Abolish
+	url = https://github.com/tpope/vim-abolish.git

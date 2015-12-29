@@ -34,3 +34,6 @@
 [submodule "vimfiles/bundle/Startify"]
 	path = vimfiles/bundle/Startify
 	url = https://github.com/mhinz/vim-startify.git
+[submodule "vimfiles/bundle/UndoTree"]
+	path = vimfiles/bundle/UndoTree
+	url = https://github.com/mbbill/undotree.git

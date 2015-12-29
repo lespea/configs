@@ -1,6 +1,6 @@
 " abolish.vim - Language friendly searches, substitutions, and abbreviations
 " Maintainer:   Tim Pope <http://tpo.pe/>
-" Version:      1.0
+" Version:      1.1
 " GetLatestVimScripts: 1545 1 :AutoInstall: abolish.vim
 
 " Initialization {{{1
@@ -322,7 +322,7 @@ endfunction
 " Searching {{{1
 
 function! s:subesc(pattern)
-  return substitute(a:pattern,'[][\\/.*~]','\\&','g')
+  return substitute(a:pattern,'[][\\/.*~%()&]','\\&','g')
 endfunction
 
 function! s:sort(a,b)

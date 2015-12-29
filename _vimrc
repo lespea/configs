@@ -413,8 +413,10 @@ let Tlist_Sort_Type = "name"
 let Tlist_WinWidth = 45
 let g:session_autosave = 'no'
 let g:session_autoload = 'no'
-let g:syntastic_enable_perl_checker = 1
-let g:loaded_syntastic_perl_perlcritic_checker = 1
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 cmap w!! w !sudo tee % >/dev/null
 vnoremap ; :
 noremap <Space> <PageDown>

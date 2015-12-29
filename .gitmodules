@@ -37,3 +37,6 @@
 [submodule "vimfiles/bundle/UndoTree"]
 	path = vimfiles/bundle/UndoTree
 	url = https://github.com/mbbill/undotree.git
+[submodule "vimfiles/bundle/Unimpaired"]
+	path = vimfiles/bundle/Unimpaired
+	url = https://github.com/tpope/vim-unimpaired.git

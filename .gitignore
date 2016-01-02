@@ -58,3 +58,6 @@ tags
 _vimtags
 .cache
 AppData
+.gem
+.ipython
+pip/

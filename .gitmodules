@@ -52,3 +52,6 @@
 [submodule "vimfiles/bundle/Scala"]
 	path = vimfiles/bundle/Scala
 	url = https://github.com/derekwyatt/vim-scala.git
+[submodule "vimfiles/bundle/GoLang"]
+	path = vimfiles/bundle/GoLang
+	url = https://github.com/fatih/vim-go.git

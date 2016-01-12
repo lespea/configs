@@ -22,9 +22,6 @@
 [submodule "vimfiles/bundle/Markdown"]
 	path = vimfiles/bundle/Markdown
 	url = https://github.com/plasticboy/vim-markdown.git
-[submodule "vimfiles/bundle/NeoComplete"]
-	path = vimfiles/bundle/NeoComplete
-	url = https://github.com/Shougo/neocomplete.vim.git
 [submodule "vimfiles/bundle/SudoEdit"]
 	path = vimfiles/bundle/SudoEdit
 	url = https://github.com/chrisbra/SudoEdit.vim.git
@@ -55,3 +52,6 @@
 [submodule "vimfiles/bundle/GoLang"]
 	path = vimfiles/bundle/GoLang
 	url = https://github.com/fatih/vim-go.git
+[submodule "vimfiles/bundle/YouCompleteMe"]
+	path = vimfiles/bundle/YouCompleteMe
+	url = https://github.com/Valloric/YouCompleteMe.git

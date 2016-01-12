@@ -61,3 +61,4 @@ AppData
 .gem
 .ipython
 pip/
+.cargo

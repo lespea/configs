@@ -55,3 +55,9 @@
 [submodule "vimfiles/bundle/YouCompleteMe"]
 	path = vimfiles/bundle/YouCompleteMe
 	url = https://github.com/Valloric/YouCompleteMe.git
+[submodule "vimfiles/bundle/UtilSnips"]
+	path = vimfiles/bundle/UtilSnips
+	url = https://github.com/SirVer/ultisnips.git
+[submodule "vimfiles/bundle/VimSnippets"]
+	path = vimfiles/bundle/VimSnippets
+	url = https://github.com/honza/vim-snippets.git

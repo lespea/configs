@@ -135,13 +135,6 @@ autocmd FileType html  set formatoptions+=tl
 autocmd FileType xhtml set formatoptions+=tl
 let perl_include_pod = 1
 let perl_extended_vars = 1
-autocmd FileType php  setlocal  omnifunc=phpcomplete#CompletePHP
-autocmd FileType c    setlocal  omnifunc=ccomplete#Complete
-autocmd FileType css            setlocal  omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown  setlocal  omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript     setlocal  omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python         setlocal  omnifunc=pythoncomplete#Complete
-autocmd FileType xml            setlocal  omnifunc=xmlcomplete#CompleteTags
 au BufNewFile,BufRead *.tt2 setf tt2
 au BufNewFile,BufRead *.tt2html setf tt2html
 au BufNewFile,BufRead *.tt2h setf tt2html
@@ -366,11 +359,6 @@ let g:fuzzy_ceiling        = 50000
 let g:fuzzy_ignore         = "*.log;*.pyc;*.svn;*.git"
 map <silent> \f :FufFile<CR>
 map <silent> \b :FufBuffer<CR>
-let g:xptemplate_brace_complete = ''
-let g:xptemplate_key = '<C-Space>'
-let g:xptemplate_pum_tab_nav = 1
-let g:xptemplate_vars="$author=Adam Lesperance"
-let g:xptemplate_vars="$email=lespea@gmail.com"
 au FileType vim  let b:delimitMate_quotes = " ' ` *"
 let g:delimitMate_matchpairs = "(:),[:],{:}"
 let g:delimitMate_expand_space = 1
@@ -379,21 +367,6 @@ let g:delimitMate_balance_matchpairs = 1
 vmap <Enter> <Plug>(EasyAlign)
 nmap <Leader>a <Plug>(EasyAlign)
 let g:indent_guides_enable_on_vim_startup = 1
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-endfunction
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 map ,, <Plug>(easymotion-prefix)
 nmap ,f <Plug>(easymotion-s2)
 nmap ,t <Plug>(easymotion-bd-t2)
@@ -422,6 +395,22 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:ycm_server_keep_logfiles = 1
+let g:UltiSnipsExpandTrigger="<s-tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+let g:UltiSnipsExpandTrigger="<c-Space>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>" " you can use <c-j>
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsSnippetDirectories=['MyUltiSnips']
+let g:UltiSnipsListSnippets="<c-l>"
+let g:ycm_complete_in_comments = 1
+let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
 cmap w!! w !sudo tee % >/dev/null
 vnoremap ; :
 noremap <Space> <PageDown>

@@ -63,14 +63,14 @@ let perl_extended_vars = 1
 
 
 " Omni Completion
-autocmd FileType php  setlocal  omnifunc=phpcomplete#CompletePHP
-autocmd FileType c    setlocal  omnifunc=ccomplete#Complete
+"autocmd FileType php  setlocal  omnifunc=phpcomplete#CompletePHP
+"autocmd FileType c    setlocal  omnifunc=ccomplete#Complete
 
-autocmd FileType css            setlocal  omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown  setlocal  omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript     setlocal  omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python         setlocal  omnifunc=pythoncomplete#Complete
-autocmd FileType xml            setlocal  omnifunc=xmlcomplete#CompleteTags
+"autocmd FileType css            setlocal  omnifunc=csscomplete#CompleteCSS
+"autocmd FileType html,markdown  setlocal  omnifunc=htmlcomplete#CompleteTags
+"autocmd FileType javascript     setlocal  omnifunc=javascriptcomplete#CompleteJS
+"autocmd FileType python         setlocal  omnifunc=pythoncomplete#Complete
+"autocmd FileType xml            setlocal  omnifunc=xmlcomplete#CompleteTags
 
 au BufNewFile,BufRead *.tt2 setf tt2
 au BufNewFile,BufRead *.tt2html setf tt2html

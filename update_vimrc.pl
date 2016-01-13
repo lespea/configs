@@ -8,6 +8,7 @@ use File::Spec;
 use Readonly;
 Readonly::Scalar  my $BASE       => 'vimconfigs';
 Readonly::Scalar  my $CONF_FILE  => '_vimrc';
+Readonly::Scalar  my $CONF_FILE2 => File::Spec->catfile('vimfiles', 'init.vim');
 
 my @out;
 for  my $file  (sort grep {/\.(?:txt|vim)$/i} read_dir($BASE)){
@@ -21,3 +22,4 @@ for  my $file  (sort grep {/\.(?:txt|vim)$/i} read_dir($BASE)){
 }
 
 write_file ($CONF_FILE, {atomic => 1, binmode => ':raw'}, \@out);
+write_file ($CONF_FILE2, {atomic => 1, binmode => ':raw'}, \@out);

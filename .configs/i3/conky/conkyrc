@@ -1,0 +1,18 @@
+conky.config = {
+    background      = false,
+    out_to_x        = false,
+    out_to_console  = true,
+    update_interval = 1,
+    total_run_times = 0,
+    use_spacer      = none,
+}
+
+conky.text = [[
+    📶  ${downspeed enp3s0} | ${upspeed enp3s0} \
+    C ${cpubar} \
+    M ${membar} \
+      ${addr enp3s0} \
+      ${hwmon 0 temp 1} | ${hwmon 1 temp 2} | ${hwmon 2 temp 1} \
+      ${time %a  -  %b %d} \
+      ${time %H:%M}
+]]

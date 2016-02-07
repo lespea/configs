@@ -12,7 +12,7 @@ conky.text = [[
     C ${cpubar} \
     M ${membar} \
       ${addr enp3s0} \
-      ${hwmon 0 temp 1} | ${hwmon 1 temp 2} | ${hwmon 2 temp 1} \
+      ${hwmon 0 temp 2} | ${hwmon 1 temp 1} | ${hwmon 2 temp 1} \
       ${time %a  -  %b %d} \
       ${time %H:%M}
 ]]

@@ -1,0 +1,31 @@
+set nocompatible
+set encoding=utf-8
+syntax on
+behave xterm
+set noequalalways
+set hlsearch
+set ignorecase
+set smartcase
+set incsearch
+set gdefault
+set mousehide
+set textwidth=100
+inoremap kj <Esc>
+noremap Y y$
+nnoremap \ttt :execute "normal a" . strftime("%F %T (%Z :: %z)")<Esc>
+inoremap \ttt <Esc>:execute "normal a" . strftime("%F %T (%Z :: %z)")<Esc>a
+noremap \u :sort u<CR>:g/^$/d<CR>
+nnoremap \ca :1,$y+<CR>
+noremap ,u :sort u<CR>:g/^$/d<CR>
+noremap ,cl :sort<CR>:%!uniq -c<CR>:sort! n<CR>
+noremap ,i :g/^$/d<CR>:%s/\v^(.*)$/   ,'\1'/<CR>:1s/   ,/(\r    <CR>:$s/$/\r)<CR>:silent noh<CR>"+:1,$y+<CR>
+noremap ,sep :g/^\(\S\+\).\+\n\1\@!/s/$/\r<CR>:silent noh<CR>
+noremap ,dupe :sort<CR>:g/^\(.\+\)\n\1\@!/d<CR>yyp:%s/^\(.\+\)\n\1\+/\1/<CR>:g/^$/d<CR>:silent noh<CR>
+noremap <silent> ,sl :%s/\t/\r/<CR>
+noremap <silent> ,jl :silent :%s/^\s*\(.\{-}\)\s*$/,"\1"<CR> ggVGgJ0x
+noremap ,,j 9999999999j
+noremap ,,k 9999999999k
+abb teh the
+abb fo of
+abb taht that
+abb wehn when

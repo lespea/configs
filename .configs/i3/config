@@ -149,8 +149,8 @@ for_window [class="Geary"] border pixel 0
 for_window [class="Lmms"] border pixel 0
 for_window [class="Feh"] border pixel 0
 for_window [class="Medit"] border pixel 0
+for_window [class="Civ5XP"] border pixel 0
 
-for_window [class="Steam"] workspace $WS3
 
 # floating
 # for_window [window_role="pop-up"] floating enable

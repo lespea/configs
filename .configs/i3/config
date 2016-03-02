@@ -243,6 +243,9 @@ bindsym $mod+Shift+s exec --no-startup-id steam
 bindsym $mod+Shift+f exec --no-startup-id firefox-aurora
 bindsym $mod+Shift+p exec --no-startup-id "firefox-aurora --private-window"
 
+bindsym $mod+Shift+w exec $HOME/.config/i3/swap-workspace.py
+bindsym $mod+Tab exec $HOME/.config/i3/cycle-workspace.py
+
 client.focused #81a2be #81a2be #1d1f21 #282a2e
 client.focused_inactive #373b41 #373b41 #969896 #282a2e
 client.unfocused #282a2e #282a2e #969896 #282a2e

@@ -75,3 +75,5 @@ let perl_extended_vars = 1
 au BufNewFile,BufRead *.tt2 setf tt2
 au BufNewFile,BufRead *.tt2html setf tt2html
 au BufNewFile,BufRead *.tt2h setf tt2html
+
+autocmd FileType python BracelessEnable +indent

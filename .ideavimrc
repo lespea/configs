@@ -2,6 +2,7 @@ set nocompatible
 set encoding=utf-8
 syntax on
 behave xterm
+set rnu
 set noequalalways
 set hlsearch
 set ignorecase

@@ -77,3 +77,6 @@ au BufNewFile,BufRead *.tt2html setf tt2html
 au BufNewFile,BufRead *.tt2h setf tt2html
 
 autocmd FileType python BracelessEnable +indent
+
+let g:syntastic_ignore_files = ['.*\.sbt$']
+

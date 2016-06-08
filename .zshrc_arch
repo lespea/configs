@@ -48,10 +48,12 @@ ZSH_THEME="blinks"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 #gpg-agent
 
+export TERM=xterm-256color
+
 #  Makes browsing large repos bearable
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-plugins=(git archlinux command-not-found encode64 git-extras git-flow mercurial svn systemd urltools yaourt ssh-agent)
+plugins=(git archlinux command-not-found encode64 git-extras git-flow mercurial svn systemd urltools yaourt ssh-agent perlbrew)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -154,3 +156,4 @@ zstyle ':filter-select' extended-search yes
 
 
 alias pssh='ssh -o PubkeyAuthentication=no'
+source "$HOME/perl5/perlbrew/etc/bashrc"

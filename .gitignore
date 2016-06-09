@@ -62,3 +62,4 @@ AppData
 .ipython
 pip/
 .cargo
+.sbt/launchers

@@ -63,3 +63,4 @@ AppData
 pip/
 .cargo
 .sbt/launchers
+.config

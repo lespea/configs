@@ -1,13 +1,1 @@
-In random folder:
-
-{instal prereqs}
-{install vim from here: https://bintray.com/veegee/generic/vim_x64}
-
-cmake -G "Visual Studio 12 Win64" -DPATH_TO_LLVM_ROOT=c:\apps\llvm . C:\home\vimfiles\bundle\YouCompleteMe\third_party\ycmd\cpp
-cmake --build . --target ycm_support_libs --config Release
-
-npm install -g typescript 
-YouCompleteMe/third_party/ycmd/third_party/gocode and run go build
-YouCompleteMe/third_party/ycmd/third_party/OmniSharpServer and run msbuild
-YouCompleteMe/third_party/ycmd/third_party/racerd and run cargo build --releas
-ouCompleteMe/third_party/ycmd/third_party/tern and run npm install --production
+python install.py --msvc 12 --clang-completer --gocode-completer

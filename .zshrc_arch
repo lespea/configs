@@ -156,4 +156,7 @@ zstyle ':filter-select' extended-search yes
 
 
 alias pssh='ssh -o PubkeyAuthentication=no'
-source "$HOME/perl5/perlbrew/etc/bashrc"
+
+if [[ -f "$HOME/perl5/perlbrew/etc/bashrc" ]]; then
+    source "$HOME/perl5/perlbrew/etc/bashrc"
+fi

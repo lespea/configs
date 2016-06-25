@@ -64,3 +64,6 @@
 [submodule "vimfiles/bundle/Braceless"]
 	path = vimfiles/bundle/Braceless
 	url = https://github.com/tweekmonster/braceless.vim.git
+[submodule "vimfiles/bundle/Nim"]
+	path = vimfiles/bundle/Nim
+	url = https://github.com/zah/nim.vim.git

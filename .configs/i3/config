@@ -238,6 +238,7 @@ bar {
 
 exec --no-startup-id compton -cCGb --backend glx --vsync opengl
 exec --no-startup-id nitrogen --restore
+exec --no-startup-id xfce4-clipman
 exec --no-startup-id pasystray
 
 bindsym $mod+Shift+s exec --no-startup-id "STEAM_RUNTIME=0 steam"

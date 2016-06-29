@@ -241,7 +241,7 @@ exec --no-startup-id nitrogen --restore
 exec --no-startup-id xfce4-clipman
 exec --no-startup-id pasystray
 
-bindsym $mod+Shift+s exec --no-startup-id "STEAM_RUNTIME=0 steam"
+bindsym $mod+Shift+s exec --no-startup-id "STEAM_RUNTIME=1 steam"
 bindsym $mod+Shift+f exec --no-startup-id firefox-aurora
 bindsym $mod+Shift+p exec --no-startup-id "firefox-aurora --private-window"
 

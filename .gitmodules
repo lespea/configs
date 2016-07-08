@@ -67,3 +67,6 @@
 [submodule "vimfiles/bundle/Nim"]
 	path = vimfiles/bundle/Nim
 	url = https://github.com/zah/nim.vim.git
+[submodule "rust"]
+	path = rust
+	url = https://github.com/rust-lang/rust

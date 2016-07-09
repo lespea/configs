@@ -160,3 +160,7 @@ alias pssh='ssh -o PubkeyAuthentication=no'
 if [[ -f "$HOME/perl5/perlbrew/etc/bashrc" ]]; then
     source "$HOME/perl5/perlbrew/etc/bashrc"
 fi
+
+if [[ -f "$HOME/.cargo/env" ]]; then
+    source $HOME/.cargo/env
+fi

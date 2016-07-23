@@ -19,7 +19,9 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="blinks"
+#ZSH_THEME="candy"
+#ZSH_THEME="jispwoso"
+ZSH_THEME="tjkirch"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -53,7 +55,34 @@ export TERM=xterm-256color
 #  Makes browsing large repos bearable
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-plugins=(git archlinux command-not-found encode64 git-extras git-flow mercurial svn systemd urltools yaourt ssh-agent perlbrew)
+plugins=(
+    archlinux
+    autopep8
+    aws
+    colorize
+    command-not-found
+    encode64
+    gitfast
+    git-extras
+    golang
+    last-working-dir
+    mercurial
+    perlbrew
+    python
+    rust
+    sbt
+    scala
+    ssh-agent
+    sudo
+    svn
+    systemd
+    tmux
+    urltools
+    virtualenv
+    virtualenvwrapper
+    yaourt
+    web-search
+)
 
 source $ZSH/oh-my-zsh.sh
 

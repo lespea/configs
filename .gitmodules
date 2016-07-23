@@ -70,3 +70,4 @@
 [submodule "rust"]
 	path = rust
 	url = https://github.com/rust-lang/rust
+	branch = stable

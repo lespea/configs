@@ -61,13 +61,16 @@ plugins=(
     aws
     colorize
     command-not-found
+    cpanm
     encode64
     git-extras
     gitfast
     golang
+    man
     mercurial
     perlbrew
     python
+    rsync
     rust
     sbt
     scala

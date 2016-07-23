@@ -62,10 +62,9 @@ plugins=(
     colorize
     command-not-found
     encode64
-    gitfast
     git-extras
+    gitfast
     golang
-    last-working-dir
     mercurial
     perlbrew
     python
@@ -80,8 +79,8 @@ plugins=(
     urltools
     virtualenv
     virtualenvwrapper
-    yaourt
     web-search
+    yaourt
 )
 
 source $ZSH/oh-my-zsh.sh

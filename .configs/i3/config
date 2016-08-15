@@ -236,6 +236,7 @@ bar {
     }
 }
 
+exec --no-startup-id nm-applet
 exec --no-startup-id compton -cCGb --backend glx --vsync opengl
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id xfce4-clipman

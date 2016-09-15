@@ -6,6 +6,8 @@ call pathogen#helptags()
 filetype plugin indent on
 set encoding=utf-8
 let $VIMHOME=fnamemodify(resolve(expand('<sfile>:p')), ':h')
+let g:python2_host_prog='/usr/bin/python2'
+let g:python3_host_prog='/usr/bin/python3'
 syntax on
 set synmaxcol=250
 set background=dark

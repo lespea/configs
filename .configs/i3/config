@@ -150,6 +150,7 @@ for_window [class="Lmms"] border pixel 0
 for_window [class="Feh"] border pixel 0
 for_window [class="Medit"] border pixel 0
 for_window [class="Civ5XP"] border pixel 0
+for_window [class="URxvt"] border pixel 0
 
 
 # floating

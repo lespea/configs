@@ -31,7 +31,7 @@ font pango:nimbus sans 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec --no-startup-id terminator
+bindsym $mod+Return exec --no-startup-id urxvtc
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -136,7 +136,7 @@ new_window pixel 0
 hide_edge_borders both
 bindsym Control+Shift+x [class="^.*"] border toggle
 for_window [class="^.*"] border pixel 1
-for_window [class="URxvt"] border normal
+#for_window [class="URxvt"] border normal
 for_window [class="Leafpad"] border normal
 for_window [class="Lxappearance"] border normal
 for_window [class="Vlc"] border pixel 0
@@ -253,6 +253,7 @@ exec --no-startup-id compton -cCGb --backend glx --vsync opengl
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id xfce4-clipman
 exec --no-startup-id pasystray
+exec --no-startup-id urxvtd -o -q
 
 bindsym $mod+Shift+s exec --no-startup-id "STEAM_RUNTIME=1 steam"
 bindsym $mod+Shift+f exec --no-startup-id firefox-aurora

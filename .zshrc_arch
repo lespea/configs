@@ -50,7 +50,7 @@ ZSH_THEME="tjkirch"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 #gpg-agent
 
-export TERM=xterm-256color
+#export TERM=xterm-256color
 
 #  Makes browsing large repos bearable
 DISABLE_UNTRACKED_FILES_DIRTY="true"

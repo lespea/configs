@@ -71,3 +71,6 @@
 	path = rust
 	url = https://github.com/rust-lang/rust
 	branch = stable
+[submodule "base16"]
+	path = base16
+	url = https://github.com/chriskempson/base16

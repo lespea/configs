@@ -194,6 +194,14 @@ alias pssh='ssh -o PubkeyAuthentication=no'
 
 export LC_ALL=C
 
+if [[ -f "$SCRIPT_PATH/base16/scripts/base16-tomorrow-night.sh" ]]; then
+    source $SCRIPT_PATH/base16/scripts/base16-tomorrow-night.sh
+fi
+
+if [[ -f "$HOME/.cargo/env" ]]; then
+    source $HOME/.cargo/env
+fi
+
 #source /usr/local/opt/chruby/share/chruby/chruby.sh
 #source /usr/local/opt/chruby/share/chruby/auto.sh
 

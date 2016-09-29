@@ -201,6 +201,6 @@ if [[ -f "$HOME/.cargo/env" ]]; then
     source $HOME/.cargo/env
 fi
 
-if [[ -f "$SCRIPT_PATH/base16/scripts/base16-tomorrow-night.sh" ]]; then
-    source $SCRIPT_PATH/base16/scripts/base16-tomorrow-night.sh
+if [[ -f "$SCRIPT_PATH/base16/scripts/base16-seti-ui.sh" ]]; then
+    source $SCRIPT_PATH/base16/scripts/base16-seti-ui.sh
 fi

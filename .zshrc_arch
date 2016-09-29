@@ -164,15 +164,6 @@ alias wstart='echo start|entr ./start'
 
 alias genSrc='mkdir -p src/{main,test}/{java,scala,resources} && touch src/{main,test}/{java,scala,resources}/.keep'
 
-
-#  If we have custom things we need to setup, do that now
-if [[ -f ~/.zsh_custom ]]; then
-    source ~/.zsh_custom
-fi
-
-# Java 7
-#export JAVA_OPTS="-server -Xms512m -Xmx2048m -XX:MaxPermSize=128m -XX:+UseConcMarkSweepGC"
-
 # Java 8
 export JAVA_OPTS="-server -XX:+UseG1GC -Xms512m -Xmx4G"
 
@@ -203,4 +194,10 @@ fi
 
 if [[ -f "$SCRIPT_PATH/base16/scripts/base16-seti-ui.sh" ]]; then
     source $SCRIPT_PATH/base16/scripts/base16-seti-ui.sh
+fi
+
+
+#  If we have custom things we need to setup, do that now
+if [[ -f ~/.zsh_custom ]]; then
+    source ~/.zsh_custom
 fi

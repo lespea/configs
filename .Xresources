@@ -47,7 +47,7 @@ Xcursor.theme: Oxygen_Black
 ! Setup xft fonts
 Xft.autohint: 0
 Xft.lcdfilter: lcddefault
-Xft.hintstyle: hintfull
+Xft.hintstyle: hintslight
 Xft.hinting: 1
 Xft.antialias: 1
 Xft.dpi: 96
@@ -79,10 +79,15 @@ URxvt*iso14755: false
 ! Turn on/off ISO 14755 5.2 mode (default enabled).
 URxvt*iso14755_52: false
 
-URxvt.perl-ext-common: default,clipboard
+URxvt.perl-ext-common: default,selection-to-clipboard
 URxvt.keysym.C-C:   perl:clipboard:copy
 URxvt.keysym.C-V:   perl:clipboard:paste
 URxvt.keysym.C-A-V: perl:clipboard:paste_escaped
+
+
+! The string will be interpreted as if typed into the shell as-is.
+! In this example, printing will be disabled altogether.
+URxvt.print-pipe: "cat > /dev/null"
 
 
 

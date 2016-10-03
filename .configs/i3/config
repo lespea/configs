@@ -194,6 +194,8 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
+workspace_auto_back_and_forth yes
+
 bindsym $mod+r mode "resize"
 
 set $Locker i3lock -d -c 000000 && sleep 1
@@ -219,7 +221,7 @@ bindsym $mod+Pause mode "$mode_system"
 bar {
     #i3bar_command  /usr/bin/i3blocks
     #status_command i3status
-    #tray_output primary
+    tray_output primary
     #
     status_command conky -c $HOME/.config/i3/conky/conkyrc
     mode dock

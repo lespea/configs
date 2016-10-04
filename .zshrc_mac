@@ -63,7 +63,6 @@ plugins=(
     git-remote-branch
     gitignore
     golang
-    gpg-agent
     man
     mercurial
     osx
@@ -74,6 +73,7 @@ plugins=(
     rsync
     sbt
     ssh-agent
+    sudo
     terminalapp
     urltools
     virtualenv

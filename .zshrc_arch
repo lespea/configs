@@ -95,7 +95,7 @@ export SAVEHIST=$HISTSIZE
 
 # Customize to your needs...
 
-export PATH=/home/$USERNAME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/bin/core_perl:/usr/bin/site_perl:/home/$USERNAME/.gem/ruby/2.1.0/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/bin/core_perl:/usr/bin/site_perl:$HOME/.gem/ruby/2.1.0/bin:$PATH:$HOME/.cargo/bin
 
 export EDITOR="vim"
 

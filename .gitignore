@@ -64,3 +64,4 @@ pip/
 .cargo
 .sbt/launchers
 .config
+.sbt/0.13/templates

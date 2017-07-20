@@ -72,6 +72,7 @@ plugins=(
     python
     rust
     rsync
+    rbenv
     sbt
     ssh-agent
     sudo

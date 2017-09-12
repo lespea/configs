@@ -4,9 +4,6 @@ PWD=`pwd`
 DEST=~
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-\curl -L https://install.perlbrew.pl | bash
-perlbrew install perl-5.22.4 --thread --multi --64int --64all --ld --clang
-
 rm -rf ${DEST}/.vimrc
 rm -rf ${DEST}/.vim
 rm -rf ${DEST}/.fonts
@@ -42,3 +39,6 @@ mkvirtualenv main -p python3
 
 ~/.virtualenvs/nvim2/bin/pip install neovim
 ~/.virtualenvs/nvim3/bin/pip install neovim
+
+\curl -L https://install.perlbrew.pl | bash
+perlbrew install perl-5.22.4 --thread --multi --64int --64all --ld --clang

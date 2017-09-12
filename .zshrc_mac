@@ -54,7 +54,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 plugins=(
     autopep8
-    aws
+    #aws
     brew
     cpanm
     colorize
@@ -82,11 +82,15 @@ plugins=(
     virtualenvwrapper
 )
 
-#setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
 
 export DISABLE_VENV_CD=0
 
 source $ZSH/oh-my-zsh.sh
+
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
 
 # Customize to your needs...
 

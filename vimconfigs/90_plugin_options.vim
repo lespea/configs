@@ -230,8 +230,21 @@ let g:ycm_collect_identifiers_from_comments_and_strings = 1
 
 
 "  --------------
-"  |  Autopep8  |
+"  |  NeoFormat  |
 "  --------------
-let g:autopep8_max_line_length=120
-let g:autopep8_disable_show_diff=1
+let g:neoformat_python_autopep8 = {
+            \ 'exe': 'autopep8',
+            \ 'args': ['-s 4', '--max-line-length 120', '-E'],
+            \ 'replace': 1,
+            \ 'stdin': 1,
+            \ 'no_append': 1,
+            \ }
+
+let g:neoformat_python_yapf = {
+            \ 'exe': 'yapf',
+            \ 'args': ['--style="{based_on_style: chromium, column_limit: 120, indent_width: 4}"'],
+            \ 'stdin': 1,
+            \ }
+
+let g:neoformat_enabled_python = ['yapf']
 

@@ -73,3 +73,6 @@
 [submodule "vimfiles/bundle/Neoformat"]
 	path = vimfiles/bundle/Neoformat
 	url = https://github.com/sbdchd/neoformat.git
+[submodule "vimfiles/bundle/LogSyntax"]
+	path = vimfiles/bundle/LogSyntax
+	url = https://github.com/dzeban/vim-log-syntax.git

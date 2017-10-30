@@ -194,8 +194,8 @@ if [[ -f "$HOME/perl5/perlbrew/etc/bashrc" ]]; then
     source "$HOME/perl5/perlbrew/etc/bashrc"
 fi
 
-if [[ -f "$SCRIPT_PATH/base16/scripts/base16-seti-ui.sh" ]]; then
-    #source $SCRIPT_PATH/base16/scripts/base16-seti-ui.sh
+if [[ -f "$SCRIPT_PATH/base16/scripts/base16-seti.sh" ]]; then
+    source $SCRIPT_PATH/base16/scripts/base16-seti.sh
 fi
 
 if [[ -f "$HOME/.cargo/env" ]]; then

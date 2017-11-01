@@ -54,7 +54,12 @@ Xft.dpi: 96
 Xft.rgba: rgb
 
 ! Select the fonts to be used. This is a comma separated list of font names that are checked in order when trying to find glyphs for characters. The first font defines the cell size for characters; other fonts might be
-URxvt*font: xft:DejaVu Sans Mono for Powerline:style=Book:size=9
+URxvt.font:         xft:Hack-Regular:pixelsize=15,xft:PowerlineSymbols,xft:Symbola
+URxvt.boldFont:     xft:Hack-Bold:pixelsize=15:weight=bold,xft:PowerlineSymbols,xft:Symbola
+URxvt.italicFont:   xft:Hack-Italic:pixelsize=15:slant=italic,xft:PowerlineSymbols,xft:Symbola
+!
+!URxvt*font: xft:sdf:style=Book:size=9
+!URxvt*font: xft:DejaVu Sans Mono:style=Book:size=9
 
 ! True: use visual bell on receipt of a bell character; option -vb.  False: no visual bell [default]; option +vb.
 URxvt*visualBell: false

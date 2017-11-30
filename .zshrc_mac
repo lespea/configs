@@ -104,9 +104,11 @@ if [ -f "$HOME/.cargo/bin/exa" ]; then
     alias ls='exa'
     alias l='exa'
 
-    alias lla='exa -la'
-    alias ll='exa -l'
+    alias lla='exa -lgha'
+    alias ll='exa -lgh'
     alias la='exa -a'
+    alias lt='exa -T'
+    alias llt='exa -lgT'
 else
     alias ls='ls -h --color=always'
 

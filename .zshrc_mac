@@ -100,15 +100,24 @@ export EDITOR="vim"
 
 alias cp='cp --reflink=auto'
 
-alias ls='ls -h --color=always'
+if [ -f "$HOME/.cargo/bin/exa" ]; then
+    alias ls='exa'
+    alias l='exa'
 
-alias ll='ls -l'
-alias la='ls -A'
-alias l='ls -CF'
+    alias lla='exa -la'
+    alias ll='exa -l'
+    alias la='exa -a'
+else
+    alias ls='ls -h --color=always'
 
-alias llx='ll -X'
-alias lx='ls -X'
-alias lla='ls -lA'
+    alias ll='ls -l'
+    alias la='ls -A'
+    alias l='ls -CF'
+
+    alias llx='ll -X'
+    alias lx='ls -X'
+    alias lla='ls -lA'
+fi
 
 alias du='du -h'
 alias df='df -h'
@@ -216,3 +225,5 @@ fi
 if [[ -f ~/.zsh_custom ]]; then
     source ~/.zsh_custom
 fi
+
+eval $(thefuck --alias)

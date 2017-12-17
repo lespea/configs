@@ -258,7 +258,7 @@ exec --no-startup-id pasystray
 exec --no-startup-id urxvtd -o -q
 
 bindsym $mod+Shift+s exec --no-startup-id "STEAM_RUNTIME=1 steam"
-bindsym $mod+Shift+f exec --no-startup-id firefox-developer
+bindsym $mod+Shift+f exec --no-startup-id firefox-developer-edition
 bindsym $mod+Shift+p exec --no-startup-id "firefox-developer --private-window"
 
 bindsym $mod+Shift+w exec $HOME/.config/i3/swap-workspace.py

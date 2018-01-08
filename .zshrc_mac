@@ -58,6 +58,7 @@ plugins=(
     brew
     cpanm
     colorize
+    docker
     encode64
     git-extras
     gitfast

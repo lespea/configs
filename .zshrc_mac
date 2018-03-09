@@ -230,3 +230,8 @@ if [[ -f ~/.zsh_custom ]]; then
 fi
 
 eval $(thefuck --alias)
+
+
+if [[ -d '/usr/local/opt/python@2/bin' ]]; then
+    export PATH="/usr/local/opt/python@2/bin:$PATH"
+fi

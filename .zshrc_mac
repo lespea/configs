@@ -235,3 +235,6 @@ eval $(thefuck --alias)
 if [[ -d '/usr/local/opt/python@2/bin' ]]; then
     export PATH="/usr/local/opt/python@2/bin:$PATH"
 fi
+if [[ -d '/usr/local/opt/python/libexec/bin' ]]; then
+    export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+fi

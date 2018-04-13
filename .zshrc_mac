@@ -54,6 +54,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 plugins=(
     autopep8
+    ansible
     #aws
     brew
     cpanm

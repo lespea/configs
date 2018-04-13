@@ -65,3 +65,5 @@ pip/
 .sbt/launchers
 .config
 .sbt/0.13/templates
+Fonts/.uuid
+ttf-ms-win10

@@ -1,0 +1,9 @@
+# Don't let ripgrep vomit really long lines to my terminal.
+--max-columns=250
+
+# Add my 'web' type.
+--type-add
+web:*.{html,css,js}*
+
+# Because who cares about case!?
+--smart-case

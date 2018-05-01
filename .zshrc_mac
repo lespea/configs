@@ -239,3 +239,5 @@ fi
 if [[ -d '/usr/local/opt/python/libexec/bin' ]]; then
     export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 fi
+
+export RIPGREP_CONFIG_PATH="$SCRIPT_PATH/.ripgreprc"

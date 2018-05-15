@@ -28,17 +28,7 @@ ln -s ${PWD}/vimfiles ${DEST}/.config/nvim
 
 ln -s /usr/local/bin/python2 /usr/local/bin/python
 
-pip3 install virtualenvwrapper
-mkvirtualenv nvim2 -p python2
-mkvirtualenv nvim3 -p python3
-mkvirtualenv main2 -p python2
-mkvirtualenv main -p python3
-
-~/.virtualenvs/main2/bin/pip install ipython request
-~/.virtualenvs/main/bin/pip install ipython request
-
-~/.virtualenvs/nvim2/bin/pip install neovim
-~/.virtualenvs/nvim3/bin/pip install neovim
+./setup_links.sh
 
 \curl -L https://install.perlbrew.pl | bash
 perlbrew install perl-5.22.4 --thread --multi --64int --64all --ld --clang

@@ -59,6 +59,8 @@ plugins=(
     brew
     cpanm
     colorize
+    copyfile
+    copydir
     docker
     encode64
     git-extras

@@ -61,6 +61,8 @@ plugins=(
     aws
     colorize
     command-not-found
+    copyfile
+    copydir
     cpanm
     encode64
     git-extras

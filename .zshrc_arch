@@ -102,6 +102,7 @@ export PATH=$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sb
 export EDITOR="vim"
 
 alias cp='cp --reflink=auto'
+alias rgq='rg --no-filename --no-heading -N'
 
 if [ -f "$HOME/.cargo/bin/exa" ]; then
     alias ls='exa'

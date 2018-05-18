@@ -143,6 +143,7 @@ au BufNewFile,BufRead *.tt2html setf tt2html
 au BufNewFile,BufRead *.tt2h setf tt2html
 autocmd FileType python BracelessEnable +indent
 let g:syntastic_ignore_files = ['.*\.sbt$']
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab<Paste>
 function! s:swap_lines(n1, n2)
     let line1 = getline(a:n1)
     let line2 = getline(a:n2)

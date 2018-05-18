@@ -44,6 +44,9 @@ set previewheight=8
 "  Always show status line
 set ls=2
 
+"  Disable folding
+set nofoldenable
+
 
 "  When using list, keep tabs at their full width and display `arrows':
 "  (Character 187 is a right double-chevron, and 739 a cross-like-thing.)

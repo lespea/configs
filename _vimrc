@@ -57,6 +57,7 @@ set history=100
 set report=0
 set previewheight=8
 set ls=2
+set nofoldenable
 set lcs=
 execute 'set listchars+=tab:'   . nr2char(187) . nr2char(183)
 execute 'set listchars+=eol:'   . nr2char(172)
@@ -428,6 +429,7 @@ let g:neoformat_python_yapf = {
             \ 'stdin': 1,
             \ }
 let g:neoformat_enabled_python = ['yapf']
+let g:vim_markdown_folding_disabled = 1
 cmap w!! w !sudo tee % >/dev/null
 vnoremap ; :
 noremap <Space> <PageDown>

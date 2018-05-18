@@ -248,3 +248,7 @@ let g:neoformat_python_yapf = {
 
 let g:neoformat_enabled_python = ['yapf']
 
+
+" Disable markdown folding
+let g:vim_markdown_folding_disabled = 1
+

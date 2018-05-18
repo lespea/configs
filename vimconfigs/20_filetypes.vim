@@ -81,4 +81,5 @@ autocmd FileType python BracelessEnable +indent
 let g:syntastic_ignore_files = ['.*\.sbt$']
 
 " YAML should be 2 spaces
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab<Paste>
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+

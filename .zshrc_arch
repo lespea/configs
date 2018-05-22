@@ -92,7 +92,8 @@ source $ZSH/oh-my-zsh.sh
 
 # Set our own zsh options
 setopt HIST_IGNORE_ALL_DUPS
-export HISTSIZE=20000
+setopt HIST_IGNORE_SPACE
+export HISTSIZE=100000
 export SAVEHIST=$HISTSIZE
 
 # Customize to your needs...

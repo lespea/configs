@@ -86,15 +86,14 @@ plugins=(
     virtualenvwrapper
 )
 
-setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_SPACE
-
 export DISABLE_VENV_CD=0
 
 source $ZSH/oh-my-zsh.sh
 
-setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
+export HISTSIZE=100000
+export SAVEHIST=$HISTSIZE
 
 # Customize to your needs...
 

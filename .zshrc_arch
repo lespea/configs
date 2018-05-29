@@ -55,6 +55,8 @@ ZSH_THEME="tjkirch"
 #  Makes browsing large repos bearable
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
+export WORKON_HOME=~/.virtualenvs
+
 plugins=(
     archlinux
     autopep8

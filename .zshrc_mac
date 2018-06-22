@@ -228,6 +228,7 @@ fi
 #alias pssh='ssh -o PubkeyAuthentication=no'
 
 #export LC_ALL=C
+export LC_ALL=en_US.UTF-8
 
 
 #  If we have custom things we need to setup, do that now

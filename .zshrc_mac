@@ -98,7 +98,6 @@ export HISTSIZE=100000
 export SAVEHIST=$HISTSIZE
 
 # Customize to your needs...
-
 export PATH=$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/bin/core_perl:/usr/bin/site_perl:$HOME/.gem/ruby/2.1.0/bin:$PATH
 
 export EDITOR="vim"
@@ -247,3 +246,4 @@ if [[ -d '/usr/local/opt/python/libexec/bin' ]]; then
 fi
 
 export RIPGREP_CONFIG_PATH="$SCRIPT_PATH/.ripgreprc"
+export PATH="$HOME/bin:$PATH"

@@ -247,3 +247,5 @@ fi
 
 export RIPGREP_CONFIG_PATH="$SCRIPT_PATH/.ripgreprc"
 export PATH="$HOME/bin:$PATH"
+
+alias rgg='rg -g"!vendor/"'

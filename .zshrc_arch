@@ -82,6 +82,7 @@ plugins=(
     sudo
     svn
     systemd
+    travis
     tmux
     urltools
     virtualenv

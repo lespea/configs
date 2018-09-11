@@ -170,6 +170,7 @@ alias gsp='git svn dcommit'
 #  Setup go
 export GOPATH=/home/$USERNAME/.go
 mkdir -p $GOPATH
+export PATH=$PATH:$GOPATH/bin
 
 # Double quote single quotes to "escape" them inside a single-quoted string
 setopt rcquotes

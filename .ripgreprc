@@ -7,3 +7,6 @@ web:*.{html,css,js}*
 
 # Because who cares about case!?
 --smart-case
+
+# We almost never want to ignore "hidden" files
+-u

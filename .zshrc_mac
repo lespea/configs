@@ -70,6 +70,7 @@ plugins=(
     git-remote-branch
     gitignore
     golang
+    jump
     man
     mercurial
     osx

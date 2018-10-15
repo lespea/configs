@@ -215,8 +215,9 @@ if [[ -f "$HOME/.cargo/env" ]]; then
     source $HOME/.cargo/env
 fi
 
-if [[ -f "$SCRIPT_PATH/base16/scripts/base16-seti.sh" ]]; then
-    source $SCRIPT_PATH/base16/scripts/base16-seti.sh
+BASH_COLORS="$SCRIPT_PATH/base16/scripts/base16-ia-dark.sh" 
+if [[ -f $BASH_COLORS ]]; then
+    source $BASH_COLORS
 fi
 
 

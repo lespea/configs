@@ -14,6 +14,16 @@ else
     echo "Homebrew already installed"
 fi
 
+if [[ ! -d '/usr/local/opt/openssl/' ]]; then
+   echo 'Install openssl'
+   brew install openssl
+fi
+
+if [[ -d '/usr/local/opt/curl' ]]; then
+   echo 'Installing curl'
+   brew install curl --with-libssh2 --with-nghttp2 --with-openssl
+fi
+
 # Install required brew packages for setup
 which git >/dev/null
 if [ $? -ne 0 ]; then

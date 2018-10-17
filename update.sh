@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 CONF="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+echo 'Updating ssl certs'
+/usr/local/opt/openssl/bin/c_rehash
+
 echo 'Updating brew'
 brew upgrade --outdated
 

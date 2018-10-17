@@ -19,7 +19,7 @@ if [[ ! -d '/usr/local/opt/openssl/' ]]; then
    brew install openssl
 fi
 
-if [[ -d '/usr/local/opt/curl' ]]; then
+if [[ ! -d '/usr/local/opt/curl' ]]; then
    echo 'Installing curl'
    brew install curl --with-libssh2 --with-nghttp2 --with-openssl
 fi
@@ -54,6 +54,7 @@ which cargo >/dev/null
 if [ $? -ne 0 ]; then
     brew install rustup
     rustup-init
+    source $HOME/.cargo/env
 fi
 which exa >/dev/null
 if [ $? -ne 0 ]; then

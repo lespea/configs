@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 pip3 install --upgrade virtualenvwrapper
+pip2 install --upgrade virtualenvwrapper
 
 source `which virtualenvwrapper.sh`
 

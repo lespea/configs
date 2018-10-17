@@ -116,7 +116,7 @@ if [ -f "$HOME/.cargo/bin/exa" ]; then
     alias lt='exa -T'
     alias llt='exa -lgT'
 else
-    alias ls='ls -h --color=always'
+    alias ls='ls -h'
 
     alias ll='ls -l'
     alias la='ls -A'
@@ -198,7 +198,10 @@ alias pip23u="pip3 list -o --format=columns|sed -e '1,2d'|awk '{print $1}'|xargs
 
 source "$SCRIPT_PATH/zaw/zaw.zsh"
 
-source "$HOME/perl5/perlbrew/etc/bashrc"
+pbrew="$HOME/perl5/perlbrew/etc/bashrc"
+if [[ -f "$pbrew" ]]; then
+    source "$HOME/perl5/perlbrew/etc/bashrc"
+fi
 alias mbrew='source "$HOME/perl5/perlbrew/etc/bashrc"'
 
 bindkey '^R' zaw-history
@@ -237,7 +240,10 @@ if [[ -f ~/.zsh_custom ]]; then
     source ~/.zsh_custom
 fi
 
-eval $(thefuck --alias)
+which thefuck >/dev/null
+if [ $? -eq 0 ]; then
+    eval $(thefuck --alias)
+fi
 
 
 if [[ -d '/usr/local/opt/python@2/bin' ]]; then

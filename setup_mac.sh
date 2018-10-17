@@ -50,6 +50,11 @@ if [ $? -ne 0 ]; then
     brew install python2
 fi
 
+which cmake >/dev/null
+if [ $? -ne 0 ]; then
+    brew install cmake
+fi
+
 which cargo >/dev/null
 if [ $? -ne 0 ]; then
     brew install rustup

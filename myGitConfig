@@ -1,6 +1,6 @@
-[user]
-    name = Adam Lesperance
-    email = lespea@gmail.com
+#[user]
+    #name = Adam Lesperance
+    #email = lespea@gmail.com
 
 [alias]
     aa  = add -A

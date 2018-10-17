@@ -91,4 +91,4 @@ pip2 install --upgrade pip setuptools wheel
 "$CUR_DIR"/setup_virts.sh
 "$CUR_DIR"/update.sh
 
-#brew bundle install --file="$CUR_DIR/Brewfile"
+brew bundle install --file="$CUR_DIR/Brewfile"

@@ -193,9 +193,6 @@ alias pip2u="pip2 list -o --format=columns|sed -e '1,2d'|awk '{print $1}'|xargs 
 alias pip3u="pip3 list -o --format=columns|sed -e '1,2d'|awk '{print $1}'|xargs pip3 install -U"
 alias pip23u="pip3 list -o --format=columns|sed -e '1,2d'|awk '{print $1}'|xargs pip3 install -U && pip2 list -o --format=columns|sed -e '1,2d'|awk '{print $1}'|xargs pip2 install -U"
 
-#  Make cpanm always use sudo
-#alias cpanm='cpanm --sudo'
-
 source "$SCRIPT_PATH/zaw/zaw.zsh"
 
 pbrew="$HOME/perl5/perlbrew/etc/bashrc"
@@ -214,7 +211,6 @@ if [[ -f "$HOME/perl5/perlbrew/etc/bashrc" ]]; then
     source "$HOME/perl5/perlbrew/etc/bashrc"
 fi
 
-#BASH_COLORS="$SCRIPT_PATH/base16/scripts/base16-seti.sh" 
 BASH_COLORS="$SCRIPT_PATH/base16/scripts/base16-ia-dark.sh" 
 if [[ -f $BASH_COLORS ]]; then
     source $BASH_COLORS
@@ -228,8 +224,6 @@ fi
 #source /usr/local/opt/chruby/share/chruby/auto.sh
 
 #chruby ruby-2.1.3
-
-#alias pssh='ssh -o PubkeyAuthentication=no'
 
 #export LC_ALL=C
 export LC_ALL=en_US.UTF-8
@@ -258,3 +252,5 @@ export PATH="$HOME/bin:$PATH"
 
 alias rgg='rg -g"!vendor/"'
 alias gof='find . -name vendor -prune -o -iname "*.go" -print0|parallel -X0 goimports -w'
+
+alias vim=nvim

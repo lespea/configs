@@ -1,6 +1,3 @@
-tap "coursier/formulas"
-tap "homebrew/cask-fonts"
-tap "olafurpg/scalafmt"
 cask "xquartz"
 brew "autoenv"
 brew "automake"

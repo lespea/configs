@@ -55,23 +55,32 @@ if [ $? -ne 0 ]; then
     brew install cmake
 fi
 
+CARGO_ENV="$HOME/.cargo/env"
+if [[ -f "$CARGO_ENV" ]]; then
+    source "$CARGO_ENV"
+fi
+
 which cargo >/dev/null
 if [ $? -ne 0 ]; then
     brew install rustup
     rustup-init
-    source $HOME/.cargo/env
+    source "$CARGO_ENV"
 fi
 which exa >/dev/null
 if [ $? -ne 0 ]; then
-    cargo install exa
+    RUSTFLAGS="-C target-cpu=native -C link-args=-s" cargo install exa --features git
 fi
 which rg >/dev/null
 if [ $? -ne 0 ]; then
-    cargo install ripgrep
+    RUSTFLAGS="-C target-cpu=native -C link-args=-s" cargo install ripgrep --features simd-accel,avx-accel
 fi
 which fd >/dev/null
 if [ $? -ne 0 ]; then
-    cargo install fd-find
+    RUSTFLAGS="-C target-cpu=native -C link-args=-s" cargo install fd-find
+fi
+which exa >/dev/null
+if [ $? -ne 0 ]; then
+    RUSTFLAGS="-C target-cpu=native -C link-args=-s" cargo install exa
 fi
 
 # Setup pip

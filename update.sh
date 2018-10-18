@@ -2,37 +2,39 @@
 CONF="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo 'Updating ssl certs'
-/usr/local/opt/openssl/bin/c_rehash
-
-echo 'Updating brew'
-brew upgrade --outdated
-
-which cmake >/dev/null
-if [ $? -ne 0 ]; then
-    echo 'Installing cmake'
-    brew install cmake
+if [[ -f "$rehahsh" ]]; then
+    rehahsh=/usr/local/opt/openssl/bin/c_rehash
 fi
 
-which ninja >/dev/null
-if [ $? -ne 0 ]; then
-    echo 'Installing ninja'
-    brew install ninja
-fi
+which brew >/dev/null
+if [ $? -eq 0 ]; then
+    echo 'Updating brew'
+    brew upgrade --outdated
 
-which go >/dev/null
-if [ $? -ne 0 ]; then
-    echo 'Installing go'
-    brew install go
-fi
+    which cmake >/dev/null
+    if [ $? -ne 0 ]; then
+        echo 'Installing cmake'
+        brew install cmake
+    fi
 
-which node >/dev/null
-if [ $? -ne 0 ]; then
-    echo 'Installing node'
-    brew install node
-fi
+    which ninja >/dev/null
+    if [ $? -ne 0 ]; then
+        echo 'Installing ninja'
+        brew install ninja
+    fi
 
-echo 'Updating rust'
-rustup update
+    which go >/dev/null
+    if [ $? -ne 0 ]; then
+        echo 'Installing go'
+        brew install go
+    fi
+
+    which node >/dev/null
+    if [ $? -ne 0 ]; then
+        echo 'Installing node'
+        brew install node
+    fi
+fi
 
 echo 'Updating oh my zsh'
 cd "$HOME/.oh-my-zsh"
@@ -43,10 +45,34 @@ cd "$CONF"
 git pull
 git submodule update --recursive --init
 
+args="--java-completer --clang-completer"
+
+which rustup >/dev/null
+if [ $? -eq 0 ]; then
+    echo 'Updating rust'
+    rustup update
+    args="$args --rust-completer"
+fi
+
+which go >/dev/null
+if [ $? -eq 0 ]; then
+    args="$args --go-completer"
+fi
+
+which node >/dev/null
+if [ $? -eq 0 ]; then
+    args="$args --js-completer"
+fi
+
+which ninja >/dev/null
+if [ $? -eq 0 ]; then
+    args="$args --ninja"
+fi
+
 echo 'Updating vim plugins'
 ycm="$CONF/vimfiles/bundle/YouCompleteMe"
 cd "$ycm"
-python3 ./install.py --go-completer --rust-completer  --clang-completer --java-completer --js-completer --ninja
+python3 ./install.py $args
 cd "$ycm/third_party/ycmd/third_party/racerd"
 git reset . >/dev/null
 git checkout .

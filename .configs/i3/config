@@ -31,7 +31,8 @@ font pango:nimbus sans 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec --no-startup-id urxvtc
+#bindsym $mod+Return exec --no-startup-id urxvtc
+bindsym $mod+Return exec --no-startup-id alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -256,7 +257,7 @@ exec --no-startup-id numlockx on
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id xfce4-clipman
 exec --no-startup-id pasystray
-exec --no-startup-id urxvtd -o -q
+#exec --no-startup-id urxvtd -o -q
 exec --no-startup-id /usr/bin/xautolock -time 15 -locker /usr/bin/i3lock-fancy -detectsleep
 
 bindsym $mod+Shift+s exec --no-startup-id "STEAM_RUNTIME=1 steam"

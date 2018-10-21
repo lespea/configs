@@ -14,5 +14,5 @@ conky.text = [[
       ${addr eno1} \
       ${hwmon 1 temp 1} | ${hwmon 0 temp 1} | ${hwmon 2 temp 2} \
       ${time %a  -  %b %d} \
-      ${time %H:%M}
+    🕓 ${time %H:%M}
 ]]

@@ -34,7 +34,7 @@ mouse_warping none
 
 # start a terminal
 #bindsym $mod+Return exec --no-startup-id urxvtc
-bindsym $mod+Return exec --no-startup-id alacritty
+bindsym $mod+Return exec --no-startup-id spawn-alacritty-cwd || alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill

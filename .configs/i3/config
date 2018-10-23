@@ -30,6 +30,8 @@ font pango:nimbus sans 8
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+mouse_warping none
+
 # start a terminal
 #bindsym $mod+Return exec --no-startup-id urxvtc
 bindsym $mod+Return exec --no-startup-id alacritty

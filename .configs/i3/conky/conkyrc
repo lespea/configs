@@ -11,8 +11,8 @@ conky.text = [[
     📶  ${downspeed eno1} | ${upspeed eno1} \
     C ${cpubar} \
     M ${membar} \
-      ${addr eno1} \
-      ${hwmon 1 temp 1} | ${hwmon 0 temp 1} | ${hwmon 2 temp 2} \
-      ${time %a  -  %b %d} \
-    🕓 ${time %H:%M}
+     ${addr enp45s0f0} \
+     ${hwmon 1 temp 1} | ${hwmon 0 temp 1} \
+     ${time %a  -  %b %d} \
+    🕓${time %H:%M}
 ]]

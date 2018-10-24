@@ -63,13 +63,14 @@ plugins=(
     aws
     colorize
     command-not-found
-    copyfile
     copydir
+    copyfile
     cpanm
     encode64
     git-extras
     gitfast
     golang
+    jump
     man
     mercurial
     perlbrew
@@ -82,8 +83,8 @@ plugins=(
     sudo
     svn
     systemd
-    travis
     tmux
+    travis
     urltools
     virtualenv
     virtualenvwrapper

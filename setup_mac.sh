@@ -25,7 +25,7 @@ if [[ ! -d '/usr/local/opt/curl' ]]; then
 fi
 
 # Install required brew packages for setup
-which git >/dev/null
+which git | grep local >/dev/null
 if [ $? -ne 0 ]; then
     brew install git --with-curl --with-openssl
 fi

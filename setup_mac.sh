@@ -3,6 +3,16 @@ CUR_DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 OH_MY_ZSH_DIR="$HOME/.oh-my-zsh"
 
+## xcode tests
+xcode-select -p >/dev/null
+if [ $? -ne 0 ]; then
+    echo "Need to install xcode command line tools"
+    echo "Run 'xcode-select --install'"
+    exit 1
+else
+    echo "xcode already installed"
+fi
+
 mkdir -p ${HOME}/configs
 
 # Setup brew if not installed

@@ -82,3 +82,6 @@
 [submodule "vimfiles/bundle/Wasm"]
 	path = vimfiles/bundle/Wasm
 	url = https://github.com/rhysd/vim-wasm.git
+[submodule "vimfiles/bundle/AnsibleVim"]
+	path = vimfiles/bundle/AnsibleVim
+	url = https://github.com/pearofducks/ansible-vim.git

@@ -45,6 +45,8 @@ cd "$CONF"
 git pull
 git submodule update --recursive --init
 
+./cleanup.sh
+
 args="--java-completer --clang-completer"
 
 which rustup >/dev/null 2>/dev/null

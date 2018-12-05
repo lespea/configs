@@ -221,26 +221,26 @@ bindsym $mod+Pause mode "$mode_system"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-    #i3bar_command  /usr/bin/i3blocks
-    #status_command i3status
-    tray_output primary
-    #
-    status_command conky -c $HOME/.config/i3/conky/conkyrc
-    mode dock
-    #position top
-    font pango:open sans 7.8
-    strip_workspace_numbers yes
-    colors {
-        separator #969896
-        background #1d1f21
-        statusline #c5c8c6
-        focused_workspace #81a2be #81a2be #1d1f21
-        active_workspace #373b41 #373b41 #ffffff
-        inactive_workspace #282a2e #282a2e #969896
-        urgent_workspace #cc6666 #cc6666 #ffffff
-    }
-}
+#  bar {
+#      #i3bar_command  /usr/bin/i3blocks
+#      #status_command i3status
+#      tray_output primary
+#      #
+#      status_command conky -c $HOME/.config/i3/conky/conkyrc
+#      mode dock
+#      #position top
+#      font pango:open sans 7.8
+#      strip_workspace_numbers yes
+#      colors {
+#          separator #969896
+#          background #1d1f21
+#          statusline #c5c8c6
+#          focused_workspace #81a2be #81a2be #1d1f21
+#          active_workspace #373b41 #373b41 #ffffff
+#          inactive_workspace #282a2e #282a2e #969896
+#          urgent_workspace #cc6666 #cc6666 #ffffff
+#      }
+#  }
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5% #increase sound volume
@@ -254,6 +254,7 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 exec --no-startup-id compton -cCGb --backend glx --vsync opengl
+exec --no-startup-id ~/.config/i3/polybar.sh &
 exec --no-startup-id nm-applet
 exec --no-startup-id numlockx on
 exec --no-startup-id nitrogen --restore

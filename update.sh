@@ -102,4 +102,6 @@ if [ $UPD_RUST -ne 0 -o "$NEW_YCM" != "$OLD_YCM" ]; then
     git reset . >/dev/null
     git checkout .
     git clean -f -d
+else
+    echo "Not rebuilding YCM because nothing changed"
 fi

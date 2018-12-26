@@ -92,7 +92,7 @@ cd "$ycm"
 
 NEW_YCM=`git rev-parse HEAD`
 
-if [ $UPD_RUST -ne 0 -o "$NEW_YCM" != "$OLD_YCM" ]; then 
+if [ $UPD_RUST -ne 0 -o "$NEW_YCM" != "$OLD_YCM" -o "z$1z" == "z1z" ]; then 
     python3 ./install.py $args
     cd "$ycm/third_party/ycmd/third_party/racerd"
     git reset . >/dev/null

@@ -9,7 +9,7 @@ fi
 which brew >/dev/null 2>/dev/null
 if [ $? -eq 0 ]; then
     echo 'Updating brew'
-    brew upgrade --outdated
+    brew upgrade
 
     which cmake >/dev/null 2>/dev/null
     if [ $? -ne 0 ]; then

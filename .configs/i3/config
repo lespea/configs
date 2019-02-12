@@ -253,7 +253,7 @@ bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-exec --no-startup-id compton -cCGb --backend glx --vsync opengl
+exec --no-startup-id compton -CGb --backend glx --vsync opengl-swc
 exec --no-startup-id ~/.config/i3/polybar.sh &
 exec --no-startup-id nm-applet
 exec --no-startup-id numlockx on

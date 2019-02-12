@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-pip3 install --upgrade virtualenvwrapper
-pip2 install --upgrade virtualenvwrapper
+pip3 install --upgrade virtualenvwrapper --user
+pip2 install --upgrade virtualenvwrapper --user
 
 source `which virtualenvwrapper.sh`
 

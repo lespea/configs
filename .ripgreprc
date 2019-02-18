@@ -9,4 +9,4 @@ web:*.{html,css,js}*
 --smart-case
 
 # We almost never want to ignore "hidden" files
--u
+#-u

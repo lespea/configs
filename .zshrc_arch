@@ -73,7 +73,6 @@ plugins=(
     jump
     man
     mercurial
-    perlbrew
     python
     rsync
     rust

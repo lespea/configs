@@ -83,12 +83,10 @@ plugins=(
     svn
     systemd
     tmux
-    travis
     urltools
     virtualenv
     virtualenvwrapper
     web-search
-    yaourt
 )
 
 source $ZSH/oh-my-zsh.sh

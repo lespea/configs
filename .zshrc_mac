@@ -55,19 +55,21 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 export WORKON_HOME=~/.virtualenvs
 
 plugins=(
-    autopep8
-    ansible
     #aws
+    ansible
+    autopep8
     brew
-    cpanm
+    cargo
     colorize
-    copyfile
     copydir
+    copyfile
+    cpanm
     docker
     encode64
+    fd
     git-extras
-    gitfast
     git-remote-branch
+    gitfast
     gitignore
     golang
     jump
@@ -76,13 +78,16 @@ plugins=(
     osx
     pip
     python
-    rust
-    rsync
     rbenv
+    ripgrep
+    rsync
+    rust
     sbt
     ssh-agent
     sudo
     terminalapp
+    tig
+    tmux
     urltools
     virtualenv
     virtualenvwrapper

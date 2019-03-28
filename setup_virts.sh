@@ -16,8 +16,8 @@ mkvirtualenv nvim3 -p python3
 mkvirtualenv main2 -p python2
 mkvirtualenv nvim2 -p python2
 
-~/.virtualenvs/main2/bin/pip install ipython request
-~/.virtualenvs/main/bin/pip  install ipython request
+~/.virtualenvs/main/bin/pip  install ipython requests
+~/.virtualenvs/main2/bin/pip install ipython requests
 
 ~/.virtualenvs/nvim2/bin/pip install neovim yapf
 ~/.virtualenvs/nvim3/bin/pip install neovim yapf

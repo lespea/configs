@@ -215,7 +215,7 @@ if [[ -f "$HOME/perl5/perlbrew/etc/bashrc" ]]; then
     source "$HOME/perl5/perlbrew/etc/bashrc"
 fi
 
-BASH_COLORS="$SCRIPT_PATH/base16/scripts/base16-ia-dark.sh" 
+BASH_COLORS="$SCRIPT_PATH/base16/scripts/base16-tomorrow-night-eighties.sh"
 if [[ -f $BASH_COLORS ]]; then
     source $BASH_COLORS
 fi

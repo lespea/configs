@@ -255,7 +255,7 @@ bindsym XF86AudioPrev exec playerctl previous
 
 exec --no-startup-id compton -CGb --backend glx --vsync opengl-swc
 exec --no-startup-id ~/.config/i3/polybar.sh &
-exec --no-startup-id nm-applet
+#exec --no-startup-id nm-applet
 exec --no-startup-id numlockx on
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id xfce4-clipman

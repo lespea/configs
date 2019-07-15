@@ -111,14 +111,14 @@ export EDITOR="vim"
 alias rgq='rg --no-filename --no-heading -N'
 
 if [ -f "$HOME/.cargo/bin/exa" ]; then
-    alias ls='exa'
-    alias l='exa'
+    alias ls='exa --icons'
+    alias l='exa --icons'
 
-    alias lla='exa -lgha'
-    alias ll='exa -lgh'
-    alias la='exa -a'
-    alias lt='exa -T'
-    alias llt='exa -lgT'
+    alias lla='exa -lgha --icons'
+    alias ll='exa -lgh --icons'
+    alias la='exa -a --icons'
+    alias lt='exa -T --icons'
+    alias llt='exa -lgT --icons'
 else
     alias ls='ls -h'
 

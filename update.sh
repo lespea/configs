@@ -52,6 +52,7 @@ OLD_YCM=`git rev-parse HEAD`
 echo 'Updating configs'
 cd "$CONF"
 git pull
+git submodule sync --recursive
 git submodule update --recursive --init
 
 ./cleanup.sh

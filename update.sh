@@ -52,7 +52,6 @@ OLD_YCM=`git rev-parse HEAD`
 echo 'Updating configs'
 cd "$CONF"
 git pull
-git submodule sync --recursive
 git submodule update --recursive --init
 
 ./cleanup.sh
@@ -95,14 +94,6 @@ NEW_YCM=`git rev-parse HEAD`
 
 if [ $UPD_RUST -ne 0 -o "$NEW_YCM" != "$OLD_YCM" -o "z$1z" == "z1z" ]; then 
     python3 ./install.py $args
-    cd "$ycm/third_party/ycmd/third_party/racerd"
-    git reset . >/dev/null
-    git checkout .
-    git clean -f -d
-    cd "$ycm/third_party/ycmd/third_party/cregex"
-    git reset . >/dev/null
-    git checkout .
-    git clean -f -d
 else
     echo "Not rebuilding YCM because nothing changed"
 fi

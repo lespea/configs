@@ -102,8 +102,40 @@ setopt HIST_IGNORE_SPACE
 export HISTSIZE=100000
 export SAVEHIST=$HISTSIZE
 
-# Customize to your needs...
-export PATH=$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/bin/core_perl:/usr/bin/site_perl:$HOME/.gem/ruby/2.1.0/bin:$PATH
+function addPath {
+    local -i prefix=$1
+    local dir=$2
+
+    if [[ -d "$dir" ]]; then
+        if [ $prefix -gt 0 ]; then
+            export PATH="$dir:$PATH"
+        else
+            export PATH="$PATH:$dir"
+        fi
+    fi
+}
+
+
+#  Setup go
+export GOPATH=/Users/$USERNAME/go
+mkdir -p $GOPATH
+
+# These must be listed in the reverse order!
+addPath 1 '/sbin'
+addPath 1 '/usr/sbin'
+addPath 1 '/usr/local/sbin'
+addPath 1 '/bin'
+addPath 1 '/usr/bin'
+addPath 1 '/usr/local/bin'
+addPath 1 "$GOPATH/bin"
+addPath 1 '/usr/local/opt/python@2/bin'
+addPath 1 '/usr/local/opt/python@3/bin'
+addPath 1 '/usr/local/opt/python/libexec/bin'
+addPath 1 "$HOME/bin"
+
+addPath 0 '/usr/bin/core_perl'
+addPath 0 '/usr/bin/site_perl'
+addPath 0 "$HOME/.gem/ruby/2.1.0/bin"
 
 export EDITOR="vim"
 
@@ -168,13 +200,6 @@ bindkey '\eOD' backward-char
 
 alias gup='git svn fetch && git svn rebase'
 alias gsp='git svn dcommit'
-
-#  Setup go
-export GOPATH=/Users/$USERNAME/go
-mkdir -p $GOPATH
-if [[ -d $GOPATH/bin ]]; then
-    export PATH=$PATH:$GOPATH/bin
-fi
 
 # Double quote single quotes to "escape" them inside a single-quoted string
 setopt rcquotes
@@ -243,16 +268,7 @@ if [ $? -eq 0 ]; then
     eval $(thefuck --alias)
 fi
 
-
-if [[ -d '/usr/local/opt/python@2/bin' ]]; then
-    export PATH="/usr/local/opt/python@2/bin:$PATH"
-fi
-if [[ -d '/usr/local/opt/python/libexec/bin' ]]; then
-    export PATH="/usr/local/opt/python/libexec/bin:$PATH"
-fi
-
 export RIPGREP_CONFIG_PATH="$SCRIPT_PATH/.ripgreprc"
-export PATH="$HOME/bin:$PATH"
 
 alias rgg='rg -g"!vendor/"'
 alias gof='find . -name vendor -prune -o -iname "*.go" -print0|parallel -X0 goimports -w'

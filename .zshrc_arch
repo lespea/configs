@@ -103,7 +103,38 @@ export SAVEHIST=$HISTSIZE
 
 # Customize to your needs...
 
-export PATH=$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/bin/core_perl:/usr/bin/site_perl:$HOME/.gem/ruby/2.5.0/bin:$PATH:$HOME/.cargo/bin
+
+function addPath {
+    local -i prefix=$1
+    local dir=$2
+
+    if [[ -d "$dir" ]] && ! `echo $PATH|egrep "(^|:)$dir(\$|:)" -q`; then
+        if [ $prefix -gt 0 ]; then
+            export PATH="$dir:$PATH"
+        else
+            export PATH="$PATH:$dir"
+        fi
+    fi
+}
+
+
+#  Setup go
+export GOPATH=/home/$USERNAME/go
+mkdir -p $GOPATH
+
+# These must be listed in the reverse order!
+addPath 1 '/sbin'
+addPath 1 '/usr/sbin'
+addPath 1 '/usr/local/sbin'
+addPath 1 '/bin'
+addPath 1 '/usr/bin'
+addPath 1 '/usr/local/bin'
+addPath 1 "$GOPATH/bin"
+addPath 1 "$HOME/.cargo/bin"
+addPath 1 "$HOME/bin"
+
+addPath 0 '/usr/bin/core_perl'
+addPath 0 '/usr/bin/site_perl'
 
 export EDITOR="vim"
 
@@ -168,11 +199,6 @@ bindkey '\eOD' backward-char
 
 alias gup='git svn fetch && git svn rebase'
 alias gsp='git svn dcommit'
-
-#  Setup go
-export GOPATH=/home/$USERNAME/.go
-mkdir -p $GOPATH
-export PATH=$PATH:$GOPATH/bin
 
 # Double quote single quotes to "escape" them inside a single-quoted string
 setopt rcquotes

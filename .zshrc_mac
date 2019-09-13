@@ -106,7 +106,7 @@ function addPath {
     local -i prefix=$1
     local dir=$2
 
-    if [[ -d "$dir" ]]; then
+    if [[ -d "$dir" ]] && ! `echo $PATH|egrep "(^|:)$dir(\$|:)" -q`; then
         if [ $prefix -gt 0 ]; then
             export PATH="$dir:$PATH"
         else

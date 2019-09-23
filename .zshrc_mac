@@ -133,6 +133,7 @@ addPath 1 '/usr/local/opt/python@3/bin'
 addPath 1 '/usr/local/opt/python/libexec/bin'
 addPath 1 "$HOME/bin"
 
+addPath 0 '/usr/local/opt/binutils/bin'
 addPath 0 '/usr/bin/core_perl'
 addPath 0 '/usr/bin/site_perl'
 addPath 0 "$HOME/.gem/ruby/2.1.0/bin"

@@ -69,12 +69,14 @@ plugins=(
     cpanm
     encode64
     fd
+    fzf
     git-extras
     gitfast
     golang
     jump
     man
     mercurial
+    pyenv
     python
     ripgrep
     rsync
@@ -224,9 +226,9 @@ alias pip23u="pip3 list -o --format=columns|sed -e '1,2d'|awk '{print $1}'|xargs
 #alias cpanm='cpanm --sudo'
 
 
-source "$SCRIPT_PATH/zaw/zaw.zsh"
+#source "$SCRIPT_PATH/zaw/zaw.zsh"
 
-bindkey '^R' zaw-history
+#bindkey '^R' zaw-history
 bindkey '^F' zaw-ack
 zstyle ':filter-select' max-lines 10
 zstyle ':filter-select' case-insensitive yes

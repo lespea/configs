@@ -143,7 +143,8 @@ export EDITOR="vim"
 #alias cp='/bin/cp -c'
 alias rgq='rg --no-filename --no-heading -N'
 
-if [ -f "$HOME/.cargo/bin/exa" ]; then
+which exa > /dev/null
+if [ $? -eq 0 ] || [ -f "$HOME/.cargo/bin/exa" ]; then
     alias ls='exa --icons'
     alias l='exa --icons'
 

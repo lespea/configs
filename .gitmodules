@@ -85,3 +85,9 @@
 [submodule "vimfiles/bundle/AnsibleVim"]
 	path = vimfiles/bundle/AnsibleVim
 	url = https://github.com/pearofducks/ansible-vim.git
+[submodule "vimfiles/bundle/vim-airline-themes"]
+	path = vimfiles/bundle/vim-airline-themes
+	url = https://github.com/vim-airline/vim-airline-themes
+[submodule "vimfiles/bundle/vim-airline"]
+	path = vimfiles/bundle/vim-airline
+	url = https://github.com/vim-airline/vim-airline

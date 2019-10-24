@@ -277,3 +277,4 @@ alias rgg='rg -g"!vendor/"'
 alias gof='find . -name vendor -prune -o -iname "*.go" -print0|parallel -X0 goimports -w'
 
 alias vim=nvim
+export BAT_THEME="base16"

@@ -252,3 +252,7 @@ let g:neoformat_enabled_python = ['yapf']
 " Disable markdown folding
 let g:vim_markdown_folding_disabled = 1
 
+
+let g:airline_powerline_fonts = 1
+let g:airline_solarized_bg    = 'dark'
+let g:airline_theme           = 'tomorrow'

@@ -356,7 +356,7 @@ label = %percentage_used%%
 
 [module/eth]
 type = internal/network
-interface = enp42s0
+interface = ethMain
 interval = 3.0
 
 format-connected-underline = #55aa55

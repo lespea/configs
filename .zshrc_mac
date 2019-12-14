@@ -278,3 +278,5 @@ alias gof='find . -name vendor -prune -o -iname "*.go" -print0|parallel -X0 goim
 
 alias vim=nvim
 export BAT_THEME="base16"
+
+export GOPRIVATE=*.target.com

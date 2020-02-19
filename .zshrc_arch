@@ -267,3 +267,7 @@ alias rgg='rg -g"!vendor/"'
 #export QT_SCREEN_SCALE_FACTORS='1.5'
 
 export BAT_THEME="base16"
+
+if [[ -f "$HOME/.config/broot/launcher/bash/br" ]]; then
+    source "$HOME/.config/broot/launcher/bash/br"
+fi

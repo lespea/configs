@@ -225,19 +225,11 @@ alias pip2u="pip2 list -o --format=columns|sed -e '1,2d'|awk '{print $1}'|xargs 
 alias pip3u="pip3 list -o --format=columns|sed -e '1,2d'|awk '{print $1}'|xargs pip3 install -U"
 alias pip23u="pip3 list -o --format=columns|sed -e '1,2d'|awk '{print $1}'|xargs pip3 install -U && pip2 list -o --format=columns|sed -e '1,2d'|awk '{print $1}'|xargs pip2 install -U"
 
-source "$SCRIPT_PATH/zaw/zaw.zsh"
-
 pbrew="$HOME/perl5/perlbrew/etc/bashrc"
 if [[ -f "$pbrew" ]]; then
     source "$HOME/perl5/perlbrew/etc/bashrc"
 fi
 alias mbrew='source "$HOME/perl5/perlbrew/etc/bashrc"'
-
-#bindkey '^R' zaw-history
-bindkey '^F' zaw-ack
-zstyle ':filter-select' max-lines 10
-zstyle ':filter-select' case-insensitive yes
-zstyle ':filter-select' extended-search yes
 
 if [[ -f "$HOME/perl5/perlbrew/etc/bashrc" ]]; then
     source "$HOME/perl5/perlbrew/etc/bashrc"

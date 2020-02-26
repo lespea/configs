@@ -2,8 +2,9 @@
 CONF="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo 'Updating ssl certs'
-if [[ -f "$rehahsh" ]]; then
-    rehahsh=/usr/local/opt/openssl/bin/c_rehash
+rehash=/usr/local/opt/openssl/bin/c_rehash
+if [[ -f "$rehash" ]]; then
+    `$rehash`
 fi
 
 which brew >/dev/null 2>/dev/null

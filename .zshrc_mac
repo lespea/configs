@@ -272,3 +272,5 @@ alias vim=nvim
 export BAT_THEME="base16"
 
 export GOPRIVATE=*.target.com
+
+ailas dust='dust -br'

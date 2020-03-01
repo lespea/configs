@@ -265,4 +265,4 @@ if [[ -f "$HOME/.config/broot/launcher/bash/br" ]]; then
     source "$HOME/.config/broot/launcher/bash/br"
 fi
 
-ailas dust='dust -br'
+alias dust='dust -br'

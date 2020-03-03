@@ -58,9 +58,11 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 export WORKON_HOME=~/.virtualenvs
 
 plugins=(
+    #aws
+    #pyenv
+
     archlinux
     autopep8
-    aws
     cargo
     colorize
     command-not-found
@@ -76,7 +78,6 @@ plugins=(
     jump
     man
     mercurial
-    pyenv
     python
     ripgrep
     rsync
@@ -243,12 +244,6 @@ if [[ -f $BASH_COLORS ]]; then
     source $BASH_COLORS
 fi
 
-
-#  If we have custom things we need to setup, do that now
-if [[ -f ~/.zsh_custom ]]; then
-    source ~/.zsh_custom
-fi
-
 #export TERM=xterm-256color
 alias vim=nvim
 
@@ -266,3 +261,11 @@ if [[ -f "$HOME/.config/broot/launcher/bash/br" ]]; then
 fi
 
 alias dust='dust -br'
+
+#  If we have custom things we need to setup, do that now
+if [[ -f ~/.zsh_custom ]]; then
+    source ~/.zsh_custom
+fi
+
+# Remove dupes from our path
+typeset -aU path

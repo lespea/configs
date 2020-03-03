@@ -56,6 +56,8 @@ export WORKON_HOME=~/.virtualenvs
 
 plugins=(
     #aws
+    #pyenv  --  very slow
+
     ansible
     autopep8
     brew
@@ -78,7 +80,6 @@ plugins=(
     mercurial
     osx
     pip
-    pyenv
     python
     rbenv
     ripgrep
@@ -107,7 +108,7 @@ function addPath {
     local -i prefix=$1
     local dir=$2
 
-    if [[ -d "$dir" ]] && ! `echo $PATH|egrep "(^|:)$dir(\$|:)" -q`; then
+    if [[ -d "$dir" ]]; then
         if [ $prefix -gt 0 ]; then
             export PATH="$dir:$PATH"
         else
@@ -252,12 +253,6 @@ fi
 #export LC_ALL=C
 export LC_ALL=en_US.UTF-8
 
-
-#  If we have custom things we need to setup, do that now
-if [[ -f ~/.zsh_custom ]]; then
-    source ~/.zsh_custom
-fi
-
 which thefuck >/dev/null
 if [ $? -eq 0 ]; then
     eval $(thefuck --alias)
@@ -274,3 +269,11 @@ export BAT_THEME="base16"
 export GOPRIVATE=*.target.com
 
 alias dust='dust -br'
+
+#  If we have custom things we need to setup, do that now
+if [[ -f ~/.zsh_custom ]]; then
+    source ~/.zsh_custom
+fi
+
+# Remove dupes from our path
+typeset -aU path

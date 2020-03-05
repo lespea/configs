@@ -244,7 +244,7 @@ if [[ -f $BASH_COLORS ]]; then
     source $BASH_COLORS
 fi
 
-#export TERM=xterm-256color
+export TERM=alacritty
 alias vim=nvim
 
 export RIPGREP_CONFIG_PATH="$SCRIPT_PATH/.ripgreprc"

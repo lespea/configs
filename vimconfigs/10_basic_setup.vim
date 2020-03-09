@@ -4,6 +4,7 @@
 
 "  Setup mouse & keyboard standard across all platforms
 behave xterm
+set termguicolors
 
 "  Mouse has popup menus
 set mousemodel=popup

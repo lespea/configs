@@ -43,6 +43,7 @@ set guioptions-=T
 set guioptions-=m
 set showtabline=2
 behave xterm
+set termguicolors
 set mousemodel=popup
 set viminfo=/50,'50,h,<0,@0
 set backspace=indent,eol,start

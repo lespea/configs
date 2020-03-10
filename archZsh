@@ -98,6 +98,7 @@ addPath 1 '/bin'
 addPath 1 '/usr/bin'
 addPath 1 '/usr/local/bin'
 addPath 0 "$HOME/.cargo/bin"
+addPath 0 "$HOME/go/bin"
 addPath 1 "$HOME/bin"
 
 if [ -f "$HOME/.cargo/bin/exa" ]; then

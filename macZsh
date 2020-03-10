@@ -97,7 +97,7 @@ addPath 1 '/usr/local/sbin'
 addPath 1 '/bin'
 addPath 1 '/usr/bin'
 addPath 1 '/usr/local/bin'
-addPath 1 "$GOPATH/bin"
+addPath 1 "$HOME/go/bin"
 addPath 1 '/usr/local/opt/python@2/bin'
 addPath 1 '/usr/local/opt/python@3/bin'
 addPath 1 '/usr/local/opt/python/libexec/bin'

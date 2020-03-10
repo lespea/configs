@@ -15,10 +15,14 @@ function setup_link() {
         exit 1
     fi
 
-    if [[ -d "$dst" ]]; then
+    if [ -d "$dst" ]; then
+        echo "Removing $dst"
         rm -rf "$dst"
-    elif [[ -f "$dst" ]]; then
+    elif [ -L "$dst" ] || [ -e "$dst" ]; then
+        echo "Removing $dst"
         rm -f "$dst"
+    else
+        echo "NOT removing $dst"
     fi
 
     ln -s "$src" "$dst"
@@ -34,7 +38,7 @@ function setup_single() {
     if [[ -f "$src" ]]; then
         setup_link "$src" "${HOME}/$1"
     else
-        echo weird src?
+        echo weird src? $src
         exit 1
     fi
 }
@@ -50,14 +54,12 @@ if [ ! -f ${HOME}/.gitconfig ]; then
     cp ${CUR_DIR}/myGitConfig ${HOME}/.gitconfig
 fi
 
-rm -f ${HOME}/.zshrc
-
-if [[ `uname` -eq "Darwin" ]]; then
+if [[ `uname` == "Darwin" ]]; then
     setup_link "${CUR_DIR}/macAntigen" "${HOME}/.antigenrc"
     setup_link "${CUR_DIR}/macZsh" "${HOME}/.zshrc"
     setup_link "${CUR_DIR}/macZshEnv" "${HOME}/.zshenv"
 else
-    setup_single "${CUR_DIR}/.Xresources"
+    setup_single .Xresources
 
     setup_link "${CUR_DIR}/.configs/i3" "${HOME}/.config/i3"
     setup_link "${CUR_DIR}/.configs/alacritty" "${HOME}/.config/alacritty"

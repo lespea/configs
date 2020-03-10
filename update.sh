@@ -1,5 +1,5 @@
-#!/usr/bin/env bash
-CONF="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+#!/usr/bin/env zsh
+SCRIPT_PATH=${${(%):-%N}:A:h}
 
 echo 'Updating ssl certs'
 rehash=/usr/local/opt/openssl/bin/c_rehash
@@ -51,12 +51,12 @@ echo 'Updating oh my zsh'
 cd "$HOME/.oh-my-zsh"
 git pull
 
-ycm="$CONF/vimfiles/bundle/YouCompleteMe"
+ycm="$SCRIPT_PATH/vimfiles/bundle/YouCompleteMe"
 cd "$ycm"
 OLD_YCM=`git rev-parse HEAD`
 
 echo 'Updating configs'
-cd "$CONF"
+cd "$SCRIPT_PATH"
 git pull
 git submodule update --recursive --init
 
@@ -98,13 +98,13 @@ cd "$ycm"
 
 NEW_YCM=`git rev-parse HEAD`
 
-if [ $UPD_RUST -ne 0 -o "$NEW_YCM" != "$OLD_YCM" -o "z$1z" == "z1z" ]; then 
+if [ $UPD_RUST -ne 0 ] || [ "$NEW_YCM" != "$OLD_YCM" ] || [ "z$1z" = "z1z" ]; then 
     python3 ./install.py $args
 else
     echo "Not rebuilding YCM because nothing changed"
 fi
 
-which antigen >/dev/null 2>/dev/null
-if [ $? -eq 0  ]; then
-    antigen reset
-fi
+source "$SCRIPT_PATH/antigen/bin/antigen.zsh"
+antigen update
+antigen reset
+antigen cleanup

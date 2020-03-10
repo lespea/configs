@@ -4,7 +4,7 @@ export ZSH_AUTOSUGGEST_USE_ASYNC=1
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 
 source $SCRIPT_PATH/antigen/bin/antigen.zsh
-antigen init .antigenrc
+antigen init $HOME/.antigenrc
 
 # Double quote single quotes to "escape" them inside a single-quoted string
 setopt rcquotes

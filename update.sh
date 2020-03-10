@@ -43,14 +43,23 @@ fi
 
 echo 'Updating configs'
 cd "$SCRIPT_PATH"
+
+ahash1=`sha256sum ~/.antigenrc`
+phash1=`sha256sum "$SCRIPT_PATH/_vimrc"`
+
 git pull
 git submodule update --recursive --init
 
-./cleanup.sh
+ahash2=`sha256sum ~/.antigenrc`
+phash2=`sha256sum "$SCRIPT_PATH/_vimrc"`
 
-source "$SCRIPT_PATH/antigen/bin/antigen.zsh"
-antigen update
-antigen reset
-antigen cleanup
+if [ "$ahash1" != "$ahash2" ]; then
+    source "$SCRIPT_PATH/antigen/bin/antigen.zsh"
+    antigen update
+    antigen reset
+    antigen cleanup
+fi
 
-nvim +PlugInstall +PlugUpdate +qall
+if [ "$phash1" != "$phash2" ]; then
+    nvim +PlugInstall +PlugUpdate +qall
+fi

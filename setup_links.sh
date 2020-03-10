@@ -49,6 +49,7 @@ setup_link "${CUR_DIR}/Fonts"         "${HOME}/.fonts"
 
 setup_single .gitattributes
 setup_single .ideavimrc
+setup_single .tmux.conf
 
 if [ ! -f ${HOME}/.gitconfig ]; then
     cp ${CUR_DIR}/myGitConfig ${HOME}/.gitconfig

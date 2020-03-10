@@ -1,0 +1,56 @@
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
+
+# Bundles from the default repo (robbyrussell's oh-my-zsh).
+antigen bundles <<EOF
+    archlinux
+    autopep8
+    cargo
+    colorize
+    copydir
+    copyfile
+    cpanm
+    encode64
+    fd
+    fzf
+    git-extras
+    gitfast
+    golang
+    jump
+    man
+    mercurial
+    python
+    ripgrep
+    rsync
+    rust
+    sbt
+    scala
+    ssh-agent
+    sudo
+    svn
+    systemd
+    tig
+    tmux
+    urltools
+    virtualenv
+    virtualenvwrapper
+    web-search
+EOF
+
+# Auto Suggestions
+antigen bundle zsh-users/zsh-autosuggestions
+
+# More completions
+antigen bundle zsh-users/zsh-completions
+
+# Interactive jq
+antigen bundle reegnz/jq-zsh-plugin
+
+# Syntax highlighting bundle.
+antigen bundle zsh-users/zsh-syntax-highlighting
+
+# Load the theme.
+antigen theme romkatv/powerlevel10k
+
+# Tell Antigen that you're done.
+antigen apply

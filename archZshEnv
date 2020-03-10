@@ -1,0 +1,46 @@
+# Remove dupes from our path
+typeset -aU path
+export PATH
+
+export EDITOR="nvim"
+
+alias cp='cp --reflink=auto'
+alias rgq='rg --no-filename --no-heading -N -M0'
+
+alias du='du -h'
+alias df='df -h'
+
+alias gitk='gitk --all'
+
+# SBT Helpers
+#alias sbt='sbt -mem 1024 -J-XX:+UseConcMarkSweepGC'
+alias sbtd='sbt -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.port=1099 -J-XX:+UseConcMarkSweepGC'
+
+alias wstart='echo start|entr ./start'
+
+alias genSrc='mkdir -p src/{main,test}/{java,scala,resources} && touch src/{main,test}/{java,scala,resources}/.keep'
+
+# Java 8
+export JAVA_OPTS="-server -XX:+UseG1GC -Xms512m -Xmx4G"
+
+export SBT_OPTS="-server -XX:+UseG1GC -Xms512M -Xmx3G -XX:+CMSClassUnloadingEnabled"
+
+alias pip2u="pip2 list -o --format=columns|sed -e '1,2d'|awk '{print $1}'|xargs pip2 install -U"
+alias pip3u="pip3 list -o --format=columns|sed -e '1,2d'|awk '{print $1}'|xargs pip3 install -U"
+alias pip23u="pip3 list -o --format=columns|sed -e '1,2d'|awk '{print $1}'|xargs pip3 install -U && pip2 list -o --format=columns|sed -e '1,2d'|awk '{print $1}'|xargs pip2 install -U"
+
+#  Make cpanm always use sudo
+#alias cpanm='cpanm --sudo'
+
+
+#source "$SCRIPT_PATH/zaw/zaw.zsh"
+
+alias pssh='ssh -o PubkeyAuthentication=no'
+
+alias vim=nvim
+
+alias rgg='rg -g"!vendor/"'
+
+export BAT_THEME="base16"
+
+alias dust='dust -br'

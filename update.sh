@@ -7,6 +7,11 @@ if [[ -f "$rehash" ]]; then
     $rehash
 fi
 
+which dircolors >/dev/null 2>/dev/null
+if [ $? -eq 0  ]; then
+    dircolors -b lscolors/LS_COLORS >~/.lscolors
+fi
+
 which brew >/dev/null 2>/dev/null
 if [ $? -eq 0 ]; then
     echo 'Updating brew'
@@ -97,4 +102,9 @@ if [ $UPD_RUST -ne 0 -o "$NEW_YCM" != "$OLD_YCM" -o "z$1z" == "z1z" ]; then
     python3 ./install.py $args
 else
     echo "Not rebuilding YCM because nothing changed"
+fi
+
+which antigen >/dev/null 2>/dev/null
+if [ $? -eq 0  ]; then
+    antigen reset
 fi

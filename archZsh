@@ -2,9 +2,13 @@ SCRIPT_PATH=${${(%):-%N}:A:h}
 
 export ZSH_AUTOSUGGEST_USE_ASYNC=1
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+export DISABLE_MAGIC_FUNCTIONS=true
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 source $SCRIPT_PATH/antigen/bin/antigen.zsh
 antigen init $HOME/.antigenrc
+
+bindkey '^[^I' autosuggest-accept
 
 # Double quote single quotes to "escape" them inside a single-quoted string
 setopt rcquotes

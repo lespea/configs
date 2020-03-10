@@ -200,6 +200,8 @@ let g:syntastic_check_on_wq = 0
 
 let g:syntastic_ignore_files = ['\m\.sbt$', '\m\.scala$']
 
+let g:ale_completion_enabled = 1
+
 
 let g:ycm_server_keep_logfiles = 0
 

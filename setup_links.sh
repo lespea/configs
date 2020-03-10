@@ -67,6 +67,7 @@ else
     setup_link "${CUR_DIR}/archAntigen" "${HOME}/.antigenrc"
     setup_link "${CUR_DIR}/archZsh" "${HOME}/.zshrc"
     setup_link "${CUR_DIR}/archZshEnv" "${HOME}/.zshenv"
+    setup_link "${CUR_DIR}/archP10K" "${HOME}/.p10k.zsh"
 fi
 
 setup_link "${CUR_DIR}/vimfiles" "${HOME}/.config/nvim"

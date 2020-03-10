@@ -62,31 +62,7 @@ git submodule update --recursive --init
 
 ./cleanup.sh
 
-args="--java-completer --clang-completer"
-
-UPD_RUST=0
-which rustup >/dev/null 2>/dev/null
-if [ $? -eq 0 ]; then
-    OLD_RUSTV=`rustc --version`
-    echo 'Updating rust'
-    rustup update
-    args="$args --rust-completer"
-    NEW_RUSTV=`rustc --version`
-
-    if [ "$OLD_RUSTV" != "$NEW_RUSTV" ]; then
-        UPD_RUST=1
-    fi
-fi
-
-which go >/dev/null 2>/dev/null
-if [ $? -eq 0 ]; then
-    args="$args --go-completer"
-fi
-
-which node >/dev/null 2>/dev/null
-if [ $? -eq 0 ]; then
-    args="$args --js-completer"
-fi
+args="--all"
 
 which ninja >/dev/null 2>/dev/null
 if [ $? -eq 0 ]; then
@@ -99,7 +75,7 @@ cd "$ycm"
 NEW_YCM=`git rev-parse HEAD`
 
 if [ $UPD_RUST -ne 0 ] || [ "$NEW_YCM" != "$OLD_YCM" ] || [ "z$1z" = "z1z" ]; then 
-    python3 ./install.py $args
+    python3 ./install.py ${=args}
 else
     echo "Not rebuilding YCM because nothing changed"
 fi

@@ -198,6 +198,8 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
+let g:syntastic_ignore_files = ['\m\.sbt$', '\m\.scala$']
+
 
 let g:ycm_server_keep_logfiles = 0
 
@@ -208,25 +210,33 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " YCM-UltiSnip-SuperTab:
 " ------------------------------
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
+""""   let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+""""   let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+""""   let g:SuperTabDefaultCompletionType = '<C-n>'
+""""
+""""   " better key bindings for UltiSnipsExpandTrigger
+""""   let g:UltiSnipsExpandTrigger="<c-Space>"
+""""   let g:UltiSnipsJumpForwardTrigger = "<tab>" " you can use <c-j>
+""""   let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+""""   " UltiSnip
+""""   " ---------
+""""   let g:UltiSnipsEditSplit="vertical"
+""""   let g:UltiSnipsSnippetDirectories=['MyUltiSnips']
+""""   let g:UltiSnipsListSnippets="<c-l>"
+""""   " YCM
+""""   " ------
+""""   let g:ycm_complete_in_comments = 1
+""""   let g:ycm_seed_identifiers_with_syntax = 1
+""""   let g:ycm_collect_identifiers_from_comments_and_strings = 1
+""""   "let g:ycm_rust_src_path = "$VIMHOME/rust"
+"
+"" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
-" better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger="<c-Space>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>" " you can use <c-j>
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-" UltiSnip
-" ---------
+" If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsSnippetDirectories=['MyUltiSnips']
-let g:UltiSnipsListSnippets="<c-l>"
-" YCM
-" ------
-let g:ycm_complete_in_comments = 1
-let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-"let g:ycm_rust_src_path = "$VIMHOME/rust"
 
 
 "  --------------

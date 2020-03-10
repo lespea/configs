@@ -1,11 +1,61 @@
 set nocompatible
 autocmd!
-filetype off
-call pathogen#infect()
-call pathogen#helptags()
-filetype plugin indent on
 set encoding=utf-8
 let $VIMHOME=fnamemodify(resolve(expand('<sfile>:p')), ':h')
+call plug#begin('$HOME/.vimplugged')
+Plug 'inkarkat/vim-ingo-library'
+Plug 'vim-scripts/L9'
+Plug 'PProvost/vim-ps1'
+Plug 'Raimondi/delimitMate'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'SirVer/ultisnips'
+Plug 'Yggdroot/indentLine'
+Plug 'chrisbra/NrrwRgn'
+Plug 'chrisbra/SudoEdit.vim'
+Plug 'chrisbra/csv.vim'
+Plug 'chrisbra/unicode.vim'
+Plug 'derekwyatt/vim-scala'
+Plug 'easymotion/vim-easymotion'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'gregsexton/MatchTag'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'honza/vim-snippets'
+Plug 'iiey/visincr'
+Plug 'inkarkat/vim-AdvancedSorters'
+Plug 'inkarkat/vim-ChangeGloballySmartCase'
+Plug 'inkarkat/vim-CursorLineCurrentWindow'
+Plug 'junegunn/seoul256.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'mbbill/undotree'
+Plug 'mhinz/vim-startify'
+Plug 'mtdl9/vim-log-highlighting'
+Plug 'myusuf3/numbers.vim'
+Plug 'pearofducks/ansible-vim'
+Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'preservim/nerdcommenter'
+Plug 'preservim/nerdtree'
+Plug 'qpkorr/vim-renamer'
+Plug 'rust-lang/rust.vim'
+Plug 'sbdchd/neoformat'
+Plug 'taku-o/vim-reorder-columns'
+Plug 'terryma/vim-expand-region'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tmhedberg/matchit'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-characterize'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-speeddating'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'triglav/vim-visual-increment'
+Plug 'tweekmonster/braceless.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-scripts/LargeFile'
+Plug 'vim-syntastic/syntastic'
+Plug 'wellle/targets.vim'
+call plug#end()
 let g:python_host_prog=expand('$HOME/.virtualenvs/nvim2/bin/python')
 let g:python3_host_prog=expand('$HOME/.virtualenvs/nvim3/bin/python')
 syntax on
@@ -402,22 +452,15 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
+let g:syntastic_ignore_files = ['\m\.sbt$', '\m\.scala$']
 let g:ycm_server_keep_logfiles = 0
 let g:UltiSnipsExpandTrigger="<s-tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
-let g:UltiSnipsExpandTrigger="<c-Space>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>" " you can use <c-j>
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsSnippetDirectories=['MyUltiSnips']
-let g:UltiSnipsListSnippets="<c-l>"
-let g:ycm_complete_in_comments = 1
-let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:neoformat_python_autopep8 = {
             \ 'exe': 'autopep8',
             \ 'args': ['-s 4', '--max-line-length 120', '-E'],

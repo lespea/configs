@@ -8,7 +8,7 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 source $SCRIPT_PATH/antigen/bin/antigen.zsh
 antigen init $HOME/.antigenrc
 
-bindkey '^[^I' autosuggest-accept
+bindkey '^ ' autosuggest-accept
 
 # Double quote single quotes to "escape" them inside a single-quoted string
 setopt rcquotes

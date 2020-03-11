@@ -1,3 +1,9 @@
+# Setup history
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+export HISTSIZE=100000
+export SAVEHIST=$HISTSIZE
+
 # Remove dupes from our path
 typeset -aU path
 export PATH

@@ -58,4 +58,4 @@ antigen update
 antigen reset
 antigen cleanup
 
-nvim +PlugUpdate +qall
+nvim +PlugUpdate +qall :UpdateRemotePlugins

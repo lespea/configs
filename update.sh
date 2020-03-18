@@ -53,13 +53,9 @@ git submodule update --recursive --init
 ahash2=`sha256sum ~/.antigenrc`
 phash2=`sha256sum "$SCRIPT_PATH/_vimrc"`
 
-if [ "$ahash1" != "$ahash2" ]; then
-    source "$SCRIPT_PATH/antigen/bin/antigen.zsh"
-    antigen update
-    antigen reset
-    antigen cleanup
-fi
+source "$SCRIPT_PATH/antigen/bin/antigen.zsh"
+antigen update
+antigen reset
+antigen cleanup
 
-if [ "$phash1" != "$phash2" ]; then
-    nvim +PlugInstall +PlugUpdate +qall
-fi
+nvim +PlugUpdate +qall

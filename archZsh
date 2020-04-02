@@ -1,3 +1,32 @@
+function addPath {
+    local -i prefix=$1
+    local dir=$2
+
+    if [[ -d "$dir" ]]; then
+        if [ $prefix -ne 0 ]; then
+            path+=("$dir")
+        else
+            path=("$dir" $path)
+        fi
+    fi
+}
+
+# These must be listed in the reverse order!
+addPath 1 '/sbin'
+addPath 1 '/usr/sbin'
+addPath 1 '/usr/local/sbin'
+addPath 1 '/bin'
+addPath 1 '/usr/bin'
+addPath 1 '/usr/local/bin'
+addPath 0 "$HOME/.cargo/bin"
+addPath 0 "$HOME/go/bin"
+addPath 1 "$HOME/bin"
+
+if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+  exec startx
+  exit
+fi
+
 SCRIPT_PATH=${${(%):-%N}:A:h}
 
 export ZSH_AUTOSUGGEST_USE_ASYNC=1
@@ -81,30 +110,6 @@ if [[ -f "$HOME/.config/broot/launcher/bash/br" ]]; then
     source "$HOME/.config/broot/launcher/bash/br"
 fi
 export RIPGREP_CONFIG_PATH="$SCRIPT_PATH/.ripgreprc"
-
-function addPath {
-    local -i prefix=$1
-    local dir=$2
-
-    if [[ -d "$dir" ]]; then
-        if [ $prefix -ne 0 ]; then
-            path+=("$dir")
-        else
-            path=("$dir" $path)
-        fi
-    fi
-}
-
-# These must be listed in the reverse order!
-addPath 1 '/sbin'
-addPath 1 '/usr/sbin'
-addPath 1 '/usr/local/sbin'
-addPath 1 '/bin'
-addPath 1 '/usr/bin'
-addPath 1 '/usr/local/bin'
-addPath 0 "$HOME/.cargo/bin"
-addPath 0 "$HOME/go/bin"
-addPath 1 "$HOME/bin"
 
 if [ -f "$HOME/.cargo/bin/exa" ]; then
     alias ls='exa --icons'

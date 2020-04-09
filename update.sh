@@ -41,6 +41,11 @@ if [ $? -eq 0 ]; then
     yay
 fi
 
+which rustup >/dev/null 2>/dev/null
+if [ $? -eq 0 ]; then
+    rustup update
+fi
+
 echo 'Updating configs'
 cd "$SCRIPT_PATH"
 

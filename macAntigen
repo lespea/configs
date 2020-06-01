@@ -51,7 +51,7 @@ antigen bundle reegnz/jq-zsh-plugin
 antigen bundle zsh-users/zsh-syntax-highlighting
 
 # iTerm tab colors
-antigen bundle tysonwolker/iterm-tab-colors
+#antigen bundle tysonwolker/iterm-tab-colors
 
 # Load the theme.
 antigen theme romkatv/powerlevel10k

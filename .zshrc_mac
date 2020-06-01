@@ -62,7 +62,7 @@ plugins=(
     autopep8
     brew
     cargo
-    colorize
+    #colorize
     copydir
     copyfile
     cpanm

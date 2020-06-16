@@ -102,12 +102,12 @@ addPath 1 '/bin'
 addPath 1 '/usr/bin'
 addPath 1 '/usr/local/bin'
 addPath 1 "$HOME/go/bin"
-addPath 1 '/usr/local/opt/python@2/bin'
-addPath 1 '/usr/local/opt/python@3/bin'
-addPath 1 '/usr/local/opt/python/libexec/bin'
+addPath 1 '/usr/local/opt/python2/bin'
+addPath 1 '/usr/local/opt/python3/bin'
 addPath 1 "$HOME/bin"
 addPath 1 "$HOME/.cargo/bin"
 
+addPath 0 '/usr/local/opt/python/libexec/bin'
 addPath 0 '/usr/local/opt/binutils/bin'
 addPath 0 '/usr/bin/core_perl'
 addPath 0 '/usr/bin/site_perl'

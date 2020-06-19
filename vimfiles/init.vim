@@ -60,8 +60,9 @@ Plug 'w0rp/ale'
 Plug 'wellle/targets.vim'
 Plug 'Yggdroot/indentLine'
 call plug#end()
-let g:python_host_prog=expand('$HOME/.virtualenvs/nvim2/bin/python')
-let g:python3_host_prog=expand('$HOME/.virtualenvs/nvim3/bin/python')
+let g:loaded_python_provider = 0
+let g:python_host_prog = ''
+let g:python3_host_prog = expand('$HOME/.virtualenvs/nvim3/bin/python')
 syntax on
 set synmaxcol=250
 set background=dark

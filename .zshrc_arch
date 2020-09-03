@@ -260,8 +260,6 @@ if [[ -f "$HOME/.config/broot/launcher/bash/br" ]]; then
     source "$HOME/.config/broot/launcher/bash/br"
 fi
 
-alias dust='dust -br'
-
 #  If we have custom things we need to setup, do that now
 if [[ -f ~/.zsh_custom ]]; then
     source ~/.zsh_custom

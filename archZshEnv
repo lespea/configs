@@ -48,5 +48,3 @@ alias vim=nvim
 alias rgg='rg -g"!vendor/"'
 
 export BAT_THEME="base16"
-
-alias dust='dust -br'

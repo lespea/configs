@@ -113,13 +113,16 @@ export RIPGREP_CONFIG_PATH="$SCRIPT_PATH/.ripgreprc"
 
 if [ -f "$HOME/.cargo/bin/exa" ]; then
     alias ls='exa --icons'
-    alias l='exa --icons'
 
-    alias lla='exa -lgha --icons'
-    alias ll='exa -lgh --icons'
-    alias la='exa -a --icons'
-    alias lt='exa -T --icons'
-    alias llt='exa -lgT --icons'
+    alias l='exa -FG --icons'
+    alias la='exa -FGa --icons'
+
+    alias lla='exa -Flgha --icons'
+    alias ll='exa -Flgh --icons'
+
+    alias lt='exa -FT --icons'
+    alias llt='exa -FlgT --icons'
+    alias llta='exa -FalgT --icons'
 else
     alias ls='ls -h --color=always'
 

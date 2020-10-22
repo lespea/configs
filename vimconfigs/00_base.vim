@@ -20,16 +20,12 @@ call plug#begin('$HOME/.vimplugged')
 Plug 'inkarkat/vim-ingo-library'
 Plug 'vim-scripts/L9'
 
-Plug 'PProvost/vim-ps1'
-Plug 'Raimondi/delimitMate'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'SirVer/ultisnips'
-Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
+Plug 'chrisbra/csv.vim'
 Plug 'chrisbra/NrrwRgn'
 Plug 'chrisbra/SudoEdit.vim'
-Plug 'chrisbra/csv.vim'
 Plug 'chrisbra/unicode.vim'
+Plug 'christoomey/vim-sort-motion'
 Plug 'derekwyatt/vim-scala'
 Plug 'easymotion/vim-easymotion'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
@@ -51,12 +47,16 @@ Plug 'mtdl9/vim-log-highlighting'
 Plug 'myusuf3/numbers.vim'
 Plug 'pearofducks/ansible-vim'
 Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'PProvost/vim-ps1'
 Plug 'preservim/nerdcommenter'
 Plug 'preservim/nerdtree'
 Plug 'qpkorr/vim-renamer'
+Plug 'Raimondi/delimitMate'
 Plug 'rust-lang/rust.vim'
 Plug 's3rvac/vim-syntax-yara'
 Plug 'sbdchd/neoformat'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'SirVer/ultisnips'
 Plug 'taku-o/vim-reorder-columns'
 Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors'
@@ -75,6 +75,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/LargeFile'
 Plug 'w0rp/ale'
 Plug 'wellle/targets.vim'
+Plug 'Yggdroot/indentLine'
 
 " Initialize plugin system
 call plug#end()

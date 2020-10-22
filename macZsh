@@ -126,7 +126,7 @@ if [ -f "$HOME/.cargo/bin/exa" ]; then
     alias llt='exa -FlgT --icons'
     alias llta='exa -FalgT --icons'
 else
-    alias ls='ls -h --color=always'
+    alias ls='ls -h'
 
     alias ll='ls -l'
     alias la='ls -A'

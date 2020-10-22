@@ -113,7 +113,8 @@ addPath 0 '/usr/bin/core_perl'
 addPath 0 '/usr/bin/site_perl'
 addPath 0 "$HOME/.gem/ruby/2.1.0/bin"
 
-if [ -f "$HOME/.cargo/bin/exa" ]; then
+which exa >/dev/null 2>/dev/null
+if [ $? -eq 0 ]; then
     alias ls='exa --icons'
 
     alias l='exa -FG --icons'

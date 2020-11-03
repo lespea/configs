@@ -12,6 +12,7 @@ Plug 'chrisbra/SudoEdit.vim'
 Plug 'chrisbra/unicode.vim'
 Plug 'christoomey/vim-sort-motion'
 Plug 'derekwyatt/vim-scala'
+Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'easymotion/vim-easymotion'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'godlygeek/tabular'
@@ -62,6 +63,9 @@ Plug 'w0rp/ale'
 Plug 'wellle/targets.vim'
 Plug 'Yggdroot/indentLine'
 call plug#end()
+if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 let g:loaded_python_provider = 0
 let g:python_host_prog = ''
 let g:python3_host_prog = expand('$HOME/.virtualenvs/nvim3/bin/python')

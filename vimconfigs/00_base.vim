@@ -27,6 +27,7 @@ Plug 'chrisbra/SudoEdit.vim'
 Plug 'chrisbra/unicode.vim'
 Plug 'christoomey/vim-sort-motion'
 Plug 'derekwyatt/vim-scala'
+Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'easymotion/vim-easymotion'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'godlygeek/tabular'
@@ -79,6 +80,10 @@ Plug 'Yggdroot/indentLine'
 
 " Initialize plugin system
 call plug#end()
+
+if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
 let g:loaded_python_provider = 0
 let g:python_host_prog = ''

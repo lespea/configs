@@ -10,6 +10,6 @@ rm -rf ~/.virtualenvs/nvim3 2>/dev/null
 mkvirtualenv main -p python3
 mkvirtualenv nvim3 -p python3
 
-~/.virtualenvs/main/bin/pip  install ipython requests
-~/.virtualenvs/nvim3/bin/pip install neovim yapf
+~/.virtualenvs/main/bin/pip  install colorama numpy ipython requests pandas
+~/.virtualenvs/nvim3/bin/pip install colorama neovim yapf
 

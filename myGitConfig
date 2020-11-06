@@ -20,19 +20,42 @@
     status      = true
     ui          = always
 
+[interactive]
+    diffFilter = delta --color-only
+
 [core]
     editor = vim
-    pager  = less
+    pager  = delta
+
+[delta]
+    syntax-theme = Monokai Extended
+    line-numbers = true
 
 [diff]
     rename = copy
+    colorMoved = default
 
 [merge]
     conflictstyle = diff3
 
 [core]
-    eol      = unix
     autocrlf = false
 
 [push]
     default = simple
+
+[cola]
+    spellcheck = false
+    fontdiff = Cascadia Code,12,-1,5,50,0,0,0,0,0
+
+[filter "lfs"]
+    process = git-lfs filter-process
+    required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+
+[url "ssh://git@github.com/"]
+    insteadOf = https://github.com/
+
+[pull]
+    rebase = false

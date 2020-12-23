@@ -24,6 +24,7 @@ antigen bundles <<EOF
     mercurial
     osx
     pip
+    pyenv
     python
     ripgrep
     rsync
@@ -34,8 +35,6 @@ antigen bundles <<EOF
     tig
     tmux
     urltools
-    virtualenv
-    virtualenvwrapper
 EOF
 
 # Auto Suggestions

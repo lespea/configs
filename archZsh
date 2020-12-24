@@ -148,3 +148,24 @@ fi
 if [[ -f ~/.zsh_custom ]]; then
     source ~/.zsh_custom
 fi
+
+alias setupv='
+pyenv virtualenvwrapper && \
+rm -rf ~/.virtualenvs/main  2>/dev/null && \
+rm -rf ~/.virtualenvs/nvim3 2>/dev/null && \
+mkvirtualenv main -p python3 && \
+mkvirtualenv nvim3 -p python3 && \
+~/.virtualenvs/main/bin/pip  install -U pip setuptools && \
+~/.virtualenvs/nvim3/bin/pip install -U pip setuptools && \
+~/.virtualenvs/main/bin/pip  install colorama numpy ipython requests pandas && \
+~/.virtualenvs/nvim3/bin/pip install colorama neovim yapf'
+
+alias pyei='MAKE_OPTS="-j12" \
+  CONFIGURE_OPTS="--enable-shared --enable-optimizations --with-computed-gotos" \
+  CFLAGS="-march=native -O2 -pipe" \
+  pyenv install -v'
+
+alias pyein='MAKE_OPTS="-j12" \
+  CONFIGURE_OPTS="--enable-shared --enable-optimizations --with-computed-gotos" \
+  CFLAGS="-O2 -pipe" \
+  pyenv install -v'

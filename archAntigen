@@ -20,6 +20,7 @@ antigen bundles <<EOF
     man
     mercurial
     python
+    pyenv
     ripgrep
     rsync
     rust
@@ -32,8 +33,6 @@ antigen bundles <<EOF
     tig
     tmux
     urltools
-    virtualenv
-    virtualenvwrapper
     web-search
 EOF
 

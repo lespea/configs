@@ -55,5 +55,11 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 # Load the theme.
 antigen theme romkatv/powerlevel10k
 
+# Auto Update antigen
+antigen bundle unixorn/autoupdate-antigen.zshplugin
+
+# Auto load pyenv envs
+antigen bundle MichaelAquilina/zsh-autoswitch-virtualenv
+
 # Tell Antigen that you're done.
 antigen apply

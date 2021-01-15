@@ -19,6 +19,7 @@ antigen bundles <<EOF
     gitfast
     gitignore
     golang
+    jenv
     jump
     man
     mercurial

@@ -27,13 +27,11 @@ alias wstart='echo start|entr ./start'
 alias genSrc='mkdir -p src/{main,test}/{java,scala,resources} && touch src/{main,test}/{java,scala,resources}/.keep'
 
 # Java 8
-export JAVA_OPTS="-server -XX:+UseG1GC -Xms512m -Xmx4G"
+export JAVA_HOME=/usr/lib/jvm/default
 
-export SBT_OPTS="-server -XX:+UseG1GC -Xms512M -Xmx3G -XX:+CMSClassUnloadingEnabled"
+export JAVA_OPTS="-server -XX:+UseG1GC -Xms1G -Xmx4G"
 
-alias pip2u="pip2 list -o --format=columns|sed -e '1,2d'|awk '{print $1}'|xargs pip2 install -U"
-alias pip3u="pip3 list -o --format=columns|sed -e '1,2d'|awk '{print $1}'|xargs pip3 install -U"
-alias pip23u="pip3 list -o --format=columns|sed -e '1,2d'|awk '{print $1}'|xargs pip3 install -U && pip2 list -o --format=columns|sed -e '1,2d'|awk '{print $1}'|xargs pip2 install -U"
+export SBT_OPTS="-server -XX:+UseG1GC -Xms1G -Xmx4G -XX:+CMSClassUnloadingEnabled"
 
 #  Make cpanm always use sudo
 #alias cpanm='cpanm --sudo'

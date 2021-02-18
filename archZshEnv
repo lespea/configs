@@ -47,4 +47,4 @@ alias rgg='rg -g"!vendor/"'
 
 export BAT_THEME="base16"
 
-alias upgrade='RUSTFLAGS="-C link-args=-s -C target-cpu=native" topgrade --disable go'
+alias upgrade='RUSTFLAGS="-C link-args=-s -C target-cpu=native" topgrade --disable go --disable vs_code'

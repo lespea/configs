@@ -153,16 +153,21 @@ if [[ -f ~/.zsh_custom ]]; then
     source ~/.zsh_custom
 fi
 
-alias setupv='
-pyenv virtualenvwrapper && \
-rm -rf ~/.virtualenvs/main  2>/dev/null && \
-rm -rf ~/.virtualenvs/nvim3 2>/dev/null && \
-mkvirtualenv main -p python3 && \
-mkvirtualenv nvim3 -p python3 && \
-~/.virtualenvs/main/bin/pip  install -U pip setuptools && \
-~/.virtualenvs/nvim3/bin/pip install -U pip setuptools && \
-~/.virtualenvs/main/bin/pip  install colorama numpy ipython requests pandas && \
-~/.virtualenvs/nvim3/bin/pip install colorama neovim yapf'
+__setupv() {
+    NAME=$1;shift
+    VERSION=$1;shift
+
+    pyenv uninstall -f "$NAME"
+    pyenv virtualenv --download "$VERSION" "$NAME"
+    pyenv activate "$NAME"
+    pip install -U pip setuptools $@
+    pyenv deactivate
+}
+
+setupv() {
+    __setupv nvim2 2.7.18 colorama neovim yapf
+    __setupv nvim3 3.9.1  colorama neovim yapf
+}
 
 alias pyei='MAKE_OPTS="-j12" \
   CONFIGURE_OPTS="--enable-shared --enable-optimizations --with-computed-gotos" \

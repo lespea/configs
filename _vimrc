@@ -66,9 +66,8 @@ call plug#end()
 if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
-let g:loaded_python_provider = 0
-let g:python_host_prog = ''
-let g:python3_host_prog = expand('$HOME/.virtualenvs/nvim3/bin/python')
+let g:python_host_prog = expand('$HOME/.pyenv/versions/nvim2/bin/python')
+let g:python3_host_prog = expand('$HOME/.pyenv/versions/nvim3/bin/python')
 syntax on
 set synmaxcol=250
 set background=dark

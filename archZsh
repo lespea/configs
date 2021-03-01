@@ -158,6 +158,10 @@ __setupv() {
     VERSION=$1;shift
 
     pyenv uninstall -f "$NAME"
+    p=$HOME/.pyenv/versions/$VERSION/envs/$NAME
+    if [ -d "$p" ]; then
+        rm -rf "$p"
+    fi
     pyenv virtualenv --download "$VERSION" "$NAME"
     pyenv activate "$NAME"
     pip install -U pip setuptools $@
@@ -165,8 +169,8 @@ __setupv() {
 }
 
 setupv() {
-    __setupv nvim2 2.7.18 colorama neovim yapf
     __setupv nvim3 3.9.1  colorama neovim yapf
+    __setupv nvim2 2.7.18 colorama neovim yapf
 }
 
 alias pyei='MAKE_OPTS="-j12" \

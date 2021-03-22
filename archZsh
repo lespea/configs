@@ -162,14 +162,14 @@ __setupv() {
     if [ -d "$p" ]; then
         rm -rf "$p"
     fi
-    pyenv virtualenv --download "$VERSION" "$NAME"
+    pyenv virtualenv "$VERSION" "$NAME"
     pyenv activate "$NAME"
     pip install -U pip setuptools $@
     pyenv deactivate
 }
 
 setupv() {
-    __setupv nvim3 3.9.1  colorama neovim yapf
+    __setupv nvim3 3.9.2  colorama neovim yapf
     __setupv nvim2 2.7.18 colorama neovim yapf
 }
 

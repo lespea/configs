@@ -56,4 +56,4 @@ alias gof='find . -name vendor -prune -o -iname "*.go" -print0|parallel -X0 goim
 
 export GOPRIVATE=*.target.com
 
-alias upgrade='RUSTFLAGS="-C link-args=-s -C target-cpu=native" topgrade --disable microsoft_auto_update --disable gem'
+alias tup='RUSTFLAGS="-C link-args=-s -C target-cpu=native" topgrade --disable microsoft_auto_update --disable gem'

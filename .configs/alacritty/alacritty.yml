@@ -70,7 +70,7 @@ mouse_bindings:
   - { mouse: Middle, action: PasteSelection }
 
 mouse:
-  url:
+  hints:
     # URL launcher
     #
     # This program is executed when clicking on a text which is recognized as a URL.

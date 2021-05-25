@@ -57,7 +57,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen theme romkatv/powerlevel10k
 
 # Auto Update antigen
-antigen bundle unixorn/autoupdate-antigen.zshplugin
+#antigen bundle unixorn/autoupdate-antigen.zshplugin
 
 # Tell Antigen that you're done.
 antigen apply

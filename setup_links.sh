@@ -63,6 +63,7 @@ else
     setup_single .Xresources
 
     setup_link "${CUR_DIR}/.configs/i3" "${HOME}/.config/i3"
+    setup_link "${CUR_DIR}/.configs/picom" "${HOME}/.config/picom"
     setup_link "${CUR_DIR}/.configs/alacritty" "${HOME}/.config/alacritty"
 
     setup_link "${CUR_DIR}/archAntigen" "${HOME}/.antigenrc"

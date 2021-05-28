@@ -20,7 +20,6 @@ antigen bundles <<EOF
     man
     mercurial
     python
-    pyenv
     ripgrep
     rsync
     rust

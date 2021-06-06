@@ -25,7 +25,6 @@ antigen bundles <<EOF
     mercurial
     osx
     pip
-    pyenv
     python
     ripgrep
     rsync

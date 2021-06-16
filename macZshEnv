@@ -54,6 +54,4 @@ export LC_ALL=en_US.UTF-8
 alias rgg='rg -g"!vendor/"'
 alias gof='find . -name vendor -prune -o -iname "*.go" -print0|parallel -X0 goimports -w'
 
-export GOPRIVATE=*.target.com
-
 alias tup='RUSTFLAGS="-C link-args=-s -C target-cpu=native" topgrade --disable gem'

@@ -164,12 +164,7 @@ __setupv() {
     NAME=$1;shift
     VERSION=$1;shift
 
-    pyenv uninstall -f "$NAME"
-    p=$HOME/.pyenv/versions/$VERSION/envs/$NAME
-    if [ -d "$p" ]; then
-        rm -rf "$p"
-    fi
-    pyenv virtualenv "$VERSION" "$NAME"
+    pyenv virtualenv --clear --force "$VERSION" "$NAME"
     pyenv activate "$NAME"
     pip install -U pip setuptools $@
     pyenv deactivate

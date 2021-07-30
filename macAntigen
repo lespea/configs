@@ -23,6 +23,7 @@ antigen bundles <<EOF
     jump
     man
     mercurial
+    nvm
     osx
     pip
     python

@@ -5,7 +5,7 @@ antigen use oh-my-zsh
 antigen bundles <<EOF
     archlinux
     autopep8
-    cargo
+    #cargo
     colorize
     copydir
     copyfile
@@ -24,7 +24,7 @@ antigen bundles <<EOF
     ripgrep
     rsync
     rust
-    rustup
+    #rustup
     sbt
     scala
     ssh-agent

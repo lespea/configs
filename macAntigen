@@ -30,6 +30,7 @@ antigen bundles <<EOF
     ripgrep
     rsync
     rust
+    rustup
     sbt
     ssh-agent
     sudo

@@ -5,7 +5,6 @@ antigen use oh-my-zsh
 antigen bundles <<EOF
     archlinux
     autopep8
-    cargo
     colorize
     copydir
     copyfile
@@ -16,6 +15,7 @@ antigen bundles <<EOF
     git-extras
     gitfast
     golang
+    gpg-agent
     jump
     man
     mercurial

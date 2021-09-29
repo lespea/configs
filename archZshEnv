@@ -45,6 +45,6 @@ alias vim=nvim
 
 alias rgg='rg -g"!vendor/"'
 
-export BAT_THEME="base16"
+export BAT_THEME="Coldark-Dark"
 
 alias tup='RUSTFLAGS="-C link-args=-s -C target-cpu=native" topgrade --disable gem'

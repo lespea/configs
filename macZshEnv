@@ -17,6 +17,7 @@ alias du='du -h'
 alias df='df -h'
 
 alias gitk='gitk --all'
+alias gcola='git-cola >/dev/null 2>/dev/null &!'
 
 # SBT Helpers
 #alias sbt='sbt -mem 1024 -J-XX:+UseConcMarkSweepGC'

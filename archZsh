@@ -48,6 +48,14 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 source $SCRIPT_PATH/antigen/bin/antigen.zsh
 antigen init $HOME/.antigenrc
 
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+
 bindkey '^[^I' autosuggest-accept
 bindkey '^ ' autosuggest-accept
 

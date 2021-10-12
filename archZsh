@@ -65,10 +65,8 @@ setopt rcquotes
 # Setup prompt
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-alias -g G='| grep --color=always'
-alias -g Gi='| grep -i --color=always'
-alias -g Gp='| grep -P --color=always'
-alias -g Gpi='| grep -P -i --color=always'
+alias -g G='| rg'
+alias -g Gi='| rg'
 alias -g L='| less -r'
 alias -g LC='| wc -l'
 alias -g WC='| wc -l'

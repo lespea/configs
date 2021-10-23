@@ -260,6 +260,7 @@ exec --no-startup-id numlockx on
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id xfce4-clipman
 exec --no-startup-id pasystray
+exec --no-startup-id flameshot
 #exec --no-startup-id urxvtd -o -q
 exec --no-startup-id /usr/bin/xautolock -time 15 -locker /usr/bin/i3lock-fancy -detectsleep
 #exec --no-startup-id /usr/bin/python3 /usr/bin/redshift-gtk
@@ -269,7 +270,8 @@ bindsym $mod+Shift+f exec --no-startup-id firefox-developer-edition
 bindsym $mod+Shift+p exec --no-startup-id "firefox-developer-edition --private-window"
 
 #screenshot
-bindsym $mod+Shift+s exec --no-startup-id "maim -s | xclip -selection clipboard -t image/png"
+#bindsym $mod+Shift+s exec --no-startup-id "maim -s | xclip -selection clipboard -t image/png"
+bindsym $mod+Shift+s exec --no-startup-id "flameshot gui"
 
 bindsym $mod+Shift+w exec $HOME/.config/i3/swap-workspace.py
 bindsym $mod+Tab exec $HOME/.config/i3/cycle-workspace.py

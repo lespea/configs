@@ -262,7 +262,7 @@ exec --no-startup-id nitrogen --restore
 exec --no-startup-id xfce4-clipman
 exec --no-startup-id pasystray
 exec --no-startup-id flameshot
-exec --no-startup-id alacritty >/dev/null 2>/dev/null
+#exec --no-startup-id alacritty >/dev/null 2>/dev/null
 #exec --no-startup-id urxvtd -o -q
 exec --no-startup-id /usr/bin/xautolock -time 15 -locker /usr/bin/i3lock-fancy -detectsleep
 #exec --no-startup-id /usr/bin/python3 /usr/bin/redshift-gtk

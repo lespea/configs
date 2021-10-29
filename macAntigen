@@ -19,6 +19,7 @@ antigen bundles <<EOF
     gitfast
     gitignore
     golang
+    gpg-agent
     jenv
     jump
     man
@@ -32,7 +33,7 @@ antigen bundles <<EOF
     rust
     rustup
     sbt
-    ssh-agent
+    #ssh-agent
     sudo
     tig
     tmux

@@ -27,7 +27,7 @@ antigen bundles <<EOF
     #rustup
     sbt
     scala
-    ssh-agent
+    #ssh-agent
     sudo
     svn
     systemd

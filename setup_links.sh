@@ -43,6 +43,12 @@ function setup_single() {
     fi
 }
 
+mkdir -p "${HOME}/.gnupg"
+setup_link "${CUR_DIR}/gpg/gpg.conf"       "${HOME}/.gnupg/gpg.conf"
+setup_link "${CUR_DIR}/gpg/gpg-agent.conf" "${HOME}/.gnupg/gpg-agent.conf"
+chmod 600 "${HOME}/.gnupg/gpg.conf" "${HOME}/.gnupg/gpg-agent.conf"
+
+
 setup_link "${CUR_DIR}/_vimrc"        "${HOME}/.vimrc"
 setup_link "${CUR_DIR}/vimfiles"      "${HOME}/.vim"
 setup_link "${CUR_DIR}/Fonts"         "${HOME}/.fonts"

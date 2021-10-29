@@ -98,4 +98,4 @@ selection:
 #dynamic_title: true
 
 key_bindings:
-  - { key: N, mods: Control|Shift, action: SpawnNewInstance }
+  - { key: N, mods: Control|Shift, action: CreateNewWindow }

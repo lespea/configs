@@ -1,4 +1,5 @@
 # Setup history
+export ZSH_THEME="powerlevel10k/powerlevel10k".
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
 export HISTSIZE=100000

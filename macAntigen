@@ -25,7 +25,7 @@ antigen bundles <<EOF
     man
     mercurial
     nvm
-    osx
+    macos
     pip
     python
     ripgrep

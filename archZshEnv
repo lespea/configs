@@ -34,7 +34,7 @@ export JAVA_HOME=/usr/lib/jvm/default
 
 export JAVA_OPTS="-server -XX:+UseG1GC -Xms1G -Xmx4G"
 
-export SBT_OPTS="-server -XX:+UseG1GC -Xms1G -Xmx4G -XX:+CMSClassUnloadingEnabled"
+export SBT_OPTS="-server -XX:+UseG1GC -Xms1G -Xmx4G"
 
 #  Make cpanm always use sudo
 #alias cpanm='cpanm --sudo'

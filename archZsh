@@ -177,7 +177,7 @@ __setupv() {
 }
 
 setupv() {
-    __setupv nvim3 3.10.0 colorama neovim yapf
+    __setupv nvim3 3.10.1 colorama neovim yapf
     __setupv nvim2 2.7.18 colorama neovim yapf
 }
 

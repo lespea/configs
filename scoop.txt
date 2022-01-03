@@ -1,0 +1,20 @@
+winget install -e --id EclipseAdoptium.Temurin.11
+winget install -e --id EclipseAdoptium.Temurin.17
+winget install -e --id EclipseAdoptium.Temurin.8
+winget install -e --id JetBrains.Toolbox
+winget install -e --id Microsoft.PowerShell
+winget install -e --id Microsoft.VC++2015-2019Redist-x64
+winget install -e --id Microsoft.VC++2015-2019Redist-x86
+winget install -e --id Microsoft.VisualStudio.2022.BuildTools
+winget install -e --id Microsoft.VisualStudio.2022.Community
+winget install -e --id Microsoft.WindowsTerminal
+winget install -e --id Mozilla.Firefox.DeveloperEdition
+winget install -e --id Notepad++.Notepad++
+
+
+scoop bucket add extras
+scoop bucket add nerd-fonts
+
+scoop install 7zip CascadiaCode-NF-Mono bzip2 cmake coreutils coursier ctags curl diffutils direnv dos2unix file findutils git-with-openssh gnupg go -a 32bit gzip jq kdiff3 keepass llvm msys2 neovim ninja nvm openssh pshazz pyenv rustup-msvc sbt scala shasum sort-uniq-wc sysinternals tar tidy time topgrade unzip wget which zip zstd
+
+## mingw-winlibs -a 32bit

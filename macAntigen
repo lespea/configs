@@ -5,7 +5,6 @@ antigen use oh-my-zsh
 antigen bundles <<EOF
     ansible
     autopep8
-    cargo
     colorize
     copydir
     copyfile
@@ -31,9 +30,7 @@ antigen bundles <<EOF
     ripgrep
     rsync
     rust
-    rustup
     sbt
-    #ssh-agent
     sudo
     tig
     tmux

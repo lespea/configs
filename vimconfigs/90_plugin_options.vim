@@ -86,7 +86,13 @@ nmap <Leader>a <Plug>(EasyAlign)
 "  |  InsertGuide  |
 "  -----------------
 
-let g:indent_guides_enable_on_vim_startup = 1
+lua << EOF
+    vim.opt.listchars:append("eol:↴")
+
+    require("indent_blankline").setup {
+        show_end_of_line = true,
+    }
+EOF
 
 
 

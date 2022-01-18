@@ -28,6 +28,8 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/seoul256.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'lbrayner/vim-rzip'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'Matt-A-Bennett/surround-funk.vim'
 Plug 'mbbill/undotree'
 Plug 'mhinz/vim-startify'
 Plug 'mtdl9/vim-log-highlighting'
@@ -63,7 +65,6 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/LargeFile'
 Plug 'w0rp/ale'
 Plug 'wellle/targets.vim'
-Plug 'Yggdroot/indentLine'
 call plug#end()
 if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
@@ -435,7 +436,12 @@ let g:delimitMate_expand_cr = 1
 let g:delimitMate_balance_matchpairs = 1
 vmap <Enter> <Plug>(EasyAlign)
 nmap <Leader>a <Plug>(EasyAlign)
-let g:indent_guides_enable_on_vim_startup = 1
+lua << EOF
+    vim.opt.listchars:append("eol:↴")
+    require("indent_blankline").setup {
+        show_end_of_line = true,
+    }
+EOF
 map ,, <Plug>(easymotion-prefix)
 nmap ,f <Plug>(easymotion-s2)
 nmap ,t <Plug>(easymotion-bd-t2)

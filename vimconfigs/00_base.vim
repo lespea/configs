@@ -43,6 +43,8 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/seoul256.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'lbrayner/vim-rzip'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'Matt-A-Bennett/surround-funk.vim'
 Plug 'mbbill/undotree'
 Plug 'mhinz/vim-startify'
 Plug 'mtdl9/vim-log-highlighting'
@@ -78,7 +80,6 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/LargeFile'
 Plug 'w0rp/ale'
 Plug 'wellle/targets.vim'
-Plug 'Yggdroot/indentLine'
 
 " Initialize plugin system
 call plug#end()

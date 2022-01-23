@@ -1,0 +1,12 @@
+global vim
+
+setMap = vim.api.nvim_set_keymap
+
+nmap = (k, f, o) -> setMap('n', k, f, o)
+
+optRES = { noremap: true, expr: true, silent: true }
+
+-- Deal with wrapped lines
+nmap('k', "v:count == 0 ? 'gk' : 'k'", optRES)
+nmap('j', "v:count == 0 ? 'gj' : 'j'", optRES)
+

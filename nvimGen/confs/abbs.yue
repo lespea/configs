@@ -1,0 +1,11 @@
+global vim
+
+-- Common misspelled words
+vim.cmd [[
+	abb teh the
+	abb fo of
+	abb taht that
+	abb wehn when
+]]
+
+true

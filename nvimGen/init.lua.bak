@@ -1,0 +1,154 @@
+-- local fn = vim.fn
+-- local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+-- if fn.empty(fn.glob(install_path)) > 0 then
+--   packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+-- end
+
+require('packer').startup(function(use)
+	-- Utils
+    use 'svermeulen/vimpeccable'
+
+	-- Syntax
+
+    use 'neovim/nvim-lspconfig'
+
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate'
+    }
+
+	use {
+	  'nvim-treesitter/nvim-treesitter-textobjects',
+	  requires = { 'nvim-treesitter/nvim-treesitter' }
+	}
+
+	use {
+	  'nvim-treesitter/nvim-treesitter-refactor',
+	  requires = { 'nvim-treesitter/nvim-treesitter' }
+	}
+
+	-- Finders
+	use {
+	  'nvim-telescope/telescope.nvim',
+	  requires = { {'nvim-lua/plenary.nvim'} }
+	}
+
+	use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+
+	use {
+	  'phaazon/hop.nvim',
+	  branch = 'v1', -- optional but strongly recommended
+	}
+
+	-- Visuals
+
+	use 'sainnhe/sonokai'
+
+	use {
+	  'nvim-lualine/lualine.nvim',
+	  requires = { 'kyazdani42/nvim-web-devicons' }
+	}
+
+	use 'kyazdani42/nvim-web-devicons'
+
+	use {
+		'edolphin-ydf/goimpl.nvim',
+		requires = {
+			{'nvim-lua/plenary.nvim'},
+			{'nvim-lua/popup.nvim'},
+			{'nvim-telescope/telescope.nvim'},
+			{'nvim-treesitter/nvim-treesitter'},
+		},
+	}
+
+	use {
+		'fannheyward/telescope-coc.nvim',
+		requires = {
+			{'nvim-telescope/telescope.nvim'},
+		},
+	}
+
+  -- Automatically set up your configuration after cloning packer.nvim
+  -- Put this at the end after all plugins
+  -- if packer_bootstrap then
+  --   require('packer').sync()
+  -- end
+end)
+
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.incsearch = true
+
+vim.o.hidden = true
+
+vim.o.history = 5000
+
+vim.o.tabstop = 4
+vim.o.shiftwidth = vim.o.tabstop
+
+local vimp = require('vimp')
+
+vim.o.termguicolors = true
+
+vim.cmd('colorscheme sonokai')
+
+require('lualine').setup {
+  options = {
+    icons_enabled = true,
+	theme = 'sonokai',
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+    disabled_filetypes = {},
+    always_divide_middle = true,
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {'filename', 'lsp_progress'},
+    lualine_x = {'encoding', {'fileformat', icons_enabled = false}, 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {},
+  extensions = {}
+}
+
+require('telescope').load_extension('fzf')
+require('telescope').load_extension('goimpl')
+
+require('lspconfig').gopls.setup{}
+
+vimp.nnoremap('<leader>ff', function() return require('telescope.builtin').find_files() end)
+vimp.nnoremap('<leader>fg', function() return require('telescope.builtin').live_grep() end)
+vimp.nnoremap('<leader>fb', function() return require('telescope.builtin').buffers() end)
+vimp.nnoremap('<leader>fh', function() return require('telescope.builtin').help_tags() end)
+
+require('hop').setup{}
+
+vimp.bind('noxv', {'f'}, function()
+	require('hop').hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })
+end)
+vimp.bind('noxv', {'F'}, function()
+	require('hop').hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSER, current_line_only = true })
+end)
+vimp.bind('noxv', {'t'}, function()
+	h = require('hop')
+	require('hop').hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })
+end)
+vimp.bind('noxv', {'T'}, function()
+	require('hop').hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSER, current_line_only = true })
+end)
+--vimp.bind('noxv', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
+--vimp.bind('noxv', 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
+--vimp.bind('noxv', 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
+
+--vimp.nnoremap('<leader>im', function() return require('telescope').extensions..goimpl.goimpl() end)
+--vim.api.nvim_set_keymap('n', '<leader>im', [[<cmd>lua require'telescope'.extensions.goimpl.goimpl{}<CR>]], {noremap=true, silent=true})

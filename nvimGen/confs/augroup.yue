@@ -1,0 +1,32 @@
+global vim
+
+-- Only show cursorline in the current window and in normal mode.
+vim.cmd [[
+  augroup cline
+      au!
+      au WinLeave * set nocursorline
+      au WinEnter * set cursorline
+      au InsertEnter * set nocursorline
+      au InsertLeave * set cursorline
+  augroup END
+]]
+
+-- Highlight yanks
+vim.cmd [[
+	augroup YankHighlight
+		autocmd!
+		autocmd TextYankPost * silent! lua vim.highlight.on_yank()
+	augroup end
+]]
+
+-- Check for file reloads when we have focus
+vim.cmd [[
+	au CursorHold * checktim
+]]
+
+-- Enalbe relative line numbering
+vim.cmd [[
+	au BufRead * set rnu
+]]
+
+true

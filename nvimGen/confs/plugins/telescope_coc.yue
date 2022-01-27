@@ -1,0 +1,7 @@
+require('telescope').load_extension('coc')
+
+vimp = require('vimp')
+
+vimp.nnoremap('<leader>fd', -> require('telescope').extensions.coc.definitions{})
+
+true

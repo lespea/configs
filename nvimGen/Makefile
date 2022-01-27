@@ -1,5 +1,8 @@
 .PHONY: gen genm clean
 
+CLEAN=
+#CLEAN=-m
+
 OUT=../nvim
 OUT_CONF=${OUT}/lua
 OUT_INIT=${OUT}/init.lua

@@ -1,0 +1,46 @@
+require('hop').setup!
+
+macro opt = -> "{
+	noremap: true
+	silent: true
+}"
+
+macro bind = (mode, keys, dir, cur, inc) ->
+	if mode == "''"
+		mode = ""
+
+	local d
+	switch dir
+		when "a"
+			d = "direction: require('hop.hint').HintDirection.AFTER_CURSOR"
+		when "b"
+			d = "direction: require('hop.hint').HintDirection.BEFORE_CURSOR"
+		when ""
+			d = ""
+		else
+			error("Unknown direction: '#{dir}'")
+
+	c = "current_line_only: false"
+	if cur == "true"
+		c = "current_line_only: true"
+
+	i = "inclusive_jump: true"
+	if inc == "false"
+		i = "inclusive_jump: false"
+
+	"vimp.bind('#{mode}', '#{keys}', ->
+		require('hop').hint_char1 {
+			#{d}
+			#{c}
+			#{i}
+		}
+	)"
+
+vimp = require('vimp')
+
+$bind no, f, a, nil, false
+$bind no, F, a, nil, nil
+$bind no, t, b, nil, false
+$bind no, T, b, nil, nil
+
+true

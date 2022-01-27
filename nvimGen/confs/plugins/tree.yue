@@ -1,0 +1,8 @@
+require('nvim-tree').setup {
+	update_to_buf_dir: { enable: false }
+}
+
+vimp = require('vimp')
+
+vimp.nnoremap('<leader>tt', ':NvimTreeToggle<CR>')
+vimp.nnoremap('<leader>tr', ':NvimTreeRefresh<CR>')

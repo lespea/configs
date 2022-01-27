@@ -1,0 +1,4 @@
+require('telescope').load_extension('goimpl')
+require('vimp').nnoremap('<leader>im', -> require('telescope').extensions.goimpl.goimpl!)
+
+true

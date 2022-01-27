@@ -2,11 +2,51 @@ global vim
 
 setMap = vim.api.nvim_set_keymap
 
-nmap = (k, f, o) -> setMap('n', k, f, o)
+macro map  = (m, k, f, o) -> "setMap(#{m}, #{k}, #{f}, #{o})"
+macro nmap = (k, f, o)    -> "$map('n', #{k}, #{f}, #{o})"
+macro vmap = (k, f, o)    -> "$map('v', #{k}, #{f}, #{o})"
 
-optRES = { noremap: true, expr: true, silent: true }
+optRES =
+	noremap: true
+	expr: true
+	silent: true
+
+optRS =
+	noremap: true
+	silent: true
+
+optS =
+	silent: true
+
+optES =
+	expr: true
+	silent: true
+
+-- Easy quit all
+$nmap('\\qa', ":qa!<CR>", optRS)
 
 -- Deal with wrapped lines
-nmap('k', "v:count == 0 ? 'gk' : 'k'", optRES)
-nmap('j', "v:count == 0 ? 'gj' : 'j'", optRES)
+$nmap('k', "v:count == 0 ? 'gk' : 'k'", optES)
+$nmap('j', "v:count == 0 ? 'gj' : 'j'", optES)
 
+-- resize up and down
+$nmap(';k', ':resize +3 <CR>', optS)
+$nmap(';j', ':resize -3 <CR>', optS)
+
+-- resize right and left
+$nmap(';l', ':vertical resize +3 <CR>', optS)
+$nmap(';h', ':vertical resize -3 <CR>', optS)
+
+--[[
+      easier moving of code blocks
+      Try to go into visual mode (v), thenselect several lines of code
+      here and then press ``>`` several times.
+--]]
+$vmap('<', '<gv', optRS)
+$vmap('>', '>gv', optRS)
+
+-- move selected line(s) up or down
+-- $vmap('J', ":m '>+1<CR>gv=gv", optRS)
+-- $vmap('K', ":m '<-2<CR>gv=gv", optRS)
+
+true

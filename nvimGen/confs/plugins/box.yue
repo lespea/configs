@@ -1,0 +1,5 @@
+vimp = require('vimp')
+
+vimp.bind('nv', '<leader>bb', -> require('comment-box').lbox!)
+vimp.bind('nv', '<leader>bc', -> require('comment-box').cbox!)
+vimp.bind('n',  '<leader>bl', -> require('comment-box').line!)

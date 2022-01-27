@@ -1,0 +1,166 @@
+macro plugin = (path, conf_name, extra) ->
+	exists = false
+
+	if conf_name? and conf_name != '' and conf_name != 'nil' and conf_name != nil
+		f = io.open("confs/plugins/#{conf_name}.yue", 'r')
+		if f?
+			io.close(f)
+			exists = true
+		else
+			error("Unknown conf '#{conf_name}'")
+
+	if exists
+		if extra?
+			"use {
+				'#{path}'
+				config: [[require('confs/plugins/#{conf_name}')]]
+				#{extra}
+			}"
+		else
+			"use {
+				'#{path}'
+				config: [[require('confs/plugins/#{conf_name}')]]
+			}"
+	else if extra?
+		"use {
+			'#{path}'
+			#{extra}
+		}"
+	else
+		"use('#{path}')"
+
+
+
+global vim
+
+import fn, api from vim
+exec = api.nvim_command
+
+install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0
+	fn.system {
+		'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path
+	}
+	exec 'packadd packer.nvim'
+
+-- don't throw any error on first use by packer
+ok, packer = pcall(require, 'packer')
+if not ok then return
+
+--onedark = 'onedark'
+
+lsp = 'lsp'
+luaDev = 'lua_dev'
+material = 'material'
+tele = 'telescope'
+trees = 'treesitter'
+vimp = 'vimp'
+
+reqDevIcons = 'kyazdani42/nvim-web-devicons'
+reqPlenary = 'nvim-lua/plenary.nvim'
+
+packer.startup (use) ->
+	-- Packer can manage itself
+	$plugin wbthomason/packer.nvim
+
+
+	-- Utils
+
+    $plugin svermeulen/vimpeccable, nil,
+    	as: vimp
+
+
+	-- Theme
+
+	$plugin marko-cerovac/material.nvim, material,
+		as: material
+
+	$plugin nvim-lualine/lualine.nvim, lualine,
+	  requires: reqDevIcons
+	  after: material
+
+
+	-- Syntax Highlighting
+
+	$plugin nvim-treesitter/nvim-treesitter, treesitter,
+		run: ':TSUpdate'
+		as: trees
+		after: material
+
+	$plugin nvim-treesitter/nvim-treesitter-refactor, nil,
+		after: trees
+
+
+	-- Code Completion
+
+	$plugin neovim/nvim-lspconfig, nil,
+		as: lsp
+
+	$plugin folke/lua-dev.nvim, nil,
+		as: luaDev
+
+	$plugin jose-elias-alvarez/null-ls.nvim, lsp,
+		after: {lsp, luaDev}
+
+	$plugin j-hui/fidget.nvim, nil,
+		config: -> require('fidget').setup!
+
+	$plugin folke/trouble.nvim, trouble,
+		after: lsp
+
+
+	-- Tree
+
+	$plugin kyazdani42/nvim-tree.lua, tree,
+		requires: reqDevIcons
+
+	$plugin elihunter173/dirbuf.nvim
+
+
+	-- Finders
+
+	$plugin nvim-telescope/telescope.nvim, telescope,
+		as: tele
+		requires: reqPlenary
+		after: {material, vimp}
+
+	$plugin nvim-telescope/telescope-fzf-native.nvim, telescope_fzf,
+		run: 'make'
+		after: tele
+
+	$plugin fannheyward/telescope-coc.nvim, telescope_coc,
+		after: tele
+
+
+	-- Movement
+
+	$plugin phaazon/hop.nvim, hop,
+		branch: 'v1'
+
+	$plugin matze/vim-move
+
+	-- Misc
+
+	$plugin LudoPinelli/comment-box.nvim, box
+
+	$plugin wellle/targets.vim
+	$plugin tpope/vim-speeddating
+	$plugin tpope/vim-surround
+	$plugin tpope/vim-unimpaired
+	$plugin triglav/vim-visual-increment
+
+	-- Can't use plugin for some reason?
+	use('tpope/vim-repeat')
+
+	-- Language Extensions
+
+	$plugin edolphin-ydf/goimpl.nvim, goimpl,
+		after: {tele, trees, vimp}
+		requires: {
+			reqPlenary
+			'nvim-lua/popup.nvim'
+			'nvim-telescope/telescope.nvim'
+			'nvim-treesitter/nvim-treesitter'
+		}
+
+	true

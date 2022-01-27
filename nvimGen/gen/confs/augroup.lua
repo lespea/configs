@@ -8,7 +8,7 @@ vim.cmd([[  augroup cline
 ]])
 vim.cmd([[	augroup YankHighlight
 		autocmd!
-		autocmd TextYankPost * silent! lua vim.highlight.on_yank()
+    	autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup='IncSearch', timeout=500, on_visual=true}
 	augroup end
 ]])
 vim.cmd([[	au CursorHold * checktim

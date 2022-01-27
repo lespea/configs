@@ -1,7 +1,7 @@
 .PHONY: gen genm clean
 
-CLEAN=
-#CLEAN=-m
+#CLEAN=
+CLEAN=-m
 
 OUT=../nvim
 OUT_CONF=${OUT}/lua
@@ -11,11 +11,14 @@ GEN=./gen
 GEN_CONF=${GEN}/confs
 GEN_INIT=${GEN}/init.lua
 
+#MV=xcp -r
+MV=mv
+
 gen: compile move
 
 move:
-	xcp -r '${GEN_CONF}' '${OUT_CONF}'
-	xcp -r '${GEN_INIT}' '${OUT_INIT}'
+	${MV} '${GEN_CONF}' '${OUT_CONF}'
+	${MV} '${GEN_INIT}' '${OUT_INIT}'
 
 compile: clean
 	yue ${CLEAN} -t ${GEN} init.yue

@@ -178,7 +178,7 @@ packer.startup (use) ->
 
     $plugin onsails/lspkind-nvim, nil,
         after: lsp
-        config: -> require('lspkind').init!
+        config: -> require('lspkind').init {}
 
     $plugin L3MON4D3/LuaSnip, nil,
         as: luaSnip
@@ -234,7 +234,7 @@ packer.startup (use) ->
     $plugin tpope/vim-unimpaired
     $plugin triglav/vim-visual-increment
 
-    $plugin triglav/vim-visual-increment, nil,
+    $plugin danymat/neogen, nil,
         config: -> require('neogen').setup {enabled: true}
 
     $plugin windwp/nvim-autopairs, autopairs,

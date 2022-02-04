@@ -19,7 +19,6 @@ antigen bundles <<EOF
     gitignore
     golang
     gpg-agent
-    jenv
     jump
     man
     mercurial
@@ -31,6 +30,7 @@ antigen bundles <<EOF
     rsync
     rust
     sbt
+    sdk
     sudo
     tig
     tmux

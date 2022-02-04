@@ -280,6 +280,8 @@ packer.startup (use) ->
     $plugin simrat39/symbols-outline.nvim, nil,
         config: -> vim.api.nvim_set_keymap('n', '<leader>so', ':SymbolsOutline<CR>', {noremap: true})
 
+    $plugin junegunn/vim-easy-align, align
+
     -- Can't use plugin for some reason?
     use('tpope/vim-repeat')
 

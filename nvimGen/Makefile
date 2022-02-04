@@ -22,7 +22,7 @@ move:
 
 compile: clean
 	yue ${CLEAN} -t ${GEN} init.yue
-	yue ${CLEAN} -t ${GEN_CONF} confs/
+	yue ${CLEAN} -t ${GEN_CONF}/bla confs/
 
 clean:
 	rm -rf '${GEN}' '${OUT_CONF}' '${OUT_INIT}'

@@ -50,10 +50,11 @@ if not ok then return
 macro material = -> "'material'"
 macro onedark  = -> "'onedark'"
 macro nightfox = -> "'nightfox'"
-theme = $nightfox
+macro tokyonight = -> "'tokyonight'"
+theme = $tokyonight
 
 macro themep = ->
-    switch "n"
+    switch "t"
         when "d"
             "$plugin navarasu/onedark.nvim, onedark,
                 as: theme"
@@ -64,6 +65,10 @@ macro themep = ->
 
         when "n"
             "$plugin EdenEast/nightfox.nvim, nightfox,
+                as: theme"
+
+        when "t"
+            "$plugin sainnhe/edge, edge,
                 as: theme"
 
         else
@@ -79,6 +84,8 @@ trees = 'treesitter'
 vimp = 'vimp'
 
 reqPlenary = 'nvim-lua/plenary.nvim'
+
+macro emptySetup = (name) -> "config: -> require('#{name}').setup{}"
 
 packer.startup (use) ->
     -- Packer can manage itself
@@ -127,7 +134,7 @@ packer.startup (use) ->
             }
 
     $plugin lewis6991/gitsigns.nvim, nil,
-        config: -> require('gitsigns').setup!
+        $emptySetup gitsigns
 
     $plugin kyazdani42/nvim-web-devicons, nil,
         as: devIcons
@@ -136,12 +143,8 @@ packer.startup (use) ->
         after: devIcons
         config: -> require('alpha').setup(require('alpha.themes.startify').config)
 
-    --$plugin romgrk/barbar.nvim, nil,
-        --after: devIcons
-
-    $plugin akinsho/bufferline.nvim, nil
+    $plugin romgrk/barbar.nvim, barbar,
         after: devIcons
-        config: -> require('bufferline').setup!
 
 
     -- Syntax Highlighting
@@ -153,6 +156,17 @@ packer.startup (use) ->
 
     $plugin nvim-treesitter/nvim-treesitter-refactor, nil,
         after: trees
+
+    $plugin rrethy/nvim-treesitter-textsubjects, nil,
+        after: trees
+        config: -> require('nvim-treesitter.configs').setup {
+            enable: true
+            keymaps: {
+                '.':'textsubjects-smart',
+                ';': 'textsubjects-container-outer',
+                'i;': 'textsubjects-container-inner',
+            },
+        }
 
     $plugin lukas-reineke/indent-blankline.nvim, blankline
 
@@ -171,7 +185,7 @@ packer.startup (use) ->
         after: {lsp, luaDev}
 
     $plugin j-hui/fidget.nvim, nil,
-        config: -> require('fidget').setup!
+        $emptySetup fidget
 
     $plugin folke/trouble.nvim, trouble,
         after: lsp
@@ -241,15 +255,24 @@ packer.startup (use) ->
         after: cmp
 
     $plugin norcalli/nvim-colorizer.lua, nil,
-        config: -> require('colorizer').setup!
+        $emptySetup colorizer
 
     $plugin blackcauldron7/surround.nvim, nil,
         config: -> require('surround').setup {mappings_style: 'surround'}
 
     $plugin numToStr/Comment.nvim, nil,
-        config: -> require('Comment').setup!
+        $emptySetup Comment
 
     $plugin ygm2/rooter.nvim
+
+    $plugin tversteeg/registers.nvim
+
+    $plugin chentau/marks.nvim, nil,
+        $emptySetup marks
+
+    $plugin winston0410/range-highlight.nvim, nil,
+        requires: 'winston0410/cmd-parser.nvim'
+        config: -> require('range-highlight').setup {}
 
     $plugin max397574/better-escape.nvim, nil,
         config: -> require("better_escape").setup {mapping: {'kj'}}

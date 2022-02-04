@@ -24,9 +24,9 @@ macro bind = (mode, keys, dir, cur, inc) ->
 	if cur == "true"
 		c = "current_line_only: true"
 
-	i = "inclusive_jump: true"
-	if inc == "false"
-		i = "inclusive_jump: false"
+	i = ""
+	if inc == "true"
+		i = "inclusive_jump: true"
 
 	"vimp.bind('#{mode}', #{keys}, ->
 		require('hop').hint_char1 {
@@ -39,19 +39,19 @@ macro bind = (mode, keys, dir, cur, inc) ->
 vimp = require('vimp')
 
 $bind n, 'f', a, nil, false
-$bind n, 'F', b, nil, nil
-$bind n, 't', a, nil, false
-$bind n, 'T', b, nil, nil
+$bind n, 'F', b, nil, false
+-- $bind n, 't', a, nil, false
+-- $bind n, 'T', b, nil, false
 
-$bind o, 'f', a, true, false
-$bind o, 'F', b, true, nil
+$bind o, 'f', a, true, true
+$bind o, 'F', b, true, true
 $bind o, 't', a, true, false
-$bind o, 'T', b, true, nil
+$bind o, 'T', b, true, false
 
-$bind no, ',,f', a, nil, false
-$bind no, ',,F', b, nil, nil
+$bind no, ',,f', a, nil, true
+$bind no, ',,F', b, nil, true
 $bind no, ',,t', a, nil, false
-$bind no, ',,T', b, nil, nil
+$bind no, ',,T', b, nil, false
 
 vimp.bind('no', ',,h', ->
 	require('hop').hint_char2!

@@ -1,0 +1,1 @@
+vim.g.tokyonight_style='storm'return vim.cmd([[colorscheme tokyonight]])

@@ -15,27 +15,67 @@ optRS =
 	noremap: true
 	silent: true
 
-optS =
-	silent: true
-
 optES =
 	expr: true
 	silent: true
 
+
+-- Easy escape insert mode
+$map('i', 'kj', '<Esc>', optRS)
+
+-- Format a paragraph
+$nmap('Q', 'gqap', optRS)
+
+-- Cleanup
+$nmap('<F9>',  ':StripWhitespace<CR>', optRS)
+$nmap('<F10>', ':set expandtab<CR>:retab<CR>', optRS)
+
+-- Buffs / Tabs
+$nmap('<F2>',  ':tab sball<CR>', optRS)
+$nmap('<F3>',  ':Rearrangetabsbypath 1<CR>', optRS)
+$nmap('<S-l>', ':tabnext<CR>', optRS)
+$nmap('<S-h>', ':tabprevious<CR>', optRS)
+$nmap('<C-t>', ':tabnew<CR>', optRS)
+
+-- Windows
+
+$nmap('<C-h>', 'h', optRS)
+$nmap('<C-j>', 'j', optRS)
+$nmap('<C-k>', 'k', optRS)
+$nmap('<C-l>', 'l', optRS)
+
+
+-- Copy/Paste
+$nmap('<C-S-V>', '"+p', optRS)
+$vmap('<C-S-C>', '"+y', optRS)
+$vmap('<leader>cc', '"+y', optRS)
+$map('i', '<leader>cp', '"+p', optRS)
+$nmap('<leader>cp', '"+p', optRS)
+$vmap('<leader>cp', '"+p', optRS)
+
+
+-- Misc
+$nmap('\\u', ':sort u<CR>:g/^$/d<CR>', optRS)
+$nmap(',cd', ':cd %:p:h<CR>', optRS)
+
 -- Easy quit all
 $nmap('\\qa', ":qa!<CR>", optRS)
+
 
 -- Deal with wrapped lines
 $nmap('k', "v:count == 0 ? 'gk' : 'k'", optES)
 $nmap('j', "v:count == 0 ? 'gj' : 'j'", optES)
 
+
 -- resize up and down
-$nmap(';k', ':resize +3 <CR>', optS)
-$nmap(';j', ':resize -3 <CR>', optS)
+$nmap(';k', ':resize +3 <CR>', optRS)
+$nmap(';j', ':resize -3 <CR>', optRS)
+
 
 -- resize right and left
-$nmap(';l', ':vertical resize +3 <CR>', optS)
-$nmap(';h', ':vertical resize -3 <CR>', optS)
+$nmap(';l', ':vertical resize +3 <CR>', optRS)
+$nmap(';h', ':vertical resize -3 <CR>', optRS)
+
 
 --[[
       easier moving of code blocks
@@ -45,8 +85,11 @@ $nmap(';h', ':vertical resize -3 <CR>', optS)
 $vmap('<', '<gv', optRS)
 $vmap('>', '>gv', optRS)
 
+
 -- move selected line(s) up or down
 -- $vmap('J', ":m '>+1<CR>gv=gv", optRS)
 -- $vmap('K', ":m '<-2<CR>gv=gv", optRS)
+
+
 
 true

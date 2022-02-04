@@ -13,6 +13,9 @@ opt.termguicolors = true
 -- Set the title window
 opt.title = true
 
+-- Global replace
+opt.gdefault = true
+
 -- List chars
 opt.list = true
 opt.listchars =

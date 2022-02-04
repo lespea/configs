@@ -1,4 +1,4 @@
-require('trouble').setup()
+require('trouble').setup!
 
 vimp = require('vimp')
 

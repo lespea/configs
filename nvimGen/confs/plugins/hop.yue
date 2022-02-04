@@ -28,7 +28,7 @@ macro bind = (mode, keys, dir, cur, inc) ->
 	if inc == "false"
 		i = "inclusive_jump: false"
 
-	"vimp.bind('#{mode}', '#{keys}', ->
+	"vimp.bind('#{mode}', #{keys}, ->
 		require('hop').hint_char1 {
 			#{d}
 			#{c}
@@ -38,9 +38,23 @@ macro bind = (mode, keys, dir, cur, inc) ->
 
 vimp = require('vimp')
 
-$bind no, f, a, nil, false
-$bind no, F, a, nil, nil
-$bind no, t, b, nil, false
-$bind no, T, b, nil, nil
+$bind n, 'f', a, nil, false
+$bind n, 'F', b, nil, nil
+$bind n, 't', a, nil, false
+$bind n, 'T', b, nil, nil
+
+$bind o, 'f', a, true, false
+$bind o, 'F', b, true, nil
+$bind o, 't', a, true, false
+$bind o, 'T', b, true, nil
+
+$bind no, ',,f', a, nil, false
+$bind no, ',,F', b, nil, nil
+$bind no, ',,t', a, nil, false
+$bind no, ',,T', b, nil, nil
+
+vimp.bind('no', ',,h', ->
+	require('hop').hint_char2!
+)
 
 true

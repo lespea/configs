@@ -1,33 +1,33 @@
 macro plugin = (path, conf_name, extra) ->
-	exists = false
+    exists = false
 
-	if conf_name? and conf_name != '' and conf_name != 'nil' and conf_name != nil
-		f = io.open("confs/plugins/#{conf_name}.yue", 'r')
-		if f?
-			io.close(f)
-			exists = true
-		else
-			error("Unknown conf '#{conf_name}'")
+    if conf_name? and conf_name != '' and conf_name != 'nil' and conf_name != nil
+        f = io.open("confs/plugins/#{conf_name}.yue", 'r')
+        if f?
+            io.close(f)
+            exists = true
+        else
+            error("Unknown conf '#{conf_name}'")
 
-	if exists
-		if extra?
-			"use {
-				'#{path}'
-				config: [[require('confs/plugins/#{conf_name}')]]
-				#{extra}
-			}"
-		else
-			"use {
-				'#{path}'
-				config: [[require('confs/plugins/#{conf_name}')]]
-			}"
-	else if extra?
-		"use {
-			'#{path}'
-			#{extra}
-		}"
-	else
-		"use('#{path}')"
+    if exists
+        if extra?
+            "use {
+                '#{path}'
+                config: [[require('confs/plugins/#{conf_name}')]]
+                #{extra}
+            }"
+        else
+            "use {
+                '#{path}'
+                config: [[require('confs/plugins/#{conf_name}')]]
+            }"
+    else if extra?
+        "use {
+            '#{path}'
+            #{extra}
+        }"
+    else
+        "use('#{path}')"
 
 
 
@@ -38,129 +38,232 @@ exec = api.nvim_command
 
 install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0
-	fn.system {
-		'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path
-	}
-	exec 'packadd packer.nvim'
+    fn.system {
+        'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path
+    }
+    exec 'packadd packer.nvim'
 
 -- don't throw any error on first use by packer
 ok, packer = pcall(require, 'packer')
 if not ok then return
 
---onedark = 'onedark'
+macro material = -> "'material'"
+macro onedark  = -> "'onedark'"
+macro nightfox = -> "'nightfox'"
+theme = $nightfox
 
+macro themep = ->
+    switch "n"
+        when "d"
+            "$plugin navarasu/onedark.nvim, onedark,
+                as: theme"
+
+        when "m"
+            "$plugin marko-cerovac/material.nvim, material,
+                as: theme"
+
+        when "n"
+            "$plugin EdenEast/nightfox.nvim, nightfox,
+                as: theme"
+
+        else
+            error("Unknown theme")
+
+cmp = 'cmp'
+devIcons = 'devicons'
 lsp = 'lsp'
 luaDev = 'lua_dev'
-material = 'material'
+luaSnip = 'luasnip'
 tele = 'telescope'
 trees = 'treesitter'
 vimp = 'vimp'
 
-reqDevIcons = 'kyazdani42/nvim-web-devicons'
 reqPlenary = 'nvim-lua/plenary.nvim'
 
 packer.startup (use) ->
-	-- Packer can manage itself
-	$plugin wbthomason/packer.nvim
+    -- Packer can manage itself
+    $plugin wbthomason/packer.nvim
 
 
-	-- Utils
+    -- Utils
 
     $plugin svermeulen/vimpeccable, nil,
-    	as: vimp
+        as: vimp
 
 
-	-- Theme
+    -- Theme
 
-	$plugin marko-cerovac/material.nvim, material,
-		as: material
+    $themep
 
-	$plugin nvim-lualine/lualine.nvim, lualine,
-	  requires: reqDevIcons
-	  after: material
+    $plugin nvim-lualine/lualine.nvim, lualine,
+        after: {theme, devIcons}
+        config: ->
+            require('lualine').setup {
+                options: {
+                    icons_enabled: true
+                    theme: theme
+                }
 
+                sections: {
+                    lualine_a: {'hostname', 'mode'},
+                    lualine_b: {'branch', 'diff', 'diagnostics'},
+                    lualine_c: {'filename', 'lsp_progress'},
+                    lualine_x: {'encoding', {'fileformat', icons_enabled: false}, 'filetype'},
+                    lualine_y: {'progress'},
+                    lualine_z: {'location'}
+                }
 
-	-- Syntax Highlighting
+                inactive_sections: {
+                    lualine_a: {},
+                    lualine_b: {},
+                    lualine_c: {'filename'},
+                    lualine_x: {'location'},
+                    lualine_y: {},
+                    lualine_z: {}
+                }
 
-	$plugin nvim-treesitter/nvim-treesitter, treesitter,
-		run: ':TSUpdate'
-		as: trees
-		after: material
+                tabline: {}
+                extensions: {}
+            }
 
-	$plugin nvim-treesitter/nvim-treesitter-refactor, nil,
-		after: trees
+    $plugin lewis6991/gitsigns.nvim, nil,
+        config: -> require('gitsigns').setup!
 
+    $plugin kyazdani42/nvim-web-devicons, nil,
+        as: devIcons
 
-	-- Code Completion
+    $plugin goolord/alpha-nvim, nil,
+        after: devIcons
+        config: -> require('alpha').setup(require('alpha.themes.startify').config)
 
-	$plugin neovim/nvim-lspconfig, nil,
-		as: lsp
+    --$plugin romgrk/barbar.nvim, nil,
+        --after: devIcons
 
-	$plugin folke/lua-dev.nvim, nil,
-		as: luaDev
-
-	$plugin jose-elias-alvarez/null-ls.nvim, lsp,
-		after: {lsp, luaDev}
-
-	$plugin j-hui/fidget.nvim, nil,
-		config: -> require('fidget').setup!
-
-	$plugin folke/trouble.nvim, trouble,
-		after: lsp
-
-
-	-- Tree
-
-	$plugin kyazdani42/nvim-tree.lua, tree,
-		requires: reqDevIcons
-
-	$plugin elihunter173/dirbuf.nvim
-
-
-	-- Finders
-
-	$plugin nvim-telescope/telescope.nvim, telescope,
-		as: tele
-		requires: reqPlenary
-		after: {material, vimp}
-
-	$plugin nvim-telescope/telescope-fzf-native.nvim, telescope_fzf,
-		run: 'make'
-		after: tele
-
-	$plugin fannheyward/telescope-coc.nvim, telescope_coc,
-		after: tele
+    $plugin akinsho/bufferline.nvim, nil
+        after: devIcons
+        config: -> require('bufferline').setup!
 
 
-	-- Movement
+    -- Syntax Highlighting
 
-	$plugin phaazon/hop.nvim, hop,
-		branch: 'v1'
+    $plugin nvim-treesitter/nvim-treesitter, treesitter,
+        run: ':TSUpdate'
+        as: trees
+        after: theme
 
-	$plugin matze/vim-move
+    $plugin nvim-treesitter/nvim-treesitter-refactor, nil,
+        after: trees
 
-	-- Misc
+    $plugin lukas-reineke/indent-blankline.nvim, blankline
 
-	$plugin LudoPinelli/comment-box.nvim, box
+    $plugin ntpeters/vim-better-whitespace
 
-	$plugin wellle/targets.vim
-	$plugin tpope/vim-speeddating
-	$plugin tpope/vim-surround
-	$plugin tpope/vim-unimpaired
-	$plugin triglav/vim-visual-increment
 
-	-- Can't use plugin for some reason?
-	use('tpope/vim-repeat')
+    -- Code Completion
 
-	-- Language Extensions
+    $plugin neovim/nvim-lspconfig, nil,
+        as: lsp
 
-	$plugin edolphin-ydf/goimpl.nvim, goimpl,
-		after: {tele, trees, vimp}
-		requires: {
-			reqPlenary
-			'nvim-lua/popup.nvim'
-			'nvim-telescope/telescope.nvim'
-			'nvim-treesitter/nvim-treesitter'
-		}
+    $plugin folke/lua-dev.nvim, nil,
+        as: luaDev
 
-	true
+    $plugin jose-elias-alvarez/null-ls.nvim, lsp,
+        after: {lsp, luaDev}
+
+    $plugin j-hui/fidget.nvim, nil,
+        config: -> require('fidget').setup!
+
+    $plugin folke/trouble.nvim, trouble,
+        after: lsp
+
+    $plugin onsails/lspkind-nvim, nil,
+        after: lsp
+        config: -> require('lspkind').init!
+
+    $plugin L3MON4D3/LuaSnip, nil,
+        as: luaSnip
+
+    $plugin hrsh7th/nvim-cmp, cmp,
+        as: cmp,
+        requires: {
+            'hrsh7th/cmp-nvim-lsp'              -- nvim-cmp source for neovim builtin LSP client
+            {'hrsh7th/cmp-nvim-lua', ft: 'lua'} -- nvim-cmp source for nvim lua
+            'hrsh7th/cmp-buffer'                -- nvim-cmp source for buffer words.
+            'hrsh7th/cmp-path'                  -- nvim-cmp source for filesystem paths.
+            'saadparwaiz1/cmp_luasnip'          -- luasnip completion source for nvim-cmp
+        }
+        after: {lsp, luasnip}
+
+    -- Tree
+
+    $plugin kyazdani42/nvim-tree.lua, tree,
+        after: devIcons
+
+    $plugin elihunter173/dirbuf.nvim
+
+
+    -- Finders
+
+    $plugin nvim-telescope/telescope.nvim, telescope,
+        as: tele
+        requires: reqPlenary
+        after: {theme, vimp}
+
+    $plugin nvim-telescope/telescope-fzf-native.nvim, telescope_fzf,
+        run: 'make'
+        after: tele
+
+    $plugin fannheyward/telescope-coc.nvim, telescope_coc,
+        after: tele
+
+
+    -- Movement
+
+    $plugin phaazon/hop.nvim, hop,
+        branch: 'v1'
+
+    $plugin matze/vim-move
+
+
+    -- Misc
+
+    $plugin LudoPinelli/comment-box.nvim, box
+
+    $plugin wellle/targets.vim
+    $plugin tpope/vim-speeddating
+    $plugin tpope/vim-unimpaired
+    $plugin triglav/vim-visual-increment
+
+    $plugin triglav/vim-visual-increment, nil,
+        config: -> require('neogen').setup {enabled: true}
+
+    $plugin windwp/nvim-autopairs, autopairs,
+        after: cmp
+
+    $plugin norcalli/nvim-colorizer.lua, nil,
+        config: -> require('colorizer').setup!
+
+    $plugin blackcauldron7/surround.nvim, nil,
+        config: -> require('surround').setup {mappings_style: 'surround'}
+
+    $plugin numToStr/Comment.nvim, nil,
+        config: -> require('Comment').setup!
+
+    $plugin ygm2/rooter.nvim
+
+    -- Can't use plugin for some reason?
+    use('tpope/vim-repeat')
+
+
+    -- Language Extensions
+
+    $plugin edolphin-ydf/goimpl.nvim, goimpl,
+        after: {tele, trees, vimp}
+        requires: {
+            reqPlenary
+            'nvim-lua/popup.nvim'
+            'nvim-telescope/telescope.nvim'
+            'nvim-treesitter/nvim-treesitter'
+        }
+
+    true

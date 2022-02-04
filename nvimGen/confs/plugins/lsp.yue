@@ -6,17 +6,17 @@ nls = require('null-ls')
 opts = {noremap: true, silent: true}
 
 macro map = (mode, bind, ...) ->
-	"vim.api.nvim_buf_set_keymap(bufnr, #{mode}, #{bind}, '<Cmd>lua #{...}<CR>', opts)"
+    "vim.api.nvim_buf_set_keymap(bufnr, #{mode}, #{bind}, '<Cmd>lua #{...}<CR>', opts)"
 
 macro nmap = (bind, ...) -> "$map('n', #{bind}, #{...})"
 macro vmap = (bind, ...) -> "$map('v', #{bind}, #{...})"
 
 on_attach = (client, bufnr) ->
-		$nmap('gD', vim.lsp.buf.declarations())
-		$nmap('gd', vim.lsp.buf.definition())
+        $nmap('gD', vim.lsp.buf.declarations())
+        $nmap('gd', vim.lsp.buf.definition())
         $nmap('gh', vim.lsp.buf.hover())
         $nmap('gi', vim.lsp.buf.implementation())
-        $nmap('<C-k>', vim.lsp.buf.signature_help())
+        $nmap('<C-p>', vim.lsp.buf.signature_help())
         $nmap('<leader>rm', vim.lsp.buf.rename())
 
         $nmap('<leader>rr', vim.lsp.buf.references())
@@ -25,34 +25,34 @@ on_attach = (client, bufnr) ->
         $nmap('[d', vim.diagnostic.goto_prev())
         $nmap(']d', vim.diagnostic.goto_next())
 
-		if client.resolved_capabilities.document_formatting
-			$nmap('<leader>=', vim.lsp.buf.formatting())
-			$vmap('<leader>=', vim.lsp.buf.formatting())
+        if client.resolved_capabilities.document_formatting
+            $nmap('<leader>=', vim.lsp.buf.formatting())
+            $vmap('<leader>=', vim.lsp.buf.formatting())
 
-			vim.cmd([[
-				augroup LspFormatting
-					autocmd! * <buffer>
-					autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
-				augroup END
-			]])
+            vim.cmd([[
+                augroup LspFormatting
+                    autocmd! * <buffer>
+                    autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+                augroup END
+            ]])
 
-		true
+        true
 
 nls.setup {
-	sources: {
-		nls.builtins.formatting.stylua
-		nls.builtins.diagnostics.eslint
-		nls.builtins.completion.spell
-	}
-	:on_attach
+    sources: {
+        nls.builtins.formatting.stylua
+        nls.builtins.diagnostics.eslint
+        nls.builtins.completion.spell
+    }
+    :on_attach
 }
 
 capabilities = vim.lsp.protocol.make_client_capabilities!
 
 for _, lang in pairs { 'pyright', 'gopls', 'rust_analyzer', 'metals'}
-	lsp[lang].setup {
-		:on_attach
-		:capabilities
-	}
+    lsp[lang].setup {
+        :on_attach
+        :capabilities
+    }
 
 true

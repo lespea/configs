@@ -1,0 +1,8 @@
+global vim
+vim.g.material_style = 'darker'
+
+require('onedark').setup {
+	style: 'warmer'
+}
+
+vim.cmd [[colorscheme onedark]]

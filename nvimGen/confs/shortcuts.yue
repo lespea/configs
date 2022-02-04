@@ -21,7 +21,7 @@ optES =
 
 
 -- Easy escape insert mode
-$map('i', 'kj', '<Esc>', optRS)
+-- $map('i', 'kj', '<Esc>', optRS)
 
 -- Format a paragraph
 $nmap('Q', 'gqap', optRS)

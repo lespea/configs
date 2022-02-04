@@ -251,6 +251,12 @@ packer.startup (use) ->
 
     $plugin ygm2/rooter.nvim
 
+    $plugin max397574/better-escape.nvim, nil,
+        config: -> require("better_escape").setup {mapping: {'kj'}}
+
+    $plugin simrat39/symbols-outline.nvim, nil,
+        config: -> vim.api.nvim_set_keymap('n', '<leader>so', ':SymbolsOutline<CR>', {noremap: true})
+
     -- Can't use plugin for some reason?
     use('tpope/vim-repeat')
 

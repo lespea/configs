@@ -11,6 +11,9 @@ optRES =
 	expr: true
 	silent: true
 
+optR =
+	noremap: true
+
 optRS =
 	noremap: true
 	silent: true
@@ -27,36 +30,36 @@ optES =
 $nmap('Q', 'gqap', optRS)
 
 -- Cleanup
-$nmap('<F9>',  ':StripWhitespace<CR>', optRS)
-$nmap('<F10>', ':set expandtab<CR>:retab<CR>', optRS)
+$nmap('<F9>',  ':StripWhitespace<CR>', optR)
+$nmap('<F10>', ':set expandtab<CR>:retab<CR>', optR)
 
 -- Buffs / Tabs
-$nmap('<F2>',  ':tab sball<CR>', optRS)
-$nmap('<F3>',  ':Rearrangetabsbypath 1<CR>', optRS)
-$nmap('<S-l>', ':tabnext<CR>', optRS)
-$nmap('<S-h>', ':tabprevious<CR>', optRS)
-$nmap('<C-t>', ':tabnew<CR>', optRS)
+-- $nmap('<F2>',  ':tab sball<CR>', optRS)
+-- $nmap('<F3>',  ':Rearrangetabsbypath 1<CR>', optRS)
+$nmap('<A-l>', ':tabnext<CR>', optRS)
+$nmap('<A-h>', ':tabprevious<CR>', optRS)
+$nmap('<C-t>', ':new<CR>', optRS)
 
 -- Windows
 
-$nmap('<C-h>', 'h', optRS)
+$nmap('<C-n>', 'h', optRS)
 $nmap('<C-j>', 'j', optRS)
 $nmap('<C-k>', 'k', optRS)
-$nmap('<C-l>', 'l', optRS)
+$nmap("<C-m>", 'l', optRS)
 
 
 -- Copy/Paste
-$nmap('<C-S-V>', '"+p', optRS)
-$vmap('<C-S-C>', '"+y', optRS)
-$vmap('<leader>cc', '"+y', optRS)
-$map('i', '<leader>cp', '"+p', optRS)
-$nmap('<leader>cp', '"+p', optRS)
-$vmap('<leader>cp', '"+p', optRS)
+$nmap('<C-S-V>', '"+p', optR)
+$vmap('<C-S-C>', '"+y', optR)
+$vmap('<leader>cc', '"+y', optR)
+$map('i', '<leader>cp', '"+p', optR)
+$nmap('<leader>cp', '"+p', optR)
+$vmap('<leader>cp', '"+p', optR)
 
 
 -- Misc
 $nmap('\\u', ':sort u<CR>:g/^$/d<CR>', optRS)
-$nmap(',cd', ':cd %:p:h<CR>', optRS)
+$nmap('cd', ':cd %:p:h<CR>', optR)
 
 -- Easy quit all
 $nmap('\\qa', ":qa!<CR>", optRS)

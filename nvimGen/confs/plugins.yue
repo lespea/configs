@@ -187,6 +187,8 @@ packer.startup (use) ->
     $plugin j-hui/fidget.nvim, nil,
         $emptySetup fidget
 
+    $plugin ray-x/lsp_signature.nvim
+
     $plugin folke/trouble.nvim, trouble,
         after: lsp
 

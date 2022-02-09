@@ -15,6 +15,7 @@ on_attach = (client, bufnr) ->
         $nmap('gD', vim.lsp.buf.declarations())
         $nmap('gd', vim.lsp.buf.definition())
         $nmap('gh', vim.lsp.buf.hover())
+        $nmap('<S-K>', vim.lsp.buf.hover())
         $nmap('gi', vim.lsp.buf.implementation())
         $nmap('<C-p>', vim.lsp.buf.signature_help())
         $nmap('<leader>rm', vim.lsp.buf.rename())
@@ -45,8 +46,28 @@ on_attach = (client, bufnr) ->
 
 nls.setup {
     sources: {
+        -- Formatting
+        nls.builtins.formatting.clang_format
+        nls.builtins.formatting.goimports
+        nls.builtins.formatting.prettier
+        nls.builtins.formatting.rustfmt
+        nls.builtins.formatting.scalafmt
         nls.builtins.formatting.stylua
-        nls.builtins.diagnostics.eslint
+        nls.builtins.formatting.yapf
+
+        -- Checks
+        nls.builtins.diagnostics.cppcheck
+        nls.builtins.diagnostics.flake8
+        nls.builtins.diagnostics.hadolint
+        nls.builtins.diagnostics.luacheck
+        nls.builtins.diagnostics.staticcheck
+        nls.builtins.diagnostics.tsc
+
+        -- Actions
+        nls.builtins.code_actions.gitsigns
+
+        -- Completions
+        nls.builtins.completion.luasnip
         nls.builtins.completion.spell
     }
     :on_attach

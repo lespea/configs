@@ -1,3 +1,8 @@
+require('comment-box').setup {
+    doc_width: 120
+    box_width: 80
+}
+
 vimp = require('vimp')
 
 vimp.bind('nv', '<leader>bb', -> require('comment-box').lbox!)

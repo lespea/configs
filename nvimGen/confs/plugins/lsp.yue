@@ -3,7 +3,7 @@ global vim
 lsp = require('lspconfig')
 nls = require('null-ls')
 
-opts = {noremap: true, silent: true}
+opts = {noremap: true, silent: false}
 
 macro map = (mode, bind, ...) ->
     "vim.api.nvim_buf_set_keymap(bufnr, #{mode}, #{bind}, '<Cmd>lua #{...}<CR>', opts)"
@@ -11,44 +11,62 @@ macro map = (mode, bind, ...) ->
 macro nmap = (bind, ...) -> "$map('n', #{bind}, #{...})"
 macro vmap = (bind, ...) -> "$map('v', #{bind}, #{...})"
 
-on_attach = (client, bufnr) ->
-        $nmap('gD', vim.lsp.buf.declarations())
-        $nmap('gd', vim.lsp.buf.definition())
-        $nmap('gh', vim.lsp.buf.hover())
-        $nmap('<S-K>', vim.lsp.buf.hover())
-        $nmap('gi', vim.lsp.buf.implementation())
-        $nmap('<C-p>', vim.lsp.buf.signature_help())
-        $nmap('<leader>rm', vim.lsp.buf.rename())
+on_attach_f = (rm) ->
+    (client, bufnr) ->
+        if rm
+            $nmap('gD', vim.lsp.buf.declarations())
+            $nmap('gd', vim.lsp.buf.definition())
+            $nmap('gh', vim.lsp.buf.hover())
+            $nmap('<S-K>', vim.lsp.buf.hover())
+            $nmap('gi', vim.lsp.buf.implementation())
+            $nmap('<C-p>', vim.lsp.buf.signature_help())
+            $nmap('<leader>rm', vim.lsp.buf.rename())
 
-        $nmap('<leader>rr', vim.lsp.buf.references())
-        $nmap('<leader>d', vim.diagnostic.open_float())
-        $nmap('<leader>i', vim.lsp.buf.code_action())
-        $nmap('[d', vim.diagnostic.goto_prev())
-        $nmap(']d', vim.diagnostic.goto_next())
+            $nmap('<leader>rr', vim.lsp.buf.references())
+            $nmap('<leader>d', vim.diagnostic.open_float())
+            $nmap('<leader>i', vim.lsp.buf.code_action())
+            $nmap('[d', vim.diagnostic.goto_prev())
+            $nmap(']d', vim.diagnostic.goto_next())
 
-        require('lsp_signature').on_attach {
-            bind: true
-            handler_opts: {border: 'rounded'}
-        }
+            require('lsp_signature').on_attach {
+                bind: true
+                handler_opts: {border: 'rounded'}
+            }
 
-        if client.resolved_capabilities.document_formatting
+            client.resolved_capabilities.document_formatting = false
+            client.resolved_capabilities.document_range_formatting = false
+
+
+        else if client.resolved_capabilities.document_formatting
             $nmap('<leader>=', vim.lsp.buf.formatting())
-            $vmap('<leader>=', vim.lsp.buf.formatting())
+            $nmap('<leader>=', vim.lsp.buf.formatting())
+            $nmap('<leaader>gf', vim.lsp.buf.formatting())
 
             vim.cmd([[
                 augroup LspFormatting
                     autocmd! * <buffer>
-                    autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+                    autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 2000)
                 augroup END
             ]])
 
+
         true
+
+on_attach = on_attach_f(true)
+
+capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities!)
+
+for _, lang in pairs { 'pyright', 'gopls', 'rust_analyzer', 'metals'}
+    lsp[lang].setup {
+        :on_attach
+        :capabilities
+    }
 
 nls.setup {
     sources: {
         -- Formatting
         nls.builtins.formatting.clang_format
-        nls.builtins.formatting.goimports
+        nls.builtins.formatting.gofumpt
         nls.builtins.formatting.prettier
         nls.builtins.formatting.rustfmt
         nls.builtins.formatting.scalafmt
@@ -70,15 +88,10 @@ nls.setup {
         nls.builtins.completion.luasnip
         nls.builtins.completion.spell
     }
-    :on_attach
+    debug: false
+    on_attach: on_attach_f(false)
+    -- :capabilities
 }
 
-capabilities = vim.lsp.protocol.make_client_capabilities!
-
-for _, lang in pairs { 'pyright', 'gopls', 'rust_analyzer', 'metals'}
-    lsp[lang].setup {
-        :on_attach
-        :capabilities
-    }
 
 true

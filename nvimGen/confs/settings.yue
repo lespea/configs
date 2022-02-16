@@ -138,6 +138,10 @@ o.wildignore = table.concat(
 )
 ]]
 
+-- Diff algorithm
+opt.diffopt\append { 'algorithm:histogram' }
+
+
 ------------------
 -- Setup Python
 ------------------

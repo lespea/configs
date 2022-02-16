@@ -47,16 +47,21 @@ if fn.empty(fn.glob(install_path)) > 0
 ok, packer = pcall(require, 'packer')
 if not ok then return
 
+macro kanagawa = -> "'kanagawa'"
 macro material = -> "'material'"
 macro onedark  = -> "'onedark'"
 macro nightfox = -> "'nightfox'"
 macro tokyonight = -> "'tokyonight'"
-theme = $tokyonight
+theme = $kanagawa
 
 macro themep = ->
-    switch "t"
+    switch "d"
         when "d"
-            "$plugin navarasu/onedark.nvim, onedark,
+            "$plugin ful1e5/onedark.nvim, onedark,
+                as: theme"
+
+        when "k"
+            "$plugin rebelot/kanagawa.nvim, kanagawa,
                 as: theme"
 
         when "m"
@@ -259,7 +264,7 @@ packer.startup (use) ->
     $plugin norcalli/nvim-colorizer.lua, nil,
         $emptySetup colorizer
 
-    $plugin blackcauldron7/surround.nvim, nil,
+    $plugin ur4ltz/surround.nvim, nil,
         config: -> require('surround').setup {mappings_style: 'surround'}
 
     $plugin numToStr/Comment.nvim, nil,

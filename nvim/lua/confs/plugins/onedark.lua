@@ -1,1 +1,1 @@
-vim.g.material_style='darker'require('onedark').setup({style='warmer'})return vim.cmd([[colorscheme onedark]])
+require('onedark').setup({})return vim.cmd([[colorscheme onedark]])

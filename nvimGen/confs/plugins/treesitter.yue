@@ -1,4 +1,4 @@
-enabled = {
+enab = {
 	enabled: true
 }
 
@@ -10,7 +10,9 @@ require('nvim-treesitter.configs').setup {
 		'scala'
 	}
 
-	highlight: enabled
+	highlight: enab
 
-	indent: enabled
+	indent: enab
+
+    rainbow: {enabled: true, extended_mode: true}
 }

@@ -250,6 +250,15 @@ packer.startup (use) ->
 
     $plugin LudoPinelli/comment-box.nvim, box
 
+    $plugin AckslD/nvim-revJ.lua, nil,
+        requires: {'kana/vim-textobj-user', 'sgur/vim-textobj-parameter'}
+        config: -> require('revj').setup {
+            keymaps: {
+                line: '<Leader>j'
+                visual: '<Leader>j'
+            }
+        }
+
     $plugin wellle/targets.vim
     $plugin tpope/vim-speeddating
     $plugin tpope/vim-unimpaired
@@ -270,6 +279,8 @@ packer.startup (use) ->
     $plugin numToStr/Comment.nvim, nil,
         $emptySetup Comment
 
+    $plugin p00f/nvim-ts-rainbow
+
     $plugin ygm2/rooter.nvim
 
     $plugin tversteeg/registers.nvim
@@ -288,6 +299,8 @@ packer.startup (use) ->
         config: -> vim.api.nvim_set_keymap('n', '<leader>so', ':SymbolsOutline<CR>', {noremap: true})
 
     $plugin junegunn/vim-easy-align, align
+
+    $plugin ahmedkhalf/project.nvim, project
 
     -- Can't use plugin for some reason?
     use('tpope/vim-repeat')

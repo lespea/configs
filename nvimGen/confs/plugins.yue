@@ -262,6 +262,7 @@ packer.startup (use) ->
     $plugin wellle/targets.vim
     $plugin tpope/vim-speeddating
     $plugin tpope/vim-unimpaired
+    $plugin tpope/vim-abolish
     $plugin triglav/vim-visual-increment
 
     $plugin danymat/neogen, nil,
@@ -284,6 +285,8 @@ packer.startup (use) ->
     $plugin ygm2/rooter.nvim
 
     $plugin tversteeg/registers.nvim
+
+    $plugin sheerun/vim-polyglot
 
     $plugin chentau/marks.nvim, nil,
         $emptySetup marks

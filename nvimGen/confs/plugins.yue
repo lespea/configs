@@ -282,6 +282,8 @@ packer.startup (use) ->
 
     $plugin p00f/nvim-ts-rainbow
 
+    $plugin yamatsum/nvim-cursorline
+
     $plugin ygm2/rooter.nvim
 
     $plugin tversteeg/registers.nvim

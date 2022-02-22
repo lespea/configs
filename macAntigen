@@ -6,8 +6,8 @@ antigen bundles <<EOF
     ansible
     autopep8
     colorize
-    copydir
     copyfile
+    copypath
     cpanm
     docker
     encode64

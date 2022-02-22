@@ -295,6 +295,7 @@ packer.startup (use) ->
 
     $plugin winston0410/range-highlight.nvim, nil,
         requires: 'winston0410/cmd-parser.nvim'
+        ft: {'py', 'go', 'scala', 'html', 'css', 'js', 'ts', 'rs'}
         config: -> require('range-highlight').setup {}
 
     $plugin max397574/better-escape.nvim, nil,

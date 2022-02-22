@@ -4,6 +4,3 @@
 [submodule "lscolors"]
 	path = lscolors
 	url = https://github.com/trapd00r/LS_COLORS.git
-[submodule "antigen"]
-	path = antigen
-	url = https://github.com/zsh-users/antigen.git

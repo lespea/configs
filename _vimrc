@@ -2,75 +2,6 @@ set nocompatible
 autocmd!
 set encoding=utf-8
 let $VIMHOME=fnamemodify(resolve(expand('<sfile>:p')), ':h')
-call plug#begin('$HOME/.vimplugged')
-Plug 'inkarkat/vim-ingo-library'
-Plug 'vim-scripts/L9'
-Plug 'airblade/vim-gitgutter'
-Plug 'chrisbra/csv.vim'
-Plug 'chrisbra/NrrwRgn'
-Plug 'chrisbra/SudoEdit.vim'
-Plug 'chrisbra/unicode.vim'
-Plug 'christoomey/vim-sort-motion'
-Plug 'derekwyatt/vim-scala'
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'easymotion/vim-easymotion'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'godlygeek/tabular'
-Plug 'gregsexton/MatchTag'
-Plug 'hail2u/vim-css3-syntax'
-Plug 'honza/vim-snippets'
-Plug 'iiey/visincr'
-Plug 'inkarkat/vim-AdvancedSorters'
-Plug 'inkarkat/vim-ChangeGloballySmartCase'
-Plug 'inkarkat/vim-CursorLineCurrentWindow'
-Plug 'jremmen/vim-ripgrep'
-Plug 'junegunn/fzf'
-Plug 'junegunn/seoul256.vim'
-Plug 'junegunn/vim-easy-align'
-Plug 'lbrayner/vim-rzip'
-Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'Matt-A-Bennett/surround-funk.vim'
-Plug 'mbbill/undotree'
-Plug 'mhinz/vim-startify'
-Plug 'mtdl9/vim-log-highlighting'
-Plug 'myusuf3/numbers.vim'
-Plug 'neapel/vim-java-bytecode'
-Plug 'pearofducks/ansible-vim'
-Plug 'powerman/vim-plugin-AnsiEsc'
-Plug 'PProvost/vim-ps1'
-Plug 'preservim/nerdcommenter'
-Plug 'preservim/nerdtree'
-Plug 'qpkorr/vim-renamer'
-Plug 'Raimondi/delimitMate'
-Plug 'rust-lang/rust.vim'
-Plug 's3rvac/vim-syntax-yara'
-Plug 'sbdchd/neoformat'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'SirVer/ultisnips'
-Plug 'taku-o/vim-reorder-columns'
-Plug 'terryma/vim-expand-region'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'tmhedberg/matchit'
-Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-characterize'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-speeddating'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
-Plug 'triglav/vim-visual-increment'
-Plug 'tweekmonster/braceless.vim'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-scripts/LargeFile'
-Plug 'w0rp/ale'
-Plug 'wellle/targets.vim'
-call plug#end()
-if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-let g:python_host_prog = expand('$HOME/.pyenv/versions/nvim2/bin/python')
-let g:python3_host_prog = expand('$HOME/.pyenv/versions/nvim3/bin/python')
 syntax on
 set synmaxcol=250
 set background=dark
@@ -89,15 +20,12 @@ if has('gui_running')
     else
         set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 11
     endif
-    colorscheme seoul256
     set antialias
 else
     if has('win32')
         colorscheme desert
     elseif has('mac')
-        colorscheme seoul256
     else
-        colorscheme seoul256
     endif
 endif
 let g:solarized_visibility='high'
@@ -414,89 +342,6 @@ function! s:CleanUpSourcefire()
     endfor
 endfunction
 command! -register CleanUpSourcefire call s:CleanUpSourcefire()
-map <silent> \e :NERDTreeToggle<CR>
-let NERDTreeWinPos    = 'left'
-let NERDTreeChDirMode = '2'
-let NERDTreeIgnore    = ['\.vim$', '\~$', '\.pyo$', '\.pyc$', '\.svn[\//]$', '\.swp$']
-let NERDTreeSortOrder = ['^__\.py$', '\/$', '*', '\.swp$',  '\.bak$', '\~$']
-if !exists('g:FuzzyFinderOptions')
-    let g:FuzzyFinderOptions                       = { 'Base':{}, 'Buffer':{}, 'File':{}, 'Dir':{}, 'MruFile':{}, 'MruCmd':{}, 'Bookmark':{}, 'Tag':{}, 'TaggedFile':{}}
-    let g:FuzzyFinderOptions.File.excluded_path    = '\v\~$|\.o$|\.exe$|\.bak$|\.swp$|((^|[/\\])\.{1,2}[/\\]$)|\.pyo$|\.pyc$|\.svn[/\\]$'
-    let g:FuzzyFinderOptions.Base.key_open_Tabpage = '<Space>'
-endif
-let g:fuzzy_matching_limit = 60
-let g:fuzzy_ceiling        = 50000
-let g:fuzzy_ignore         = "*.log;*.pyc;*.svn;*.git"
-map <silent> \f :FufFile<CR>
-map <silent> \b :FufBuffer<CR>
-au FileType vim  let b:delimitMate_quotes = " ' ` *"
-let g:delimitMate_matchpairs = "(:),[:],{:}"
-let g:delimitMate_expand_space = 1
-let g:delimitMate_expand_cr = 1
-let g:delimitMate_balance_matchpairs = 1
-vmap <Enter> <Plug>(EasyAlign)
-nmap <Leader>a <Plug>(EasyAlign)
-lua << EOF
-    vim.opt.listchars:append("eol:↴")
-    require("indent_blankline").setup {
-        show_end_of_line = true,
-    }
-EOF
-map ,, <Plug>(easymotion-prefix)
-nmap ,f <Plug>(easymotion-s2)
-nmap ,t <Plug>(easymotion-bd-t2)
-map ,l <Plug>(easymotion-lineforward)
-map ,j <Plug>(easymotion-j)
-map ,k <Plug>(easymotion-k)
-map ,h <Plug>(easymotion-linebackward)
-let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
-let g:EasyMotion_smartcase = 1
-omap ,n <Plug>(easyoperator-line-select)
-xmap ,n <Plug>(easyoperator-line-select)
-nmap d,n <Plug>(easyoperator-line-delete)
-nmap p,n <Plug>(easyoperator-line-yank)
-omap ,p <Plug>(easyoperator-phrase-select)
-xmap ,p <Plug>(easyoperator-phrase-select)
-nmap d,p <Plug>(easyoperator-phrase-delete)
-nmap p,p <Plug>(easyoperator-phrase-yank)
-let tlist_perl_settings = 'perl;u:use;r:role;e:extends;c:constant;t:const;a:attribute;s:subroutine;m:mooose doc'
-let Tlist_Show_One_File = 1
-let Tlist_Use_Right_Window = 1
-let Tlist_Sort_Type = "name"
-let Tlist_WinWidth = 45
-let g:session_autosave = 'no'
-let g:session_autoload = 'no'
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_ignore_files = ['\m\.sbt$', '\m\.scala$']
-let g:ale_completion_enabled = 1
-let g:ycm_server_keep_logfiles = 0
-let g:UltiSnipsExpandTrigger="<s-tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-let g:UltiSnipsEditSplit="vertical"
-let g:neoformat_python_autopep8 = {
-            \ 'exe': 'autopep8',
-            \ 'args': ['-s 4', '--max-line-length 120', '-E'],
-            \ 'replace': 1,
-            \ 'stdin': 1,
-            \ 'no_append': 1,
-            \ }
-let g:neoformat_python_yapf = {
-            \ 'exe': 'yapf',
-            \ 'args': ['--style="{based_on_style: chromium, column_limit: 120, indent_width: 4}"'],
-            \ 'stdin': 1,
-            \ }
-let g:neoformat_enabled_python = ['yapf']
-let g:vim_markdown_folding_disabled = 1
-let g:airline_powerline_fonts = 1
-let g:airline_solarized_bg    = 'dark'
-let g:airline_theme           = 'tomorrow'
 cmap w!! w !sudo tee % >/dev/null
 vnoremap ; :
 noremap <Space> <PageDown>

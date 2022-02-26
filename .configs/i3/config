@@ -100,16 +100,16 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # customize workspace names
-set $WS1 1:1 
-set $WS2 2:2 
-set $WS3 3:3 
-set $WS4 4:4 
-set $WS5 5:5 
-set $WS6 6:6 
-set $WS7 7:7 
-set $WS8 8:8 
-set $WS9 9:9 
-set $WS10 10:10 
+set $WS1 1:1
+set $WS2 2:2
+set $WS3 3:3
+set $WS4 4:4
+set $WS5 5:5
+set $WS6 6:6
+set $WS7 7:7
+set $WS8 8:8
+set $WS9 9:9
+set $WS10 10:10
 
 
 # switch to workspace
@@ -244,6 +244,25 @@ bindsym $mod+Pause mode "$mode_system"
 #      }
 #  }
 
+bar {
+    id bar
+    font pango:Font Awesome 12, CaskaydiaCove Nerd Font 11
+    strip_workspace_numbers yes
+    position bottom
+    status_command /usr/bin/i3status-rs
+    tray_output primary
+    #separator_symbol "  "
+    colors {
+        separator #666666
+        background #222222
+        statusline #dddddd
+        focused_workspace #0088CC #0088CC #ffffff
+        active_workspace #333333 #333333 #ffffff
+        inactive_workspace #333333 #333333 #888888
+        urgent_workspace #2f343a #900000 #ffffff
+    }
+}
+
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -5% #decrease sound volume
@@ -256,7 +275,7 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 exec --no-startup-id picom --config ~/.config/picom/picom.conf &
-exec --no-startup-id ~/.config/i3/polybar.sh &
+#exec --no-startup-id ~/.config/i3/polybar.sh &
 #exec --no-startup-id nm-applet
 exec --no-startup-id numlockx on
 exec --no-startup-id nitrogen --restore

@@ -250,7 +250,7 @@ bar {
     strip_workspace_numbers yes
     position bottom
     status_command /usr/bin/i3status-rs
-    status_padding 0
+    #status_padding 0
     height 31
     tray_output primary
     colors {

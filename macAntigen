@@ -13,6 +13,7 @@ antigen bundles <<EOF
     encode64
     fd
     fzf
+    gcloud
     git-extras
     git-remote-branch
     gitfast

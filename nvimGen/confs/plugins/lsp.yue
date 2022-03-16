@@ -56,11 +56,17 @@ on_attach = on_attach_f(true)
 
 capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities!)
 
-for _, lang in pairs { 'pyright', 'gopls', 'rust_analyzer', 'metals'}
+for _, lang in pairs { 'pyright', 'rust_analyzer', 'metals'}
     lsp[lang].setup {
         :on_attach
         :capabilities
     }
+
+lsp.gopls.setup {
+    settings: { gopls: {gofumpt: true}}
+    :on_attach
+    :capabilities
+}
 
 nls.setup {
     sources: {

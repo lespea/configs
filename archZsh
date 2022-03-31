@@ -171,13 +171,13 @@ __setupv() {
     VERSION=$1;shift
 
     pyenv virtualenv --clear --force "$VERSION" "$NAME"
-    pyenv activate "$NAME"
-    pip install -U pip setuptools $@
-    pyenv deactivate
+    pyenv shell "$NAME"
+    pyenv exec pip install -U pip setuptools $@
+    pyenv shell normal
 }
 
 setupv() {
-    __setupv nvim3 3.10.2 colorama neovim yapf
+    __setupv nvim3 3.10.4 colorama neovim "python-lsp-server[all]"
     #__setupv nvim2 2.7.18 colorama neovim yapf
 }
 

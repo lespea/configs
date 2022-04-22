@@ -203,7 +203,7 @@ workspace_auto_back_and_forth yes
 
 bindsym $mod+r mode "resize"
 
-set $Locker i3lock -d -c 000000 && sleep 1
+set $Locker i3lock-fancy-dualmonitor && sleep 1
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
@@ -276,18 +276,13 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 exec --no-startup-id picom --config ~/.config/picom/picom.conf &
-#exec --no-startup-id ~/.config/i3/polybar.sh &
-#exec --no-startup-id nm-applet
 exec --no-startup-id numlockx on
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id xfce4-clipman
 exec --no-startup-id pasystray
 exec --no-startup-id flameshot
 exec --no-startup-id redshift-gtk
-#exec --no-startup-id alacritty >/dev/null 2>/dev/null
-#exec --no-startup-id urxvtd -o -q
-exec --no-startup-id /usr/bin/xautolock -time 15 -locker /usr/bin/i3lock-fancy -detectsleep
-#exec --no-startup-id /usr/bin/python3 /usr/bin/redshift-gtk
+exec --no-startup-id /usr/bin/xautolock -time 15 -locker /usr/bin/i3lock-fancy-dualmonitor -secure
 
 #bindsym $mod+Shift+s exec --no-startup-id "STEAM_RUNTIME=1 steam"
 bindsym $mod+Shift+f exec --no-startup-id firefox-developer-edition

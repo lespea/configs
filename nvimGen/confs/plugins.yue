@@ -291,7 +291,7 @@ packer.startup (use) ->
 
     $plugin sheerun/vim-polyglot
 
-    $plugin chentau/marks.nvim, nil,
+    $plugin chentoast/marks.nvim, nil,
         $emptySetup marks
 
     $plugin winston0410/range-highlight.nvim, nil,

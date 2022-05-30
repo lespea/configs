@@ -77,7 +77,10 @@ nls.setup {
         nls.builtins.formatting.rustfmt
         nls.builtins.formatting.scalafmt
         nls.builtins.formatting.stylua
-        nls.builtins.formatting.yapf
+
+        nls.builtins.formatting.yapf.with{
+            extra_args: (p) -> {'--style', '{based_on_style: google, column_limit: 120, indent_width: 4}'}
+        }
 
         -- Checks
         nls.builtins.diagnostics.cppcheck

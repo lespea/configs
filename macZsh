@@ -190,6 +190,9 @@ else
         pyenv install -v'
 fi
 
+alias iatuin='RUSTFLAGS="-C target-cpu=native -C link-arg=-s" cargo install atuin --no-default-features --features client'
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+

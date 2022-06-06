@@ -190,3 +190,5 @@ alias pyein='MAKE_OPTS="-j12" \
   CONFIGURE_OPTS="--enable-shared --enable-optimizations --with-computed-gotos" \
   CFLAGS="-O2 -pipe" \
   pyenv install -v'
+
+alias iatuin='RUSTFLAGS="-C target-cpu=native -C link-arg=-s" cargo install atuin --no-default-features --features client'

@@ -128,7 +128,7 @@ if [[ -f "$HOME/.config/broot/launcher/bash/br" ]]; then
 fi
 export RIPGREP_CONFIG_PATH="$SCRIPT_PATH/.ripgreprc"
 
-if [ -f "$HOME/.cargo/bin/exa" ]; then
+if [ -x "$(command -v exa)" ]; then
     alias ls='exa --icons'
 
     alias l='exa -FG --icons'

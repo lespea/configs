@@ -22,7 +22,6 @@ antigen bundles <<EOF
     python
     ripgrep
     rsync
-    rust
     sbt
     scala
     sudo

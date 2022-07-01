@@ -56,6 +56,7 @@ service = { name = "openweathermap", api_key = "0b5b73641d85344cfe316696d54b6887
 [[block]]
 block = "sound"
 step_width = 5
+on_click = "pavucontrol"
 
 [[block]]
 block = "time"

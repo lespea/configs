@@ -81,5 +81,5 @@ else
     setup_link "${CUR_DIR}/archP10K" "${HOME}/.p10k.zsh"
 fi
 
-setup_link "${CUR_DIR}/vimfiles" "${HOME}/.config/nvim"
+setup_link "${CUR_DIR}/nvim" "${HOME}/.config/nvim"
 

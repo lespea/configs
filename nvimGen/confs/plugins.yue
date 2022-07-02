@@ -102,6 +102,7 @@ packer.startup (use) ->
     $plugin svermeulen/vimpeccable, nil,
         as: vimp
 
+    $plugin nvim-lua/plenary.nvim
 
     -- Theme
 
@@ -227,7 +228,6 @@ packer.startup (use) ->
 
     $plugin nvim-telescope/telescope.nvim, telescope,
         as: tele
-        requires: reqPlenary
         after: {theme, vimp}
 
     $plugin nvim-telescope/telescope-fzf-native.nvim, telescope_fzf,
@@ -274,8 +274,8 @@ packer.startup (use) ->
     $plugin norcalli/nvim-colorizer.lua, nil,
         $emptySetup colorizer
 
-    $plugin ur4ltz/surround.nvim, nil,
-        config: -> require('surround').setup {mappings_style: 'surround'}
+    $plugin kylechui/nvim-surround, nil,
+        config: -> require('nvim-surround').setup {}
 
     $plugin numToStr/Comment.nvim, nil,
         $emptySetup Comment
@@ -317,10 +317,7 @@ packer.startup (use) ->
     $plugin edolphin-ydf/goimpl.nvim, goimpl,
         after: {tele, trees, vimp}
         requires: {
-            reqPlenary
             'nvim-lua/popup.nvim'
-            'nvim-telescope/telescope.nvim'
-            'nvim-treesitter/nvim-treesitter'
         }
 
     true

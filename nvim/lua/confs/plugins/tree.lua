@@ -1,1 +1,1 @@
-require('nvim-tree').setup({update_to_buf_dir={enable=false}})local b=require('vimp')b.nnoremap('<leader>tt',':NvimTreeToggle<CR>')return b.nnoremap('<leader>tr',':NvimTreeRefresh<CR>')
+require('nvim-tree').setup({hijack_directories={enable=false}})local b=require('vimp')b.nnoremap('<leader>tt',':NvimTreeToggle<CR>')return b.nnoremap('<leader>tr',':NvimTreeRefresh<CR>')

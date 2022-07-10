@@ -51,3 +51,9 @@ alias rgg='rg -g"!vendor/"'
 export BAT_THEME="Coldark-Dark"
 
 alias tup='RUSTFLAGS="-C link-args=-s -C target-cpu=native" topgrade --disable gem'
+
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+

@@ -1,1 +1,1 @@
-require('onedark').setup({})return vim.cmd([[colorscheme onedark]])
+require('onedark').setup({style='warmer'})return require('onedark').load()

@@ -1,5 +1,4 @@
-global vim
 require('onedark').setup {
+    style: 'warmer'
 }
-
-vim.cmd [[colorscheme onedark]]
+require('onedark').load()

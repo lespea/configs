@@ -241,7 +241,7 @@ packer.startup (use) ->
     -- Movement
 
     $plugin phaazon/hop.nvim, hop,
-        branch: 'v1'
+        branch: 'v2'
 
     $plugin matze/vim-move
 
@@ -275,7 +275,7 @@ packer.startup (use) ->
         $emptySetup colorizer
 
     $plugin kylechui/nvim-surround, nil,
-        config: -> require('nvim-surround').setup {}
+        config: -> require('nvim-surround').setup{move_cursor: false}
 
     $plugin numToStr/Comment.nvim, nil,
         $emptySetup Comment

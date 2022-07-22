@@ -59,5 +59,8 @@ antigen theme romkatv/powerlevel10k
 # Auto Update antigen
 #antigen bundle unixorn/autoupdate-antigen.zshplugin
 
+# Atuin
+antigen bundle ellie/atuin@main atuin.plugin.zsh
+
 # Tell Antigen that you're done.
 antigen apply

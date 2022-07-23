@@ -1,0 +1,135 @@
+### Added by Zinit's installer
+if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
+fi
+
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-patch-dl
+    #zdharma-continuum/zinit-annex-bin-gem-node \
+    #zdharma-continuum/zinit-annex-rust
+
+### End of Zinit's installer chunk
+
+
+
+# Rust
+### zinit ice rustup cargo'!exa -> ls'
+### zinit light ogham/exa
+###
+### zinit ice rustup cargo'!bat'
+### zinit light sharkdp/bat
+###
+### zinit ice rustup cargo'!fd-find'
+### zinit light sharkdp/fd
+###
+### zinit ice rustup cargo'!du-dust'
+### zinit load zdharma-continuum/null
+
+
+
+# ZInit script
+zinit ice wait"0c" lucid reset \
+    atclone"local P=${${(M)OSTYPE:#*darwin*}:+g}
+            \${P}sed -i \
+            '/DIR/c\DIR 38;5;63;1' LS_COLORS; \
+            \${P}dircolors -b LS_COLORS > c.zsh" \
+    atpull'%atclone' pick"c.zsh" nocompile'!' \
+    atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”'
+zinit light trapd00r/LS_COLORS
+
+# Autosuggestions & fast-syntax-highlighting
+# zinit ice wait lucid atinit"ZPLGM[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay"
+zinit light zdharma-continuum/fast-syntax-highlighting
+
+# zsh-autosuggestions
+zinit ice wait lucid atload"!_zsh_autosuggest_start"
+zinit light zsh-users/zsh-autosuggestions
+
+
+
+# ZInit programs
+zinit ice from"gh-r" as"program" mv"docker* -> docker-compose"
+zinit light docker/compose
+
+zinit ice as"program" make'!' atclone'./direnv hook zsh > zhook.zsh' \
+    atpull'%atclone' src"zhook.zsh"
+zinit light direnv/direnv
+
+# More completions
+zinit light zsh-users/zsh-completions
+
+# Interactive jq
+zinit ice wait lucid
+zinit light reegnz/jq-zsh-plugin
+
+# Atuin
+zinit ice wait lucid
+zinit light ellie/atuin
+
+
+
+# Zint themes
+# After finishing the configuration wizard change the atload'' ice to:
+# -> atload'source ~/.p10k.zsh; _p9k_precmd'
+zinit ice wait'!' lucid atload'true; _p9k_precmd' nocd
+zinit light romkatv/powerlevel10k
+
+
+# OMZ plugins
+zinit snippet OMZL::bzr.zsh
+zinit snippet OMZL::cli.zsh
+zinit snippet OMZL::clipboard.zsh
+zinit snippet OMZL::compfix.zsh
+zinit snippet OMZL::completion.zsh
+zinit snippet OMZL::correction.zsh
+zinit snippet OMZL::diagnostics.zsh
+zinit snippet OMZL::directories.zsh
+zinit snippet OMZL::functions.zsh
+zinit snippet OMZL::git.zsh
+zinit snippet OMZL::grep.zsh
+zinit snippet OMZL::history.zsh
+zinit snippet OMZL::key-bindings.zsh
+zinit snippet OMZL::misc.zsh
+zinit snippet OMZL::nvm.zsh
+zinit snippet OMZL::prompt_info_functions.zsh
+zinit snippet OMZL::spectrum.zsh
+zinit snippet OMZL::termsupport.zsh
+zinit snippet OMZL::theme-and-appearance.zsh
+
+zinit snippet OMZP::ansible
+zinit snippet OMZP::colorize
+zinit snippet OMZP::copyfile
+zinit snippet OMZP::copypath
+zinit snippet OMZP::docker
+zinit snippet OMZP::encode64
+zinit snippet OMZP::fzf
+zinit snippet OMZP::gcloud
+zinit snippet OMZP::git-extras
+zinit snippet OMZP::gitignore
+zinit snippet OMZP::golang
+zinit snippet OMZP::gpg-agent
+zinit snippet OMZP::jump
+zinit snippet OMZP::man
+zinit snippet OMZP::mercurial
+zinit snippet OMZP::nvm
+zinit snippet OMZP::pip
+zinit snippet OMZP::python
+zinit snippet OMZP::rsync
+zinit snippet OMZP::rust
+zinit snippet OMZP::sbt
+zinit snippet OMZP::sdk
+zinit snippet OMZP::sudo
+zinit snippet OMZP::tig
+zinit snippet OMZP::tmux
+zinit snippet OMZP::urltools

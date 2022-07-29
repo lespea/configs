@@ -23,19 +23,7 @@ addPath 0 "$HOME/go/bin"
 addPath 1 "$HOME/bin"
 
 if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-    #  If we have custom things we need to setup, do that now
-    if [[ -f ~/.zsh_custom ]]; then
-        source ~/.zsh_custom
-    fi
-    export QT_QPA_PLATFORM=wayland
-    export SDL_VIDEODRIVER=wayland
-    export XDG_CURRENT_DESKTOP=sway
-    export XDG_SESSION_DESKTOP=sway
-    export XDG_SESSION_TYPE=wayland
-    export GDK_BACKEND=wayland
-    export MOZ_ENABLE_WAYLAND=1
-    export _JAVA_AWT_WM_NONREPARENTING=1
-    exec dbus-run-session -- /usr/bin/sway
+    "$HOME/sway.sh"
     exit
 fi
 

@@ -31,10 +31,7 @@ SCRIPT_PATH=${${(%):-%N}:A:h}
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-source "$(pyenv root)/completions/pyenv.zsh"
 
 export ZSH_AUTOSUGGEST_USE_ASYNC=1
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
@@ -168,7 +165,8 @@ __setupv() {
 
     pyenv virtualenv --clear --force "$VERSION" "$NAME"
     pyenv shell "$NAME"
-    pyenv exec pip install -U pip setuptools $@
+    pyenv exec pip install -U pip setuptools wheel
+    pyenv exec pip install -U $@
     pyenv shell normal
 }
 
@@ -188,3 +186,4 @@ alias pyein='MAKE_OPTS="-j12" \
   pyenv install -v'
 
 alias iatuin='RUSTFLAGS="-C target-cpu=native -C link-arg=-s" cargo install atuin --no-default-features --features client'
+eval "$(pyenv init -)"

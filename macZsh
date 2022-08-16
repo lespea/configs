@@ -2,17 +2,14 @@ SCRIPT_PATH=${${(%):-%N}:A:h}
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-source "$(pyenv root)/completions/pyenv.zsh"
 
 export ZSH_AUTOSUGGEST_USE_ASYNC=1
 export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 export DISABLE_MAGIC_FUNCTIONS=true
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
-export PATH="/Users/z001j31/.pyenv/shims:${PATH}"
+#export PATH="/Users/z001j31/.pyenv/shims:${PATH}"
 source $SCRIPT_PATH/antigen.zsh
 antigen init $HOME/.antigenrc
 
@@ -160,12 +157,13 @@ __setupv() {
 
     pyenv virtualenv --clear --force "$VERSION" "$NAME"
     pyenv shell "$NAME"
-    pyenv exec pip install -U pip setuptools $@
+    pyenv exec pip install -U pip setuptools wheel
+    pyenv exec pip install -U $@
     pyenv shell normal
 }
 
 setupv() {
-    __setupv nvim3 3.10.4 colorama neovim "python-lsp-server[all]"
+    __setupv nvim3 3.10.5 colorama neovim "python-lsp-server[all]"
 }
 
 if [[ `uname -m` == 'arm64' ]]; then
@@ -196,3 +194,4 @@ alias iatuin='RUSTFLAGS="-C target-cpu=native -C link-arg=-s" cargo install atui
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
+eval "$(pyenv init -)"

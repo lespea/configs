@@ -171,19 +171,21 @@ __setupv() {
 }
 
 setupv() {
-    __setupv nvim3 3.10.5 colorama neovim "python-lsp-server[all]"
+    __setupv nvim3 3.10.6 colorama neovim "python-lsp-server[all]"
     #__setupv nvim2 2.7.18 colorama neovim yapf
 }
 
-alias pyei='MAKE_OPTS="-j12" \
-  CONFIGURE_OPTS="--enable-shared --enable-optimizations --with-computed-gotos" \
-  CFLAGS="-march=native -O2 -pipe" \
-  pyenv install -v'
+alias pyei='env MAKE_OPTS="-j12" \
+    env CONFIGURE_OPTS="--enable-shared --enable-optimizations --with-computed-gotos" \
+    env CFLAGS="-march native -O2 -pipe" \
+    env CXXFLAGS="-march native -O2 -pipe" \
+    pyenv install -v'
 
-alias pyein='MAKE_OPTS="-j12" \
-  CONFIGURE_OPTS="--enable-shared --enable-optimizations --with-computed-gotos" \
-  CFLAGS="-O2 -pipe" \
-  pyenv install -v'
+alias pyei='env MAKE_OPTS="-j12" \
+    env CONFIGURE_OPTS="--enable-shared --with-computed-gotos" \
+    env CFLAGS="-march native -O2 -pipe" \
+    env CXXFLAGS="-march native -O2 -pipe" \
+    pyenv install -v'
 
 alias iatuin='RUSTFLAGS="-C target-cpu=native -C link-arg=-s" cargo install atuin --no-default-features --features client'
 eval "$(pyenv init -)"

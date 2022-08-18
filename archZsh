@@ -175,16 +175,18 @@ setupv() {
     #__setupv nvim2 2.7.18 colorama neovim yapf
 }
 
-alias pyei='env MAKE_OPTS="-j12" \
+alias pyei='mold run
+    env MAKE_OPTS="-j12" \
     env CONFIGURE_OPTS="--enable-shared --enable-optimizations --with-computed-gotos" \
-    env CFLAGS="-march native -O2 -pipe" \
-    env CXXFLAGS="-march native -O2 -pipe" \
+    env CFLAGS="-march=native -pipe" \
+    env CXXFLAGS="-march=native -pipe" \
     pyenv install -v'
 
-alias pyei='env MAKE_OPTS="-j12" \
+alias pyein='mold run
+    env MAKE_OPTS="-j12" \
     env CONFIGURE_OPTS="--enable-shared --with-computed-gotos" \
-    env CFLAGS="-march native -O2 -pipe" \
-    env CXXFLAGS="-march native -O2 -pipe" \
+    env CFLAGS="-march=native -pipe" \
+    env CXXFLAGS="-march=native -pipe" \
     pyenv install -v'
 
 alias iatuin='RUSTFLAGS="-C target-cpu=native -C link-arg=-s" cargo install atuin --no-default-features --features client'

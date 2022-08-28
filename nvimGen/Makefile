@@ -1,7 +1,7 @@
 .PHONY: gen genm clean
 
-#CLEAN=-W
-CLEAN=-m -W
+#CLEAN=
+CLEAN=-m
 
 OUT=../nvim
 OUT_CONF=${OUT}/lua

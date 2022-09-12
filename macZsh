@@ -163,7 +163,7 @@ __setupv() {
 }
 
 setupv() {
-    __setupv nvim3 3.10.6 colorama neovim "python-lsp-server[all]"
+    __setupv nvim3 3.10.7 colorama neovim "python-lsp-server[all]"
 }
 
 alias pyei='env MAKE_OPTS="-j12" \
@@ -173,7 +173,7 @@ alias pyei='env MAKE_OPTS="-j12" \
     env CXXFLAGS="-march native -O2 -pipe" \
     pyenv install -v'
 
-alias pyei='env MAKE_OPTS="-j12" \
+alias pyein='env MAKE_OPTS="-j12" \
     env PYTHON_MAKE_INSTALL_OPTS="Make=gmake" \
     env CONFIGURE_OPTS="--enable-shared --with-computed-gotos" \
     env CFLAGS="-march native -O2 -pipe" \

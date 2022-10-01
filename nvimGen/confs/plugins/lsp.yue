@@ -33,11 +33,11 @@ on_attach_f = (rm) ->
                 handler_opts: {border: 'rounded'}
             }
 
-            client.resolved_capabilities.document_formatting = false
-            client.resolved_capabilities.document_range_formatting = false
+            client.server_capabilities.document_formatting = false
+            client.server_capabilities.document_range_formatting = false
 
 
-        else if client.resolved_capabilities.document_formatting
+        else if client.server_capabilities.document_formatting
             $nmap('<leader>=', vim.lsp.buf.formatting())
             $nmap('<leader>=', vim.lsp.buf.formatting())
             $nmap('<leaader>gf', vim.lsp.buf.formatting())

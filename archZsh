@@ -171,22 +171,21 @@ __setupv() {
 }
 
 setupv() {
-    __setupv nvim3 3.10.7 colorama neovim "python-lsp-server[all]"
-    #__setupv nvim2 2.7.18 colorama neovim yapf
+    __setupv nvim3 3.10.8 colorama neovim "python-lsp-server[all]"
 }
 
-alias pyei='mold run
+alias pyei='mold -run \
     env MAKE_OPTS="-j12" \
     env CONFIGURE_OPTS="--enable-shared --enable-optimizations --with-computed-gotos" \
-    env CFLAGS="-march=native -pipe" \
-    env CXXFLAGS="-march=native -pipe" \
+    env CFLAGS="-march=native -mtune=native -pipe" \
+    env CXXFLAGS="-march=native -mtune=native -pipe" \
     pyenv install -v'
 
-alias pyein='mold run
+alias pyein='mold -run \
     env MAKE_OPTS="-j12" \
     env CONFIGURE_OPTS="--enable-shared --with-computed-gotos" \
-    env CFLAGS="-march=native -pipe" \
-    env CXXFLAGS="-march=native -pipe" \
+    env CFLAGS="-march=native -mtune=native -pipe" \
+    env CXXFLAGS="-march=native -mtune=native -pipe" \
     pyenv install -v'
 
 alias iatuin='RUSTFLAGS="-C target-cpu=native -C link-arg=-s" cargo install atuin --no-default-features --features client'

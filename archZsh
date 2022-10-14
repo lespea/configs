@@ -190,3 +190,5 @@ alias pyein='mold -run \
 
 alias iatuin='RUSTFLAGS="-C target-cpu=native -C link-arg=-s" cargo install atuin --no-default-features --features client'
 eval "$(pyenv init -)"
+
+eval "$(zoxide init zsh --hook prompt)"

@@ -38,7 +38,7 @@ $nmap('<F10>', ':set expandtab<CR>:retab<CR>', optR)
 -- $nmap('<F3>',  ':Rearrangetabsbypath 1<CR>', optRS)
 $nmap('<A-l>', ':tabnext<CR>', optRS)
 $nmap('<A-h>', ':tabprevious<CR>', optRS)
-$nmap('<C-t>', ':new<CR>', optRS)
+$nmap('<C-t>', ':tabnew<CR>', optRS)
 
 -- Windows
 

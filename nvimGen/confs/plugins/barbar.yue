@@ -8,7 +8,7 @@ set = vim.api.nvim_set_keymap
 
 macro bind = (k, cmd) -> "set('n', '<A-#{k}>', ':#{cmd}<CR>', $opt)"
 
-require('bufferline').setup {}
+require('bufferline').setup!
 
 set('n', '<S-h>', ':BufferPrevious<CR>', $opt)
 set('n', '<S-l>', ':BufferNext<CR>', $opt)

@@ -193,4 +193,4 @@ eval "$(pyenv init -)"
 
 eval "$(zoxide init zsh --hook prompt)"
 
-source /home/adam/.config/broot/launcher/bash/br
+source "$HOME/.config/broot/launcher/bash/br"

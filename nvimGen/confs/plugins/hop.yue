@@ -1,5 +1,8 @@
 require('hop').setup!
 
+hop = require('hop')
+hint = require('hop.hint')
+
 macro opt = -> "{
 	noremap: true
 	silent: true
@@ -9,12 +12,18 @@ macro bind = (mode, keys, dir, cur, inc) ->
 	if mode == "''"
 		mode = ""
 
+	off = 0
+
 	local d
 	switch dir
 		when "a"
-			d = "direction: require('hop.hint').HintDirection.AFTER_CURSOR"
+			d = "direction: hint.HintDirection.AFTER_CURSOR"
+			if inc == "false"
+				off = -1
 		when "b"
-			d = "direction: require('hop.hint').HintDirection.BEFORE_CURSOR"
+			d = "direction: hint.HintDirection.BEFORE_CURSOR"
+			if inc == "false"
+				off = 1
 		when ""
 			d = ""
 		else
@@ -24,15 +33,11 @@ macro bind = (mode, keys, dir, cur, inc) ->
 	if cur == "true"
 		c = "current_line_only: true"
 
-	i = ""
-	if inc == "true"
-		i = "inclusive_jump: true"
-
 	"vimp.bind('#{mode}', #{keys}, ->
-		require('hop').hint_char1 {
+		hop.hint_char1 {
 			#{d}
 			#{c}
-			#{i}
+			hint_offset: #{off}
 		}
 	)"
 
@@ -40,8 +45,8 @@ vimp = require('vimp')
 
 $bind n, 'f', a, nil, false
 $bind n, 'F', b, nil, false
--- $bind n, 't', a, nil, false
--- $bind n, 'T', b, nil, false
+$bind n, 't', a, nil, false
+$bind n, 'T', b, nil, false
 
 $bind o, 'f', a, true, true
 $bind o, 'F', b, true, true
@@ -54,7 +59,7 @@ $bind no, ',,t', a, nil, false
 $bind no, ',,T', b, nil, false
 
 vimp.bind('no', ',,h', ->
-	require('hop').hint_char2!
+	hop.hint_char2!
 )
 
 true

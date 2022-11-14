@@ -163,7 +163,7 @@ __setupv() {
 }
 
 setupv() {
-    __setupv nvim3 3.10.8 colorama neovim "python-lsp-server[all]"
+    __setupv nvim3 3.11.0 colorama neovim "python-lsp-server[all]"
 }
 
 alias pyei='env MAKE_OPTS="-j12" \

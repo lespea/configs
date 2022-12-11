@@ -52,7 +52,7 @@ macro material = -> "'material'"
 macro onedark  = -> "'onedark'"
 macro nightfox = -> "'nightfox'"
 macro tokyonight = -> "'tokyonight'"
-theme = $kanagawa
+theme = $onedark
 
 macro themep = ->
     switch "d"

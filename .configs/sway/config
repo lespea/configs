@@ -158,6 +158,7 @@ input "1133:49970:Logitech_Gaming_Mouse_G502_Keyboard" {
 
     # Toggle the current focus between tiling and floating mode
     bindsym $mod+Shift+space floating toggle
+    bindsym $mod+Shift+A sticky toggle
 
     # Swap focus between the tiling area and the floating area
     bindsym $mod+space focus mode_toggle

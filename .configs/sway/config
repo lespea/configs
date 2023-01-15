@@ -251,16 +251,17 @@ bindsym Control+Alt+Shift+l exec --no-startup-id 'swaylock -c 3f3f3f'
 
 include /etc/sway/config.d/*
 
+seat seat0 xcursor_theme whiteglass 28
+
 output 'Unknown MAG274QRF-QD CA8A292300550' {
     mode 2560x1440@143.855HZ
     adaptive_sync on
 }
 
 output 'Acer Technologies XV273K 0x0000FF49' {
-    # mode 3840x2160@120.018Hz
-    # mode 3840x2160@96.023Hz
     pos 0 0
     mode 3840x2160@59.997Hz
+    #mode 3840x2160@119.910Hz
     adaptive_sync on
     scale 1.4
 }

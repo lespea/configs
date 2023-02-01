@@ -58,7 +58,7 @@ export LDFLAGS="-Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now"
 export LTOFLAGS="-flto=auto"
 export MAKEFLAGS="-j20"
 
-alias tup='mold --run env RUSTFLAGS="-C link-args=-s -C target-cpu=native" topgrade --disable gem --disable pip3 --disable vim'
+alias tup='mold --run env RUSTFLAGS="-C link-args=-s -C target-cpu=native" topgrade --disable gem --disable pip3 --disable vim --skip-notify'
 alias cupa='mold --run env RUSTFLAGS="-C link-args=-s -C target-cpu=native" cargo install-update -af'
 alias cupl='mold --run env RUSTFLAGS="-C link-args=-s -C target-cpu=native" cargo install-update -a'
 alias rusti='mold --run env RUSTFLAGS="-C link-args=-s -C target-cpu=native" cargo install'

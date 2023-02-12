@@ -59,16 +59,17 @@ def setup_groups():
         ))
 
         import time
-        time.sleep(2)
+        time.sleep(1)
 
         import json
         out = json.loads(
             subprocess.check_output(['pueue', 'status', '-j', '-g', GROUP_NAME])
         )['tasks']
 
-        print(out)
         for (id, obj) in out.items():
             subprocess.check_call(['pueue', 'remove', id])
+
+        time.sleep(0.5)
 
         run_cmds((
             ['pueue', 'kill', '-g', GROUP_NAME],
@@ -84,6 +85,15 @@ def setup_groups():
         ['pueue', 'parallel', '-g', GROUP_NAME, str(cores)],
     ))
 
+
+def wait_and_clean():
+    run_cmds((
+        ['pueue', 'wait', '-g', GROUP_NAME],
+        ['pueue', 'clean', '-g', GROUP_NAME],
+        ['pueue', 'group', 'remove', GROUP_NAME],
+    ))
+
+
 def install(force: bool):
     pkgs = get_packages()
     (env, is_mold) = get_run_info()
@@ -92,6 +102,7 @@ def install(force: bool):
     setup_groups()
     for pkg in pkgs:
         subprocess.check_call(pkg.args(is_mold, force), env=env)
+    wait_and_clean()
 
 
 def main():

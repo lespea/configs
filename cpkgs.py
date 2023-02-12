@@ -41,6 +41,7 @@ def get_run_info() -> (dict[str, str], bool):
         env['LDFLAGS'] = '-Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now'
         env['LTOFLAGS'] = '-flto=auto'
         env['MAKEFLAGS'] = '-j20'
+        env['RUSTFLAGS'] = '-C link-args=-s -C target-cpu=native'
 
     return env, mold
 

@@ -9,6 +9,8 @@ import subprocess
 
 GROUP_NAME = 'cargo_pkgs'
 
+only_pkgs = {}
+
 
 def validate_pueue(recheck: bool = False):
     out = subprocess.check_output(
@@ -29,16 +31,22 @@ def get_run_info() -> (dict[str, str], bool):
 
     nix = is_nix()
     if nix or is_dar():
-        mold = nix
         env['CFLAGS'] = ' '.join((
-            '-march=native', '-mtune=native',
             '-O2', '-pipe',
             '-fno-plt', '-fexceptions',
             '-Wp,-D_FORTIFY_SOURCE=2', '-Wformat', '-Werror=format-security',
-            '-fstack-clash-protection', '-fcf-protection',
         ))
+        if nix:
+            env['CFLAGS'] = ' '.join((
+                '-march=native', '-mtune=native',
+                '-fstack-clash-protection', '-fcf-protection',
+            )) + ' ' + env['CFLAGS']
+
         env['CXXFLAGS'] = env['CFLAGS'] + ' -Wp,-D_GLIBCXX_ASSERTIONS'
-        env['LDFLAGS'] = '-Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now'
+        if nix:
+            env['LDFLAGS'] = '-Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now'
+        else:
+            env['LDFLAGS'] = '-pie'
         env['LTOFLAGS'] = '-flto=auto'
         env['MAKEFLAGS'] = '-j20'
         env['RUSTFLAGS'] = '-C link-args=-s -C target-cpu=native'
@@ -78,7 +86,7 @@ def setup_groups():
         ))
 
     import math
-    cores = math.ceil(len(os.sched_getaffinity(0)) / 4)
+    cores = math.ceil(os.cpu_count() / 4)
 
     run_cmds((
         ['pueue', 'group', 'add', GROUP_NAME],
@@ -94,30 +102,74 @@ def wait_and_clean():
     ))
 
 
-def install(force: bool):
+def install(args):
     pkgs = get_packages()
     (env, is_mold) = get_run_info()
 
     validate_pueue()
     setup_groups()
     for pkg in pkgs:
-        subprocess.check_call(pkg.args(is_mold, force), env=env)
+        if len(only_pkgs) == 0 or pkg.pkg in only_pkgs:
+            subprocess.check_call(pkg.args(is_mold, args.force), env=env)
     wait_and_clean()
+
+
+def find_missing(args):
+    import io
+    import re
+
+    pkg = re.compile(r'''^(\S+)\s+v.*''')
+    pkgs = set()
+
+    out = subprocess.check_output(['cargo', 'install-update', '-al']).decode()
+    for line in io.StringIO(out):
+        m = pkg.match(line)
+        if m is not None:
+            pkgs.add(m.group(1))
+
+    missing = set()
+    for pInfo in get_packages():
+        name = pInfo.pkg
+        if name not in pkgs:
+            missing.add(name)
+
+    if len(missing) > 0:
+        print('Missing the follow packages: ' + ', '.join(missing))
+    else:
+        print('No missing packages found!')
 
 
 def main():
     import argparse
 
+    # Setup
     parser = argparse.ArgumentParser(
         prog='Cargo Packages',
         description='Installs our wanted rust applications'
     )
+    sub = parser.add_subparsers()
 
-    parser.add_argument('-f', '--force', action='store_true',
-                        help='force install via cargo')
+    # Install
+    inst = sub.add_parser(
+        'install',
+        description='Installs our wanted rust applications'
+    )
 
+    inst.add_argument('-f', '--force', action='store_true',
+                      help='force install via cargo')
+
+    inst.set_defaults(func=install)
+
+    # Missing
+    missing = sub.add_parser(
+        'missing',
+        description='Finds any cargo packages not managed by this helper'
+    )
+    missing.set_defaults(func=find_missing)
+
+    # Parse and run
     args = parser.parse_args()
-    install(args.force)
+    args.func(args)
 
 
 class PkgInfo:
@@ -193,7 +245,6 @@ def get_packages() -> list[PkgInfo]:
         PkgInfo('cargo-generate'),
         PkgInfo('cargo-outdated'),
         PkgInfo('cargo-update'),
-        PkgInfo('coreutils'),
         PkgInfo('csview'),
         PkgInfo('difftastic'),
         PkgInfo('du-dust'),
@@ -248,6 +299,7 @@ def get_packages() -> list[PkgInfo]:
     ]
 
     if is_nix():
+        uutils_feat = 'unix'
         want.extend(nix_pkgs)
 
         sess = os.getenv('XDG_SESSION_TYPE')
@@ -257,15 +309,19 @@ def get_packages() -> list[PkgInfo]:
             want.extend(gui_pkgs)
 
     elif is_dar():
+        uutils_feat = 'macos'
         want.extend(nix_pkgs)
         want.extend(gui_pkgs)
 
     elif is_win():
+        uutils_feat = 'windows'
         want.extend(win_pkgs)
         want.extend(gui_pkgs)
 
     else:
         raise RuntimeError('Weird platform? ' + platform.system())
+
+    want.append(PkgInfo('coreutils', features=[uutils_feat]))
 
     return sorted(want, key=lambda x: x.pkg)
 

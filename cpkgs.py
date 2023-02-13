@@ -5,6 +5,7 @@ from typing import Optional
 import platform
 import os
 import subprocess
+import sys
 
 
 GROUP_NAME = 'cargo_pkgs'
@@ -147,7 +148,7 @@ def main():
         prog='Cargo Packages',
         description='Installs our wanted rust applications'
     )
-    sub = parser.add_subparsers()
+    sub = parser.add_subparsers(required=True)
 
     # Install
     inst = sub.add_parser(
@@ -168,7 +169,8 @@ def main():
     missing.set_defaults(func=find_missing)
 
     # Parse and run
-    args = parser.parse_args()
+    args = parser.parse_args(['install'] if len(sys.argv) == 1 else None)
+
     args.func(args)
 
 

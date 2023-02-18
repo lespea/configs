@@ -259,7 +259,6 @@ def get_packages() -> list[PkgInfo]:
         PkgInfo('ht'),
         PkgInfo('https'),
         PkgInfo('igrep'),
-        PkgInfo('jless'),
         PkgInfo('jsonxf'),
         PkgInfo('just'),
         PkgInfo('lsd'),
@@ -272,8 +271,6 @@ def get_packages() -> list[PkgInfo]:
         PkgInfo('sd'),
         PkgInfo('simple-http-server'),
         PkgInfo('tokei', features=['all']),
-        PkgInfo('topgrade'),
-        PkgInfo('wasm-pack'),
         PkgInfo('watchexec-cli'),
         PkgInfo('xsv'),
         PkgInfo('zoxide'),
@@ -284,11 +281,15 @@ def get_packages() -> list[PkgInfo]:
         PkgInfo('bandwhich'),
         PkgInfo('bottom'),
         PkgInfo('exa'),
+        PkgInfo('jless'),
+        PkgInfo('topgrade'),
+        PkgInfo('wasm-pack'),
         PkgInfo('xcp'),
         PkgInfo('zellij'),
     ]
 
     win_pkgs = [
+        PkgInfo('czkawka_cli'),
         PkgInfo('pueue'),
     ]
 
@@ -318,7 +319,6 @@ def get_packages() -> list[PkgInfo]:
     elif is_win():
         uutils_feat = 'windows'
         want.extend(win_pkgs)
-        want.extend(gui_pkgs)
 
     else:
         raise RuntimeError('Weird platform? ' + platform.system())

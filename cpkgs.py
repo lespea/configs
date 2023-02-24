@@ -285,7 +285,6 @@ def get_packages() -> list[PkgInfo]:
         PkgInfo('topgrade'),
         PkgInfo('wasm-pack'),
         PkgInfo('xcp'),
-        PkgInfo('zellij'),
     ]
 
     win_pkgs = [

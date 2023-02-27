@@ -63,7 +63,7 @@ export LC_ALL=en_US.UTF-8
 alias rgg='rg -g"!vendor/"'
 alias gof='find . -name vendor -prune -o -iname "*.go" -print0|parallel -X0 goimports -w'
 
-alias tup='RUSTFLAGS="-C link-args=-s -C target-cpu=native" topgrade --disable gem --disable pip3 --disable vim --skip-notify'
+alias tup='RUSTFLAGS="-C link-args=-s -C target-cpu=native" topgrade --disable gem --disable pip3 --disable vim --disable cargo --skip-notify'
 alias cupa='RUSTFLAGS="-C link-args=-s -C target-cpu=native" cargo install-update -af'
 alias cupl='RUSTFLAGS="-C link-args=-s -C target-cpu=native" cargo install-update -l'
 alias cupi='RUSTFLAGS="-C link-args=-s -C target-cpu=native" cargo install'

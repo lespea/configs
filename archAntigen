@@ -16,7 +16,6 @@ antigen bundles <<EOF
     gitfast
     golang
     gpg-agent
-    iterm2
     jump
     man
     mercurial

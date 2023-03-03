@@ -248,7 +248,7 @@ packer.startup (use) ->
 
     -- Misc
 
-    $plugin LudoPinelli/comment-box.nvim, box
+    --$plugin LudoPinelli/comment-box.nvim, box
 
     $plugin AckslD/nvim-revJ.lua, nil,
         requires: {'kana/vim-textobj-user', 'sgur/vim-textobj-parameter'}

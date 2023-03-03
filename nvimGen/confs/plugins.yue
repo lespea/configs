@@ -280,7 +280,7 @@ packer.startup (use) ->
     $plugin numToStr/Comment.nvim, nil,
         $emptySetup Comment
 
-    $plugin p00f/nvim-ts-rainbow
+    $plugin mrjones2014/nvim-ts-rainbow
 
     $plugin yamatsum/nvim-cursorline, nil
         ft: {'py', 'go', 'scala', 'html', 'css', 'js', 'ts', 'rs'}

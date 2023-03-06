@@ -12,7 +12,7 @@
   "goimpl.nvim": { "branch": "main", "commit": "1d14529ec6143e4b6e51a83738d61de7333267fb" },
   "hop.nvim": { "branch": "v2", "commit": "90db1b2c61b820e230599a04fedcd2679e64bd07" },
   "indent-blankline.nvim": { "branch": "master", "commit": "018bd04d80c9a73d399c1061fa0c3b14a7614399" },
-  "lazy.nvim": { "branch": "main", "commit": "e89acede13f46a5db229133cf0c87aee74938c56" },
+  "lazy.nvim": { "branch": "main", "commit": "14075657131b9a19883a8845c47f1ab65461cd6f" },
   "lsp-zero.nvim": { "branch": "v2.x", "commit": "ce7ee141e9a1a374dd25a999ad1e6b2f868c0e66" },
   "lualine.nvim": { "branch": "master", "commit": "e99d733e0213ceb8f548ae6551b04ae32e590c80" },
   "marks.nvim": { "branch": "master", "commit": "76aca5069c5ce5c0099e30168649e6393e494f26" },

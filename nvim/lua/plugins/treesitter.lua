@@ -120,7 +120,7 @@ return {
     end,
   },
   {
-    'IndianBoy42/tree-sitter-just',
+    'lespea/tree-sitter-just',
     opts = {},
     lazy = false,
     dependencies = {

@@ -15,7 +15,7 @@ local optR = {}
 set('n', 'Q', 'gqap', optRS)
 
 -- Cleanup
-set('n', '<F9>',  ':StripWhitespace<CR>', optR)
+set('n', '<F9>', ':StripWhitespace<CR>', optR)
 set('n', '<F10>', ':set expandtab<CR>:retab<CR>', optR)
 
 -- Buffs / Tabs
@@ -33,9 +33,9 @@ set('n', '<C-m>', 'l', optRS)
 
 -- Copy/Paste
 set('n', '<C-S-V>', '"+p', optR)
-set('v','<C-S-C>', '"+y', optR)
-set('v','<leader>cc', '"+y', optR)
-set({'i', 'n', 'v'}, '<leader>cp', '"+p', optR)
+set('v', '<C-S-C>', '"+y', optR)
+set('v', '<leader>cc', '"+y', optR)
+set({ 'i', 'n', 'v' }, '<leader>cp', '"+p', optR)
 
 
 -- Misc

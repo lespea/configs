@@ -11,16 +11,13 @@ local function add_bind(hop, hint, mode, keys, dir, cur, inc)
     if not inc then
       move_opts['hint_offset'] = -1
     end
-
   elseif dir == 'b' then
     move_opts['direction'] = hint.HintDirection.BEFORE_CURSOR
     if not inc then
       move_opts['hint_offset'] = 1
     end
-
   elseif dir ~= '' then
     error('Unknown direction: ' .. dir)
-
   end
 
   set(mode, keys, function() hop.hint_char1(move_opts) end, opts)
@@ -44,7 +41,7 @@ return {
     add_bind(hop, hint, 'o', 't', 'a', true, false)
     add_bind(hop, hint, 'o', 'T', 'b', true, false)
 
-    local no = {'n', 'o'}
+    local no = { 'n', 'o' }
 
     add_bind(hop, hint, no, ',,f', 'a', nil, true)
     add_bind(hop, hint, no, ',,F', 'b', nil, true)

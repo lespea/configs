@@ -30,14 +30,14 @@ local bufSettingsGrp = augroup("Settings", { clear = true })
 -- Check for updates
 autocmd("CursorHold", {
   pattern = "*",
-  command =  "checktim",
+  command = "checktim",
   group = bufSettingsGrp,
 })
 
 -- Relative line numbering
 autocmd("BufRead", {
   pattern = "*",
-  command =  "set rnu",
+  command = "set rnu",
   group = bufSettingsGrp,
 })
 

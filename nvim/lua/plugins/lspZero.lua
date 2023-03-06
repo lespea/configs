@@ -2,8 +2,8 @@ return {
   {
     'WhoIsSethDaniel/mason-tool-installer.nvim',
     dependencies = {
-      {'williamboman/mason.nvim'},
-      {'williamboman/mason-lspconfig.nvim'},
+      { 'williamboman/mason.nvim' },
+      { 'williamboman/mason-lspconfig.nvim' },
     },
     opts = {
       ensure_installed = {
@@ -26,7 +26,6 @@ return {
         'stylua',
         'typescript-language-server',
       },
-
       auto_update = true,
       debounce_hours = 5,
     }
@@ -36,14 +35,14 @@ return {
     branch = 'v2.x',
     dependencies = {
       -- LSP Support
-      {'neovim/nvim-lspconfig'},             -- Required
-      {'williamboman/mason.nvim'},           -- Optional
-      {'williamboman/mason-lspconfig.nvim'}, -- Optional
+      { 'neovim/nvim-lspconfig' },           -- Required
+      { 'williamboman/mason.nvim' },         -- Optional
+      { 'williamboman/mason-lspconfig.nvim' }, -- Optional
 
       -- Autocompletion
-      {'hrsh7th/nvim-cmp'},     -- Required
-      {'hrsh7th/cmp-nvim-lsp'}, -- Required
-      {'L3MON4D3/LuaSnip'},     -- Required
+      { 'hrsh7th/nvim-cmp' },   -- Required
+      { 'hrsh7th/cmp-nvim-lsp' }, -- Required
+      { 'L3MON4D3/LuaSnip' },   -- Required
     },
     config = function()
       local lsp = require('lsp-zero').preset {
@@ -67,7 +66,7 @@ return {
       })
 
       lsp.on_attach(function(client, bufnr)
-        lsp.default_keymaps({buffer = bufnr})
+        lsp.default_keymaps({ buffer = bufnr })
       end)
 
       -- (Optional) Configure lua language server for neovim

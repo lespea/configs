@@ -1,4 +1,4 @@
-opts = { silent = true }
+local opts = { silent = true }
 
 return {
   'romgrk/barbar.nvim',

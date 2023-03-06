@@ -3,13 +3,13 @@ local set = vim.keymap.set
 return {
   'LudoPinelli/comment-box.nvim',
   config = function()
-      box = require('comment-box.impl')
+      local box = require('comment-box.impl')
       box.setup {
         doc_width = 120,
         box_width = 80,
       }
 
-      nv = {'n', 'v'}
+      local nv = {'n', 'v'}
 
       set(nv,  '<leader>bb', function() box.lbox() end)
       set(nv,  '<leader>bc', function() box.cbox() end)

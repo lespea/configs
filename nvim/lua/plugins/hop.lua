@@ -1,8 +1,7 @@
 local set = vim.keymap.set
 local opts = { silent = true }
 
-function add_bind(hop, hint, mode, keys, dir, cur, inc)
-  local offset = 0
+local function add_bind(hop, hint, mode, keys, dir, cur, inc)
   local move_opts = {
     current_line_only = cur,
   }
@@ -45,7 +44,7 @@ return {
     add_bind(hop, hint, 'o', 't', 'a', true, false)
     add_bind(hop, hint, 'o', 'T', 'b', true, false)
 
-    no = {'n', 'o'}
+    local no = {'n', 'o'}
 
     add_bind(hop, hint, no, ',,f', 'a', nil, true)
     add_bind(hop, hint, no, ',,F', 'b', nil, true)

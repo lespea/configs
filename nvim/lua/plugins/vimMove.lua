@@ -1,1 +1,3 @@
-return 'matze/vim-move'
+return {
+  'matze/vim-move',
+}

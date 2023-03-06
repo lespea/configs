@@ -1,7 +1,8 @@
 return {
-  'wellle/targets.vim',
+  'tpope/vim-abolish',
+  'tpope/vim-repeat',
   'tpope/vim-speeddating',
   'tpope/vim-unimpaired',
-  'tpope/vim-abolish',
   'triglav/vim-visual-increment',
+  'wellle/targets.vim',
 }

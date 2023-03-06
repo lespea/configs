@@ -3,6 +3,5 @@ require('confs/01_lazy')
 require('confs/10_settings')
 require('confs/20_abbs')
 require('confs/21_augroup')
---require('confs/shortcuts')
---require('confs/post_plugins')
+require('confs/22_shortcuts')
 return

@@ -1,1 +1,0 @@
-require('telescope').load_extension('coc')local b=require('vimp')b.nnoremap('<leader>fd',function()return require('telescope').extensions.coc.definitions({})end)return true

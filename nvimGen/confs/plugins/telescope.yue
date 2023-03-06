@@ -1,9 +1,0 @@
-vimp = require('vimp')
-ts = require('telescope')
-
-vimp.nnoremap('<leader>ff', -> require('telescope.builtin').find_files())
-vimp.nnoremap('<leader>fg', -> require('telescope.builtin').live_grep())
-vimp.nnoremap('<leader>fb', -> require('telescope.builtin').buffers())
-vimp.nnoremap('<leader>fh', -> require('telescope.builtin').help_tags())
-
-true

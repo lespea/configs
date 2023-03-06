@@ -1,1 +1,0 @@
-require('onedark').setup({style='warmer'})return require('onedark').load()

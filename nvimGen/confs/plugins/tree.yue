@@ -1,8 +1,0 @@
-require('nvim-tree').setup {
-	hijack_directories: { enable: false }
-}
-
-vimp = require('vimp')
-
-vimp.nnoremap('<leader>tt', ':NvimTreeToggle<CR>')
-vimp.nnoremap('<leader>tr', ':NvimTreeRefresh<CR>')

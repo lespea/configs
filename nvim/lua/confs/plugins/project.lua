@@ -1,1 +1,0 @@
-return require('project_nvim').setup({detection_methods={"lsp","pattern"},patterns={".git","go.mod","Makefile","package.json","requirements.txt","build.sbt","cargo.toml"}})

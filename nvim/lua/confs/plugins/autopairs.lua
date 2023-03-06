@@ -1,1 +1,0 @@
-require('nvim-autopairs').setup()local c=require('nvim-autopairs.completion.cmp')local a=require('cmp')return a.event:on('confirm_done',c.on_confirm_done({map_char={tex=''}}))

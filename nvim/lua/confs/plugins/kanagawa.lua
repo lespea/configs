@@ -1,1 +1,0 @@
-require('kanagawa').setup({})return vim.cmd([[colorscheme kanagawa]])

@@ -1,1 +1,0 @@
-local b=require('vimp')b.add_chord_cancellations('n','<leader>')b.map_command("ShowAllMaps",function(...)return b.show_maps('',...)end)return b.map_command("ShowMaps",function(...)return b.show_maps(...)end)

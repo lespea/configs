@@ -3,7 +3,7 @@ local set = vim.keymap.set
 return {
   'LudoPinelli/comment-box.nvim',
   config = function()
-    local box = require('comment-box.impl')
+    local box = require('comment-box')
     box.setup {
       doc_width = 120,
       box_width = 80,

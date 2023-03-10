@@ -128,6 +128,14 @@ return {
     },
   },
   {
+    'Wansmer/treesj',
+    opts = {},
+    lazy = false,
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+    },
+  },
+  {
     "chrisgrieser/nvim-various-textobjs",
     config = function()
       require("various-textobjs").setup {

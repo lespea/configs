@@ -11,7 +11,7 @@ local opt = vim.opt -- Set options (global/buffer/windows-scoped)
 -----------------------------------------------------------
 -- Setup our leaders
 opt.mouse = 'a'                               -- Enable mouse support
-opt.clipboard = 'unnamedplus'                 -- Copy/paste to system clipboard
+-- opt.clipboard = 'unnamedplus'                 -- Copy/paste to system clipboard
 opt.swapfile = false                          -- Don't use swapfile
 opt.backup = false                            -- No backup files
 opt.writebackup = false                       -- No backup files

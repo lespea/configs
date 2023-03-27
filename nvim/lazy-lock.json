@@ -23,7 +23,7 @@
   "nvim-cmp": { "branch": "main", "commit": "777450fd0ae289463a14481673e26246b5e38bf2" },
   "nvim-colorizer.lua": { "branch": "master", "commit": "36c610a9717cc9ec426a07c8e6bf3b3abcb139d6" },
   "nvim-lspconfig": { "branch": "master", "commit": "c5505c70571b094663745167d40388edd40f6450" },
-  "nvim-surround": { "branch": "main", "commit": "056f69ed494198ff6ea0070cfc66997cfe0a6c8b" },
+  "nvim-surround": { "branch": "main", "commit": "ed4e95c89f96019688463f30a3ee218ed3682bd3" },
   "nvim-tree.lua": { "branch": "master", "commit": "a38f9a55a4b55b0aa18af7abfde2c17a30959bdf" },
   "nvim-treesitter": { "branch": "master", "commit": "e559b6fb3f1b09d96568705c668abb8c55b7e3e4" },
   "nvim-treesitter-refactor": { "branch": "master", "commit": "b216290a2a47c856cf95cdc35e0c8d2c6306d89a" },
@@ -52,5 +52,6 @@
   "vim-repeat": { "branch": "master", "commit": "24afe922e6a05891756ecf331f39a1f6743d3d5a" },
   "vim-speeddating": { "branch": "master", "commit": "5a36fd29df63ea3f65562bd2bb837be48a5ec90b" },
   "vim-unimpaired": { "branch": "master", "commit": "6d44a6dc2ec34607c41ec78acf81657248580bf1" },
-  "vim-visual-increment": { "branch": "master", "commit": "0e55bb4054cdd5eefc0bb870f3e3c249673817cb" }
+  "vim-visual-increment": { "branch": "master", "commit": "0e55bb4054cdd5eefc0bb870f3e3c249673817cb" },
+  "vimtex": { "branch": "master", "commit": "e57b589a8ef3c67e3edfc0492bfee8b196eafefd" }
 }

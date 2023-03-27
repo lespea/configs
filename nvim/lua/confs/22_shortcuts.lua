@@ -69,4 +69,7 @@ set('n', ';h', ':vertical resize -3 <CR>', optRS)
 set('v', '<', '<gv', optRS)
 set('v', '>', '>gv', optRS)
 
+set("x", "p", function() return 'pgv"' .. vim.v.register .. "y" end, { remap = false, expr = true })
+
+
 return true

@@ -29,6 +29,7 @@ return {
           'javascript',
           'json',
           'kotlin',
+          'latex',
           'lua',
           'make',
           'meson',

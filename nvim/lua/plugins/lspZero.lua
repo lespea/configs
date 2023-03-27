@@ -67,6 +67,11 @@ return {
 
       lsp.on_attach(function(client, bufnr)
         lsp.default_keymaps({ buffer = bufnr })
+        lsp.buffer_autoformat()
+
+        vim.keymap.set({ 'n', 'x' }, 'gf', function()
+          vim.lsp.buf.format({ async = false, timeout_ms = 10000 })
+        end)
       end)
 
       -- (Optional) Configure lua language server for neovim

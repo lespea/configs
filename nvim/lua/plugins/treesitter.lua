@@ -103,17 +103,17 @@ return {
             lookahead = true,
             keymaps = {
               -- You can use the capture groups defined in textobjects.scm
-                  ["af"] = "@function.outer",
-                  ["if"] = "@function.inner",
-                  ["ac"] = "@class.outer",
-                  ["ic"] = "@class.inner",
-                  ["ap"] = "@parameter.outer",
-                  ["ip"] = "@parameter.inner",
-                  ["ab"] = "@block.outer",
-                  ["ib"] = "@block.inner",
-                  ["aa"] = "@assignment.outer",
-                  ["asl"] = "@assignment.lhs",
-                  ["asr"] = "@assignment.rhs",
+              ["af"] = "@function.outer",
+              ["if"] = "@function.inner",
+              ["ac"] = "@class.outer",
+              ["ic"] = "@class.inner",
+              ["ap"] = "@parameter.outer",
+              ["ip"] = "@parameter.inner",
+              ["ab"] = "@block.outer",
+              ["ib"] = "@block.inner",
+              ["aa"] = "@assignment.outer",
+              ["asl"] = "@assignment.lhs",
+              ["asr"] = "@assignment.rhs",
             },
           },
         },
@@ -140,7 +140,7 @@ return {
     "chrisgrieser/nvim-various-textobjs",
     config = function()
       require("various-textobjs").setup {
-        useDefaultKeymaps = true
+        useDefaultKeymaps = false
       }
     end,
   },

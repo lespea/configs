@@ -3,3 +3,8 @@ Elxsi
 nonrepudiation
 cpu
 Zeek
+FIM
+SELinux
+syscalls
+CVE
+CVEs

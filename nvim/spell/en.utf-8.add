@@ -8,3 +8,11 @@ SELinux
 syscalls
 CVE
 CVEs
+intel
+Bianco
+ip
+Tymnet
+ttp
+TTPs
+exfiltrate
+IOC

@@ -16,3 +16,9 @@ ttp
 TTPs
 exfiltrate
 IOC
+Lesperance
+allowlist
+src
+denylist
+impl
+AWS

@@ -265,7 +265,7 @@ def get_packages() -> list[PkgInfo]:
         PkgInfo('igrep'),
         PkgInfo('jsonxf'),
         PkgInfo('just'),
-        PkgInfo('lscolors', features=['crossterm']),
+        PkgInfo('lscolors', features=['crossterm', 'nu-ansi-term']),
         PkgInfo('lsd'),
         PkgInfo('mdcat'),
         PkgInfo('nu'),

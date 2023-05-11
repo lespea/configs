@@ -72,7 +72,8 @@ def setup_groups():
 
         import json
         out = json.loads(
-            subprocess.check_output(['pueue', 'status', '-j', '-g', GROUP_NAME])
+            subprocess.check_output(
+                ['pueue', 'status', '-j', '-g', GROUP_NAME])
         )['tasks']
 
         for (id, obj) in out.items():
@@ -236,6 +237,7 @@ class PkgInfo:
 
 def get_packages() -> list[PkgInfo]:
     want = [
+        PkgInfo('ast-grep'),
         PkgInfo('b3sum'),
         PkgInfo('bacon'),
         PkgInfo('bat'),

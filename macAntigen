@@ -27,6 +27,7 @@ antigen bundles <<EOF
     nvm
     macos
     pip
+    pyenv
     #python
     ripgrep
     rsync

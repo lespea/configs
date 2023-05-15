@@ -19,6 +19,8 @@ antigen bundles <<EOF
     jump
     man
     mercurial
+    pip
+    pyenv
     #python
     ripgrep
     rsync

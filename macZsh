@@ -9,7 +9,6 @@ export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 export DISABLE_MAGIC_FUNCTIONS=true
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
-#export PATH="/Users/z001j31/.pyenv/shims:${PATH}"
 source $SCRIPT_PATH/antigen.zsh
 antigen init $HOME/.antigenrc
 
@@ -187,4 +186,3 @@ alias iatuin='RUSTFLAGS="-C target-cpu=native -C link-arg=-s" cargo install atui
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-eval "$(pyenv init -)"

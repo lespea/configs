@@ -192,5 +192,6 @@ alias pyein='mold -run \
 alias iatuin='RUSTFLAGS="-C target-cpu=native -C link-arg=-s" cargo install atuin --no-default-features --features client'
 
 eval "$(zoxide init zsh --hook prompt)"
+eval "$(pyenv init -)"
 
 source "$HOME/.config/broot/launcher/bash/br"

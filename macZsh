@@ -186,3 +186,4 @@ alias iatuin='RUSTFLAGS="-C target-cpu=native -C link-arg=-s" cargo install atui
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
+eval "$(pyenv init -)"

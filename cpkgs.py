@@ -244,6 +244,7 @@ def get_packages() -> list[PkgInfo]:
         PkgInfo('bingrep'),
         PkgInfo('blake2_bin'),
         PkgInfo('broot'),
+        PkgInfo('cargo-audit'),
         PkgInfo('cargo-cache'),
         PkgInfo('cargo-edit'),
         PkgInfo('cargo-geiger'),

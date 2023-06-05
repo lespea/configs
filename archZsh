@@ -112,7 +112,7 @@ fi
 alias genSrc='mkdir -p src/{main,test}/{java,scala,resources} && touch src/{main,test}/{java,scala,resources}/.keep'
 alias pssh='ssh -o PubkeyAuthentication=no'
 
-# BASH_COLORS="$SCRIPT_PATH/base16/scripts/base16-tomorrow-night-eighties.sh"
+BASH_COLORS="$SCRIPT_PATH/base16/scripts/base16-onedark.sh"
 # if [[ -f $BASH_COLORS ]]; then
 #     source $BASH_COLORS
 # fi

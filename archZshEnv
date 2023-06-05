@@ -1,4 +1,5 @@
 # Setup history
+export LS_COLORS="$($HOME/.cargo/bin/vivid generate one-dark)"
 export ZSH_THEME="powerlevel10k/powerlevel10k".
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE

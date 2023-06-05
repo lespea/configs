@@ -122,18 +122,20 @@ if [[ -f "$HOME/.config/broot/launcher/bash/br" ]]; then
 fi
 export RIPGREP_CONFIG_PATH="$SCRIPT_PATH/.ripgreprc"
 
-if [ -x "$(command -v exa)" ]; then
-    alias ls='exa --icons'
+which lsd >/dev/null 2>/dev/null
+if [ $? -eq 0 ]; then
+    alias ls='lsd'
 
-    alias l='exa -FG --icons'
-    alias la='exa -FGa --icons'
+    alias l='lsd'
+    alias la='lsd -a'
 
-    alias lla='exa -Flgha --icons'
-    alias ll='exa -Flgh --icons'
+    alias lla='lsd -la'
+    alias ll='lsd -l'
+    alias lld='lsd -l --total-size'
 
-    alias lt='exa -FT --icons'
-    alias llt='exa -FlgT --icons'
-    alias llta='exa -FalgT --icons'
+    alias lt='lsd --tree'
+    alias llt='lsd -l --tree'
+    alias llta='lsd -la --tree'
 else
     alias ls='ls -h --color=always'
 
@@ -150,10 +152,6 @@ fi
 # if [[ -f $BASH_COLORS ]]; then
 #     source $BASH_COLORS
 # fi
-
-if [[ -f ~/.lscolors ]]; then
-    source ~/.lscolors
-fi
 
 #  If we have custom things we need to setup, do that now
 if [[ -f ~/.zsh_custom ]]; then

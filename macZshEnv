@@ -57,7 +57,7 @@ alias vim=nvim
 
 alias rgg='rg -g"!vendor/"'
 
-export BAT_THEME="Coldark-Dark"
+export BAT_THEME="OneHalfDark"
 
 export LC_ALL=en_US.UTF-8
 

@@ -47,7 +47,7 @@ alias pssh='ssh -o PubkeyAuthentication=no'
 
 alias vim=nvim
 
-alias rgg='rg -g"!vendor/"'
+alias xsv='qsv'
 
 export BAT_THEME="OneHalfDark"
 

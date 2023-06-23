@@ -279,8 +279,17 @@ def get_packages() -> list[PkgInfo]:
         PkgInfo('tokei', features=['all']),
         PkgInfo('vivid'),
         PkgInfo('watchexec-cli'),
-        PkgInfo('xsv'),
         PkgInfo('zoxide'),
+
+        PkgInfo('qsv', features=[
+            'apply',
+            'feature_capable',
+            'generate',
+            'luau',
+            'mimalloc',
+            'polars',
+            'to',
+        ]),
     ]
 
     nix_pkgs = [
@@ -291,6 +300,7 @@ def get_packages() -> list[PkgInfo]:
         PkgInfo('topgrade'),
         PkgInfo('wasm-pack'),
         PkgInfo('xcp'),
+        PkgInfo('zellij'),
     ]
 
     win_pkgs = [

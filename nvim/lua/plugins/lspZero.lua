@@ -21,7 +21,6 @@ return {
         'pyflakes',
         'python-lsp-server',
         'rust-analyzer',
-        'rustfmt',
         'staticcheck',
         'stylua',
         'typescript-language-server',

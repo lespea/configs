@@ -166,15 +166,15 @@ setupv() {
 alias pyei='env MAKE_OPTS="-j12" \
     env PYTHON_MAKE_INSTALL_OPTS="Make=gmake" \
     env CONFIGURE_OPTS="--enable-shared --enable-optimizations --with-computed-gotos" \
-    env CFLAGS="-march native -mtune native -O2 -pipe" \
-    env CXXFLAGS="-march native -mtune native -O2 -pipe" \
+    env CFLAGS="-O2 -pipe" \
+    env CXXFLAGS="-O2 -pipe" \
     pyenv install -v'
 
 alias pyein='env MAKE_OPTS="-j12" \
     env PYTHON_MAKE_INSTALL_OPTS="Make=gmake" \
     env CONFIGURE_OPTS="--enable-shared --with-computed-gotos" \
-    env CFLAGS="-march native -mtune native -O2 -pipe" \
-    env CXXFLAGS="-march native -mtune native -O2 -pipe" \
+    env CFLAGS="-O2 -pipe" \
+    env CXXFLAGS="-O2 -pipe" \
     pyenv install -v'
 
 alias iatuin='RUSTFLAGS="-C target-cpu=native -C link-arg=-s" cargo install atuin --no-default-features --features client'

@@ -272,6 +272,7 @@ def get_packages() -> list[PkgInfo]:
         PkgInfo('lsd'),
         PkgInfo('mdcat'),
         PkgInfo('miniserve'),
+        PkgInfo('nickel-lang-cli'),
         PkgInfo('nu'),
         PkgInfo('onefetch'),
         PkgInfo('ouch'),

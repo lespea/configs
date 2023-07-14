@@ -99,8 +99,8 @@ def setup_groups():
 def wait_and_clean():
     run_cmds((
         ['pueue', 'wait', '-g', GROUP_NAME],
-        ['pueue', 'clean', '-g', GROUP_NAME],
-        ['pueue', 'group', 'remove', GROUP_NAME],
+        # ['pueue', 'clean', '-g', GROUP_NAME],
+        # ['pueue', 'group', 'remove', GROUP_NAME],
     ))
 
 

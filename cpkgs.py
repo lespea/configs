@@ -291,7 +291,6 @@ def get_packages() -> list[PkgInfo]:
             'apply',
             'feature_capable',
             'generate',
-            'luau',
             'mimalloc',
             'polars',
             'to',

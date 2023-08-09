@@ -66,11 +66,6 @@ return {
           },
         },
 
-        rainbow               = {
-          enable = true,
-          extended_mode = true,
-        },
-
         refactor              = {
           highlight_definitions = {
             enable = true,
@@ -144,16 +139,16 @@ return {
       }
     end,
   },
-  {
-    'HiPhish/nvim-ts-rainbow2',
-    config = function()
-      require("nvim-treesitter.configs").setup {
-        rainbow = {
-          enable = true,
-          query = 'rainbow-parens',
-          strategy = require 'ts-rainbow.strategy.global',
-        }
-      }
-    end
-  }
+  -- {
+  --   'HiPhish/nvim-ts-rainbow2',
+  --   config = function()
+  --     require("nvim-treesitter.configs").setup {
+  --       rainbow = {
+  --         enable = true,
+  --         query = 'rainbow-parens',
+  --         strategy = require 'ts-rainbow.strategy.global',
+  --       }
+  --     }
+  --   end
+  -- }
 }

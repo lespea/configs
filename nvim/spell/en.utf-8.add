@@ -22,3 +22,6 @@ src
 denylist
 impl
 AWS
+SLA
+kibana
+GCP

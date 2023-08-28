@@ -38,8 +38,12 @@ export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 export DISABLE_MAGIC_FUNCTIONS=true
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
-source $SCRIPT_PATH/antigen.zsh
-antigen init $HOME/.antigenrc
+export ZDOTDIR="$HOME/.antidote"
+source "$ZDOTDIR/antidote.zsh"
+antidote load $HOME/.antidoterc
+
+# source $SCRIPT_PATH/antigen.zsh
+# antigen init $HOME/.antigenrc
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -189,7 +193,12 @@ alias pyein='mold -run \
 
 alias iatuin='RUSTFLAGS="-C target-cpu=native -C link-arg=-s" cargo install atuin --no-default-features --features client'
 
-eval "$(zoxide init zsh --hook prompt)"
+# eval "$(zoxide init zsh --hook prompt)"
 eval "$(pyenv init -)"
 
 source "$HOME/.config/broot/launcher/bash/br"
+
+alias jq=gojq
+export JQ_REPL_JQ=gojq
+
+alias iantidote='git clone --depth=1 https://github.com/mattmc3/antidote.git ${ZDOTDIR:-~}/.antidote'

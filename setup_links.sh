@@ -59,6 +59,7 @@ setup_link "${CUR_DIR}/redshift.conf" "${HOME}/.config/redshift.conf"
 setup_single .gitattributes
 setup_single .ideavimrc
 setup_single .tmux.conf
+setup_single .antidoterc
 
 if [ ! -f ${HOME}/.gitconfig ]; then
     cp ${CUR_DIR}/myGitConfig ${HOME}/.gitconfig

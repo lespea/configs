@@ -1,4 +1,6 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
+
+
 #
 # .zsh_plugins.txt - antidote plugins file
 #
@@ -100,14 +102,16 @@ ohmyzsh/ohmyzsh path:plugins/encode64
 ohmyzsh/ohmyzsh path:plugins/extract
 ohmyzsh/ohmyzsh path:plugins/gpg-agent
 ohmyzsh/ohmyzsh path:plugins/isodate
-ohmyzsh/ohmyzsh path:plugins/systemd
 ohmyzsh/ohmyzsh path:plugins/urltools
 ohmyzsh/ohmyzsh path:plugins/zoxide
 
+ohmyzsh/ohmyzsh path:plugins/systemd condintional:is_nix
+
+ohmyzsh/ohmyzsh path:plugins/gnu-utils conditional:is_macos
+ohmyzsh/ohmyzsh path:plugins/brew conditional:is_macos
+
 ### Mac
 # brew install terminal-notifier
-# ohmyzsh/ohmyzsh path:plugins/gnu-utils
-# ohmyzsh/ohmyzsh path:plugins/brew
 #
 
 

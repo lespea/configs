@@ -38,6 +38,14 @@ export ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
 export DISABLE_MAGIC_FUNCTIONS=true
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
+function is_macos {
+  [[ $OSTYPE == darwin* ]] || return 1
+}
+
+function is_nix {
+  [[ $OSTYPE == linux* ]] || return 1
+}
+
 export ZDOTDIR="$HOME/.antidote"
 source "$ZDOTDIR/antidote.zsh"
 antidote load $HOME/.antidoterc

@@ -105,7 +105,7 @@ ohmyzsh/ohmyzsh path:plugins/isodate
 ohmyzsh/ohmyzsh path:plugins/urltools
 ohmyzsh/ohmyzsh path:plugins/zoxide
 
-ohmyzsh/ohmyzsh path:plugins/systemd condintional:is_nix
+ohmyzsh/ohmyzsh path:plugins/systemd conditional:is_nix
 
 ohmyzsh/ohmyzsh path:plugins/gnu-utils conditional:is_macos
 ohmyzsh/ohmyzsh path:plugins/brew conditional:is_macos

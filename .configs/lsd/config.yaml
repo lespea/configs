@@ -30,7 +30,7 @@ color:
   # when specifying <theme-file-name>, lsd will look up theme file in
   # XDG Base Directory if relative
   # The file path if absolute
-  theme: onedark.yaml
+  theme: custom
 
 # == Date ==
 # This specifies the date format for the date column. The freeform format

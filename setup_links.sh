@@ -45,16 +45,8 @@ function setup_single() {
 
 mkdir -p "${HOME}/.gnupg"
 
-setup_link "${CUR_DIR}/gpg/gpg.conf"       "${HOME}/.gnupg/gpg.conf"
-setup_link "${CUR_DIR}/gpg/gpg-agent.conf" "${HOME}/.gnupg/gpg-agent.conf"
-
+setup_link "${CUR_DIR}/gpg/gpg.conf" "${HOME}/.gnupg/gpg.conf"
 chmod 600 "${HOME}/.gnupg/gpg.conf" "${HOME}/.gnupg/gpg-agent.conf"
-
-
-setup_link "${CUR_DIR}/_vimrc"        "${HOME}/.vimrc"
-setup_link "${CUR_DIR}/vimfiles"      "${HOME}/.vim"
-setup_link "${CUR_DIR}/Fonts"         "${HOME}/.fonts"
-setup_link "${CUR_DIR}/redshift.conf" "${HOME}/.config/redshift.conf"
 
 setup_single .gitattributes
 setup_single .ideavimrc
@@ -66,21 +58,28 @@ if [ ! -f ${HOME}/.gitconfig ]; then
 fi
 
 if [[ `uname` == "Darwin" ]]; then
-    setup_link "${CUR_DIR}/macAntigen" "${HOME}/.antigenrc"
+    CONF_DIRS="lsd zellij"
+
     setup_link "${CUR_DIR}/macZsh" "${HOME}/.zshrc"
     setup_link "${CUR_DIR}/macZshEnv" "${HOME}/.zshenv"
-else
-    setup_single .Xresources
 
-    setup_link "${CUR_DIR}/.configs/i3" "${HOME}/.config/i3"
-    setup_link "${CUR_DIR}/.configs/picom" "${HOME}/.config/picom"
-    setup_link "${CUR_DIR}/.configs/alacritty" "${HOME}/.config/alacritty"
+    setup_link "${CUR_DIR}/gpg/gpg-agent.m1.conf" "${HOME}/.gnupg/gpg-agent.conf"
+else
+    CONF_DIRS="alacritty hypr i3 kitty lsd picom polybar sway zellij"
+
+    setup_single .Xresources
 
     setup_link "${CUR_DIR}/archAntigen" "${HOME}/.antigenrc"
     setup_link "${CUR_DIR}/archZsh" "${HOME}/.zshrc"
     setup_link "${CUR_DIR}/archZshEnv" "${HOME}/.zshenv"
     setup_link "${CUR_DIR}/archP10K" "${HOME}/.p10k.zsh"
+
+    setup_link "${CUR_DIR}/gpg/gpg-agent.conf" "${HOME}/.gnupg/gpg-agent.conf"
 fi
 
 setup_link "${CUR_DIR}/nvim" "${HOME}/.config/nvim"
+
+for dir in $CONF_DIRS; do
+    setup_link "$CUR_DIR/.configs/$dir" "$HOME/.config/$dir"
+done
 

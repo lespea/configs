@@ -92,7 +92,6 @@ ohmyzsh/ohmyzsh path:lib/termsupport.zsh
 ohmyzsh/ohmyzsh path:lib/theme-and-appearance.zsh
 
 ohmyzsh/ohmyzsh path:plugins/aliases
-ohmyzsh/ohmyzsh path:plugins/bgnotify
 ohmyzsh/ohmyzsh path:plugins/copybuffer
 ohmyzsh/ohmyzsh path:plugins/copyfile
 ohmyzsh/ohmyzsh path:plugins/copypath
@@ -107,6 +106,7 @@ ohmyzsh/ohmyzsh path:plugins/zoxide
 
 ohmyzsh/ohmyzsh path:plugins/systemd conditional:is_nix
 
+ohmyzsh/ohmyzsh path:plugins/bgnotify conditional:is_macos
 ohmyzsh/ohmyzsh path:plugins/gnu-utils conditional:is_macos
 ohmyzsh/ohmyzsh path:plugins/brew conditional:is_macos
 

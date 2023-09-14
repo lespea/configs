@@ -181,4 +181,5 @@ zsh-users/zsh-autosuggestions kind:defer
 
 ohmyzsh/ohmyzsh path:lib/directories.zsh
 ohmyzsh/ohmyzsh path:plugins/sudo
+ohmyzsh/ohmyzsh path:plugins/tmux
 ohmyzsh/ohmyzsh path:lib/completion.zsh

@@ -47,7 +47,7 @@ function is_nix {
 }
 
 
-export ZDOTDIR="$HOME/.antidote"
+ZDOTDIR="$HOME/.antidote"
 source "$ZDOTDIR/antidote.zsh"
 antidote load $HOME/.antidoterc
 

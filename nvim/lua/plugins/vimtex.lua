@@ -1,5 +1,6 @@
 return {
   'lervag/vimtex',
+  enabled = false,
   lazy = false,
   config = function()
     -- vim.g.vimtex_compiler_method = "lualatex"

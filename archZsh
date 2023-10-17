@@ -182,7 +182,7 @@ __setupv() {
 }
 
 setupv() {
-    __setupv nvim3 3.11.5 colorama neovim "python-lsp-server[all]"
+    __setupv nvim3 3.12.0 colorama neovim "python-lsp-server[all]"
 }
 
 alias pyei='mold -run \

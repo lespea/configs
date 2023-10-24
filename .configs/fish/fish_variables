@@ -3,8 +3,8 @@
 SETUVAR EDITOR:nvim
 SETUVAR --export GPG_AGENT_INFO:/home/adam/\x2egnupg/S\x2egpg\x2dagent\x3a79118\x3a1
 SETUVAR --export PYENV_ROOT:/home/adam/\x2epyenv
-SETUVAR --export SSH_AGENT_PID:129124
-SETUVAR --export SSH_AUTH_SOCK:/tmp/ssh\x2dXXXXXX3WJShe/agent\x2e129123
+SETUVAR --export SSH_AGENT_PID:134652
+SETUVAR --export SSH_AUTH_SOCK:/tmp/ssh\x2dXXXXXXAdvlHU/agent\x2e134651
 SETUVAR VIRTUAL_ENV_DISABLE_PROMPT:true
 SETUVAR fish_color_autosuggestion:555\x1ebrblack
 SETUVAR fish_color_cancel:\x2dr

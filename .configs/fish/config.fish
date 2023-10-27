@@ -14,7 +14,7 @@ function final
         systemctl -q is-active graphical.target
         exec /usr/bin/Hyprland
     else
-        if not string length --quiet $SSH_AUTH_SOCK
+        if not string match "S.gpg-agent" "$SSH_ATUH_SOCK"
             gpg-connect-agent updatestartuptty /bye &>/dev/null
             set -gx SSH_AUTH_SOCK "$(gpgconf --list-dirs agent-ssh-socket)"
         end

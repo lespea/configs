@@ -64,6 +64,10 @@ set -Ux MAKEFLAGS -j20
 if set -q IS_ARCH
     alias -s icat 'kitty +kitten icat'
     alias -s kssh 'kitty +kitten ssh'
+    alias -s jlog 'journalctl -r -p warning'
+    alias -s jtail 'journalctl -n0 -f | rg -M0 -vF rtkit-daemon'
+    alias -s refl 'sudo reflector -n 24 -c \'United States\' -f 10 -p https --save /etc/pacman.d/mirrorlist --threads 10 -a 12'
+
     set -Ux XDG_CACHE_HOME    "$HOME/.cache"
     set -Ux XDG_CONFIG_HOME   "$HOME/.config"
     set -Ux XDG_DATA_HOME     "$HOME/.local/share"

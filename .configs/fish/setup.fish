@@ -46,20 +46,20 @@ alias -s lt 'lsd --tree'
 alias -s llt 'lsd -l --tree'
 alias -s llta 'lsd -la --tree'
 
-## Abbreviations
-
-abbr --add G  -p anywhere '| rg'
-abbr --add GA -p anywhere '| rg -M0'
-abbr --add L  -p anywhere '| bat'
-abbr --add LC -p anywhere '| wc -l'
-abbr --add LP -p anywhere '| bat -p'
-abbr --add UC -p anywhere '| sort | uniq -c | sort -rh'
-abbr --add WC -p anywhere '| wc -l'
-
 ## Globals
 
-set -Ux JAVA_HOME /usr/lib/jvm/default
-set -Ux MAKEFLAGS -j20
+#set -Ux JAVA_HOME /usr/lib/jvm/default
+set -Ux MAKEFLAGS -j12
+
+set -Ux XDG_CACHE_HOME    "$HOME/.cache"
+set -Ux XDG_CONFIG_HOME   "$HOME/.config"
+set -Ux XDG_DATA_HOME     "$HOME/.local/share"
+set -Ux XDG_DESKTOP_DIR   "$HOME/Desktop"
+set -Ux XDG_DOCUMENTS_DIR "$HOME/Documents"
+set -Ux XDG_DOWNLOAD_DIR  "$HOME/Downloads"
+set -Ux XDG_MUSIC_DIR     "$HOME/Music"
+set -Ux XDG_PICTURES_DIR  "$HOME/Pictures"
+set -Ux XDG_VIDEOS_DIR    "$HOME/Videos"
 
 if set -q IS_ARCH
     alias -s icat 'kitty +kitten icat'
@@ -67,16 +67,6 @@ if set -q IS_ARCH
     alias -s jlog 'journalctl -r -p warning'
     alias -s jtail 'clear && journalctl -n0 -f | rg -M0 -vF rtkit-daemon'
     alias -s refl 'sudo reflector -n 24 -c \'United States\' -f 10 -p https --save /etc/pacman.d/mirrorlist --threads 10 -a 12'
-
-    set -Ux XDG_CACHE_HOME    "$HOME/.cache"
-    set -Ux XDG_CONFIG_HOME   "$HOME/.config"
-    set -Ux XDG_DATA_HOME     "$HOME/.local/share"
-    set -Ux XDG_DESKTOP_DIR   "$HOME/Desktop"
-    set -Ux XDG_DOCUMENTS_DIR "$HOME/Documents"
-    set -Ux XDG_DOWNLOAD_DIR  "$HOME/Downloads"
-    set -Ux XDG_MUSIC_DIR     "$HOME/Music"
-    set -Ux XDG_PICTURES_DIR  "$HOME/Pictures"
-    set -Ux XDG_VIDEOS_DIR    "$HOME/Videos"
 
     for dir in 'Desktop' 'Documents' 'Downloads' 'Music' 'Pictures' 'Video'
         mkdir -p "$HOME/$dir"

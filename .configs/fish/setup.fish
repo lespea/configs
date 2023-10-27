@@ -14,6 +14,8 @@ set -Ux LS_COLORS "$($HOME/.cargo/bin/vivid generate one-dark)"
 
 set -Ux PNPM_HOME "$HOME/.local/share/pnpm"
 
+set -Ux fish_greeting ""
+
 ##### Aliases
 
 alias -s cp 'cp --reflink=auto'

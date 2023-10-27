@@ -52,20 +52,21 @@ setup_single .gitattributes
 setup_single .ideavimrc
 setup_single .tmux.conf
 setup_single .antidoterc
+setup_single .ripgreprc
 
 if [ ! -f ${HOME}/.gitconfig ]; then
     cp ${CUR_DIR}/myGitConfig ${HOME}/.gitconfig
 fi
 
 if [[ `uname` == "Darwin" ]]; then
-    CONF_DIRS="lsd zellij"
+    CONF_DIRS="lsd zellij fish"
 
     setup_link "${CUR_DIR}/macZsh" "${HOME}/.zshrc"
     setup_link "${CUR_DIR}/macZshEnv" "${HOME}/.zshenv"
 
     setup_link "${CUR_DIR}/gpg/gpg-agent.m1.conf" "${HOME}/.gnupg/gpg-agent.conf"
 else
-    CONF_DIRS="alacritty hypr i3 kitty lsd picom polybar sway zellij"
+    CONF_DIRS="alacritty hypr i3 kitty lsd picom polybar sway zellij fish"
 
     setup_single .Xresources
 

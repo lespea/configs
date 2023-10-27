@@ -48,8 +48,9 @@ alias -s llta 'lsd -la --tree'
 
 ## Abbreviations
 
+abbr --add G  -p anywhere '| rg'
 abbr --add GA -p anywhere '| rg -M0'
-abbr --add L -p anywhere '| bat'
+abbr --add L  -p anywhere '| bat'
 abbr --add LC -p anywhere '| wc -l'
 abbr --add LP -p anywhere '| bat -p'
 abbr --add UC -p anywhere '| sort | uniq -c | sort -rh'
@@ -63,6 +64,19 @@ set -Ux MAKEFLAGS -j20
 if set -q IS_ARCH
     alias -s icat 'kitty +kitten icat'
     alias -s kssh 'kitty +kitten ssh'
+    set -Ux XDG_CACHE_HOME    "$HOME/.cache"
+    set -Ux XDG_CONFIG_HOME   "$HOME/.config"
+    set -Ux XDG_DATA_HOME     "$HOME/.local/share"
+    set -Ux XDG_DESKTOP_DIR   "$HOME/Desktop"
+    set -Ux XDG_DOCUMENTS_DIR "$HOME/Documents"
+    set -Ux XDG_DOWNLOAD_DIR  "$HOME/Downloads"
+    set -Ux XDG_MUSIC_DIR     "$HOME/Music"
+    set -Ux XDG_PICTURES_DIR  "$HOME/Pictures"
+    set -Ux XDG_VIDEOS_DIR    "$HOME/Videos"
+
+    for dir in 'Desktop' 'Documents' 'Downloads' 'Music' 'Pictures' 'Video'
+        mkdir -p "$HOME/$dir"
+    end
 else
 end
 

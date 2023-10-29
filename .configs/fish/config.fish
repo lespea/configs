@@ -10,11 +10,11 @@ function final
         source $custom
     end
 
-    if set -q IS_ARCH; and not set -q DISPLAY; and string match $XDG_VTNR 1; and \
+    if set -q IS_ARCH; and not set -q DISPLAY; and string match -q $XDG_VTNR 1; and \
         systemctl -q is-active graphical.target
         exec /usr/bin/Hyprland
     else
-        if not string match "S.gpg-agent" "$SSH_ATUH_SOCK"
+        if not string match -q "S.gpg-agent" "$SSH_ATUH_SOCK"
             gpg-connect-agent updatestartuptty /bye &>/dev/null
             set -gx SSH_AUTH_SOCK "$(gpgconf --list-dirs agent-ssh-socket)"
         end

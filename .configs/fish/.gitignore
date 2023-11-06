@@ -5,3 +5,4 @@ functions/*
 !functions/genSrc.fish
 !functions/tup.fish
 !functions/runx.fish
+!functions/expand-dot-to-parent-directory-path.fish

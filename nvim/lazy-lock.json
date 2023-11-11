@@ -27,7 +27,7 @@
   "nvim-spider": { "branch": "main", "commit": "e0eeac5480704cc3fdd5bdadd4901ca5409d7838" },
   "nvim-surround": { "branch": "main", "commit": "cfa2da7f469f1e759f2a961bc25fa4ccfe1795c2" },
   "nvim-tree.lua": { "branch": "master", "commit": "a2aaf8b430c11af36b869cf1c0ad2f7c8ceeaf2c" },
-  "nvim-treesitter": { "branch": "master", "commit": "c543ffae1c34a92fb647505f2165b35f68c113c4" },
+  "nvim-treesitter": { "branch": "master", "commit": "075a64addc33390028ea124a1046a43497f05cd1" },
   "nvim-treesitter-refactor": { "branch": "master", "commit": "65ad2eca822dfaec2a3603119ec3cc8826a7859e" },
   "nvim-treesitter-textobjects": { "branch": "master", "commit": "dbcd9388e3b119a87c785e10a00d62876077d23d" },
   "nvim-various-textobjs": { "branch": "main", "commit": "c0012f4b87d0145d61d0d7320f62588d9472fe7c" },

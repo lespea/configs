@@ -15,7 +15,7 @@ return {
       showImplicitConversionsAndClasses = true,
     }
 
-    conf.capabilities = require("cmp_nvim_lsp").default_capabilities()
+    conf.capabilities = require("lsp-zero").default_capabilities()
 
     -- metals.initialize_or_attach(conf)
     local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })

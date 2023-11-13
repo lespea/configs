@@ -30,6 +30,12 @@ return {
     }
   },
   {
+    'ray-x/lsp_signature.nvim',
+    event = "VeryLazy",
+    opts = {},
+    config = function(_, opts) require 'lsp_signature'.setup(opts) end
+  },
+  {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v2.x',
     dependencies = {
@@ -37,6 +43,7 @@ return {
       { 'neovim/nvim-lspconfig' },             -- Required
       { 'williamboman/mason.nvim' },           -- Optional
       { 'williamboman/mason-lspconfig.nvim' }, -- Optional
+      { 'lvimuser/lsp-inlayhints.nvim' },      -- Hints
 
       -- Autocompletion
       { 'hrsh7th/nvim-cmp' },     -- Required
@@ -64,6 +71,9 @@ return {
         }
       })
 
+      local ih = require('lsp-inlayhints')
+      ih.setup()
+
       lsp.on_attach(function(client, bufnr)
         lsp.default_keymaps({ buffer = bufnr })
         lsp.buffer_autoformat()
@@ -78,7 +88,18 @@ return {
       end)
 
       -- (Optional) Configure lua language server for neovim
-      require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
+      require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls({
+        on_attach = function(client, bufnr)
+          ih.on_attach(client, bufnr)
+        end,
+        settings = {
+          Lua = {
+            hint = {
+              enable = true,
+            },
+          },
+        },
+      }))
 
       lsp.setup()
 

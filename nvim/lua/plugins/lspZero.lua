@@ -100,6 +100,10 @@ return {
           documentation = cmp.config.window.bordered(),
         }
       })
+
+      cmp.setup.filetype("DressingInput", {
+        sources = cmp.config.sources { { name = "omni" } },
+      })
     end,
   },
 }

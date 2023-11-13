@@ -1,6 +1,6 @@
 return {
   'lewis6991/gitsigns.nvim',
-  lazy = true,
+  -- lazy = true,
   opts = {},
   dependencies = {
     'nvim-lua/plenary.nvim',

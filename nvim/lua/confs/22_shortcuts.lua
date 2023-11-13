@@ -39,6 +39,8 @@ set({ 'i', 'n', 'v' }, '<leader>cp', '"+p', optR)
 
 
 -- Misc
+set('v', ',u', ':sort u<CR>', optRS)
+set('n', ',u', 'vib:sort u<CR>', optRS)
 set('n', '\\u', ':sort u<CR>:g/^$/d<CR>', optRS)
 set('n', 'cd', ':cd %:p:h<CR>', optR)
 

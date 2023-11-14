@@ -1,7 +1,8 @@
 return {
   'scalameta/nvim-metals',
   dependencies = {
-    'nvim-lua/plenary.nvim'
+    'nvim-lua/plenary.nvim',
+    'VonHeikemen/lsp-zero.nvim',
   },
   ft = { 'scala', 'sbt', 'java' },
   config = function()
@@ -15,7 +16,7 @@ return {
       showImplicitConversionsAndClasses = true,
     }
 
-    conf.capabilities = require("lsp-zero").default_capabilities()
+    conf.capabilities = require("lsp-zero").get_capabilities()
 
     -- metals.initialize_or_attach(conf)
     local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })

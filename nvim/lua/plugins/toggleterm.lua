@@ -12,7 +12,7 @@ return {
 
     local set = vim.keymap.set
 
-    set({ 'n', 't' }, '~', function() termFloat:toggle() end)
+    set({ 'n', 't' }, '<C-S-t>', function() termFloat:toggle() end)
     set({ 'n', 't' }, '<C-g>', function() lazygit:toggle() end)
   end
 }

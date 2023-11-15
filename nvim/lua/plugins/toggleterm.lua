@@ -8,8 +8,8 @@ return {
     local term = require('toggleterm.terminal').Terminal
 
     local lazygit = term:new({ cmd = 'lazygit', hidden = true, direction = 'float' })
-    local termFloat = term:new({ hidden = true, direction = 'float' })
-    local term = term:new({ hidden = true, direction = 'horizontal', size = 15 })
+    local termFloat = term:new({ cmd = 'fish', hidden = true, direction = 'float' })
+    local term = term:new({ cmd = 'fish', hidden = true, direction = 'horizontal', size = 15 })
 
     local set = vim.keymap.set
 

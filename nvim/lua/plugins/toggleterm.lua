@@ -2,7 +2,7 @@ return {
   'akinsho/toggleterm.nvim',
   opts = {
     shell = 'fish',
-    autochdir = true,
+    --autochdir = true,
   },
   init = function()
     local term = require('toggleterm.terminal').Terminal

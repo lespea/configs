@@ -46,6 +46,7 @@ if status is-interactive
 
     atuin init fish --disable-up-arrow | source
     zoxide init fish | source
+    just --completions fish | source
 
     bind . 'expand-dot-to-parent-directory-path'
 

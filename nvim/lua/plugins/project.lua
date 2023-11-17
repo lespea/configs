@@ -13,12 +13,12 @@ return {
 
       patterns = {
         ".git",
-        "Makefile",
-        "build.sbt",
-        "cargo.toml",
-        "go.mod",
-        "package.json",
-        "requirements.txt",
+        -- "Makefile",
+        -- "build.sbt",
+        -- "cargo.toml",
+        -- "go.mod",
+        -- "package.json",
+        -- "requirements.txt",
       },
     }
 

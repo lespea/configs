@@ -134,6 +134,7 @@ return {
   },
   {
     'Wansmer/treesj',
+    -- Default keymap is space-m to toggle arguments in a single line or to make multi line (chop down)
     opts = {},
     lazy = false,
     dependencies = {

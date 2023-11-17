@@ -84,10 +84,6 @@ return {
         vim.keymap.set({ 'n', 'x' }, 'gf', function()
           vim.lsp.buf.format({ async = false, timeout_ms = 10000 })
         end)
-
-        -- vim.keymap.set({ 'n', 'x' }, 'gR', function()
-        --   require 'telescope.builtin'.lsp_references()
-        -- end)
       end)
 
       -- (Optional) Configure lua language server for neovim

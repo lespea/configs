@@ -1,5 +1,8 @@
 return {
   'ahmedkhalf/project.nvim',
+  dependencies = {
+    'nvim-telescope/telescope.nvim',
+  },
   config = function()
     require("project_nvim").setup {
       -- Methods of detecting the root directory. **"lsp"** uses the native neovim
@@ -18,5 +21,8 @@ return {
         "requirements.txt",
       },
     }
+
+    local tele = require('telescope')
+    vim.keymap.set('n', '<leader>fp', function() tele.extensions.projects.projects() end)
   end,
 }

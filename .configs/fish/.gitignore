@@ -7,3 +7,4 @@ functions/*
 !functions/genb.fish
 !functions/runx.fish
 !functions/tup.fish
+!functions/cp.fish

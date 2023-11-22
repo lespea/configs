@@ -25,7 +25,7 @@ return {
 
     set({ 'n', 't' }, '<C-.>', function() termFloat:toggle() end)
     set({ 'n', 't' }, '<C-g>', function() lazygit:toggle() end)
-    set({ 'n', 't' }, '<Esc>', '<C-\\><C-n>')
+    set({ 'n', 't' }, '<S-Esc>', '<C-\\><C-n>')
 
     -- Persistent right term
     set({ 'n', 't' }, '<C-,>', function()

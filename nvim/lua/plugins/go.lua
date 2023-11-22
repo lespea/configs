@@ -12,7 +12,15 @@ return {
     config = function()
       require("go").setup({
         dap_debug = false,
-        lsp_cfg = true,
+        lsp_cfg = {
+          settings = {
+            gopls = {
+              analyses = {
+                ST1003 = false,
+              },
+            },
+          },
+        },
         dap_debug_keymap = false,
         trouble = true,
         luasnip = true,

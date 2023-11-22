@@ -29,6 +29,7 @@ set('n', '<C-n>', 'h', optRS)
 set('n', '<C-j>', 'j', optRS)
 set('n', '<C-k>', 'k', optRS)
 set('n', '<C-m>', 'l', optRS)
+set('n', '<C-p>', '', optRS)
 
 
 -- Copy/Paste

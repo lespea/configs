@@ -22,6 +22,22 @@ opt.completeopt = 'menuone,noinsert,noselect' -- Autocomplete options
 opt.foldenable = false                        -- Disable folding by default
 opt.foldlevel = 4                             -- Limit folding to 4 levels
 opt.foldmethod = 'syntax'                     -- Use language syntax to generate folds
+
+-- Setup windows shell
+if vim.fn.hsa('windows') then
+  local powershell_options = {
+    shell = vim.fn.executable "pwsh" == 1 and "pwsh" or "powershell",
+    shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
+    shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
+    shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
+    shellquote = "",
+    shellxquote = "",
+  }
+  
+  for option, value in pairs(powershell_options) do
+    vim.opt[option] = value
+  end
+end
 -- opt.shell = 'zsh'
 
 opt.diffopt:append({ 'algorithm:histogram' }) -- Diff algorithm

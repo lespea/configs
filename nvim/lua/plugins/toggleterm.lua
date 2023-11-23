@@ -21,12 +21,12 @@ return {
     local ui = require("toggleterm.ui")
     local set = vim.keymap.set
 
-    set({ 'n', 't' }, '<C-.>', function() termFloat:toggle() end)
+    set({ 'n', 't' }, '<C-y>', function() termFloat:toggle() end)
     set({ 'n', 't' }, '<C-g>', function() lazygit:toggle() end)
     set({ 'n', 't' }, '<S-Esc>', '<C-\\><C-n>')
 
     -- Persistent right term
-    set({ 'n', 't' }, '<C-,>', function()
+    set({ 'n', 't' }, '<C-b>', function()
       if termRight:is_open() then
         if termRight:is_focused() then
           ui:goto_previous()

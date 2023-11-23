@@ -9,8 +9,6 @@ return {
           return vim.o.columns * 0.4
         end
       end,
-
-      shell = 'fish'
     })
 
     local term = require('toggleterm.terminal').Terminal

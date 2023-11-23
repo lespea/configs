@@ -24,7 +24,7 @@ opt.foldlevel = 4                             -- Limit folding to 4 levels
 opt.foldmethod = 'syntax'                     -- Use language syntax to generate folds
 
 -- Setup windows shell
-if vim.fn.hsa('windows') then
+if vim.fn.has('windows') then
   local powershell_options = {
     shell = vim.fn.executable "pwsh" == 1 and "pwsh" or "powershell",
     shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
@@ -37,8 +37,9 @@ if vim.fn.hsa('windows') then
   for option, value in pairs(powershell_options) do
     vim.opt[option] = value
   end
+else
+  opt.shell = 'fish'
 end
--- opt.shell = 'zsh'
 
 opt.diffopt:append({ 'algorithm:histogram' }) -- Diff algorithm
 

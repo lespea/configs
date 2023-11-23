@@ -22,7 +22,7 @@ opt.completeopt = 'menuone,noinsert,noselect' -- Autocomplete options
 opt.foldenable = false                        -- Disable folding by default
 opt.foldlevel = 4                             -- Limit folding to 4 levels
 opt.foldmethod = 'syntax'                     -- Use language syntax to generate folds
-opt.shell = 'zsh'
+-- opt.shell = 'zsh'
 
 opt.diffopt:append({ 'algorithm:histogram' }) -- Diff algorithm
 

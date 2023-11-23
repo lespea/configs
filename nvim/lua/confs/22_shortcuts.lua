@@ -21,7 +21,7 @@ set('n', '<F10>', ':set expandtab<CR>:retab<CR>', optR)
 -- Buffs / Tabs
 --set('n', '<A-l>', ':tabnext<CR>', optRS)
 --set('n', '<A-h>', ':tabprevious<CR>', optRS)
-set('n', '<C-t>', ':bufnew<CR>', optRS)
+set('n', '<C-t>', ':tabnew<CR>', optRS)
 
 -- Windows
 

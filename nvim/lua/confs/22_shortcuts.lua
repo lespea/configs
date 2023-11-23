@@ -19,9 +19,9 @@ set('n', '<F9>', ':StripWhitespace<CR>', optR)
 set('n', '<F10>', ':set expandtab<CR>:retab<CR>', optR)
 
 -- Buffs / Tabs
-set('n', '<A-l>', ':tabnext<CR>', optRS)
-set('n', '<A-h>', ':tabprevious<CR>', optRS)
-set('n', '<C-t>', ':tabnew<CR>', optRS)
+--set('n', '<A-l>', ':tabnext<CR>', optRS)
+--set('n', '<A-h>', ':tabprevious<CR>', optRS)
+set('n', '<C-t>', ':bufnew<CR>', optRS)
 
 -- Windows
 
@@ -35,8 +35,8 @@ set('n', '<C-p>', '', optRS)
 -- Copy/Paste
 set('n', '<C-S-V>', '"+p', optR)
 set('v', '<C-S-C>', '"+y', optR)
-set('v', '<leader>cc', '"+y', optR)
-set({ 'i', 'n', 'v' }, '<leader>cp', '"+p', optR)
+set('v', '<leader>cy', '"+y', optR)
+set({ 'n', 'v' }, '<leader>cp', '"+p', optR)
 
 
 -- Misc

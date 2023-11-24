@@ -24,16 +24,17 @@ opt.foldlevel = 4                             -- Limit folding to 4 levels
 opt.foldmethod = 'syntax'                     -- Use language syntax to generate folds
 
 -- Setup windows shell
-if vim.fn.has('windows') then
+if vim.fn.has('win32') ~= 0 then
   local powershell_options = {
     shell = vim.fn.executable "pwsh" == 1 and "pwsh" or "powershell",
-    shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
+    shellcmdflag =
+    "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
     shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
     shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
     shellquote = "",
     shellxquote = "",
   }
-  
+
   for option, value in pairs(powershell_options) do
     vim.opt[option] = value
   end
@@ -49,7 +50,7 @@ opt.diffopt:append({ 'algorithm:histogram' }) -- Diff algorithm
 -----------------------------------------------------------
 opt.cursorline     = true -- Highlight current line
 opt.number         = true -- Show line number
-opt.numberwidth    = 3    -- always reserve 3 spaces for line number
+opt.numberwidth    = 3 -- always reserve 3 spaces for line number
 opt.relativenumber = true -- Relative numbering
 opt.showcmd        = true -- display command in bottom bar
 opt.signcolumn     = 'yes' -- keep 1 column for coc.vim check
@@ -57,8 +58,8 @@ opt.title          = true -- Set the window title
 opt.termguicolors  = true -- Enable 24-bit RGB colors
 
 opt.showmatch      = true -- show matching brackets
-opt.scrolloff      = 3    -- always show 3 rows from edge of the screen
-opt.laststatus     = 2    -- always show status line
+opt.scrolloff      = 3 -- always show 3 rows from edge of the screen
+opt.laststatus     = 2 -- always show status line
 
 opt.startofline    = true -- Move cursor to "start" of each line
 opt.wrap           = false -- Do not wrap lines even if very long
@@ -71,7 +72,7 @@ opt.ignorecase     = true -- Ignore case letters when search
 opt.smartcase      = true -- Ignore lowercase for the whole pattern
 opt.incsearch      = true -- Starts searching as soon as typing, without enter needed
 opt.gdefault       = true -- Global replace by default
-opt.matchtime      = 2    -- Delay before showing matching paren
+opt.matchtime      = 2 -- Delay before showing matching paren
 o.mps              = o.mps .. ',<:>' -- Add angle brackets to matching pairs
 
 opt.list           = true
@@ -96,7 +97,7 @@ opt.smartindent = true -- Autoindent new lines
 opt.autoindent = true
 opt.shiftround = true
 opt.formatoptions =
-'qnj1'                     -- q  - comment formatting; n - numbered lists; j - remove comment when joining lines; 1 - don't break after one-letter word
+'qnj1' -- q  - comment formatting; n - numbered lists; j - remove comment when joining lines; 1 - don't break after one-letter word
 
 -----------------------------------------------------------
 -- Memory, CPU

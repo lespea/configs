@@ -21,12 +21,17 @@ return {
     local ui = require("toggleterm.ui")
     local set = vim.keymap.set
 
-    set({ 'n', 't' }, '<C-y>', function() termFloat:toggle() end)
-    set({ 'n', 't' }, '<C-g>', function() lazygit:toggle() end)
+    for _, key in ipairs({ '<C-y>', '<C-.>', '\\tt' }) do
+      set({ 'n', 't' }, key, function() termFloat:toggle() end)
+    end
+
+    for _, key in ipairs({ '<C-g>', '\\tg' }) do
+      set({ 'n', 't' }, key, function() lazygit:toggle() end)
+    end
+
     set({ 'n', 't' }, '<S-Esc>', '<C-\\><C-n>')
 
-    -- Persistent right term
-    set({ 'n', 't' }, '<C-b>', function()
+    rightTerm = function()
       if termRight:is_open() then
         if termRight:is_focused() then
           ui:goto_previous()
@@ -36,6 +41,11 @@ return {
       else
         termRight:toggle()
       end
-    end)
+    end
+
+    -- Persistent right term
+    for _, key in ipairs({ '<C-,>', '\\tr' }) do
+      set({ 'n', 't' }, key, rightTerm)
+    end
   end
 }

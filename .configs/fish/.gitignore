@@ -2,10 +2,14 @@ fish_variables
 conf.d/
 completions/
 functions/*
+
+!functions/cp.fish
 !functions/expand-dot-to-parent-directory-path.fish
 !functions/genSrc.fish
 !functions/genb.fish
+!functions/jtail.fish
+!functions/pipbase.fish
+!functions/pipnorm.fish
+!functions/pipu.fish
 !functions/runx.fish
 !functions/tup.fish
-!functions/cp.fish
-!functions/jtail.fish

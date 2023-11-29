@@ -11,5 +11,6 @@ functions/*
 !functions/pipbase.fish
 !functions/pipnorm.fish
 !functions/pipu.fish
+!functions/pvcp.fish
 !functions/runx.fish
 !functions/tup.fish

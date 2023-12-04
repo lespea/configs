@@ -18,7 +18,7 @@ set -Ux fish_greeting ""
 
 ##### Aliases
 
-alias -s cp 'cp --reflink=auto'
+alias -s cp 'coreutils cp -G --reflink=auto'
 alias -s df 'df -h'
 alias -s du 'du -h'
 alias -s gitk 'gitk --all'
@@ -65,7 +65,8 @@ if set -q IS_ARCH
     alias -s icat 'kitty +kitten icat'
     alias -s kssh 'kitty +kitten ssh'
     alias -s jlog 'journalctl -r -p warning'
-    alias -s jtail 'clear && journalctl -n0 -f | rg -M0 -vF rtkit-daemon'
+    alias -s plog 'tail -F $argv | bat -pP -llog'
+    alias -s jtail 'clear && journalctl -n0 -f | rg -M0 -vF --line-buffered rtkit-daemon $argv | bat -pP -llog'
     alias -s refl 'sudo reflector -n 24 -c \'United States\' -f 10 -p https --save /etc/pacman.d/mirrorlist --threads 10 -a 12'
 
     for dir in 'Desktop' 'Documents' 'Downloads' 'Music' 'Pictures' 'Video'

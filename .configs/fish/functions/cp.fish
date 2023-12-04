@@ -1,3 +1,4 @@
-function cp --wraps='coreutils cp -g' --description 'alias cp coreutils cp -g'
-  coreutils cp -g $argv
+function cp --wraps='coreutils cp -G --reflink=auto' --description 'alias cp coreutils cp -G --reflink=auto'
+  coreutils cp -G --reflink=auto $argv
+        
 end

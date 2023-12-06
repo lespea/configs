@@ -8,6 +8,7 @@ functions/*
 !functions/genSrc.fish
 !functions/genb.fish
 !functions/jtail.fish
+!functions/mv.fish
 !functions/pipbase.fish
 !functions/pipnorm.fish
 !functions/pipu.fish

@@ -18,7 +18,8 @@ set -Ux fish_greeting ""
 
 ##### Aliases
 
-alias -s cp 'coreutils cp -G --reflink=auto'
+alias -s cp 'coreutils cp -g --reflink=auto'
+alias -s mv 'coreutils mv -g'
 alias -s df 'df -h'
 alias -s du 'du -h'
 alias -s gitk 'gitk --all'

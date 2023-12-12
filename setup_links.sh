@@ -59,26 +59,24 @@ if [ ! -f ${HOME}/.gitconfig ]; then
 fi
 
 if [[ `uname` == "Darwin" ]]; then
-    CONF_DIRS="lsd zellij fish"
+    CONF_DIRS="fish kitty lazygit lsd nvim zellij"
 
-    setup_link "${CUR_DIR}/macZsh" "${HOME}/.zshrc"
-    setup_link "${CUR_DIR}/macZshEnv" "${HOME}/.zshenv"
+    # setup_link "${CUR_DIR}/macZsh" "${HOME}/.zshrc"
+    # setup_link "${CUR_DIR}/macZshEnv" "${HOME}/.zshenv"
 
     setup_link "${CUR_DIR}/gpg/gpg-agent.m1.conf" "${HOME}/.gnupg/gpg-agent.conf"
 else
-    CONF_DIRS="alacritty hypr i3 kitty lsd picom polybar sway zellij fish"
+    CONF_DIRS="alacritty fish hypr kitty lazygit lsd nvim picom sway zellij"
 
     setup_single .Xresources
 
-    setup_link "${CUR_DIR}/archAntigen" "${HOME}/.antigenrc"
-    setup_link "${CUR_DIR}/archZsh" "${HOME}/.zshrc"
-    setup_link "${CUR_DIR}/archZshEnv" "${HOME}/.zshenv"
-    setup_link "${CUR_DIR}/archP10K" "${HOME}/.p10k.zsh"
+    # setup_link "${CUR_DIR}/archAntigen" "${HOME}/.antigenrc"
+    # setup_link "${CUR_DIR}/archZsh" "${HOME}/.zshrc"
+    # setup_link "${CUR_DIR}/archZshEnv" "${HOME}/.zshenv"
+    # setup_link "${CUR_DIR}/archP10K" "${HOME}/.p10k.zsh"
 
     setup_link "${CUR_DIR}/gpg/gpg-agent.conf" "${HOME}/.gnupg/gpg-agent.conf"
 fi
-
-setup_link "${CUR_DIR}/nvim" "${HOME}/.config/nvim"
 
 for dir in $CONF_DIRS; do
     setup_link "$CUR_DIR/.configs/$dir" "$HOME/.config/$dir"

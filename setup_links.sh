@@ -59,14 +59,14 @@ if [ ! -f ${HOME}/.gitconfig ]; then
 fi
 
 if [[ `uname` == "Darwin" ]]; then
-    CONF_DIRS="fish kitty lazygit lsd nvim zellij"
+    CONF_DIRS="fish kitty lazygit lsd zellij"
 
     # setup_link "${CUR_DIR}/macZsh" "${HOME}/.zshrc"
     # setup_link "${CUR_DIR}/macZshEnv" "${HOME}/.zshenv"
 
     setup_link "${CUR_DIR}/gpg/gpg-agent.m1.conf" "${HOME}/.gnupg/gpg-agent.conf"
 else
-    CONF_DIRS="alacritty fish hypr kitty lazygit lsd nvim picom sway zellij"
+    CONF_DIRS="alacritty fish hypr kitty lazygit lsd picom sway zellij"
 
     setup_single .Xresources
 
@@ -77,6 +77,8 @@ else
 
     setup_link "${CUR_DIR}/gpg/gpg-agent.conf" "${HOME}/.gnupg/gpg-agent.conf"
 fi
+
+setup_link "${CUR_DIR}/nvim" "${HOME}/.config/nvim"
 
 for dir in $CONF_DIRS; do
     setup_link "$CUR_DIR/.configs/$dir" "$HOME/.config/$dir"

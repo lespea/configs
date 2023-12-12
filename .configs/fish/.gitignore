@@ -13,6 +13,7 @@ functions/*
 !functions/pipnorm.fish
 !functions/pipu.fish
 !functions/pvcp.fish
+!functions/pyei.fish
 !functions/runx.fish
 !functions/setupv.fish
 !functions/tup.fish

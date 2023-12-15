@@ -14,6 +14,7 @@ functions/*
 !functions/pipu.fish
 !functions/pvcp.fish
 !functions/pyei.fish
+!functions/refl.fish
 !functions/runx.fish
 !functions/setupv.fish
 !functions/tup.fish

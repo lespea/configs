@@ -1,0 +1,22 @@
+[font]
+size = 10.5
+
+[font.normal]
+family = "Cascadia Code"
+style = "Regular"
+
+[[keyboard.bindings]]
+action = "CreateNewWindow"
+key = "N"
+mods = "Control|Shift"
+
+[[mouse.bindings]]
+action = "PasteSelection"
+mouse = "Middle"
+
+[scrolling]
+history = 2000
+multiplier = 3
+
+[selection]
+save_to_clipboard = true

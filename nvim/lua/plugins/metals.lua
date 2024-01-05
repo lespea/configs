@@ -4,7 +4,7 @@ return {
     'nvim-lua/plenary.nvim',
     'VonHeikemen/lsp-zero.nvim',
   },
-  ft = { 'scala', 'sbt', 'java' },
+  ft = { 'scala', 'sbt' },
   config = function()
     local metals = require('metals')
 
@@ -24,7 +24,7 @@ return {
       -- NOTE: You may or may not want java included here. You will need it if you
       -- want basic Java support but it may also conflict if you are using
       -- something like nvim-jdtls which also works on a java filetype autocmd.
-      pattern = { "scala", "sbt", "java" },
+      pattern = { "scala", "sbt" },
       callback = function()
         require("metals").initialize_or_attach(conf)
       end,

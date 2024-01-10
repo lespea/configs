@@ -16,5 +16,6 @@ functions/*
 !functions/pyei.fish
 !functions/refl.fish
 !functions/runx.fish
+!functions/rusti.fish
 !functions/setupv.fish
 !functions/tup.fish

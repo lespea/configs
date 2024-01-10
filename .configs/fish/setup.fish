@@ -30,7 +30,9 @@ alias -s vim nvim
 alias -s xsv qsv
 
 alias -s gcola 'git-cola &>/dev/null & disown'
-alias -s rusti 'mold --run env RUSTFLAGS="-C link-args=-s -C target-cpu=native" cargo install'
+
+# real function for now
+# alias -s rusti 'mold --run env RUSTFLAGS="-C link-args=-s -C target-cpu=native" cargo install'
 
 # ls
 

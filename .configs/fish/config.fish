@@ -2,7 +2,7 @@ if set -q IS_MAC; and set -q brewpath
         eval "$($brewpath shellenv)"
 end
 
-pyenv init - fish | source
+pyenv init - --no-rehash fish | source
 
 function final
     set -l custom "$HOME/.fish_custom"

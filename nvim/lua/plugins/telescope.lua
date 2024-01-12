@@ -23,6 +23,13 @@ return {
             override_file_sorter = true,    -- override the file sorter
             case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
           }
+        },
+
+        pickers = {
+          find_files = {
+            hidden = true,
+            no_ignore = true
+          }
         }
       }
 

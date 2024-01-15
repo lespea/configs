@@ -2,12 +2,7 @@ if set -q IS_MAC; and set -q brewpath
         eval "$($brewpath shellenv)"
 end
 
-if type -q "mcfly"
-    mcfly init fish | source
-    mcfly-fzf init fish | source
-else
-    atuin init fish --disable-up-arrow | source
-end
+atuin init fish --disable-up-arrow | source
 
 pyenv init - --no-rehash fish | source
 

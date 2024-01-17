@@ -2,8 +2,6 @@ if set -q IS_MAC; and set -q brewpath
         eval "$($brewpath shellenv)"
 end
 
-atuin init fish --disable-up-arrow | source
-
 pyenv init - --no-rehash fish | source
 
 function final
@@ -46,6 +44,7 @@ if status is-interactive
         set -gx LC_ALL en_US.UTF-8
     end
 
+    atuin init fish --disable-up-arrow | source
     zoxide init fish | source
     just --completions fish | source
     rg --generate complete-fish | source

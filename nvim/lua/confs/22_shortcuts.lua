@@ -36,6 +36,7 @@ set('n', '<C-p>', '', optRS)
 set('n', '<C-S-V>', '"+p', optR)
 set('v', '<C-S-C>', '"+y', optR)
 set('v', '<leader>cy', '"+y', optR)
+set('n', '<leader>cq', '"+yi"', optR)
 set({ 'n', 'v' }, '<leader>cp', '"+p', optR)
 
 

@@ -126,7 +126,9 @@ return {
     end,
   },
   {
-    'lespea/tree-sitter-just',
+    -- 'lespea/tree-sitter-just',
+    'IndianBoy42/tree-sitter-just',
+    enabled = false,
     opts = {},
     lazy = false,
     dependencies = {

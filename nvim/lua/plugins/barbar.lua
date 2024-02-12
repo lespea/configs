@@ -6,7 +6,7 @@ return {
     'kyazdani42/nvim-web-devicons',
   },
   opts = {
-    auto_hide = true,
+    auto_hide = false,
   },
   lazy = false,
   keys = {

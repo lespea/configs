@@ -4,7 +4,6 @@ completions/
 functions/*
 
 /fishd.tmp.*
-/themes
 
 !functions/cp.fish
 !functions/expand-dot-to-parent-directory-path.fish

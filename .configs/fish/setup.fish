@@ -8,7 +8,7 @@ fish_add_path -Up "$PYENV_ROOT/bin"
 
 set -Ux EDITOR nvim
 set -Ux SYSTEMD_EDITOR nvim
-set -Ux base16_theme onedark
+# set -Ux base16_theme onedark
 
 set -Ux LS_COLORS "$($HOME/.cargo/bin/vivid generate one-dark)"
 

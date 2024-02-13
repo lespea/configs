@@ -2,12 +2,12 @@ return {
   'nvim-lualine/lualine.nvim',
   dependencies = {
     'kyazdani42/nvim-web-devicons',
-    'navarasu/onedark.nvim',
+    'pauchiner/pastelnight.nvim'
   },
   opts = {
     options = {
       icons_enabled = true,
-      theme = 'onedark',
+      theme = 'pastelnight',
     },
     sections = {
       lualine_a = { 'hostname', 'mode' },

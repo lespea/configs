@@ -19,8 +19,10 @@ return {
     priority = 1000,
     config = function()
       local theme = require('pastelnight')
-      theme.setup()
-      vim.api.nvim_command [[colorscheme pastelnight]]
+      theme.setup({
+        style = 'highContrast'
+      })
+      vim.api.nvim_command [[colorscheme pastelnight-highcontrast]]
     end
   },
   { 'kyazdani42/nvim-web-devicons', lazy = true },

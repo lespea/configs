@@ -25,5 +25,5 @@ return {
       vim.api.nvim_command [[colorscheme pastelnight-highcontrast]]
     end
   },
-  { 'kyazdani42/nvim-web-devicons', lazy = true },
+  { 'nvim-tree/nvim-web-devicons', lazy = true },
 }

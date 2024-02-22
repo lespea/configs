@@ -40,7 +40,7 @@ def setup(d: torun, email: str, signingKey: str):
 
     add_cmds(d, "apply", whitespace="strip")
     add_cmds(d, "branch", sort="-committerdate")
-    add_cmds(d, "commit", gpgSign=str(signingKey != "").lower(), rebose=t)
+    add_cmds(d, "commit", gpgSign=str(signingKey != "").lower(), rebase=t)
     add_cmds(d, "core", autocrlf=f, editor="nvim", pager="delta")
     add_cmds(d, "difftool", prompt="false")
     add_cmds(d, "difftool.difftastic", cmd='difft "$LOCAL" "$REMOTE"')

@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 import argparse
+import os
+import pathlib
 import subprocess
 
 
@@ -97,7 +99,7 @@ def setup(d: torun, email: str, signingKey: str):
         "delta",
         features="decorations",
         line_numbers=t,
-        side_by_side=t,
+        side_by_side=f,
         syntax_theme="Monokai Extended",
     )
 
@@ -123,5 +125,11 @@ if __name__ == "__main__":
     parser.add_argument(
         "-k", "--key", default="8062DB324D4405D656B07A91E57FA7C8B50DE252"
     )
+    parser.add_argument("--rm", action=argparse.BooleanOptionalAction, default=False)
+
     args = parser.parse_args()
+
+    if args.rm:
+        (pathlib.Path.home() / ".gitconfig").unlink(missing_ok=True)
+
     main(args.email, args.key)

@@ -11,8 +11,8 @@ return {
 
     local nv = { 'n', 'v' }
 
-    set(nv, '<leader>bb', function() box.lbox() end)
-    set(nv, '<leader>bc', function() box.cbox() end)
+    set(nv, '<leader>bb', function() box.llbox() end)
+    set(nv, '<leader>bc', function() box.lcbox() end)
     set('n', '<leader>bl', function() box.line() end)
   end,
 }

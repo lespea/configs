@@ -292,6 +292,7 @@ def get_packages() -> list[PkgInfo]:
         PkgInfo("kondo"),
         PkgInfo("lscolors", features=["crossterm", "nu-ansi-term"]),
         PkgInfo("lsd"),
+        PkgInfo("eza"),
         PkgInfo("mdcat"),
         PkgInfo("miniserve"),
         PkgInfo("nickel-lang-cli"),

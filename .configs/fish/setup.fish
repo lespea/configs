@@ -36,18 +36,18 @@ alias -s gcola 'git-cola &>/dev/null & disown'
 
 # ls
 
-alias -s ls 'lsd'
+alias -s ls 'eza -g --icons=auto'
 
-alias -s l 'lsd'
-alias -s la 'lsd -a'
+alias -s l 'exa -g --icons=auto -G'
+alias -s la 'exa -g --icons=auto -a'
 
-alias -s lla 'lsd -la'
-alias -s ll 'lsd -l'
-alias -s lld 'lsd -l --total-size'
+alias -s lla 'exa -g --icons=auto -la'
+alias -s ll 'exa -g --icons=auto -l'
+alias -s lld 'exa -g --icons=auto -l --total-size'
 
-alias -s lt 'lsd --tree'
-alias -s llt 'lsd -l --tree'
-alias -s llta 'lsd -la --tree'
+alias -s lt 'exa -g --icons=auto -T'
+alias -s llt 'exa -g --icons=auto -l -T'
+alias -s llta 'exa -g --icons=auto -la -T'
 
 ## Globals
 
@@ -69,7 +69,7 @@ if set -q IS_ARCH
     alias -s kssh 'kitty +kitten ssh'
     alias -s jlog 'journalctl -r -p warning'
     alias -s plog 'tail -F $argv | bat -pP -llog'
-    alias -s jtail 'clear && journalctl -n0 -f | rg -M0 -vF --line-buffered rtkit-daemon $argv | bat -pP -llog'
+    alias -s jtail 'clear && journalctl -n0 -f | rg -M0 -iv --line-buffered \'rtkit-daemon|G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START\' $argv | bat -pP -llog'
     alias -s refl 'sudo reflector -n 24 -c \'United States\' -f 10 -p https --save /etc/pacman.d/mirrorlist --threads 10 -a 12'
 
     for dir in 'Desktop' 'Documents' 'Downloads' 'Music' 'Pictures' 'Video'

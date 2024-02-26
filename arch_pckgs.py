@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import subprocess
+import pathlib
 
 from itertools import chain
 from collections.abc import Iterable
@@ -76,7 +77,6 @@ def base() -> set[str]:
         "btrfs-progs",
         "exfatprogs",
         "f2fs-tools",
-        "fdisk",
         "gpart",
         "gparted",
         "gptfdisk",
@@ -295,6 +295,7 @@ def dev() -> set[str]:
         "cmake",
         "cppcheck",
         "debugedit",
+        "devtools",
         "gcc",
         "gcc-fortran",
         "gcc-libs",
@@ -363,6 +364,7 @@ def dev() -> set[str]:
     }
 
     go = {
+        "gofumpt",
         "go",
         "gojq",
         "gopls",
@@ -1026,7 +1028,6 @@ def ui() -> set[str]:
         "lib32-opencl-rusticl-mesa",
         "miopen-hip",
         "ocl-icd",
-        "ocm-hip-libraries",
         "opencl-clhpp",
         "opencl-clover-mesa",
         "opencl-headers",
@@ -1040,6 +1041,7 @@ def ui() -> set[str]:
         "rocm-clang-ocl",
         "rocm-core",
         "rocm-device-libs",
+        "rocm-hip-libraries",
         "rocm-hip-runtime",
         "rocm-hip-sdk",
         "rocm-language-runtime",
@@ -1093,6 +1095,8 @@ def ui() -> set[str]:
         "ttf-bitstream-vera-mono-nerd",
         "ttf-cascadia-code",
         "ttf-cascadia-code-nerd",
+        "ttf-croscore",
+        "ttf-dejavu",
         "ttf-droid",
         "ttf-fira-mono",
         "ttf-fira-sans",
@@ -1115,6 +1119,7 @@ def ui() -> set[str]:
         "ttf-merriweather",
         "ttf-merriweather-sans",
         "ttf-ms-win11-auto",
+        "ttf-nerd-fonts-symbols-common",
         "ttf-nerd-fonts-symbols-mono",
         "ttf-noto-nerd",
         "ttf-opensans",
@@ -1445,7 +1450,7 @@ def run():
     if PACSTRAP_BASE is not None and PACSTRAP_BASE != "":
         args = ["pacstrap", PACSTRAP_BASE]
     else:
-        args = ["sudo", "pacman", "-S"]
+        args = ["paru", "-S"]
 
     args.extend(pkgs)
     cmd_str = " ".join(args)
@@ -1457,5 +1462,32 @@ def run():
         print(f"Would have installed {num_pkgs} pkgs: `{cmd_str}`")
 
 
+def paru():
+    home = pathlib.Path.home()
+    paru = home / "paru"
+
+    cmds = [
+        ("sudo pacman -S --needed base-devel git".split(" "), None),
+        ("git clone https://aur.archlinux.org/paru.git".split(" "), home),
+        ("makepkg -si".split(" "), paru),
+    ]
+
+    for cmd, dir in cmds:
+        subprocess.check_call(args=cmd, cwd=dir)
+
+    paru.unlink(missing_ok=True)
+
+
+def want_paru() -> bool:
+    try:
+        subprocess.check_call(args=["paru", "--version"])
+    except Exception:
+        return True
+    return False
+
+
 if __name__ == "__main__":
-    run()
+    if want_paru():
+        paru()
+    else:
+        run()

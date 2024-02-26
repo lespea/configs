@@ -67,6 +67,8 @@ def base() -> set[str]:
         "efitools",
         "efivar",
         "mtools",
+        "syslinux",
+        "systemd-boot-pacman-hook",
     }
 
     # Filesystems
@@ -82,6 +84,8 @@ def base() -> set[str]:
         "libnfs",
         "nfs-utils",
         "nfsidmap",
+        "zfs-dkms",
+        "zfs-utils",
         "ntfs-3g",
         "nvme-cli",
         "open-iscsi",
@@ -102,7 +106,9 @@ def base() -> set[str]:
         "dialog",
         "dmidecode",
         "etckeeper",
+        "which",
         "gksu",
+        "testdisk",
         "htop",
         "i2c-tools",
         "iotop-c",
@@ -127,9 +133,22 @@ def base() -> set[str]:
         "pigz",
         "polkit",
         "pv",
+        "rebuild-detector",
+        "reflector",
+        "samba",
+        "sbctl",
+        "sbsigntools",
+        "smartmontools",
+        "snapper",
+        "socat",
         "strace",
+        "tinyxxd",
+        "tmux",
+        "zellij",
+        "time",
         "sudo",
         "unzip",
+        "unrar",
         "zip",
     }
 
@@ -183,7 +202,10 @@ def base() -> set[str]:
     amd_ucode = {
         "amd-ucode",
     }
-    intel_ucode = {"intel-ucode"}
+
+    intel_ucode = {
+        "intel-ucode",
+    }
 
     return multi(
         any=(
@@ -222,16 +244,37 @@ def containers() -> set[str]:
         "cni-plugins"  # networking
     }
 
+    # Core podman
     podman = {
         "podman",
         "podman-compose",
         "podman-docker",
     }
 
-    return combine(
-        build,
-        network,
-        podman,
+    # Not a container but whatever
+    qemu = {
+        "virt-install",
+        "swtpm",
+        "qemu-emulators-full",
+        "spice-protocol",
+        "spice-vdagent",
+        "qemu-full",
+        "qemu-tools",
+    }
+
+    # Desktop utils
+    qemu_desk = {
+        "virt-manager",
+    }
+
+    return multi(
+        any=(
+            build,
+            network,
+            podman,
+            qemu,
+        ),
+        desk=(qemu_desk,),
     )
 
 
@@ -249,6 +292,7 @@ def dev() -> set[str]:
         "boost",
         "ccache",
         "clang",
+        "sccache",
         "cmake",
         "cppcheck",
         "debugedit",
@@ -289,6 +333,7 @@ def dev() -> set[str]:
     }
 
     java = {
+        "visualvm",
         "maven",
         "coursier",
         "gradle",
@@ -309,6 +354,7 @@ def dev() -> set[str]:
         "npm",
         "pnpm",
         "semver",
+        "yarn",
         "svelte-language-server",
         "ts-node",
         "typescript",
@@ -328,13 +374,19 @@ def dev() -> set[str]:
         "ghc-libs",
         "ghc-static",
         "git-cola",
+        "veoy-bin",
     }
 
     misc_all = {
         "chmlib",  # Microsoft itss/chm files
+        "wimlib",
         "git",
+        "vc-intrinsics",
+        "valgrind",
+        "tig",
         "hadolint-bin",
         "hexdump",
+        "tidy",
         "hexedit",
         "lazygit",
         "prettier",
@@ -364,6 +416,8 @@ def dev() -> set[str]:
     }
 
     nvim = {
+        "yaml-language-server",
+        "tree-sitter-cli",
         "neovide",
         "neovim",
         "ctags",
@@ -583,6 +637,7 @@ def dev() -> set[str]:
         "python-opengl",
         "python-openpyxl",
         "python-pandas",
+        "yapf",
         "python-pandas-datareader",
         "python-path",
         "python-priority",
@@ -629,7 +684,16 @@ def dev() -> set[str]:
     }
 
     webassembly = {
+        "wasi-compiler-rt",
+        "wasi-libc++",
+        "wasi-libc++abi",
         "binaryen",
+    }
+
+    wine = {
+        "wine",
+        "winetricks",
+        "wine-mono",
     }
 
     return multi(
@@ -651,6 +715,7 @@ def dev() -> set[str]:
             misc,
             ocaml,
             webassembly,
+            wine,
         ),
     )
 
@@ -662,6 +727,8 @@ def dev() -> set[str]:
 
 def games() -> set[str]:
     steam = {
+        "sdl12-compat",
+        "sdl_image",
         "steam-native-runtime",
         "proton-ge-custom-bin",
         "lib32-librsvg",
@@ -693,6 +760,7 @@ def misc() -> set[str]:
 
     # latex tooling
     latex = {
+        "tectonic",
         "pandoc-cli",
         "pandoc-crossref",
         "biber",
@@ -734,6 +802,12 @@ def misc() -> set[str]:
     # Media players/codecs/etc
     media = {
         "okular",
+        "zathura",
+        "zathura-cb",
+        "zathura-djvu",
+        "zathura-pdf-mupdf",
+        "zathura-ps",
+        "verapdf",
         "obs-studio",
         "gst-libav",
         "gst-plugin-pipewire",
@@ -749,6 +823,7 @@ def misc() -> set[str]:
         "live-media",
         "mediainfo-gui",
         "mpv",
+        "qmmp",
         "mpv-mpris",
         "mpvqt",
         "v4l-utils",
@@ -759,7 +834,9 @@ def misc() -> set[str]:
     # Misc things
     misc = {
         "catimg",
+        "rclone",
         "direnv",
+        "yt-dlp",
         "dos2unix",
         "duf",
         "gnuplot",
@@ -781,9 +858,16 @@ def misc() -> set[str]:
         "gimp",
         "gimp-help-en",
         "gimp-nufraw",
+        "y-cruncher",
         "gimp-plugin-gmic",
+        "signal-desktop",
+        "slack-electron",
+        "zoom",
+        "vesktop-bin",
+        "spotify",
         "inkscape",
         "keepassxc",
+        "tidal-hifi-bin",
     }
 
     # Libre office
@@ -793,6 +877,8 @@ def misc() -> set[str]:
 
     # Printer stuff
     print = {
+        "xsane-gimp",
+        "sane",
         "pstoedit",
         "brother-mfc-l2710dw",
         "cups",
@@ -833,11 +919,13 @@ def misc() -> set[str]:
         "nmap",
         "termshark",
         "wireshark-cli",
+        "tcpdump",
         "wireshark-qt",
     }
 
     # Spell checking tools
     spell = {
+        "words",
         "aiksaurus",
         "aspell",
         "aspell-en",
@@ -898,6 +986,7 @@ def sound() -> set[str]:
 
     misc = {
         "easyeffects",
+        "zam-plugins",
         "ladspa",
         "lib32-libcanberra",
         "pavucontrol",
@@ -963,15 +1052,12 @@ def ui() -> set[str]:
     }
 
     clipboard = {
+        "slurp",
         "clipman",
         "copyq",
         "flameshot",
         "grim",
         "wl-clipboard",
-    }
-
-    comps = {
-        "hyprland",
     }
 
     # UI Engiens
@@ -984,7 +1070,9 @@ def ui() -> set[str]:
 
     # Useful fonts
     fonts = {
+        "woff2-cascadia-code",
         "adobe-source-code-pro-fonts",
+        "awesome-terminal-fonts",
         "font-manager",
         "fontforge",
         "gnu-free-fonts",
@@ -992,6 +1080,15 @@ def ui() -> set[str]:
         "noto-fonts-cjk",
         "noto-fonts-emoji",
         "noto-fonts-extra",
+        "otf-cascadia-code",
+        "otf-crimson",
+        "otf-crimson-pro",
+        "otf-droid-nerd",
+        "otf-eb-garamond",
+        "otf-font-awesome",
+        "otf-gandhifamily",
+        "otf-intel-one-mono",
+        "otf-vollkorn",
         "ttf-anonymouspro-nerd",
         "ttf-bitstream-vera",
         "ttf-bitstream-vera-mono-nerd",
@@ -1013,15 +1110,6 @@ def ui() -> set[str]:
         "ttf-iosevka-nerd",
         "ttf-jetbrains-mono",
         "ttf-jetbrains-mono-nerd",
-        "otf-cascadia-code",
-        "otf-crimson",
-        "otf-crimson-pro",
-        "otf-droid-nerd",
-        "otf-eb-garamond",
-        "otf-font-awesome",
-        "otf-gandhifamily",
-        "otf-intel-one-mono",
-        "otf-vollkorn",
         "ttf-liberation",
         "ttf-liberation-mono-nerd",
         "ttf-mac-fonts",
@@ -1036,11 +1124,13 @@ def ui() -> set[str]:
         "ttf-ubuntu-font-family",
         "ttf-ubuntu-mono-nerd",
         "ttf-ubuntu-nerd",
+        "unicode-emoji",
     }
 
     libs = {
         "libjxl",
         "libwebp",
+        "twolame",
     }
 
     mesa = {
@@ -1059,13 +1149,17 @@ def ui() -> set[str]:
 
     # Misc
     misc = {
+        "wpaperd",
         "electron",
         "nvtop",
         "polkit-kde-agent",
         "radeontop",
+        "radeontool",
         "wofi",
         "projectm-presets-cream-of-the-crop",
         "projectm-pulseaudio",
+        "tcl",
+        "tk",
         "projectm-sdl",
     }
 
@@ -1157,7 +1251,6 @@ def ui() -> set[str]:
     themes = {
         "arc-gtk-theme",
         "arc-icon-theme",
-        "awesome-terminal-fonts",
         "breeze-gtk",
         "breeze-icons",
         "capitaine-cursors",
@@ -1194,21 +1287,103 @@ def ui() -> set[str]:
     }
 
     wayland = {
-        "mako",
+        "wlroots",
+        "hyprland",
         "lib32-libdecor",
         "libdecor",
+        "mako",
+        "wtype",
+        "waybar",
+        "wayland-utils",
+        "waylock",
+        "xdg-desktop-portal-hyprland",
+    }
+
+    xdg = {
+        "xdg-desktop-portal",
+        "xdg-desktop-portal-gtk",
+        "xdg-desktop-portal-wlr",
+    }
+
+    xdg_base = {
+        "xdg-dbus-proxy",
+        "xdg-user-dirs",
+        "xdg-utils",
+    }
+
+    xorg = {
+        "wxsqlite3",
+        "wxwidgets-common",
+        "wxwidgets-qt5",
+        "xsel",
+        "xss-lock",
+        "xterm",
+        "x11-ssh-askpass",
+        "xboxdrv",
+        "xclip",
+        "xcompmgr",
+        "xcursor-themes",
+        "xf86-input-evdev",
+        "xf86-input-libinput",
+        "xf86-video-amdgpu",
+        "xf86-video-vesa",
+        "xfce4-clipman-plugin",
+        "xfsdump",
+        "xorg-bdftopcf",
+        "xorg-docs",
+        "xorg-font-util",
+        "xorg-fonts-100dpi",
+        "xorg-fonts-75dpi",
+        "xorg-iceauth",
+        "xorg-mkfontscale",
+        "xorg-server",
+        "xorg-server-devel",
+        "xorg-server-xephyr",
+        "xorg-server-xnest",
+        "xorg-server-xvfb",
+        "xorg-sessreg",
+        "xorg-smproxy",
+        "xorg-twm",
+        "xorg-x11perf",
+        "xorg-xauth",
+        "xorg-xbacklight",
+        "xorg-xclipboard",
+        "xorg-xcmsdb",
+        "xorg-xcursorgen",
+        "xorg-xdpyinfo",
+        "xorg-xdriinfo",
+        "xorg-xev",
+        "xorg-xgamma",
+        "xorg-xhost",
+        "xorg-xinit",
+        "xorg-xinput",
+        "xorg-xkbevd",
+        "xorg-xkbutils",
+        "xorg-xkill",
+        "xorg-xlsatoms",
+        "xorg-xlsclients",
+        "xorg-xmodmap",
+        "xorg-xpr",
+        "xorg-xrdb",
+        "xorg-xrefresh",
+        "xorg-xsetroot",
+        "xorg-xvinfo",
+        "xorg-xwayland",
+        "xorg-xwd",
+        "xorg-xwininfo",
+        "xorg-xwud",
     }
 
     return multi(
         any=(
             libs,
             terminfo,
+            xdg_base,
         ),
         desk=(
             cc,
             cl,
             clipboard,
-            comps,
             fonts,
             frameworks,
             mesa,
@@ -1219,6 +1394,8 @@ def ui() -> set[str]:
             themes,
             vulkan,
             wayland,
+            xdg,
+            xorg,
         ),
         none=(vulkan_dont_use, vulkan_layers),
     )
@@ -1232,6 +1409,7 @@ def ui() -> set[str]:
 def web():
     browsers = {
         "chromium",
+        "webkit2gtk",
         "firefox-developer-edition",
         "firefox-developer-edition-i18n-en-us",
     }
@@ -1281,201 +1459,3 @@ def run():
 
 if __name__ == "__main__":
     run()
-
-
-# ╭──────────────────────────────────────────────────────────────────────────────╮
-# │ OLD                                                                          │
-# ╰──────────────────────────────────────────────────────────────────────────────╯
-
-other = {
-    "qdmenu",
-    "qemu-emulators-full",
-    "qemu-full",
-    "qemu-tools",
-    "qmmp",
-    "r2ghidra",
-    "radeontool",
-    "radeontop",
-    "radvd",
-    "rclone",
-    "read-edid",
-    "realtime-privileges",
-    "rebuild-detector",
-    "redshift",
-    "reflector",
-    "repo",
-    "ripgrep",
-    "rofi",
-    "rofi-calc",
-    "rofi-emoji",
-    "rustup",
-    "rz-ghidra",
-    "s-nail",
-    "samba",
-    "sane",
-    "sbctl",
-    "sbsigntools",
-    "scalpel-git",
-    "sccache",
-    "scour",
-    "sdl12-compat",
-    "sdl_image",
-    "signal-desktop",
-    "slack-electron",
-    "slurp",
-    "smartmontools",
-    "snapper",
-    "socat",
-    "sonic-visualiser",
-    "spice-protocol",
-    "spice-vdagent",
-    "spotify",
-    "sshguard",
-    "starship",
-    "strace",
-    "stylua",
-    "sudo",
-    "sway",
-    "swayidle",
-    "swaylock",
-    "swtpm",
-    "syslinux",
-    "systemd-boot-pacman-hook",
-    "tcl",
-    "tcpdump",
-    "tectonic",
-    "testdisk",
-    "thunar",
-    "tidal-hifi-bin",
-    "tidy",
-    "tig",
-    "time",
-    "tinyxxd",
-    "tk",
-    "tmux",
-    "tree-sitter-cli",
-    "tumbler",
-    "twolame",
-    "typescript",
-    "typescript-language-server",
-    "udftools",
-    "unicode-emoji",
-    "universal-android-debloater-bin",
-    "unrar",
-    "unzip",
-    "valgrind",
-    "vamp-plugin-sdk",
-    "vc-intrinsics",
-    "ventoy-bin",
-    "verapdf",
-    "vesktop-bin",
-    "virt-install",
-    "virt-manager",
-    "visualvm",
-    "vkd3d",
-    "wasi-compiler-rt",
-    "wasi-libc++",
-    "wasi-libc++abi",
-    "waybar",
-    "wayland-utils",
-    "waylock",
-    "wdiff",
-    "webkit2gtk",
-    "wezterm",
-    "wget",
-    "which",
-    "wimlib",
-    "wine-mono",
-    "winetricks",
-    "wireless-regdb",
-    "wlroots",
-    "woff2-cascadia-code",
-    "wofi",
-    "words",
-    "wpaperd",
-    "wqy-zenhei",
-    "wtype",
-    "wxsqlite3",
-    "wxwidgets-common",
-    "wxwidgets-qt5",
-    "x11-ssh-askpass",
-    "xboxdrv",
-    "xclip",
-    "xcompmgr",
-    "xcursor-themes",
-    "xdg-dbus-proxy",
-    "xdg-desktop-portal",
-    "xdg-desktop-portal-gtk",
-    "xdg-desktop-portal-hyprland",
-    "xdg-desktop-portal-wlr",
-    "xdg-user-dirs",
-    "xdg-utils",
-    "xf86-input-evdev",
-    "xf86-input-libinput",
-    "xf86-video-amdgpu",
-    "xf86-video-vesa",
-    "xfce4-clipman-plugin",
-    "xfsdump",
-    "xorg-bdftopcf",
-    "xorg-docs",
-    "xorg-font-util",
-    "xorg-fonts-100dpi",
-    "xorg-fonts-75dpi",
-    "xorg-iceauth",
-    "xorg-mkfontscale",
-    "xorg-server",
-    "xorg-server-devel",
-    "xorg-server-xephyr",
-    "xorg-server-xnest",
-    "xorg-server-xvfb",
-    "xorg-sessreg",
-    "xorg-smproxy",
-    "xorg-twm",
-    "xorg-x11perf",
-    "xorg-xauth",
-    "xorg-xbacklight",
-    "xorg-xclipboard",
-    "xorg-xcmsdb",
-    "xorg-xcursorgen",
-    "xorg-xdpyinfo",
-    "xorg-xdriinfo",
-    "xorg-xev",
-    "xorg-xgamma",
-    "xorg-xhost",
-    "xorg-xinit",
-    "xorg-xinput",
-    "xorg-xkbevd",
-    "xorg-xkbutils",
-    "xorg-xkill",
-    "xorg-xlsatoms",
-    "xorg-xlsclients",
-    "xorg-xmodmap",
-    "xorg-xpr",
-    "xorg-xrdb",
-    "xorg-xrefresh",
-    "xorg-xsetroot",
-    "xorg-xvinfo",
-    "xorg-xwayland",
-    "xorg-xwd",
-    "xorg-xwininfo",
-    "xorg-xwud",
-    "xsane-gimp",
-    "xsel",
-    "xss-lock",
-    "xterm",
-    "y-cruncher",
-    "yaml-language-server",
-    "yapf",
-    "yarn",
-    "yt-dlp",
-    "zam-plugins",
-    "zathura",
-    "zathura-cb",
-    "zathura-djvu",
-    "zathura-pdf-mupdf",
-    "zathura-ps",
-    "zellij",
-    "zfs-dkms",
-    "zfs-utils",
-    "zoom",
-}

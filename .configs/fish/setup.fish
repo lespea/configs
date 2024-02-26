@@ -36,18 +36,18 @@ alias -s gcola 'git-cola &>/dev/null & disown'
 
 # ls
 
-alias -s ls 'eza -g --icons=auto'
+alias -s ls 'eza -g --icons'
 
-alias -s l 'exa -g --icons=auto -G'
-alias -s la 'exa -g --icons=auto -a'
+alias -s l 'exa -g --icons -G'
+alias -s la 'exa -g --icons -a'
 
-alias -s lla 'exa -g --icons=auto -la'
-alias -s ll 'exa -g --icons=auto -l'
-alias -s lld 'exa -g --icons=auto -l --total-size'
+alias -s lla 'exa -g --icons -la'
+alias -s ll 'exa -g --icons -l'
+alias -s lld 'exa -g --icons -l --total-size'
 
-alias -s lt 'exa -g --icons=auto -T'
-alias -s llt 'exa -g --icons=auto -l -T'
-alias -s llta 'exa -g --icons=auto -la -T'
+alias -s lt 'exa -g --icons -T'
+alias -s llt 'exa -g --icons -l -T'
+alias -s llta 'exa -g --icons -la -T'
 
 ## Globals
 

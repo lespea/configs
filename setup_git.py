@@ -51,7 +51,7 @@ def setup(d: torun, email: str, signingKey: str):
     add_cmds(d, "merge", conflictstyle="zdiff3", keepbackup=f, tool="nvim")
     add_cmds(d, "pager", difftool=t)
     add_cmds(d, "pull", rebase=f)
-    add_cmds(d, "push", default="current", followtags=t)
+    add_cmds(d, "push", default="current", followTags=t)
     add_cmds(d, "rebase", autosquash=t, autostash=t, updateRefs=t)
     add_cmds(d, "rerere", enabled=t)
     add_cmds(d, "submodule", recurse=t)

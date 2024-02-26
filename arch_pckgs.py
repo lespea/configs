@@ -84,11 +84,11 @@ def base() -> set[str]:
         "libnfs",
         "nfs-utils",
         "nfsidmap",
-        "zfs-dkms",
-        "zfs-utils",
         "ntfs-3g",
         "nvme-cli",
         "open-iscsi",
+        "zfs-dkms",
+        "zfs-utils",
     }
 
     # Firmware for our hardware
@@ -106,9 +106,7 @@ def base() -> set[str]:
         "dialog",
         "dmidecode",
         "etckeeper",
-        "which",
         "gksu",
-        "testdisk",
         "htop",
         "i2c-tools",
         "iotop-c",
@@ -142,13 +140,15 @@ def base() -> set[str]:
         "snapper",
         "socat",
         "strace",
+        "sudo",
+        "testdisk",
+        "time",
         "tinyxxd",
         "tmux",
-        "zellij",
-        "time",
-        "sudo",
-        "unzip",
         "unrar",
+        "unzip",
+        "which",
+        "zellij",
         "zip",
     }
 
@@ -189,12 +189,12 @@ def base() -> set[str]:
     # Shells we use
     shells = {
         "bash",
-        "powerline",
-        "powerline-fonts",
         "bash-completion",
         "fish",
         "fisher",
         "fzf",
+        "powerline",
+        "powerline-fonts",
         "zsh",
     }
 
@@ -241,7 +241,7 @@ def containers() -> set[str]:
 
     # Networking utils
     network = {
-        "cni-plugins"  # networking
+        "cni-plugins",  # networking
     }
 
     # Core podman
@@ -253,13 +253,13 @@ def containers() -> set[str]:
 
     # Not a container but whatever
     qemu = {
-        "virt-install",
-        "swtpm",
         "qemu-emulators-full",
-        "spice-protocol",
-        "spice-vdagent",
         "qemu-full",
         "qemu-tools",
+        "spice-protocol",
+        "spice-vdagent",
+        "swtpm",
+        "virt-install",
     }
 
     # Desktop utils
@@ -292,7 +292,6 @@ def dev() -> set[str]:
         "boost",
         "ccache",
         "clang",
-        "sccache",
         "cmake",
         "cppcheck",
         "debugedit",
@@ -320,21 +319,20 @@ def dev() -> set[str]:
         "patch",
         "pkgconf",
         "pkgfile",
+        "sccache",
         "zig",
     }
 
     diff = {
         "diffutils",
-        "pacdiffviewer",
         "git-delta",
         "kdiff3",
         "meld",
+        "pacdiffviewer",
         "wdiff",
     }
 
     java = {
-        "visualvm",
-        "maven",
         "coursier",
         "gradle",
         "gradle-doc",
@@ -342,8 +340,10 @@ def dev() -> set[str]:
         "jdk-openjdk",
         "jetbrains-toolbox",
         "kotlin",
+        "maven",
         "sbt",
         "scala",
+        "visualvm",
     }
 
     jscript = {
@@ -354,19 +354,19 @@ def dev() -> set[str]:
         "npm",
         "pnpm",
         "semver",
-        "yarn",
         "svelte-language-server",
         "ts-node",
         "typescript",
         "typescript-language-server",
         "typescript-svelte-plugin",
+        "yarn",
     }
 
     go = {
         "go",
         "gojq",
-        "staticcheck",
         "gopls",
+        "staticcheck",
     }
 
     misc = {
@@ -379,17 +379,17 @@ def dev() -> set[str]:
 
     misc_all = {
         "chmlib",  # Microsoft itss/chm files
-        "wimlib",
         "git",
-        "vc-intrinsics",
-        "valgrind",
-        "tig",
         "hadolint-bin",
         "hexdump",
-        "tidy",
         "hexedit",
         "lazygit",
         "prettier",
+        "tidy",
+        "tig",
+        "valgrind",
+        "vc-intrinsics",
+        "wimlib",
     }
 
     mono = {
@@ -416,11 +416,11 @@ def dev() -> set[str]:
     }
 
     nvim = {
-        "yaml-language-server",
-        "tree-sitter-cli",
+        "ctags",
         "neovide",
         "neovim",
-        "ctags",
+        "tree-sitter-cli",
+        "yaml-language-server",
     }
 
     ocaml = {
@@ -637,7 +637,6 @@ def dev() -> set[str]:
         "python-opengl",
         "python-openpyxl",
         "python-pandas",
-        "yapf",
         "python-pandas-datareader",
         "python-path",
         "python-priority",
@@ -676,6 +675,7 @@ def dev() -> set[str]:
         "python-xlwt",
         "python-yaml",
         "python-zstandard",
+        "yapf",
     }
 
     rust = {
@@ -684,16 +684,16 @@ def dev() -> set[str]:
     }
 
     webassembly = {
+        "binaryen",
         "wasi-compiler-rt",
         "wasi-libc++",
         "wasi-libc++abi",
-        "binaryen",
     }
 
     wine = {
         "wine",
-        "winetricks",
         "wine-mono",
+        "winetricks",
     }
 
     return multi(
@@ -727,14 +727,14 @@ def dev() -> set[str]:
 
 def games() -> set[str]:
     steam = {
-        "sdl12-compat",
-        "sdl_image",
-        "steam-native-runtime",
-        "proton-ge-custom-bin",
         "lib32-librsvg",
         "lib32-libxslt",
         "lib32-ocl-icd",
         "lib32-vkd3d",
+        "proton-ge-custom-bin",
+        "sdl12-compat",
+        "sdl_image",
+        "steam-native-runtime",
         "vkd3d",
     }
 
@@ -760,10 +760,10 @@ def misc() -> set[str]:
 
     # latex tooling
     latex = {
-        "tectonic",
+        "biber",
         "pandoc-cli",
         "pandoc-crossref",
-        "biber",
+        "tectonic",
         "texinfo",
         "texlive-basic",
         "texlive-bibtexextra",
@@ -801,14 +801,6 @@ def misc() -> set[str]:
 
     # Media players/codecs/etc
     media = {
-        "okular",
-        "zathura",
-        "zathura-cb",
-        "zathura-djvu",
-        "zathura-pdf-mupdf",
-        "zathura-ps",
-        "verapdf",
-        "obs-studio",
         "gst-libav",
         "gst-plugin-pipewire",
         "gst-plugins-bad",
@@ -822,32 +814,40 @@ def misc() -> set[str]:
         "libshout",
         "live-media",
         "mediainfo-gui",
+        "mkvtoolnix-gui",
         "mpv",
-        "qmmp",
         "mpv-mpris",
         "mpvqt",
+        "obs-studio",
+        "okular",
+        "qmmp",
         "v4l-utils",
+        "verapdf",
         "vlc",
-        "mkvtoolnix-gui",
+        "zathura",
+        "zathura-cb",
+        "zathura-djvu",
+        "zathura-pdf-mupdf",
+        "zathura-ps",
     }
 
     # Misc things
     misc = {
         "catimg",
-        "rclone",
         "direnv",
-        "yt-dlp",
         "dos2unix",
         "duf",
         "gnuplot",
         "graphviz",
         "icoutils",
         "imagemagick",
-        "neofetch",
         "lcov",
         "libopenraw",
         "libraw",
         "mprime",
+        "neofetch",
+        "rclone",
+        "yt-dlp",
         # "keychain", # stick with gpg-agent for now
     }
 
@@ -858,16 +858,16 @@ def misc() -> set[str]:
         "gimp",
         "gimp-help-en",
         "gimp-nufraw",
-        "y-cruncher",
         "gimp-plugin-gmic",
-        "signal-desktop",
-        "slack-electron",
-        "zoom",
-        "vesktop-bin",
-        "spotify",
         "inkscape",
         "keepassxc",
+        "signal-desktop",
+        "slack-electron",
+        "spotify",
         "tidal-hifi-bin",
+        "vesktop-bin",
+        "y-cruncher",
+        "zoom",
     }
 
     # Libre office
@@ -877,12 +877,8 @@ def misc() -> set[str]:
 
     # Printer stuff
     print = {
-        "xsane-gimp",
-        "sane",
-        "pstoedit",
         "brother-mfc-l2710dw",
         "cups",
-        "psutils",
         "foomatic-db",
         "foomatic-db-engine",
         "foomatic-db-nonfree",
@@ -890,6 +886,10 @@ def misc() -> set[str]:
         "foomatic-db-ppds",
         "ghostscript",
         "gv",
+        "pstoedit",
+        "psutils",
+        "sane",
+        "xsane-gimp",
     }
 
     # Remote support tools
@@ -904,8 +904,8 @@ def misc() -> set[str]:
         "eza",
         "fd",
         "hexyl",
-        "pueue",
         "lsd",
+        "pueue",
         "ripgrep",
     }
 
@@ -917,15 +917,14 @@ def misc() -> set[str]:
         "imhex",
         "john",
         "nmap",
+        "tcpdump",
         "termshark",
         "wireshark-cli",
-        "tcpdump",
         "wireshark-qt",
     }
 
     # Spell checking tools
     spell = {
-        "words",
         "aiksaurus",
         "aspell",
         "aspell-en",
@@ -935,6 +934,7 @@ def misc() -> set[str]:
         "libmythes",
         "mythes-en",
         "nuspell",
+        "words",
     }
 
     virt = {
@@ -986,12 +986,12 @@ def sound() -> set[str]:
 
     misc = {
         "easyeffects",
-        "zam-plugins",
         "ladspa",
         "lib32-libcanberra",
-        "pavucontrol",
         "libcanberra",
         "paprefs",
+        "pavucontrol",
+        "zam-plugins",
     }
 
     return multi(
@@ -1052,25 +1052,24 @@ def ui() -> set[str]:
     }
 
     clipboard = {
-        "slurp",
         "clipman",
         "copyq",
         "flameshot",
         "grim",
+        "slurp",
         "wl-clipboard",
     }
 
     # UI Engiens
     frameworks = {
         "gtk-engines",
-        "gtk4",
         "gtk3",
+        "gtk4",
         "wxwidgets-gtk3",
     }
 
     # Useful fonts
     fonts = {
-        "woff2-cascadia-code",
         "adobe-source-code-pro-fonts",
         "awesome-terminal-fonts",
         "font-manager",
@@ -1125,6 +1124,7 @@ def ui() -> set[str]:
         "ttf-ubuntu-mono-nerd",
         "ttf-ubuntu-nerd",
         "unicode-emoji",
+        "woff2-cascadia-code",
     }
 
     libs = {
@@ -1149,18 +1149,18 @@ def ui() -> set[str]:
 
     # Misc
     misc = {
-        "wpaperd",
         "electron",
         "nvtop",
         "polkit-kde-agent",
-        "radeontop",
-        "radeontool",
-        "wofi",
         "projectm-presets-cream-of-the-crop",
         "projectm-pulseaudio",
+        "projectm-sdl",
+        "radeontool",
+        "radeontop",
         "tcl",
         "tk",
-        "projectm-sdl",
+        "wofi",
+        "wpaperd",
     }
 
     # QT libs
@@ -1287,15 +1287,15 @@ def ui() -> set[str]:
     }
 
     wayland = {
-        "wlroots",
         "hyprland",
         "lib32-libdecor",
         "libdecor",
         "mako",
-        "wtype",
         "waybar",
         "wayland-utils",
         "waylock",
+        "wlroots",
+        "wtype",
         "xdg-desktop-portal-hyprland",
     }
 
@@ -1315,9 +1315,6 @@ def ui() -> set[str]:
         "wxsqlite3",
         "wxwidgets-common",
         "wxwidgets-qt5",
-        "xsel",
-        "xss-lock",
-        "xterm",
         "x11-ssh-askpass",
         "xboxdrv",
         "xclip",
@@ -1372,6 +1369,9 @@ def ui() -> set[str]:
         "xorg-xwd",
         "xorg-xwininfo",
         "xorg-xwud",
+        "xsel",
+        "xss-lock",
+        "xterm",
     }
 
     return multi(
@@ -1409,14 +1409,14 @@ def ui() -> set[str]:
 def web():
     browsers = {
         "chromium",
-        "webkit2gtk",
         "firefox-developer-edition",
         "firefox-developer-edition-i18n-en-us",
+        "webkit2gtk",
     }
 
     utils = {
-        "httpie",
         "curl",
+        "httpie",
         "wget",
     }
 

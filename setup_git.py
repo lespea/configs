@@ -34,7 +34,7 @@ def add_cmds(d: torun, base: str, **defs: str):
             d.setdefault(base, set()).add(args)
 
 
-def setup(d: torun, email: str, signingKey: str):
+def setup(d: torun, email: str, signingKey: str, rewrites: dict[str, str]):
     t = "true"
     f = "false"
 
@@ -112,10 +112,13 @@ def setup(d: torun, email: str, signingKey: str):
         tool="difftastic",
     )
 
+    if rewrites:
+        add_cmds(d, "url", **rewrites)
 
-def main(email: str, signingKey: str):
+
+def main(email: str, signingKey: str, rewrites: dict[str, str]):
     d: torun = dict()
-    setup(d, email, signingKey)
+    setup(d, email, signingKey, rewrites)
     run(d)
 
 
@@ -126,10 +129,24 @@ if __name__ == "__main__":
         "-k", "--key", default="8062DB324D4405D656B07A91E57FA7C8B50DE252"
     )
     parser.add_argument("--rm", action=argparse.BooleanOptionalAction, default=False)
+    parser.add_argument("-r", "--rewrite", nargs="*", default=["!github.com"])
 
     args = parser.parse_args()
 
     if args.rm:
         (pathlib.Path.home() / ".gitconfig").unlink(missing_ok=True)
 
-    main(args.email, args.key)
+    rewrites = {}
+    if args.rewrite is not None:
+        for urll in args.rewrite:
+            for url in urll.split(","):
+                if url != "":
+                    if url.startswith("!"):
+                        action = "pushInsteadOf"
+                        url = url[1:]
+                    else:
+                        action = "insteadOf"
+
+                    rewrites[f"ssh://git@{url}/.{action}"] = f"https://{url}/"
+
+    main(args.email, args.key, rewrites)

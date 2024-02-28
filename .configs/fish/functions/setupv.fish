@@ -1,5 +1,5 @@
 function setupv
-    set -l pyver 3.12.1
+    set -l pyver 3.12.2
     set -l pyname nvim3
 
     pyenv virtualenv --clear --force $pyver $pyname

@@ -148,8 +148,10 @@ def base() -> set[str]:
         "unrar",
         "unzip",
         "which",
+        "xz",
         "zellij",
         "zip",
+        "zstd",
     }
 
     # The kernel to use
@@ -421,6 +423,7 @@ def dev() -> set[str]:
         "ctags",
         "neovide",
         "neovim",
+        "python-pynvim",
         "tree-sitter-cli",
         "yaml-language-server",
     }
@@ -641,6 +644,8 @@ def dev() -> set[str]:
         "python-pandas",
         "python-pandas-datareader",
         "python-path",
+        "python-pip",
+        "python-pipx",
         "python-priority",
         "python-psutil",
         "python-pyasn1",
@@ -660,6 +665,7 @@ def dev() -> set[str]:
         "python-rope",
         "python-scipy",
         "python-service-identity",
+        "python-setuptools",
         "python-snappy",
         "python-sniffio",
         "python-sympy",
@@ -1060,6 +1066,8 @@ def ui() -> set[str]:
         "grim",
         "slurp",
         "wl-clipboard",
+        "xclip",
+        "xsel",
     }
 
     # UI Engiens

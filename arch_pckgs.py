@@ -12,6 +12,7 @@ from collections.abc import Iterable
 # ╰──────────────────────────────────────────────────────────────────────────────╯
 
 IS_DESK = True
+SKIP_AUR = True
 REALLY_RUN = False
 PACSTRAP_BASE = None
 
@@ -110,6 +111,8 @@ def base() -> set[str]:
         "htop",
         "i2c-tools",
         "iotop-c",
+        "libblockdev-btrfs",
+        "libblockdev-dm",
         "lm_sensors",
         "logrotate",
         "lrzsz",  # compression
@@ -248,6 +251,8 @@ def containers() -> set[str]:
 
     # Core podman
     podman = {
+        "aardvark-dns",
+        "fuse-overlayfs",
         "podman",
         "podman-compose",
         "podman-docker",
@@ -330,6 +335,7 @@ def dev() -> set[str]:
         "diffutils",
         "git-delta",
         "kdiff3",
+        "lazygit",
         "meld",
         "pacdiffviewer",
         "wdiff",
@@ -340,6 +346,7 @@ def dev() -> set[str]:
         "gradle",
         "gradle-doc",
         "gradle-src",
+        "java-runtime",
         "jdk-openjdk",
         "jetbrains-toolbox",
         "kotlin",
@@ -366,18 +373,23 @@ def dev() -> set[str]:
     }
 
     go = {
-        "gofumpt",
         "go",
+        "gofumpt",
         "gojq",
         "gopls",
         "staticcheck",
     }
 
     misc = {
+        "gcc-fortran",
         "ghc",
         "ghc-libs",
         "ghc-static",
         "git-cola",
+        "jq",
+        "julia",
+        "ocaml",
+        "r",
         "veoy-bin",
     }
 
@@ -516,6 +528,7 @@ def dev() -> set[str]:
         "perl-http-message",
         "perl-http-negotiate",
         "perl-io-html",
+        "perl-io-socket-inet6",
         "perl-io-socket-ssl",
         "perl-io-string",
         "perl-ipc-run3",
@@ -566,6 +579,7 @@ def dev() -> set[str]:
         "perl-readonly",
         "perl-regexp-common",
         "perl-role-tiny",
+        "perl-socket6",
         "perl-sort-key",
         "perl-specio",
         "perl-sub-exporter",
@@ -603,10 +617,12 @@ def dev() -> set[str]:
     # Probably overkill but /shrug
     python = {
         "flake8",
+        "ipython",
         "mypy",
         "python",
         "python-bcrypt",
         "python-beautifulsoup4",
+        "python-bottleneck",
         "python-brotli",
         "python-build",
         "python-cairo",
@@ -623,6 +639,7 @@ def dev() -> set[str]:
         "python-gpgme",
         "python-graphviz",
         "python-h2",
+        "python-html5lib",
         "python-installer",
         "python-isoduration",
         "python-jinja",
@@ -632,6 +649,7 @@ def dev() -> set[str]:
         "python-kivy",
         "python-lsp-black",
         "python-lxml",
+        "python-lz4",
         "python-markdown",
         "python-matplotlib",
         "python-mutagen",
@@ -657,6 +675,8 @@ def dev() -> set[str]:
         "python-pylint",
         "python-pynvim",
         "python-pypcode",
+        "python-pyqt5",
+        "python-pyqt6",
         "python-pyserial",
         "python-pytest-flake8",
         "python-pyxdg",
@@ -699,7 +719,9 @@ def dev() -> set[str]:
     }
 
     wine = {
+        "lib32-pcsclite",
         "wine",
+        "wine-gecko",
         "wine-mono",
         "winetricks",
     }
@@ -735,6 +757,7 @@ def dev() -> set[str]:
 
 def games() -> set[str]:
     steam = {
+        "lib32-fluidsynth",
         "lib32-librsvg",
         "lib32-libxslt",
         "lib32-ocl-icd",
@@ -809,6 +832,10 @@ def misc() -> set[str]:
 
     # Media players/codecs/etc
     media = {
+        "calf",
+        "calligra",
+        "chmlib",
+        "ebook-tools",
         "gst-libav",
         "gst-plugin-pipewire",
         "gst-plugins-bad",
@@ -821,6 +848,8 @@ def misc() -> set[str]:
         "lib32-v4l-utils",
         "libshout",
         "live-media",
+        "lsp-plugins-lv2",
+        "mda.lv2",
         "mediainfo-gui",
         "mkvtoolnix-gui",
         "mpv",
@@ -841,6 +870,7 @@ def misc() -> set[str]:
 
     # Misc things
     misc = {
+        "atomicparsley",
         "catimg",
         "direnv",
         "dos2unix",
@@ -849,11 +879,16 @@ def misc() -> set[str]:
         "graphviz",
         "icoutils",
         "imagemagick",
+        "kwayland-integration",
+        "kwayland5",
         "lcov",
         "libopenraw",
         "libraw",
         "mprime",
         "neofetch",
+        "python-mutagen",
+        "python-websockets",
+        "python-xattr",
         "rclone",
         "yt-dlp",
         # "keychain", # stick with gpg-agent for now
@@ -1085,6 +1120,7 @@ def ui() -> set[str]:
         "font-manager",
         "fontforge",
         "gnu-free-fonts",
+        "nerd-fonts",
         "noto-fonts",
         "noto-fonts-cjk",
         "noto-fonts-emoji",
@@ -1107,13 +1143,11 @@ def ui() -> set[str]:
         "ttf-dejavu",
         "ttf-droid",
         "ttf-fira-mono",
-        "ttf-fira-sans",
         "ttf-firacode-nerd",
         "ttf-font-awesome",
         "ttf-go-nerd",
         "ttf-hack",
         "ttf-hack-nerd",
-        "ttf-inconsolata",
         "ttf-inconsolata-go-nerd",
         "ttf-inconsolata-lgc-nerd",
         "ttf-inconsolata-nerd",
@@ -1130,14 +1164,13 @@ def ui() -> set[str]:
         "ttf-nerd-fonts-symbols-common",
         "ttf-nerd-fonts-symbols-mono",
         "ttf-noto-nerd",
-        "ttf-opensans",
-        "ttf-roboto",
         "ttf-roboto-mono-nerd",
         "ttf-ubuntu-font-family",
         "ttf-ubuntu-mono-nerd",
         "ttf-ubuntu-nerd",
         "unicode-emoji",
         "woff2-cascadia-code",
+        "xorg-fonts-misc",
     }
 
     libs = {
@@ -1163,6 +1196,10 @@ def ui() -> set[str]:
     # Misc
     misc = {
         "electron",
+        "geoip2-database",
+        "kdialog",
+        "lib32-libid3tag",
+        "libid3tag",
         "nvtop",
         "polkit-kde-agent",
         "projectm-presets-cream-of-the-crop",
@@ -1178,6 +1215,7 @@ def ui() -> set[str]:
 
     # QT libs
     qt = {
+        "iio-sensor-proxy",
         "kimageformats5",
         "qt5",
         "qt5-3d",
@@ -1453,12 +1491,16 @@ def run():
             web(),
         )
     )
+
+    if SKIP_AUR:
+        pkgs = sorted(set(pkgs) - aur())
+
     num_pkgs = len(pkgs)
 
     if PACSTRAP_BASE is not None and PACSTRAP_BASE != "":
         args = ["pacstrap", PACSTRAP_BASE]
     else:
-        args = ["paru", "-S"]
+        args = ["paru", "-S", "--needed"]
 
     args.extend(pkgs)
     cmd_str = " ".join(args)
@@ -1492,6 +1534,48 @@ def want_paru() -> bool:
     except Exception:
         return True
     return False
+
+
+def aur() -> set[str]:
+    return {
+        "anydesk-bin",
+        "brother-mfc-l2710dw",
+        "clipman",
+        "downgrade",
+        "gconf",
+        "gksu",
+        "httpdirfs",
+        "icu56",
+        "imhex",
+        "libgksu",
+        "mprime",
+        "otf-eb-garamond",
+        "otf-gandhifamily",
+        "otf-intel-one-mono",
+        "otf-vollkorn",
+        "overdue",
+        "paccache-hook",
+        "projectm-git",
+        "projectm-presets-cream-of-the-crop",
+        "proton-ge-custom-bin",
+        "slack-electron",
+        "spotify",
+        "systemd-boot-pacman-hook",
+        "tidal-hifi-bin",
+        "ttf-google-fonts-typewolf",
+        "ttf-intel-one-mono",
+        "ttf-mac-fonts",
+        "ttf-merriweather-sans",
+        "ttf-ms-win11-auto",
+        "verapdf",
+        "vesktop-bin",
+        "wpaperd",
+        "xboxdrv",
+        "y-cruncher",
+        "zfs-dkms",
+        "zfs-utils",
+        "zoom-system-qt",
+    }
 
 
 if __name__ == "__main__":

@@ -69,8 +69,8 @@ if status is-interactive
 
     # set -gx JAVA_OPTS '-server -XX:+UseG1GC -Xms512m -Xmx4G -XX:-TieredCompilation'
     # set -gx SBT_OPTS '-server -XX:+UseG1GC -Xms512M -Xmx6G -Xss2M -XX:ReservedCodeCacheSize=512M'
-    set -gx JAVA_OPTS '-server -XX:+UseZGC -XX:+ZGenerational -Xmx4G -XX:-TieredCompilation'
-    set -gx SBT_OPTS '-server -XX:+UseZGC -XX:+ZGenerational -Xmx6G -Xss2M -XX:ReservedCodeCacheSize=512M'
+    set -gx JAVA_OPTS '-server -XX:+UseG1GC -Xmx4G -XX:-TieredCompilation'
+    set -gx SBT_OPTS '-server -XX:+UseG1GC -Xmx6G -Xss2M -XX:ReservedCodeCacheSize=512M'
 
     set -gx BAT_THME 'OneHalfDark'
 

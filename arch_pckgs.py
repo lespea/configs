@@ -1091,7 +1091,7 @@ def ui() -> set[str]:
         "rocm-ml-sdk",
         "rocm-opencl-runtime",
         "rocm-opencl-sdk",
-        "tensorflow-cuda",
+        # "tensorflow-cuda",
     }
 
     clipboard = {

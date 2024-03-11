@@ -12,6 +12,16 @@ return {
     config = function()
       require("go").setup({
         dap_debug = false,
+        dap_debug_keymap = false,
+        lsp_codelens = false,
+        lsp_keymaps = false,
+        luasnip = true,
+        trouble = true,
+
+        lsp_inlay_hints = {
+          enable = false,
+        },
+
         lsp_cfg = {
           settings = {
             gopls = {
@@ -21,9 +31,6 @@ return {
             },
           },
         },
-        dap_debug_keymap = false,
-        trouble = true,
-        luasnip = true,
       })
     end,
     event = { "CmdlineEnter" },

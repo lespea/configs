@@ -128,7 +128,7 @@ return {
   {
     -- 'lespea/tree-sitter-just',
     'IndianBoy42/tree-sitter-just',
-    enabled = false,
+    enabled = true,
     opts = {},
     lazy = false,
     dependencies = {

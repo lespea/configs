@@ -2,12 +2,11 @@ return {
   'nvim-lualine/lualine.nvim',
   dependencies = {
     'nvim-tree/nvim-web-devicons',
-    'pauchiner/pastelnight.nvim'
   },
   opts = {
     options = {
       icons_enabled = true,
-      theme = 'pastelnight',
+      -- theme = 'pastelnight',
     },
     sections = {
       lualine_a = { 'hostname', 'mode' },

@@ -1,4 +1,6 @@
-set -gx SSH_AUTH_SOCK $XDG_RUNTIME_DIR/ssh-agent.socket
+if set -q IS_ARCH
+    set -gx SSH_AUTH_SOCK $XDG_RUNTIME_DIR/ssh-agent.socket
+end
 
 if set -q IS_MAC; and set -q brewpath
         eval "$($brewpath shellenv)"

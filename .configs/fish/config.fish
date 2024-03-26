@@ -1,3 +1,5 @@
+set -gx SSH_AUTH_SOCK $XDG_RUNTIME_DIR/ssh-agent.socket
+
 if set -q IS_MAC; and set -q brewpath
         eval "$($brewpath shellenv)"
 end
@@ -14,10 +16,6 @@ function final
         systemctl -q is-active graphical.target
         exec /usr/bin/Hyprland
     else
-        if not string match -q "S.gpg-agent" "$SSH_ATUH_SOCK"
-            gpg-connect-agent updatestartuptty /bye &>/dev/null
-            set -gx SSH_AUTH_SOCK "$(gpgconf --list-dirs agent-ssh-socket)"
-        end
     end
 end
 

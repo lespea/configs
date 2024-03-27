@@ -52,6 +52,7 @@ return {
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
       'hrsh7th/nvim-cmp',
+      'rafamadriz/friendly-snippets',
       'saadparwaiz1/cmp_luasnip',
     },
     config = function()
@@ -130,6 +131,8 @@ return {
       cmp.setup.filetype("DressingInput", {
         sources = cmp.config.sources { { name = "omni" } },
       })
+
+      require("luasnip.loaders.from_vscode").lazy_load()
     end,
   },
 }

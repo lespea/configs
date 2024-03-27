@@ -13,24 +13,28 @@ return {
       require("go").setup({
         dap_debug = false,
         dap_debug_keymap = false,
+
         lsp_codelens = false,
         lsp_keymaps = false,
+
         luasnip = true,
         trouble = true,
 
         lsp_inlay_hints = {
-          enable = false,
+          enable = true,
         },
 
-        lsp_cfg = {
-          settings = {
-            gopls = {
-              analyses = {
-                ST1003 = false,
-              },
-            },
-          },
-        },
+        lsp_cfg = true
+
+        -- lsp_cfg = {
+        --   settings = {
+        --     gopls = {
+        --       analyses = {
+        --         ST1003 = false,
+        --       },
+        --     },
+        --   },
+        -- },
       })
     end,
     event = { "CmdlineEnter" },

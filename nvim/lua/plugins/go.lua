@@ -24,17 +24,17 @@ return {
           enable = true,
         },
 
-        lsp_cfg = true
+        -- lsp_cfg = true
 
-        -- lsp_cfg = {
-        --   settings = {
-        --     gopls = {
-        --       analyses = {
-        --         ST1003 = false,
-        --       },
-        --     },
-        --   },
-        -- },
+        lsp_cfg = {
+          settings = {
+            gopls = {
+              analyses = {
+                ST1003 = false,
+              },
+            },
+          },
+        },
       })
     end,
     event = { "CmdlineEnter" },

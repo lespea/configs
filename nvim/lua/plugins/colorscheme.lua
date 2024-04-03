@@ -17,7 +17,7 @@ return {
     "pauchiner/pastelnight.nvim",
     lazy = false,
     priority = 1000,
-    enabled = false,
+    enabled = true,
     config = function()
       local theme = require('pastelnight')
       theme.setup({
@@ -29,6 +29,7 @@ return {
   { 'nvim-tree/nvim-web-devicons', lazy = true },
   {
     'loganswartz/sunburn.nvim',
+    enabled = false,
     dependencies = { 'loganswartz/polychrome.nvim' },
     -- you could do this, or use the standard vimscript `colorscheme sunburn`
     config = function()

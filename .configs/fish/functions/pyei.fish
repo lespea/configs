@@ -1,5 +1,5 @@
 function pyei
-    set -l pver 3.12.2
+    set -l pver 3.12.3
     if test (count $argv) -ge 1
         set pver $argv[1]
     end

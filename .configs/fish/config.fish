@@ -6,8 +6,6 @@ if set -q IS_MAC; and set -q brewpath
         eval "$($brewpath shellenv)"
 end
 
-pyenv init - --no-rehash fish | source
-
 function final
     set -l custom "$HOME/.fish_custom"
     if test -e "$custom"
@@ -18,6 +16,7 @@ function final
         systemctl -q is-active graphical.target
         exec /usr/bin/Hyprland
     else
+        pyenv init - --no-rehash fish | source
     end
 end
 

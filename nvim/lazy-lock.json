@@ -1,5 +1,4 @@
 {
-  "Comment.nvim": { "branch": "master", "commit": "0236521ea582747b58869cb72f70ccfa967d2e89" },
   "LuaSnip": { "branch": "master", "commit": "78296bfabf756dbb6c7134aa219e75564dddf40f" },
   "alpha-nvim": { "branch": "main", "commit": "41283fb402713fc8b327e60907f74e46166f4cfd" },
   "barbar.nvim": { "branch": "master", "commit": "5880baa3bf6b262ee3c465519fce3e71a6045dec" },
@@ -20,7 +19,7 @@
   "guihua.lua": { "branch": "master", "commit": "3bbb0aaedad89dc9eb775dbb72c98d7defc95f74" },
   "hop.nvim": { "branch": "master", "commit": "6ff23501a1fd1c75c91dfd99ff5befcfdb02c11d" },
   "indent-blankline.nvim": { "branch": "master", "commit": "3d08501caef2329aba5121b753e903904088f7e6" },
-  "lazy.nvim": { "branch": "main", "commit": "e44636a43376e8a1e851958f7e9cbe996751d59f" },
+  "lazy.nvim": { "branch": "main", "commit": "05240b41548c4245a04d34ee54f789e824129991" },
   "lsp-inlayhints.nvim": { "branch": "main", "commit": "d981f65c9ae0b6062176f0accb9c151daeda6f16" },
   "lsp-zero.nvim": { "branch": "v2.x", "commit": "9a686513eaaa13d737d0fec8956a18268ead8b29" },
   "lsp_signature.nvim": { "branch": "master", "commit": "aed5d1162b0f07bb3af34bedcc5f70a2b6466ed8" },

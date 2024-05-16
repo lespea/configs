@@ -41,7 +41,6 @@ return {
     branch = 'v2.x',
     dependencies = {
       -- LSP Support
-      'lvimuser/lsp-inlayhints.nvim',
       'neovim/nvim-lspconfig',
       'williamboman/mason-lspconfig.nvim',
       'williamboman/mason.nvim',
@@ -76,31 +75,15 @@ return {
         }
       })
 
-      local ih = require('lsp-inlayhints')
-      ih.setup()
-
       lsp.on_attach(function(client, bufnr)
         lsp.default_keymaps({ buffer = bufnr })
         lsp.buffer_autoformat()
+        vim.lsp.inlay_hint.enable()
 
         vim.keymap.set({ 'n', 'x' }, 'gf', function()
           vim.lsp.buf.format({ async = false, timeout_ms = 10000 })
         end)
       end)
-
-      -- (Optional) Configure lua language server for neovim
-      require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls({
-        on_attach = function(client, bufnr)
-          ih.on_attach(client, bufnr)
-        end,
-        settings = {
-          Lua = {
-            hint = {
-              enable = true,
-            },
-          },
-        },
-      }))
 
       lsp.setup()
 

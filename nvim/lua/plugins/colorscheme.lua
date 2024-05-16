@@ -20,10 +20,15 @@ return {
     enabled = true,
     config = function()
       local theme = require('pastelnight')
+      local c = require('pastelnight.colors').highContrast()
+
       theme.setup({
-        style = 'highContrast'
+        style = 'highContrast',
+        terminal_colors = false,
       })
+
       vim.api.nvim_command [[colorscheme pastelnight-highcontrast]]
+      vim.api.nvim_set_hl(0, "LspInlayHint", { fg = c.base100 })
     end
   },
   { 'nvim-tree/nvim-web-devicons', lazy = true },

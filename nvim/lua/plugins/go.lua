@@ -54,6 +54,6 @@ return {
       t.load_extension('goimpl')
       vim.keymap.set('n', '<leader>im', function() t.extensions.goimpl.goimpl() end)
     end,
-    ft = { "go", 'gomod' },
+    ft = { "go" },
   }
 }

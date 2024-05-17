@@ -21,7 +21,7 @@ return {
         trouble = true,
 
         lsp_inlay_hints = {
-          enable = true,
+          enable = false,
         },
 
         -- lsp_cfg = true

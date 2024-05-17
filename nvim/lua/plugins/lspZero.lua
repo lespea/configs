@@ -37,6 +37,10 @@ return {
     config = function(_, opts) require 'lsp_signature'.setup(opts) end
   },
   {
+    "L3MON4D3/LuaSnip",
+    build = "make install_jsregexp"
+  },
+  {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v2.x',
     dependencies = {
@@ -90,11 +94,31 @@ return {
       local cmp = require('cmp')
       local cmp_action = require('lsp-zero').cmp_action()
 
+      local ls = require('luasnip')
+
       cmp.setup({
         mapping = cmp.mapping.preset.insert({
+          ['<C-Y>'] = cmp.mapping.confirm({ select = true }),
           ['<CR>'] = cmp.mapping.confirm({ select = false }),
+
           ['<Tab>'] = cmp_action.luasnip_supertab(),
           ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
+
+          ["<C-k>"] = cmp.mapping.select_prev_item(),
+          ["<C-j>"] = cmp.mapping.select_next_item(),
+          ['<C-e>'] = cmp.mapping.abort(),
+
+          ['<C-l>'] = cmp.mapping(function()
+            if ls.expand_or_locally_jumpable() then
+              ls.expand_or_jump()
+            end
+          end, { 'i', 's' }),
+
+          ['<C-h>'] = cmp.mapping(function()
+            if ls.locally_jumpable(-1) then
+              ls.jump(-1)
+            end
+          end, { 'i', 's' }),
         }),
         preselect = 'item',
         completion = {
@@ -102,14 +126,97 @@ return {
         },
         snippet = {
           expand = function(args)
-            require('luasnip').lsp_expand(args.body)
+            ls.lsp_expand(args.body)
           end,
         },
         window = {
           completion = cmp.config.window.bordered(),
           documentation = cmp.config.window.bordered(),
-        }
+        },
+        sources = {
+          { name = 'luasnip' },
+          { name = 'nvim_lsp' },
+          { name = 'path' },
+          { name = 'buffer' },
+        },
+        sorting = {
+          comparators = {
+            cmp.config.compare.offset,
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+            cmp.config.compare.recently_used,
+            cmp.config.compare.kind,
+          },
+        },
       })
+
+
+      local fmt = require("luasnip.extras.fmt").fmt
+      local rep = require("luasnip.extras").rep
+
+      -- some shorthands...
+      local snip = ls.snippet
+      local i = ls.insert_node
+      local func = ls.function_node
+
+      local date = function()
+        return { os.date "%Y-%m-%d" }
+      end
+
+
+      ls.add_snippets(nil, {
+        all = {
+          snip({
+            trig = "date",
+            namr = "Date",
+            dscr = "Date in the form of YYYY-MM-DD",
+          }, {
+            func(date, {}),
+          }),
+          snip({
+            trig = "pwd",
+            namr = "PWD",
+            dscr = "Path to current working directory",
+          }, {
+            func(bash, {}, { user_args = { "pwd" } }),
+          }),
+          snip({
+            trig = "filename",
+            namr = "Filename",
+            dscr = "Absolute path to file",
+          }, {
+            func(filename, {}),
+          }),
+        },
+        go = {
+          snip("dfun", fmt('defer func() {{\n\t{}\n}}()\n{}', { i(1, ""), i(0), })),
+          snip("gfun", fmt('go func() {{\n\t{}\n}}()\n{}', { i(1, ""), i(0), })),
+
+          snip("nl", fmt('{} := logging.NewLogger("{}", "{}")\n{}', { i(1, "l"), i(2, "name"), i(3, "path"), i(0) })),
+          snip("nlp", fmt('logging.NewLoggerP("{}", "{}"){}.Msg("{}")\n{}', {
+            i(1, "name"),
+            i(2, "path"),
+            i(3, "other"),
+            i(4, "msg"),
+            i(0),
+          })),
+
+          snip("nle", fmt('logging.NewLoggerP("{}", "{}").Err({}){}.Msg("{}")\n{}', {
+            i(1, "name"),
+            i(2, "path"),
+            i(3, "err"),
+            i(4, "other"),
+            i(5, "msg"),
+            i(0),
+          })),
+        },
+      })
+
+      vim.keymap.set({ "i", "s" }, "<c-space>", function()
+        if ls.expand_or_jumpable() then
+          ls.expand_or_jump()
+        end
+      end, { silent = true })
 
       cmp.setup.filetype("DressingInput", {
         sources = cmp.config.sources { { name = "omni" } },

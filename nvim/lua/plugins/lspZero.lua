@@ -209,6 +209,9 @@ return {
             i(5, "msg"),
             i(0),
           })),
+
+          snip("sf", fmt('fmt.Sprintf("{}", {}){}', { i(1, "fmt"), i(2, "args"), i(0) })),
+          snip("sfl", fmt('fmt.Sprintf("{}\\n", {}){}', { i(1, "fmt"), i(2, "args"), i(0) })),
         },
       })
 

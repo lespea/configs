@@ -5,6 +5,10 @@ return {
       'nvim-lua/plenary.nvim',
       'nvim-telescope/telescope-fzf-native.nvim',
       'fdschmidt93/telescope-egrepify.nvim',
+      {
+        "isak102/telescope-git-file-history.nvim",
+        dependencies = { "tpope/vim-fugitive" }
+      }
     },
     config = function()
       local builtin = require('telescope.builtin')
@@ -33,10 +37,13 @@ return {
         }
       }
 
-      t.load_extension("egrepify")
+      t.load_extension("egrepify", 'git_file_history')
 
       local eg = t.extensions.egrepify
+      local fh = t.extensions.git_file_history
+
       vim.keymap.set('n', '<leader>fg', eg.egrepify, opts)
+      vim.keymap.set('n', '<leader>fh', fh.git_file_history, opts)
     end,
   },
   {

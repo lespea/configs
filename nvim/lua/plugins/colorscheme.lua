@@ -17,7 +17,7 @@ return {
     "pauchiner/pastelnight.nvim",
     lazy = false,
     priority = 1000,
-    enabled = true,
+    enabled = false,
     config = function()
       local theme = require('pastelnight')
       local c = require('pastelnight.colors').highContrast()
@@ -40,5 +40,21 @@ return {
     config = function()
       vim.cmd.colorscheme 'sunburn'
     end,
-  }
+  },
+  {
+    'dgox16/oldworld.nvim',
+    lazy = false,
+    priority = 1000,
+    enabled = true,
+    config = function()
+      require("oldworld").setup({})
+
+      vim.cmd.colorscheme 'oldworld'
+
+      local c = require("oldworld.palette")
+      vim.api.nvim_set_hl(0, "LspInlayHint", { fg = c.subtext4 })
+      vim.api.nvim_set_hl(0, "CursorLine", { bg = c.gray2 })
+      vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { bg = c.gray2 })
+    end,
+  },
 }

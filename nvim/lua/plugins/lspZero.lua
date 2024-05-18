@@ -32,6 +32,7 @@ return {
   },
   {
     'ray-x/lsp_signature.nvim',
+    enabled = false,
     event = "VeryLazy",
     opts = {},
     config = function(_, opts) require 'lsp_signature'.setup(opts) end
@@ -192,7 +193,8 @@ return {
           snip("dfun", fmt('defer func() {{\n\t{}\n}}()\n{}', { i(1, ""), i(0), })),
           snip("gfun", fmt('go func() {{\n\t{}\n}}()\n{}', { i(1, ""), i(0), })),
 
-          snip("nl", fmt('{} := logging.NewLogger("{}", "{}")\n{}', { i(1, "l"), i(2, "name"), i(3, "path"), i(0) })),
+          snip("nl",
+            fmt('{} := logging.NewLogger("{}", "{}")\n{}', { i(1, "l"), i(2, "name"), i(3, "path"), i(0) })),
           snip("nlp", fmt('logging.NewLoggerP("{}", "{}"){}.Msg("{}")\n{}', {
             i(1, "name"),
             i(2, "path"),

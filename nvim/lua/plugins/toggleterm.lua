@@ -9,6 +9,7 @@ return {
           return vim.o.columns * 0.4
         end
       end,
+      persist_size = true,
     })
 
     local term = require('toggleterm.terminal').Terminal
@@ -31,14 +32,20 @@ return {
 
     set({ 'n', 't' }, '<S-Esc>', '<C-\\><C-n>')
 
+    local save = function()
+      vim.api.nvim_command [[write]]
+    end
+
     rightTerm = function()
       if termRight:is_open() then
         if termRight:is_focused() then
           ui:goto_previous()
         else
+          save()
           termRight:focus()
         end
       else
+        save()
         termRight:toggle()
       end
     end

@@ -4,6 +4,7 @@ return {
     'nvim-tree/nvim-web-devicons',
     'folke/noice.nvim',
   },
+  event = { "BufReadPost", "BufNewFile" },
   config = function()
     local colors = require("oldworld.palette")
 

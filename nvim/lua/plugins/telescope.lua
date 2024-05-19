@@ -37,13 +37,16 @@ return {
         }
       }
 
-      t.load_extension("egrepify", 'git_file_history')
+      if vim.fn.has('win32') then
+        t.load_extension('egrepify', 'git_file_history')
+      else
+        t.load_extension('egrepify')
+        local fh = t.extensions.git_file_history
+        vim.keymap.set('n', '<leader>fh', fh.git_file_history, opts)
+      end
 
       local eg = t.extensions.egrepify
-      local fh = t.extensions.git_file_history
-
       vim.keymap.set('n', '<leader>fg', eg.egrepify, opts)
-      vim.keymap.set('n', '<leader>fh', fh.git_file_history, opts)
     end,
   },
   {

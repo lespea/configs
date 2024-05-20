@@ -14,10 +14,11 @@ return {
       local builtin = require('telescope.builtin')
       local opts = {}
 
+      vim.keymap.set('n', '<leader>fb', builtin.buffers, opts)
+      vim.keymap.set('n', '<leader>fc', builtin.command_history, opts)
       vim.keymap.set('n', '<leader>ff', builtin.find_files, opts)
       vim.keymap.set('n', '<leader>fo', builtin.oldfiles, opts)
-      -- vim.keymap.set('n', '<leader>fg', builtin.live_grep, opts)
-      vim.keymap.set('n', '<leader>fb', builtin.buffers, opts)
+      vim.keymap.set('n', '<leader>ft', builtin.treesitter, opts)
 
       local t = require('telescope')
       t.setup {

@@ -47,7 +47,11 @@ return {
     priority = 1000,
     enabled = true,
     config = function()
-      require("oldworld").setup({})
+      require("oldworld").setup({
+        integrations = {
+          neo_tree = false,
+        }
+      })
 
       vim.cmd.colorscheme 'oldworld'
 

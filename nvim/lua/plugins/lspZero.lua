@@ -190,12 +190,11 @@ return {
           }),
         },
         go = {
-          snip("dfun", fmt('defer func() {{\n\t{}\n}}()\n{}', { i(1, ""), i(0), })),
-          snip("gfun", fmt('go func() {{\n\t{}\n}}()\n{}', { i(1, ""), i(0), })),
+          snip("dfun", fmt('defer func() {{\n\t{}\n}}(){}', { i(1, ""), i(0), })),
+          snip("gfun", fmt('go func() {{\n\t{}\n}}(){}', { i(1, ""), i(0), })),
 
-          snip("nl",
-            fmt('{} := logging.NewLogger("{}", "{}")\n{}', { i(1, "l"), i(2, "name"), i(3, "path"), i(0) })),
-          snip("nlp", fmt('logging.NewLoggerP("{}", "{}"){}.Msg("{}")\n{}', {
+          snip("nl", fmt('{} := logging.NewLogger("{}", "{}"){}', { i(1, "l"), i(2, "name"), i(3, "path"), i(0) })),
+          snip("nlp", fmt('logging.NewLoggerP("{}", "{}"){}.Msg("{}"){}', {
             i(1, "name"),
             i(2, "path"),
             i(3, "other"),
@@ -203,7 +202,7 @@ return {
             i(0),
           })),
 
-          snip("nle", fmt('logging.NewLoggerP("{}", "{}").Err({}){}.Msg("{}")\n{}', {
+          snip("nle", fmt('logging.NewLoggerP("{}", "{}").Err({}){}.Msg("{}"){}', {
             i(1, "name"),
             i(2, "path"),
             i(3, "err"),

@@ -17,12 +17,11 @@ return {
     local lazygit = term:new({ cmd = 'lazygit', hidden = true, direction = 'float' })
     local termFloat = term:new({ hidden = true, direction = 'float' })
     local termRight = term:new({ hidden = true, direction = 'vertical' })
-    local termDown = term:new({ hidden = true, direction = 'horizontal' })
 
     local ui = require("toggleterm.ui")
     local set = vim.keymap.set
 
-    for _, key in ipairs({ '<C-y>', '<C-.>', '\\tt' }) do
+    for _, key in ipairs({ '<C-.>', '\\tt' }) do
       set({ 'n', 't' }, key, function() termFloat:toggle() end)
     end
 
@@ -33,7 +32,7 @@ return {
     set({ 'n', 't' }, '<S-Esc>', '<C-\\><C-n>')
 
     local save = function()
-      vim.api.nvim_command [[write]]
+      vim.api.nvim_command [[update]]
     end
 
     rightTerm = function()
@@ -49,6 +48,11 @@ return {
         termRight:toggle()
       end
     end
+
+    set({ 'n' }, '<leader>ct', function()
+      termRight:close()
+      termRight = term:new({ hidden = true, direction = 'vertical' })
+    end)
 
     -- Persistent right term
     for _, key in ipairs({ '<C-,>', '\\tr' }) do

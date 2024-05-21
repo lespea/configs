@@ -128,12 +128,25 @@ return {
   },
   {
     'Wansmer/treesj',
-    -- Default keymap is space-m to toggle arguments in a single line or to make multi line (chop down)
-    opts = {},
     lazy = false,
     dependencies = {
       'nvim-treesitter/nvim-treesitter',
     },
+    config = function()
+      -- Terrible, terrible hack but good enough for now.  I feel dirty.
+
+      local tsj_utils = require('treesj.langs.utils')
+      local rust = require('treesj.langs.rust')
+
+      local langs = {
+        scala = tsj_utils.merge_preset(rust, {})
+      }
+
+      require('treesj').setup({
+        max_join_length = 160,
+        langs = langs,
+      })
+    end,
   },
   {
     "chrisgrieser/nvim-various-textobjs",

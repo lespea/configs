@@ -31,6 +31,7 @@ return {
             gopls = {
               analyses = {
                 ST1003 = false,
+                QF1001 = false,
               },
             },
           },

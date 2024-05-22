@@ -23,6 +23,27 @@ return {
       vim.keymap.set('n', '<leader>fq', builtin.quickfix, opts)
       vim.keymap.set('n', '<leader>fh', builtin.help_tags, opts)
 
+      local previewers = require('telescope.previewers')
+      local themes = require('telescope.themes')
+
+      local delta = previewers.new_termopen_previewer({
+        get_command = function(entry)
+          if entry.status == '??' or 'A ' then
+            return { 'git', 'dt', entry.value }
+          end
+
+          return { 'git', 'dt', entry.value .. '^!' }
+        end
+      })
+
+      vim.keymap.set('n', '<leader>fz',
+        function()
+          builtin.git_status({
+            previewer = delta,
+            layout_strategy = 'vertical'
+          })
+        end, opts)
+
       local t = require('telescope')
       t.setup {
         extensions = {

@@ -20,6 +20,8 @@ return {
       vim.keymap.set('n', '<leader>ff', builtin.find_files, opts)
       vim.keymap.set('n', '<leader>fo', builtin.oldfiles, opts)
       vim.keymap.set('n', '<leader>ft', builtin.treesitter, opts)
+      vim.keymap.set('n', '<leader>fq', builtin.quickfix, opts)
+      vim.keymap.set('n', '<leader>fh', builtin.help_tags, opts)
 
       local t = require('telescope')
       t.setup {

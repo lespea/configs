@@ -84,7 +84,8 @@ return {
         lsp.default_keymaps({ buffer = bufnr })
         lsp.buffer_autoformat()
 
-        vim.lsp.inlay_hint.enable(true)
+        -- Disable by default since we can turn on when needed
+        vim.lsp.inlay_hint.enable(false)
 
         -- quickly toggle inlay hints
         vim.keymap.set({ 'n', 'x' }, '<leader>i',

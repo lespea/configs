@@ -56,9 +56,13 @@ return {
       vim.cmd.colorscheme 'oldworld'
 
       local c = require("oldworld.palette")
+
       vim.api.nvim_set_hl(0, "LspInlayHint", { fg = c.subtext4 })
       vim.api.nvim_set_hl(0, "CursorLine", { bg = c.gray2 })
       vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { bg = c.gray2 })
+
+      vim.api.nvim_set_hl(0, "Ibl1", { fg = c.gray2 })
+      vim.api.nvim_set_hl(0, "Ibl2", { fg = c.gray4 })
     end,
   },
 }

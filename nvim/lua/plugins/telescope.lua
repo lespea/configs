@@ -61,7 +61,14 @@ return {
             hidden = true,
             no_ignore = true
           }
-        }
+        },
+        defaults = {
+          mappings = {
+            i = {
+              ["<C-h>"] = "which_key"
+            }
+          }
+        },
       }
 
       if vim.fn.has('win32') then

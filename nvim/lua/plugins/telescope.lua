@@ -41,7 +41,7 @@ return {
         function()
           builtin.git_status({
             previewer = delta,
-            layout_strategy = 'vertical'
+            layout_strategy = 'horizontal'
           })
         end, opts)
 

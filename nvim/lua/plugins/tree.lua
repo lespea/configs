@@ -303,7 +303,15 @@ return {
               ["ot"] = { "order_by_type", nowait = false },
             }
           }
-        }
+        },
+        event_handlers = {
+          {
+            event = "neo_tree_buffer_enter",
+            handler = function()
+              vim.opt_local.relativenumber = true
+            end,
+          },
+        },
       })
 
       local ntc = require('neo-tree.command')

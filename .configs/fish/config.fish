@@ -63,6 +63,7 @@ if status is-interactive
     abbr --add LC -p anywhere '| wc -l'
     abbr --add LP -p anywhere '| bat -p'
     abbr --add BL -p anywhere '| bat -pP -llog'
+    abbr --add BJ -p anywhere '| jq | bat -ljson'
     abbr --add UC -p anywhere '| sort | uniq -c | sort -rh'
     abbr --add WC -p anywhere '| wc -l'
 

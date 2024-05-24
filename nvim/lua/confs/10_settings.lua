@@ -63,7 +63,7 @@ opt.laststatus     = 2 -- always show status line
 
 opt.startofline    = true -- Move cursor to "start" of each line
 opt.wrap           = false -- Do not wrap lines even if very long
-opt.showbreak      = '↴' -- Character to show when line is broken
+opt.showbreak      = '⮐  ' -- Character to show when line is broken
 
 opt.wildmenu       = true -- On tab, complete options for system command
 opt.splitright     = true -- Vertical split to the right
@@ -77,7 +77,7 @@ o.mps              = o.mps .. ',<:>' -- Add angle brackets to matching pairs
 
 opt.list           = true
 opt.listchars      = {
-  eol = '↴',
+  -- eol = '⬎',
   nbsp = '⦸', -- CIRCLED REVERSE SOLIDUS (U+29B8, UTF-8: E2 A6 B8)
   extends = '»', -- RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00BB, UTF-8: C2 BB)
   precedes = '«', -- LEFT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00AB, UTF-8: C2 AB)
@@ -96,8 +96,12 @@ opt.tabstop = 4        -- 1 tab == 4 spaces
 opt.smartindent = true -- Autoindent new lines
 opt.autoindent = true
 opt.shiftround = true
-opt.formatoptions =
-'qnj1' -- q  - comment formatting; n - numbered lists; j - remove comment when joining lines; 1 - don't break after one-letter word
+
+-- q  - comment formatting
+-- n - numbered lists
+-- j - remove comment when joining lines
+-- 1 - don't break after one-letter word
+opt.formatoptions = 'qnj1'
 
 -----------------------------------------------------------
 -- Memory, CPU

@@ -328,6 +328,7 @@ def get_packages() -> list[PkgInfo]:
         PkgInfo("bandwhich"),
         PkgInfo("bottom"),
         PkgInfo("jless"),
+        PkgInfo("mise"),
         PkgInfo("topgrade"),
         PkgInfo("wasm-pack"),
         PkgInfo("xcp"),

@@ -284,7 +284,7 @@ def get_packages() -> list[PkgInfo]:
         PkgInfo("gping"),
         PkgInfo("hexyl"),
         PkgInfo("ht"),
-        PkgInfo("https"),
+        # PkgInfo("https"),
         PkgInfo("hyperfine"),
         PkgInfo("igrep"),
         PkgInfo("jsonxf"),

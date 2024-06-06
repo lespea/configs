@@ -22,7 +22,7 @@
   "hop.nvim": { "branch": "master", "commit": "036462a345792279c58f2f6445756efab706f04a" },
   "image.nvim": { "branch": "master", "commit": "a2a0849e0b3dbed90f9283603cedb683bda5d4d1" },
   "indent-blankline.nvim": { "branch": "master", "commit": "d98f537c3492e87b6dc6c2e3f66ac517528f406f" },
-  "lazy.nvim": { "branch": "main", "commit": "70f2c090d3ffb14f8702d468e05beb240b768881" },
+  "lazy.nvim": { "branch": "main", "commit": "89ddc59d19513c5c19c8f8d2ad8573890bd00eef" },
   "lsp-zero.nvim": { "branch": "v2.x", "commit": "9a686513eaaa13d737d0fec8956a18268ead8b29" },
   "lualine.nvim": { "branch": "master", "commit": "0a5a66803c7407767b799067986b4dc3036e1983" },
   "marks.nvim": { "branch": "master", "commit": "74e8d01b2a2131b6e46354cffc553aa7f81bcf5b" },
@@ -66,7 +66,7 @@
   "telescope.nvim": { "branch": "master", "commit": "dfa230be84a044e7f546a6c2b0a403c739732b86" },
   "toggleterm.nvim": { "branch": "main", "commit": "fee58a0473fd92b28c34f8f724e4918b15ba30a3" },
   "treesj": { "branch": "main", "commit": "f98deb33805485b56a8d44d1a27d16874af00d7f" },
-  "trouble.nvim": { "branch": "main", "commit": "98d9ed74aec4e82171de3ae0541cdd078558e546" },
+  "trouble.nvim": { "branch": "main", "commit": "791278e498e1147520e4214982767f77ca4a99df" },
   "undotree": { "branch": "master", "commit": "56c684a805fe948936cda0d1b19505b84ad7e065" },
   "vim-AdvancedSorters": { "branch": "master", "commit": "079856080d42e5ea91fadabc39c2906b2d0a0a67" },
   "vim-abolish": { "branch": "master", "commit": "dcbfe065297d31823561ba787f51056c147aa682" },
@@ -79,5 +79,5 @@
   "vim-move": { "branch": "master", "commit": "3c4195de0748da9bba25c54d78d959d349e93c55" },
   "vim-repeat": { "branch": "master", "commit": "24afe922e6a05891756ecf331f39a1f6743d3d5a" },
   "vim-unimpaired": { "branch": "master", "commit": "6d44a6dc2ec34607c41ec78acf81657248580bf1" },
-  "which-key.nvim": { "branch": "main", "commit": "0539da005b98b02cf730c1d9da82b8e8edb1c2d2" }
+  "which-key.nvim": { "branch": "main", "commit": "ccf027625df6c4e22febfdd786c5e1f7521c2ccb" }
 }

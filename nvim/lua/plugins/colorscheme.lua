@@ -33,6 +33,29 @@ return {
   },
   { 'nvim-tree/nvim-web-devicons', lazy = true },
   {
+    "rachartier/tiny-devicons-auto-colors.nvim",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+      'dgox16/oldworld.nvim',
+    },
+    event = "VeryLazy",
+    config = function()
+      local c = require("oldworld.palette")
+      require('tiny-devicons-auto-colors').setup({
+        colors = {
+          c.red,
+          c.green,
+          c.yellow,
+          c.purple,
+          c.magenta,
+          c.orange,
+          c.blue,
+          c.cyan,
+        }
+      })
+    end
+  },
+  {
     'loganswartz/sunburn.nvim',
     enabled = false,
     dependencies = { 'loganswartz/polychrome.nvim' },

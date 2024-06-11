@@ -274,6 +274,7 @@ def get_packages() -> list[PkgInfo]:
         PkgInfo("cargo-outdated"),
         PkgInfo("cargo-update"),
         PkgInfo("csview"),
+        PkgInfo("dprint"),
         PkgInfo("difftastic"),
         PkgInfo("du-dust"),
         PkgInfo("fd-find"),

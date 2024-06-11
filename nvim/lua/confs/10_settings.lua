@@ -157,12 +157,13 @@ for _, plugin in pairs(disabled_built_ins) do
   g["loaded_" .. plugin] = 1
 end
 
-pyenv_home = os.getenv('PYENV_ROOT')
-if pyenv_home ~= nil and pyenv_home ~= '' then
-  g.python3_host_prog = pyenv_home .. '/versions/nvim3/bin/python'
+local pyenv_home = os.getenv('nvim_python_loc') or ''
+if pyenv_home ~= '' then
+  g.python3_host_prog = pyenv_home .. '/bin/python'
+else
+  g.loaded_python_provider = 0
 end
 
-g.loaded_python_provider = 0
 g.loaded_ruby_provider = 0
 g.loaded_perl_provider = 0
 

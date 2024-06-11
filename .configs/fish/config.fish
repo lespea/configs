@@ -16,7 +16,7 @@ function final
         systemctl -q is-active graphical.target
         exec /usr/bin/Hyprland
     else
-        pyenv init - --no-rehash fish | source
+        #pyenv init - --no-rehash fish | source
     end
 end
 
@@ -76,6 +76,12 @@ if status is-interactive
 
     set -gx RIPGREP_CONFIG_PATH "$HOME/.ripgreprc"
 
+    if set -q XDG_CACHE_DIR
+        set -gx nvim_python_loc "$XDG_CACHE_HOME/nvim_python"
+    else
+        set -gx nvim_python_loc "$HOME/.cache/nvim_python"
+    end
+
     if set -q IS_ARCH
     else
         set -gx LC_ALL en_US.UTF-8
@@ -85,6 +91,10 @@ if status is-interactive
     zoxide init fish | source
     just --completions fish | source
     rg --generate complete-fish | source
+
+    if type -q mise
+        mise activate fish | source
+    end
 
     bind . 'expand-dot-to-parent-directory-path'
 

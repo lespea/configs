@@ -1,10 +1,22 @@
 function setupv
-    set -l pyver 3.12.3
-    set -l pyname nvim3
+    if not set -q nvim_python_loc
+        echo "python loc var not set! `$nvim_python_loc`"
+        return
+    end
 
-    pyenv virtualenv --clear --force $pyver $pyname
-    pyenv shell $pyname
+    if test -d $nvim_python_loc
+        echo "Cleaning $nvim_python_loc"
+        rm -rf $nvim_python_loc
+    end
+
+    echo "Creating venv at $nvim_python_loc"
+    python -m venv $nvim_python_loc
+    source $nvim_python_loc/bin/activate.fish
+
+    echo "Installing packages"
     pipbase
-    pipu colorama neovim python-lsp-server[all] flake8 prettier pyright ruff ruff-lsp
-    pyenv shell normal
+    pipu colorama pynvim python-lsp-server[all] flake8 prettier pyright ruff ruff-lsp black yapf
+
+    echo "Done"
+    deactivate
 end

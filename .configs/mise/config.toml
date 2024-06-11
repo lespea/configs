@@ -1,0 +1,16 @@
+[tools]
+go = "latest"
+java = "temurin-22"
+python = "latest"
+"go:github.com/oligot/go-mod-upgrade" = "latest"
+"go:github.com/icholy/gomajor" = "latest"
+"go:mvdan.cc/gofumpt" = "latest"
+"go:github.com/golangci/golangci-lint/cmd/golangci-lint" = "latest"
+"go:github.com/muesli/duf" = "latest"
+node = "latest"
+sbt = "latest"
+coursier = "latest"
+scala = "latest"
+
+[settings]
+experimental = true

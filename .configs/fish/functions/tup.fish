@@ -5,5 +5,5 @@ function tup
     else
         $runo
     end
-    pyenv update
+    mise up
 end

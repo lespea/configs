@@ -48,5 +48,6 @@ return {
     add_bind(hop, hint, no, ',,T', 'b', nil, false)
 
     set(no, ',,h', function() hop.hint_char2() end, opts)
+    set(no, ',l', function() hop.hint_lines_skip_whitespace() end, opts)
   end,
 }

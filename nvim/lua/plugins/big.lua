@@ -1,9 +1,10 @@
 return {
-  "LunarVim/bigfile.nvim",
-  event = "VeryLazy",
-  config = function()
-    require('bigfile').setup {
-      filesize = 10,
+  'pteroctopus/faster.nvim',
+  opts = {
+    behaviours = {
+      bigfile = {
+        filesize = 1
+      }
     }
-  end
+  }
 }

@@ -11,7 +11,8 @@ return {
       -- OPTIONAL:
       --   `nvim-notify` is only needed, if you want to use the notification view.
       --   If not available, we use `mini` as the fallback
-      -- "rcarriga/nvim-notify",
+      "rcarriga/nvim-notify",
+      -- Maybe needed?
       "hrsh7th/nvim-cmp",
     },
     config = function()
@@ -36,16 +37,32 @@ return {
           {
             filter = {
               event = "msg_show",
-              kind = "",
               any = {
-                { find = '%d+L, %d+B' },
-                { find = '; after #%d+' },
-                { find = '; before #%d+' },
-                { find = '%d fewer lines' },
-                { find = '%d more lines' },
+                { find = "%d+L, %d+B" },
+                { find = "%d+ lines yanked" },
+                { find = "%d+ fewer line" },
+                { find = "%d+ more line" },
+                { find = "%d+ line" },
+                { find = '".+" %d+l, %d+b' },
+                { find = " #%d+%s+%d+ seconds? ago" },
+                { find = "; after #%d+%s+" },
+                { find = "; before #%d+%s+" },
+                { find = "--No lines in buffer--" },
+                { find = "%d+ substitutions on %d+ line" },
+                { find = "Already at newest change" },
+                { find = "^E486:" },
+                { find = "Hop" },
               },
             },
-            opts = { skip = true },
+            view = "mini",
+            opts = { replace = true },
+          },
+          {
+            filter = {
+              event = "lsp",
+            },
+            view = "mini",
+            opts = { replace = true },
           },
         },
       })

@@ -19,7 +19,6 @@
   "goimpl.nvim": { "branch": "main", "commit": "53891ce5605eb55c6bc419db8e286401686b67dd" },
   "guihua.lua": { "branch": "master", "commit": "225db770e36aae6a1e9e3a65578095c8eb4038d3" },
   "hop.nvim": { "branch": "master", "commit": "036462a345792279c58f2f6445756efab706f04a" },
-  "image.nvim": { "branch": "master", "commit": "7d021c94e231d491355f5e724ba357ace296f06d" },
   "in-and-out.nvim": { "branch": "master", "commit": "2f3bf83654790e458cf387fa6f37f9b9d9e4f7fa" },
   "indent-blankline.nvim": { "branch": "master", "commit": "4288ce8128a52650e401dda42fd7651a6038f262" },
   "lazy.nvim": { "branch": "main", "commit": "37c7163f8d27243993ac07db8477e44cd5275027" },

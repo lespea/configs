@@ -67,6 +67,7 @@ return {
                 { find = "Import" },
                 { find = "Indexing" },
                 { find = "Loading Scalafmt" },
+                { find = "Running.*sbt.*bloop" },
               },
               warning = false,
               error = false,

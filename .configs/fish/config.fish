@@ -82,6 +82,8 @@ if status is-interactive
         set -gx nvim_python_loc "$HOME/.cache/nvim_python"
     end
 
+    set -gx CMAKE_GENERATOR Ninja
+
     if set -q IS_ARCH
     else
         set -gx LC_ALL en_US.UTF-8

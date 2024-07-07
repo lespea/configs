@@ -72,8 +72,14 @@ return {
               warning = false,
               error = false,
               cond = function(message)
-                local client = vim.tbl_get(message.opts, "title")
-                return string.find(client, "metals")
+                if message.opts ~= nil then
+                  local client = vim.tbl_get(message.opts, "title")
+                  if client ~= nil then
+                    return string.find(client, "metals")
+                  end
+                end
+
+                return false
               end,
             },
             view = "mini",

@@ -307,6 +307,7 @@ def get_packages() -> list[PkgInfo]:
         PkgInfo("simple-http-server"),
         PkgInfo("skim"),
         PkgInfo("tokei", features=["all"]),
+        PkgInfo("usage-cli"),
         PkgInfo("vivid"),
         PkgInfo("watchexec-cli"),
         PkgInfo("zoxide"),

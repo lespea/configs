@@ -96,6 +96,7 @@ if status is-interactive
 
     if type -q mise
         mise activate fish | source
+        mise completion fish | source
     end
 
     bind . 'expand-dot-to-parent-directory-path'

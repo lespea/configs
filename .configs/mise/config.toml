@@ -26,6 +26,7 @@ scala = "latest"
 "go:golang.org/x/tools/gopls" = "latest"
 "go:honnef.co/go/tools/cmd/staticcheck" = "latest"
 "go:mvdan.cc/gofumpt" = "latest"
+usage = "latest"
 
 [settings]
 experimental = true

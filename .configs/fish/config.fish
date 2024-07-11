@@ -94,6 +94,10 @@ if status is-interactive
     just --completions fish | source
     rg --generate complete-fish | source
 
+    if type -q direnv
+        direnv hook fish | source
+    end
+
     if type -q mise
         mise activate fish | source
         mise completion fish | source

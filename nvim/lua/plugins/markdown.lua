@@ -4,7 +4,7 @@ return {
   dependencies = { 'nvim-treesitter/nvim-treesitter' },
   config = function()
     require('render-markdown').setup({
-      latex_enabled = false
+      latex = { enabled = false }
     })
   end,
 }

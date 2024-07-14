@@ -49,6 +49,8 @@ alias -s lt 'eza -g --icons -T'
 alias -s llt 'eza -g --icons -l -T'
 alias -s llta 'eza -g --icons -la -T'
 
+alias -s ip 'ip -c'
+
 ## Globals
 
 #set -Ux JAVA_HOME /usr/lib/jvm/default

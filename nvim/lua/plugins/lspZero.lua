@@ -162,14 +162,36 @@ return {
       local rep = require("luasnip.extras").rep
 
       -- some shorthands...
-      local snip = ls.snippet
-      local i = ls.insert_node
+      local c = ls.choice_node
+      local dy = ls.dynamic_node
       local func = ls.function_node
+      local i = ls.insert_node
+      local sn = ls.snippet_node
+      local snip = ls.snippet
+      local t = ls.text_node
+
+      local reg = function(pos, name, insert)
+        return dy(pos, function()
+          local v = vim.fn.getreg(name, 1, 1)
+          if v == nil then
+            v = {}
+          end
+
+          if insert then
+            return sn(nil, i(1, v))
+          else
+            return sn(nil, t(v))
+          end
+        end)
+      end
 
       local date = function()
         return { os.date "%Y-%m-%d" }
       end
 
+      local pdate = function()
+        return os.date('%Y, %m, %d'):gsub(' 0', ' ')
+      end
 
       ls.add_snippets(nil, {
         all = {
@@ -179,20 +201,6 @@ return {
             dscr = "Date in the form of YYYY-MM-DD",
           }, {
             func(date, {}),
-          }),
-          snip({
-            trig = "pwd",
-            namr = "PWD",
-            dscr = "Path to current working directory",
-          }, {
-            func(bash, {}, { user_args = { "pwd" } }),
-          }),
-          snip({
-            trig = "filename",
-            namr = "Filename",
-            dscr = "Absolute path to file",
-          }, {
-            func(filename, {}),
           }),
         },
         go = {
@@ -221,7 +229,58 @@ return {
           snip("fsl", fmt('fmt.Sprintf("{}\\n", {}){}', { i(1, "fmt"), i(2, "args"), i(0) })),
           snip("ffl", fmt('fmt.Printf("{}\\n", {}){}', { i(1, "fmt"), i(2, "args"), i(0) })),
         },
+        scala = {
+          snip("fpr", fmt([[
+    easyAutoRule(
+      name = "{}",
+      validated = makeDate({}),
+      from = from{}("{}"),
+      domains = Set(
+        {}
+      ),
+      subjectContains = Seq(
+        "{}"
+      ),
+    )
+]], {
+            reg(1, "+", true),
+            func(pdate),
+            c(2, {
+              t("Domains"),
+              t("Emails"),
+            }),
+            reg(3, "+", false),
+            reg(4, '"', false),
+            i(5, ""),
+          }
+          )),
+          snip("pdate", fmt("{}", { func(pdate) }))
+        }
       })
+
+      vim.keymap.set("n", ",pd", function()
+        local current_line = vim.api.nvim_get_current_line()
+        if current_line == nil then
+          return
+        end
+
+        local new_line = string.gsub(
+          current_line,
+          '= makeDate%([%d, ]+%),$',
+          '= makeDate(' .. pdate() .. '),'
+        )
+
+        if current_line ~= new_line then
+          local row = unpack(vim.api.nvim_win_get_cursor(0))
+          vim.api.nvim_buf_set_lines(0, row - 1, row, true, { new_line })
+        end
+      end)
+
+      vim.keymap.set("i", ",cn", "<Plug>luasnip-next-choice", {})
+      vim.keymap.set("s", ",cn", "<Plug>luasnip-next-choice", {})
+      vim.keymap.set("i", ",cp", "<Plug>luasnip-prev-choice", {})
+      vim.keymap.set("s", ",cp", "<Plug>luasnip-prev-choice", {})
+      vim.keymap.set("s", ",cc", "<Plug>select_choice", {})
 
       vim.keymap.set({ "i", "s" }, "<c-space>", function()
         if ls.expand_or_jumpable() then

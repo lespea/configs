@@ -174,7 +174,7 @@ return {
         return dy(pos, function()
           local v = vim.fn.getreg(name, 1, 1)
           if v == nil then
-            v = {}
+            v = ""
           end
 
           if insert then
@@ -232,7 +232,7 @@ return {
         scala = {
           snip("fpr", fmt([[
     easyAutoRule(
-      name = "{}",
+      name = "{}{}",
       validated = makeDate({}),
       from = from{}("{}"),
       domains = Set(
@@ -243,15 +243,16 @@ return {
       ),
     )
 ]], {
-            reg(1, "+", true),
+            reg(1, "+", false),
+            i(2, ""),
             func(pdate),
-            c(2, {
+            c(3, {
               t("Domains"),
               t("Emails"),
             }),
-            reg(3, "+", false),
-            reg(4, '"', false),
-            i(5, ""),
+            reg(4, "+", false),
+            reg(5, '"', false),
+            i(6, ""),
           }
           )),
           snip("pdate", fmt("{}", { func(pdate) }))
@@ -276,11 +277,9 @@ return {
         end
       end)
 
-      vim.keymap.set("i", ",cn", "<Plug>luasnip-next-choice", {})
-      vim.keymap.set("s", ",cn", "<Plug>luasnip-next-choice", {})
-      vim.keymap.set("i", ",cp", "<Plug>luasnip-prev-choice", {})
-      vim.keymap.set("s", ",cp", "<Plug>luasnip-prev-choice", {})
-      vim.keymap.set("s", ",cc", "<Plug>select_choice", {})
+      vim.keymap.set({ "i", "s" }, "<C-j>", function() ls.change_choice(1) end, {})
+      vim.keymap.set({ "i", "s" }, "<C-k>", function() ls.change_choice(-1) end, {})
+      vim.keymap.set({ "i", "s" }, "<C-o>", require("luasnip.extras.select_choice"), {})
 
       vim.keymap.set({ "i", "s" }, "<c-space>", function()
         if ls.expand_or_jumpable() then

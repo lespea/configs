@@ -13,7 +13,7 @@ scala = "latest"
 # Go tools
 "go:filippo.io/age/cmd/..." = "latest"
 "go:github.com/dmarkham/enumer" = "latest"
-"go:github.com/go-swagger/go-swagger/..." = "latest"
+"go:github.com/go-swagger/go-swagger/cmd/swagger" = "latest"
 "go:github.com/golang/mock/mockgen" = "latest"
 "go:github.com/golangci/golangci-lint/cmd/golangci-lint" = "latest"
 "go:github.com/icholy/gomajor" = "latest"

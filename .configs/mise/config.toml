@@ -3,7 +3,10 @@ coursier = "latest"
 go = "latest"
 gradle = "latest"
 grails = "latest"
-java = "temurin-22"
+java = [
+    "temurin-21",
+    "temurin-22",
+]
 kotlin = "latest"
 node = "latest"
 python = "latest"

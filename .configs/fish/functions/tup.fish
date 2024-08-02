@@ -5,5 +5,4 @@ function tup
     else
         $runo
     end
-    mise up
 end

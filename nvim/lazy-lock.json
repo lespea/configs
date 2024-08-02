@@ -66,7 +66,7 @@
   "telescope-egrepify.nvim": { "branch": "master", "commit": "a30396791c3f67b8f34d42dfc26db2f868ae9154" },
   "telescope-fzf-native.nvim": { "branch": "main", "commit": "cf48d4dfce44e0b9a2e19a008d6ec6ea6f01a83b" },
   "telescope-git-file-history.nvim": { "branch": "master", "commit": "f94fab1d5a51fa28dd95b1a6bd377505dc1a8e82" },
-  "telescope.nvim": { "branch": "master", "commit": "10b8a82b042caf50b78e619d92caf0910211973d" },
+  "telescope.nvim": { "branch": "master", "commit": "3b1600d0fd5172ad9fae00987362ca0ef3d8895d" },
   "tiny-devicons-auto-colors.nvim": { "branch": "main", "commit": "9be4af5b1bc1f26a11206ed7ce8bf44312e7941a" },
   "tiny-inline-diagnostic.nvim": { "branch": "main", "commit": "ca50af9dc3cd88647077330b4728f4d0a7e754c4" },
   "toggleterm.nvim": { "branch": "main", "commit": "8ed0f52006d3207ec6c94de7db62da840937ef2a" },

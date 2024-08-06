@@ -3,4 +3,9 @@ gui:
   language: "en"
   nerdFontsVersion: "3"
 
+git:
+  paging:
+    colorArg: always
+    pager: "delta --dark --paging=never -s --commit-style box --true-color always"
+
 disableStartupPopups: true

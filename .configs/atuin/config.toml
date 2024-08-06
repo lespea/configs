@@ -23,6 +23,8 @@ show_preview = true
 ## alt-0 .. alt-9
 ctrl_n_shortcuts = true
 
+smart_sort = true
+
 ## prevent commands matching any of these regexes from being written to history.
 ## Note that these regular expressions are unanchored, i.e. if they don't start
 ## with ^ or end with $, they'll match anywhere in the command.

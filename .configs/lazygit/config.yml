@@ -6,6 +6,7 @@ gui:
 git:
   paging:
     colorArg: always
-    pager: "delta --dark --paging=never -s --commit-style box --true-color always"
+    pager: "delta --dark --paging=never --commit-style box --true-color always"
+    # pager: "delta --dark --paging=never --commit-style box --true-color always -s --wrap-max-lines 0"
 
 disableStartupPopups: true

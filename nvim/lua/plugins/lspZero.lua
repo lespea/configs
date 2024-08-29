@@ -88,8 +88,8 @@ return {
         vim.lsp.inlay_hint.enable(false)
 
         -- quickly toggle inlay hints
-        vim.keymap.set({ 'n', 'x' }, '<C-i>',
-          function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
+        -- vim.keymap.set({ 'n', 'x' }, '<C-i>',
+        --   function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
 
         vim.keymap.set({ 'n', 'x' }, 'gf', function()
           vim.lsp.buf.format({ async = false, timeout_ms = 10000 })

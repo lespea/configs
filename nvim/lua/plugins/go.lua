@@ -20,9 +20,9 @@ return {
         luasnip = true,
         trouble = true,
 
-        lsp_inlay_hints = {
-          enable = false,
-        },
+        -- lsp_inlay_hints = {
+        --   enable = false,
+        -- },
 
         -- lsp_cfg = true
 

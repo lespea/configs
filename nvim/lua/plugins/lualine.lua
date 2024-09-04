@@ -151,7 +151,7 @@ return {
           'filetype',
         },
         lualine_y = { 'progress', macro },
-        lualine_z = { 'location', dia, lsp },
+        lualine_z = { 'location', 'selectioncount', dia, lsp },
       },
       inactive_sections = {
         lualine_a = {},

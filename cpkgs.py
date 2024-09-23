@@ -303,6 +303,7 @@ def get_packages() -> list[PkgInfo]:
         PkgInfo("procs"),
         PkgInfo("ptail"),
         PkgInfo("ripgrep", features=["pcre2"]),
+        PkgInfo("ripgrep_all"),
         PkgInfo("sd"),
         PkgInfo("simple-http-server"),
         PkgInfo("skim"),

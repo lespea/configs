@@ -9,8 +9,9 @@ function setupv
         rm -rf $nvim_python_loc
     end
 
+
     echo "Creating venv at $nvim_python_loc"
-    python -m venv $nvim_python_loc
+    uv venv --no-project $nvim_python_loc
     source $nvim_python_loc/bin/activate.fish
 
     echo "Installing packages"

@@ -6,7 +6,7 @@ import platform
 import os
 import subprocess
 import sys
-
+import typing
 
 GROUP_NAME = "cargo_pkgs"
 
@@ -24,7 +24,7 @@ def validate_pueue(recheck: bool = False):
             validate_pueue(True)
 
 
-def get_run_info() -> (dict[str, str], bool):
+def get_run_info() -> typing.Tuple[os._Environ, bool]:
     env = os.environ
     mold = False
 
@@ -88,10 +88,18 @@ def setup_groups():
         import json
 
         out = json.loads(
-            subprocess.check_output(["pueue", "status", "-j", "-g", GROUP_NAME])
+            subprocess.check_output(
+                [
+                    "pueue",
+                    "status",
+                    "-j",
+                    "-g",
+                    GROUP_NAME,
+                ]
+            )
         )["tasks"]
 
-        for id, obj in out.items():
+        for id, _ in out.items():
             subprocess.check_call(["pueue", "remove", id])
 
         time.sleep(0.5)
@@ -106,7 +114,7 @@ def setup_groups():
 
     import math
 
-    cores = math.ceil(os.cpu_count() / 4)
+    cores = math.ceil((os.cpu_count() or 8) / 4)
 
     run_cmds(
         (
@@ -138,7 +146,7 @@ def install(args):
     wait_and_clean()
 
 
-def find_missing(args):
+def find_missing(_):
     import io
     import re
 

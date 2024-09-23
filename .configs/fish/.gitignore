@@ -10,6 +10,7 @@ functions/*
 !functions/genSrc.fish
 !functions/genb.fish
 !functions/goupd.fish
+!functions/gvenv.fish
 !functions/jgrep.fish
 !functions/jgz.fish
 !functions/jtail.fish

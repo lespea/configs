@@ -16,13 +16,8 @@ function final
         systemctl -q is-active graphical.target
         exec /usr/bin/Hyprland
     else
-        setup_venv
+        gvenv
     end
-end
-
-function setup_venv
-    set -gx GLOBAL_VENV "$HOME/.cache/global_venv"
-    mkvenv -l $GLOBAL_VENV colorama ipython pandas numpy httpie requests pyyaml exrex
 end
 
 if status is-interactive

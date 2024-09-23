@@ -38,3 +38,6 @@ scala = "latest"
 
 [settings]
 experimental = true
+
+[env]
+_.python.venv = "{{env.HOME}}/.cache/global_venv"

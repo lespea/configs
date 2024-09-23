@@ -13,24 +13,25 @@ function mkvenv
             rm -rf $_flag_loc
         end
     else if test -d $_flag_loc
-        source $_flag_loc/bin/activate.fish
+        if not set -q _flag_deact
+            source "$_flag_loc/bin/activate.fish"
+        end
         return
     end
 
-    echo "Creating venv at $_flag_loc"
-    uv venv --no-project --python (mise which python) $_flag_loc
-    source $_flag_loc/bin/activate.fish
+    set cmds uv venv --no-project --python (mise which python) $_flag_loc
+    echo "Create venv; $cmds"
+    $cmds
+
+    echo "Activating $_flag_loc"
+    source "$_flag_loc/bin/activate.fish"
 
     echo "Installing packages"
     pipbase
-    if set -q argv; and set -q argv[1]
-        pipu $argv
-    end
+    pipu $argv # pipu checks for empty lists
 
-    if set -q deact
-        echo "Deactivating"
+    if set -q _flag_deact
+        echo "Deactivating $_flag_loc"
         deactivate
     end
-
-    echo "Done"
 end

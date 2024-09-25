@@ -6,5 +6,5 @@ function gvenv
         set f '-r'
     end
 
-    mkvenv -l "$HOME/.cache/global_venv" $f colorama ipython pandas numpy httpie requests pyyaml exrex
+    mkvenv -l "$HOME/.cache/global_venv" $f $PIP_NORM_PKGS
 end

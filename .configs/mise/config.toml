@@ -6,7 +6,7 @@ gradle = "latest"
 grails = "latest"
 java = [
     "temurin-21",
-    "temurin-22",
+    "temurin-23",
 ]
 kotlin = "latest"
 node = "latest"

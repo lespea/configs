@@ -9,6 +9,7 @@ functions/*
 !functions/expand-dot-to-parent-directory-path.fish
 !functions/genSrc.fish
 !functions/genb.fish
+!functions/gomise.fish
 !functions/goupd.fish
 !functions/gvenv.fish
 !functions/jgrep.fish

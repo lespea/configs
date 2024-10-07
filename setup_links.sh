@@ -59,14 +59,14 @@ if [ ! -f ${HOME}/.gitconfig ]; then
 fi
 
 if [[ `uname` == "Darwin" ]]; then
-    CONF_DIRS="atuin fish kitty lazygit lsd mise zellij"
+    CONF_DIRS="atuin fish kitty lazygit lsd mise topgrade.d zellij"
 
     # setup_link "${CUR_DIR}/macZsh" "${HOME}/.zshrc"
     # setup_link "${CUR_DIR}/macZshEnv" "${HOME}/.zshenv"
 
     setup_link "${CUR_DIR}/gpg/gpg-agent.m1.conf" "${HOME}/.gnupg/gpg-agent.conf"
 else
-    CONF_DIRS="alacritty atuin fish hypr kitty lazygit lsd mako mise picom sway waybar wpaperd zellij"
+    CONF_DIRS="alacritty atuin fish hypr kitty lazygit lsd mako mise picom sway topgrade.d waybar wpaperd zellij"
 
     setup_single .Xresources
 

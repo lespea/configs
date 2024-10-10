@@ -10,7 +10,7 @@ java = [
 ]
 kotlin = "latest"
 node = "latest"
-python = "3.12"
+python = "3.13.0" # Hardcode until bug is fixed
 sbt = "latest"
 scala = "latest"
 

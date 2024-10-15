@@ -71,7 +71,7 @@
   "telescope.nvim": { "branch": "master", "commit": "df534c3042572fb958586facd02841e10186707c" },
   "tiny-code-action.nvim": { "branch": "main", "commit": "d14fd8c8318305169023370fbf70ea6703687d2a" },
   "tiny-devicons-auto-colors.nvim": { "branch": "main", "commit": "a39fa4c92268832f6034306793b8acbfec2a7549" },
-  "tiny-inline-diagnostic.nvim": { "branch": "main", "commit": "4a65faabbff35e634959f9b34d4fd6ca61c169c2" },
+  "tiny-inline-diagnostic.nvim": { "branch": "main", "commit": "f5c1bc61e4f6b926cb8327c6b9839564f8e2f355" },
   "toggleterm.nvim": { "branch": "main", "commit": "137d06fb103952a0fb567882bb8527e2f92d327d" },
   "treesj": { "branch": "main", "commit": "0d81326b5afd36babe7dd480aabbb0b05f33e688" },
   "trouble.nvim": { "branch": "main", "commit": "254145ffd528b98eb20be894338e2d5c93fa02c2" },

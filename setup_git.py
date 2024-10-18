@@ -44,7 +44,7 @@ def setup(d: torun, email: str, signingKey: str, rewrites: dict[str, str]):
     add_cmds(d, "core", autocrlf=f, editor="nvim", pager="delta")
     add_cmds(d, "difftool", prompt="false")
     add_cmds(d, "difftool.difftastic", cmd='difft "$LOCAL" "$REMOTE"')
-    add_cmds(d, "fetch", prune=t, prunetags=t)
+    add_cmds(d, "fetch", prune=t)
     add_cmds(d, "init", defaultBranch="main")
     add_cmds(d, "interactive", diffFilter="delta --color-only --features=interactive")
     add_cmds(d, "log", date="iso")

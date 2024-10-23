@@ -39,6 +39,7 @@ scala = "latest"
 "go:mvdan.cc/gofumpt" = "latest"
 
 [settings]
+disable_hints = ["*"]
 experimental = true
 
 [env]

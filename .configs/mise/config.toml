@@ -10,7 +10,7 @@ java = [
 ]
 kotlin = "latest"
 node = "latest"
-python = "3.13.0" # Hardcode until bug is fixed
+python = "latest" # Hardcode until bug is fixed
 sbt = "latest"
 scala = "latest"
 
@@ -41,6 +41,7 @@ scala = "latest"
 [settings]
 disable_hints = ["*"]
 experimental = true
+http_timeout = "2m"
 
 [env]
 _.python.venv = "{{env.HOME}}/.cache/global_venv"

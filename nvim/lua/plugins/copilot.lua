@@ -1,6 +1,6 @@
 return {
   'github/copilot.vim',
-  enabled = vim.env.USE_COPILOT == 1,
+  cond = vim.env.USE_COPILOT == "1",
   config = function()
     vim.keymap.set('i', '<s-c-i>', 'copilot#Accept("\\<CR>")', {
       expr = true,
@@ -8,4 +8,5 @@ return {
     })
     vim.g.copilot_no_tab_map = true
   end,
+  event = 'BufEnter'
 }

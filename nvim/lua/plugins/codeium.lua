@@ -1,6 +1,6 @@
 return {
   'Exafunction/codeium.vim',
-  enabled = vim.env.USE_CODEIUM == "1",
+  cond = vim.env.USE_CODEIUM == "1",
   config = function()
     vim.g.codeium_filetypes_disabled_by_default = false
     vim.g.codeium_filetypes = {

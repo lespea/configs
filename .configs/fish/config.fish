@@ -87,6 +87,7 @@ if status is-interactive
     set -gx CMAKE_GENERATOR Ninja
 
     if set -q IS_ARCH
+        set -gx USE_CODEIUM 1
     else
         set -gx LC_ALL en_US.UTF-8
     end

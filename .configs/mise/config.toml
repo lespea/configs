@@ -10,6 +10,7 @@ java = [
 ]
 kotlin = "latest"
 node = "latest"
+pnpm = "latest"
 python = "latest" # Hardcode until bug is fixed
 sbt = "latest"
 scala = "latest"

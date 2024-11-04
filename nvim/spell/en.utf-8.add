@@ -105,3 +105,13 @@ IPv6
 stackoverflow
 Ipv6
 fmt
+msg
+hostnames
+ips
+FQDN
+struct
+addrs
+arm64
+arm32
+chan
+nolint

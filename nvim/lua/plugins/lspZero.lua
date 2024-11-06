@@ -20,7 +20,6 @@ return {
         'prettier',
         'pyright',
         'ruff',
-        'ruff-lsp',
         'rust-analyzer',
         'staticcheck',
         'stylua',

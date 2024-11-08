@@ -15,6 +15,7 @@ functions/*
 !functions/jgrep.fish
 !functions/jgz.fish
 !functions/jtail.fish
+!functions/lsblkc.fish
 !functions/mkvenv.fish
 !functions/mv.fish
 !functions/pipbase.fish

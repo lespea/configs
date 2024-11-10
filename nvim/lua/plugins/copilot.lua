@@ -1,6 +1,6 @@
 return {
   'github/copilot.vim',
-  cond = vim.env.USE_COPILOT == "1",
+  cond = vim.env.NO_VIM_AI ~= "1" and vim.env.USE_COPILOT == "1",
   config = function()
     vim.keymap.set('i', '<s-c-i>', 'copilot#Accept("\\<CR>")', {
       expr = true,

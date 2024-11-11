@@ -67,10 +67,8 @@ if status is-interactive
     abbr --add UC -p anywhere '| sort | uniq -c | sort -rh'
     abbr --add WC -p anywhere '| wc -l'
 
-    # set -gx JAVA_OPTS '-server -XX:+UseG1GC -Xms512m -Xmx4G -XX:-TieredCompilation'
-    # set -gx SBT_OPTS '-server -XX:+UseG1GC -Xms512M -Xmx6G -Xss2M -XX:ReservedCodeCacheSize=512M'
-    set -gx JAVA_OPTS '-server -XX:+UseG1GC -Xmx4G -XX:-TieredCompilation'
-    set -gx SBT_OPTS '-server -XX:+UseG1GC -Xmx6G -Xss2M -XX:ReservedCodeCacheSize=512M'
+    set -gx JAVA_OPTS '-server -XX:+UseG1GC -Xmx8G -XX:-TieredCompilation'
+    set -gx SBT_OPTS '-server -XX:+UseG1GC -Xmx8G -Xss2M -XX:ReservedCodeCacheSize=512M'
 
     set -gx BAT_THME 'OneHalfDark'
 

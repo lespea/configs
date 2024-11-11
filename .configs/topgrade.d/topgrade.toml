@@ -15,7 +15,20 @@ pre_sudo = true
 sudo_command = "sudo"
 
 # Disable specific steps - same options as the command line flag
-disable = ["cargo", "containers", "emacs", "gem", "lensfun", "pip3", "raco", "uv", "vim"]
+disable = [
+    "bun",
+    "bun_packages",
+    "cargo",
+    "containers",
+    "emacs",
+    "gem",
+    "lensfun",
+    "pip3",
+    "raco",
+    "uv",
+    "vim",
+    "yarn"
+]
 
 # Ignore failures for these steps
 # ignore_failures = ["powershell"]

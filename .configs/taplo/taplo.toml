@@ -1,0 +1,6 @@
+[formatting]
+alignEntries = true
+arrayAutoCollapse = false
+reorderArrays = true
+reorderInlineTables = true
+reorderKeys = true

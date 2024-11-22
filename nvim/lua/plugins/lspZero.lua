@@ -23,6 +23,7 @@ return {
         'rust-analyzer',
         'staticcheck',
         'stylua',
+        'taplo',
         'typescript-language-server',
       },
       auto_update = true,

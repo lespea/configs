@@ -90,6 +90,8 @@ if status is-interactive
         set -gx LC_ALL en_US.UTF-8
     end
 
+    set -gx TAPLO_CONFIG "$XDG_CONFIG_HOME/taplo/taplo.toml"
+
     atuin init fish --disable-up-arrow | source
     zoxide init fish | source
     just --completions fish | source

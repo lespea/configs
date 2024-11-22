@@ -1,49 +1,51 @@
 [tools]
-bun = "latest"
+bun      = "latest"
 coursier = "latest"
-go = "latest"
-gradle = "latest"
-grails = "latest"
+go       = "1.23"
+gradle   = "8"
+kotlin   = "2.0"
+node     = "latest"
+pnpm     = "latest"
+python   = "3.13"
+sbt      = "1.10"
+scala    = "3.5"
+zig      = "0.13"
+
 java = [
+    "temurin-11",
     "temurin-21",
     "temurin-23",
 ]
-kotlin = "latest"
-node = "latest"
-pnpm = "latest"
-python = "latest" # Hardcode until bug is fixed
-sbt = "latest"
-scala = "latest"
 
 # Go tools
-"go:filippo.io/age/cmd/age" = "latest"
-"go:filippo.io/age/cmd/age-keygen" = "latest"
-"go:github.com/Zxilly/go-size-analyzer/cmd/gsa" = "latest"
-"go:github.com/charmbracelet/gum" = "latest"
-"go:github.com/dmarkham/enumer" = "latest"
-"go:github.com/go-swagger/go-swagger/cmd/swagger" = "latest"
-"go:github.com/golang/mock/mockgen" = "latest"
+"go:filippo.io/age/cmd/age"                              = "latest"
+"go:filippo.io/age/cmd/age-keygen"                       = "latest"
+"go:github.com/Zxilly/go-size-analyzer/cmd/gsa"          = "latest"
+"go:github.com/charmbracelet/gum"                        = "latest"
+"go:github.com/dmarkham/enumer"                          = "latest"
+"go:github.com/go-swagger/go-swagger/cmd/swagger"        = "latest"
+"go:github.com/golang/mock/mockgen"                      = "latest"
 "go:github.com/golangci/golangci-lint/cmd/golangci-lint" = "latest"
-"go:github.com/icholy/gomajor" = "latest"
-"go:github.com/itchyny/gojq/cmd/gojq" = "latest"
-"go:github.com/johnkerl/miller/v6/cmd/mlr" = "latest"
-"go:github.com/marwan-at-work/mod/cmd/mod" = "latest"
-"go:github.com/mr-karan/doggo/cmd/doggo" = "latest"
-"go:github.com/muesli/duf" = "latest"
-"go:github.com/noperator/jqfmt/cmd/jqfmt" = "latest"
-"go:github.com/noperator/sol/cmd/sol" = "latest"
-"go:github.com/oligot/go-mod-upgrade" = "latest"
-"go:github.com/psampaz/go-mod-outdated" = "latest"
-"go:github.com/segmentio/golines" = "latest"
-"go:golang.org/x/tools/cmd/stringer" = "latest"
-"go:golang.org/x/tools/gopls" = "latest"
-"go:honnef.co/go/tools/cmd/staticcheck" = "latest"
-"go:mvdan.cc/gofumpt" = "latest"
+"go:github.com/icholy/gomajor"                           = "latest"
+"go:github.com/itchyny/gojq/cmd/gojq"                    = "latest"
+"go:github.com/johnkerl/miller/v6/cmd/mlr"               = "latest"
+"go:github.com/marwan-at-work/mod/cmd/mod"               = "latest"
+"go:github.com/mr-karan/doggo/cmd/doggo"                 = "latest"
+"go:github.com/muesli/duf"                               = "latest"
+"go:github.com/noperator/jqfmt/cmd/jqfmt"                = "latest"
+"go:github.com/noperator/sol/cmd/sol"                    = "latest"
+"go:github.com/oligot/go-mod-upgrade"                    = "latest"
+"go:github.com/psampaz/go-mod-outdated"                  = "latest"
+"go:github.com/segmentio/golines"                        = "latest"
+"go:golang.org/x/tools/cmd/stringer"                     = "latest"
+"go:golang.org/x/tools/gopls"                            = "latest"
+"go:honnef.co/go/tools/cmd/staticcheck"                  = "latest"
+"go:mvdan.cc/gofumpt"                                    = "latest"
 
 [settings]
 disable_hints = ["*"]
-experimental = true
-http_timeout = "2m"
+experimental  = true
+http_timeout  = "2m"
 
 [env]
 _.python.venv = "{{env.HOME}}/.cache/global_venv"

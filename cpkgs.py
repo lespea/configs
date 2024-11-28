@@ -279,6 +279,7 @@ def get_packages() -> list[PkgInfo]:
         PkgInfo("cargo-edit"),
         PkgInfo("cargo-geiger"),
         PkgInfo("cargo-generate"),
+        PkgInfo("cargo-nextest"),
         PkgInfo("cargo-outdated"),
         PkgInfo("cargo-update"),
         PkgInfo("csview"),

@@ -43,5 +43,7 @@ disable_hints = ["*"]
 experimental = true
 http_timeout = "2m"
 
+python.compile = false
+
 [env]
 _.python.venv = "{{env.HOME}}/.cache/global_venv"

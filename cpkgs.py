@@ -26,9 +26,10 @@ def validate_pueue(recheck: bool = False):
 
 def get_run_info() -> typing.Tuple[os._Environ, bool]:
     env = os.environ
-    mold = False
 
     nix = is_nix()
+    mold = nix
+
     if nix or is_dar():
         env["CFLAGS"] = " ".join(
             (

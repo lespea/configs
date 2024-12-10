@@ -8,7 +8,7 @@ node = "latest"
 pnpm = "latest"
 python = "3.13"
 sbt = "1.10"
-scala = "3.5"
+scala = "3.6"
 zig = "0.13"
 
 java = ["temurin-21", "temurin-23"]

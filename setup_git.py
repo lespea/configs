@@ -147,10 +147,17 @@ def main(email: str, signingKey: str, rewrites: dict[str, str]):
     run(d)
 
 
+def cleanup_key(key: str) -> str:
+    parts = key.strip().split()
+    if len(parts) != 3:
+        raise ValueError(f"Invalid key: {key}")
+    return f"{parts[0]} {parts[1]}"
+
+
 def def_key() -> str:
     try:
         out = subprocess.check_output(["ssh-add", "-L"]).decode("utf-8").splitlines()
-        out = [line.strip() for line in out if line.strip() != ""]
+        out = [cleanup_key(line) for line in out if line.strip() != ""]
         if len(out) > 0:
             if len(out) > 1:
                 print("\n\n\nMultiple keys found in ssh-add\n\n\n")

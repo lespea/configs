@@ -12,9 +12,8 @@ function final
         source $custom
     end
 
-    if set -q IS_ARCH; and not set -q DISPLAY; and string match -q $XDG_VTNR 1; and \
-        systemctl -q is-active graphical.target
-        exec /usr/bin/Hyprland
+    if set -q IS_ARCH; and type -q uwsm; and uwsm check may-start
+        exec uwsm start hyprland.desktop
     else
         gvenv
     end

@@ -66,7 +66,7 @@ if [[ `uname` == "Darwin" ]]; then
 
     setup_link "${CUR_DIR}/gpg/gpg-agent.m1.conf" "${HOME}/.gnupg/gpg-agent.conf"
 else
-    CONF_DIRS="alacritty atuin fish hypr kitty lazygit lsd mako mise picom sway taplo topgrade.d waybar wpaperd zellij"
+    CONF_DIRS="alacritty atuin fish hypr kitty lazygit lsd mako mise picom sway taplo topgrade.d uwsm waybar wpaperd zellij"
 
     setup_single .Xresources
 

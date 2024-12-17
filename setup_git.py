@@ -1,11 +1,16 @@
 #!/usr/bin/env python
 
 import argparse
-import pathlib
 import subprocess
+import time
 import typing
 
+from pathlib import Path
+
 type torun = dict[str, set[typing.Any]]
+
+
+allowed_signers_file = Path(__file__).resolve().parent / "allowed_git_signers"
 
 
 def run(d: torun):
@@ -33,9 +38,28 @@ def add_cmds(d: torun, base: str, **defs: str):
             d.setdefault(base, set()).add(args)
 
 
+def add_sig(email: str, key: str):
+    want = f"{email} {key}"
+
+    if allowed_signers_file.exists():
+        known = allowed_signers_file.read_text().splitlines()
+        if want not in known:
+            known.append(want)
+            known.sort()
+            allowed_signers_file.write_text("\n".join(known) + "\n")
+    else:
+        allowed_signers_file.write_text(want + "\n")
+
+
 def setup(d: torun, email: str, signingKey: str, rewrites: dict[str, str]):
     t = "true"
     f = "false"
+
+    if signingKey != "":
+        add_sig(email, signingKey)
+        sig_key = "key::" + signingKey
+    else:
+        sig_key = ""
 
     add_cmds(d, "apply", whitespace="strip")
     add_cmds(d, "branch", sort="-committerdate")
@@ -45,7 +69,7 @@ def setup(d: torun, email: str, signingKey: str, rewrites: dict[str, str]):
     add_cmds(d, "difftool.difftastic", cmd='difft "$LOCAL" "$REMOTE"')
     add_cmds(d, "fetch", prune=t)
     add_cmds(d, "gpg", format="ssh")
-    add_cmds(d, "gpg.ssh", allowedSignersFile="~/.ssh/allowed_signers")
+    add_cmds(d, "gpg.ssh", allowedSignersFile=str(allowed_signers_file))
     add_cmds(d, "init", defaultBranch="main")
     add_cmds(d, "interactive", diffFilter="delta --color-only --features=interactive")
     add_cmds(d, "log", date="iso")
@@ -56,7 +80,7 @@ def setup(d: torun, email: str, signingKey: str, rewrites: dict[str, str]):
     add_cmds(d, "rebase", autosquash=t, autostash=t, updateRefs=t)
     add_cmds(d, "rerere", enabled=t)
     add_cmds(d, "submodule", recurse=t)
-    add_cmds(d, "user", name="Adam Lesperance", email=email, signingKey=signingKey)
+    add_cmds(d, "user", name="Adam Lesperance", email=email, signingKey=sig_key)
 
     for b in ["transfer", "fetch", "receive"]:
         add_cmds(d, b, fsckobjects=t)
@@ -126,8 +150,12 @@ def main(email: str, signingKey: str, rewrites: dict[str, str]):
 def def_key() -> str:
     try:
         out = subprocess.check_output(["ssh-add", "-L"]).decode("utf-8").splitlines()
-        if len(out) == 1 and out[0] != "":
-            return "key::" + out[0]
+        out = [line.strip() for line in out if line.strip() != ""]
+        if len(out) > 0:
+            if len(out) > 1:
+                print("\n\n\nMultiple keys found in ssh-add\n\n\n")
+                time.sleep(3)
+            return out[0]
         return ""
     except subprocess.CalledProcessError:
         return ""
@@ -143,7 +171,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.rm:
-        (pathlib.Path.home() / ".gitconfig").unlink(missing_ok=True)
+        (Path.home() / ".gitconfig").unlink(missing_ok=True)
 
     rewrites = {}
     if args.rewrite is not None:

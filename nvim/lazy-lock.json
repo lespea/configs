@@ -42,7 +42,7 @@
   "nvim-genghis": { "branch": "main", "commit": "8f30b42c2bc9cb6b3c718f017d5879939846f201" },
   "nvim-lsp-endhints": { "branch": "main", "commit": "42f0568824c1f4679b134f4053d8cc4cf3edec4b" },
   "nvim-lspconfig": { "branch": "master", "commit": "ae8a01bb40848490548e5d07b97ed972ed43c2f9" },
-  "nvim-metals": { "branch": "main", "commit": "6d4b3c3a6159dc3caad6fb10ab0473315d8397f5" },
+  "nvim-metals": { "branch": "main", "commit": "abf4a2b7ccdb2fa21ef59b66e50d9b69a746e3ef" },
   "nvim-notify": { "branch": "master", "commit": "fbef5d32be8466dd76544a257d3f3dce20082a07" },
   "nvim-spider": { "branch": "main", "commit": "d9c53d19b8c489c78bab710efd8b5545725ad9ba" },
   "nvim-surround": { "branch": "main", "commit": "9f0cb495f25bff32c936062d85046fbda0c43517" },

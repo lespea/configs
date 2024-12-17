@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 
 import argparse
-import os
 import pathlib
 import subprocess
+import typing
 
-
-type torun = dict[str, set[any]]
+type torun = dict[str, set[typing.Any]]
 
 
 def run(d: torun):
@@ -45,6 +44,8 @@ def setup(d: torun, email: str, signingKey: str, rewrites: dict[str, str]):
     add_cmds(d, "difftool", prompt="false")
     add_cmds(d, "difftool.difftastic", cmd='difft "$LOCAL" "$REMOTE"')
     add_cmds(d, "fetch", prune=t)
+    add_cmds(d, "gpg", format="ssh")
+    add_cmds(d, "gpg.ssh", allowedSignersFile="~/.ssh/allowed_signers")
     add_cmds(d, "init", defaultBranch="main")
     add_cmds(d, "interactive", diffFilter="delta --color-only --features=interactive")
     add_cmds(d, "log", date="iso")
@@ -122,12 +123,20 @@ def main(email: str, signingKey: str, rewrites: dict[str, str]):
     run(d)
 
 
+def def_key() -> str:
+    try:
+        out = subprocess.check_output(["ssh-add", "-L"]).decode("utf-8").splitlines()
+        if len(out) == 1 and out[0] != "":
+            return "key::" + out[0]
+        return ""
+    except subprocess.CalledProcessError:
+        return ""
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Applies global git settings")
     parser.add_argument("-e", "--email", default="lespea@gmail.com")
-    parser.add_argument(
-        "-k", "--key", default="8062DB324D4405D656B07A91E57FA7C8B50DE252"
-    )
+    parser.add_argument("-k", "--key", default=def_key())
     parser.add_argument("--rm", action=argparse.BooleanOptionalAction, default=False)
     parser.add_argument("-r", "--rewrite", nargs="*", default=["!github.com"])
 

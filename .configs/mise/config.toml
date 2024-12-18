@@ -45,5 +45,5 @@ http_timeout = "2m"
 
 python.compile = false
 
-[env]
-_.python.venv = "{{env.HOME}}/.cache/global_venv"
+# [env]
+# _.python.venv = "{{env.home}}/.cache/global_venv"

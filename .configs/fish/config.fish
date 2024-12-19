@@ -1,11 +1,3 @@
-#if set -q IS_ARCH
-#    set -gx SSH_AUTH_SOCK $XDG_RUNTIME_DIR/ssh-agent.socket
-#end
-
-if set -q IS_MAC; and set -q brewpath
-        eval "$($brewpath shellenv)"
-end
-
 function final
     set -l custom "$HOME/.fish_custom"
     if test -e "$custom"
@@ -20,6 +12,10 @@ function final
 end
 
 if status is-interactive
+    if set -q IS_MAC; and set -q brewpath
+        $brewpath shellenv fish | source
+    end
+
     ## Abbreviations
 
     # set -l foreground f9fbff

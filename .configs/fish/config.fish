@@ -38,9 +38,10 @@ function setAbbs
     # fmt
     abbr --add BJ -p anywhere '| jq | bat -ljson'
     abbr --add BL -p anywhere '| bat -pP -llog'
-    abbr --add BH -p anywhere '| prettier --parser html | bat -lhtml'
+    abbr --add BHL -p anywhere '| bunx prettier --parser html | bat -lhtml'
 
     # fmt cursor
+    abbr --add BH --set-cursor 'bunx prettier % | bat -lhtml'
     abbr --add TL --set-cursor 'tail -F % | bat -pP -llog'
 
     # counts

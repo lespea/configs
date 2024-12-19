@@ -1,0 +1,9 @@
+[Unit]
+Description=Background Daemon Unit for Atuin-Daemon
+
+[Service]
+Type=simple
+ExecStart=%h/.cargo/bin/atuin daemon
+
+[Install]
+WantedBy=default.target

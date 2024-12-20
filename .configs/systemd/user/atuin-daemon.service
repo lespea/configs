@@ -1,15 +1,11 @@
 [Unit]
 Description=Background Daemon Unit for Atuin-Daemon
-Requires=atuin-daemon.socket
 
 [Service]
-Type=simple
 ExecStart=%h/.cargo/bin/atuin daemon
-Environment=ATUIN_LOG=info
 Restart=on-failure
 RestartSteps=5
 RestartMaxDelaySec=10
 
 [Install]
-Also=atuin-daemon.socket
 WantedBy=default.target

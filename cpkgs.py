@@ -136,7 +136,12 @@ def wait_and_clean():
 
 
 def install(args):
-    pkgs = get_packages()
+    limit = set()
+    for pkgs in args.packages:
+        for pkg in pkgs.split(","):
+            limit.add(pkg.strip())
+
+    pkgs = get_packages(limit)
     (env, is_mold) = get_run_info()
 
     validate_pueue()
@@ -161,7 +166,7 @@ def find_missing(_):
             pkgs.add(m.group(1))
 
     missing = set()
-    for pInfo in get_packages():
+    for pInfo in get_packages(set()):
         name = pInfo.pkg
         if name not in pkgs:
             missing.add(name)
@@ -188,6 +193,10 @@ def main():
 
     inst.add_argument(
         "-f", "--force", action="store_true", help="force install via cargo"
+    )
+
+    inst.add_argument(
+        "-p", "--packages", action="append", help="install a specific package"
     )
 
     inst.set_defaults(func=install)
@@ -266,7 +275,7 @@ class PkgInfo:
         return a
 
 
-def get_packages() -> list[PkgInfo]:
+def get_packages(limit: set[str]) -> list[PkgInfo]:
     want = [
         PkgInfo("ast-grep"),
         PkgInfo("b3sum"),
@@ -337,7 +346,7 @@ def get_packages() -> list[PkgInfo]:
     ]
 
     nix_pkgs = [
-        PkgInfo("atuin", use_defaults=False, features=["client"]),
+        PkgInfo("atuin", use_defaults=False, features=["client", "daemon"]),
         PkgInfo("bandwhich"),
         PkgInfo("bottom"),
         PkgInfo("jless"),
@@ -383,6 +392,9 @@ def get_packages() -> list[PkgInfo]:
         raise RuntimeError("Weird platform? " + platform.system())
 
     want.append(PkgInfo("coreutils", features=[uutils_feat]))
+
+    if len(limit) > 0:
+        want = [x for x in want if x.pkg in limit]
 
     return sorted(want, key=lambda x: x.pkg)
 

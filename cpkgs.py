@@ -137,9 +137,11 @@ def wait_and_clean():
 
 def install(args):
     limit = set()
-    for pkgs in args.packages:
-        for pkg in pkgs.split(","):
-            limit.add(pkg.strip())
+
+    if args.packages is not None:
+        for pkgs in args.packages:
+            for pkg in pkgs.split(","):
+                limit.add(pkg.strip())
 
     pkgs = get_packages(limit)
     (env, is_mold) = get_run_info()

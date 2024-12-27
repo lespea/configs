@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
 
-from typing import Optional
-
-import platform
+import argparse
+import io
+import json
+import math
 import os
+import platform
+import re
 import subprocess
 import sys
+import time
 import typing
+
+from typing import Optional
 
 GROUP_NAME = "cargo_pkgs"
 
@@ -82,11 +88,7 @@ def setup_groups():
             )
         )
 
-        import time
-
         time.sleep(1)
-
-        import json
 
         out = json.loads(
             subprocess.check_output(
@@ -113,8 +115,6 @@ def setup_groups():
             )
         )
 
-    import math
-
     cores = math.ceil((os.cpu_count() or 8) / 4)
 
     run_cmds(
@@ -137,6 +137,14 @@ def wait_and_clean():
 
 def install(args):
     limit = set()
+    if args.missing:
+        limit = find_installed(True)
+        if len(limit) == 0:
+            print("No outdated packages found")
+            if args.packages is None:
+                return
+        else:
+            print(f"Found {len(limit)} outdated packages: {', '.join(limit)}")
 
     if args.packages is not None:
         for pkgs in args.packages:
@@ -144,6 +152,10 @@ def install(args):
                 limit.add(pkg.strip())
 
     pkgs = get_packages(limit)
+    if len(pkgs) == 0:
+        print("No packages to install")
+        return
+
     (env, is_mold) = get_run_info()
 
     validate_pueue()
@@ -154,18 +166,23 @@ def install(args):
     wait_and_clean()
 
 
-def find_missing(_):
-    import io
-    import re
-
-    pkg = re.compile(r"""^(\S+)\s+v.*""")
+def find_installed(only_outdated: bool) -> set[str]:
+    pkg = re.compile(r"""(?i)^(\S+)\s+v.*(yes|no)$""")
     pkgs = set()
 
     out = subprocess.check_output(["cargo", "install-update", "-al"]).decode()
     for line in io.StringIO(out):
         m = pkg.match(line)
         if m is not None:
+            if only_outdated and m.group(2).lower() == "no":
+                continue
             pkgs.add(m.group(1))
+
+    return pkgs
+
+
+def find_missing(_):
+    pkgs = find_installed(False)
 
     missing = set()
     for pInfo in get_packages(set()):
@@ -180,8 +197,6 @@ def find_missing(_):
 
 
 def main():
-    import argparse
-
     # Setup
     parser = argparse.ArgumentParser(
         prog="Cargo Packages", description="Installs our wanted rust applications"
@@ -199,6 +214,13 @@ def main():
 
     inst.add_argument(
         "-p", "--packages", action="append", help="install a specific package"
+    )
+
+    inst.add_argument(
+        "-m",
+        "--missing",
+        action="store_true",
+        help="include all outdated packages as reported by install-update; merged with -p",
     )
 
     inst.set_defaults(func=install)

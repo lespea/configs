@@ -301,7 +301,6 @@ class PkgInfo:
 
 def get_packages(limit: set[str]) -> list[PkgInfo]:
     want = [
-        PkgInfo("ast-grep"),
         PkgInfo("b3sum"),
         PkgInfo("bacon"),
         PkgInfo("bat"),

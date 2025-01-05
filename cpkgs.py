@@ -351,6 +351,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("simple-http-server"),
         PkgInfo("skim"),
         PkgInfo("tokei", features=["all"]),
+        PkgInfo("trippy"),
         PkgInfo("usage-cli"),
         PkgInfo("vivid"),
         PkgInfo("watchexec-cli"),

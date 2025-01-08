@@ -9,7 +9,7 @@
 # Run `sudo -v` to cache credentials at the start of the run
 # This avoids a blocking password prompt in the middle of an unattended run
 # (default: false)
-pre_sudo = true
+pre_sudo = false
 
 # Sudo command to be used
 sudo_command = "sudo"
@@ -27,7 +27,7 @@ disable = [
     "raco",
     "uv",
     "vim",
-    "yarn"
+    "yarn",
 ]
 
 # Ignore failures for these steps

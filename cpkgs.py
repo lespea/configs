@@ -334,7 +334,6 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("just"),
         PkgInfo("kondo"),
         PkgInfo("lscolors", features=["crossterm", "nu-ansi-term"]),
-        PkgInfo("lsd"),
         PkgInfo("eza"),
         PkgInfo("mdcat"),
         PkgInfo("miniserve"),

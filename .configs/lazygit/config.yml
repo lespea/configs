@@ -1,7 +1,8 @@
 gui:
-  scrollHeight: 10
   language: "en"
   nerdFontsVersion: "3"
+  scrollHeight: 10
+  showNumstatInFilesView: true
 
 git:
   paging:

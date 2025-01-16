@@ -6,6 +6,7 @@ functions/*
 /fishd.tmp.*
 
 !functions/cp.fish
+!functions/btrls.fish
 !functions/expand-dot-to-parent-directory-path.fish
 !functions/genSrc.fish
 !functions/genb.fish

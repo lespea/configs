@@ -22,6 +22,9 @@ function setEnvs
         set -gx LC_ALL en_US.UTF-8
     end
 
+    set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
+    set -gx MANROFFOPT "-c"
+
     set -gx TAPLO_CONFIG "$XDG_CONFIG_HOME/taplo/taplo.toml"
 end
 

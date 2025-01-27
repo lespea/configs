@@ -42,7 +42,7 @@ java = ["temurin-21", "temurin-23"]
 [settings]
 disable_hints = ["*"]
 experimental = true
-http_timeout = "2m"
+http_timeout = "5m"
 
 python.compile = false
 

@@ -1,6 +1,6 @@
 function setEnvs
-    set -gx JAVA_OPTS '-Xmx16G'
-    set -gx SBT_OPTS '-Xss2M'
+    set -gx JAVA_OPTS '-Xmx16G -XX:MaxInlineLevel=35'
+    set -gx SBT_OPTS '-Xss1M -XX:ReservedCodeCacheSize=512m'
 
     set -gx BAT_THME 'OneHalfDark'
 

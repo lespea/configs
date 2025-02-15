@@ -6,7 +6,7 @@
 "vfox:mise-plugins/vfox-kotlin" = "2.1"
 "vfox:mise-plugins/vfox-scala" = "3.6"
 bun = "latest"
-go = "1.23"
+go = "1.24"
 node = "latest"
 python = "3.13"
 zig = "0.13"

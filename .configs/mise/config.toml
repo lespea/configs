@@ -2,6 +2,7 @@
 "aqua:gradle/gradle" = "8"
 "aqua:pnpm/pnpm" = "latest"
 "aqua:skaji/relocatable-perl" = "latest"
+"asdf:mise-plugins/mise-sbt" = "1.10"
 "ubi:coursier/coursier[exe=cs]" = "latest"
 "vfox:mise-plugins/vfox-kotlin" = "2.1"
 "vfox:mise-plugins/vfox-scala" = "3.6"
@@ -14,8 +15,8 @@ zig = "0.13"
 java = ["temurin-21", "temurin-23"]
 
 # Go tools
-"aqua:dominikh/go-tools/staticcheck" = "latest"
 "aqua:FiloSottile/age" = "latest"
+"aqua:dominikh/go-tools/staticcheck" = "latest"
 "aqua:go-swagger/go-swagger" = "latest"
 "aqua:itchyny/gojq" = "latest"
 "aqua:muesli/duf" = "latest"
@@ -23,6 +24,7 @@ java = ["temurin-21", "temurin-23"]
 "ubi:mvdan/gofumpt" = "latest"
 "ubi:segmentio/golines" = "latest"
 
+"go:github.com/Zxilly/go-size-analyzer/cmd/gsa" = "latest"
 "go:github.com/charmbracelet/gum" = "latest"
 "go:github.com/dmarkham/enumer" = "latest"
 "go:github.com/golang/mock/mockgen" = "latest"
@@ -34,7 +36,6 @@ java = ["temurin-21", "temurin-23"]
 "go:github.com/noperator/sol/cmd/sol" = "latest"
 "go:github.com/oligot/go-mod-upgrade" = "latest"
 "go:github.com/psampaz/go-mod-outdated" = "latest"
-"go:github.com/Zxilly/go-size-analyzer/cmd/gsa" = "latest"
 "go:golang.org/x/tools/cmd/stringer" = "latest"
 "go:golang.org/x/tools/gopls" = "latest"
 

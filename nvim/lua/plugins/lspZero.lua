@@ -82,7 +82,10 @@ return {
 
       lsp.on_attach(function(client, bufnr)
         lsp.default_keymaps({ buffer = bufnr })
-        lsp.buffer_autoformat()
+
+        if client.server_capabilities.documentFormattingProvider then
+          lsp.buffer_autoformat()
+        end
 
         -- Disable by default since we can turn on when needed
         vim.lsp.inlay_hint.enable(false)

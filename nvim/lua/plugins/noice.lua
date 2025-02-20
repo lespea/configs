@@ -52,7 +52,6 @@ return {
                 { find = "Already at newest change" },
                 { find = "^E486:" },
                 { find = "Hop" },
-                { find = "Format request failed" },
               },
             },
             view = "mini",

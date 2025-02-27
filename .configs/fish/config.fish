@@ -93,11 +93,18 @@ function final
     end
 end
 
+function setupFish
+    for mode in (bind --list-modes)
+        bind -M $mode ctrl-c cancel-commandline
+    end
+end
+
 if status is-interactive
     if set -q IS_MAC; and set -q brewpath
         $brewpath shellenv fish | source
     end
 
+    setupFish
     setEnvs
     setAbbs
     runSources

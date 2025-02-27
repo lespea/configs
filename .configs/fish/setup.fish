@@ -36,18 +36,20 @@ alias -s gcola 'git-cola &>/dev/null & disown'
 
 # ls
 
-alias -s ls 'eza -g --icons'
+set -l ezaBin eza -g --icons --binary
 
-alias -s l 'eza -g --icons -G'
-alias -s la 'eza -g --icons -a'
+alias -s ls "$ezaBin --binary"
 
-alias -s lla 'eza -g --icons -la'
-alias -s ll 'eza -g --icons -l'
-alias -s lld 'eza -g --icons -l --total-size'
+alias -s l "$ezaBin -G"
+alias -s la "$ezaBin -a"
 
-alias -s lt 'eza -g --icons -T'
-alias -s llt 'eza -g --icons -l -T'
-alias -s llta 'eza -g --icons -la -T'
+alias -s lla "$ezaBin -la"
+alias -s ll "$ezaBin -l"
+alias -s lld "$ezaBin -l --total-size"
+
+alias -s lt "$ezaBin -T"
+alias -s llt "$ezaBin -l -T"
+alias -s llta "$ezaBin -la -T"
 
 alias -s ip 'ip -c'
 

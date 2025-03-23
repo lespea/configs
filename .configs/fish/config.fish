@@ -80,17 +80,19 @@ function act
     end
 end
 
+function hypr
+    if set -q IS_ARCH; and type -q uwsm; and uwsm check may-start
+        exec uwsm start hyprland.desktop
+    end
+end
+
 function final
     set -l custom "$HOME/.fish_custom"
     if test -e $custom
         source $custom
     end
 
-    if set -q IS_ARCH; and type -q uwsm; and uwsm check may-start
-        exec uwsm start hyprland.desktop
-    else
-        gvenv
-    end
+    gvenv
 end
 
 function setupFish
@@ -107,6 +109,9 @@ if status is-interactive
     setupFish
     setEnvs
     setAbbs
+
+    hypr
+
     runSources
 
     final

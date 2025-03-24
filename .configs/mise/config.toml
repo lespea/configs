@@ -20,7 +20,7 @@ java = ["temurin-21", "temurin-23"]
 "aqua:go-swagger/go-swagger" = "latest"
 "aqua:itchyny/gojq" = "latest"
 "aqua:muesli/duf" = "latest"
-"ubi:golangci/golangci-lint" = "latest"
+"ubi:golangci/golangci-lint" = "1"
 "ubi:mvdan/gofumpt" = "latest"
 "ubi:segmentio/golines" = "latest"
 

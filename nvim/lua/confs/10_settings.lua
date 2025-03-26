@@ -169,6 +169,4 @@ g.loaded_perl_provider = 0
 
 g.suda_smart_edit = 1
 
-vim.diagnostic.config({ virtual_text = true })
-
 return true

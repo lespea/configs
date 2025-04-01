@@ -1,4 +1,4 @@
-function genb
+function genBloop
     if not test -d "./project"
         echo "Not a scala dir; skipping"
         return 1

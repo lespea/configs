@@ -263,20 +263,33 @@ return {
       })
 
       vim.keymap.set("n", ",pd", function()
-        local current_line = vim.api.nvim_get_current_line()
-        if current_line == nil then
+        if vim.api.nvim_get_current_line() == "" then
           return
         end
 
-        local new_line = string.gsub(
-          current_line,
-          '= makeDate%([%d, ]+%),$',
-          '= makeDate(' .. pdate() .. '),'
-        )
+        local start_pos = vim.api.nvim_win_get_cursor(0)
 
-        if current_line ~= new_line then
-          local row = unpack(vim.api.nvim_win_get_cursor(0))
-          vim.api.nvim_buf_set_lines(0, row - 1, row, true, { new_line })
+        vim.cmd.normal('{')
+        local start_row = vim.api.nvim_win_get_cursor(0)[1] - 1
+        vim.cmd.normal('}')
+        local end_row = vim.api.nvim_win_get_cursor(0)[1] - 1
+
+        vim.api.nvim_win_set_cursor(0, start_pos)
+
+        local lines = vim.api.nvim_buf_get_lines(0, start_row, end_row, false)
+        local rep = '= makeDate(' .. pdate() .. '),'
+
+        for i, line in ipairs(lines) do
+          local new_line = string.gsub(
+            line,
+            '= makeDate%([%d, ]+%),$',
+            rep
+          )
+
+          if line ~= new_line then
+            vim.api.nvim_buf_set_lines(0, start_row + i - 1, start_row + i, true, { new_line })
+            return
+          end
         end
       end)
 

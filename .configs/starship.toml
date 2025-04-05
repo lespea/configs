@@ -50,6 +50,12 @@ color_purple = '#b16286'
 color_red = '#cc241d'
 color_yellow = '#d79921'
 
+[cmd_duration]
+style = "fg:color_yellow bg:color_bg1"
+format = "[ took $duration]($style)"
+show_notifications = true
+min_time_to_notify = 180_000
+
 [os]
 disabled = false
 style = "bg:color_orange fg:color_fg0"

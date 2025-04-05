@@ -5,6 +5,7 @@ right_format = "$status$time"
 format = """
 [](color_orange)\
 $os\
+$hostname\
 $username\
 $sudo\
 [](bg:color_yellow fg:color_orange)\
@@ -187,6 +188,7 @@ format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
 
 [hostname]
 ssh_symbol = " "
+ssh_only = true
 
 [java]
 symbol = " "

@@ -189,6 +189,8 @@ format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
 [hostname]
 ssh_symbol = " "
 ssh_only = true
+style = "bg:color_orange fg:color_fg0"
+format = "[$ssh_symbol$hostname]($style)"
 
 [java]
 symbol = " "

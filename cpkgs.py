@@ -348,6 +348,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("sd"),
         PkgInfo("simple-http-server"),
         PkgInfo("skim"),
+        PkgInfo("starship"),
         PkgInfo("tokei", features=["all"]),
         PkgInfo("trippy"),
         PkgInfo("usage-cli"),

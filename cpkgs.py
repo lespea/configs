@@ -325,7 +325,6 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("fse_dump"),
         PkgInfo("git-delta"),
         PkgInfo("gitoxide"),
-        PkgInfo("gitui"),
         PkgInfo("gping"),
         PkgInfo("hexyl"),
         PkgInfo("ht"),
@@ -347,10 +346,8 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("ripgrep_all"),
         PkgInfo("sd"),
         PkgInfo("simple-http-server"),
-        PkgInfo("skim"),
         PkgInfo("tokei", features=["all"]),
         PkgInfo("trippy"),
-        PkgInfo("usage-cli"),
         PkgInfo("vivid"),
         PkgInfo("watchexec-cli"),
         PkgInfo("zoxide"),
@@ -358,14 +355,22 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo(
             "qsv",
             use_defaults=False,
-            features=[
-                "apply",
-                "feature_capable",
-                "jemallocator",
-                "to",
-                # 'polars',
-                # 'to_parquet',
-            ],
+            features=(
+                [
+                    "apply",
+                    "feature_capable",
+                    "jemallocator",
+                    "to",
+                    # 'polars',
+                    # 'to_parquet',
+                ]
+                if is_nix()
+                else [
+                    "apply",
+                    "feature_capable",
+                    "to",
+                ]
+            ),
         ),
     ]
 
@@ -373,9 +378,12 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("atuin", use_defaults=False, features=["client", "daemon"]),
         PkgInfo("bandwhich"),
         PkgInfo("bottom"),
+        PkgInfo("gitui"),
         PkgInfo("jless"),
         PkgInfo("mise"),
+        PkgInfo("skim"),
         PkgInfo("topgrade"),
+        PkgInfo("usage-cli"),
         PkgInfo("wasm-pack"),
         PkgInfo("xcp"),
     ]

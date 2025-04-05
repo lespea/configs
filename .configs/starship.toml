@@ -5,8 +5,8 @@ right_format = "$status$time"
 format = """
 [](color_orange)\
 $os\
-$hostname\
 $username\
+$hostname\
 $sudo\
 [](bg:color_yellow fg:color_orange)\
 $directory\

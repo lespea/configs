@@ -58,15 +58,17 @@ if [ ! -f ${HOME}/.gitconfig ]; then
     cp ${CUR_DIR}/myGitConfig ${HOME}/.gitconfig
 fi
 
+BOTH_DIRS="atuin fish kitty lazygit lsd mise starship.toml taplo topgrade.d zellij"
+
 if [[ `uname` == "Darwin" ]]; then
-    CONF_DIRS="atuin fish kitty lazygit lsd mise taplo topgrade.d zellij"
+    CONF_DIRS="$BOTH_DIRS"
 
     # setup_link "${CUR_DIR}/macZsh" "${HOME}/.zshrc"
     # setup_link "${CUR_DIR}/macZshEnv" "${HOME}/.zshenv"
 
     setup_link "${CUR_DIR}/gpg/gpg-agent.m1.conf" "${HOME}/.gnupg/gpg-agent.conf"
 else
-    CONF_DIRS="alacritty atuin fish hypr kitty lazygit lsd mako mise picom sway taplo topgrade.d uwsm waybar wpaperd zellij"
+    CONF_DIRS="$BOTH_DIRS hypr mako picom sway uwsm waybar wpaperd"
 
     setup_single .Xresources
 

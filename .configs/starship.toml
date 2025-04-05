@@ -1,6 +1,6 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
-right_format = "$time"
+right_format = "$status$time"
 
 format = """
 [](color_orange)\

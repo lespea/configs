@@ -1,6 +1,21 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
-right_format = "$status$time"
+right_format = """
+$cmake\
+$golang\
+$gradle\
+$java\
+$package\
+$kotlin\
+$nodejs\
+$perl\
+$python\
+$rust\
+$scala\
+$zig\
+[](fg:color_blue bg:color_bg1)\
+$status\
+$time"""
 
 format = """
 [](color_orange)\
@@ -10,28 +25,15 @@ $hostname\
 $sudo\
 [](bg:color_yellow fg:color_orange)\
 $directory\
-[](fg:color_yellow bg:color_aqua)\
+[](fg:color_yellow bg:color_blue)\
 $git_branch\
 $git_commit\
 $git_state\
 $git_metrics\
 $git_status\
-[](fg:color_aqua bg:color_blue)\
-$package\
-$golang\
-$nodejs\
-$java\
-$kotlin\
-$scala\
-$python\
-$perl\
-$rust\
-$zig\
-[](fg:color_blue bg:color_bg3)\
+[](fg:color_blue bg:color_aqua)\
 $docker_context\
-$dienv\
-$docker_context\
-[](fg:color_bg3 bg:color_bg1)\
+[](fg:color_aqua bg:color_bg1)\
 $cmd_duration\
 [ ](fg:color_bg1)\
 $line_break$character"""
@@ -53,7 +55,7 @@ color_yellow = '#d79921'
 [cmd_duration]
 style = "fg:color_yellow bg:color_bg1"
 format = "[ took $duration]($style)"
-show_notifications = true
+show_notifications = false
 min_time_to_notify = 180_000
 
 [os]
@@ -86,6 +88,11 @@ disabled = false
 time_format = "%R"
 style = "bg:color_bg1"
 format = '[[  $time ](fg:color_fg0 bg:color_bg1)]($style)'
+
+[status]
+style = "bg:color_bg1"
+format = '[ $symbol $status]($style)'
+disabled = false
 
 [line_break]
 disabled = false
@@ -136,8 +143,8 @@ format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
 
 [docker_context]
 symbol = " "
-style = "bg:color_blue"
-format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style = "bg:color_aqua"
+format = '[[ $symbol( $context) ](fg:color_fg0 bg:color_aqua)]($style)'
 
 [elixir]
 symbol = " "
@@ -160,12 +167,29 @@ style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
 
 [git_branch]
-symbol = " "
-style = "bg:color_blue"
-format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+symbol = "  "
+style = "fg:color_fg0 bg:color_blue"
+format = '[$symbol$branch(:$remote_branch)]($style)'
+truncation_length = 15
 
 [git_commit]
 tag_symbol = '  '
+style = "fg:color_fg0 bg:color_blue"
+tag_disabled = false
+tag_max_candidates = 2
+
+[git_state]
+style = "fg:color_red bg:color_blue"
+
+[git_metrics]
+added_style = "fg:color_yellow bg:color_blue"
+deleted_style = "fg:color_red bg:color_blue"
+format = '[ ([+$added]($added_style) )([-$deleted]($deleted_style) )](bg:color_blue)'
+disabled = false
+
+[git_status]
+style = "fg:color_fg0 bg:color_blue"
+format = '([\[$all_status$ahead_behind\]]($style))'
 
 [golang]
 symbol = " "

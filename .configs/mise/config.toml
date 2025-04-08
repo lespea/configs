@@ -4,8 +4,6 @@
 "aqua:skaji/relocatable-perl" = "latest"
 "asdf:mise-plugins/mise-sbt" = "1.10"
 "ubi:coursier/coursier[exe=cs]" = "latest"
-"vfox:mise-plugins/vfox-kotlin" = "2.1"
-"vfox:mise-plugins/vfox-scala" = "3.6"
 bun = "latest"
 go = "1.24"
 node = "latest"

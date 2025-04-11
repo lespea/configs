@@ -10,7 +10,7 @@ node = "latest"
 python = "3.13"
 zig = "0.14"
 
-java = ["temurin-21", "temurin-23"]
+java = ["temurin-21", "temurin-24"]
 
 # Go tools
 "aqua:FiloSottile/age" = "latest"

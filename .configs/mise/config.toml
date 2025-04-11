@@ -8,7 +8,7 @@ bun = "latest"
 go = "1.24"
 node = "latest"
 python = "3.13"
-zig = "0.13"
+zig = "0.14"
 
 java = ["temurin-21", "temurin-23"]
 
@@ -23,6 +23,7 @@ java = ["temurin-21", "temurin-23"]
 "ubi:segmentio/golines" = "latest"
 
 "go:github.com/Zxilly/go-size-analyzer/cmd/gsa" = "latest"
+"go:github.com/a-h/templ/cmd/templ" = "latest"
 "go:github.com/charmbracelet/gum" = "latest"
 "go:github.com/danielgtaylor/restish" = "latest"
 "go:github.com/dmarkham/enumer" = "latest"

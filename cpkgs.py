@@ -243,11 +243,13 @@ class PkgInfo:
         pkg: str,
         use_defaults: bool = True,
         nightly: bool = False,
+        locked: bool = False,
         features: Optional[list[str]] = None,
     ):
         self.pkg = pkg
         self.use_defaults = use_defaults
         self.nightly = nightly
+        self.locked = locked
 
         if features is None:
             self.features = []
@@ -293,6 +295,9 @@ class PkgInfo:
             a.append("--features")
             a.append(",".join(self.features))
 
+        if self.locked:
+            a.append("--locked")
+
         if force:
             a.append("--force")
 
@@ -337,7 +342,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("mdcat"),
         PkgInfo("miniserve"),
         PkgInfo("nickel-lang-cli"),
-        PkgInfo("nu"),
+        PkgInfo("nu", locked=True),
         PkgInfo("onefetch"),
         PkgInfo("ouch"),
         PkgInfo("procs"),
@@ -379,7 +384,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("atuin", use_defaults=False, features=["client", "daemon"]),
         PkgInfo("bandwhich"),
         PkgInfo("bottom"),
-        PkgInfo("gitui"),
+        PkgInfo("gitui", locked=True),
         PkgInfo("jless"),
         PkgInfo("mise"),
         PkgInfo("skim"),

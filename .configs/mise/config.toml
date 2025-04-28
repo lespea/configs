@@ -3,7 +3,6 @@
 "aqua:pnpm/pnpm" = "latest"
 "aqua:skaji/relocatable-perl" = "latest"
 "asdf:mise-plugins/mise-maven" = "latest"
-"asdf:mise-plugins/mise-sbt" = "1.10"
 "ubi:coursier/coursier[exe=cs]" = "latest"
 bun = "latest"
 go = "1.24"

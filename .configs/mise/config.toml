@@ -4,6 +4,7 @@
 "aqua:skaji/relocatable-perl" = "latest"
 "asdf:mise-plugins/mise-maven" = "latest"
 "ubi:coursier/coursier[exe=cs]" = "latest"
+"ubi:tamasfe/taplo" = "latest"
 bun = "latest"
 go = "1.24"
 node = "latest"

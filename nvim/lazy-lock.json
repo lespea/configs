@@ -41,7 +41,7 @@
   "nvim-colorizer.lua": { "branch": "master", "commit": "517df88cf2afb36652830df2c655df2da416a0ae" },
   "nvim-genghis": { "branch": "main", "commit": "53dc967f24e08f4a4defc35bebfd8a3fdf9e340f" },
   "nvim-lsp-endhints": { "branch": "main", "commit": "8bb5f64cb15e2efe6113287469603cef5cd65176" },
-  "nvim-lspconfig": { "branch": "master", "commit": "4bc481b6f0c0cf3671fc894debd0e00347089a4e" },
+  "nvim-lspconfig": { "branch": "master", "commit": "61e5109c8cf24807e4ae29813a3a82b31821dd45" },
   "nvim-metals": { "branch": "main", "commit": "f9cc5e7f7bc129b8056f1e5aef7a91c9b5b83664" },
   "nvim-notify": { "branch": "master", "commit": "b5825cf9ee881dd8e43309c93374ed5b87b7a896" },
   "nvim-spider": { "branch": "main", "commit": "9228ef94ca4e754ec90bcdeb8a5f552fa15ba8dc" },

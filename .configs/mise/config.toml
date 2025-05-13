@@ -1,20 +1,25 @@
 [tools]
+# Complex
 "aqua:gradle/gradle" = "8"
 "aqua:pnpm/pnpm" = "latest"
 "aqua:skaji/relocatable-perl" = "latest"
 "asdf:mise-plugins/mise-maven" = "latest"
 "ubi:coursier/coursier[exe=cs]" = "latest"
 "ubi:tamasfe/taplo" = "latest"
+
+# Simple
 bun = "latest"
 go = "1.24"
 node = "latest"
 python = "3.13"
 zig = "0.14"
+sops = "latest"
+age = "latest"
 
+# Java
 java = ["temurin-21", "temurin-24"]
 
 # Go tools
-"aqua:FiloSottile/age" = "latest"
 "aqua:dominikh/go-tools/staticcheck" = "latest"
 "aqua:go-swagger/go-swagger" = "latest"
 "aqua:itchyny/gojq" = "latest"
@@ -23,6 +28,7 @@ java = ["temurin-21", "temurin-24"]
 "ubi:mvdan/gofumpt" = "latest"
 "ubi:segmentio/golines" = "latest"
 
+# Go repos
 "go:github.com/Zxilly/go-size-analyzer/cmd/gsa" = "latest"
 "go:github.com/a-h/templ/cmd/templ" = "latest"
 "go:github.com/charmbracelet/gum" = "latest"
@@ -46,7 +52,6 @@ experimental = true
 http_timeout = "5m"
 
 python.compile = true
-idiomatic_version_file_enable_tools = ["java", "python"]
 
 [env]
 _.python.venv = "{{env.HOME}}/.cache/global_venv"

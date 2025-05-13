@@ -69,8 +69,6 @@ function runSources
     act just --completions fish
     act rg --generate complete-fish
 
-    act direnv hook fish
-
     bind . 'expand-dot-to-parent-directory-path'
 end
 

@@ -26,6 +26,7 @@ function setEnvs
     set -gx MANROFFOPT "-c"
 
     set -gx TAPLO_CONFIG "$XDG_CONFIG_HOME/taplo/taplo.toml"
+    set -gx SOPS_AGE_KEY_FILE "$XDG_CONFIG_HOME/mise/age.txt"
 end
 
 function setAbbs

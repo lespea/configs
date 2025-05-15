@@ -17,7 +17,7 @@ sops = "latest"
 age = "latest"
 
 # Java
-java = ["temurin-21", "temurin-24"]
+java = "temurin-24"
 
 # Go tools
 "aqua:dominikh/go-tools/staticcheck" = "latest"

@@ -52,6 +52,7 @@ experimental = true
 http_timeout = "5m"
 
 python.compile = true
+idiomatic_version_file_enable_tools = []
 
 [env]
 _.python.venv = "{{env.HOME}}/.cache/global_venv"

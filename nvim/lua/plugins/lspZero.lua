@@ -18,7 +18,6 @@ return {
         'prettier',
         'pyright',
         'ruff',
-        'rust-analyzer',
         'stylua',
         'typescript-language-server',
       },

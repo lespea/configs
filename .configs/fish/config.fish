@@ -53,6 +53,8 @@ function setAbbs
     abbr --add LC -p anywhere '| wc -l'
     abbr --add WC -p anywhere '| wc -l'
 
+    abbr --add NF -p anywhere '| numfmt --grouping --field=-'
+
     # misc
     abbr --add g. -p anywhere './...'
 end

@@ -121,7 +121,7 @@
         "on-click": "pavucontrol-qt"
     },
     "mpd": {
-        "server": "/run/user/1000/mpd/socket",
+        "server": "/run/user/1000/mpd.socket",
         "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
         "format-disconnected": "Disconnected ",
         "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",

@@ -44,8 +44,8 @@ def get_run_info() -> typing.Tuple[os._Environ, bool]:
                 "-fno-plt",
                 "-fexceptions",
                 "-Wp,-D_FORTIFY_SOURCE=2",
-                "-Wformat",
-                "-Werror=format-security",
+                # "-Wformat",
+                # "-Werror=format-security",
             )
         )
         if nix:

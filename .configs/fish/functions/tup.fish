@@ -9,7 +9,7 @@ function tup
     end
 
     # if topgrade fails bail out
-    or return
+    # or return
 
     echo -e "\nUpdating rust packages"
     "$HOME/configs/cpkgs.py" install -m

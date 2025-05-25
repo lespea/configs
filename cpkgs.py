@@ -162,7 +162,15 @@ def install(args):
     setup_groups()
     for pkg in pkgs:
         if len(only_pkgs) == 0 or pkg.pkg in only_pkgs:
-            subprocess.check_call(pkg.args(is_mold, args.force), env=env)
+            runenv = env
+
+            # Merge the envs if there are any
+            if pkg.envs is not None:
+                runenv = env.copy()
+                for k, v in pkg.envs.items():
+                    runenv[k] = v
+
+            subprocess.check_call(pkg.args(is_mold, args.force), env=runenv)
     wait_and_clean()
 
 
@@ -245,11 +253,14 @@ class PkgInfo:
         nightly: bool = False,
         locked: bool = False,
         features: Optional[list[str]] = None,
+        envs: Optional[dict[str, str]] = None,
     ):
         self.pkg = pkg
         self.use_defaults = use_defaults
         self.nightly = nightly
         self.locked = locked
+
+        self.envs = envs
 
         if features is None:
             self.features = []
@@ -361,6 +372,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo(
             "qsv",
             use_defaults=False,
+            locked=True,
             features=(
                 [
                     "apply",
@@ -429,7 +441,15 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
     else:
         raise RuntimeError("Weird platform? " + platform.system())
 
-    want.append(PkgInfo("coreutils", features=[uutils_feat]))
+    want.append(
+        PkgInfo(
+            "coreutils",
+            features=[uutils_feat],
+            envs={
+                "PROJECT_NAME_FOR_VERSION_STRING": "coreurilts-local",
+            },
+        )
+    )
 
     if len(limit) > 0:
         want = [x for x in want if x.pkg in limit]

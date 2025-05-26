@@ -204,6 +204,11 @@ def find_missing(_):
         print("No missing packages found!")
 
 
+def list_all_pkgs(_):
+    for pInfo in sort_packages(get_packages(set())):
+        print(pInfo)
+
+
 def main():
     # Setup
     parser = argparse.ArgumentParser(
@@ -239,6 +244,10 @@ def main():
     )
     missing.set_defaults(func=find_missing)
 
+    # List
+    list_pkgs = sub.add_parser("list", description="List all the packages + args")
+    list_pkgs.set_defaults(func=list_all_pkgs)
+
     # Parse and run
     args = parser.parse_args(["install"] if len(sys.argv) == 1 else None)
 
@@ -252,11 +261,13 @@ class PkgInfo:
         use_defaults: bool = True,
         nightly: bool = False,
         locked: bool = False,
+        high_priority: bool = False,
         features: Optional[list[str]] = None,
         envs: Optional[dict[str, str]] = None,
     ):
         self.pkg = pkg
         self.use_defaults = use_defaults
+        self.high_priority = high_priority
         self.nightly = nightly
         self.locked = locked
 
@@ -268,18 +279,27 @@ class PkgInfo:
             self.features = sorted(features)
 
     def __repr__(self):
-        pkgs = ""
+        features = ""
         if len(self.features) > 0:
-            pkgs = "; " + ", ".join(self.features)
+            features = f"; ({', '.join(self.features)})"
 
-        ndef = ""
+        extra = []
+
         if not self.use_defaults:
-            if pkgs != "":
-                pkgs = "; "
+            extra.append("no_defaults")
 
-            ndef = "(no defaults)"
+        if self.high_priority:
+            extra.append("high_priority")
+        if self.nightly:
+            extra.append("nightly")
+        if self.locked:
+            extra.append("locked")
 
-        return f"PkgInfo({self.pkg}{pkgs}{ndef})"
+        extra_str = ""
+        if len(extra) > 0:
+            extra_str = f"; [{', '.join(extra)}]"
+
+        return f"PkgInfo({self.pkg}{features}{extra_str})"
 
     def args(self, mold: bool, force: bool) -> list[str]:
         a = [
@@ -313,6 +333,10 @@ class PkgInfo:
             a.append("--force")
 
         return a
+
+
+def sort_packages(pkgs: list[PkgInfo]) -> list[PkgInfo]:
+    return sorted(pkgs, key=lambda x: (not x.high_priority, x.pkg))
 
 
 def get_packages(limit: set[str]) -> list[PkgInfo]:
@@ -352,7 +376,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("lscolors", features=["crossterm", "nu-ansi-term"]),
         PkgInfo("mdcat"),
         PkgInfo("miniserve"),
-        PkgInfo("nickel-lang-cli"),
+        PkgInfo("nickel-lang-cli", high_priority=True),
         PkgInfo("nu", locked=True),
         PkgInfo("onefetch"),
         PkgInfo("ouch"),
@@ -362,7 +386,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("ripgrep_all"),
         PkgInfo("sd"),
         PkgInfo("simple-http-server"),
-        PkgInfo("starship"),
+        PkgInfo("starship", high_priority=True),
         PkgInfo("tokei", features=["all"]),
         PkgInfo("trippy"),
         PkgInfo("vivid"),
@@ -372,6 +396,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo(
             "qsv",
             use_defaults=False,
+            high_priority=True,
             locked=True,
             features=(
                 [
@@ -400,23 +425,23 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("jless"),
         PkgInfo("mise"),
         PkgInfo("skim"),
-        PkgInfo("topgrade"),
+        PkgInfo("topgrade", high_priority=True),
         PkgInfo("usage-cli"),
         PkgInfo("wasm-pack"),
         PkgInfo("xcp"),
     ]
 
     win_pkgs = [
-        PkgInfo("czkawka_cli"),
+        PkgInfo("czkawka_cli", high_priority=True),
         PkgInfo("pueue"),
     ]
 
     gui_pkgs = [
-        PkgInfo("czkawka_gui"),
+        PkgInfo("czkawka_gui", high_priority=True),
     ]
 
     server_pkgs = [
-        PkgInfo("czkawka_cli"),
+        PkgInfo("czkawka_cli", high_priority=True),
     ]
 
     if is_nix():
@@ -444,6 +469,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
     want.append(
         PkgInfo(
             "coreutils",
+            high_priority=True,
             features=[uutils_feat],
             envs={
                 "PROJECT_NAME_FOR_VERSION_STRING": "coreurilts-local",
@@ -454,7 +480,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
     if len(limit) > 0:
         want = [x for x in want if x.pkg in limit]
 
-    return sorted(want, key=lambda x: x.pkg)
+    return sort_packages(want)
 
 
 def is_win():

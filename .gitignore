@@ -67,3 +67,4 @@ pip/
 .sbt/0.13/templates
 Fonts/.uuid
 ttf-ms-win10
+nvim/lazy-lock.json

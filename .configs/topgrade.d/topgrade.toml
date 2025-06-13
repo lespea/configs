@@ -21,7 +21,7 @@ disable = [
     "containers",
     "emacs",
     "gem",
-    "jet_brains_toolbox",
+    "jetbrains_toolbox",
     "lensfun",
     "pip3",
     "raco",

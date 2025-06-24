@@ -1,18 +1,9 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 right_format = """
-$cmake\
 $golang\
-$gradle\
-$java\
-$package\
-$kotlin\
-$nodejs\
-$perl\
 $python\
 $rust\
-$scala\
-$zig\
 [](fg:color_blue bg:color_bg1)\
 $status\
 $time"""

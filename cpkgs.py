@@ -397,7 +397,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
             "qsv",
             use_defaults=False,
             high_priority=True,
-            locked=True,
+            locked=False,
             features=(
                 [
                     "apply",

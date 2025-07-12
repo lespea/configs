@@ -74,7 +74,7 @@ def get_run_info() -> typing.Tuple[os._Environ, bool]:
     return env, mold
 
 
-def run_cmds(cmds):
+def run_cmds(*cmds: list[str]):
     for cmd in cmds:
         subprocess.check_call(cmd)
 
@@ -82,10 +82,8 @@ def run_cmds(cmds):
 def setup_groups():
     if GROUP_NAME.encode() in subprocess.check_output(["pueue", "group"]):
         run_cmds(
-            (
-                ["pueue", "kill", "-g", GROUP_NAME],
-                ["pueue", "clean", "-g", GROUP_NAME],
-            )
+            ["pueue", "kill", "-g", GROUP_NAME],
+            ["pueue", "clean", "-g", GROUP_NAME],
         )
 
         time.sleep(1)
@@ -108,30 +106,24 @@ def setup_groups():
         time.sleep(0.5)
 
         run_cmds(
-            (
-                ["pueue", "kill", "-g", GROUP_NAME],
-                ["pueue", "clean", "-g", GROUP_NAME],
-                ["pueue", "group", "remove", GROUP_NAME],
-            )
+            ["pueue", "kill", "-g", GROUP_NAME],
+            ["pueue", "clean", "-g", GROUP_NAME],
+            ["pueue", "group", "remove", GROUP_NAME],
         )
 
     cores = math.ceil((os.cpu_count() or 8) / 4)
 
     run_cmds(
-        (
-            ["pueue", "group", "add", GROUP_NAME],
-            ["pueue", "parallel", "-g", GROUP_NAME, str(cores)],
-        )
+        ["pueue", "group", "add", GROUP_NAME],
+        ["pueue", "parallel", "-g", GROUP_NAME, str(cores)],
     )
 
 
 def wait_and_clean():
     run_cmds(
-        (
-            ["pueue", "wait", "-g", GROUP_NAME],
-            # ['pueue', 'clean', '-g', GROUP_NAME],
-            # ['pueue', 'group', 'remove', GROUP_NAME],
-        )
+        ["pueue", "wait", "-g", GROUP_NAME],
+        # ['pueue', 'clean', '-g', GROUP_NAME],
+        # ['pueue', 'group', 'remove', GROUP_NAME],
     )
 
 
@@ -262,6 +254,7 @@ class PkgInfo:
         nightly: bool = False,
         locked: bool = False,
         high_priority: bool = False,
+        disabled: bool = False,
         features: Optional[list[str]] = None,
         envs: Optional[dict[str, str]] = None,
     ):
@@ -270,6 +263,7 @@ class PkgInfo:
         self.high_priority = high_priority
         self.nightly = nightly
         self.locked = locked
+        self.disabled = disabled
 
         self.envs = envs
 
@@ -336,7 +330,9 @@ class PkgInfo:
 
 
 def sort_packages(pkgs: list[PkgInfo]) -> list[PkgInfo]:
-    return sorted(pkgs, key=lambda x: (not x.high_priority, x.pkg))
+    return sorted(
+        [p for p in pkgs if not p.disabled], key=lambda x: (not x.high_priority, x.pkg)
+    )
 
 
 def get_packages(limit: set[str]) -> list[PkgInfo]:
@@ -398,6 +394,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
             use_defaults=False,
             high_priority=True,
             locked=False,
+            disabled=True,
             features=(
                 [
                     "apply",

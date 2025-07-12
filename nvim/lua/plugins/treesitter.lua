@@ -6,6 +6,7 @@ return {
     dependencies = {
       'nvim-treesitter/nvim-treesitter-refactor',
       'nvim-treesitter/nvim-treesitter-textobjects',
+      'MeanderingProgrammer/markdown.nvim',
     },
     config = function()
       require 'nvim-treesitter.configs'.setup {

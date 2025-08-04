@@ -388,30 +388,6 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("vivid"),
         PkgInfo("watchexec-cli"),
         PkgInfo("zoxide"),
-        # Big
-        PkgInfo(
-            "qsv",
-            use_defaults=False,
-            high_priority=True,
-            locked=False,
-            disabled=True,
-            features=(
-                [
-                    "apply",
-                    "feature_capable",
-                    "jemallocator",
-                    "to",
-                    # 'polars',
-                    # 'to_parquet',
-                ]
-                if is_nix()
-                else [
-                    "apply",
-                    "feature_capable",
-                    "to",
-                ]
-            ),
-        ),
     ]
 
     nix_pkgs = [

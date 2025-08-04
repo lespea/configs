@@ -16,6 +16,9 @@ zig = "0.14"
 sops = "latest"
 age = "latest"
 
+# Rust tools
+"ubi:dathere/qsv" = "latest"
+
 # Java
 java = "temurin-24"
 

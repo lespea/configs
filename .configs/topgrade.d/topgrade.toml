@@ -19,14 +19,21 @@ disable = [
     "bun_packages",
     "cargo",
     "containers",
+    "dotnet",
     "emacs",
+    "firmware",
+    "gcloud",
     "gem",
     "jetbrains_toolbox",
     "lensfun",
+    "microsoft_store",
     "pip3",
+    "powershell",
     "raco",
     "uv",
     "vim",
+    "wsl",
+    "wsl_update",
     "yarn",
 ] # Disable specific steps - same options as the command line flag
 
@@ -45,7 +52,7 @@ disable = [
 # Arguments to pass tmux when pulling Repositories
 # tmux_arguments = "-S /var/tmux.sock"
 
-# Do not set the terminal title (default: true)
+# Do not set the terminal title (default:true)
 # set_title = true
 
 # Display the time in step titles (default: true)

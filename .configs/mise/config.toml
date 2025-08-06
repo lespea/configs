@@ -3,6 +3,7 @@
 "aqua:gradle/gradle" = "8"
 "aqua:pnpm/pnpm" = "latest"
 "aqua:skaji/relocatable-perl" = "latest"
+"asdf:mise-plugins/mise-gcloud" = "latest"
 "asdf:mise-plugins/mise-maven" = "latest"
 "ubi:coursier/coursier[exe=cs]" = "latest"
 "ubi:tamasfe/taplo" = "latest"

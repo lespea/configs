@@ -27,7 +27,14 @@ export __GL_SHADER_DISK_CACHE_PATH=$XDG_CACHE_HOME/shaders
 export PROTON_FSR4_UPGRADE=1
 export PROTON_NO_WM_DECORATION=1
 export PROTON_PREFER_SDL=1
+export PROTON_PREFER_SDL_INPUT=1
 
 # export PROTON_ENABLE_WAYLAND=1
 # export PROTON_USE_NTSYNC=1
 # export PROTON_USE_WOW64=1
+
+# Enforces RADV Vulkan implementation
+export AMD_VULKAN_ICD=RADV
+
+# Increase AMD's shader cache size to 12GB
+export MESA_SHADER_CACHE_MAX_SIZE=12G

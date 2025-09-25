@@ -15,7 +15,7 @@ return {
 	{
 		"mason-org/mason-lspconfig.nvim",
 		opts = {
-			automtic_enable = false,
+			automtic_enable = true,
 		},
 		dependencies = {
 			{ "mason-org/mason.nvim", opts = {} },
@@ -31,12 +31,17 @@ return {
 		opts = {
 			ensure_installed = {
 				"clang-format",
+				"docker-language-server",
+				"dprint",
 				"eslint-lsp",
 				"eslint_d",
+				"fish_lsp",
 				"flake8",
 				"golangci-lint",
 				"gopls",
 				"hadolint",
+				"html",
+				"just",
 				"lua-language-server",
 				"luacheck",
 				"luaformatter",
@@ -46,7 +51,11 @@ return {
 				"rust_analyzer",
 				"staticcheck",
 				"stylua",
+				"systemd_ls",
+				"tailwindcss",
+				"taplo",
 				"templ",
+				"ts_ls",
 				"typescript-language-server",
 			},
 			auto_update = true,

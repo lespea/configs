@@ -1,5 +1,5 @@
 return {
-  'j-hui/fidget.nvim',
-  opts = {},
-  enabled = false,
+	"j-hui/fidget.nvim",
+	opts = {},
+	enabled = false,
 }

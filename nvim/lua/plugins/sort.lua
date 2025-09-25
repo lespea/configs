@@ -1,4 +1,4 @@
 return {
-  'sQVe/sort.nvim',
-  config = true,
+	"sQVe/sort.nvim",
+	config = true,
 }

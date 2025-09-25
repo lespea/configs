@@ -1,6 +1,6 @@
 return {
-  'joshuadanpeterson/typewriter',
-  dependencies = {
-    'nvim-treesitter/nvim-treesitter'
-  }
+	"joshuadanpeterson/typewriter",
+	dependencies = {
+		"nvim-treesitter/nvim-treesitter",
+	},
 }

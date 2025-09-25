@@ -10,13 +10,13 @@ function genBloop
 // This file enables sbt-bloop to create bloop config files.
 
 addSbtPlugin(\"ch.epfl.scala\" % \"sbt-bloop\" % \"2.0.13\") \
-" > project/metals.sbt
+" >project/metals.sbt
 
     if not rg -Fq .bloop .gitignore
-        echo ".bloop" >> .gitignore
+        echo ".bloop" >>.gitignore
     end
     if not rg -Fq metals .gitignore
-        echo ".metals" >> .gitignore
+        echo ".metals" >>.gitignore
     end
 
     sbt bloopInstall

@@ -23,7 +23,7 @@ function pvcp -d 'Use pv to copy files'
         end
 
     else
-        if read -P "Dst dir '$dst' doesn't exist; create it? " | string match -q -i 'y'
+        if read -P "Dst dir '$dst' doesn't exist; create it? " | string match -q -i y
             mkdir -p $dst
         else
             echo "Aborting..."
@@ -39,7 +39,7 @@ end
 function _pvcp -a src -a dst
     if path is --type=file --perm=read $src
         echo "Copying $src => $dst"
-        pv $src > $dst
+        pv $src >$dst
         echo
         return 0
     else

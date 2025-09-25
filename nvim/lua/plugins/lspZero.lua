@@ -1,235 +1,252 @@
 return {
-  {
-    'WhoIsSethDaniel/mason-tool-installer.nvim',
-    dependencies = {
-      { 'williamboman/mason.nvim' },
-      { 'williamboman/mason-lspconfig.nvim' },
-    },
-    opts = {
-      ensure_installed = {
-        'clang-format',
-        'eslint-lsp',
-        'eslint_d',
-        'flake8',
-        'hadolint',
-        'lua-language-server',
-        'luacheck',
-        'luaformatter',
-        'prettier',
-        'pyright',
-        'ruff',
-        'rust_analyzer',
-        'stylua',
-        'typescript-language-server',
-      },
-      auto_update = true,
-      debounce_hours = 5,
-    }
-  },
-  {
-    'ray-x/lsp_signature.nvim',
-    enabled = false,
-    event = "VeryLazy",
-    opts = {},
-    config = function(_, opts) require 'lsp_signature'.setup(opts) end
-  },
-  {
-    "L3MON4D3/LuaSnip",
-    build = "make install_jsregexp"
-  },
-  {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v2.x',
-    dependencies = {
-      -- LSP Support
-      'neovim/nvim-lspconfig',
-      'williamboman/mason-lspconfig.nvim',
-      'williamboman/mason.nvim',
+	{
+		"ray-x/lsp_signature.nvim",
+		enabled = false,
+		event = "VeryLazy",
+		opts = {},
+		config = function(_, opts)
+			require("lsp_signature").setup(opts)
+		end,
+	},
+	{
+		"L3MON4D3/LuaSnip",
+		build = "make install_jsregexp",
+	},
+	{
+		"mason-org/mason-lspconfig.nvim",
+		opts = {
+			automtic_enable = false,
+		},
+		dependencies = {
+			{ "mason-org/mason.nvim", opts = {} },
+			"neovim/nvim-lspconfig",
+		},
+	},
+	{
+		"WhoIsSethDaniel/mason-tool-installer.nvim",
+		dependencies = {
+			{ "williamboman/mason.nvim" },
+			{ "williamboman/mason-lspconfig.nvim" },
+		},
+		opts = {
+			ensure_installed = {
+				"clang-format",
+				"eslint-lsp",
+				"eslint_d",
+				"flake8",
+				"golangci-lint",
+				"gopls",
+				"hadolint",
+				"lua-language-server",
+				"luacheck",
+				"luaformatter",
+				"prettier",
+				"pyright",
+				"ruff",
+				"rust_analyzer",
+				"staticcheck",
+				"stylua",
+				"templ",
+				"typescript-language-server",
+			},
+			auto_update = true,
+		},
+	},
+	{
+		"hrsh7th/nvim-cmp",
+		dependencies = {
+			-- Configs
+			"neovim/nvim-lspconfig",
+			-- Autocompletion
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-calc",
+			"dmitmel/cmp-digraphs",
+			-- Snippets
+			"L3MON4D3/LuaSnip",
+			"rafamadriz/friendly-snippets",
+			"saadparwaiz1/cmp_luasnip",
+		},
+		config = function()
+			local default_caps = vim.lsp.protocol.make_client_capabilities()
+			local cmp_caps = require("cmp_nvim_lsp").default_capabilities()
+			local capabilities = vim.tbl_deep_extend("force", default_caps, cmp_caps)
 
-      -- Autocompletion
-      'L3MON4D3/LuaSnip',
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-path',
-      'hrsh7th/nvim-cmp',
-      'rafamadriz/friendly-snippets',
-      'saadparwaiz1/cmp_luasnip',
-    },
-    config = function()
-      local lsp = require('lsp-zero').preset {
-        name = 'recommended',
-        manage_nvim_cmp = {
-          set_sources = 'recommended',
-          set_basic_mappings = true,
-          set_extra_mappings = true,
-          use_luasnip = true,
-          set_format = true,
-          documentation_window = true,
-        },
-      }
+			vim.lsp.config("*", {
+				capabilities = capabilities,
+			})
 
-      lsp.use('gopls', {
-        settings = {
-          gopls = {
-            gofumpt = true
-          },
-        }
-      })
+			vim.lsp.config("gopls", {
+				gofumpt = true,
+			})
 
-      lsp.on_attach(function(client, bufnr)
-        lsp.default_keymaps({ buffer = bufnr })
+			vim.api.nvim_create_autocmd("LspAttach", {
+				callback = function(args)
+					local client = vim.lsp.get_client_by_id(args.data.client_id)
+					if not client then
+						return
+					end
 
-        if client.server_capabilities.documentFormattingProvider then
-          lsp.buffer_autoformat()
-        end
+					-- Disable by default since we can turn on when needed
+					vim.lsp.inlay_hint.enable(false)
 
-        -- Disable by default since we can turn on when needed
-        vim.lsp.inlay_hint.enable(false)
+					-- quickly toggle inlay hints
+					vim.keymap.set({ "n", "x" }, "<C-i>", function()
+						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+					end)
 
-        -- quickly toggle inlay hints
-        vim.keymap.set({ 'n', 'x' }, '<C-i>',
-          function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
+					vim.keymap.set({ "n", "x" }, "gf", function()
+						vim.lsp.buf.format({ async = false, timeout_ms = 10000 })
+					end)
+				end,
+			})
 
-        vim.keymap.set({ 'n', 'x' }, 'gf', function()
-          vim.lsp.buf.format({ async = false, timeout_ms = 10000 })
-        end)
-      end)
+			local cmp = require("cmp")
 
-      lsp.setup()
+			local ls = require("luasnip")
 
-      local cmp = require('cmp')
-      local cmp_action = require('lsp-zero').cmp_action()
+			cmp.setup({
+				mapping = cmp.mapping.preset.insert({
+					["<C-Y>"] = cmp.mapping.confirm({ select = true }),
+					["<CR>"] = cmp.mapping.confirm({ select = false }),
 
-      local ls = require('luasnip')
+					-- ['<Tab>'] = cmp_action.luasnip_supertab(),
+					-- ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
 
-      cmp.setup({
-        mapping = cmp.mapping.preset.insert({
-          ['<C-Y>'] = cmp.mapping.confirm({ select = true }),
-          ['<CR>'] = cmp.mapping.confirm({ select = false }),
+					["<C-k>"] = cmp.mapping.select_prev_item(),
+					["<C-j>"] = cmp.mapping.select_next_item(),
+					["<C-e>"] = cmp.mapping.abort(),
 
-          ['<Tab>'] = cmp_action.luasnip_supertab(),
-          ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
+					["<C-l>"] = cmp.mapping(function()
+						if ls.expand_or_locally_jumpable() then
+							ls.expand_or_jump()
+						end
+					end, { "i", "s" }),
 
-          ["<C-k>"] = cmp.mapping.select_prev_item(),
-          ["<C-j>"] = cmp.mapping.select_next_item(),
-          ['<C-e>'] = cmp.mapping.abort(),
+					["<C-h>"] = cmp.mapping(function()
+						if ls.locally_jumpable(-1) then
+							ls.jump(-1)
+						end
+					end, { "i", "s" }),
+				}),
+				preselect = "item",
+				completion = {
+					completeopt = "menu,menuone,noinsert",
+				},
+				snippet = {
+					expand = function(args)
+						ls.lsp_expand(args.body)
+					end,
+				},
+				window = {
+					completion = cmp.config.window.bordered(),
+					documentation = cmp.config.window.bordered(),
+				},
+				sources = {
+					{ name = "luasnip" },
+					{ name = "nvim_lsp" },
+					{ name = "path" },
+					{ name = "buffer" },
+					{ name = "digraphs" },
+					{ name = "calc" },
+				},
+				sorting = {
+					comparators = {
+						cmp.config.compare.offset,
+						cmp.config.compare.exact,
+						cmp.config.compare.score,
+						cmp.config.compare.recently_used,
+						cmp.config.compare.kind,
+					},
+				},
+			})
 
-          ['<C-l>'] = cmp.mapping(function()
-            if ls.expand_or_locally_jumpable() then
-              ls.expand_or_jump()
-            end
-          end, { 'i', 's' }),
+			local fmt = require("luasnip.extras.fmt").fmt
+			local rep = require("luasnip.extras").rep
 
-          ['<C-h>'] = cmp.mapping(function()
-            if ls.locally_jumpable(-1) then
-              ls.jump(-1)
-            end
-          end, { 'i', 's' }),
-        }),
-        preselect = 'item',
-        completion = {
-          completeopt = 'menu,menuone,noinsert'
-        },
-        snippet = {
-          expand = function(args)
-            ls.lsp_expand(args.body)
-          end,
-        },
-        window = {
-          completion = cmp.config.window.bordered(),
-          documentation = cmp.config.window.bordered(),
-        },
-        sources = {
-          { name = 'luasnip' },
-          { name = 'nvim_lsp' },
-          { name = 'path' },
-          { name = 'buffer' },
-        },
-        sorting = {
-          comparators = {
-            cmp.config.compare.offset,
-            cmp.config.compare.exact,
-            cmp.config.compare.score,
-            cmp.config.compare.recently_used,
-            cmp.config.compare.kind,
-          },
-        },
-      })
+			-- some shorthands...
+			local c = ls.choice_node
+			local dy = ls.dynamic_node
+			local func = ls.function_node
+			local i = ls.insert_node
+			local sn = ls.snippet_node
+			local snip = ls.snippet
+			local t = ls.text_node
 
+			local reg = function(pos, name, insert)
+				return dy(pos, function()
+					local v = vim.fn.getreg(name, 1, 1)
+					if v == nil then
+						v = ""
+					end
 
-      local fmt = require("luasnip.extras.fmt").fmt
-      local rep = require("luasnip.extras").rep
+					if insert then
+						return sn(nil, i(1, v))
+					else
+						return sn(nil, t(v))
+					end
+				end)
+			end
 
-      -- some shorthands...
-      local c = ls.choice_node
-      local dy = ls.dynamic_node
-      local func = ls.function_node
-      local i = ls.insert_node
-      local sn = ls.snippet_node
-      local snip = ls.snippet
-      local t = ls.text_node
+			local date = function()
+				return { os.date("%Y-%m-%d") }
+			end
 
-      local reg = function(pos, name, insert)
-        return dy(pos, function()
-          local v = vim.fn.getreg(name, 1, 1)
-          if v == nil then
-            v = ""
-          end
+			local pdate = function()
+				return os.date("%Y, %m, %d"):gsub(" 0", " ")
+			end
 
-          if insert then
-            return sn(nil, i(1, v))
-          else
-            return sn(nil, t(v))
-          end
-        end)
-      end
+			ls.add_snippets(nil, {
+				all = {
+					snip({
+						trig = "date",
+						namr = "Date",
+						dscr = "Date in the form of YYYY-MM-DD",
+					}, {
+						func(date, {}),
+					}),
+				},
+				go = {
+					snip("dfun", fmt("defer func() {{\n\t{}\n}}(){}", { i(1, ""), i(0) })),
+					snip("gfun", fmt("go func() {{\n\t{}\n}}(){}", { i(1, ""), i(0) })),
 
-      local date = function()
-        return { os.date "%Y-%m-%d" }
-      end
+					snip(
+						"nl",
+						fmt('{} := logging.NewLogger("{}", "{}"){}', { i(1, "l"), i(2, "name"), i(3, "path"), i(0) })
+					),
+					snip(
+						"nlp",
+						fmt('logging.NewLoggerP("{}", "{}"){}.Msg("{}"){}', {
+							i(1, "name"),
+							i(2, "path"),
+							i(3, "other"),
+							i(4, "msg"),
+							i(0),
+						})
+					),
 
-      local pdate = function()
-        return os.date('%Y, %m, %d'):gsub(' 0', ' ')
-      end
+					snip(
+						"nle",
+						fmt('logging.NewLoggerP("{}", "{}").Err({}){}.Msg("{}"){}', {
+							i(1, "name"),
+							i(2, "path"),
+							i(3, "err"),
+							i(4, "other"),
+							i(5, "msg"),
+							i(0),
+						})
+					),
 
-      ls.add_snippets(nil, {
-        all = {
-          snip({
-            trig = "date",
-            namr = "Date",
-            dscr = "Date in the form of YYYY-MM-DD",
-          }, {
-            func(date, {}),
-          }),
-        },
-        go = {
-          snip("dfun", fmt('defer func() {{\n\t{}\n}}(){}', { i(1, ""), i(0), })),
-          snip("gfun", fmt('go func() {{\n\t{}\n}}(){}', { i(1, ""), i(0), })),
-
-          snip("nl", fmt('{} := logging.NewLogger("{}", "{}"){}', { i(1, "l"), i(2, "name"), i(3, "path"), i(0) })),
-          snip("nlp", fmt('logging.NewLoggerP("{}", "{}"){}.Msg("{}"){}', {
-            i(1, "name"),
-            i(2, "path"),
-            i(3, "other"),
-            i(4, "msg"),
-            i(0),
-          })),
-
-          snip("nle", fmt('logging.NewLoggerP("{}", "{}").Err({}){}.Msg("{}"){}', {
-            i(1, "name"),
-            i(2, "path"),
-            i(3, "err"),
-            i(4, "other"),
-            i(5, "msg"),
-            i(0),
-          })),
-
-          snip("fs", fmt('fmt.Sprintf("{}", {}){}', { i(1, "fmt"), i(2, "args"), i(0) })),
-          snip("fsl", fmt('fmt.Sprintf("{}\\n", {}){}', { i(1, "fmt"), i(2, "args"), i(0) })),
-          snip("ffl", fmt('fmt.Printf("{}\\n", {}){}', { i(1, "fmt"), i(2, "args"), i(0) })),
-        },
-        scala = {
-          snip("fpr", fmt([[
+					snip("fs", fmt('fmt.Sprintf("{}", {}){}', { i(1, "fmt"), i(2, "args"), i(0) })),
+					snip("fsl", fmt('fmt.Sprintf("{}\\n", {}){}', { i(1, "fmt"), i(2, "args"), i(0) })),
+					snip("ffl", fmt('fmt.Printf("{}\\n", {}){}', { i(1, "fmt"), i(2, "args"), i(0) })),
+				},
+				scala = {
+					snip(
+						"fpr",
+						fmt(
+							[[
     easyAutoRule(
       name = "{}{}",
       validated = makeDate({}),
@@ -241,69 +258,71 @@ return {
         "{}"
       ),
     )
-]], {
-            reg(1, "+", false),
-            i(2, ""),
-            func(pdate),
-            c(3, {
-              t("Domains"),
-              t("Emails"),
-            }),
-            reg(4, "+", false),
-            reg(5, '"', false),
-            i(6, ""),
-          }
-          )),
-          snip("pdate", fmt("{}", { func(pdate) }))
-        }
-      })
+]],
+							{
+								reg(1, "+", false),
+								i(2, ""),
+								func(pdate),
+								c(3, {
+									t("Domains"),
+									t("Emails"),
+								}),
+								reg(4, "+", false),
+								reg(5, '"', false),
+								i(6, ""),
+							}
+						)
+					),
+					snip("pdate", fmt("{}", { func(pdate) })),
+				},
+			})
 
-      vim.keymap.set("n", ",pd", function()
-        if vim.api.nvim_get_current_line() == "" then
-          return
-        end
+			vim.keymap.set("n", ",pd", function()
+				if vim.api.nvim_get_current_line() == "" then
+					return
+				end
 
-        local start_pos = vim.api.nvim_win_get_cursor(0)
+				local start_pos = vim.api.nvim_win_get_cursor(0)
 
-        vim.cmd.normal('{')
-        local start_row = vim.api.nvim_win_get_cursor(0)[1] - 1
-        vim.cmd.normal('}')
-        local end_row = vim.api.nvim_win_get_cursor(0)[1] - 1
+				vim.cmd.normal("{")
+				local start_row = vim.api.nvim_win_get_cursor(0)[1] - 1
+				vim.cmd.normal("}")
+				local end_row = vim.api.nvim_win_get_cursor(0)[1] - 1
 
-        vim.api.nvim_win_set_cursor(0, start_pos)
+				vim.api.nvim_win_set_cursor(0, start_pos)
 
-        local lines = vim.api.nvim_buf_get_lines(0, start_row, end_row, false)
-        local rep = '= makeDate(' .. pdate() .. '),'
+				local lines = vim.api.nvim_buf_get_lines(0, start_row, end_row, false)
+				local rep = "= makeDate(" .. pdate() .. "),"
 
-        for i, line in ipairs(lines) do
-          local new_line = string.gsub(
-            line,
-            '= makeDate%([%d, ]+%),$',
-            rep
-          )
+				for i, line in ipairs(lines) do
+					local new_line = string.gsub(line, "= makeDate%([%d, ]+%),$", rep)
 
-          if line ~= new_line then
-            vim.api.nvim_buf_set_lines(0, start_row + i - 1, start_row + i, true, { new_line })
-            return
-          end
-        end
-      end)
+					if line ~= new_line then
+						vim.api.nvim_buf_set_lines(0, start_row + i - 1, start_row + i, true, { new_line })
+						return
+					end
+				end
+			end)
 
-      vim.keymap.set({ "i", "s" }, "<C-j>", function() ls.change_choice(1) end, {})
-      vim.keymap.set({ "i", "s" }, "<C-k>", function() ls.change_choice(-1) end, {})
-      vim.keymap.set({ "i", "s" }, "<C-o>", require("luasnip.extras.select_choice"), {})
+			vim.keymap.set({ "i", "s" }, "<C-j>", function()
+				ls.change_choice(1)
+			end, {})
+			vim.keymap.set({ "i", "s" }, "<C-k>", function()
+				ls.change_choice(-1)
+			end, {})
+			vim.keymap.set({ "i", "s" }, "<C-o>", require("luasnip.extras.select_choice"), {})
 
-      vim.keymap.set({ "i", "s" }, "<c-space>", function()
-        if ls.expand_or_jumpable() then
-          ls.expand_or_jump()
-        end
-      end, { silent = true })
+			vim.keymap.set({ "i", "s" }, "<c-space>", function()
+				if ls.expand_or_jumpable() then
+					ls.expand_or_jump()
+				end
+			end, { silent = true })
 
-      cmp.setup.filetype("DressingInput", {
-        sources = cmp.config.sources { { name = "omni" } },
-      })
+			cmp.setup.filetype("DressingInput", {
+				sources = cmp.config.sources({ { name = "omni" } }),
+			})
 
-      require("luasnip.loaders.from_vscode").lazy_load()
-    end,
-  },
+			require("luasnip.loaders.from_vscode").lazy_load()
+		end,
+	},
 }

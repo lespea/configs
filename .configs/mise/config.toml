@@ -7,6 +7,9 @@
 "asdf:mise-plugins/mise-maven" = "latest"
 "ubi:coursier/coursier[exe=cs]" = "latest"
 "ubi:tamasfe/taplo" = "latest"
+"aqua:dprint/dprint" = "latest"
+
+# "asdf:mise-plugins/mise-llvm" = "latest"
 
 # Simple
 bun = "latest"
@@ -24,11 +27,13 @@ age = "latest"
 java = "temurin-24"
 
 # Go tools
+"aqua:LuaLS/lua-language-server" = "latest"
 "aqua:dominikh/go-tools/staticcheck" = "latest"
 "aqua:go-swagger/go-swagger" = "latest"
 "aqua:itchyny/gojq" = "latest"
 "aqua:muesli/duf" = "v0.9.1"
 "ubi:golangci/golangci-lint" = "2"
+"ubi:hadolint/hadolint" = "latest"
 "ubi:mvdan/gofumpt" = "latest"
 "ubi:segmentio/golines" = "latest"
 
@@ -49,6 +54,23 @@ java = "temurin-24"
 "go:github.com/psampaz/go-mod-outdated" = "latest"
 "go:golang.org/x/tools/cmd/stringer" = "latest"
 "go:golang.org/x/tools/gopls" = "latest"
+"go:github.com/docker/docker-language-server/cmd/docker-language-server" = "latest"
+
+# Node tools
+"npm:@tailwindcss/language-server" = "latest"
+"npm:neovim" = "latest"
+"npm:prettier" = "latest"
+"npm:typescript" = "latest"
+"npm:typescript-language-server" = "latest"
+"npm:vscode-langservers-extracted" = "latest"
+
+# Python tools
+"pipx:httpie" = "latest"
+"pipx:ipython" = "latest"
+"pipx:neovim" = "latest"
+"pipx:pyright" = "latest"
+"pipx:ruff" = "latest"
+"pipx:systemd-language-server" = "latest"
 
 [settings]
 disable_hints = ["*"]
@@ -58,5 +80,9 @@ http_timeout = "5m"
 python.compile = true
 idiomatic_version_file_enable_tools = []
 
-[env]
-_.python.venv = "{{env.HOME}}/.cache/global_venv"
+npm.bun = true
+
+pipx.uvx = true
+
+# [env]
+# _.python.venv = "{{env.HOME}}/.cache/global_venv"

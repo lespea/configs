@@ -1,70 +1,12 @@
 return {
 	{
-		"ray-x/lsp_signature.nvim",
-		enabled = false,
-		event = "VeryLazy",
-		opts = {},
-		config = function(_, opts)
-			require("lsp_signature").setup(opts)
-		end,
-	},
-	{
 		"L3MON4D3/LuaSnip",
 		build = "make install_jsregexp",
-	},
-	{
-		"mason-org/mason-lspconfig.nvim",
-		opts = {
-			automtic_enable = true,
-		},
-		dependencies = {
-			{ "mason-org/mason.nvim", opts = {} },
-			"neovim/nvim-lspconfig",
-		},
 	},
 	{
 		"chrisgrieser/nvim-lsp-endhints",
 		event = "LspAttach",
 		opts = {}, -- required, even if empty
-	},
-	{
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		dependencies = {
-			{ "williamboman/mason.nvim" },
-			{ "williamboman/mason-lspconfig.nvim" },
-		},
-		opts = {
-			ensure_installed = {
-				"clang-format",
-				"docker-language-server",
-				"dprint",
-				"eslint-lsp",
-				"eslint_d",
-				-- "fish_lsp",
-				"flake8",
-				"golangci-lint",
-				"gopls",
-				"hadolint",
-				"html",
-				"just",
-				"lua-language-server",
-				"luacheck",
-				"luaformatter",
-				"prettier",
-				"pyright",
-				"ruff",
-				"rust_analyzer",
-				"staticcheck",
-				"stylua",
-				"systemd_ls",
-				"tailwindcss",
-				"taplo",
-				"templ",
-				"ts_ls",
-				"typescript-language-server",
-			},
-			auto_update = true,
-		},
 	},
 	{
 		"hrsh7th/nvim-cmp",
@@ -87,15 +29,35 @@ return {
 			local cmp_caps = require("cmp_nvim_lsp").default_capabilities()
 			local capabilities = vim.tbl_deep_extend("force", default_caps, cmp_caps)
 
-			vim.lsp.enable("fish_lsp")
-
 			vim.lsp.config("*", {
 				capabilities = capabilities,
 			})
 
+			-- Manual!
+			vim.lsp.enable("fish_lsp")
+
+			-- normal
+			vim.lsp.enable("docker_language_server")
+			vim.lsp.enable("dprint")
+			vim.lsp.enable("eslint")
+			vim.lsp.enable("golangci_lint_ls")
+			vim.lsp.enable("html")
+			vim.lsp.enable("just")
+			vim.lsp.enable("lua_ls")
+			vim.lsp.enable("pyright")
+			vim.lsp.enable("ruff")
+			vim.lsp.enable("rust_analyzer")
+			vim.lsp.enable("stylua")
+			vim.lsp.enable("systemd_ls")
+			vim.lsp.enable("tailwindcss")
+			vim.lsp.enable("taplo")
+			vim.lsp.enable("templ")
+			vim.lsp.enable("ts_ls")
+
 			vim.lsp.config("gopls", {
 				gofumpt = true,
 			})
+			vim.lsp.enable("gopls")
 
 			vim.api.nvim_create_autocmd("LspAttach", {
 				callback = function(args)

@@ -95,7 +95,7 @@ function final
         source $custom
     end
 
-    gvenv
+    # gvenv
 end
 
 function setupFish

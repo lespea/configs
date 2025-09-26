@@ -24,7 +24,7 @@ age = "latest"
 "ubi:dathere/qsv" = "latest"
 
 # Java
-java = "temurin-24"
+java = "temurin-25"
 
 # Go tools
 "aqua:LuaLS/lua-language-server" = "latest"

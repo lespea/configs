@@ -2,7 +2,7 @@ function setEnvs
     set -gax JAVA_OPTS '-Xmx16G -XX:MaxInlineLevel=21'
     set -gax SBT_OPTS '-Xss1M -XX:ReservedCodeCacheSize=512m -XX:+UseParallelGC'
 
-    set -gx BAT_THME 'OneHalfDark'
+    set -gx BAT_THME OneHalfDark
 
     set -gx RIPGREP_CONFIG_PATH "$HOME/.ripgreprc"
 
@@ -23,7 +23,7 @@ function setEnvs
     end
 
     set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
-    set -gx MANROFFOPT "-c"
+    set -gx MANROFFOPT -c
 
     set -gx TAPLO_CONFIG "$XDG_CONFIG_HOME/taplo/taplo.toml"
     set -gx SOPS_AGE_KEY_FILE "$XDG_CONFIG_HOME/mise/age.txt"
@@ -31,11 +31,11 @@ end
 
 function setAbbs
     # search
-    abbr --add G  -p anywhere '| rg'
+    abbr --add G -p anywhere '| rg'
     abbr --add GA -p anywhere '| rg -M0'
 
     # bat
-    abbr --add L  -p anywhere '| bat'
+    abbr --add L -p anywhere '| bat'
     abbr --add LP -p anywhere '| bat -p'
     abbr --add BL -p anywhere '| bat -pP -llog'
 
@@ -72,7 +72,7 @@ function runSources
     act just --completions fish
     act rg --generate complete-fish
 
-    bind . 'expand-dot-to-parent-directory-path'
+    bind . expand-dot-to-parent-directory-path
 end
 
 function act
@@ -119,4 +119,3 @@ if status is-interactive
 
     final
 end
-

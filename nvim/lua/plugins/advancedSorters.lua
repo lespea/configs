@@ -1,7 +1,7 @@
 return {
-  'inkarkat/vim-AdvancedSorters',
-  lazy = false,
-  dependencies = {
-    'inkarkat/vim-ingo-library',
-  }
+	"inkarkat/vim-AdvancedSorters",
+	lazy = false,
+	dependencies = {
+		"inkarkat/vim-ingo-library",
+	},
 }

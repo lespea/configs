@@ -58,15 +58,15 @@ alias -s ip 'ip -c'
 #set -Ux JAVA_HOME /usr/lib/jvm/default
 set -Ux MAKEFLAGS -j12
 
-set -Ux XDG_CACHE_HOME    "$HOME/.cache"
-set -Ux XDG_CONFIG_HOME   "$HOME/.config"
-set -Ux XDG_DATA_HOME     "$HOME/.local/share"
-set -Ux XDG_DESKTOP_DIR   "$HOME/Desktop"
+set -Ux XDG_CACHE_HOME "$HOME/.cache"
+set -Ux XDG_CONFIG_HOME "$HOME/.config"
+set -Ux XDG_DATA_HOME "$HOME/.local/share"
+set -Ux XDG_DESKTOP_DIR "$HOME/Desktop"
 set -Ux XDG_DOCUMENTS_DIR "$HOME/Documents"
-set -Ux XDG_DOWNLOAD_DIR  "$HOME/Downloads"
-set -Ux XDG_MUSIC_DIR     "$HOME/Music"
-set -Ux XDG_PICTURES_DIR  "$HOME/Pictures"
-set -Ux XDG_VIDEOS_DIR    "$HOME/Videos"
+set -Ux XDG_DOWNLOAD_DIR "$HOME/Downloads"
+set -Ux XDG_MUSIC_DIR "$HOME/Music"
+set -Ux XDG_PICTURES_DIR "$HOME/Pictures"
+set -Ux XDG_VIDEOS_DIR "$HOME/Videos"
 
 if set -q IS_ARCH
     alias -s icat 'kitty +kitten icat'
@@ -76,7 +76,7 @@ if set -q IS_ARCH
     alias -s jtail 'clear && journalctl -n0 -f | rg -M0 -iv --line-buffered \'rtkit-daemon|G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START\' $argv | bat -pP -llog'
     alias -s refl 'sudo-rs reflector -n 24 -c \'United States\' -f 10 -p https --save /etc/pacman.d/mirrorlist --threads 10 -a 12'
 
-    for dir in 'Desktop' 'Documents' 'Downloads' 'Music' 'Pictures' 'Video'
+    for dir in Desktop Documents Downloads Music Pictures Video
         mkdir -p "$HOME/$dir"
     end
 else

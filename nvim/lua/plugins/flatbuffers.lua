@@ -1,4 +1,4 @@
 return {
-  'dcharbon/vim-flatbuffers',
-  ft = { 'fbs' },
+	"dcharbon/vim-flatbuffers",
+	ft = { "fbs" },
 }

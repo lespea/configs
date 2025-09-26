@@ -1,6 +1,6 @@
 return {
-  'kylechui/nvim-surround',
-  opts = {
-    move_cursor = false,
-  }
+	"kylechui/nvim-surround",
+	opts = {
+		move_cursor = false,
+	},
 }

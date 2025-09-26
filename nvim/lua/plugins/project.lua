@@ -1,10 +1,12 @@
 return {
-	"ahmedkhalf/project.nvim",
+	"DrKJeff16/project.nvim",
 	dependencies = {
+		"nvim-lua/plenary.nvim",
 		"nvim-telescope/telescope.nvim",
+		"ibhagwan/fzf-lua",
 	},
 	config = function()
-		require("project_nvim").setup({
+		require("project").setup({
 			-- Methods of detecting the root directory. **"lsp"** uses the native neovim
 			-- lsp, while **"pattern"** uses vim-rooter like glob pattern matching. Here
 			-- order matters: if one is not detected, the other is used as fallback. You
@@ -23,6 +25,7 @@ return {
 		})
 
 		local tele = require("telescope")
+		require("telescope").load_extension("projects")
 		vim.keymap.set("n", "<leader>fp", function()
 			tele.extensions.projects.projects()
 		end)

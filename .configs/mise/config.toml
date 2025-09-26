@@ -58,7 +58,6 @@ java = "temurin-24"
 
 # Node tools
 "npm:@tailwindcss/language-server" = "latest"
-"npm:neovim" = "latest"
 "npm:prettier" = "latest"
 "npm:typescript" = "latest"
 "npm:typescript-language-server" = "latest"

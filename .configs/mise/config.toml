@@ -58,7 +58,6 @@ java = "temurin-24"
 
 # Node tools
 "npm:@tailwindcss/language-server" = "latest"
-"npm:neovim" = "latest"
 "npm:prettier" = "latest"
 "npm:typescript" = "latest"
 "npm:typescript-language-server" = "latest"
@@ -67,7 +66,6 @@ java = "temurin-24"
 # Python tools
 "pipx:httpie" = "latest"
 "pipx:ipython" = "latest"
-"pipx:neovim" = "latest"
 "pipx:pyright" = "latest"
 "pipx:ruff" = "latest"
 "pipx:systemd-language-server" = "latest"

@@ -87,6 +87,8 @@ return {
 			local cmp_caps = require("cmp_nvim_lsp").default_capabilities()
 			local capabilities = vim.tbl_deep_extend("force", default_caps, cmp_caps)
 
+			vim.lsp.enable("fish_lsp")
+
 			vim.lsp.config("*", {
 				capabilities = capabilities,
 			})

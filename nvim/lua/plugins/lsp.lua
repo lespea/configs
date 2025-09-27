@@ -126,6 +126,40 @@ return {
 							ls.jump(-1)
 						end
 					end, { "i", "s" }),
+
+					["<CR>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							if ls.expandable() then
+								ls.expand()
+							else
+								cmp.confirm({
+									select = true,
+								})
+							end
+						else
+							fallback()
+						end
+					end),
+
+					["<Tab>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_next_item()
+						elseif ls.locally_jumpable(1) then
+							ls.jump(1)
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
+
+					["<S-Tab>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							cmp.select_prev_item()
+						elseif ls.locally_jumpable(-1) then
+							ls.jump(-1)
+						else
+							fallback()
+						end
+					end, { "i", "s" }),
 				}),
 				preselect = "item",
 				completion = {

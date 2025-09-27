@@ -58,7 +58,7 @@ if [ ! -f ${HOME}/.gitconfig ]; then
     cp ${CUR_DIR}/myGitConfig ${HOME}/.gitconfig
 fi
 
-BOTH_DIRS="atuin fish kitty lazygit lsd mise starship.toml taplo topgrade.d zellij"
+BOTH_DIRS="atuin fish ghostty kitty lazygit lsd mise starship.toml taplo topgrade.d zellij"
 
 if [[ `uname` == "Darwin" ]]; then
     CONF_DIRS="$BOTH_DIRS"

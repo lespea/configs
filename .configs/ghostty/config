@@ -1,0 +1,17 @@
+#theme = Dracula+
+#theme = Dark+
+#theme = Galizur
+#theme = Molokai
+#theme = Nvim Dark
+
+font-family = "0xProto Nerd Font Propo"
+theme = Material Darker
+
+background-opacity = 0.96
+
+scrollback-limit=2097152
+copy-on-select = clipboard
+
+shell-integration-features = no-cursor,sudo,title,ssh-env,no-ssh-terminfo
+
+keybind = ctrl+shift+j=unbind

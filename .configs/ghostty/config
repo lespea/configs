@@ -1,11 +1,9 @@
-#theme = Dracula+
-#theme = Dark+
-#theme = Galizur
-#theme = Molokai
-#theme = Nvim Dark
-
 font-family = "0xProto Nerd Font Propo"
 theme = Material Darker
+
+#theme = Dracula+
+theme = Dark+
+#theme = Molokai
 
 background-opacity = 0.96
 

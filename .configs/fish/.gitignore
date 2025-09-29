@@ -5,11 +5,12 @@ functions/*
 
 /fishd.tmp.*
 
-!functions/cp.fish
+!functions/agebak.fish
 !functions/btrls.fish
+!functions/cp.fish
 !functions/expand-dot-to-parent-directory-path.fish
-!functions/genSrc.fish
 !functions/genBloop.fish
+!functions/genSrc.fish
 !functions/gomise.fish
 !functions/goupd.fish
 !functions/gvenv.fish

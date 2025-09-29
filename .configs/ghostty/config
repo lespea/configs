@@ -1,3 +1,5 @@
+config-file = ?custom
+
 font-family = "0xProto Nerd Font Propo"
 theme = Material Darker
 

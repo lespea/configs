@@ -129,6 +129,7 @@ return {
 	{
 		"Wansmer/treesj",
 		lazy = false,
+		keys = { "<leader>m", "<space>m" },
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
 		},
@@ -142,10 +143,15 @@ return {
 				scala = tsj_utils.merge_preset(rust, {}),
 			}
 
-			require("treesj").setup({
-				max_join_length = 160,
+			local tj = require("treesj")
+
+			tj.setup({
+				use_default_keymaps = true,
+				max_join_length = 240,
 				langs = langs,
 			})
+
+			vim.keymap.set("n", "<leader>m", tj.toggle, { desc = "Toggle split/join args" })
 		end,
 	},
 	{
@@ -153,7 +159,7 @@ return {
 		event = "VeryLazy",
 		opts = {
 			keymaps = {
-				useDefaults = true,
+				useDefaults = false,
 			},
 		},
 	},

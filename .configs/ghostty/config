@@ -15,3 +15,6 @@ copy-on-select = clipboard
 shell-integration-features = no-cursor,sudo,title,ssh-env,no-ssh-terminfo
 
 keybind = ctrl+shift+j=unbind
+keybind = ctrl+,=unbind
+
+mouse-scroll-multiplier = 1

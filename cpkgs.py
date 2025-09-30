@@ -37,32 +37,28 @@ def get_run_info() -> typing.Tuple[os._Environ, bool]:
     mold = nix
 
     if nix or is_dar():
-        env["CFLAGS"] = " ".join(
-            (
-                "-O2",
-                "-pipe",
-                "-fno-plt",
-                "-fexceptions",
-                "-Wp,-D_FORTIFY_SOURCE=2",
-                # "-Wformat",
-                # "-Werror=format-security",
-            )
-        )
         if nix:
-            env["CFLAGS"] = (
-                " ".join(
-                    (
-                        "-march=native",
-                        "-mtune=native",
-                        "-fstack-clash-protection",
-                        "-fcf-protection",
-                    )
-                )
-                + " "
-                + env["CFLAGS"]
-            )
+            cflags = [
+                "-march=native",
+                "-mtune=native",
+                "-fstack-clash-protection",
+                "-fcf-protection",
+            ]
+        else:
+            cflags = []
 
-        env["CXXFLAGS"] = env["CFLAGS"] + " -Wp,-D_GLIBCXX_ASSERTIONS"
+        cflags = cflags + [
+            # "-O2",
+            "-pipe",
+            "-fno-plt",
+            "-fexceptions",
+            "-Wp,-D_FORTIFY_SOURCE=2",
+            "-Wformat",
+            "-Werror=format-security",
+        ]
+
+        env["CFLAGS"] = " ".join(cflags)
+        env["CXXFLAGS"] = " ".join(cflags + ["-Wp,-D_GLIBCXX_ASSERTIONS"])
         if nix:
             env["LDFLAGS"] = "-Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now"
         else:

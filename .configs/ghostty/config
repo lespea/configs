@@ -1,6 +1,6 @@
 config-file = ?custom
 
-font-family = "0xProto Nerd Font Mono"
+font-family = "0xProto"
 theme = Material Darker
 
 #theme = Dracula+

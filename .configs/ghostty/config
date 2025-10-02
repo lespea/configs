@@ -1,10 +1,11 @@
 config-file = ?custom
 
 font-family = "0xProto"
-theme = Material Darker
 
-#theme = Dracula+
 theme = Dark+
+
+#theme = Material Darker
+#theme = Dracula+
 #theme = Molokai
 
 background-opacity = 0.96

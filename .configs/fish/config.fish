@@ -60,7 +60,7 @@ function setAbbs
 end
 
 function runSources
-    act starship init fish
+    # act starship init fish
 
     if type -q mise
         mise activate fish | source

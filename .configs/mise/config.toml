@@ -66,6 +66,7 @@ java = "temurin-25"
 # Python tools
 "pipx:httpie" = "latest"
 "pipx:ipython" = "latest"
+"pipx:isd-tui" = "latest"
 "pipx:pyright" = "latest"
 "pipx:ruff" = "latest"
 "pipx:systemd-language-server" = "latest"

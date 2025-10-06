@@ -11,6 +11,7 @@ return {
 			},
 		},
 		config = function()
+			local ts = require("telescope")
 			local builtin = require("telescope.builtin")
 			local opts = {}
 
@@ -24,6 +25,9 @@ return {
 			vim.keymap.set("n", "<leader>fr", builtin.lsp_references, opts)
 			vim.keymap.set("n", "<leader>ft", function()
 				builtin.treesitter({ jump_type = "never" })
+			end, opts)
+			vim.keymap.set("n", "<leader>fn", function()
+				ts.extensions.notify.notify({})
 			end, opts)
 
 			local previewers = require("telescope.previewers")

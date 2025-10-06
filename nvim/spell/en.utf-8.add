@@ -162,3 +162,5 @@ conn
 UID
 tls
 fqdn
+CassiniEvent
+zid

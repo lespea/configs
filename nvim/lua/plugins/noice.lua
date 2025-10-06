@@ -1,5 +1,15 @@
 return {
 	{
+		"rcarriga/nvim-notify", -- Notification plugin used by noice.
+		event = "VeryLazy",
+		opts = {
+			render = "wrapped-compact",
+			stages = "fade_in_slide_out",
+			timeout = 3000,
+			top_down = false, -- Notifications start at the bottom to stay out of your way.
+		},
+	},
+	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
 		opts = {

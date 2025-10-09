@@ -11,7 +11,8 @@ return {
 			-- lsp, while **"pattern"** uses vim-rooter like glob pattern matching. Here
 			-- order matters: if one is not detected, the other is used as fallback. You
 			-- can also delete or rearangne the detection methods.
-			detection_methods = { "pattern", "lsp" },
+			-- detection_methods = { "pattern", "lsp" },
+			detection_methods = { "pattern" },
 
 			patterns = {
 				".git",

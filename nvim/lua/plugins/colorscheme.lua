@@ -72,7 +72,7 @@ return {
 		config = function()
 			require("oldworld").setup({
 				integrations = {
-					neo_tree = false,
+					neo_tree = true,
 				},
 			})
 
@@ -84,8 +84,8 @@ return {
 			vim.api.nvim_set_hl(0, "CursorLine", { bg = c.gray2 })
 			vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { bg = c.gray2 })
 
-			vim.api.nvim_set_hl(0, "Ibl1", { fg = c.gray2 })
-			vim.api.nvim_set_hl(0, "Ibl2", { fg = c.gray4 })
+			-- vim.api.nvim_set_hl(0, "Ibl1", { fg = c.gray2 })
+			-- vim.api.nvim_set_hl(0, "Ibl2", { fg = c.gray4 })
 		end,
 	},
 }

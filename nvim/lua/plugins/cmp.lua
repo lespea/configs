@@ -1,9 +1,5 @@
 return {
 	{
-		"L3MON4D3/LuaSnip",
-		build = "make install_jsregexp",
-	},
-	{
 		"onsails/lspkind.nvim",
 		opts = {},
 	},
@@ -18,6 +14,7 @@ return {
 		"saghen/blink.cmp",
 		-- optional: provides snippets for the snippet source
 		dependencies = {
+			"L3MON4D3/LuaSnip",
 			"nvim-tree/nvim-web-devicons",
 			"rafamadriz/friendly-snippets",
 			"xzbdmw/colorful-menu.nvim",
@@ -148,6 +145,8 @@ return {
 					},
 				},
 			},
+
+			snippets = { preset = "luasnip" },
 
 			-- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
 			-- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,

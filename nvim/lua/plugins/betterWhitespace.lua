@@ -7,5 +7,12 @@ return {
 		g.strip_whitespace_confirm = 0
 		g.strip_max_file_size = 1000
 		g.show_spaces_that_precede_tabs = 1
+
+		vim.api.nvim_create_autocmd("User", {
+			pattern = "SnacksDashboardOpened",
+			callback = function()
+				vim.cmd([[DisableWhitespace]])
+			end,
+		})
 	end,
 }

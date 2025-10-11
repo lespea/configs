@@ -5,6 +5,7 @@ local highlight = {
 
 return {
 	"lukas-reineke/indent-blankline.nvim",
+	enabled = false,
 	main = "ibl",
 	opts = {
 		indent = { highlight = highlight, char = "" },

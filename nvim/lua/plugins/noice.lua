@@ -10,10 +10,24 @@ return {
 		},
 	},
 	{
+		"smjonas/inc-rename.nvim",
+		opts = {},
+	},
+	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
 		opts = {
 			-- add any options here
+		},
+		keys = {
+			{
+				"<F2>",
+				function()
+					return ":IncRename " .. vim.fn.expand("<cword>")
+				end,
+				expr = true,
+				desc = "Rename item",
+			},
 		},
 		dependencies = {
 			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
@@ -24,6 +38,8 @@ return {
 			"rcarriga/nvim-notify",
 			-- Maybe needed?
 			"hrsh7th/nvim-cmp",
+			-- Rename
+			"smjonas/inc-rename.nvim",
 		},
 		config = function()
 			require("noice").setup({
@@ -42,6 +58,7 @@ return {
 					long_message_to_split = true, -- long messages will be sent to a split
 					inc_rename = false, -- enables an input dialog for inc-rename.nvim
 					lsp_doc_border = true, -- add a border to hover docs and signature help
+					inc_rename = true, -- nice renaming
 				},
 				routes = {
 					{

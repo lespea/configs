@@ -1,5 +1,31 @@
 return {
 	{
+		"chrisgrieser/nvim-lsp-endhints",
+		event = "LspAttach",
+		opts = {}, -- required, even if empty
+	},
+	{
+		"folke/lazydev.nvim",
+		ft = "lua", -- only load on lua files
+		opts = {
+			library = {
+				-- See the configuration section for more details
+				-- Load luvit types when the `vim.uv` word is found
+				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+			},
+		},
+	},
+	{
+		"onsails/diaglist.nvim",
+		keys = {
+			{
+				"<leader>dl",
+				"<cmd>lua require('diaglist').open_all_diagnostics()<cr>",
+				desc = "Toggle Diagnostics List",
+			},
+		},
+	},
+	{
 		"neovim/nvim-lspconfig",
 		config = function()
 			-- Manual!

@@ -16,9 +16,21 @@ return {
 		end,
 	},
 	{
+		"folke/lazydev.nvim",
+		ft = "lua", -- only load on lua files
+		opts = {
+			library = {
+				-- See the configuration section for more details
+				-- Load luvit types when the `vim.uv` word is found
+				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+			},
+		},
+	},
+	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
 			-- Configs
+			"folke/lazydev.nvim",
 			"neovim/nvim-lspconfig",
 			"xzbdmw/colorful-menu.nvim",
 			-- Autocompletion
@@ -66,6 +78,15 @@ return {
 				gofumpt = true,
 			})
 			vim.lsp.enable("gopls")
+
+			vim.lsp.config("tinymist", {
+				cmd = { "tinymist" },
+				filetypes = { "typst" },
+				settings = {
+					formatterMode = "typstyle",
+				},
+			})
+			vim.lsp.enable("tinymist")
 
 			vim.api.nvim_create_autocmd("LspAttach", {
 				callback = function(args)
@@ -189,6 +210,7 @@ return {
 					{ name = "buffer" },
 					{ name = "digraphs" },
 					{ name = "calc" },
+					{ name = "lazydev", group_index = 0 },
 				},
 				sorting = {
 					comparators = {

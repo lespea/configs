@@ -58,6 +58,7 @@ java = "temurin-25"
 "go:github.com/docker/docker-language-server/cmd/docker-language-server" = "latest"
 
 # Node tools
+"npm:@fsouza/prettierd" = "latest"
 "npm:@tailwindcss/language-server" = "latest"
 "npm:prettier" = "latest"
 "npm:typescript" = "latest"
@@ -67,6 +68,7 @@ java = "temurin-25"
 # Python tools
 "pipx:httpie" = "latest"
 "pipx:ipython" = "latest"
+"pipx:isort" = "latest"
 "pipx:pyright" = "latest"
 "pipx:ruff" = "latest"
 "pipx:systemd-language-server" = "latest"

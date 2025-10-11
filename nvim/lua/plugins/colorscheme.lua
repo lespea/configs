@@ -1,5 +1,30 @@
 return {
 	{
+		"dgox16/oldworld.nvim",
+		lazy = false,
+		priority = 1000,
+		enabled = true,
+		config = function()
+			require("oldworld").setup({
+				integrations = {
+					neo_tree = false,
+					snacks = false,
+				},
+			})
+
+			vim.cmd.colorscheme("oldworld")
+
+			local c = require("oldworld.palette")
+
+			vim.api.nvim_set_hl(0, "LspInlayHint", { fg = c.subtext4 })
+			vim.api.nvim_set_hl(0, "CursorLine", { bg = c.gray2 })
+			vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { bg = c.gray2 })
+
+			-- vim.api.nvim_set_hl(0, "Ibl1", { fg = c.gray2 })
+			-- vim.api.nvim_set_hl(0, "Ibl2", { fg = c.gray4 })
+		end,
+	},
+	{
 		"navarasu/onedark.nvim",
 		lazy = false, -- make sure we load this during startup if it is your main colorscheme
 		priority = 1000, -- make sure to load this before all the other start plugins
@@ -62,30 +87,6 @@ return {
 		-- you could do this, or use the standard vimscript `colorscheme sunburn`
 		config = function()
 			vim.cmd.colorscheme("sunburn")
-		end,
-	},
-	{
-		"dgox16/oldworld.nvim",
-		lazy = false,
-		priority = 1000,
-		enabled = true,
-		config = function()
-			require("oldworld").setup({
-				integrations = {
-					neo_tree = true,
-				},
-			})
-
-			vim.cmd.colorscheme("oldworld")
-
-			local c = require("oldworld.palette")
-
-			vim.api.nvim_set_hl(0, "LspInlayHint", { fg = c.subtext4 })
-			vim.api.nvim_set_hl(0, "CursorLine", { bg = c.gray2 })
-			vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { bg = c.gray2 })
-
-			-- vim.api.nvim_set_hl(0, "Ibl1", { fg = c.gray2 })
-			-- vim.api.nvim_set_hl(0, "Ibl2", { fg = c.gray4 })
 		end,
 	},
 }

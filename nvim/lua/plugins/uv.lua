@@ -4,8 +4,8 @@ return {
 	ft = { "python" },
 	-- Optional dependency, but recommended:
 	dependencies = {
-		--   "folke/snacks.nvim"
-		"nvim-telescope/telescope.nvim",
+		"folke/snacks.nvim",
+		-- "nvim-telescope/telescope.nvim",
 	},
 	opts = {},
 }

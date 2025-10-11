@@ -1,11 +1,5 @@
 return {
 	{
-		"windwp/nvim-autopairs",
-		event = "InsertEnter",
-		opts = {},
-		enabled = false,
-	},
-	{
 		"altermo/ultimate-autopair.nvim",
 		event = { "InsertEnter" },
 		branch = "v0.6",

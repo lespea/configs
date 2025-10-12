@@ -388,6 +388,13 @@ return {
 				end,
 				desc = "LSP Workspace Symbols",
 			},
+			{
+				"<C-g>",
+				function()
+					Snacks.lazygit()
+				end,
+				desc = "LSP Workspace Symbols",
+			},
 		},
 
 		opts = {

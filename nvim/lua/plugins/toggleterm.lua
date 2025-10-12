@@ -14,7 +14,7 @@ return {
 
 		local term = require("toggleterm.terminal").Terminal
 
-		local lazygit = term:new({ cmd = "lazygit", hidden = true, direction = "float" })
+		-- local lazygit = term:new({ cmd = "lazygit", hidden = true, direction = "float" })
 		local termFloat = term:new({ hidden = true, direction = "float" })
 		local termRight = term:new({ hidden = true, direction = "vertical" })
 
@@ -27,11 +27,11 @@ return {
 			end)
 		end
 
-		for _, key in ipairs({ "<C-g>", "\\tg" }) do
-			set({ "n", "t" }, key, function()
-				lazygit:toggle()
-			end)
-		end
+		-- for _, key in ipairs({ "<C-g>", "\\tg" }) do
+		--  set({ "n", "t" }, key, function()
+		--    lazygit:toggle()
+		--  end)
+		-- end
 
 		set({ "n", "t" }, "<S-Esc>", "<C-\\><C-n>")
 

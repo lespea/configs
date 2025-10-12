@@ -33,7 +33,7 @@ return {
 			enable_git_status = true,
 			enable_diagnostics = true,
 			-- enable_normal_mode_for_inputs = false,
-			open_files_do_not_replace_types = { "terminal", "trouble", "qf" },
+			open_files_do_not_replace_types = { "edgy", "qf", "terminal", "trouble" },
 			sort_case_insensitive = true,
 			sort_function = nil,
 			-- sort_function = function (a,b)

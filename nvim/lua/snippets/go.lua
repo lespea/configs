@@ -1,5 +1,6 @@
-local s = require("luasnip.nodes.snippet").S
 local fmt = require("luasnip.extras.fmt").fmt
+local i = require("luasnip.nodes.insertNode").I
+local s = require("luasnip.nodes.snippet").S
 
 return {
 	s("dfun", fmt("defer func() {{\n\t{}\n}}(){}", { i(1, ""), i(0) })),

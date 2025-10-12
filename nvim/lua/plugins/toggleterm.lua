@@ -39,7 +39,7 @@ return {
 			vim.api.nvim_command([[update]])
 		end
 
-		rightTerm = function()
+		local rightTerm = function()
 			if termRight:is_open() then
 				if termRight:is_focused() then
 					ui:goto_previous()

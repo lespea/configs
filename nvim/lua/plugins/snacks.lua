@@ -419,6 +419,7 @@ return {
 			},
 			dim = { enabled = true },
 			explorer = { enabled = false },
+			image = { enabled = true },
 			indent = {
 				enabled = true,
 				chunk = { enabled = true },

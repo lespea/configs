@@ -41,6 +41,7 @@ return {
 		},
 		lazy = false,
 		opts = {
+			auto_clean_after_session_restore = true,
 			close_if_last_window = true,
 			popup_border_style = "",
 			enable_git_status = true,

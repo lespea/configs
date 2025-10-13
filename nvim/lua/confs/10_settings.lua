@@ -84,6 +84,8 @@ opt.listchars = {
 	space = " ",
 }
 
+-- opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
+
 -----------------------------------------------------------
 -- Tabs, indent
 -----------------------------------------------------------

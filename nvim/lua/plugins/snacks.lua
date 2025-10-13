@@ -410,14 +410,22 @@ return {
 				autokeys = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", -- autokey sequence
 				sections = {
 					{ section = "header" },
-					{ icon = " ", title = "Projects", section = "projects", indent = 2, padding = 2 },
-					{ icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 2 },
+					{ icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+					{
+						icon = " ",
+						title = "Recent Files (cwd)",
+						section = "recent_files",
+						cwd = true,
+						indent = 2,
+						padding = 1,
+					},
+					{ icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
 					{ section = "keys", gap = 1 },
 					{ section = "startup" },
 				},
 				animaget = { duration = { total = 250 } },
 			},
-			dim = { enabled = true },
+			dim = { enabled = false },
 			explorer = { enabled = false },
 			image = { enabled = true },
 			indent = {

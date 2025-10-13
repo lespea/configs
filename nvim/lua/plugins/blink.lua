@@ -15,6 +15,7 @@ return {
 		-- optional: provides snippets for the snippet source
 		dependencies = {
 			"L3MON4D3/LuaSnip",
+			"folke/lazydev.nvim",
 			"nvim-tree/nvim-web-devicons",
 			"rafamadriz/friendly-snippets",
 			"xzbdmw/colorful-menu.nvim",
@@ -172,7 +173,7 @@ return {
 			-- Default list of enabled providers defined so that you can extend it
 			-- elsewhere in your config, without redefining it, due to `opts_extend`
 			sources = {
-				default = { "lsp", "path", "snippets", "buffer", "omni" },
+				default = { "lazydev", "snippets", "lsp", "path", "buffer", "omni" },
 				-- lua = { inherit_defaults = true, "lazydev" },
 				providers = {
 					lazydev = {

@@ -410,8 +410,8 @@ return {
 				autokeys = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", -- autokey sequence
 				sections = {
 					{ section = "header" },
-					{ icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 2 },
 					{ icon = " ", title = "Projects", section = "projects", indent = 2, padding = 2 },
+					{ icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 2 },
 					{ section = "keys", gap = 1 },
 					{ section = "startup" },
 				},

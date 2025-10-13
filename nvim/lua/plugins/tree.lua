@@ -1,6 +1,8 @@
 return {
 	{
 		"s1n7ax/nvim-window-picker",
+		event = "VeryLazy",
+		version = "2.*",
 		config = function()
 			require("window-picker").setup({
 				filter_rules = {
@@ -9,12 +11,22 @@ return {
 					-- filter using buffer options
 					bo = {
 						-- if the file type is one of following, the window will be ignored
-						filetype = { "neo-tree", "neo-tree-popup", "notify" },
+						filetype = { "NvimTree", "neo-tree", "neo-tree-popup", "notify", "snacks_notif" },
 						-- if the buffer type is one of following, the window will be ignored
 						buftype = { "terminal", "quickfix" },
 					},
 				},
 			})
+		end,
+	},
+	{
+		"antosha417/nvim-lsp-file-operations",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-neo-tree/neo-tree.nvim", -- makes sure that this loads after Neo-tree.
+		},
+		config = function()
+			require("lsp-file-operations").setup()
 		end,
 	},
 	{
@@ -27,9 +39,10 @@ return {
 			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
 			"s1n7ax/nvim-window-picker",
 		},
+		lazy = false,
 		opts = {
-			close_if_last_window = false,
-			popup_border_style = "rounded",
+			close_if_last_window = true,
+			popup_border_style = "",
 			enable_git_status = true,
 			enable_diagnostics = true,
 			-- enable_normal_mode_for_inputs = false,
@@ -69,6 +82,17 @@ return {
 					-- then these will never be used.
 					default = "*",
 					highlight = "NeoTreeFileIcon",
+					provider = function(icon, node, state) -- default icon provider utilizes nvim-web-devicons if available
+						if node.type == "file" or node.type == "terminal" then
+							local success, web_devicons = pcall(require, "nvim-web-devicons")
+							local name = node.type == "terminal" and "terminal" or node.name
+							if success then
+								local devicon, hl = web_devicons.get_icon(name)
+								icon.text = devicon or icon.text
+								icon.highlight = hl or icon.highlight
+							end
+						end
+					end,
 				},
 				modified = {
 					symbol = "[+]",
@@ -335,6 +359,8 @@ return {
 			end
 			vim.keymap.set({ "n" }, "\\", toggle)
 			vim.keymap.set({ "n" }, ",tt", toggle)
+
+			require("neo-tree").setup(opts)
 		end,
 	},
 }

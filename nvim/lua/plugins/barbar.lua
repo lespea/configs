@@ -27,28 +27,31 @@ return {
 	lazy = false,
 	keys = {
 		-- Move to previous/next
-		{ "<S-h>", "<Cmd>BufferPrevious<CR>", opts },
-		{ "<S-l>", "<Cmd>BufferNext<CR>", opts },
+		{ "<S-h>", "<Cmd>BufferPrevious<CR>", opts, desc = "Previous buffer" },
+		{ "<S-l>", "<Cmd>BufferNext<CR>", opts, desc = "Next buffer" },
 
 		-- Re-order to previous/next
-		{ "<A-<>", "<Cmd>BufferMovePrevious<CR>", opts },
-		{ "<A->>", "<Cmd>BufferMoveNext<CR>", opts },
+		{ "<A-.>", "<Cmd>BufferMovePrevious<CR>", opts, desc = "Move buffer left" },
+		{ "<A-,>", "<Cmd>BufferMoveNext<CR>", opts, desc = "Move buffer right" },
 
 		-- Close
-		{ "<A-c>", "<Cmd>BufferClose<CR>", opts },
+		{ "<A-c>", "<Cmd>BufferClose<CR>", opts, desc = "Close buffer" },
 
 		-- Goto buffer in position...
-		{ "<A-1>", "<Cmd>BufferGoto 1<CR>", opts },
-		{ "<A-2>", "<Cmd>BufferGoto 2<CR>", opts },
-		{ "<A-3>", "<Cmd>BufferGoto 3<CR>", opts },
-		{ "<A-4>", "<Cmd>BufferGoto 4<CR>", opts },
-		{ "<A-5>", "<Cmd>BufferGoto 5<CR>", opts },
-		{ "<A-6>", "<Cmd>BufferGoto 6<CR>", opts },
-		{ "<A-7>", "<Cmd>BufferGoto 7<CR>", opts },
-		{ "<A-8>", "<Cmd>BufferGoto 8<CR>", opts },
-		{ "<A-9>", "<Cmd>BufferGoto 9<CR>", opts },
-		{ "<A-0>", "<Cmd>BufferLast<CR>", opts },
+		{ "<A-1>", "<Cmd>BufferGoto 1<CR>", opts, desc = "Goto buffer 2" },
+		{ "<A-2>", "<Cmd>BufferGoto 2<CR>", opts, desc = "Goto buffer 3" },
+		{ "<A-3>", "<Cmd>BufferGoto 3<CR>", opts, desc = "Goto buffer 4" },
+		{ "<A-4>", "<Cmd>BufferGoto 4<CR>", opts, desc = "Goto buffer 5" },
+		{ "<A-5>", "<Cmd>BufferGoto 5<CR>", opts, desc = "Goto buffer 6" },
+		{ "<A-6>", "<Cmd>BufferGoto 6<CR>", opts, desc = "Goto buffer 7" },
+		{ "<A-7>", "<Cmd>BufferGoto 7<CR>", opts, desc = "Goto buffer 8" },
+		{ "<A-8>", "<Cmd>BufferGoto 8<CR>", opts, desc = "Goto buffer 9" },
+		{ "<A-9>", "<Cmd>BufferGoto 9<CR>", opts, desc = "Goto buffer 10" },
+		{ "<A-0>", "<Cmd>BufferLast<CR>", opts, desc = "Goto last buffer" },
 
-		{ ",cab", "<Cmd>BufferCloseAllButCurrent<CR>", opts },
+		{ "<leader>cab", "<Cmd>BufferCloseAllButCurrent<CR>", opts, desc = "Close all but current buffer" },
+
+		{ "<leader>bs", "<Cmd>BufferOrderByName<CR>", opts, desc = "Order buffer by name" },
+		{ "<leader>bd", "<Cmd>BufferOrderByDirectory<CR>", opts, desc = "Order buffer by dir" },
 	},
 }

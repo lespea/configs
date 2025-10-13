@@ -59,6 +59,7 @@ java = "temurin-25"
 
 # Node tools
 "npm:@fsouza/prettierd" = "latest"
+"npm:@mermaid-js/mermaid-cli" = "latest"
 "npm:@tailwindcss/language-server" = "latest"
 "npm:prettier" = "latest"
 "npm:typescript" = "latest"

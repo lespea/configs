@@ -19,13 +19,16 @@ functions/*
 !functions/jgz.fish
 !functions/jtail.fish
 !functions/lsblkc.fish
+!functions/miseup.fish
 !functions/mkvenv.fish
 !functions/mv.fish
+!functions/nodemise.fish
 !functions/pipbase.fish
 !functions/pipnorm.fish
 !functions/pipu.fish
 !functions/pvcp.fish
 !functions/pyei.fish
+!functions/pymise.fish
 !functions/refl.fish
 !functions/runx.fish
 !functions/rusti.fish

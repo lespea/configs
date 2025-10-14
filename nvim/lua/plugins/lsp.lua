@@ -43,11 +43,23 @@ return {
 			vim.lsp.enable("ruff")
 			vim.lsp.enable("rust_analyzer")
 			vim.lsp.enable("stylua")
-			vim.lsp.enable("systemd_ls")
 			vim.lsp.enable("tailwindcss")
 			vim.lsp.enable("taplo")
 			vim.lsp.enable("templ")
 			vim.lsp.enable("ts_ls")
+
+			-- Automatically set filetype and start LSP for specific systemd unit file patterns
+			vim.api.nvim_create_autocmd("BufEnter", {
+				pattern = { "*.service", "*.mount", "*.device", "*.nspawn", "*.target", "*.timer" },
+				callback = function()
+					vim.bo.filetype = "systemd"
+					vim.lsp.start({
+						name = "systemd_ls",
+						cmd = { "systemd-lsp" }, -- Update this path to your systemd-lsp binary
+						root_dir = vim.fn.getcwd(),
+					})
+				end,
+			})
 
 			vim.lsp.config("gopls", {
 				gofumpt = true,

@@ -11,7 +11,6 @@ import subprocess
 import sys
 import time
 import typing
-
 from typing import Optional
 
 GROUP_NAME = "cargo_pkgs"
@@ -396,6 +395,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("jless"),
         PkgInfo("mise"),
         PkgInfo("skim"),
+        PkgInfo("systemd-lsp"),
         PkgInfo("topgrade", high_priority=True),
         PkgInfo("usage-cli"),
         PkgInfo("wasm-pack"),

@@ -1,11 +1,11 @@
-local events = require("neo-tree.events")
-
 return {
 	"akinsho/toggleterm.nvim",
 	dependencies = {
 		"nvim-neo-tree/neo-tree.nvim", -- makes sure that this loads after Neo-tree.
 	},
 	init = function()
+		local events = require("neo-tree.events")
+
 		require("toggleterm").setup({
 			size = function(term)
 				if term.direction == "horizontal" then

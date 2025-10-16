@@ -70,7 +70,10 @@ return {
 			{
 				"<leader>fc",
 				function()
-					Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
+					Snacks.picker.files({
+						cmd = "fd",
+						cwd = vim.fn.stdpath("config"),
+					})
 				end,
 				desc = "Find Config File",
 			},
@@ -84,16 +87,49 @@ return {
 			{
 				"<leader>ff",
 				function()
-					Snacks.picker.files()
+					Snacks.picker.files({
+						cmd = "fd",
+						hidden = true,
+						ignored = true,
+					})
 				end,
 				desc = "Find Files",
 			},
 			{
 				"<leader>fg",
 				function()
-					Snacks.picker.grep()
+					Snacks.picker.grep({
+						hidden = true,
+					})
 				end,
 				desc = "Grep",
+			},
+			{
+				"<leader>fu",
+				function()
+					Snacks.picker.grep({
+						cmd = "rg",
+						dirs = { "./scanner/src/main/scala/org/tgt/cfc/pippee/allowlist/rules/" },
+						regex = false,
+						hidden = true,
+						ignored = true,
+					})
+				end,
+				desc = "FP grep",
+			},
+			{
+				"<leader>fk",
+				function()
+					Snacks.picker.grep({
+						dirs = { "./scanner/src/main/scala/org/tgt/cfc/pippee/allowlist/rules/" },
+						regex = true,
+						hidden = true,
+						ignored = true,
+						search = 'from(?:Emails|Domains)\\([^)]*"[^"]*',
+						args = { "-U" },
+					})
+				end,
+				desc = "FP from grep",
 			},
 			{
 				"<leader>fp",
@@ -462,37 +498,6 @@ return {
 				icons = {
 					-- diagnostics = Settings.icons.diagnostics,
 				},
-				layout = function(source)
-					--- Use the vertical layout if screen is small
-					if vim.o.columns < 120 then
-						return { cycle = true, preset = "vertical" }
-					end
-
-					-- NOTE: I went back and forth on this. I could just duplicate the text of the
-					-- telescope preset here but then I wouldn't get any updates if it changed.
-					-- Instead, we make a copy of the preset and tweak a few values. I'm not sure
-					-- if that's better but here it is
-					-- One side benefit of using a function instead of an actual table is that
-					-- Snacks won't merge this layout with a custom set picker layout like it
-					-- would if it were just a table
-					local telescope = vim.deepcopy(require("snacks.picker.config.layouts").telescope)
-
-					-- enable backdrop
-					telescope.layout["backdrop"] = nil
-
-					-- make help preview width wide enough to display all txt
-					local preview_widths = {
-						help = 0.58,
-					}
-
-					-- find the preview box element and make it slightly larger
-					for _, elem in ipairs(telescope.layout) do
-						if type(elem) == "table" and elem["win"] == "preview" then
-							elem["width"] = preview_widths[source] or 0.52
-						end
-					end
-					return telescope
-				end,
 				win = {
 					-- input window
 					input = {
@@ -504,6 +509,10 @@ return {
 							["<pageup>"] = { "list_scroll_up", mode = { "i", "n" } },
 						},
 					},
+				},
+				layout = {
+					-- reverse = true,
+					preset = "telescope",
 				},
 			},
 			notifier = {

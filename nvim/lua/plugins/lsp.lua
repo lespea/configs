@@ -90,9 +90,9 @@ return {
 						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 					end)
 
-					vim.keymap.set({ "n", "x" }, "gf", function()
-						vim.lsp.buf.format({ async = false, timeout_ms = 10000 })
-					end)
+					-- vim.keymap.set({ "n", "x" }, "gf", function()
+					-- 	vim.lsp.buf.format({ async = false, timeout_ms = 10000 })
+					-- end)
 
 					local buffer = vim.api.nvim_get_current_buf()
 

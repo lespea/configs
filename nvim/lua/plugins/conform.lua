@@ -41,7 +41,7 @@ return {
 			lua = { "stylua" },
 			python = { "isort", "black" },
 			rust = { "rustfmt" },
-			scala = { "scalafmt" },
+			scala = { "fallback" },
 			sh = { "shfmt" },
 			toml = { "taplo" },
 			templ = { "templ" },
@@ -61,10 +61,10 @@ return {
 			handlebars = pr,
 			-- custom
 			go = function(bufnr)
-				return { first(bufnr, "gotgtfmt", "gofumpt", "go fmt"), "golines" }
+				return { first(bufnr, "gotgtfmt", "gofumpt", "gofmt"), "golines" }
 			end,
 			-- all
-			["*"] = { "codespell" },
+			-- ["*"] = { "codespell" },
 		},
 		-- Set default options
 		default_format_opts = {

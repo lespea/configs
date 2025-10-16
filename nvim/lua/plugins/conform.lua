@@ -1,3 +1,19 @@
+---@param bufnr integer
+---@param ... string
+---@return string
+local function first(bufnr, ...)
+	local conform = require("conform")
+	for i = 1, select("#", ...) do
+		local formatter = select(i, ...)
+		if conform.get_formatter_info(formatter, bufnr).available then
+			return formatter
+		end
+	end
+	return select(1, ...)
+end
+
+local pr = { "prettierd", "prettier", stop_after_first = true }
+
 return {
 	"stevearc/conform.nvim",
 	event = { "BufWritePre" },
@@ -19,19 +35,82 @@ return {
 	opts = {
 		-- Define your formatters
 		formatters_by_ft = {
+			-- simple
+			-- json = { "jq" },
+			fish = { "fish_indent" },
 			lua = { "stylua" },
 			python = { "isort", "black" },
-			javascript = { "prettierd", "prettier", stop_after_first = true },
+			rust = { "rustfmt" },
+			scala = { "scalafmt" },
+			sh = { "shfmt" },
+			toml = { "taplo" },
+			templ = { "templ" },
+			-- prettier
+			javascript = pr,
+			javascriptreact = pr,
+			typescript = pr,
+			typescriptreact = pr,
+			vue = pr,
+			css = pr,
+			scss = pr,
+			less = pr,
+			html = pr,
+			json = pr,
+			jsonc = pr,
+			yaml = pr,
+			handlebars = pr,
+			-- custom
+			go = function(bufnr)
+				return { first(bufnr, "gotgtfmt", "gofumpt", "go fmt"), "golines" }
+			end,
+			-- all
+			["*"] = { "codespell" },
 		},
 		-- Set default options
 		default_format_opts = {
 			lsp_format = "fallback",
 		},
 		-- Set up format-on-save
-		format_on_save = { timeout_ms = 500 },
+		format_on_save = {
+			lsp_format = "fallback",
+			timeout_ms = 5000,
+		},
+		formatters = {
+			gotgtfmt = {
+				command = "gotgtfmt",
+				stdin = false,
+			},
+		},
 	},
 	init = function()
 		-- If you want the formatexpr, here is the place to set it
 		vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+		local c = require("conform")
+		c.formatters.golines = {
+			append_args = { "-m", "120" },
+		}
+		c.formatters.prettier = {
+			append_args = { "--print-width", "120" },
+			options = {
+				ft_parsers = {
+					javascript = "babel",
+					javascriptreact = "babel",
+					typescript = "typescript",
+					typescriptreact = "typescript",
+					vue = "vue",
+					css = "css",
+					scss = "scss",
+					less = "less",
+					html = "html",
+					json = "json",
+					jsonc = "json",
+					yaml = "yaml",
+					markdown = "markdown",
+					["markdown.mdx"] = "mdx",
+					graphql = "graphql",
+					handlebars = "glimmer",
+				},
+			},
+		}
 	end,
 }

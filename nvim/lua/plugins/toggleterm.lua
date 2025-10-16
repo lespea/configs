@@ -1,5 +1,8 @@
 return {
 	"akinsho/toggleterm.nvim",
+	dependencies = {
+		"nvim-neo-tree/neo-tree.nvim", -- makes sure that this loads after Neo-tree.
+	},
 	init = function()
 		require("toggleterm").setup({
 			size = function(term)
@@ -27,9 +30,11 @@ return {
 			end)
 		end
 
+		local events = require("neo-tree.events")
 		for _, key in ipairs({ "<C-g>", "\\tg" }) do
 			set({ "n", "t" }, key, function()
 				lazygit:toggle()
+				events.fire_event(events.GIT_EVENT)
 			end)
 		end
 

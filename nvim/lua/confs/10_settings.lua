@@ -16,12 +16,14 @@ opt.swapfile = false -- Don't use swapfile
 opt.backup = false -- No backup files
 opt.writebackup = false -- No backup files
 opt.undofile = false -- No undo file
+opt.undolevels = 10000 -- lots of in-memory undo
 
 opt.completeopt = "menuone,noinsert,noselect" -- Autocomplete options
 
 opt.foldenable = false -- Disable folding by default
 opt.foldlevel = 4 -- Limit folding to 4 levels
-opt.foldmethod = "syntax" -- Use language syntax to generate folds
+opt.foldmethod = "expr" -- Use language syntax to generate folds
+opt.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- Setup windows shell
 if vim.fn.has("win32") ~= 0 then
@@ -41,7 +43,7 @@ else
 	opt.shell = "fish"
 end
 
-opt.diffopt:append({ "algorithm:histogram" }) -- Diff algorithm
+opt.diffopt:append({ "linematch:60" }) -- Diff algorithm
 
 -----------------------------------------------------------
 -- Neovim UI
@@ -50,20 +52,25 @@ opt.cursorline = true -- Highlight current line
 opt.number = true -- Show line number
 opt.numberwidth = 3 -- always reserve 3 spaces for line number
 opt.relativenumber = true -- Relative numbering
-opt.showcmd = true -- display command in bottom bar
+opt.showcmd = false -- display command in bottom bar
+opt.cmdheight = 0
 opt.signcolumn = "yes" -- keep 1 column for coc.vim check
 opt.title = true -- Set the window title
 opt.termguicolors = true -- Enable 24-bit RGB colors
 
 opt.showmatch = true -- show matching brackets
 opt.scrolloff = 3 -- always show 3 rows from edge of the screen
-opt.laststatus = 2 -- always show status line
+opt.laststatus = 3 -- always show status line
 
 opt.startofline = true -- Move cursor to "start" of each line
 opt.wrap = false -- Do not wrap lines even if very long
 opt.showbreak = "⮐  " -- Character to show when line is broken
 
-opt.wildmenu = true -- On tab, complete options for system command
+opt.wildmenu = false -- On tab, complete options for system command
+opt.wildoptions = "pum"
+opt.wildmode = "longest:full,full"
+opt.pumblend = 10
+
 opt.splitright = true -- Vertical split to the right
 opt.splitbelow = true -- Horizontal split to the bottom
 opt.ignorecase = true -- Ignore case letters when search
@@ -76,18 +83,26 @@ o.mps = o.mps .. ",<:>" -- Add angle brackets to matching pairs
 opt.list = true
 opt.listchars = {
 	-- eol = '⬎',
-	nbsp = "⦸", -- CIRCLED REVERSE SOLIDUS (U+29B8, UTF-8: E2 A6 B8)
 	extends = "»", -- RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00BB, UTF-8: C2 BB)
+	nbsp = "⦸", -- CIRCLED REVERSE SOLIDUS (U+29B8, UTF-8: E2 A6 B8)
 	precedes = "«", -- LEFT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00AB, UTF-8: C2 AB)
+	space = " ",
 	tab = "▶ ", --
 	trail = "•", -- BULLET (U+2022, UTF-8: E2 80 A2)
-	space = " ",
+}
+opt.fillchars = {
+	eob = " ",
+	fold = " ",
+	foldopen = "",
+	foldsep = " ",
+	foldclose = "",
+	diff = " ",
+	vert = "│",
 }
 
 opt.sessionoptions = {
 	"buffers",
 	"curdir",
-	"options",
 	"skiprtp",
 	"tabpages",
 	"winsize",
@@ -105,16 +120,27 @@ opt.smartindent = true -- Autoindent new lines
 opt.autoindent = true
 opt.shiftround = true
 
--- q  - comment formatting
--- n - numbered lists
--- j - remove comment when joining lines
--- 1 - don't break after one-letter word
-opt.formatoptions = "qnj1"
+-- Formatting options:
+-- j = Remove comment leader when joining lines
+-- c = Auto-wrap comments using 'textwidth'
+-- r = Continue comments when pressing Enter in insert mode
+-- o = Continue comments when using 'o' or 'O' in normal mode
+-- q = Allow formatting of comments with 'gq'
+-- l = Don't break lines that are longer than 'textwidth' when inserting
+-- n = Recognize numbered lists for formatting
+-- t = Auto-wrap text using 'textwidth' (you can remove this if you hate auto-wrap)
+--
+-- In practice:
+-- - Keeps comment blocks neat
+-- - Doesn’t randomly insert comment prefixes
+-- - Plays nice with lists and manual line breaks
+-- - Won’t auto-wrap code unless 't' is kept
+opt.formatoptions = "jcroqln"
 
 -----------------------------------------------------------
 -- Memory, CPU
 -----------------------------------------------------------
-opt.hidden = true -- Enable background buffers
+-- opt.hidden = true -- Enable background buffers
 opt.history = 100 -- Remember N lines in history
 opt.synmaxcol = 240 -- Max column for syntax highlight
 opt.updatetime = 250 -- ms to wait for trigger an event

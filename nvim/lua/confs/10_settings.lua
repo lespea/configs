@@ -131,7 +131,7 @@ opt.shiftround = true
 -- - Doesn't randomly insert comment prefixes
 -- - Plays nice with lists and manual line breaks
 -- - Won't auto-wrap code unless 't' is kept
-opt.formatoptions = "jcroqln"
+opt.formatoptions = "jcroqlnt"
 
 -----------------------------------------------------------
 -- Memory, CPU

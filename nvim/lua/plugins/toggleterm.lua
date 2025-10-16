@@ -32,14 +32,20 @@ return {
 		for _, key in ipairs({ "<C-.>", "\\tt" }) do
 			set({ "n", "t" }, key, function()
 				termFloat:toggle()
-			end)
+			end, { desc = "Toggle floating terminal" })
 		end
 
 		for _, key in ipairs({ "<C-g>", "\\tg" }) do
 			set({ "n", "t" }, key, function()
 				lazygit:toggle()
 				events.fire_event(events.GIT_EVENT)
-			end)
+			end, { desc = "Toggle lazygit" })
+		end
+
+		for _, key in ipairs({ "<C-'>", "\\tv" }) do
+			set({ "n", "t" }, key, function()
+				termRight:toggle()
+			end, { desc = "Toggle vertical terminal" })
 		end
 
 		set({ "n", "t" }, "<S-Esc>", "<C-\\><C-n>")

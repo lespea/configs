@@ -51,9 +51,9 @@ return {
 
 		set(no, ",,h", function()
 			hop.hint_char2()
-		end, opts)
+		end, { silent = true, desc = "Hop to 2 chars" })
 		set(no, ",l", function()
 			hop.hint_lines_skip_whitespace()
-		end, opts)
+		end, { silent = true, desc = "Hop to line" })
 	end,
 }

@@ -13,12 +13,12 @@ return {
 
 		set(nv, "<leader>bb", function()
 			box.llbox()
-		end)
+		end, { desc = "Comment box (left-aligned line)" })
 		set(nv, "<leader>bc", function()
 			box.lcbox()
-		end)
+		end, { desc = "Comment box (centered)" })
 		set("n", "<leader>bl", function()
 			box.line()
-		end)
+		end, { desc = "Comment line" })
 	end,
 }

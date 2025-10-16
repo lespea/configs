@@ -38,15 +38,15 @@ return {
 		{ "<A-c>", "<Cmd>BufferClose<CR>", opts, desc = "Close buffer" },
 
 		-- Goto buffer in position...
-		{ "<A-1>", "<Cmd>BufferGoto 1<CR>", opts, desc = "Goto buffer 2" },
-		{ "<A-2>", "<Cmd>BufferGoto 2<CR>", opts, desc = "Goto buffer 3" },
-		{ "<A-3>", "<Cmd>BufferGoto 3<CR>", opts, desc = "Goto buffer 4" },
-		{ "<A-4>", "<Cmd>BufferGoto 4<CR>", opts, desc = "Goto buffer 5" },
-		{ "<A-5>", "<Cmd>BufferGoto 5<CR>", opts, desc = "Goto buffer 6" },
-		{ "<A-6>", "<Cmd>BufferGoto 6<CR>", opts, desc = "Goto buffer 7" },
-		{ "<A-7>", "<Cmd>BufferGoto 7<CR>", opts, desc = "Goto buffer 8" },
-		{ "<A-8>", "<Cmd>BufferGoto 8<CR>", opts, desc = "Goto buffer 9" },
-		{ "<A-9>", "<Cmd>BufferGoto 9<CR>", opts, desc = "Goto buffer 10" },
+		{ "<A-1>", "<Cmd>BufferGoto 1<CR>", opts, desc = "Goto buffer 1" },
+		{ "<A-2>", "<Cmd>BufferGoto 2<CR>", opts, desc = "Goto buffer 2" },
+		{ "<A-3>", "<Cmd>BufferGoto 3<CR>", opts, desc = "Goto buffer 3" },
+		{ "<A-4>", "<Cmd>BufferGoto 4<CR>", opts, desc = "Goto buffer 4" },
+		{ "<A-5>", "<Cmd>BufferGoto 5<CR>", opts, desc = "Goto buffer 5" },
+		{ "<A-6>", "<Cmd>BufferGoto 6<CR>", opts, desc = "Goto buffer 6" },
+		{ "<A-7>", "<Cmd>BufferGoto 7<CR>", opts, desc = "Goto buffer 7" },
+		{ "<A-8>", "<Cmd>BufferGoto 8<CR>", opts, desc = "Goto buffer 8" },
+		{ "<A-9>", "<Cmd>BufferGoto 9<CR>", opts, desc = "Goto buffer 9" },
 		{ "<A-0>", "<Cmd>BufferLast<CR>", opts, desc = "Goto last buffer" },
 
 		{ "<leader>cab", "<Cmd>BufferCloseAllButCurrent<CR>", opts, desc = "Close all but current buffer" },
@@ -55,3 +55,4 @@ return {
 		{ "<leader>bd", "<Cmd>BufferOrderByDirectory<CR>", opts, desc = "Order buffer by dir" },
 	},
 }
+

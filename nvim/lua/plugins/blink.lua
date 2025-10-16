@@ -67,7 +67,7 @@ return {
 				ls.change_choice(-1)
 			end, { desc = "prev choice" })
 
-			vim.keymap.set({ "i", "s" }, "<C-o>", require("luasnip.extras.select_choice"), {})
+			vim.keymap.set({ "i", "s" }, "<C-o>", require("luasnip.extras.select_choice"), { desc = "Select snippet choice" })
 
 			vim.keymap.set({ "i", "s" }, "<c-space>", function()
 				if ls.expand_or_jumpable() then

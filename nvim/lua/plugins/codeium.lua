@@ -13,6 +13,7 @@ return {
 		vim.keymap.set("i", "<s-c-i>", "codeium#Accept()", {
 			expr = true,
 			silent = true,
+			desc = "Accept Codeium suggestion",
 		})
 	end,
 	event = "BufEnter",

@@ -5,7 +5,7 @@ return {
 
 		local set = vim.keymap.set
 
-		set("v", "<C-S-Up>", "<Plug>MoveBlockUp")
-		set("v", "<C-S-Down>", "<Plug>MoveBlockDown")
+		set("v", "<C-S-Up>", "<Plug>MoveBlockUp", { desc = "Move block up" })
+		set("v", "<C-S-Down>", "<Plug>MoveBlockDown", { desc = "Move block down" })
 	end,
 }

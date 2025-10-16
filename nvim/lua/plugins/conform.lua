@@ -37,13 +37,13 @@ return {
 		formatters_by_ft = {
 			-- simple
 			-- json = { "jq" },
+			-- toml = { "taplo" },
 			fish = { "fish_indent" },
 			lua = { "stylua" },
 			python = { "isort", "black" },
 			rust = { "rustfmt" },
 			scala = { "fallback" },
 			sh = { "shfmt" },
-			toml = { "taplo" },
 			templ = { "templ" },
 			-- prettier
 			javascript = pr,

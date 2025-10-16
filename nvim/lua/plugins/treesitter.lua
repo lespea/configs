@@ -51,6 +51,7 @@ return {
 					"scss",
 					"sql",
 					"svelte",
+					"templ",
 					"terraform",
 					"toml",
 					"tsx",

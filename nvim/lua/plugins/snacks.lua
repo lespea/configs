@@ -135,7 +135,7 @@ return {
 						regex = true,
 						hidden = true,
 						ignored = true,
-						search = 'from *= *from(?:Emails|Domains)\\([^)]*"[^"]*',
+						search = '(?-iu)from *= *from(?:Emails|Domains)\\([^)]*"[^"]*(?i)',
 						args = { "-U" },
 					})
 				end,

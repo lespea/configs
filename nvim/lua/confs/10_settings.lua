@@ -20,10 +20,11 @@ opt.undolevels = 10000 -- lots of in-memory undo
 
 opt.completeopt = "menuone,noinsert,noselect" -- Autocomplete options
 
-opt.foldenable = false -- Disable folding by default
-opt.foldlevel = 4 -- Limit folding to 4 levels
-opt.foldmethod = "expr" -- Use language syntax to generate folds
-opt.foldexpr = "nvim_treesitter#foldexpr()"
+-- Folding settings (using treesitter)
+opt.foldenable = false -- Disable folding by default (use 'zi' to toggle)
+opt.foldlevel = 99 -- Start with all folds open when folding is enabled
+opt.foldmethod = "expr" -- Use expression for folding
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- Modern treesitter folding
 
 -- Setup windows shell
 if vim.fn.has("win32") ~= 0 then
@@ -65,11 +66,6 @@ opt.laststatus = 3 -- always show status line
 opt.startofline = true -- Move cursor to "start" of each line
 opt.wrap = false -- Do not wrap lines even if very long
 opt.showbreak = "⮐  " -- Character to show when line is broken
-
-opt.wildmenu = false -- On tab, complete options for system command
-opt.wildoptions = "pum"
-opt.wildmode = "longest:full,full"
-opt.pumblend = 10
 
 opt.splitright = true -- Vertical split to the right
 opt.splitbelow = true -- Horizontal split to the bottom
@@ -132,17 +128,16 @@ opt.shiftround = true
 --
 -- In practice:
 -- - Keeps comment blocks neat
--- - Doesn’t randomly insert comment prefixes
+-- - Doesn't randomly insert comment prefixes
 -- - Plays nice with lists and manual line breaks
--- - Won’t auto-wrap code unless 't' is kept
+-- - Won't auto-wrap code unless 't' is kept
 opt.formatoptions = "jcroqln"
 
 -----------------------------------------------------------
 -- Memory, CPU
 -----------------------------------------------------------
--- opt.hidden = true -- Enable background buffers
 opt.history = 100 -- Remember N lines in history
-opt.synmaxcol = 240 -- Max column for syntax highlight
+opt.synmaxcol = 500 -- Max column for syntax highlight (increased for modern displays)
 opt.updatetime = 250 -- ms to wait for trigger an event
 
 -- opt.lazyredraw = true -- Faster scrolling

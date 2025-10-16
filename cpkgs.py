@@ -252,6 +252,7 @@ class PkgInfo:
         disabled: bool = False,
         features: Optional[list[str]] = None,
         envs: Optional[dict[str, str]] = None,
+        extras: Optional[list[str]] = None,
     ):
         self.pkg = pkg
         self.use_defaults = use_defaults
@@ -261,6 +262,7 @@ class PkgInfo:
         self.disabled = disabled
 
         self.envs = envs
+        self.extras = extras
 
         if features is None:
             self.features = []
@@ -283,6 +285,9 @@ class PkgInfo:
             extra.append("nightly")
         if self.locked:
             extra.append("locked")
+
+        if self.extras:
+            extra.extend(self.extras)
 
         extra_str = ""
         if len(extra) > 0:
@@ -320,6 +325,9 @@ class PkgInfo:
 
         if force:
             a.append("--force")
+
+        if self.extras:
+            a.extend(self.extras)
 
         return a
 
@@ -374,7 +382,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("ouch"),
         PkgInfo("procs"),
         PkgInfo("ptail"),
-        PkgInfo("ripgrep", features=["pcre2"]),
+        PkgInfo("ripgrep", features=["pcre2"], extras=["--profile" , "release-lto"]),
         PkgInfo("ripgrep_all"),
         PkgInfo("sd"),
         PkgInfo("simple-http-server"),

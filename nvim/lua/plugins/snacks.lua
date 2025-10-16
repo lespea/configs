@@ -91,6 +91,16 @@ return {
 						cmd = "fd",
 						hidden = true,
 						ignored = true,
+						exclude = {
+							".bloop",
+							".idea",
+							".metals",
+							".venv",
+							"__pycache__",
+							"findings",
+							"node_modules",
+							"target",
+						},
 					})
 				end,
 				desc = "Find Files",
@@ -474,6 +484,7 @@ return {
 				formatters = {
 					file = {
 						filename_first = true,
+						truncate = 120,
 					},
 				},
 				ui_select = true,

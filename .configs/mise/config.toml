@@ -1,62 +1,66 @@
 [tools]
 # Complex
+"aqua:Myriad-Dreamin/tinymist" = "v0.13.39"
+"aqua:apache/maven" = "latest"
 "aqua:dprint/dprint" = "latest"
 "aqua:gradle/gradle" = "8"
 "aqua:pnpm/pnpm" = "latest"
 "aqua:skaji/relocatable-perl" = "latest"
+"aqua:tamasfe/taplo" = "latest"
 "asdf:mise-plugins/mise-gcloud" = "latest"
-"asdf:mise-plugins/mise-maven" = "latest"
-"ubi:Myriad-Dreamin/tinymist" = "v0.13.39"
-"ubi:coursier/coursier[exe=cs]" = "latest"
-"ubi:tamasfe/taplo" = "latest"
+"asdf:mise-plugins/mise-sbt" = "latest"
+"github:coursier/coursier" = "latest"
 
+# "ubi:coursier/coursier[exe=cs]" = "latest"
 # "asdf:mise-plugins/mise-llvm" = "latest"
 
 # Simple
+age = "latest"
 bun = "latest"
 go = "1.25"
 node = "24"
 python = "3.14"
-zig = "0.15"
 sops = "latest"
-age = "latest"
+zig = "0.15"
 
 # Rust tools
-"ubi:dathere/qsv" = "latest"
+"github:dathere/qsv" = "latest"
 
 # Java
 java = "temurin-25"
 
 # Go tools
 "aqua:LuaLS/lua-language-server" = "latest"
+"aqua:charmbracelet/gum" = "latest"
 "aqua:dominikh/go-tools/staticcheck" = "latest"
 "aqua:go-swagger/go-swagger" = "latest"
+"aqua:golangci/golangci-lint" = "2"
+"aqua:hadolint/hadolint" = "latest"
 "aqua:itchyny/gojq" = "latest"
+"aqua:mr-karan/doggo" = "latest"
 "aqua:muesli/duf" = "v0.9.1"
-"ubi:golangci/golangci-lint" = "2"
-"ubi:hadolint/hadolint" = "latest"
-"ubi:mvdan/gofumpt" = "latest"
-"ubi:segmentio/golines" = "latest"
+"aqua:mvdan/gofumpt" = "latest"
+"aqua:mvdan/sh" = "latest"
+"aqua:rest-sh/restish" = "latest"
+"aqua:segmentio/golines" = "latest"
 
 # Go repos
 "go:github.com/Zxilly/go-size-analyzer/cmd/gsa" = "latest"
 "go:github.com/a-h/templ/cmd/templ" = "latest"
-"go:github.com/charmbracelet/gum" = "latest"
 "go:github.com/dmarkham/enumer" = "latest"
 "go:github.com/docker/docker-language-server/cmd/docker-language-server" = "latest"
 "go:github.com/golang/mock/mockgen" = "latest"
 "go:github.com/icholy/gomajor" = "latest"
 "go:github.com/johnkerl/miller/v6/cmd/mlr" = "latest"
 "go:github.com/marwan-at-work/mod/cmd/mod" = "latest"
-"go:github.com/mr-karan/doggo/cmd/doggo" = "latest"
-"go:github.com/noperator/jqfmt/cmd/jqfmt" = "latest"
-"go:github.com/noperator/sol/cmd/sol" = "latest"
 "go:github.com/oligot/go-mod-upgrade" = "latest"
 "go:github.com/psampaz/go-mod-outdated" = "latest"
-"go:github.com/rest-sh/restish" = "latest"
 "go:golang.org/x/tools/cmd/stringer" = "latest"
 "go:golang.org/x/tools/gopls" = "latest"
-"go:mvdan.cc/sh/v3/cmd/shfmt" = "latest"
+
+# Go broken deps
+# "go:github.com/noperator/sol/cmd/sol" = "latest"
+# "go:github.com/noperator/jqfmt/cmd/jqfmt" = "latest"
 
 # Node tools
 "npm:@fsouza/prettierd" = "latest"

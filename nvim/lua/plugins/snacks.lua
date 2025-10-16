@@ -135,7 +135,7 @@ return {
 						regex = true,
 						hidden = true,
 						ignored = true,
-						search = 'from(?:Emails|Domains)\\([^)]*"[^"]*',
+						search = '^ +from = from(?:Emails|Domains)\\([^)]*"[^"]*',
 						args = { "-U" },
 					})
 				end,
@@ -496,7 +496,7 @@ return {
 					},
 					git = {
 						builtin = false, -- use Neovim for previewing git output (true) or use git (false)
-						args = { "dt" }, -- additional arguments passed to the git command. Useful to set pager options usin `-c ...`
+						args = { "dt" }, -- additional arguments passed to the git command. Useful to set pager options using `-c ...`
 					},
 					file = {
 						max_size = 1024 * 1024, -- 1MB
@@ -523,7 +523,7 @@ return {
 				},
 				layout = {
 					-- reverse = true,
-					preset = "telescope",
+					preset = "default",
 				},
 			},
 			notifier = {

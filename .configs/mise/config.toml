@@ -73,6 +73,7 @@ java = "temurin-25"
 "npm:vscode-langservers-extracted" = "latest"
 
 # Python tools
+"pipx:black" = "latest"
 "pipx:codespell" = "latest"
 "pipx:httpie" = "latest"
 "pipx:ipython" = "latest"

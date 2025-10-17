@@ -13,20 +13,6 @@ return {
 		event = "BufEnter",
 	},
 	-- {
-	--  "CopilotC-Nvim/CopilotChat.nvim",
-	--  cond = vim.env.NO_VIM_AI ~= "1" and vim.env.USE_COPILOT == "1",
-	--  keys = {
-	--    { "<C-S-c>", "<cmd>CopilotChat<CR>", mode = { "n" }, desc = "Open copilot chat" },
-	--  },
-	--  dependencies = {
-	--    { "nvim-lua/plenary.nvim", branch = "master" },
-	--  },
-	--  build = "make tiktoken",
-	--  opts = {
-	--    model = "claude-sonnet-4",
-	--  },
-	-- },
-	-- {
 	--  "ravitemer/mcphub.nvim",
 	--  dependencies = {
 	--    "nvim-lua/plenary.nvim",
@@ -70,6 +56,7 @@ return {
 	-- },
 	{
 		"olimorris/codecompanion.nvim",
+		cond = vim.env.NO_VIM_AI ~= "1" and vim.env.USE_COPILOT == "1",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",

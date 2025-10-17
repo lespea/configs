@@ -135,7 +135,8 @@ return {
 					adapter = {
 						name = "copilot",
 						-- model = "claude-sonnet-4.5",
-						model = "claude-sonnet-4",
+						-- model = "claude-sonnet-4",
+						model = "gemini-2.5-pro",
 					},
 					-- adapater = "copilot",
 					tools = {

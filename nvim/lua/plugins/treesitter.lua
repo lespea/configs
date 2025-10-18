@@ -39,6 +39,7 @@ return {
 					"latex",
 					"lua",
 					"make",
+					"markdown",
 					"meson",
 					"ninja",
 					"norg",

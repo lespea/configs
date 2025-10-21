@@ -84,14 +84,9 @@ java = "temurin-25"
 [settings]
 disable_hints = ["*"]
 experimental = true
+
 http_timeout = "5m"
 
-python.compile = true
-idiomatic_version_file_enable_tools = []
-
 npm.bun = true
-
 pipx.uvx = true
-
-# [env]
-# _.python.venv = "{{env.HOME}}/.cache/global_venv"
+python.compile = true

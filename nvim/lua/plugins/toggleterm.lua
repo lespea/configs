@@ -24,7 +24,7 @@ return {
 
 		local lazygit = term:new({ cmd = "lazygit", hidden = true, direction = "float" })
 		local termFloat = term:new({ hidden = true, direction = "float" })
-		local termRight = term:new({ hidden = true, direction = "vertical" })
+		local termRight = term:new({ hidden = true, direction = "vertical", newline_chr = "" })
 
 		local ui = require("toggleterm.ui")
 		local set = vim.keymap.set
@@ -73,6 +73,10 @@ return {
 			termRight = term:new({ hidden = true, direction = "vertical" })
 		end)
 
+		local function clearAndRun(cmd)
+			return "" .. cmd .. "\n"
+		end
+
 		-- Persistent right term
 		for _, key in ipairs({ "<C-,>", "\\tr" }) do
 			set({ "n", "t" }, key, rightTerm)
@@ -80,13 +84,19 @@ return {
 
 		set({ "n" }, "<leader>rf", function()
 			if termRight:is_open() then
-				termRight:send("project fpFinder;run", true)
+				termRight:send(clearAndRun("project fpFinder;run"), true)
+			end
+		end, { desc = "run fpFinder" })
+
+		set({ "n" }, "<leader>tc", function()
+			if termRight:is_open() then
+				termRight:send("", true)
 			end
 		end, { desc = "run fpFinder" })
 
 		set({ "n" }, "<leader>rg", function()
 			if termRight:is_open() then
-				termRight:send("project genLists;run;project fpFinder", true)
+				termRight:send(clearAndRun("project genLists;run;project fpFinder"), true)
 
 				local delay = 3000
 
@@ -94,12 +104,12 @@ return {
 					if not termFloat:is_open() then
 						termFloat:toggle()
 					end
-					termFloat:send("just alln", false)
+					termFloat:send("just alln", false)
 				end, delay)
 
 				vim.defer_fn(function()
 					lazygit:toggle()
-				end, delay + 10000)
+				end, delay + 11000)
 			end
 		end, { desc = "run gen rules" })
 	end,

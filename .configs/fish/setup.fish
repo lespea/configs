@@ -3,8 +3,8 @@
 #set -Ux IS_ARCH true
 #set -Ux IS_MAC  true
 
-set -Ux PYENV_ROOT "$HOME/.pyenv"
-fish_add_path -Up "$PYENV_ROOT/bin"
+# set -Ux PYENV_ROOT "$HOME/.pyenv"
+# fish_add_path -Up "$PYENV_ROOT/bin"
 
 set -Ux EDITOR nvim
 set -Ux SYSTEMD_EDITOR nvim
@@ -69,8 +69,8 @@ set -Ux XDG_PICTURES_DIR "$HOME/Pictures"
 set -Ux XDG_VIDEOS_DIR "$HOME/Videos"
 
 if set -q IS_ARCH
-    alias -s icat 'kitty +kitten icat'
-    alias -s kssh 'kitty +kitten ssh'
+    # alias -s icat 'kitty +kitten icat'
+    # alias -s kssh 'kitty +kitten ssh'
     alias -s jlog 'journalctl -r -p warning'
     alias -s plog 'tail -F $argv | bat -pP -llog'
     alias -s jtail 'clear && journalctl -n0 -f | rg -M0 -iv --line-buffered \'rtkit-daemon|G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START\' $argv | bat -pP -llog'

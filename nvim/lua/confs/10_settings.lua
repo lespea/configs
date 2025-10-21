@@ -186,9 +186,10 @@ for _, plugin in pairs(disabled_built_ins) do
 	g["loaded_" .. plugin] = 1
 end
 
-local pyenv_home = os.getenv("nvim_python_loc") or ""
-if pyenv_home ~= "" then
-	g.python3_host_prog = pyenv_home .. "/bin/python"
+local venvs = os.getenv("nvim_venvs") or ""
+if venvs ~= "" then
+	g.python3_host_prog = venvs .. "/.venv/bin/python"
+	g.node_host_prog = venvs .. "/node_modules"
 else
 	g.loaded_python_provider = 0
 end

@@ -9,9 +9,9 @@ function setEnvs
     set -gu PIP_NORM_PKGS colorama ipython pandas numpy httpie requests pyyaml exrex beautifulsoup4 lxml html5lib bs4
 
     if set -q XDG_CACHE_DIR
-        set -gx nvim_python_loc "$XDG_CACHE_HOME/nvim_python"
+        set -gx nvim_venvs "$XDG_CACHE_HOME/nvim_venvs"
     else
-        set -gx nvim_python_loc "$HOME/.cache/nvim_python"
+        set -gx nvim_venvs "$HOME/.cache/nvim_venvs"
     end
 
     set -gx CMAKE_GENERATOR Ninja

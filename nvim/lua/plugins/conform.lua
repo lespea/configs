@@ -38,11 +38,11 @@ return {
 			-- simple
 			-- json = { "jq" },
 			-- toml = { "taplo" },
+			-- scala = { "fallback" },
 			fish = { "fish_indent" },
 			lua = { "stylua" },
 			python = { "isort", "black" },
 			rust = { "rustfmt" },
-			scala = { "fallback" },
 			sh = { "shfmt" },
 			templ = { "templ" },
 			-- prettier
@@ -61,7 +61,7 @@ return {
 			handlebars = pr,
 			-- custom
 			go = function(bufnr)
-				return { first(bufnr, "gotgtfmt", "gofumpt", "gofmt"), "golines --base-formatter='gofmt'" }
+				return { first(bufnr, "gotgtfmt", "gofumpt", "gofmt"), "glines" }
 			end,
 			-- all
 			-- ["*"] = { "codespell" },
@@ -76,6 +76,11 @@ return {
 			timeout_ms = 5000,
 		},
 		formatters = {
+			glines = {
+				command = "golines",
+				args = { "-m", "120", "--base-formatter", "gofmt" },
+				stdin = true,
+			},
 			gotgtfmt = {
 				command = "gotgtfmt",
 				stdin = false,

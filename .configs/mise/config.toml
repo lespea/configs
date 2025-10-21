@@ -5,6 +5,7 @@
 "aqua:dprint/dprint" = "latest"
 "aqua:gradle/gradle" = "8"
 "aqua:pnpm/pnpm" = "latest"
+"aqua:rust-lang/rust-analyzer" = "latest"
 "aqua:skaji/relocatable-perl" = "latest"
 "aqua:tamasfe/taplo" = "latest"
 "asdf:mise-plugins/mise-gcloud" = "latest"

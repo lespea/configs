@@ -11,9 +11,14 @@ return {
 	lazy = true,
 	cmd = { "Outline", "OutlineOpen" },
 	keys = { -- Example mapping to toggle outline
-		{ "<leader>so", "<cmd>Outline<CR>", desc = "Toggle outline" },
+		{ "<leader>so", "<cmd>OutlineFollow<CR>", desc = "Toggle outline" },
 	},
 	opts = {
-		-- Your setup opts here
+		outline_window = {
+			focus_on_open = false,
+		},
+		preview_window = {
+			auto_preview = true,
+		},
 	},
 }

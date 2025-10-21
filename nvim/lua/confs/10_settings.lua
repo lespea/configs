@@ -62,6 +62,7 @@ opt.termguicolors = true -- Enable 24-bit RGB colors
 opt.showmatch = true -- show matching brackets
 opt.scrolloff = 3 -- always show 3 rows from edge of the screen
 opt.laststatus = 3 -- always show status line
+opt.splitkeep = "screen"
 
 opt.startofline = true -- Move cursor to "start" of each line
 opt.wrap = false -- Do not wrap lines even if very long

@@ -85,7 +85,6 @@ autocmd("Filetype", {
 		local root_dir = lspconfig.util.root_pattern(unpack(root_patterns))(vim.fn.expand("%:p"))
 
 		require("neo-tree.command").execute({ action = "show", dir = root_dir })
-
 		vim.cmd("OutlineOpen!")
 	end,
 })

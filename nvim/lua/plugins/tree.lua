@@ -363,16 +363,8 @@ return {
 				{ event = events.FILE_RENAMED, handler = on_move },
 			})
 
-			local ntc = require("neo-tree.command")
-			local toggle = function()
-				local lspconfig = require("lspconfig")
-				local root_patterns = { ".git" }
-				local root_dir = lspconfig.util.root_pattern(unpack(root_patterns))(vim.fn.expand("%:p"))
-
-				ntc.execute({ toggle = true, dir = root_dir })
-			end
-			vim.keymap.set({ "n" }, "\\", toggle)
-			vim.keymap.set({ "n" }, ",tt", toggle)
+			vim.keymap.set({ "n" }, "\\", "<cmd>:Neotree<cr>")
+			vim.keymap.set({ "n" }, ",tt", "<cmd>:Neotree<cr>")
 
 			require("neo-tree").setup(opts)
 		end,

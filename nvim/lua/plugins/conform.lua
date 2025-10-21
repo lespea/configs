@@ -61,7 +61,8 @@ return {
 			handlebars = pr,
 			-- custom
 			go = function(bufnr)
-				return { first(bufnr, "gotgtfmt", "gofumpt", "gofmt"), "glines" }
+				-- return { first(bufnr, "gotgtfmt", "gofumpt", "gofmt"), "glines" }
+				return { first(bufnr, "gotgtfmt", "gofumpt", "gofmt") }
 			end,
 			-- all
 			-- ["*"] = { "codespell" },

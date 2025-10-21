@@ -78,15 +78,29 @@ return {
 			set({ "n", "t" }, key, rightTerm)
 		end
 
-		-- vim.api.nvim_create_autocmd("TermOpen", {
-		--  pattern = "*",
-		--  callback = function()
-		--    local term_title = vim.b.term_title
-		--    if term_title and term_title:match("lazygit") then
-		--      -- Create lazygit specific mappings
-		--      vim.keymap.set("t", "q", "<cmd>close<cr>", { buffer = true })
-		--    end
-		--  end,
-		-- })
+		set({ "n" }, "<leader>rf", function()
+			if termRight:is_open() then
+				termRight:send("project fpFinder;run", true)
+			end
+		end, { desc = "run fpFinder" })
+
+		set({ "n" }, "<leader>rg", function()
+			if termRight:is_open() then
+				termRight:send("project genLists;run;project fpFinder", true)
+
+				local delay = 3000
+
+				vim.defer_fn(function()
+					if not termFloat:is_open() then
+						termFloat:toggle()
+					end
+					termFloat:send("just alln", false)
+				end, delay)
+
+				vim.defer_fn(function()
+					lazygit:toggle()
+				end, delay + 10000)
+			end
+		end, { desc = "run gen rules" })
 	end,
 }

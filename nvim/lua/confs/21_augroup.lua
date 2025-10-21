@@ -58,8 +58,10 @@ autocmd("Filetype", {
 	command = "setlocal shiftwidth=2 tabstop=2",
 })
 
+augroup("setupEdgy", { clear = true })
 autocmd("Filetype", {
-	group = "setIndent",
+	group = "setupEdgy",
+	once = true,
 	pattern = {
 		"css",
 		"go",
@@ -77,5 +79,8 @@ autocmd("Filetype", {
 		"xml",
 		"yaml",
 	},
-	command = "OutlineOpen!",
+	callback = function()
+		vim.cmd("Neotree")
+		vim.cmd("OutlineOpen!")
+	end,
 })

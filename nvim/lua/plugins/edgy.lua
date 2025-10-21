@@ -1,11 +1,21 @@
 return {
 	"folke/edgy.nvim",
 	event = "VeryLazy",
+	dependencies = {
+		"folke/noice.nvim",
+	},
 	init = function()
 		vim.opt.laststatus = 3
 		vim.opt.splitkeep = "screen"
 	end,
 	opts = {
+		options = {
+			left = { size = 40 },
+			right = { size = 0.36 },
+		},
+		animate = {
+			spinner = require("noice.util.spinners").spinners.circleFull,
+		},
 		keys = {
 			["<c-s-h>"] = function(win)
 				win:resize("width", -5)
@@ -15,15 +25,6 @@ return {
 			end,
 		},
 		bottom = {
-			-- toggleterm / lazyterm at the bottom with a height of 40% of the screen
-			{
-				ft = "lazyterm",
-				title = "LazyTerm",
-				size = { height = 0.4 },
-				filter = function(buf)
-					return not vim.b[buf].lazyterm_cmd
-				end,
-			},
 			"Trouble",
 			{ ft = "qf", title = "QuickFix" },
 			{
@@ -47,26 +48,6 @@ return {
 				size = { height = 0.5 },
 			},
 			{
-				title = "Neo-Tree Git",
-				ft = "neo-tree",
-				filter = function(buf)
-					return vim.b[buf].neo_tree_source == "git_status"
-				end,
-				pinned = true,
-				collapsed = true, -- show window as closed/collapsed on start
-				open = "Neotree position=right git_status",
-			},
-			{
-				title = "Neo-Tree Buffers",
-				ft = "neo-tree",
-				filter = function(buf)
-					return vim.b[buf].neo_tree_source == "buffers"
-				end,
-				pinned = true,
-				collapsed = true, -- show window as closed/collapsed on start
-				open = "Neotree position=top buffers",
-			},
-			{
 				title = function()
 					local buf_name = vim.api.nvim_buf_get_name(0) or "[No Name]"
 					return vim.fn.fnamemodify(buf_name, ":t")
@@ -86,14 +67,10 @@ return {
 				filter = function(buf, win)
 					return vim.api.nvim_win_get_config(win).relative == ""
 				end,
-				size = { width = 0.35 },
 			},
 			{
 				ft = "codecompanion",
-				-- pinned = false,
-				-- collapsed = false,
-				-- open = "CodeCopmanion",
-				size = { width = 0.35, height = 0.5 },
+				pinned = true,
 			},
 		},
 	},

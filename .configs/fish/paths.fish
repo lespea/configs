@@ -7,7 +7,6 @@ if set -q IS_ARCH
         "$HOME/.local/share/coursier/bin" \
         /usr/lib/ccache/bin \
         "$HOME/go/bin" \
-        "$PNPM_HOME" \
         "$HOME/bin"
 else
 end

@@ -1,6 +1,7 @@
 [formatting]
 alignEntries = true
 arrayAutoCollapse = false
+column_width = 120
 reorderArrays = true
 reorderInlineTables = true
 reorderKeys = true

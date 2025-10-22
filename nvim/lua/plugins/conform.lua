@@ -73,6 +73,7 @@ return {
 		},
 		-- Set up format-on-save
 		format_on_save = {
+			async = false,
 			lsp_format = "fallback",
 			timeout_ms = 5000,
 		},
@@ -84,6 +85,7 @@ return {
 			},
 			gotgtfmt = {
 				command = "gotgtfmt",
+				args = { "$FILENAME" },
 				stdin = false,
 			},
 		},

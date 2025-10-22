@@ -27,7 +27,7 @@ disable = [
     "jetbrains_toolbox",
     "lensfun",
     "microsoft_store",
-    "npm",
+    "node",
     "pip3",
     "pnpm",
     "powershell",

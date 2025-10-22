@@ -18,6 +18,7 @@ disable = [
     "bun",
     "bun_packages",
     "cargo",
+    "certbot",
     "containers",
     "dotnet",
     "emacs",

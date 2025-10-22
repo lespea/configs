@@ -61,7 +61,7 @@ return {
 			handlebars = pr,
 			-- custom
 			go = function(bufnr)
-				-- return { first(bufnr, "gotgtfmt", "gofumpt", "gofmt"), "glines" }
+				-- return { first(bufnr, "gotgtfmt", "gofumpt", "gofmt"), "golines" }
 				return { first(bufnr, "gotgtfmt", "gofumpt", "gofmt") }
 			end,
 			-- all
@@ -78,11 +78,6 @@ return {
 			timeout_ms = 5000,
 		},
 		formatters = {
-			glines = {
-				command = "golines",
-				args = { "-m", "120", "--base-formatter", "gofmt" },
-				stdin = true,
-			},
 			gotgtfmt = {
 				command = "gotgtfmt",
 				args = { "$FILENAME" },
@@ -95,7 +90,7 @@ return {
 		vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 		local c = require("conform")
 		c.formatters.golines = {
-			append_args = { "-m", "120" },
+			append_args = { "-m", "120", "--base-formatter", "gofmt" },
 		}
 		c.formatters.prettier = {
 			append_args = { "--print-width", "120" },

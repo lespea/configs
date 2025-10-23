@@ -8,6 +8,16 @@ return {
 		vim.opt.laststatus = 3
 		vim.opt.splitkeep = "screen"
 	end,
+	keys = {
+		-- TODO -- impl something that smartly closes and reopens?
+		-- {
+		--  "<leader>el",
+		--  function()
+		--    require("edgy").toggle("left")
+		--  end,
+		--  { mode = "n", desc = "Toggle Edgy Left" },
+		-- },
+	},
 	opts = {
 		options = {
 			left = { size = 40 },
@@ -17,10 +27,10 @@ return {
 			spinner = require("noice.util.spinners").spinners.circleFull,
 		},
 		keys = {
-			["<c-s-h>"] = function(win)
+			["<C-S-o>"] = function(win)
 				win:resize("width", -5)
 			end,
-			["<c-s-l>"] = function(win)
+			["<C-S-p>"] = function(win)
 				win:resize("width", 5)
 			end,
 		},
@@ -55,7 +65,7 @@ return {
 				ft = "Outline",
 				pinned = true,
 				collapsed = false,
-				open = "SymbolsOutlineOpen",
+				-- open = "SymbolsOutlineOpen",
 			},
 			-- any other neo-tree windows
 			"neo-tree",

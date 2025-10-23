@@ -82,17 +82,35 @@ return {
 			set({ "n", "t" }, key, rightTerm)
 		end
 
+		set({ "n" }, "<leader>tc", function()
+			if termRight:is_open() then
+				termRight:send("", true)
+			end
+		end, { desc = "clear terminal" })
+
 		set({ "n" }, "<leader>rf", function()
 			if termRight:is_open() then
 				termRight:send(clearAndRun("project fpFinder;run"), true)
 			end
 		end, { desc = "run fpFinder" })
 
-		set({ "n" }, "<leader>tc", function()
+		set({ "n" }, "<leader>rl", function()
 			if termRight:is_open() then
-				termRight:send("", true)
+				termRight:send(clearAndRun("\x1b[A"), true)
 			end
-		end, { desc = "run fpFinder" })
+		end, { desc = "run last cmd" })
+
+		set({ "n" }, "<leader>rj", function()
+			if termRight:is_open() then
+				termRight:send(clearAndRun("just"), true)
+			end
+		end, { desc = "run just" })
+
+		set({ "n" }, "<leader>ri", function()
+			if termRight:is_open() then
+				termRight:send(clearAndRun("just lint"), true)
+			end
+		end, { desc = "run just lint" })
 
 		set({ "n" }, "<leader>rg", function()
 			if termRight:is_open() then
@@ -112,5 +130,13 @@ return {
 				end, delay + 11000)
 			end
 		end, { desc = "run gen rules" })
+
+		set({ "n" }, "<leader>rs", function()
+			if not termRight:is_open() then
+				termRight:open()
+			end
+
+			termRight:send(clearAndRun("sbt"), true)
+		end, { desc = "run sbt" })
 	end,
 }

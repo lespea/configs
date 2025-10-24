@@ -487,14 +487,14 @@ return {
 					},
 					git = {
 						builtin = false, -- use Neovim for previewing git output (true) or use git (false)
-						args = { "dt" }, -- additional arguments passed to the git command. Useful to set pager options using `-c ...`
+						args = { "-c", "diff.external=difft" }, -- additional arguments passed to the git command. Useful to set pager options using `-c ...`
 					},
 					file = {
 						max_size = 1024 * 1024, -- 1MB
 						max_line_length = 500, -- max line length
 						ft = nil, ---@type string? filetype for highlighting. Use `nil` for auto detect
 					},
-					man_pager = nil, ---@type string? MANPAGER env to use for `man` preview
+					-- man_pager = nil, ---@type string? MANPAGER env to use for `man` preview
 				},
 				---@diagnostic disable-next-line: missing-fields
 				icons = {

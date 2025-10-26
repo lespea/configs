@@ -289,20 +289,6 @@ return {
 			color = { fg = colors.red, bg = colors.bg_dark, gui = "italic,bold" },
 		}
 
-		local dia = {
-			"diagnostics",
-			sources = { "nvim_diagnostic" },
-			symbols = { error = " ", warn = " ", info = " ", hint = " " },
-			diagnostics_color = {
-				error = { fg = colors.red },
-				warn = { fg = colors.yellow },
-				info = { fg = colors.purple },
-				hint = { fg = colors.cyan },
-			},
-			color = { bg = colors.gray2, fg = colors.blue, gui = "bold" },
-			separator = { left = "" },
-		}
-
 		local lsp = {
 			function()
 				return getLspName()
@@ -323,11 +309,12 @@ return {
 				lualine_x = {
 					"%b/0x%B",
 					"encoding",
-					{ "fileformat", icons_enabled = false },
+					-- { "fileformat", icons_enabled = false },
 					"filetype",
 				},
-				lualine_y = { "progress", macro },
-				lualine_z = { cursor_line, cursor_col, "selectioncount", dia, lsp },
+				lualine_y = { macro },
+				lualine_z = { cursor_line, cursor_col, "selectioncount", lsp },
+				-- lualine_z = { cursor_line, cursor_col, "selectioncount", dia, lsp },
 			},
 			inactive_sections = {
 				lualine_a = {},
@@ -338,7 +325,7 @@ return {
 				lualine_z = {},
 			},
 			tabline = {},
-			extensions = { "fzf", "lazy", "man", "trouble" },
+			extensions = { "trouble" },
 		})
 	end,
 }

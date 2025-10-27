@@ -377,16 +377,14 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("mdcat"),
         PkgInfo("miniserve"),
         PkgInfo("nickel-lang-cli", high_priority=True),
-        PkgInfo("nu", locked=True),
         PkgInfo("onefetch"),
         PkgInfo("ouch"),
         PkgInfo("procs"),
         PkgInfo("ptail"),
-        PkgInfo("ripgrep", features=["pcre2"], extras=["--profile" , "release-lto"]),
+        PkgInfo("ripgrep", features=["pcre2"], extras=["--profile", "release-lto"]),
         PkgInfo("ripgrep_all"),
         PkgInfo("sd"),
         PkgInfo("simple-http-server"),
-        PkgInfo("starship", high_priority=True),
         PkgInfo("stylua"),
         PkgInfo("tokei", features=["all"]),
         PkgInfo("trippy"),
@@ -412,7 +410,9 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
 
     win_pkgs = [
         PkgInfo("czkawka_cli", high_priority=True),
+        PkgInfo("nu", locked=True),
         PkgInfo("pueue"),
+        PkgInfo("starship", high_priority=True),
     ]
 
     gui_pkgs = [

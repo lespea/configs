@@ -35,7 +35,8 @@ return {
 
 			opts.keymap = {
 				preset = "super-tab",
-				["<CR>"] = { "accept", "fallback" },
+				-- ["<CR>"] = { "accept", "fallback" },
+				["<CR>"] = { "fallback" },
 				["<C-f>"] = { "scroll_documentation_up", "fallback" },
 				["<C-d>"] = { "scroll_documentation_down", "fallback" },
 				["<C-l>"] = { "fallback_to_mappings" },
@@ -67,7 +68,12 @@ return {
 				ls.change_choice(-1)
 			end, { desc = "prev choice" })
 
-			vim.keymap.set({ "i", "s" }, "<C-o>", require("luasnip.extras.select_choice"), { desc = "Select snippet choice" })
+			vim.keymap.set(
+				{ "i", "s" },
+				"<C-o>",
+				require("luasnip.extras.select_choice"),
+				{ desc = "Select snippet choice" }
+			)
 
 			vim.keymap.set({ "i", "s" }, "<c-space>", function()
 				if ls.expand_or_jumpable() then

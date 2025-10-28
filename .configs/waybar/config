@@ -3,10 +3,10 @@
     "position": "bottom",
     "height": 30,
     "modules-left": [
-        "hyprland/workspaces",
+        "sway/workspaces",
     ],
     "modules-center": [
-        "hyprland/window"
+        "sway/window"
     ],
     "modules-right": [
         "idle_inhibitor",
@@ -36,7 +36,7 @@
             "unlocked": ""
         }
     },
-    "hyprland/window": {
+    "sway/window": {
         "separate-outputs": true,
     },
     "idle_inhibitor": {

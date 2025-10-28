@@ -14,7 +14,8 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term kitty -1
+#set $term kitty -1
+set $term foot
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -59,9 +60,9 @@ set $menu wofi -dIeMG -S drun
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 
-input "1133:49970:Logitech_Gaming_Mouse_G502_Keyboard" {
-    xkb_numlock enabled
-}
+# input "1133:49970:Logitech_Gaming_Mouse_G502_Keyboard" {
+#     xkb_numlock enabled
+# }
 
 ### Key bindings
 #
@@ -72,6 +73,7 @@ input "1133:49970:Logitech_Gaming_Mouse_G502_Keyboard" {
 
     # Kill focused window
     bindsym $mod+Shift+q kill
+    bindsym $mod+Shift+s systemctl --user start steam
 
     # Start your launcher
     bindsym $mod+d exec $menu
@@ -242,48 +244,29 @@ for_window [window_type="menu"] floating enable
 
 default_border none
 
-bindsym $mod+Shift+f exec --no-startup-id firefox-developer-edition
-bindsym $mod+Shift+p exec --no-startup-id "firefox-developer-edition --private-window"
-bindsym $mod+Shift+s exec --no-startup-id 'grim -g "$(slurp)" - | wl-copy'
-
-bindsym Control+Alt+Shift+f exec --no-startup-id "$HOME/.factorio/run.sh"
-
-bindsym Control+Alt+Shift+s exec --no-startup-id 'swaylock -c 3f3f3f &!;systemctl suspend'
-bindsym Control+Alt+Shift+l exec --no-startup-id 'swaylock -c 3f3f3f'
+# bindsym $mod+Shift+f exec --no-startup-id firefox-developer-edition
+# bindsym $mod+Shift+p exec --no-startup-id "firefox-developer-edition --private-window"
+# bindsym $mod+Shift+s exec --no-startup-id 'grim -g "$(slurp)" - | wl-copy'
+#
+# bindsym Control+Alt+Shift+f exec --no-startup-id "$HOME/.factorio/run.sh"
+#
+# bindsym Control+Alt+Shift+s exec --no-startup-id 'swaylock -c 3f3f3f &!;systemctl suspend'
+# bindsym Control+Alt+Shift+l exec --no-startup-id 'swaylock -c 3f3f3f'
 
 include /etc/sway/config.d/*
 
 seat seat0 xcursor_theme whiteglass 28
 
-output 'Unknown MAG274QRF-QD CA8A292300550' {
-    mode 2560x1440@143.855HZ
-    adaptive_sync on
-}
-
-output 'Acer Technologies XV273K 0x0000FF49' {
+output 'Acer Technologies XV273K 0x84601B49' {
     pos 0 0
-    mode 3840x2160@59.997Hz
-    #mode 3840x2160@119.910Hz
+    mode 3840x2160@119.910Hz
     adaptive_sync on
-    scale 1.4
-}
-
-output 'Goldstar Company Ltd LG Ultra HD 0x0000AF20' {
-    pos 2742 0
-    mode 3840x2160@59.997Hz
-    adaptive_sync on
-    scale 1.4
+    scale 1.5
 }
 
 output 'LG Electronics LG Ultra HD 0x0000AF20' {
-    pos 2742 0
+    pos 2560 0
     mode 3840x2160@59.997Hz
     adaptive_sync on
-    scale 1.4
+    scale 2
 }
-
-exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-
-exec --no-startup-id displaycal-apply-profiles
-exec --no-startup-id mako
-exec --no-startup-id wpaperd

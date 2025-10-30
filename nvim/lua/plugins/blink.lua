@@ -35,8 +35,8 @@ return {
 
 			opts.keymap = {
 				preset = "super-tab",
-				-- ["<CR>"] = { "accept", "fallback" },
-				["<CR>"] = { "fallback" },
+				["<CR>"] = { "accept", "fallback" },
+				-- ["<CR>"] = { "fallback" },
 				["<C-f>"] = { "scroll_documentation_up", "fallback" },
 				["<C-d>"] = { "scroll_documentation_down", "fallback" },
 				["<C-l>"] = { "fallback_to_mappings" },

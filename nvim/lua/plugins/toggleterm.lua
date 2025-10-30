@@ -127,7 +127,7 @@ return {
 
 				vim.defer_fn(function()
 					lazygit:toggle()
-				end, delay + 11000)
+				end, delay + 15000)
 			end
 		end, { desc = "run gen rules" })
 

@@ -68,6 +68,8 @@ set -Ux XDG_MUSIC_DIR "$HOME/Music"
 set -Ux XDG_PICTURES_DIR "$HOME/Pictures"
 set -Ux XDG_VIDEOS_DIR "$HOME/Videos"
 
+set -Ux GOPRIVATE "*.target.com"
+
 if set -q IS_ARCH
     # alias -s icat 'kitty +kitten icat'
     # alias -s kssh 'kitty +kitten ssh'

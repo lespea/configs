@@ -402,7 +402,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("mise"),
         PkgInfo("skim"),
         PkgInfo("systemd-lsp"),
-        PkgInfo("topgrade", high_priority=True),
+        # PkgInfo("topgrade", high_priority=True),
         PkgInfo("usage-cli"),
         PkgInfo("wasm-pack"),
         PkgInfo("xcp"),

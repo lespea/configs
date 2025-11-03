@@ -73,7 +73,7 @@ set $menu wofi -dIeMG -S drun
 
     # Kill focused window
     bindsym $mod+Shift+q kill
-    bindsym $mod+Shift+S exec uwsm-app steam-native
+    bindsym $mod+Shift+S exec systemctl --user start steam
 
     # Start your launcher
     bindsym $mod+d exec $menu

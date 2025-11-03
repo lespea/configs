@@ -63,21 +63,13 @@ autocmd("Filetype", {
 	group = "setupEdgy",
 	once = true,
 	pattern = {
-		"css",
 		"go",
-		"html",
 		"java",
 		"javascript",
-		"json",
 		"lua",
-		"md",
 		"rust",
 		"scala",
-		"scss",
 		"typescript",
-		"xhtml",
-		"xml",
-		"yaml",
 	},
 	callback = function()
 		vim.defer_fn(function()

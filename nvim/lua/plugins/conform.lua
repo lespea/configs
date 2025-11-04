@@ -12,7 +12,7 @@ local function first(bufnr, ...)
 	return select(1, ...)
 end
 
-local pr = { "prettierd", "prettier", stop_after_first = true }
+local pr = { "prettier", stop_after_first = true }
 
 return {
 	"stevearc/conform.nvim",

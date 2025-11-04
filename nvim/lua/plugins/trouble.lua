@@ -1,9 +1,24 @@
 return {
 	"folke/trouble.nvim",
 	opts = {},
+	cmd = "Trouble",
 	init = function()
 		local t = require("trouble")
 		local set = vim.keymap.set
+
+		t.setup({
+			auto_close = true,
+			auto_jump = true,
+			cycle_results = true,
+			follow = false,
+		})
+
+		local movOpts = {
+			cycle_results = true,
+			jump = true,
+			mode = "lsp_references",
+			skip_groups = true,
+		}
 
 		set("n", "<leader>xx", function()
 			t.toggle()
@@ -26,10 +41,10 @@ return {
 		end, { desc = "LSP references" })
 
 		set("n", "<C-S-j>", function()
-			t.next({ skip_groups = true, jump = true })
+			t.next(movOpts)
 		end, { desc = "Next trouble item" })
 		set("n", "<C-S-k>", function()
-			t.previous({ skip_groups = true, jump = true })
+			t.prev(movOpts)
 		end, { desc = "Previous trouble item" })
 	end,
 }

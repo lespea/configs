@@ -22,6 +22,7 @@ return {
 		options = {
 			left = { size = 40 },
 			right = { size = 0.36 },
+			bottom = { size = { height = 10 } },
 		},
 		animate = {
 			spinner = require("noice.util.spinners").spinners.circleFull,
@@ -39,7 +40,7 @@ return {
 			{ ft = "qf", title = "QuickFix" },
 			{
 				ft = "help",
-				size = { height = 10 },
+				size = { height = 0.25 },
 				-- only show help buffers
 				filter = function(buf)
 					return vim.bo[buf].buftype == "help"

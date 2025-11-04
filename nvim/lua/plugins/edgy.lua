@@ -22,7 +22,6 @@ return {
 		options = {
 			left = { size = 40 },
 			right = { size = 0.36 },
-			bottom = { size = { height = 10 } },
 		},
 		animate = {
 			spinner = require("noice.util.spinners").spinners.circleFull,
@@ -37,7 +36,7 @@ return {
 		},
 		bottom = {
 			"Trouble",
-			{ ft = "qf", title = "QuickFix" },
+			{ ft = "qf", title = "QuickFix", size = { height = 10 } },
 			{
 				ft = "help",
 				size = { height = 0.25 },

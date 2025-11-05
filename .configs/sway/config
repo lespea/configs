@@ -275,3 +275,5 @@ bindsym $mod+Shift+S exec --no-startup-id systemctl --user start steam
 include /etc/sway/config.d/*
 
 seat seat0 xcursor_theme whiteglass 28
+
+exec --no-startup-id systemctl --user start steam

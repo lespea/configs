@@ -5,19 +5,48 @@ return {
 		version = "2.*",
 		config = function()
 			require("window-picker").setup({
+				hint = "floating-big-letter",
 				filter_rules = {
 					include_current_win = false,
 					autoselect_one = true,
 					-- filter using buffer options
 					bo = {
 						-- if the file type is one of following, the window will be ignored
-						filetype = { "NvimTree", "neo-tree", "neo-tree-popup", "notify", "snacks_notif" },
+						filetype = { "neo-tree", "neo-tree-popup", "notify", "snacks_notif" },
 						-- if the buffer type is one of following, the window will be ignored
 						buftype = { "terminal", "quickfix" },
 					},
 				},
 			})
 		end,
+		keys = {
+			{
+				"<leader>fw",
+				function()
+					local id = require("window-picker").pick_window({
+						filter_rules = {
+							include_current_win = true,
+							bo = {
+								-- if the file type is one of following, the window will be ignored
+								filetype = {
+									-- "neo-tree",
+									-- "neo-tree-popup",
+									"notify",
+									"snacks_notif",
+								},
+								-- if the buffer type is one of following, the window will be ignored
+								buftype = {
+									-- "terminal",
+									-- "quickfix",
+								},
+							},
+						},
+					})
+					vim.api.nvim_set_current_win(id)
+				end,
+				desc = "Choose window",
+			},
+		},
 	},
 	{
 		"antosha417/nvim-lsp-file-operations",

@@ -36,9 +36,9 @@ return {
 			vim.lsp.enable("fish_lsp")
 
 			-- normal
+			vim.lsp.enable("biome")
 			vim.lsp.enable("docker_language_server")
 			vim.lsp.enable("dprint")
-			vim.lsp.enable("eslint")
 			vim.lsp.enable("golangci_lint_ls")
 			vim.lsp.enable("html")
 			vim.lsp.enable("just")

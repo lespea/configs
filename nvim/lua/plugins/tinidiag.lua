@@ -1,16 +1,14 @@
 return {
 	"rachartier/tiny-inline-diagnostic.nvim",
-	lazy = false,
+	event = "VeryLazy",
 	priority = 1000,
 	config = function()
 		require("tiny-inline-diagnostic").setup({
 			preset = "powerline",
 			options = {
 				set_arrow_to_diag_color = true,
-				show_all_diags_on_cursorline = true,
 
 				show_sources = {
-					enabled = true,
 					if_many = true,
 				},
 				add_messages = {
@@ -18,6 +16,8 @@ return {
 				},
 				multilines = {
 					enabled = true,
+					always_show = true,
+					trim_whitespace = true,
 				},
 				break_line = {
 					enabled = false, -- Enable automatic line breaking

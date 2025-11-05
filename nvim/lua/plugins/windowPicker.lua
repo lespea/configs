@@ -19,7 +19,9 @@ local function pickWin()
 		},
 	})
 
-	vim.api.nvim_set_current_win(id)
+	if id ~= nil then
+		vim.api.nvim_set_current_win(id)
+	end
 end
 
 return {

@@ -71,12 +71,7 @@ return {
 
 				incremental_selection = {
 					enable = true,
-					keymaps = {
-						init_selection = "gnn", -- set to `false` to disable one of the mappings
-						node_incremental = "<C-s>", -- Alt+s (increment)
-						scope_incremental = "grc",
-						node_decremental = "<C-d>", -- Alt+Shift+s (decrement)
-					},
+					keymaps = {},
 				},
 
 				refactor = {
@@ -132,6 +127,65 @@ return {
 					},
 				},
 			})
+
+			-- Auto-initializing wrapper keymaps for incremental selection
+			-- Call the treesitter functions directly
+
+			-- Node increment/decrement (M-s / M-S)
+			vim.keymap.set({ "n", "x" }, "<M-s>", function()
+				local ts_incremental = require("nvim-treesitter.incremental_selection")
+				local mode = vim.fn.mode()
+
+				if mode == "n" then
+					-- Normal mode: init then increment
+					ts_incremental.init_selection()
+					ts_incremental.node_incremental()
+				else
+					-- Visual mode: just increment
+					ts_incremental.node_incremental()
+				end
+			end, { desc = "Increment treesitter node selection" })
+
+			vim.keymap.set({ "n", "x" }, "<M-S>", function()
+				local ts_incremental = require("nvim-treesitter.incremental_selection")
+				local mode = vim.fn.mode()
+
+				if mode == "n" then
+					-- Normal mode: just init
+					ts_incremental.init_selection()
+				else
+					-- Visual mode: decrement
+					ts_incremental.node_decremental()
+				end
+			end, { desc = "Decrement treesitter node selection" })
+
+			-- Scope increment/decrement (M-d / M-D)
+			vim.keymap.set({ "n", "x" }, "<M-d>", function()
+				local ts_incremental = require("nvim-treesitter.incremental_selection")
+				local mode = vim.fn.mode()
+
+				if mode == "n" then
+					-- Normal mode: init then scope increment
+					ts_incremental.init_selection()
+					ts_incremental.scope_incremental()
+				else
+					-- Visual mode: just scope increment
+					ts_incremental.scope_incremental()
+				end
+			end, { desc = "Increment treesitter scope selection" })
+
+			vim.keymap.set({ "n", "x" }, "<M-D>", function()
+				local ts_incremental = require("nvim-treesitter.incremental_selection")
+				local mode = vim.fn.mode()
+
+				if mode == "n" then
+					-- Normal mode: just init
+					ts_incremental.init_selection()
+				else
+					-- Visual mode: this doesn't exist, so just do node decrement
+					ts_incremental.node_decremental()
+				end
+			end, { desc = "Decrement treesitter scope selection" })
 		end,
 	},
 	{

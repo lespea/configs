@@ -19,6 +19,7 @@ return {
 		-- },
 	},
 	opts = {
+		exit_when_last = true,
 		options = {
 			left = { size = 40 },
 			right = { size = 0.36 },

@@ -64,7 +64,6 @@ java = "temurin-25"
 # "go:github.com/noperator/jqfmt/cmd/jqfmt" = "latest"
 
 # Node tools
-"npm:@fsouza/prettierd" = "latest"
 "npm:@mermaid-js/mermaid-cli" = "latest"
 "npm:@tailwindcss/language-server" = "latest"
 "npm:mcp-hub" = "latest"

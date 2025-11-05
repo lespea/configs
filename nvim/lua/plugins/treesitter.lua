@@ -73,9 +73,9 @@ return {
 					enable = true,
 					keymaps = {
 						init_selection = "gnn", -- set to `false` to disable one of the mappings
-						node_incremental = "<C-S>",
+						node_incremental = "<C-s>", -- Alt+s (increment)
 						scope_incremental = "grc",
-						node_decremental = "<C-S-S>",
+						node_decremental = "<C-d>", -- Alt+Shift+s (decrement)
 					},
 				},
 

@@ -80,8 +80,6 @@ return {
 					ls.expand_or_jump()
 				end
 			end, { silent = true, desc = "expand snippet" })
-
-			vim.lsp.config("*", { capabilities = blink.get_lsp_capabilities({}, true) })
 		end,
 
 		---@module 'blink.cmp'

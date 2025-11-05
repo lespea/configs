@@ -28,7 +28,7 @@ local bufSettingsGrp = augroup("Settings", { clear = true })
 -- Check for updates
 autocmd("CursorHold", {
 	pattern = "*",
-	command = "checktim",
+	command = "checktime",
 	group = bufSettingsGrp,
 })
 

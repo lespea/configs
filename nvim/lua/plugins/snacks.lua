@@ -460,7 +460,7 @@ return {
 					{ section = "keys", gap = 1 },
 					{ section = "startup" },
 				},
-				animaget = { duration = { total = 250 } },
+				animate = { duration = { total = 250 } },
 			},
 			dim = { enabled = false },
 			explorer = { enabled = false },

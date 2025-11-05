@@ -86,6 +86,16 @@ return {
 						return
 					end
 
+					-- Set blink.cmp capabilities for this LSP client
+					local blink_ok, blink = pcall(require, "blink.cmp")
+					if blink_ok then
+						client.server_capabilities = vim.tbl_deep_extend(
+							"force",
+							client.server_capabilities,
+							blink.get_lsp_capabilities({}, true)
+						)
+					end
+
 					-- Disable by default since we can turn on when needed
 					vim.lsp.inlay_hint.enable(false)
 

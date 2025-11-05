@@ -26,6 +26,13 @@ return {
 		local termFloat = term:new({ hidden = true, direction = "float" })
 		local termRight = term:new({ hidden = true, direction = "vertical", newline_chr = "" })
 
+		-- Expose terminals globally for use in other configs (like edgy)
+		_G.my_terminals = {
+			lazygit = lazygit,
+			float = termFloat,
+			right = termRight,
+		}
+
 		local ui = require("toggleterm.ui")
 		local set = vim.keymap.set
 

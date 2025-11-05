@@ -142,7 +142,7 @@ return {
 			end,
 		},
 		bottom = {
-			"Trouble",
+			{ ft = "Trouble", size = { height = 0.25 } },
 			{ ft = "qf", title = "QuickFix", size = { height = 10 } },
 			{
 				ft = "help",
@@ -195,6 +195,10 @@ return {
 			},
 			{
 				ft = "codecompanion",
+				-- Exclude floating windows (like status popups)
+				filter = function(buf, win)
+					return vim.api.nvim_win_get_config(win).relative == ""
+				end,
 				open = function()
 					require("codecompanion").toggle()
 				end,

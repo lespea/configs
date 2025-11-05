@@ -190,7 +190,7 @@ end
 local venvs = os.getenv("nvim_venvs") or ""
 if venvs ~= "" then
 	g.python3_host_prog = venvs .. "/.venv/bin/python"
-	g.node_host_prog = venvs .. "/node_modules"
+	g.node_host_prog = venvs .. "/node_modules/neovim/bin/cli.js"
 else
 	g.loaded_python_provider = 0
 end

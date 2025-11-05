@@ -27,7 +27,11 @@ return {
 	},
 	{
 		"neovim/nvim-lspconfig",
+		dependencies = { "rachartier/tiny-inline-diagnostic.nvim" },
 		config = function()
+			-- Disable virtual text globally to prevent overlap with tiny-inline-diagnostic
+			vim.diagnostic.config({ virtual_text = false })
+
 			-- Manual!
 			vim.lsp.enable("fish_lsp")
 

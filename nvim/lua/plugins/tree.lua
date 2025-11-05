@@ -338,6 +338,20 @@ return {
 						vim.opt_local.relativenumber = true
 					end,
 				},
+				{
+					event = "file_added",
+					handler = function(destination)
+						local manager = require("neo-tree.sources.manager")
+						local utils = require("neo-tree.utils")
+						local uv = vim.loop
+						local file_info = uv.fs_stat(destination)
+						if file_info and file_info.type == "file" then
+							vim.schedule(function()
+								utils.open_file(manager.get_state_for_window(), destination)
+							end)
+						end
+					end,
+				},
 			},
 		},
 		config = function(_, opts)

@@ -68,7 +68,9 @@ autocmd("Filetype", {
 		"javascript",
 		"lua",
 		"rust",
+		"sbt",
 		"scala",
+		"templ",
 		"typescript",
 	},
 	callback = function()

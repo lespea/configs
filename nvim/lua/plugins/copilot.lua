@@ -121,23 +121,23 @@ return {
 				chat = {
 					adapter = {
 						name = "copilot",
-						-- model = "claude-sonnet-4.5",
-						model = "claude-sonnet-4",
+						model = "claude-sonnet-4.5",
+						-- model = "claude-sonnet-4",
 						-- model = "gemini-2.5-pro",
 					},
 					-- adapater = "copilot",
 					tools = {
-						["mcp"] = {
-							callback = function()
-								return require("mcphub.extensions.codecompanion")
-							end,
-							description = "Call tools and resources from the MCP servers",
-							opts = {
-								show_result_in_chat = true,
-								make_vars = true,
-								make_slash_commands = true,
-							},
-						},
+						-- ["mcp"] = {
+						--  callback = function()
+						--    return require("mcphub.extensions.codecompanion")
+						--  end,
+						--  description = "Call tools and resources from the MCP servers",
+						--  opts = {
+						--    show_result_in_chat = true,
+						--    make_vars = true,
+						--    make_slash_commands = true,
+						--  },
+						-- },
 					},
 				},
 				inline = {

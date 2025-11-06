@@ -12,7 +12,7 @@
 pre_sudo = false
 
 # Sudo command to be used
-sudo_command = "sudo-rs"
+sudo_command = "sudo"
 
 disable = [
     "bun",

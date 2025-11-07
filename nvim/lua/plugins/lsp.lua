@@ -102,6 +102,9 @@ return {
 					-- Disable by default since we can turn on when needed
 					vim.lsp.inlay_hint.enable(false)
 
+					-- Overkill but it keeps turning back on!
+					vim.diagnostic.config({ virtual_text = false })
+
 					-- quickly toggle inlay hints
 					vim.keymap.set({ "n", "x" }, "<C-i>", function()
 						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())

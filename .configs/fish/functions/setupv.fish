@@ -17,4 +17,5 @@ function setupv
 
     pnpm install -C $nvim_venvs neovim
     pnpm update -C $nvim_venvs -L
+    pnpm self-update -C $nvim_venvs
 end

@@ -4,13 +4,14 @@ function genBloop
         return 1
     end
 
-    echo "\
+    let -l conf '\
 // DO NOT EDIT! This file is auto-generated.
 
 // This file enables sbt-bloop to create bloop config files.
 
-addSbtPlugin(\"ch.epfl.scala\" % \"sbt-bloop\" % \"2.0.16\") \
-" >project/metals.sbt
+addSbtPlugin("ch.epfl.scala" % "sbt-bloop" % "2.0.17")
+'
+    echo $conf >project/metals.sbt
 
     if not rg -Fq .bloop .gitignore
         echo ".bloop" >>.gitignore

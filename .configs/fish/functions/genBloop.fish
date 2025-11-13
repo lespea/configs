@@ -4,7 +4,7 @@ function genBloop
         return 1
     end
 
-    let -l conf '\
+    set -l conf '
 // DO NOT EDIT! This file is auto-generated.
 
 // This file enables sbt-bloop to create bloop config files.

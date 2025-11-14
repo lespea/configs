@@ -1,15 +1,16 @@
 function tup
-    set -e GITHUB_API_TOKEN
-    set -l runo topgrade
+    set -l runTop topgrade
 
     if type -q mold
-        mold --run $runo
+        mold --run $runTop
     else
-        $runo
+        $runTop
     end
 
     # if topgrade fails bail out
-    # or return
+    or return
+
+    setupv
 
     echo -e "\nUpdating rust packages"
     "$HOME/configs/cpkgs.py" install -m

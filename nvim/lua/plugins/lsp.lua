@@ -15,16 +15,16 @@ return {
 			},
 		},
 	},
-	{
-		"onsails/diaglist.nvim",
-		keys = {
-			{
-				"<leader>dl",
-				"<cmd>lua require('diaglist').open_all_diagnostics()<cr>",
-				desc = "Toggle Diagnostics List",
-			},
-		},
-	},
+	-- {
+	-- 	"onsails/diaglist.nvim",
+	-- 	keys = {
+	-- 		{
+	-- 			"<leader>dl",
+	-- 			"<cmd>lua require('diaglist').open_all_diagnostics()<cr>",
+	-- 			desc = "Toggle Diagnostics List",
+	-- 		},
+	-- 	},
+	-- },
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {

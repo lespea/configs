@@ -8,7 +8,7 @@ function tup
     end
 
     # if topgrade fails bail out
-    or return
+    # or return
 
     setupv
 

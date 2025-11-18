@@ -72,16 +72,16 @@ return {
 			lsp_format = "fallback",
 		},
 		-- Set up format-on-save
-		format_on_save = {
-			async = false,
+		format_after_save = {
+			async = true,
 			lsp_format = "fallback",
 			timeout_ms = 5000,
 		},
 		formatters = {
 			gotgtfmt = {
 				command = "gotgtfmt",
-				args = { "$FILENAME" },
-				stdin = false,
+				args = { "-" },
+				stdin = true,
 			},
 		},
 	},

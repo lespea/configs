@@ -6,8 +6,6 @@ function setEnvs
 
     set -gx RIPGREP_CONFIG_PATH "$HOME/.ripgreprc"
 
-    set -gu PIP_NORM_PKGS colorama ipython pandas numpy httpie requests pyyaml exrex beautifulsoup4 lxml html5lib bs4
-
     if set -q XDG_CACHE_DIR
         set -gx nvim_venvs "$XDG_CACHE_HOME/nvim_venvs"
     else
@@ -105,6 +103,8 @@ function setupFish
 end
 
 if status is-interactive
+    hypr
+
     if set -q IS_MAC; and set -q brewpath
         $brewpath shellenv fish | source
     end
@@ -112,8 +112,6 @@ if status is-interactive
     setupFish
     setEnvs
     setAbbs
-
-    hypr
 
     runSources
 

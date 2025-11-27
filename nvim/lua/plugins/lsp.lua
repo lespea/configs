@@ -16,14 +16,14 @@ return {
 		},
 	},
 	-- {
-	-- 	"onsails/diaglist.nvim",
-	-- 	keys = {
-	-- 		{
-	-- 			"<leader>dl",
-	-- 			"<cmd>lua require('diaglist').open_all_diagnostics()<cr>",
-	-- 			desc = "Toggle Diagnostics List",
-	-- 		},
-	-- 	},
+	--  "onsails/diaglist.nvim",
+	--  keys = {
+	--    {
+	--      "<leader>dl",
+	--      "<cmd>lua require('diaglist').open_all_diagnostics()<cr>",
+	--      desc = "Toggle Diagnostics List",
+	--    },
+	--  },
 	-- },
 	{
 		"neovim/nvim-lspconfig",
@@ -41,9 +41,9 @@ return {
 			-- normal
 			vim.lsp.enable("biome")
 			vim.lsp.enable("docker_language_server")
-			vim.lsp.enable("dprint")
+			-- vim.lsp.enable("dprint")
 			vim.lsp.enable("golangci_lint_ls")
-			vim.lsp.enable("html")
+			-- vim.lsp.enable("html")
 			vim.lsp.enable("just")
 			vim.lsp.enable("lua_ls")
 			vim.lsp.enable("pyright")

@@ -69,6 +69,7 @@ function runSources
     act zoxide init fish
     act just --completions fish
     act rg --generate complete-fish
+    act fnox activate fish
 
     bind . expand-dot-to-parent-directory-path
 end

@@ -2,8 +2,6 @@ function setEnvs
     set -gax JAVA_OPTS '-Xmx16G -XX:MaxInlineLevel=21'
     set -gax SBT_OPTS '-Xss1M -XX:ReservedCodeCacheSize=512m -XX:+UseParallelGC'
 
-    set -gx BAT_THME OneHalfDark
-
     set -gx RIPGREP_CONFIG_PATH "$HOME/.ripgreprc"
 
     if set -q XDG_CACHE_DIR
@@ -66,10 +64,11 @@ function runSources
     end
 
     act atuin init fish --disable-up-arrow
-    act zoxide init fish
+    act bat --completion fish
+    act fnox activate fish
     act just --completions fish
     act rg --generate complete-fish
-    act fnox activate fish
+    act zoxide init fish
 
     bind . expand-dot-to-parent-directory-path
 end

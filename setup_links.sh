@@ -58,9 +58,9 @@ if [ ! -f ${HOME}/.gitconfig ]; then
     cp ${CUR_DIR}/myGitConfig ${HOME}/.gitconfig
 fi
 
-BOTH_DIRS="atuin fish ghostty kitty lazygit lsd mise starship.toml taplo topgrade.d zellij"
+BOTH_DIRS="bat atuin fish ghostty kitty lazygit lsd mise starship.toml taplo topgrade.d zellij"
 
-if [[ `uname` == "Darwin" ]]; then
+if [[ $(uname) == "Darwin" ]]; then
     CONF_DIRS="$BOTH_DIRS"
 
     # setup_link "${CUR_DIR}/macZsh" "${HOME}/.zshrc"
@@ -85,4 +85,3 @@ setup_link "${CUR_DIR}/nvim" "${HOME}/.config/nvim"
 for dir in $CONF_DIRS; do
     setup_link "$CUR_DIR/.configs/$dir" "$HOME/.config/$dir"
 done
-

@@ -82,6 +82,7 @@ return {
 			},
 		},
 		opts = {
+			ignore_warnings = true,
 			-- extensions = {
 			--  mcphub = {
 			--    callback = "mcphub.extensions.codecompanion",

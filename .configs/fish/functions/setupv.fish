@@ -15,7 +15,6 @@ function setupv
 
     uv add --directory $nvim_venvs -U --resolution highest --reinstall --refresh --compile-bytecode $packages
 
-    pnpm install -C $nvim_venvs neovim
-    pnpm update -C $nvim_venvs -L
-    pnpm self-update -C $nvim_venvs
+    bun install --cwd $nvim_venvs --no-save neovim
+    bun update --cwd $nvim_venvs -f --latest --no-save
 end

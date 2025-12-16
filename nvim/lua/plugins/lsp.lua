@@ -40,13 +40,13 @@ return {
 
 			-- normal
 			vim.lsp.enable("biome")
+			vim.lsp.enable("buf_ls")
 			vim.lsp.enable("docker_language_server")
 			-- vim.lsp.enable("dprint")
 			vim.lsp.enable("golangci_lint_ls")
 			-- vim.lsp.enable("html")
 			vim.lsp.enable("just")
 			vim.lsp.enable("lua_ls")
-			vim.lsp.enable("protols")
 			vim.lsp.enable("pyright")
 			vim.lsp.enable("ruff")
 			vim.lsp.enable("rust_analyzer")

@@ -400,6 +400,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("gitui", locked=True),
         PkgInfo("jless"),
         PkgInfo("mise"),
+        PkgInfo("protols"),
         PkgInfo("skim"),
         PkgInfo("systemd-lsp"),
         # PkgInfo("topgrade", high_priority=True),

@@ -4,9 +4,10 @@
     "height": 30,
     "modules-left": [
         "sway/workspaces",
+        "hyprland/workspaces",
     ],
     "modules-center": [
-        "sway/window"
+        "hyprland/window"
     ],
     "modules-right": [
         "idle_inhibitor",
@@ -47,7 +48,7 @@
         }
     },
     "tray": {
-        // "icon-size": 21,
+        "icon-size": 20,
         "spacing": 10
     },
     "clock": {

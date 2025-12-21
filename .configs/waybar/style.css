@@ -88,7 +88,8 @@ button:hover {
 #idle_inhibitor,
 #scratchpad,
 #power-profiles-daemon,
-#mpd {
+#mpd,
+#mpris {
   padding: 0 10px;
   color: #ffffff;
 }
@@ -244,20 +245,24 @@ label:focus {
   color: #2d3436;
 }
 
-#mpd {
+#mpd,
+#mpris {
   background-color: #66cc99;
   color: #2a5c45;
 }
 
-#mpd.disconnected {
+#mpd.disconnected,
+#mpris.disconnected {
   background-color: #f53c3c;
 }
 
-#mpd.stopped {
+#mpd.stopped,
+#mpris.stopped {
   background-color: #90b1b1;
 }
 
-#mpd.paused {
+#mpd.paused,
+#mpris.paused {
   background-color: #51a37a;
 }
 

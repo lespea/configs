@@ -62,7 +62,7 @@ return {
 				callback = function()
 					vim.bo.filetype = "systemd"
 					vim.lsp.start({
-						name = "systemd_ls",
+						name = "systemd_lsp",
 						cmd = { "systemd-lsp" }, -- Update this path to your systemd-lsp binary
 						root_dir = vim.fn.getcwd(),
 					})

@@ -1,3 +1,15 @@
+local function moveWin(id, dir)
+	if not (id and vim.api.nvim_buf_is_valid(id)) then
+		return
+	end
+
+	local count = vim.v.count1
+
+	vim.api.nvim_buf_call(id, function()
+		vim.cmd(("normal! %d%szt"):format(count, dir))
+	end)
+end
+
 return {
 	"akinsho/toggleterm.nvim",
 	dependencies = {
@@ -35,6 +47,14 @@ return {
 
 		local ui = require("toggleterm.ui")
 		local set = vim.keymap.set
+
+		set("n", "<leader>pb", function()
+			moveWin(termRight.bufnr, "{")
+		end, { desc = "Scroll the right term back" })
+
+		set("n", "<leader>pf", function()
+			moveWin(termRight.bufnr, "}")
+		end, { desc = "Scroll the right term forward" })
 
 		for _, key in ipairs({ "<C-.>", "\\tt" }) do
 			set({ "n", "t" }, key, function()

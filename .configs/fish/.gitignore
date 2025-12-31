@@ -4,7 +4,7 @@ completions/
 functions/*
 
 /fishd.tmp.*
-/fish_variables.*
+/fish_variables*
 
 !functions/agebak.fish
 !functions/btrls.fish

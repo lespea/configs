@@ -14,7 +14,7 @@ set -Ux LS_COLORS "$($HOME/.cargo/bin/vivid generate one-dark)"
 
 set -Ux PNPM_HOME "$HOME/.local/share/pnpm"
 
-set -Ux fish_greeting ""
+set -U fish_greeting ""
 
 ##### Aliases
 
@@ -68,8 +68,6 @@ set -Ux XDG_MUSIC_DIR "$HOME/Music"
 set -Ux XDG_PICTURES_DIR "$HOME/Pictures"
 set -Ux XDG_VIDEOS_DIR "$HOME/Videos"
 
-set -Ux GOPRIVATE "*.target.com"
-
 if set -q IS_ARCH
     # alias -s icat 'kitty +kitten icat'
     # alias -s kssh 'kitty +kitten ssh'
@@ -81,7 +79,8 @@ if set -q IS_ARCH
     for dir in Desktop Documents Downloads Music Pictures Video
         mkdir -p "$HOME/$dir"
     end
-else
+else if set -q IS_MAC
+    set -Ux GOPRIVATE "*.target.com"
 end
 
 ./paths.fish

@@ -79,7 +79,11 @@ autocmd("Filetype", {
 			local root_patterns = { ".git" }
 			local root_dir = lspconfig.util.root_pattern(unpack(root_patterns))(vim.fn.expand("%:p"))
 
-			require("neo-tree.command").execute({ action = "show", dir = root_dir })
+			if not root_dir then
+				require("neo-tree.command").execute({ action = "show" })
+			else
+				require("neo-tree.command").execute({ action = "show", dir = root_dir })
+			end
 			vim.cmd("Outline")
 		end, 2000)
 	end,

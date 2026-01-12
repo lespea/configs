@@ -10,7 +10,7 @@ theme = Dark+
 
 background-opacity = 0.96
 
-scrollback-limit=2097152
+scrollback-limit=16777216
 copy-on-select = clipboard
 
 shell-integration-features = no-cursor,sudo,title,no-ssh-env,no-ssh-terminfo

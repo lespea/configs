@@ -12,7 +12,7 @@ return {
 				},
 			})
 
-			-- vim.cmd.colorscheme("oldworld")
+			vim.cmd.colorscheme("oldworld")
 
 			local c = require("oldworld.palette")
 

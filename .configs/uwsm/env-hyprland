@@ -1,2 +1,4 @@
-export HYPRCURSOR_THEME=whiteglass
+export HYPRCURSOR_THEME=Oxygen_Zion
+export XCURSOR_THEME=Oxygen_Zion
 export HYPRCURSOR_SIZE=24
+export XCURSOR_SIZE=24

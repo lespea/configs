@@ -12,6 +12,7 @@
 "asdf:mise-plugins/mise-gcloud" = "latest"
 "asdf:mise-plugins/mise-sbt" = "latest"
 "github:coursier/coursier" = "latest"
+"github:skim-rs/skim" = "latest"
 "vfox:mise-plugins/vfox-scala" = "latest"
 
 # "ubi:coursier/coursier[exe=cs]" = "latest"
@@ -47,24 +48,22 @@ java = "temurin-25"
 "aqua:mvdan/sh" = "latest"
 "aqua:rest-sh/restish" = "latest"
 "aqua:segmentio/golines" = "latest"
+"github:Zxilly/go-size-analyzer" = "latest"
+"github:a-h/templ" = "latest"
+"github:dmarkham/enumer" = "latest"
+"github:docker/docker-language-server" = "latest"
+"github:johnkerl/miller" = "latest"
+"github:marwan-at-work/mod" = "latest"
+"github:oligot/go-mod-upgrade" = "latest"
+"github:psampaz/go-mod-outdated" = "latest"
 
 # Go repos
-"go:github.com/Zxilly/go-size-analyzer/cmd/gsa" = "latest"
-"go:github.com/a-h/templ/cmd/templ" = "latest"
-"go:github.com/dmarkham/enumer" = "latest"
-"go:github.com/docker/docker-language-server/cmd/docker-language-server" = "latest"
 "go:github.com/golang/mock/mockgen" = "latest"
 "go:github.com/icholy/gomajor" = "latest"
-"go:github.com/johnkerl/miller/v6/cmd/mlr" = "latest"
-"go:github.com/marwan-at-work/mod/cmd/mod" = "latest"
-"go:github.com/oligot/go-mod-upgrade" = "latest"
-"go:github.com/psampaz/go-mod-outdated" = "latest"
+"go:github.com/noperator/jqfmt/cmd/jqfmt" = "latest"
+"go:github.com/noperator/sol/cmd/sol" = "latest"
 "go:golang.org/x/tools/cmd/stringer" = "latest"
 "go:golang.org/x/tools/gopls" = "latest"
-
-# Go broken deps
-# "go:github.com/noperator/sol/cmd/sol" = "latest"
-# "go:github.com/noperator/jqfmt/cmd/jqfmt" = "latest"
 
 # Node tools
 "npm:@biomejs/biome" = "latest"

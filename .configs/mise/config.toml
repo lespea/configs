@@ -3,6 +3,7 @@
 "aqua:Myriad-Dreamin/tinymist" = "latest"
 "aqua:apache/maven" = "latest"
 "aqua:dprint/dprint" = "latest"
+"aqua:duckdb/duckdb" = "latest"
 "aqua:gradle/gradle" = "latest"
 "aqua:pnpm/pnpm" = "latest"
 "aqua:rust-lang/rust-analyzer" = "latest"

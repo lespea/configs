@@ -143,7 +143,7 @@ def install(args):
         print("No packages to install")
         return
 
-    (env, is_mold) = get_run_info()
+    env, is_mold = get_run_info()
 
     validate_pueue()
     setup_groups()
@@ -411,7 +411,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
             ],
             extras=["--profile", "serious"],
         ),
-        PkgInfo("skim"),
+        PkgInfo("skim", use_defaults=False, features=["cli"]),
         PkgInfo("systemd-lsp"),
         # PkgInfo("topgrade", high_priority=True),
         PkgInfo("usage-cli"),

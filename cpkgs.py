@@ -351,7 +351,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("cargo-edit"),
         PkgInfo("cargo-geiger"),
         PkgInfo("cargo-generate"),
-        PkgInfo("cargo-nextest"),
+        PkgInfo("cargo-nextest", locked=True),
         PkgInfo("cargo-outdated"),
         PkgInfo("cargo-show-asm"),
         PkgInfo("cargo-update"),

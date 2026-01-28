@@ -2,6 +2,7 @@ function setEnvs
     set -gax JAVA_OPTS '-Xmx16G -XX:MaxInlineLevel=21'
     set -gax SBT_OPTS '-Xss1M -XX:ReservedCodeCacheSize=512m -XX:+UseParallelGC'
 
+    set -gx TAPLO_CONFIG "$XDG_CONFIG_HOME/taplo/taplo.toml"
     set -gx RIPGREP_CONFIG_PATH "$HOME/.ripgreprc"
 
     if set -q XDG_CACHE_DIR
@@ -21,8 +22,10 @@ function setEnvs
     set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
     set -gx MANROFFOPT -c
 
-    set -gx TAPLO_CONFIG "$XDG_CONFIG_HOME/taplo/taplo.toml"
-    set -gx SOPS_AGE_KEY_FILE "$XDG_CONFIG_HOME/mise/age.txt"
+    set AGE_KEY "$XDG_CONFIG_HOME/mise/age.txt"
+
+    set -gx FNOX_AGE_KEY_FILE $AGE_KEY
+    set -gx SOPS_AGE_KEY_FILE $AGE_KEY
 end
 
 function setAbbs
@@ -56,8 +59,6 @@ function setAbbs
 end
 
 function runSources
-    # act starship init fish
-
     if type -q mise
         mise activate fish | source
         mise completion fish | source
@@ -65,7 +66,7 @@ function runSources
 
     act atuin init fish --disable-up-arrow
     act bat --completion fish
-    act fnox activate fish
+    act fnox completion fish
     act just --completions fish
     act rg --generate complete-fish
     act zoxide init fish

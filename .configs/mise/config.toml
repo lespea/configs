@@ -94,3 +94,8 @@ http_timeout = "5m"
 npm.package_manager = "bun"
 pipx.uvx = true
 python.compile = true
+
+env_cache = true
+
+[plugins]
+fnox-env = "jdx/mise-env-fnox"

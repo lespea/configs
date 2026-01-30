@@ -22,7 +22,7 @@ function setEnvs
     set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
     set -gx MANROFFOPT -c
 
-    set AGE_KEY "$XDG_CONFIG_HOME/mise/age.txt"
+    set AGE_KEY "$XDG_DATA_HOME/.ak/.dat"
 
     set -gx FNOX_AGE_KEY_FILE $AGE_KEY
     set -gx SOPS_AGE_KEY_FILE $AGE_KEY

@@ -411,7 +411,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
             ],
             extras=["--profile", "serious"],
         ),
-        PkgInfo("skim", use_defaults=False, features=["cli"]),
+        PkgInfo("skim", disabled=True, use_defaults=False, features=["cli"]),
         PkgInfo("systemd-lsp"),
         # PkgInfo("topgrade", high_priority=True),
         PkgInfo("usage-cli"),

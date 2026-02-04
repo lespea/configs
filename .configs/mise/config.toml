@@ -93,7 +93,7 @@ http_timeout = "5m"
 
 npm.package_manager = "bun"
 pipx.uvx = true
-python.compile = true
+python.uv_venv_auto = "create|source"
 
 env_cache = true
 

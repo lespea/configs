@@ -4,15 +4,6 @@ function genBloop
         return 1
     end
 
-    set -l conf '
-// DO NOT EDIT! This file is auto-generated.
-
-// This file enables sbt-bloop to create bloop config files.
-
-addSbtPlugin("ch.epfl.scala" % "sbt-bloop" % "2.0.18")
-'
-    echo $conf >project/metals.sbt
-
     if not rg -Fq .bloop .gitignore
         echo ".bloop" >>.gitignore
     end

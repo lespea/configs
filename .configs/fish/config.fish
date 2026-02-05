@@ -83,7 +83,7 @@ function act
 end
 
 function hypr
-    if set -q IS_ARCH; and type -q uwsm; and uwsm check may-start
+    if set -q IS_ARCH; and type -q uwsm; and uwsm check may-start -q
         exec uwsm start hyprland.desktop
     end
 end

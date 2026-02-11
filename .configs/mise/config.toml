@@ -2,6 +2,7 @@
 # Complex
 "aqua:Myriad-Dreamin/tinymist" = "latest"
 "aqua:apache/maven" = "latest"
+"aqua:astral-sh/uv" = "latest"
 "aqua:dprint/dprint" = "latest"
 "aqua:duckdb/duckdb" = "latest"
 "aqua:gradle/gradle" = "latest"

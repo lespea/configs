@@ -10,6 +10,7 @@ functions/*
 !functions/btrls.fish
 !functions/cp.fish
 !functions/expand-dot-to-parent-directory-path.fish
+!functions/fset.fish
 !functions/genBloop.fish
 !functions/genSrc.fish
 !functions/gomise.fish
@@ -34,3 +35,4 @@ functions/*
 !functions/rusti.fish
 !functions/setupv.fish
 !functions/tup.fish
+!functions/vlog.fish

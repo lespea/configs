@@ -23,7 +23,7 @@
 age = "latest"
 bun = "latest"
 fnox = "latest"
-go = "1.25"
+go = "1.26"
 node = "25"
 python = "3.14"
 sops = "latest"

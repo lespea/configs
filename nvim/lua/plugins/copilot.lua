@@ -123,7 +123,7 @@ return {
 					adapter = {
 						name = "copilot",
 						-- model = "claude-sonnet-4.6",
-						model = "GPT-5.3-Codex",
+						model = "gpt-5.3-codex",
 					},
 					-- adapater = "copilot",
 					tools = {

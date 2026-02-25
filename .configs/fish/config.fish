@@ -1,5 +1,5 @@
 function setEnvs
-    set -gax JAVA_OPTS '-Xmx16G -XX:MaxInlineLevel=21'
+    set -gax JAVA_OPTS '-Xmx16G -XX:MaxInlineLevel=21 --enable-native-access=ALL-UNNAMED'
     set -gax SBT_OPTS '-Xss1M -XX:ReservedCodeCacheSize=512m -XX:+UseParallelGC'
 
     set -gx TAPLO_CONFIG "$XDG_CONFIG_HOME/taplo/taplo.toml"

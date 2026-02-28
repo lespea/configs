@@ -11,7 +11,7 @@ function setupv
         rm -rf "$nvim_venvs/main.py"
     end
 
-    set -l packages colorama pynvim python-lsp-server[all] flake8 prettier pyright ruff ruff-lsp black yapf
+    set -l packages colorama pynvim python-lsp-server[all] flake8 pyright ruff ruff-lsp black yapf
 
     uv add --directory $nvim_venvs -U --resolution highest --reinstall --refresh --compile-bytecode $packages
 

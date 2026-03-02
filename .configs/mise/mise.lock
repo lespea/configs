@@ -327,13 +327,19 @@ backend = "github:psampaz/go-mod-outdated"
 "platforms.macos-x64" = { checksum = "sha256:bb5d800d61f0872ec78755d4a94496c9533cff44749f9bd31072ae59e09851b5", url = "https://github.com/psampaz/go-mod-outdated/releases/download/v0.9.0/go-mod-outdated_0.9.0_Darwin_x86_64.tar.gz", url_api = "https://api.github.com/repos/psampaz/go-mod-outdated/releases/assets/96306501"}
 
 [[tools."github:skim-rs/skim"]]
-version = "3.5.0"
+version = "3.6.0"
 backend = "github:skim-rs/skim"
-"platforms.linux-arm64" = { checksum = "sha256:63a2691cbbc38389cb968ef839dd15a39f0d9d21c44e90cc8562620e9053662b", url = "https://github.com/skim-rs/skim/releases/download/v3.5.0/skim-aarch64-unknown-linux-gnu.tar.xz", url_api = "https://api.github.com/repos/skim-rs/skim/releases/assets/360160909"}
-"platforms.linux-x64" = { checksum = "sha256:c9280ba07ac75e0fb55b7e027342dc9e7772908b789e51b6cb74fbda62cc2358", url = "https://github.com/skim-rs/skim/releases/download/v3.5.0/skim-x86_64-unknown-linux-gnu.tar.xz", url_api = "https://api.github.com/repos/skim-rs/skim/releases/assets/360160929"}
-"platforms.macos-arm64" = { checksum = "sha256:9032044cceb814e24625244218e31415bf0ca2dab2656ef63bc24926afcb809b", url = "https://github.com/skim-rs/skim/releases/download/v3.5.0/skim-aarch64-apple-darwin.tar.xz", url_api = "https://api.github.com/repos/skim-rs/skim/releases/assets/360160912"}
-"platforms.macos-x64" = { checksum = "sha256:28acd976a903653526a96c271d45d46227dde3cb4ed4249fce32a738b0c2b38b", url = "https://github.com/skim-rs/skim/releases/download/v3.5.0/skim-x86_64-apple-darwin.tar.xz", url_api = "https://api.github.com/repos/skim-rs/skim/releases/assets/360160926"}
-"platforms.windows-x64" = { checksum = "sha256:e0439556dfce7d36b7eab767f15712bd3d38668d711159db142d99a9aa853a8b", url = "https://github.com/skim-rs/skim/releases/download/v3.5.0/source.tar.gz", url_api = "https://api.github.com/repos/skim-rs/skim/releases/assets/360160935"}
+"platforms.linux-arm64" = { checksum = "sha256:c2e09b65794a3696cee44c748549dbf98c3cbdb8e94a3e1247d931bfa3ce3517", url = "https://github.com/skim-rs/skim/releases/download/v3.6.0/skim-aarch64-unknown-linux-gnu.tar.xz", url_api = "https://api.github.com/repos/skim-rs/skim/releases/assets/365450336"}
+"platforms.linux-arm64-musl" = { checksum = "sha256:c2e09b65794a3696cee44c748549dbf98c3cbdb8e94a3e1247d931bfa3ce3517", url = "https://github.com/skim-rs/skim/releases/download/v3.6.0/skim-aarch64-unknown-linux-gnu.tar.xz", url_api = "https://api.github.com/repos/skim-rs/skim/releases/assets/365450336"}
+"platforms.linux-x64" = { checksum = "sha256:d2dc5ba8759988f2f8ac14cdf3ca398d5b86b1083ac3042a58b0ed6217a2a003", url = "https://github.com/skim-rs/skim/releases/download/v3.6.0/skim-x86_64-unknown-linux-gnu.tar.xz", url_api = "https://api.github.com/repos/skim-rs/skim/releases/assets/365450351"}
+"platforms.linux-x64-baseline" = { checksum = "sha256:d2dc5ba8759988f2f8ac14cdf3ca398d5b86b1083ac3042a58b0ed6217a2a003", url = "https://github.com/skim-rs/skim/releases/download/v3.6.0/skim-x86_64-unknown-linux-gnu.tar.xz", url_api = "https://api.github.com/repos/skim-rs/skim/releases/assets/365450351"}
+"platforms.linux-x64-musl" = { checksum = "sha256:d2684782ca47b1d90c79a6c6d7805dd453561e68da1dd040daf93a94e639d1c7", url = "https://github.com/skim-rs/skim/releases/download/v3.6.0/skim-x86_64-unknown-linux-musl.tar.xz", url_api = "https://api.github.com/repos/skim-rs/skim/releases/assets/365450354"}
+"platforms.linux-x64-musl-baseline" = { checksum = "sha256:d2dc5ba8759988f2f8ac14cdf3ca398d5b86b1083ac3042a58b0ed6217a2a003", url = "https://github.com/skim-rs/skim/releases/download/v3.6.0/skim-x86_64-unknown-linux-gnu.tar.xz", url_api = "https://api.github.com/repos/skim-rs/skim/releases/assets/365450351"}
+"platforms.macos-arm64" = { checksum = "sha256:8cc6264f0a52bc9296b0715bfe612b0801c0302b742c1fc098647fd03db23192", url = "https://github.com/skim-rs/skim/releases/download/v3.6.0/skim-aarch64-apple-darwin.tar.xz", url_api = "https://api.github.com/repos/skim-rs/skim/releases/assets/365450332"}
+"platforms.macos-x64" = { checksum = "sha256:58abc7a2b9f3b3c6f82abbed3eb10a63d79a05b8e60dd110cbc4a94b239ff097", url = "https://github.com/skim-rs/skim/releases/download/v3.6.0/skim-x86_64-apple-darwin.tar.xz", url_api = "https://api.github.com/repos/skim-rs/skim/releases/assets/365450348"}
+"platforms.macos-x64-baseline" = { checksum = "sha256:58abc7a2b9f3b3c6f82abbed3eb10a63d79a05b8e60dd110cbc4a94b239ff097", url = "https://github.com/skim-rs/skim/releases/download/v3.6.0/skim-x86_64-apple-darwin.tar.xz", url_api = "https://api.github.com/repos/skim-rs/skim/releases/assets/365450348"}
+"platforms.windows-x64" = { checksum = "sha256:d2caf7f9fd41ba0cfad563e994d6d7d05f47b9476ae2bfe857fa377982aeaa00", url = "https://github.com/skim-rs/skim/releases/download/v3.6.0/source.tar.gz", url_api = "https://api.github.com/repos/skim-rs/skim/releases/assets/365450359"}
+"platforms.windows-x64-baseline" = { checksum = "sha256:d2caf7f9fd41ba0cfad563e994d6d7d05f47b9476ae2bfe857fa377982aeaa00", url = "https://github.com/skim-rs/skim/releases/download/v3.6.0/source.tar.gz", url_api = "https://api.github.com/repos/skim-rs/skim/releases/assets/365450359"}
 
 [[tools.go]]
 version = "1.26.0"
@@ -343,10 +349,6 @@ backend = "core:go"
 "platforms.macos-arm64" = { checksum = "sha256:b1640525dfe68f066d56f200bef7bf4dce955a1a893bd061de6754c211431023", url = "https://dl.google.com/go/go1.26.0.darwin-arm64.tar.gz"}
 "platforms.macos-x64" = { checksum = "sha256:1ca28b7703cbea05a65b2a1d92d6b308610ef92f8824578a0874f2e60c9d5a22", url = "https://dl.google.com/go/go1.26.0.darwin-amd64.tar.gz"}
 "platforms.windows-x64" = { checksum = "sha256:9bbe0fc64236b2b51f6255c05c4232532b8ecc0e6d2e00950bd3021d8a4d07d4", url = "https://dl.google.com/go/go1.26.0.windows-amd64.zip"}
-
-[[tools."go:github.com/golang/mock/mockgen"]]
-version = "latest"
-backend = "go:github.com/golang/mock/mockgen"
 
 [[tools."go:github.com/golang/mock/mockgen"]]
 version = "1.6.0"

@@ -1,9 +1,9 @@
 return {
-	"NvChad/nvim-colorizer.lua",
+	"catgoose/nvim-colorizer.lua",
 	event = "BufReadPost",
 	opts = {
 		user_default_options = {
-			names = false,
+			suppress_deprecation = true,
 		},
 	},
 }

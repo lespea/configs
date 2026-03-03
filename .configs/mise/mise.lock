@@ -180,10 +180,16 @@ backend = "aqua:rest-sh/restish"
 version = "2026-03-02"
 backend = "aqua:rust-lang/rust-analyzer"
 "platforms.linux-arm64" = { checksum = "sha256:19d7e53c89b343a4110ee29fd3dbcead3e827437177d90fd5a21f64f186981d9", url = "https://github.com/rust-lang/rust-analyzer/releases/download/2026-03-02/rust-analyzer-aarch64-unknown-linux-gnu.gz"}
+"platforms.linux-arm64-musl" = { checksum = "sha256:19d7e53c89b343a4110ee29fd3dbcead3e827437177d90fd5a21f64f186981d9", url = "https://github.com/rust-lang/rust-analyzer/releases/download/2026-03-02/rust-analyzer-aarch64-unknown-linux-gnu.gz"}
 "platforms.linux-x64" = { checksum = "sha256:24c1da90e7570aafb28d63d3619316284af827a5aea3bc17b5da26f485f7cdda", url = "https://github.com/rust-lang/rust-analyzer/releases/download/2026-03-02/rust-analyzer-x86_64-unknown-linux-gnu.gz"}
+"platforms.linux-x64-baseline" = { checksum = "sha256:24c1da90e7570aafb28d63d3619316284af827a5aea3bc17b5da26f485f7cdda", url = "https://github.com/rust-lang/rust-analyzer/releases/download/2026-03-02/rust-analyzer-x86_64-unknown-linux-gnu.gz"}
+"platforms.linux-x64-musl" = { checksum = "sha256:24c1da90e7570aafb28d63d3619316284af827a5aea3bc17b5da26f485f7cdda", url = "https://github.com/rust-lang/rust-analyzer/releases/download/2026-03-02/rust-analyzer-x86_64-unknown-linux-gnu.gz"}
+"platforms.linux-x64-musl-baseline" = { checksum = "sha256:24c1da90e7570aafb28d63d3619316284af827a5aea3bc17b5da26f485f7cdda", url = "https://github.com/rust-lang/rust-analyzer/releases/download/2026-03-02/rust-analyzer-x86_64-unknown-linux-gnu.gz"}
 "platforms.macos-arm64" = { checksum = "sha256:d8ea986707ba955efedd9e964ddb9f3c3b0ff6349bc4e901cfa6c6eacbc23f4e", url = "https://github.com/rust-lang/rust-analyzer/releases/download/2026-03-02/rust-analyzer-aarch64-apple-darwin.gz"}
 "platforms.macos-x64" = { checksum = "sha256:61a486613f93f55185e45624ec2f350e17c7651245f08a213262968935ec1c17", url = "https://github.com/rust-lang/rust-analyzer/releases/download/2026-03-02/rust-analyzer-x86_64-apple-darwin.gz"}
+"platforms.macos-x64-baseline" = { checksum = "sha256:61a486613f93f55185e45624ec2f350e17c7651245f08a213262968935ec1c17", url = "https://github.com/rust-lang/rust-analyzer/releases/download/2026-03-02/rust-analyzer-x86_64-apple-darwin.gz"}
 "platforms.windows-x64" = { checksum = "sha256:f251bf0b13f82fb54c8c38f76252922732511273e95b7e1ff30851faa94bbb18", url = "https://github.com/rust-lang/rust-analyzer/releases/download/2026-03-02/rust-analyzer-x86_64-pc-windows-msvc.zip"}
+"platforms.windows-x64-baseline" = { checksum = "sha256:f251bf0b13f82fb54c8c38f76252922732511273e95b7e1ff30851faa94bbb18", url = "https://github.com/rust-lang/rust-analyzer/releases/download/2026-03-02/rust-analyzer-x86_64-pc-windows-msvc.zip"}
 
 [[tools."aqua:segmentio/golines"]]
 version = "0.13.0"
@@ -234,10 +240,16 @@ backend = "core:bun"
 version = "1.15.1"
 backend = "github:jdx/fnox"
 "platforms.linux-arm64" = { checksum = "sha256:6d705ccdb3e80e44d687f9771ea3c23ba94dd94cad33e74c5a9cbf790cd0df4c", url = "https://github.com/jdx/fnox/releases/download/v1.15.1/fnox-aarch64-unknown-linux-gnu.tar.gz", url_api = "https://api.github.com/repos/jdx/fnox/releases/assets/365349754"}
+"platforms.linux-arm64-musl" = { checksum = "sha256:6d705ccdb3e80e44d687f9771ea3c23ba94dd94cad33e74c5a9cbf790cd0df4c", url = "https://github.com/jdx/fnox/releases/download/v1.15.1/fnox-aarch64-unknown-linux-gnu.tar.gz", url_api = "https://api.github.com/repos/jdx/fnox/releases/assets/365349754"}
 "platforms.linux-x64" = { checksum = "sha256:6ceb388be77569b74e3a15296119b3b54f98a0909354ac6575843d1fe6116128", url = "https://github.com/jdx/fnox/releases/download/v1.15.1/fnox-x86_64-unknown-linux-gnu.tar.gz", url_api = "https://api.github.com/repos/jdx/fnox/releases/assets/365349767"}
+"platforms.linux-x64-baseline" = { checksum = "sha256:6ceb388be77569b74e3a15296119b3b54f98a0909354ac6575843d1fe6116128", url = "https://github.com/jdx/fnox/releases/download/v1.15.1/fnox-x86_64-unknown-linux-gnu.tar.gz", url_api = "https://api.github.com/repos/jdx/fnox/releases/assets/365349767"}
+"platforms.linux-x64-musl" = { checksum = "sha256:6ceb388be77569b74e3a15296119b3b54f98a0909354ac6575843d1fe6116128", url = "https://github.com/jdx/fnox/releases/download/v1.15.1/fnox-x86_64-unknown-linux-gnu.tar.gz", url_api = "https://api.github.com/repos/jdx/fnox/releases/assets/365349767"}
+"platforms.linux-x64-musl-baseline" = { checksum = "sha256:6ceb388be77569b74e3a15296119b3b54f98a0909354ac6575843d1fe6116128", url = "https://github.com/jdx/fnox/releases/download/v1.15.1/fnox-x86_64-unknown-linux-gnu.tar.gz", url_api = "https://api.github.com/repos/jdx/fnox/releases/assets/365349767"}
 "platforms.macos-arm64" = { checksum = "sha256:440748f8aaea54a4c27dfa1e9b298759a0ae6430429f3e5ef7b71a530a1518c6", url = "https://github.com/jdx/fnox/releases/download/v1.15.1/fnox-aarch64-apple-darwin.tar.gz", url_api = "https://api.github.com/repos/jdx/fnox/releases/assets/365349753"}
 "platforms.macos-x64" = { checksum = "sha256:c0fafbcba2c2a96ea715785af957462246516f19620bf7b37da12693cd9ac190", url = "https://github.com/jdx/fnox/releases/download/v1.15.1/fnox-x86_64-apple-darwin.tar.gz", url_api = "https://api.github.com/repos/jdx/fnox/releases/assets/365349756"}
+"platforms.macos-x64-baseline" = { checksum = "sha256:c0fafbcba2c2a96ea715785af957462246516f19620bf7b37da12693cd9ac190", url = "https://github.com/jdx/fnox/releases/download/v1.15.1/fnox-x86_64-apple-darwin.tar.gz", url_api = "https://api.github.com/repos/jdx/fnox/releases/assets/365349756"}
 "platforms.windows-x64" = { checksum = "sha256:b0dbc7fc5c7d5b5a2e932239fe4c710bdf0305d1006a1753d819b7b2956ec199", url = "https://github.com/jdx/fnox/releases/download/v1.15.1/fnox-x86_64-pc-windows-msvc.zip", url_api = "https://api.github.com/repos/jdx/fnox/releases/assets/365349757"}
+"platforms.windows-x64-baseline" = { checksum = "sha256:b0dbc7fc5c7d5b5a2e932239fe4c710bdf0305d1006a1753d819b7b2956ec199", url = "https://github.com/jdx/fnox/releases/download/v1.15.1/fnox-x86_64-pc-windows-msvc.zip", url_api = "https://api.github.com/repos/jdx/fnox/releases/assets/365349757"}
 
 [[tools."github:Zxilly/go-size-analyzer"]]
 version = "1.11.0"
@@ -301,13 +313,19 @@ backend = "github:johnkerl/miller"
 "platforms.windows-x64" = { checksum = "sha256:97780a3d3a89798a6dcced5a8930815fe44159a0fa47b9a355a0430e18c8adf8", url = "https://github.com/johnkerl/miller/releases/download/v6.17.0/miller-6.17.0-windows-amd64.zip", url_api = "https://api.github.com/repos/johnkerl/miller/releases/assets/359703721"}
 
 [[tools."github:marwan-at-work/mod"]]
-version = "0.9.0"
+version = "0.10.0"
 backend = "github:marwan-at-work/mod"
-"platforms.linux-arm64" = { checksum = "sha256:a2e6fc9dc94e41f6ff7fab8ddf52a6e43b488e9a26c5f811ce004a54344ba592", url = "https://github.com/marwan-at-work/mod/releases/download/v0.9.0/mod-v0.9.0-linux-arm64.tar.gz", url_api = "https://api.github.com/repos/marwan-at-work/mod/releases/assets/283737570"}
-"platforms.linux-x64" = { checksum = "sha256:6e18b1e9daf1521074579f9cca1607c04c4334cc74f2f997993534204fa0d7b8", url = "https://github.com/marwan-at-work/mod/releases/download/v0.9.0/mod-v0.9.0-linux-amd64.tar.gz", url_api = "https://api.github.com/repos/marwan-at-work/mod/releases/assets/283737588"}
-"platforms.macos-arm64" = { checksum = "sha256:a183db96f088652ef10e3c8106d39fa4378425e7e0b92dbcf5ac65492d3712c3", url = "https://github.com/marwan-at-work/mod/releases/download/v0.9.0/mod-v0.9.0-darwin-arm64.tar.gz", url_api = "https://api.github.com/repos/marwan-at-work/mod/releases/assets/283737578"}
-"platforms.macos-x64" = { checksum = "sha256:2597b455100ecc516e39e8eef8cec86a470a36c3f57707b45643f8143ce73332", url = "https://github.com/marwan-at-work/mod/releases/download/v0.9.0/mod-v0.9.0-darwin-amd64.tar.gz", url_api = "https://api.github.com/repos/marwan-at-work/mod/releases/assets/283737572"}
-"platforms.windows-x64" = { checksum = "sha256:2c09f74de2881b2707c2ad40ba05de05a1ae4365f1880ae3ec6975f08194c3d0", url = "https://github.com/marwan-at-work/mod/releases/download/v0.9.0/mod-v0.9.0-windows-amd64.zip", url_api = "https://api.github.com/repos/marwan-at-work/mod/releases/assets/283737579"}
+"platforms.linux-arm64" = { checksum = "sha256:75a1a803a1c0bab33343e983e2e0ebc1192a22501cfc907ed6954995b44064c3", url = "https://github.com/marwan-at-work/mod/releases/download/v0.10.0/mod-v0.10.0-linux-arm64.tar.gz", url_api = "https://api.github.com/repos/marwan-at-work/mod/releases/assets/365626168"}
+"platforms.linux-arm64-musl" = { checksum = "sha256:75a1a803a1c0bab33343e983e2e0ebc1192a22501cfc907ed6954995b44064c3", url = "https://github.com/marwan-at-work/mod/releases/download/v0.10.0/mod-v0.10.0-linux-arm64.tar.gz", url_api = "https://api.github.com/repos/marwan-at-work/mod/releases/assets/365626168"}
+"platforms.linux-x64" = { checksum = "sha256:ac0c226a70fb9a1fa65148bbb6faff134678661db820252291e96e731f69f0f9", url = "https://github.com/marwan-at-work/mod/releases/download/v0.10.0/mod-v0.10.0-linux-amd64.tar.gz", url_api = "https://api.github.com/repos/marwan-at-work/mod/releases/assets/365626137"}
+"platforms.linux-x64-baseline" = { checksum = "sha256:ac0c226a70fb9a1fa65148bbb6faff134678661db820252291e96e731f69f0f9", url = "https://github.com/marwan-at-work/mod/releases/download/v0.10.0/mod-v0.10.0-linux-amd64.tar.gz", url_api = "https://api.github.com/repos/marwan-at-work/mod/releases/assets/365626137"}
+"platforms.linux-x64-musl" = { checksum = "sha256:ac0c226a70fb9a1fa65148bbb6faff134678661db820252291e96e731f69f0f9", url = "https://github.com/marwan-at-work/mod/releases/download/v0.10.0/mod-v0.10.0-linux-amd64.tar.gz", url_api = "https://api.github.com/repos/marwan-at-work/mod/releases/assets/365626137"}
+"platforms.linux-x64-musl-baseline" = { checksum = "sha256:ac0c226a70fb9a1fa65148bbb6faff134678661db820252291e96e731f69f0f9", url = "https://github.com/marwan-at-work/mod/releases/download/v0.10.0/mod-v0.10.0-linux-amd64.tar.gz", url_api = "https://api.github.com/repos/marwan-at-work/mod/releases/assets/365626137"}
+"platforms.macos-arm64" = { checksum = "sha256:0ddc0e6d8a40c24ee24646ee87815b59ea2c6e25d6d4c8c29f540f7c1dcbb994", url = "https://github.com/marwan-at-work/mod/releases/download/v0.10.0/mod-v0.10.0-darwin-arm64.tar.gz", url_api = "https://api.github.com/repos/marwan-at-work/mod/releases/assets/365626234"}
+"platforms.macos-x64" = { checksum = "sha256:8dba35e168ddb4d9ab71ec7ca6efaf2e0af5a0e077fc6adcba01fb5149b744d7", url = "https://github.com/marwan-at-work/mod/releases/download/v0.10.0/mod-v0.10.0-darwin-amd64.tar.gz", url_api = "https://api.github.com/repos/marwan-at-work/mod/releases/assets/365626170"}
+"platforms.macos-x64-baseline" = { checksum = "sha256:8dba35e168ddb4d9ab71ec7ca6efaf2e0af5a0e077fc6adcba01fb5149b744d7", url = "https://github.com/marwan-at-work/mod/releases/download/v0.10.0/mod-v0.10.0-darwin-amd64.tar.gz", url_api = "https://api.github.com/repos/marwan-at-work/mod/releases/assets/365626170"}
+"platforms.windows-x64" = { checksum = "sha256:a22edca9ecc64efc30a5bd3ad4a500d51e2c3103f38d1c046c559ac3fbb571cd", url = "https://github.com/marwan-at-work/mod/releases/download/v0.10.0/mod-v0.10.0-windows-amd64.zip", url_api = "https://api.github.com/repos/marwan-at-work/mod/releases/assets/365626139"}
+"platforms.windows-x64-baseline" = { checksum = "sha256:a22edca9ecc64efc30a5bd3ad4a500d51e2c3103f38d1c046c559ac3fbb571cd", url = "https://github.com/marwan-at-work/mod/releases/download/v0.10.0/mod-v0.10.0-windows-amd64.zip", url_api = "https://api.github.com/repos/marwan-at-work/mod/releases/assets/365626139"}
 
 [[tools."github:oligot/go-mod-upgrade"]]
 version = "0.12.0"

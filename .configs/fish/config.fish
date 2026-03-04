@@ -1,6 +1,6 @@
 function setEnvs
-    set -gax JAVA_OPTS '-Xmx16G -XX:MaxInlineLevel=21 --enable-native-access=ALL-UNNAMED'
-    set -gax SBT_OPTS '-Xss1M -XX:ReservedCodeCacheSize=512m -XX:+UseParallelGC'
+    set -gax JAVA_OPTS '-Xmx12G -XX:MaxInlineLevel=21 --enable-native-access=ALL-UNNAMED'
+    set -gax SBT_OPTS '-Xss1M -XX:ReservedCodeCacheSize=512m -XX:+UseG1GC'
 
     set -gx TAPLO_CONFIG "$XDG_CONFIG_HOME/taplo/taplo.toml"
     set -gx RIPGREP_CONFIG_PATH "$HOME/.ripgreprc"

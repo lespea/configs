@@ -51,7 +51,6 @@ java = "temurin-25"
 "aqua:segmentio/golines" = "latest"
 "github:Zxilly/go-size-analyzer" = "latest"
 "github:a-h/templ" = "latest"
-"github:dmarkham/enumer" = "latest"
 "github:docker/docker-language-server" = "latest"
 "github:johnkerl/miller" = "latest"
 "github:marwan-at-work/mod" = "latest"
@@ -85,6 +84,11 @@ java = "temurin-25"
 "pipx:isort" = "latest"
 "pipx:pyright" = "latest"
 "pipx:ruff" = "latest"
+
+# Renames
+[tools."github:dmarkham/enumer"]
+version = "latest"
+rename_exe = "enumer"
 
 [settings]
 disable_hints = ["*"]

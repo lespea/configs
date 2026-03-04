@@ -122,8 +122,8 @@ return {
 				chat = {
 					adapter = {
 						name = "copilot",
-						-- model = "claude-sonnet-4.6",
-						model = "gpt-5.3-codex",
+						model = "claude-sonnet-4.6",
+						-- model = "gpt-5.3-codex",
 					},
 					-- adapater = "copilot",
 					tools = {

@@ -1,5 +1,9 @@
 return {
 	"catgoose/nvim-colorizer.lua",
 	event = "BufReadPost",
-	opts = {},
+	opts = {
+		user_default_options = {
+			names = false,
+		},
+	},
 }

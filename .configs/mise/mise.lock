@@ -612,7 +612,7 @@ backend = "core:node"
 "platforms.windows-x64-baseline" = { checksum = "sha256:5744746371a417179a701044739b5fa2b3164e943aa57f86059fb312f8032e86", url = "https://nodejs.org/dist/v25.8.0/node-v25.8.0-win-x64.zip"}
 
 [[tools."npm:@biomejs/biome"]]
-version = "2.4.5"
+version = "2.4.6"
 backend = "npm:@biomejs/biome"
 
 [[tools."npm:@bufbuild/buf"]]
@@ -652,7 +652,7 @@ version = "26.1.0"
 backend = "pipx:black"
 
 [[tools."pipx:codespell"]]
-version = "2.4.1"
+version = "2.4.2"
 backend = "pipx:codespell"
 
 [[tools."pipx:httpie"]]
@@ -660,7 +660,7 @@ version = "3.2.4"
 backend = "pipx:httpie"
 
 [[tools."pipx:ipython"]]
-version = "9.10.0"
+version = "9.11.0"
 backend = "pipx:ipython"
 
 [[tools."pipx:isort"]]

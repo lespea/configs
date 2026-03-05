@@ -568,10 +568,6 @@ backend = "core:go"
 version = "1.6.0"
 backend = "go:github.com/golang/mock/mockgen"
 
-[[tools."go:github.com/golang/mock/mockgen"]]
-version = "latest"
-backend = "go:github.com/golang/mock/mockgen"
-
 [[tools."go:github.com/icholy/gomajor"]]
 version = "0.15.0"
 backend = "go:github.com/icholy/gomajor"
@@ -672,7 +668,7 @@ version = "1.1.408"
 backend = "pipx:pyright"
 
 [[tools."pipx:ruff"]]
-version = "0.15.4"
+version = "0.15.5"
 backend = "pipx:ruff"
 
 [[tools.python]]

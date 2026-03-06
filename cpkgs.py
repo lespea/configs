@@ -106,7 +106,11 @@ def setup_groups():
             ["pueue", "group", "remove", GROUP_NAME],
         )
 
-    cores = math.ceil((os.cpu_count() or 8) / 4)
+    # Set a min of 6 at-once (for now)
+    cores = max(
+        math.ceil((os.cpu_count() or 8) / 4),
+        6,
+    )
 
     run_cmds(
         ["pueue", "group", "add", GROUP_NAME],

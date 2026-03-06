@@ -374,7 +374,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("just-lsp"),
         PkgInfo("kondo"),
         PkgInfo("lscolors", features=["crossterm", "nu-ansi-term"]),
-        PkgInfo("mdcat"),
+        PkgInfo("mdcat", locked=True),
         PkgInfo("miniserve"),
         PkgInfo("nickel-lang-cli", high_priority=True),
         PkgInfo("onefetch"),

@@ -1,5 +1,5 @@
 function tup
-    set -l runTop topgrade
+    set -l runTop fnox run topgrade
 
     if type -q mold
         mold --run $runTop

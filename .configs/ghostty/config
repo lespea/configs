@@ -1,7 +1,10 @@
 config-file = ?custom
 
-font-family = "0xProto Regular"
-font-size = 12.5
+font-family = "JetBrainsMono Nerd Font Mono"
+font-size = 15
+
+#font-family = "0xProto"
+#font-size = 14
 
 theme = dankcolors
 

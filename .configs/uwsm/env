@@ -38,3 +38,5 @@ export AMD_VULKAN_ICD=RADV
 
 # Increase AMD's shader cache size to 12GB
 export MESA_SHADER_CACHE_MAX_SIZE=12G
+
+export DMS_DISABLE_CAVA=1

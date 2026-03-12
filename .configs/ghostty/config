@@ -1,7 +1,7 @@
 config-file = ?custom
 
 font-family = "JetBrainsMono Nerd Font Mono"
-font-size = 15
+font-size = 13
 
 #font-family = "0xProto"
 #font-size = 14

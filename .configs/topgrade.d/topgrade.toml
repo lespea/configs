@@ -19,6 +19,7 @@ disable = [
     "bun_packages",
     "cargo",
     "certbot",
+    "colima",
     "containers",
     "dotnet",
     "emacs",

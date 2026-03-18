@@ -6,7 +6,14 @@ config-file = ?custom
 font-family = "0xProto"
 font-size = 11.8
 
-theme = dankcolors
+#theme = dankcolors
+#theme = Citruszest
+#theme = Elementary
+#theme = Monokai Pro Spectrum
+#theme = Monokai Remastered
+#theme = Tomorrow Night Bright
+
+theme = Ayu
 
 background-opacity = 0.96
 

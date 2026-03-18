@@ -4,7 +4,7 @@ config-file = ?custom
 #font-size = 13
 
 font-family = "0xProto"
-font-size = 12.5
+font-size = 11.8
 
 theme = dankcolors
 

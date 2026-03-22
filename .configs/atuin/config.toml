@@ -38,7 +38,7 @@ sync_address = "https://localhost"
 
 ## which search mode to use
 ## possible values: prefix, fulltext, fuzzy, skim
-search_mode = "skim"
+search_mode = "daemon-fuzzy"
 
 ## which filter mode to use
 ## possible values: global, host, session, directory
@@ -234,3 +234,6 @@ enabled = true
 
 ## The port that should be used for TCP on non unix systems
 # tcp_port = 8889
+
+[ai]
+enabled = false

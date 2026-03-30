@@ -1,7 +1,7 @@
 return {
 	{
 		"chrisgrieser/nvim-lsp-endhints",
-		enable = false,
+		cond = false,
 		event = "LspAttach",
 		opts = {}, -- required, even if empty
 	},

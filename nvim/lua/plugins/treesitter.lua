@@ -29,7 +29,7 @@ local languages = {
 	"markdown",
 	"meson",
 	"ninja",
-	"norg",
+	-- "norg",
 	"passwd",
 	"proto",
 	"python",

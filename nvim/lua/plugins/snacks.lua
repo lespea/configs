@@ -110,7 +110,7 @@ return {
 				function()
 					Snacks.picker.grep({
 						cmd = "rg",
-						dirs = { "./scanner/src/main/scala/org/tgt/cfc/pippee/allowlist/rules/" },
+						dirs = { "./scanner/src/main/scala/org/tgt/pippee/scanner/allowlist/rules/" },
 						regex = false,
 						hidden = true,
 						ignored = true,
@@ -122,7 +122,7 @@ return {
 				"<leader>fk",
 				function()
 					Snacks.picker.grep({
-						dirs = { "./scanner/src/main/scala/org/tgt/cfc/pippee/allowlist/rules/" },
+						dirs = { "./scanner/src/main/scala/org/tgt/pippee/scanner/allowlist/rules/" },
 						regex = true,
 						hidden = true,
 						ignored = true,
@@ -426,11 +426,11 @@ return {
 				desc = "LSP Workspace Symbols",
 			},
 			-- {
-			-- 	"<C-g>",
-			-- 	function()
-			-- 		Snacks.lazygit()
-			-- 	end,
-			-- 	desc = "LSP Workspace Symbols",
+			--  "<C-g>",
+			--  function()
+			--    Snacks.lazygit()
+			--  end,
+			--  desc = "LSP Workspace Symbols",
 			-- },
 		},
 

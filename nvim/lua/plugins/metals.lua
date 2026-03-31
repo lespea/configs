@@ -3,6 +3,7 @@ return {
 	ft = { "java", "scala", "sbt" },
 	opts = function()
 		local metals_config = require("metals").bare_config()
+		metals_config.init_options = { globSyntax = "vscode" }
 
 		metals_config.settings = {
 			showImplicitArguments = true,

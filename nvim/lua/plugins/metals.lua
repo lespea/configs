@@ -1,9 +1,15 @@
 return {
 	"scalameta/nvim-metals",
 	ft = { "java", "scala", "sbt" },
+	dependencies = {
+		"rachartier/tiny-inline-diagnostic.nvim",
+		"saghen/blink.cmp",
+	},
 	opts = function()
 		local metals_config = require("metals").bare_config()
-		metals_config.init_options = { globSyntax = "vscode" }
+
+		metals_config.init_options.globSyntax = "vscode"
+		metals_config.init_options.statusBarProvider = "off" -- Use fidget
 
 		metals_config.settings = {
 			showImplicitArguments = true,
@@ -12,9 +18,9 @@ return {
 			showImplicitConversionsAndClasses = true,
 		}
 
-		metals_config.on_attach = function(client, bufnr)
-			-- your on_attach function
-		end
+		metals_config.capabilities = require("blink.cmp").get_lsp_capabilities({}, true)
+
+		metals_config.on_attach = function(client, bufnr) end
 
 		return metals_config
 	end,

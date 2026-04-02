@@ -413,7 +413,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
                 "self_update",
                 "vfox/vendored-lua",
             ],
-            extras=["--profile", "serious"],
+            # extras=["--profile", "serious"],
         ),
         PkgInfo("skim", disabled=True, use_defaults=False, features=["cli"]),
         PkgInfo("systemd-lsp"),

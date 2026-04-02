@@ -3,12 +3,17 @@ local opts = { silent = true }
 return {
 	"romgrk/barbar.nvim",
 	dependencies = {
+		"lewis6991/gitsigns.nvim",
 		"nvim-tree/nvim-web-devicons",
 	},
+	init = function()
+		vim.g.barbar_auto_setup = false
+	end,
 	opts = {
 		auto_hide = false,
 		icons = {
-			preset = "slanted",
+			-- preset = "slanted",
+			preset = "powerline",
 		},
 		sidebar_filetypes = {
 			["neo-tree"] = { event = "BufWipeout" },

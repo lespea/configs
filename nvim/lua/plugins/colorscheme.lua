@@ -20,6 +20,9 @@ return {
 			vim.api.nvim_set_hl(0, "CursorLine", { bg = c.gray2 })
 			vim.api.nvim_set_hl(0, "NeoTreeCursorLine", { bg = c.gray2 })
 
+			vim.api.nvim_set_hl(0, "BufferCurrent", { bg = c.gray2 })
+			vim.api.nvim_set_hl(0, "BufferInactive", { bg = c.bg_dark })
+
 			-- vim.api.nvim_set_hl(0, "Ibl1", { fg = c.gray2 })
 			-- vim.api.nvim_set_hl(0, "Ibl2", { fg = c.gray4 })
 		end,

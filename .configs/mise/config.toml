@@ -10,14 +10,14 @@
 "aqua:rust-lang/rust-analyzer" = "latest"
 "aqua:skaji/relocatable-perl" = "latest"
 "aqua:tamasfe/taplo" = "latest"
-"asdf:mise-plugins/mise-gcloud" = "latest"
 "asdf:mise-plugins/mise-sbt" = "latest"
 "github:coursier/coursier" = "latest"
 "github:skim-rs/skim" = "latest"
 "vfox:mise-plugins/vfox-scala" = "latest"
 
-# "ubi:coursier/coursier[exe=cs]" = "latest"
+# "asdf:mise-plugins/mise-gcloud" = "latest"
 # "asdf:mise-plugins/mise-llvm" = "latest"
+# "ubi:coursier/coursier[exe=cs]" = "latest"
 
 # Simple
 age = "latest"

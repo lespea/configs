@@ -438,8 +438,15 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("czkawka_cli", high_priority=True),
     ]
 
+    uutils_feats = [
+        "default",
+        "uudoc",
+        "feat_acl",
+        "feat_Tier1",
+    ]
+
     if is_nix():
-        uutils_feat = "unix"
+        uutils_feats.append("feat_os_unix")
         want.extend(nix_pkgs)
 
         sess = os.getenv("XDG_SESSION_TYPE")
@@ -449,12 +456,12 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
             want.extend(gui_pkgs)
 
     elif is_dar():
-        uutils_feat = "macos"
+        uutils_feats.append("feat_os_unix")
         want.extend(nix_pkgs)
         want.extend(gui_pkgs)
 
     elif is_win():
-        uutils_feat = "windows"
+        uutils_feats.append("feat_os_windows")
         want.extend(win_pkgs)
 
     else:
@@ -464,7 +471,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo(
             "coreutils",
             high_priority=True,
-            features=[uutils_feat],
+            features=uutils_feats,
             envs={
                 "PROJECT_NAME_FOR_VERSION_STRING": "coreurilts-local",
             },

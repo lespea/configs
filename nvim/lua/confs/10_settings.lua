@@ -202,4 +202,7 @@ g.suda_smart_edit = 1
 
 g.picker_engine = "snacks"
 
+-- New UI opt-in
+require("vim._core.ui2").enable({})
+
 return true

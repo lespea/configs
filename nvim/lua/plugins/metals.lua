@@ -8,7 +8,7 @@ return {
 	opts = function()
 		local metals_config = require("metals").bare_config()
 
-		metals_config.init_options.globSyntax = "vscode"
+		-- metals_config.init_options.globSyntax = "vscode"
 		metals_config.init_options.statusBarProvider = "off" -- Use fidget
 
 		metals_config.settings = {

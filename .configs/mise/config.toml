@@ -34,7 +34,7 @@ zig = "0.15"
 "github:dathere/qsv" = "latest"
 
 # Java
-java = "temurin-25"
+java = "temurin-26"
 
 # Go tools
 "aqua:LuaLS/lua-language-server" = "latest"

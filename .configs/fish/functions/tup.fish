@@ -1,5 +1,5 @@
 function tup
-    set -l runTop topgrade
+    set -l runTop fnox run -- topgrade
 
     if type -q mold
         mold --run $runTop
@@ -10,8 +10,8 @@ function tup
     # if topgrade fails bail out
     # or return
 
-    setupv
+    fnox run -- setupv
 
     echo -e "\nUpdating rust packages"
-    "$HOME/configs/cpkgs.py" install -m
+    fnox run -- python "$HOME/configs/cpkgs.py" install -m
 end

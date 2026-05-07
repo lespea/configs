@@ -1,17 +1,18 @@
 function tup
-    set -l runTop fnox run -- topgrade
+    mise self-update -y
+
+    set -l frun mise x -- fnox run --
+
+    set -l runTop $frun topgrade
 
     if type -q mold
         mold --run $runTop
     else
-        $runTop
+        runTop
     end
 
-    # if topgrade fails bail out
-    # or return
-
-    fnox run -- setupv
+    $frun fish -c setupv
 
     echo -e "\nUpdating rust packages"
-    fnox run -- python "$HOME/configs/cpkgs.py" install -m
+    $frun python "$HOME/configs/cpkgs.py" install -m
 end

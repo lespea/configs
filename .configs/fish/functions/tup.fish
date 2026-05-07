@@ -8,7 +8,7 @@ function tup
     if type -q mold
         mold --run $runTop
     else
-        runTop
+        $runTop
     end
 
     $frun fish -c setupv

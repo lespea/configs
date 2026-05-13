@@ -64,6 +64,9 @@ function runSources
         mise activate fish | source
         mise completion fish | source
     end
+    if type -q fnox
+        fnox activate fish | source
+    end
 
     act atuin init fish --disable-up-arrow
     act bat --completion fish

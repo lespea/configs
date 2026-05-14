@@ -1,7 +1,7 @@
 function tup
     mise self-update -y
 
-    set -l frun mise x -- fnox run --
+    set -l frun mise x --
 
     set -l runTop $frun topgrade
 

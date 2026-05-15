@@ -17,7 +17,6 @@
 
 # "asdf:mise-plugins/mise-gcloud" = "latest"
 # "asdf:mise-plugins/mise-llvm" = "latest"
-# "ubi:coursier/coursier[exe=cs]" = "latest"
 
 # Simple
 age = "latest"
@@ -49,7 +48,7 @@ java = "temurin-26"
 "aqua:mvdan/sh" = "v3.12.0"
 "aqua:rest-sh/restish" = "latest"
 "aqua:segmentio/golines" = "latest"
-# "github:Zxilly/go-size-analyzer" = "latest"
+"github:Zxilly/go-size-analyzer" = "latest"
 "github:a-h/templ" = "latest"
 "github:docker/docker-language-server" = "latest"
 "github:johnkerl/miller" = "latest"
@@ -67,7 +66,7 @@ java = "temurin-26"
 # Node tools
 "npm:@biomejs/biome" = "latest"
 "npm:@bufbuild/buf" = "latest"
-# "npm:@mermaid-js/mermaid-cli" = "latest"
+"npm:@mermaid-js/mermaid-cli" = "latest"
 "npm:@tailwindcss/language-server" = "latest"
 "npm:mcp-hub" = "latest"
 "npm:prettier" = "latest"

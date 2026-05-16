@@ -12,6 +12,7 @@ function setEnvs
     end
 
     set -gx CMAKE_GENERATOR Ninja
+    set -gx PUPPETEER_SKIP_DOWNLOAD 1
 
     if set -q IS_ARCH
         set -gx USE_CODEIUM 1

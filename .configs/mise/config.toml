@@ -3,6 +3,7 @@
 "aqua:Myriad-Dreamin/tinymist" = "latest"
 "aqua:apache/maven" = "latest"
 "aqua:astral-sh/uv" = "latest"
+"aqua:dathere/qsv" = "latest"
 "aqua:dprint/dprint" = "latest"
 "aqua:duckdb/duckdb" = "latest"
 "aqua:gradle/gradle" = "latest"
@@ -28,9 +29,6 @@ node = "25"
 python = "3.14"
 sops = "latest"
 zig = "0.15"
-
-# Rust tools
-"github:dathere/qsv" = "latest"
 
 # Java
 java = "temurin-26"

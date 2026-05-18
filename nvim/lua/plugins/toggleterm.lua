@@ -149,7 +149,7 @@ return {
 					if not termFloat:is_open() then
 						termFloat:toggle()
 					end
-					termFloat:send("just alln", false)
+					termFloat:send("just all", false)
 				end, delay)
 
 				vim.defer_fn(function()

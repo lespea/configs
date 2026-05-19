@@ -96,4 +96,5 @@ npm.package_manager = "bun"
 pipx.uvx = true
 python.uv_venv_auto = "create|source"
 
+minimum_release_age = "2d"
 env_cache = true

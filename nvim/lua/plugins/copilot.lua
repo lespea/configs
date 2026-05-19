@@ -12,58 +12,14 @@ return {
 		end,
 		event = "BufEnter",
 	},
-	-- {
-	--  "ravitemer/mcphub.nvim",
-	--  dependencies = {
-	--    "nvim-lua/plenary.nvim",
-	--  },
-	--  build = "npm install -g mcp-hub@latest", -- Installs `mcp-hub` node binary globally
-	--  config = function()
-	--    require("mcphub").setup({
-	--      auto_approve = function(params)
-	--        -- Respect CodeCompanion's auto tool mode when enabled
-	--        if vim.g.codecompanion_auto_tool_mode == true then
-	--          return true -- Auto approve when CodeCompanion auto-tool mode is on
-	--        end
-	--
-	--        -- -- Auto-approve GitHub issue reading
-	--        -- if params.server_name == "github" and params.tool_name == "get_issue" then
-	--        --  return true -- Auto approve
-	--        -- end
-	--        --
-	--        -- -- Block access to private repos
-	--        -- if params.arguments.repo == "private" then
-	--        --  return "You can't access my private repo" -- Error message
-	--        -- end
-	--
-	--        -- Auto-approve safe file operations in current project
-	--        if params.tool_name == "read_file" then
-	--          local path = params.arguments.path or ""
-	--          if path:match("^" .. vim.fn.getcwd()) then
-	--            return true -- Auto approve
-	--          end
-	--        end
-	--
-	--        -- Check if tool is configured for auto-approval in servers.json
-	--        if params.is_auto_approved_in_server then
-	--          return true -- Respect servers.json configuration
-	--        end
-	--
-	--        return false -- Show confirmation prompt
-	--      end,
-	--    })
-	--  end,
-	-- },
 	{
 		"olimorris/codecompanion.nvim",
 		cond = vim.env.NO_VIM_AI ~= "1" and vim.env.USE_COPILOT == "1",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
-			-- "ravitemer/mcphub.nvim",
 		},
 		keys = {
-			-- Open the chat window for the current buffer
 			{
 				"<leader>cc",
 				function()
@@ -71,8 +27,6 @@ return {
 				end,
 				desc = "CodeCompanion: Chat (Current Buffer)",
 			},
-
-			-- Toggle the visibility of the current chat window
 			{
 				"<leader>co",
 				function()
@@ -81,72 +35,102 @@ return {
 				desc = "CodeCompanion: Toggle Chat",
 			},
 		},
-		opts = {
-			ignore_warnings = true,
-			-- extensions = {
-			--  mcphub = {
-			--    callback = "mcphub.extensions.codecompanion",
-			--    opts = {
-			--      -- MCP Tools
-			--      make_tools = true, -- Make individual tools (@server__tool) and server groups (@server) from MCP servers
-			--      show_server_tools_in_chat = true, -- Show individual tools in chat completion (when make_tools=true)
-			--      add_mcp_prefix_to_tool_names = false, -- Add mcp__ prefix (e.g `@mcp__github`, `@mcp__neovim__list_issues`)
-			--      show_result_in_chat = true, -- Show tool results directly in chat buffer
-			--      format_tool = nil, -- function(tool_name:string, tool: CodeCompanion.Agent.Tool) : string Function to format tool names to show in the chat buffer
-			--      -- MCP Resources
-			--      make_vars = true, -- Convert MCP resources to #variables for prompts
-			--      -- MCP Prompts
-			--      make_slash_commands = true, -- Add MCP prompts as /slash commands
-			--    },
-			--  },
-			-- },
-			memory = {
-				default = {
-					description = "Collection of common files for all projects",
-					files = {
-						".clinerules",
-						".cursorrules",
-						".goosehints",
-						".rules",
-						".windsurfrules",
-						".github/copilot-instructions.md",
-						"AGENT.md",
-						"AGENTS.md",
-						{ path = "CLAUDE.md", parser = "claude" },
-						{ path = "CLAUDE.local.md", parser = "claude" },
-						{ path = "~/.claude/CLAUDE.md", parser = "claude" },
+		-- Use config= instead of opts= so we can define a local helper function
+		config = function()
+			--- Returns true (prompt required) when the tool's target path falls outside
+			--- the current working directory. Safe tools inside the project are silent.
+			---@param tool table
+			---@return boolean
+			local function outside_cwd(tool)
+				local path = tool.args and (tool.args.filepath or tool.args.path) or ""
+				if path == "" then
+					return false
+				end
+				local abs = vim.fn.fnamemodify(path, ":p")
+				local cwd = vim.fn.getcwd()
+				-- Normalise: ensure cwd ends with a separator so a prefix match is exact
+				if cwd:sub(-1) ~= "/" then
+					cwd = cwd .. "/"
+				end
+				return not vim.startswith(abs, cwd)
+			end
+
+			require("codecompanion").setup({
+				ignore_warnings = true,
+				interactions = {
+					chat = {
+						tools = {
+							opts = {
+								-- Load the full agent toolset in every new chat automatically
+								default_tools = { "agent" },
+							},
+							groups = {
+								-- Extend the agent group's system prompt with our tool-usage rules
+								["agent"] = {
+									system_prompt = function(group, ctx)
+										local default = group.default_system_prompt
+											or require("codecompanion.config").interactions.chat.tools.groups["agent"].system_prompt
+										return (type(default) == "function" and default(group, ctx) or default or "")
+											.. [[
+<toolRules>
+- grep_search: ALWAYS set is_regexp=true when the query contains | or any regex syntax.
+  Without it the pipe is escaped to a literal and returns zero results.
+- Prefer native tools over shell commands: use read_file not cat, grep_search not grep,
+  file_search not find, get_diagnostics not shell invocations, get_changed_files not git diff.
+  Only reach for run_command when no native tool can do the job (builds, tests, etc).
+</toolRules>]]
+									end,
+								},
+							},
+						},
 					},
 				},
-			},
-			strategies = {
-				chat = {
-					adapter = {
-						name = "copilot",
-						model = "claude-sonnet-4.6",
-						-- model = "gpt-5.3-codex",
-					},
-					-- adapater = "copilot",
-					tools = {
-						-- ["mcp"] = {
-						--  callback = function()
-						--    return require("mcphub.extensions.codecompanion")
-						--  end,
-						--  description = "Call tools and resources from the MCP servers",
-						--  opts = {
-						--    show_result_in_chat = true,
-						--    make_vars = true,
-						--    make_slash_commands = true,
-						--  },
-						-- },
+				memory = {
+					default = {
+						description = "Collection of common files for all projects",
+						files = {
+							".clinerules",
+							".cursorrules",
+							".goosehints",
+							".rules",
+							".windsurfrules",
+							".github/copilot-instructions.md",
+							"AGENT.md",
+							"AGENTS.md",
+							{ path = "CLAUDE.md", parser = "claude" },
+							{ path = "CLAUDE.local.md", parser = "claude" },
+							{ path = "~/.claude/CLAUDE.md", parser = "claude" },
+						},
 					},
 				},
-				inline = {
-					adapter = "copilot",
+				strategies = {
+					chat = {
+						adapter = {
+							name = "copilot",
+							model = "claude-sonnet-4.6",
+						},
+						tools = {
+							-- No filepath arg; workspace-scoped reads — never prompt
+							["grep_search"] = { opts = { require_approval_before = false } },
+							["file_search"] = { opts = { require_approval_before = false } },
+							["get_diagnostics"] = { opts = { require_approval_before = false } },
+							["get_changed_files"] = { opts = { require_approval_before = false } },
+							-- Filepath-based tools: only prompt when path escapes the project root
+							["read_file"] = { opts = { require_approval_before = outside_cwd } },
+							["create_file"] = { opts = { require_approval_before = outside_cwd } },
+							["delete_file"] = { opts = { require_approval_before = outside_cwd } },
+							["insert_edit_into_file"] = {
+								opts = {
+									require_approval_before = outside_cwd,
+									require_confirmation_after = false, -- git handles this
+								},
+							},
+						},
+					},
+					inline = { adapter = "copilot" },
+					agent = { adapter = "copilot" },
 				},
-				agent = {
-					adapter = "copilot",
-				},
-			},
-		},
+			})
+		end,
 	},
 }

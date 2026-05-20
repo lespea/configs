@@ -14,7 +14,7 @@
 "asdf:mise-plugins/mise-sbt" = "latest"
 "github:coursier/coursier" = "latest"
 "github:skim-rs/skim" = "latest"
-"vfox:mise-plugins/vfox-scala" = "latest"
+#"vfox:mise-plugins/vfox-scala" = "latest"
 
 # "asdf:mise-plugins/mise-gcloud" = "latest"
 # "asdf:mise-plugins/mise-llvm" = "latest"

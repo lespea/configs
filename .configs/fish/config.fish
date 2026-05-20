@@ -62,11 +62,12 @@ end
 
 function runSources
     if type -q mise
+        mise x -- fnox x -- mise activate fish | source
+        mise completion fish | source
+
         set -gx FNOX_SHELL_OUTPUT none
         mise x -- fnox activate fish | source
-        mise activate fish | source
-        mise completion fish | source
-        fnox completion fish | source
+        mise x -- fnox completion fish | source
     end
 
     act atuin init fish --disable-up-arrow

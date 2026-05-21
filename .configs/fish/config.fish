@@ -62,8 +62,8 @@ end
 
 function runSources
     if type -q mise
-        mise x --no-deps -- fnox x -- mise activate fish | source
-        mise x --no-deps -- fnox x -- mise completion fish | source
+        mise activate fish | source
+        mise completion fish | source
 
         set -gx FNOX_SHELL_OUTPUT none
         mise x -- fnox activate fish | source

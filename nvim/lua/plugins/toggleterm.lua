@@ -143,7 +143,7 @@ return {
 			if termRight:is_open() then
 				termRight:send(clearAndRun("project genLists;run;project fpFinder"), true)
 
-				local delay = 7000
+				local delay = 8000
 
 				vim.defer_fn(function()
 					if not termFloat:is_open() then
@@ -154,7 +154,7 @@ return {
 
 				vim.defer_fn(function()
 					lazygit:toggle()
-				end, delay + 19000)
+				end, delay + 10000)
 			end
 		end, { desc = "run gen rules" })
 

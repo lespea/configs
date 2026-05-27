@@ -3,8 +3,8 @@ config-file = ?custom
 #font-family = "JetBrainsMono Nerd Font Mono"
 #font-size = 13
 
-font-family = "0xProto"
-font-size = 11.8
+font-family = "NotoSansM Nerd Font Mono"
+font-size = 13
 
 #theme = dankcolors
 #theme = Citruszest

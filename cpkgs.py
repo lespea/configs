@@ -446,7 +446,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
     ]
 
     if is_nix():
-        uutils_feats.append("feat_os_unix", "feat_acl")
+        uutils_feats.extend(["feat_acl", "feat_os_unix"])
         want.extend(nix_pkgs)
 
         sess = os.getenv("XDG_SESSION_TYPE")

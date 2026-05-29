@@ -389,6 +389,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("ripgrep_all"),
         PkgInfo("sd"),
         PkgInfo("simple-http-server"),
+        PkgInfo("splog"),
         PkgInfo("stylua"),
         PkgInfo("tokei", features=["all"]),
         PkgInfo("trippy"),

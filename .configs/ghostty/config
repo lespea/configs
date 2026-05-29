@@ -6,6 +6,7 @@ config-file = ?custom
 font-family = "Fira Code"
 font-family = "Symbols Nerd Font Mono"
 font-size = 13
+font-thicken = true
 
 #theme = dankcolors
 #theme = Citruszest

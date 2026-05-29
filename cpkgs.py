@@ -424,18 +424,18 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
     ]
 
     win_pkgs = [
-        PkgInfo("czkawka_cli", high_priority=True),
+        # PkgInfo("czkawka_cli", high_priority=True),
         PkgInfo("nu", locked=True),
         PkgInfo("pueue"),
         PkgInfo("starship", high_priority=True),
     ]
 
     gui_pkgs = [
-        PkgInfo("czkawka_gui", high_priority=True),
+        # PkgInfo("czkawka_gui", high_priority=True),
     ]
 
     server_pkgs = [
-        PkgInfo("czkawka_cli", high_priority=True),
+        # PkgInfo("czkawka_cli", high_priority=True),
     ]
 
     uutils_feats = [

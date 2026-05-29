@@ -3,7 +3,8 @@ config-file = ?custom
 #font-family = "JetBrainsMono Nerd Font Mono"
 #font-size = 13
 
-font-family = "NotoSansM Nerd Font Mono"
+font-family = "Fira Code"
+font-family = "Symbols Nerd Font Mono"
 font-size = 13
 
 #theme = dankcolors

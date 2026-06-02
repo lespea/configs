@@ -28,6 +28,7 @@ function setEnvs
     set -gx SOPS_AGE_KEY_FILE $AGE_KEY
 
     set -gx MISE_LIBC gnu
+    set -gx SYSTEMD_TINT_BACKGROUND 0
 end
 
 function setAbbs

@@ -67,6 +67,7 @@ java = "temurin-26"
 "npm:@mermaid-js/mermaid-cli" = "latest"
 "npm:@tailwindcss/language-server" = "latest"
 "npm:mcp-hub" = "latest"
+"npm:oxfmt" = "latest"
 "npm:prettier" = "latest"
 "npm:typescript" = "latest"
 "npm:typescript-language-server" = "latest"
@@ -100,3 +101,5 @@ minimum_release_age = "2d"
 env_cache = true
 
 use_versions_host = true
+auto_install = false
+prefer_offline = true

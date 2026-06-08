@@ -11,7 +11,7 @@
 "aqua:rust-lang/rust-analyzer" = "latest"
 "aqua:skaji/relocatable-perl" = "latest"
 "aqua:tamasfe/taplo" = "latest"
-"asdf:mise-plugins/mise-sbt" = "latest"
+"asdf:mise-plugins/mise-sbt" = "1.12.11"
 "github:coursier/coursier" = "latest"
 "github:skim-rs/skim" = "latest"
 #"vfox:mise-plugins/vfox-scala" = "latest"

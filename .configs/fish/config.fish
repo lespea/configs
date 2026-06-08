@@ -63,7 +63,11 @@ end
 
 function runSources
     if type -q mise
-        mise activate fish | source
+        if type -q fnox
+            fnox x -- mise activate fish | source
+        else
+            mise activate fish | source
+        end
         mise completion fish | source
 
         set -gx FNOX_SHELL_OUTPUT none

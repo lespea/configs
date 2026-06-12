@@ -101,5 +101,5 @@ minimum_release_age = "2d"
 env_cache = true
 
 use_versions_host = true
-auto_install = false
-prefer_offline = true
+#auto_install = false
+#prefer_offline = true

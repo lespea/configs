@@ -11,7 +11,7 @@
 "aqua:rust-lang/rust-analyzer" = "latest"
 "aqua:skaji/relocatable-perl" = "latest"
 "aqua:tamasfe/taplo" = "latest"
-"asdf:mise-plugins/mise-sbt" = "1.12.12"
+"asdf:mise-plugins/mise-sbt" = "1.12.13"
 "github:coursier/coursier" = "latest"
 "github:skim-rs/skim" = "latest"
 #"vfox:mise-plugins/vfox-scala" = "latest"
@@ -104,3 +104,6 @@ env_cache = true
 use_versions_host = true
 auto_install = false
 prefer_offline = true
+
+[settings.ruby]
+compile = false

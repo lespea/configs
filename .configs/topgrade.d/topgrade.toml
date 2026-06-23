@@ -48,6 +48,7 @@ disable = [
     "pnpm",
     "powershell",
     "raco",
+    "ruby_gems",
     "uv",
     "vim",
     "wsl",

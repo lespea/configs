@@ -47,6 +47,7 @@ disable = [
     "pip3",
     "pnpm",
     "powershell",
+    "protonplus",
     "raco",
     "ruby_gems",
     "uv",

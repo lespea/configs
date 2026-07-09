@@ -96,7 +96,6 @@ http_timeout = "5m"
 npm.package_manager = "bun"
 pipx.uvx = true
 python.uv_venv_auto = "create|source"
-python.compile = false
 
 minimum_release_age = "2d"
 env_cache = true
@@ -105,5 +104,7 @@ use_versions_host = true
 auto_install = false
 prefer_offline = true
 
-[settings.ruby]
-compile = false
+erlang.compile = false
+node.compile = false
+python.compile = false
+ruby.compile = false

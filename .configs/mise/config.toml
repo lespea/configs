@@ -64,7 +64,6 @@ java = "temurin-26"
 # Node tools
 "npm:@biomejs/biome" = "latest"
 "npm:@bufbuild/buf" = "latest"
-"npm:@mermaid-js/mermaid-cli" = "11.16.0"
 "npm:@tailwindcss/language-server" = "latest"
 "npm:mcp-hub" = "latest"
 "npm:oxfmt" = "latest"

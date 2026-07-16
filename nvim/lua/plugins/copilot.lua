@@ -107,7 +107,7 @@ return {
 					chat = {
 						adapter = {
 							name = "copilot",
-							model = "claude-sonnet-4.6",
+							model = "claude-sonnet-5",
 						},
 						tools = {
 							-- No filepath arg; workspace-scoped reads — never prompt

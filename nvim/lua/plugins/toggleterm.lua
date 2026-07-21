@@ -102,7 +102,7 @@ local function copyDomainInfo(id, forward)
 		while lnum >= 1 and lnum <= #lines do
 			local line = lines[lnum]
 
-			if line:match("^sbt:fpFinder>") then
+			if vim.startswith(line, "sbt:fpFinder>") then
 				vim.api.nvim_win_set_cursor(0, { lnum, 0 })
 				vim.cmd("normal! zt")
 				vim.notify("Reached sbt:fpFinder> prompt", vim.log.levels.INFO)
@@ -137,18 +137,13 @@ local function copyDomainInfo(id, forward)
 		local vec_content = find_vector_content(lines, block_start, block_end, "Missed Doms")
 		local count = 0
 		if vec_content then
-			vim.fn.setreg('"', vec_content)
 			for _ in vec_content:gmatch('"[^"]*"') do
 				count = count + 1
 			end
 		end
+		vim.fn.setreg('"', vec_content or "")
 
-		vim.notify(
-			("Copied domain %q to clipboard%s"):format(
-				name,
-				vec_content and (" and %d Missed Doms entries to yank register"):format(count) or ""
-			)
-		)
+		vim.notify(("Copied domain %q to clipboard and %d Missed Doms entries to yank register"):format(name, count))
 	end)
 end
 

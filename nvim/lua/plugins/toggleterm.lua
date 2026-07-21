@@ -1,12 +1,154 @@
-local function moveWin(id, dir)
+-- Finds the [start, end] line numbers (1-indexed, inclusive) of the
+-- "paragraph" (contiguous non-blank block of lines) that `lnum` sits in.
+local function get_paragraph_bounds(lines, lnum)
+	local start_l = lnum
+	while start_l > 1 and lines[start_l - 1] ~= "" do
+		start_l = start_l - 1
+	end
+
+	local end_l = lnum
+	local n = #lines
+	while end_l < n and lines[end_l + 1] ~= "" do
+		end_l = end_l + 1
+	end
+
+	return start_l, end_l
+end
+
+-- Looks for a block shaped like:
+--   (
+--     "domain.in",
+--     Vector(
+-- Returns the matched name (e.g. "domain.in") and the line index of the
+-- opening "(" if found within [start_l, end_l].
+local function find_domain_name(lines, start_l, end_l)
+	for i = start_l, end_l - 2 do
+		if lines[i]:match("^%s*%(%s*$") then
+			local name = lines[i + 1]:match('^%s*"([^"]*)",%s*$')
+			if name and lines[i + 2]:match("^%s*Vector%(%s*$") then
+				return name, i
+			end
+		end
+	end
+	return nil, nil
+end
+
+-- Looks (within [start_l, end_l]) for an entry shaped like:
+--     (
+--       "<label>",
+--       Vector(
+--         ...
+--       )
+-- (which may also be fully collapsed onto a single "Vector(...)" line, and
+-- may be empty) and returns everything inside the Vector(...) as a string.
+local function find_vector_content(lines, start_l, end_l, label)
+	for i = start_l, end_l do
+		local name = lines[i]:match('^%s*"([^"]*)",%s*$')
+		if name == label then
+			local vec_line = i + 1
+			if vec_line > end_l then
+				return nil
+			end
+
+			-- Single-line case: Vector(...) fully on one line.
+			local inline = lines[vec_line]:match("^%s*Vector%((.*)%)%s*$")
+			if inline then
+				return inline
+			end
+
+			-- Multi-line case: Vector( on its own line, contents until the
+			-- matching closing ")" on its own line.
+			if lines[vec_line]:match("^%s*Vector%(%s*$") then
+				local content = {}
+				local j = vec_line + 1
+				while j <= end_l do
+					if lines[j]:match("^%s*%)%s*$") then
+						break
+					end
+					table.insert(content, lines[j])
+					j = j + 1
+				end
+				return table.concat(content, "\n")
+			end
+		end
+	end
+	return nil
+end
+
+-- Searches (from the cursor, forward if `forward` is true / backward if
+-- false) for the *next* "domain" block (always skipping past the paragraph
+-- the cursor currently sits in), copies its name to the system clipboard,
+-- and copies the contents of its "Missed Doms" Vector(...) into the unnamed
+-- (yank) register.
+--
+-- If a line starting with "sbt:fpFinder>" is encountered before a domain
+-- block is found, the cursor is moved there (and the window scrolled) and
+-- the search stops without copying anything.
+local function copyDomainInfo(id, forward)
 	if not (id and vim.api.nvim_buf_is_valid(id)) then
 		return
 	end
 
-	local count = vim.v.count1
-
 	vim.api.nvim_buf_call(id, function()
-		vim.cmd(("normal! %d%szt"):format(count, dir))
+		local lines = vim.api.nvim_buf_get_lines(id, 0, -1, false)
+		local cur_lnum = vim.api.nvim_win_get_cursor(0)[1]
+
+		local step = forward and 1 or -1
+		local s, e = get_paragraph_bounds(lines, cur_lnum)
+		local lnum = (forward and e or s) + step
+
+		local name, block_start, block_end
+
+		while lnum >= 1 and lnum <= #lines do
+			local line = lines[lnum]
+
+			if line:match("^sbt:fpFinder>") then
+				vim.api.nvim_win_set_cursor(0, { lnum, 0 })
+				vim.cmd("normal! zt")
+				vim.notify("Reached sbt:fpFinder> prompt", vim.log.levels.INFO)
+				return
+			end
+
+			if line == "" then
+				lnum = lnum + step
+			else
+				local ps, pe = get_paragraph_bounds(lines, lnum)
+				name = select(1, find_domain_name(lines, ps, pe))
+				if name then
+					block_start, block_end = ps, pe
+					break
+				end
+				lnum = (forward and pe or ps) + step
+			end
+		end
+
+		if not name then
+			vim.notify("No domain block found", vim.log.levels.WARN)
+			return
+		end
+
+		-- Move the cursor to the start of the matched paragraph and scroll it
+		-- to the top of the window.
+		vim.api.nvim_win_set_cursor(0, { block_start, 0 })
+		vim.cmd("normal! zt")
+
+		vim.fn.setreg("+", name)
+
+		local vec_content = find_vector_content(lines, block_start, block_end, "Missed Doms")
+		local count = 0
+		if vec_content then
+			vim.fn.setreg('"', vec_content)
+			for _ in vec_content:gmatch('"[^"]*"') do
+				count = count + 1
+			end
+		end
+
+		vim.notify(
+			("Copied domain %q to clipboard%s"):format(
+				name,
+				vec_content and (" and %d Missed Doms entries to yank register"):format(count) or ""
+			)
+		)
 	end)
 end
 
@@ -49,12 +191,12 @@ return {
 		local set = vim.keymap.set
 
 		set("n", "<leader>pb", function()
-			moveWin(termRight.bufnr, "{")
-		end, { desc = "Scroll the right term back" })
+			copyDomainInfo(termRight.bufnr, false)
+		end, { desc = "Copy domain name/Missed Doms (search backward)" })
 
 		set("n", "<leader>pf", function()
-			moveWin(termRight.bufnr, "}")
-		end, { desc = "Scroll the right term forward" })
+			copyDomainInfo(termRight.bufnr, true)
+		end, { desc = "Copy domain name/Missed Doms (search forward)" })
 
 		for _, key in ipairs({ "<C-.>", "\\tt" }) do
 			set({ "n", "t" }, key, function()

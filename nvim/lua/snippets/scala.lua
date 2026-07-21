@@ -11,7 +11,7 @@ local reg = function(pos, name, insert)
 	return d(pos, function()
 		local v = vim.fn.getreg(name, 1, 1)
 		if v == nil then
-			v = ""
+			v = { "" }
 		end
 
 		if insert then

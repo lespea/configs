@@ -31,6 +31,14 @@ return {
 				end,
 				desc = "Buffers",
 			},
+			-- Tip: filter grep results by extension/filetype using ripgrep passthrough args.
+			-- Type your search pattern, then " -- " followed by any rg flags, e.g.:
+			--   foo -- -g *.lua        (only .lua files)
+			--   foo -- -t lua          (only files rg detects as filetype lua)
+			--   foo -- -g '*.{ts,tsx}' (multiple extensions)
+			--   foo -- -g '!*.test.lua' (exclude a glob)
+			-- Anything after "--" is parsed by Snacks.picker.util.parse() and passed
+			-- straight through to the `rg` command (see snacks.nvim source/grep.lua).
 			{
 				"<leader>/",
 				function()
@@ -99,6 +107,8 @@ return {
 			{
 				"<leader>fg",
 				function()
+					-- Tip: filter by extension/filetype via rg passthrough, e.g. "foo -- -g *.lua"
+					-- or "foo -- -t lua" (see note above <leader>/ for full syntax).
 					Snacks.picker.grep({
 						hidden = true,
 					})

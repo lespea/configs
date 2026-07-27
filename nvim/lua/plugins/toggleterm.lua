@@ -33,36 +33,69 @@ local function find_domain_name(lines, start_l, end_l)
 	return nil, nil
 end
 
+-- Escapes Lua pattern special characters in `s` so it can be used literally
+-- inside a pattern.
+local function escape_pattern(s)
+	return (s:gsub("[%(%)%.%%%+%-%*%?%[%]%^%$]", "%%%1"))
+end
+
 -- Looks (within [start_l, end_l]) for an entry shaped like:
 --     (
 --       "<label>",
 --       Vector(
 --         ...
 --       )
--- (which may also be fully collapsed onto a single "Vector(...)" line, and
--- may be empty) and returns everything inside the Vector(...) as a string.
+-- The "<label>", and Vector( may also be collapsed onto the same line (with
+-- or without a leading "("), the whole thing (including Vector's contents)
+-- may be fully collapsed onto a single line, and the Vector(...) may be
+-- empty. Returns everything inside the Vector(...) as a string (or nil if
+-- not found).
 local function find_vector_content(lines, start_l, end_l, label)
+	local esc_label = escape_pattern(label)
+	local label_pat = '"' .. esc_label .. '",%s*'
+
 	for i = start_l, end_l do
-		local name = lines[i]:match('^%s*"([^"]*)",%s*$')
+		local line = lines[i]
+
+		-- Fully inline: ("label", Vector(...)),  /  "label", Vector(...)
+		local inline = line:match(label_pat .. "Vector%((.-)%)%)?,?%s*$")
+		if inline then
+			return inline
+		end
+
+		-- Label and "Vector(" open on this same line, contents follow on
+		-- subsequent lines, closed by ")" or "))," on its own line.
+		if line:match(label_pat .. "Vector%(%s*$") then
+			local content = {}
+			local j = i + 1
+			while j <= end_l do
+				if lines[j]:match("^%s*%)%)?,?%s*$") then
+					break
+				end
+				table.insert(content, lines[j])
+				j = j + 1
+			end
+			return table.concat(content, "\n")
+		end
+
+		-- Original shape: label alone on its own line, "Vector(" on the next.
+		local name = line:match('^%s*"([^"]*)",%s*$')
 		if name == label then
 			local vec_line = i + 1
 			if vec_line > end_l then
 				return nil
 			end
 
-			-- Single-line case: Vector(...) fully on one line.
-			local inline = lines[vec_line]:match("^%s*Vector%((.*)%)%s*$")
-			if inline then
-				return inline
+			local vec_inline = lines[vec_line]:match("^%s*Vector%((.-)%)%)?,?%s*$")
+			if vec_inline then
+				return vec_inline
 			end
 
-			-- Multi-line case: Vector( on its own line, contents until the
-			-- matching closing ")" on its own line.
 			if lines[vec_line]:match("^%s*Vector%(%s*$") then
 				local content = {}
 				local j = vec_line + 1
 				while j <= end_l do
-					if lines[j]:match("^%s*%)%s*$") then
+					if lines[j]:match("^%s*%)%)?,?%s*$") then
 						break
 					end
 					table.insert(content, lines[j])

@@ -26,6 +26,22 @@ local pdate = function()
 	return os.date("%Y, %m, %d"):gsub(" 0", " ")
 end
 
+-- Defaults to "Emails" if the "+" register looks like it contains an email
+-- address (i.e. has an "@" in it), otherwise defaults to "Domains". Either
+-- way, the choice can still be cycled with <c-n>/<c-p> as usual.
+local from_kind_choice = function(pos)
+	return d(pos, function()
+		local reg_val = table.concat(vim.fn.getreg("+", 1, 1), "\n")
+		local domains, emails = t("Domains"), t("Emails")
+
+		if reg_val:find("@") then
+			return sn(nil, c(1, { emails, domains }))
+		end
+
+		return sn(nil, c(1, { domains, emails }))
+	end)
+end
+
 vim.keymap.set("n", "<leader>pd", function()
 	if vim.api.nvim_get_current_line() == "" then
 		return
@@ -75,10 +91,7 @@ return {
 				reg(1, "+", false),
 				i(2, ""),
 				f(pdate),
-				c(3, {
-					t("Domains"),
-					t("Emails"),
-				}),
+				from_kind_choice(3),
 				reg(4, "+", false),
 				reg(5, '"', false),
 				i(6, ""),

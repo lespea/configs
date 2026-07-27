@@ -374,6 +374,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("ht"),
         PkgInfo("hyperfine"),
         PkgInfo("igrep"),
+        PkgInfo("ink-md"),
         PkgInfo("jsonxf"),
         PkgInfo("just"),
         PkgInfo("just-lsp"),

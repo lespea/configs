@@ -36,6 +36,12 @@ hl.config({
 		numlock_by_default = true,
 	},
 
+	cursor = {
+		warp_on_change_workspace = true,
+		inactive_timeout = 5,
+		enable_hyprcursor = true,
+	},
+
 	general = {
 		-- See https://wiki.hyprland.org/Configuring/Variables/ for more
 
@@ -59,6 +65,18 @@ hl.config({
 		active_opacity = 1.0,
 		inactive_opacity = 1.0,
 
+		dim_inactive = true,
+		dim_strength = 0.08,
+
+		blur = {
+			enabled = true,
+			size = 6,
+			passes = 3,
+			new_optimizations = true,
+			ignore_opacity = true,
+			xray = false,
+		},
+
 		shadow = {
 			enabled = true,
 			range = 30,
@@ -71,6 +89,13 @@ hl.config({
 	animations = {
 		enabled = true,
 	},
+})
+
+-- Blur DMS overlays
+hl.layer_rule({
+	match = { namespace = "^dms:.*$" },
+	blur = true,
+	ignore_alpha = 0.2,
 })
 
 -- Some default animations, see https://wiki.hyprland.org/Configuring/Animations/ for more
@@ -190,6 +215,18 @@ hl.bind(mainLock .. " + L", hl.dsp.exec_cmd("dms ipc call lock lock"))
 hl.bind(mainMus .. " + Space", hl.dsp.exec_cmd("playerctl play-pause"))
 hl.bind(mainMus .. " + Left", hl.dsp.exec_cmd("playerctl previous"))
 hl.bind(mainMus .. " + Right", hl.dsp.exec_cmd("playerctl next"))
+
+-- Dedicated Audio & Volume Controls (supports holding & volume knob rotation, works when locked)
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("dms ipc call audio increment 3"), { locked = true, repeating = true })
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("dms ipc call audio decrement 3"), { locked = true, repeating = true })
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd("dms ipc call audio mute"), { locked = true })
+hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("dms ipc call audio micmute"), { locked = true })
+
+-- Dedicated Media Control Keys (works when locked)
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
+hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl pause"), { locked = true })
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
 
 hl.bind(mainMod .. " + V", hl.dsp.layout("togglesplit"))
 

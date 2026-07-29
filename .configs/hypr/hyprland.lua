@@ -129,6 +129,15 @@ local mainAlt = "SUPER + SHIFT"
 local mainLock = "SUPER + SHIFT + CONTROL"
 local mainMus = "CONTROL + SHIFT + ALT"
 
+local function start_services(services, delay)
+	delay = delay or 0.5
+	local cmds = {}
+	for _, service in ipairs(services) do
+		table.insert(cmds, "systemctl --user start " .. service)
+	end
+	return table.concat(cmds, "; sleep " .. delay .. "; ")
+end
+
 -- Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
 hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd("uwsm-app ghostty +new-window"))
 hl.bind(mainAlt .. " + Q", hl.dsp.window.close())
@@ -142,11 +151,7 @@ hl.bind(mainAlt .. " + S", hl.dsp.exec_cmd("dms screenshot --no-file"))
 hl.bind(mainAlt .. " + V", hl.dsp.exec_cmd("dms ipc call clipboard toggle"))
 
 hl.bind(mainAlt .. " + E", hl.dsp.exec_cmd("systemctl --user start easyeffects.service"))
-hl.bind(mainAlt .. " + I", hl.dsp.exec_cmd("systemctl --user start slack.service signal.service discord.service"))
-hl.bind(
-	mainAlt .. " + M",
-	hl.dsp.exec_cmd("systemctl --user start easyeffects.service sone.service && uwsm-app pwvucontrol")
-)
+
 hl.bind(mainAlt .. " + R", hl.dsp.exec_cmd("systemctl --user start heroic.service"))
 hl.bind(mainAlt .. " + T", hl.dsp.exec_cmd("systemctl --user start steam.service"))
 hl.bind(mainAlt .. " + U", hl.dsp.exec_cmd("systemctl --user start lutris.service"))
@@ -157,6 +162,24 @@ hl.bind(
 	)
 )
 hl.bind(mainAlt .. " + P", hl.dsp.exec_cmd("systemctl --user start firefox_p.service"))
+
+hl.bind(
+	mainAlt .. " + I",
+	hl.dsp.exec_cmd(start_services({
+		"slack.service",
+		"signal.service",
+		"discord.service",
+	}))
+)
+
+hl.bind(
+	mainAlt .. " + M",
+	hl.dsp.exec_cmd(start_services({
+		"sone.service",
+		"easyeffects.service",
+		"pwvucontrol.service",
+	}))
+)
 
 -- hl.bind(mainMus .. " + B",      hl.dsp.exec_cmd("pkill -USR1 waybar"))
 -- hl.bind(mainMus .. " + R",      hl.dsp.exec_cmd("pkill -USR2 waybar"))

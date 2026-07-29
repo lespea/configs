@@ -131,8 +131,8 @@ bind = $mainAlt, S, exec, dms screenshot --no-file
 bind = $mainAlt, V, exec, dms ipc call clipboard toggle
 
 bind = $mainAlt, E, exec, systemctl --user start easyeffects.service
-bind = $mainAlt, I, exec, systemctl --user start slack.service signal.service discord.service
-bind = $mainAlt, M, exec, systemctl --user start easyeffects.service sone.service && uwsm-app pwvucontrol
+bind = $mainAlt, I, exec, systemctl --user start slack.service; sleep 0.5; systemctl --user start signal.service; sleep 0.5; systemctl --user start discord.service
+bind = $mainAlt, M, exec, systemctl --user start easyeffects.service; sleep 0.5; systemctl --user start sone.service; sleep 0.5; systemctl --user start pwvucontrol.service
 bind = $mainAlt, R, exec, systemctl --user start heroic.service
 bind = $mainAlt, T, exec, systemctl --user start steam.service
 bind = $mainAlt, U, exec, systemctl --user start lutris.service

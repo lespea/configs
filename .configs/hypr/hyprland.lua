@@ -233,26 +233,29 @@ hl.define_submap("resize", function()
 end)
 
 hl.bind(mainMod .. " + escape", function()
-	hl.dsp.submap("logout")
-	hl.dsp.exec_cmd(
-		"notify-send -a Hyprland -t 3500 $'\\ne - exit\\nr - reboot\\ns - suspend\\nS - poweroff\\nl - lock\\nx - termintate' -i /usr/share/icons/breeze-dark/actions/32/system-suspend.svg"
-	)
+	hl.dispatch(hl.dsp.submap("logout"))
+	hl.notification.create({
+		text = "e - exit\nr - reboot\ns - suspend\nS - poweroff\nl - lock\nx - termintate",
+		timeout = 3500,
+		icon = 0,
+		color = "rgba(33ccffee)",
+	})
 end)
 
 hl.define_submap("logout", function()
 	hl.bind("E", hl.dsp.exec_cmd('loginctl terminate-session "$XDG_SESSION_ID"'), { release = true })
 	hl.bind("X", hl.dsp.exec_cmd('loginctl terminate-user ""'), { release = true })
 	hl.bind("S", function()
-		hl.dsp.submap("reset")
-		hl.dsp.exec_cmd("sh -c 'dms ipc call lock lock &!; sleep 1; systemctl suspend'")
+		hl.dispatch(hl.dsp.submap("reset"))
+		hl.dispatch(hl.dsp.exec_cmd("sh -c 'dms ipc call lock lock &!; sleep 1; systemctl suspend'"))
 	end, { release = true })
 	hl.bind("R", hl.dsp.exec_cmd("systemctl reboot"), { release = true })
 	hl.bind("L", function()
-		hl.dsp.submap("reset")
-		hl.dsp.exec_cmd("dms ipc call lock lock")
+		hl.dispatch(hl.dsp.submap("reset"))
+		hl.dispatch(hl.dsp.exec_cmd("dms ipc call lock lock"))
 	end, { release = true })
 	hl.bind("SHIFT + S", hl.dsp.exec_cmd("systemctl poweroff -i"), { release = true })
-	hl.bind("escape", hl.dsp.submap("reset"), { release = true })
+	hl.bind("escape", hl.dsp.submap("reset"))
 	hl.bind("Return", hl.dsp.submap("reset"))
 end)
 

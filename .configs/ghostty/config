@@ -29,3 +29,5 @@ mouse-scroll-multiplier = 1
 keybind = ctrl+shift+j=unbind
 keybind = ctrl+shift+i=unbind
 keybind = ctrl+,=unbind
+
+quit-after-last-window-closed = false

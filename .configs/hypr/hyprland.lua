@@ -164,7 +164,7 @@ local function start_services(services, delay)
 end
 
 -- Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd("uwsm-app ghostty +new-window"))
+hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd("ghostty +new-window"))
 hl.bind(mainAlt .. " + Q", hl.dsp.window.close())
 hl.bind(mainAlt .. " + X", hl.dsp.exec_cmd("loginctl terminate-user ''"))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))

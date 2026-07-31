@@ -20,6 +20,7 @@ disable = [
     "cargo",
     "certbot",
     "claude_code",
+    "claude_code_plugins",
     "colima",
     "containers",
     "dotnet",

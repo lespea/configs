@@ -11,6 +11,8 @@ return {
 	end,
 	opts = {
 		auto_hide = false,
+		minimum_padding = 1,
+		maximum_padding = 1,
 		icons = {
 			-- preset = "slanted",
 			preset = "powerline",

@@ -3,7 +3,7 @@ return {
 		"dgox16/oldworld.nvim",
 		lazy = false,
 		priority = 1000,
-		enabled = true,
+		enabled = false,
 		config = function()
 			require("oldworld").setup({
 				integrations = {
@@ -115,23 +115,40 @@ return {
 		"rachartier/tiny-devicons-auto-colors.nvim",
 		dependencies = {
 			"nvim-tree/nvim-web-devicons",
-			"dgox16/oldworld.nvim",
+			-- "dgox16/oldworld.nvim",
+			"ThorstenRhau/token",
 		},
 		event = "VeryLazy",
 		config = function()
-			local c = require("oldworld.palette")
+			local c = require("token.palette")("dark")
 			require("tiny-devicons-auto-colors").setup({
 				colors = {
-					c.red,
-					c.green,
-					c.yellow,
-					c.purple,
-					c.magenta,
-					c.orange,
 					c.blue,
 					c.cyan,
+					c.green,
+					c.olive,
+					c.orange,
+					c.purple,
+					c.red,
+					c.yellow,
 				},
 			})
+		end,
+	},
+	{
+		"ThorstenRhau/token",
+		enabled = true,
+		priority = 1000,
+		lazy = false,
+		config = function()
+			require("token").setup({
+				terminal_colors = true,
+				plugins = {
+					all = true,
+				},
+			})
+
+			vim.cmd.colorscheme("token")
 		end,
 	},
 }

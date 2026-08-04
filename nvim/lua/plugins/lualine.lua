@@ -82,15 +82,28 @@ local function getLspName()
 	return "  " .. language_servers
 end
 
+local function project_root()
+	local path = vim.fn.getcwd()
+	return "  " .. vim.fn.fnamemodify(path, ":t")
+end
+
 return {
 	"nvim-lualine/lualine.nvim",
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
 		"folke/noice.nvim",
+		"ThorstenRhau/token",
 	},
 	event = { "BufReadPost", "BufNewFile" },
 	config = function()
-		local colors = require("oldworld.palette")
+		local palette = require("token.palette")(vim.o.background)
+		local colors = vim.tbl_extend("force", palette, {
+			bg_dark = palette.bg1,
+			bg = palette.bg3,
+			white = palette.fg0,
+			lavender = palette.bright_purple,
+			bright_red = palette.red,
+		})
 
 		local modecolor = {
 			n = colors.bright_green,
@@ -127,7 +140,7 @@ return {
 		local theme = {
 			normal = {
 				a = { fg = colors.bg_dark, bg = colors.blue },
-				b = { fg = colors.blue, bg = colors.white },
+				b = { fg = colors.blue, bg = colors.bg4 },
 				c = { fg = colors.white, bg = colors.bg_dark },
 				z = { fg = colors.white, bg = colors.bg_dark },
 			},
@@ -217,8 +230,20 @@ return {
 			},
 			sections = {
 				lualine_a = { "hostname", modes },
-				lualine_b = { "branch", "diff", "diagnostics" },
-				lualine_c = { "filename", "lsp_progress" },
+				lualine_b = {
+					"branch",
+					{
+						"diff",
+						symbols = { added = " ", modified = " ", removed = " " },
+						diff_color = {
+							added = { fg = colors.gsign_add },
+							modified = { fg = colors.gsign_change },
+							removed = { fg = colors.gsign_del },
+						},
+					},
+					"diagnostics",
+				},
+				lualine_c = { project_root, "filename", "lsp_progress" },
 				lualine_x = {
 					"%b/0x%B",
 					"encoding",

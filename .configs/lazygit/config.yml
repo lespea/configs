@@ -3,6 +3,33 @@ gui:
   nerdFontsVersion: "3"
   scrollHeight: 10
   showNumstatInFilesView: true
+  theme:
+    activeBorderColor:
+      - "#d97757"
+      - bold
+    inactiveBorderColor:
+      - "#5a5955"
+    searchingActiveBorderColor:
+      - "#c4a855"
+      - bold
+    optionsTextColor:
+      - "#7b9ebd"
+    selectedLineBgColor:
+      - "#3a3a37"
+    inactiveViewSelectedLineBgColor:
+      - "#2f2f2d"
+    cherryPickedCommitFgColor:
+      - "#7b9ebd"
+    cherryPickedCommitBgColor:
+      - "#2f2f2d"
+    markedBaseCommitFgColor:
+      - "#a68bbf"
+    markedBaseCommitBgColor:
+      - "#2f2f2d"
+    unstagedChangesColor:
+      - "#c67777"
+    defaultFgColor:
+      - "#e8e4dc"
 git:
   overrideGpg: true
   pagers:

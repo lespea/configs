@@ -15,7 +15,7 @@ font-size = 13
 #theme = Monokai Remastered
 #theme = Tomorrow Night Bright
 
-theme = Ayu
+theme = token-dark
 
 background-opacity = 0.96
 

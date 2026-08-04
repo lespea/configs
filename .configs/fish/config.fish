@@ -111,6 +111,8 @@ end
 function setupFish
     set -g fish_transient_prompt 1
 
+    fish_config theme choose token
+
     for mode in (bind --list-modes)
         bind -M $mode ctrl-c cancel-commandline
     end

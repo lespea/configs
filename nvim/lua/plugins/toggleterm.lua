@@ -309,7 +309,7 @@ return {
 			end
 		end, { desc = "run just lint" })
 
-		set({ "n" }, "<leader>rg", function()
+		set({ "n" }, "<leader>ru", function()
 			if termRight:is_open() then
 				termRight:send(clearAndRun("project genLists;run;project fpFinder"), true)
 

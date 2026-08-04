@@ -32,8 +32,8 @@ gui:
       - "#e8e4dc"
 git:
   overrideGpg: true
-  pagers:
+  diffRenderers:
     - colorArg: always
-      pager: "delta --dark --paging=never --commit-style box --true-color always"
+      command: "delta --dark --paging=never --commit-style box --true-color always"
 promptToReturnFromSubprocess: false
 disableStartupPopups: true

@@ -68,3 +68,4 @@ pip/
 Fonts/.uuid
 ttf-ms-win10
 nvim/lazy-lock.json
+/.configs/lazygit/github_pull_requests.json

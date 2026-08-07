@@ -443,12 +443,12 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
 
     uutils_feats = [
         "default",
-        "uudoc",
         "feat_Tier1",
+        "uudoc",
     ]
 
     if is_nix():
-        uutils_feats.extend(["feat_acl", "feat_os_unix"])
+        uutils_feats.extend(["feat_systemd_logind", "unix"])
         want.extend(nix_pkgs)
 
         sess = os.getenv("XDG_SESSION_TYPE")
@@ -458,12 +458,12 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
             want.extend(gui_pkgs)
 
     elif is_dar():
-        uutils_feats.append("feat_os_unix")
+        uutils_feats.append("unix")
         want.extend(nix_pkgs)
         want.extend(gui_pkgs)
 
     elif is_win():
-        uutils_feats.append("feat_os_windows")
+        uutils_feats.append("windows")
         want.extend(win_pkgs)
 
     else:

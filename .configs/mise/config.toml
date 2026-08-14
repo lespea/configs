@@ -55,6 +55,7 @@ java = "temurin-26"
 "github:Zxilly/go-size-analyzer" = "latest"
 
 # Go repos
+"go:github.com/golangci/golines" = "latest"
 "go:github.com/icholy/gomajor" = "latest"
 "go:github.com/noperator/jqfmt/cmd/jqfmt" = "latest"
 "go:github.com/noperator/sol/cmd/sol" = "latest"

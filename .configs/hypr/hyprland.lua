@@ -216,6 +216,25 @@ hl.bind(mainMus .. " + Space", hl.dsp.exec_cmd("playerctl play-pause"))
 hl.bind(mainMus .. " + Left", hl.dsp.exec_cmd("playerctl previous"))
 hl.bind(mainMus .. " + Right", hl.dsp.exec_cmd("playerctl next"))
 
+-- Toggle confine_pointer for the active window (useful for games)
+hl.bind(mainMus .. " + M", function()
+	local w = hl.get_active_window()
+	local has_tag = false
+	for _, t in ipairs(w.tags) do
+		if t == "confine_ptr" then
+			has_tag = true
+			break
+		end
+	end
+	if has_tag then
+		hl.dispatch(hl.dsp.window.tag({ tag = "-confine_ptr" }))
+		hl.notification.create({ text = "Pointer freed", timeout = 1500, icon = 0 })
+	else
+		hl.dispatch(hl.dsp.window.tag({ tag = "+confine_ptr" }))
+		hl.notification.create({ text = "Pointer confined", timeout = 1500, icon = 0 })
+	end
+end)
+
 -- Dedicated Audio & Volume Controls (supports holding & volume knob rotation, works when locked)
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("dms ipc call audio increment 3"), { locked = true, repeating = true })
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("dms ipc call audio decrement 3"), { locked = true, repeating = true })
@@ -341,6 +360,13 @@ hl.window_rule({
 	name = "noshadow-tiled",
 	match = { float = false },
 	no_shadow = true,
+})
+
+-- Confine pointer to windows tagged via CTRL+SHIFT+ALT+M
+hl.window_rule({
+	name = "confine-tagged",
+	match = { tag = "confine_ptr" },
+	confine_pointer = 1,
 })
 
 hl.window_rule({

@@ -200,7 +200,7 @@ hl.bind(
 hl.bind(
 	mainAlt .. " + M",
 	hl.dsp.exec_cmd(start_services({
-		"sone.service",
+		"tidal.service",
 		"easyeffects.service",
 		"pwvucontrol.service",
 	}))

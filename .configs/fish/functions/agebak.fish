@@ -30,7 +30,7 @@ function agebak
     set -l day (date '+%Y-%m-%d')
     set -l out (string join '' $name '_' $day '.tar.zstd.age')
 
-    set -l in_size (dust -o b -j $dirs | jq -r '.size' | sd 'B$' '')
+    set -l in_size (dust -o b -n0 -j $dirs | jq -r '.size' | sd 'B$' '')
 
     set -l c_tar tar cf - $dirs
     set -l pv_tar pv -cN tar -B (math 2 ^ 24) -s $in_size

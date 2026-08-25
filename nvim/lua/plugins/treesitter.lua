@@ -28,6 +28,7 @@ local languages = {
 	"make",
 	"markdown",
 	"meson",
+	"nickel",
 	"ninja",
 	-- "norg",
 	"passwd",

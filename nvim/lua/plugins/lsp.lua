@@ -49,6 +49,7 @@ return {
 			-- vim.lsp.enable("html")
 			vim.lsp.enable("just")
 			vim.lsp.enable("lua_ls")
+			vim.lsp.enable("nickel_ls")
 			vim.lsp.enable("pyright")
 			vim.lsp.enable("ruff")
 			vim.lsp.enable("rust_analyzer")

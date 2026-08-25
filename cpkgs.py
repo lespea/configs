@@ -383,6 +383,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("mdcat", locked=True),
         PkgInfo("miniserve"),
         PkgInfo("nickel-lang-cli", high_priority=True),
+        PkgInfo("nickel-lang-lsp", high_priority=True),
         PkgInfo("onefetch"),
         PkgInfo("ouch"),
         PkgInfo("procs"),

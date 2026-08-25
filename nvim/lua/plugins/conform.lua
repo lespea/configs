@@ -41,6 +41,7 @@ return {
 			-- scala = { "fallback" },
 			fish = { "fish_indent" },
 			lua = { "stylua" },
+			ncl = { "nickel" },
 			proto = { "buf" },
 			python = { "isort", "black" },
 			rust = { "rustfmt" },

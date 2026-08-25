@@ -55,6 +55,39 @@ return {
 				return not vim.startswith(abs, cwd)
 			end
 
+			--- Hard-coded deny/prompt list for shell commands that must NEVER be silently
+			--- auto-approved in YOLO mode, no matter what the background LLM judge decides.
+			--- This is a deterministic backstop, not a suggestion to the judge.
+			---@param tool table
+			---@return boolean
+			local function requires_hard_confirmation(tool)
+				local cmd = tool.args and tool.args.cmd or ""
+				if cmd == "" then
+					return false
+				end
+				local unsafe_patterns = {
+					"git%s+push",
+					"git%s+reset%s+.*%-%-hard",
+					"git%s+clean%s+.*%-[dfx]",
+					"git%s+checkout%s+.*%-%-force",
+					"git%s+branch%s+.*%-D",
+					"%f[%a]rm%f[%A].*%-r",
+					"%f[%a]rm%f[%A].*%-f",
+					"%f[%a]sudo%f[%A]",
+					"%f[%a]mv%f[%A]",
+					"chmod",
+					"chown",
+					"%.ssh",
+					"%.aws",
+				}
+				for _, pattern in ipairs(unsafe_patterns) do
+					if cmd:match(pattern) then
+						return true
+					end
+				end
+				return false
+			end
+
 			require("codecompanion").setup({
 				ignore_warnings = true,
 				interactions = {
@@ -153,13 +186,16 @@ When in doubt, require approval. Reply only through the provided schema.]],
 									require_confirmation_after = false, -- git handles this
 								},
 							},
-							-- run_command opts into YOLO mode (gty), but defers to the background
-							-- judge (see interactions.background.gates.judge above) so it still
-							-- silently blocks/prompts for anything the judge flags as unsafe.
+							-- run_command opts into YOLO mode (gty) and defers to the background
+							-- judge (see interactions.background.gates.judge above) for anything
+							-- not covered below. But certain commands (git push, rm -rf, sudo,
+							-- credential paths, etc.) ALWAYS require explicit approval via
+							-- requires_hard_confirmation, regardless of what the judge decides.
 							["run_command"] = {
 								opts = {
 									allowed_in_yolo_mode = true,
 									judge_in_yolo_mode = true,
+									require_approval_before = requires_hard_confirmation,
 								},
 							},
 						},

@@ -58,6 +58,34 @@ return {
 			require("codecompanion").setup({
 				ignore_warnings = true,
 				interactions = {
+					-- Background "judge" gate: when a tool opts into judge_in_yolo_mode and
+					-- YOLO mode (gty) is on, this silently asks an LLM whether the specific
+					-- command/action is safe instead of prompting you. Encode your own
+					-- allow/deny rules here instead of relying on per-command "always allow".
+					background = {
+						gates = {
+							judge = {
+								opts = {
+									system_prompt = [[You are a security reviewer for an AI coding assistant running
+on the user's own machine in "auto-approve" (YOLO) mode. Decide if the pending
+tool action is safe to run without asking the user first.
+
+Treat these as SAFE (approve automatically):
+- Read-only shell commands: ls, cat, grep/rg, find, git status/diff/log/show,
+  npm/yarn/pnpm test or lint, go test, cargo test, make test, curl to localhost.
+- Builds/tests that don't touch files outside the current working directory.
+
+Treat these as UNSAFE (require approval):
+- Anything destructive or hard to reverse: rm, mv, git push --force, git reset --hard,
+  chmod/chown on system paths, sudo, package installs/uninstalls, writes outside cwd.
+- Anything touching credentials, SSH keys, ~/.aws, ~/.ssh, environment secrets.
+- Any network call other than to localhost/private test servers.
+
+When in doubt, require approval. Reply only through the provided schema.]],
+								},
+							},
+						},
+					},
 					chat = {
 						tools = {
 							opts = {
@@ -123,6 +151,15 @@ return {
 								opts = {
 									require_approval_before = outside_cwd,
 									require_confirmation_after = false, -- git handles this
+								},
+							},
+							-- run_command opts into YOLO mode (gty), but defers to the background
+							-- judge (see interactions.background.gates.judge above) so it still
+							-- silently blocks/prompts for anything the judge flags as unsafe.
+							["run_command"] = {
+								opts = {
+									allowed_in_yolo_mode = true,
+									judge_in_yolo_mode = true,
 								},
 							},
 						},

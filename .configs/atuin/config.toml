@@ -281,7 +281,7 @@ enabled = true
 ## - if systemd_socket is false: $TMPDIR/atuin-$UID/atuin.sock
 ## - if systemd_socket is true: $XDG_RUNTIME_DIR/atuin.sock
 ## windows: Not Supported
-#socket_path = "/custom/path/to/atuin.sock"
+socket_path = "$XDG_RUNTIME_DIR/atuin.sock"
 
 ## The daemon pidfile used for lifecycle management.
 ## Defaults to the Atuin data directory.
@@ -291,7 +291,7 @@ enabled = true
 ## Note: setting this to true changes the default value of socket_path; see above.
 ## linux: false
 ## mac/windows: Not Supported
-systemd_socket = true
+# systemd_socket = true
 
 ## The port that should be used for TCP on non unix systems
 # tcp_port = 8889

@@ -81,6 +81,7 @@ java = "temurin-26"
 "pipx:isort" = "latest"
 "pipx:pyright" = "latest"
 "pipx:ruff" = "latest"
+"github:dazld/r11y" = "latest"
 
 # Renames
 [tools."github:dmarkham/enumer"]

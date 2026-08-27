@@ -281,7 +281,7 @@ enabled = true
 ## - if systemd_socket is false: $TMPDIR/atuin-$UID/atuin.sock
 ## - if systemd_socket is true: $XDG_RUNTIME_DIR/atuin.sock
 ## windows: Not Supported
-socket_path = "$XDG_RUNTIME_DIR/atuin.sock"
+socket_path = "$TMPDIR/atuin.sock"
 
 ## The daemon pidfile used for lifecycle management.
 ## Defaults to the Atuin data directory.

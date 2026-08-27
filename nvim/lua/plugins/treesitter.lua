@@ -189,13 +189,45 @@ return {
 			"nvim-treesitter/nvim-treesitter",
 		},
 		config = function()
-			-- Terrible, terrible hack but good enough for now.  I feel dirty.
-
 			local tsj_utils = require("treesj.langs.utils")
-			local rust = require("treesj.langs.rust")
 
 			local langs = {
-				scala = tsj_utils.merge_preset(rust, {}),
+				scala = {
+					-- class/object/trait bodies: `{ ... }`
+					template_body = tsj_utils.set_preset_for_statement(),
+					class_definition = { target_nodes = { "template_body" } },
+					object_definition = { target_nodes = { "template_body" } },
+					trait_definition = { target_nodes = { "template_body" } },
+
+					-- `enum Foo { ... }` body. NOTE: deliberately not handling
+					-- `enum_case_definitions` (the `case A, B, C` shorthand) --
+					-- its leading `case` keyword confuses treesj's generic
+					-- list-item/separator counting and joining it back drops a
+					-- comma, silently corrupting the enum.
+					enum_body = tsj_utils.set_preset_for_statement(),
+					enum_definition = { target_nodes = { "enum_body" } },
+
+					-- `{ ... }` code blocks and `match { case ... }` bodies.
+					-- NOTE: deliberately not handling `indented_block`/
+					-- `indented_cases` (Scala 3's brace-less indentation
+					-- syntax) -- joining them to one line produces invalid
+					-- Scala since there's nothing to frame the joined
+					-- statements without braces.
+					block = tsj_utils.set_preset_for_statement(),
+					case_block = tsj_utils.set_preset_for_statement(),
+
+					-- parameter / argument / tuple lists
+					class_parameters = tsj_utils.set_preset_for_args({ split = { last_separator = true } }),
+					parameters = tsj_utils.set_preset_for_args({ split = { last_separator = true } }),
+					arguments = tsj_utils.set_preset_for_args({ split = { last_separator = true } }),
+					tuple_expression = tsj_utils.set_preset_for_args({ split = { last_separator = true } }),
+					bindings = tsj_utils.set_preset_for_args({ split = { last_separator = true } }),
+					lambda_expression = { target_nodes = { "bindings" } },
+
+					-- `import foo.bar.{Baz, Qux}`
+					namespace_selectors = tsj_utils.set_preset_for_list(),
+					import_declaration = { target_nodes = { "namespace_selectors" } },
+				},
 				-- Nickel records ({ ... }) live on `uni_record`, but array
 				-- literals ([ ... ]) don't get their own node type -- they're
 				-- just an `atom` with a `terms` field. `atom` is also used for

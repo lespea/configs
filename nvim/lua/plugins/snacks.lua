@@ -132,11 +132,11 @@ return {
 				"<leader>fk",
 				function()
 					Snacks.picker.grep({
-						dirs = { "./scanner/src/main/scala/org/tgt/pippee/scanner/allowlist/rules/" },
+						dirs = { "./rules/groups" },
 						regex = true,
 						hidden = true,
 						ignored = true,
-						search = '(?-iu)from *= *from(?:Emails|Domains)\\([^)]*"[^()"\\n]*(?i)',
+						search = '(?m-iu)^ *from *= *\\[[^\\]]*"[^\\[\\]"\\n]*(?i)',
 						args = { "-U" },
 					})
 				end,

@@ -3,9 +3,8 @@ local sn = require("luasnip.nodes.snippet").SN
 local t = require("luasnip.nodes.textNode").T
 local i = require("luasnip.nodes.insertNode").I
 local f = require("luasnip.nodes.functionNode").F
-local c = require("luasnip.nodes.choiceNode").C
 local d = require("luasnip.nodes.dynamicNode").D
-local fmt = require("luasnip.extras.fmt").fmt
+local fmta = require("luasnip.extras.fmt").fmta
 
 local reg = function(pos, name, insert)
 	return d(pos, function()
@@ -23,23 +22,7 @@ local reg = function(pos, name, insert)
 end
 
 local pdate = function()
-	return os.date("%Y, %m, %d"):gsub(" 0", " ")
-end
-
--- Defaults to "Emails" if the "+" register looks like it contains an email
--- address (i.e. has an "@" in it), otherwise defaults to "Domains". Either
--- way, the choice can still be cycled with <c-n>/<c-p> as usual.
-local from_kind_choice = function(pos)
-	return d(pos, function()
-		local reg_val = table.concat(vim.fn.getreg("+", 1, 1), "\n")
-		local domains, emails = t("Domains"), t("Emails")
-
-		if reg_val:find("@") then
-			return sn(nil, c(1, { emails, domains }))
-		end
-
-		return sn(nil, c(1, { domains, emails }))
-	end)
+	return os.date("%Y-%m-%d")
 end
 
 vim.keymap.set("n", "<leader>pd", function()
@@ -57,10 +40,10 @@ vim.keymap.set("n", "<leader>pd", function()
 	vim.api.nvim_win_set_cursor(0, start_pos)
 
 	local lines = vim.api.nvim_buf_get_lines(0, start_row, end_row, false)
-	local rep = "= makeDate(" .. pdate() .. "),"
+	local rep = 'metadata = { validated = "' .. pdate() .. '" },'
 
 	for idx, line in ipairs(lines) do
-		local new_line = string.gsub(line, "= makeDate%([%d, ]+%),$", rep)
+		local new_line = string.gsub(line, 'metadata = { validated = "%d%d%d%d%-%d%d%-%d%d" },', rep)
 
 		if line ~= new_line then
 			vim.api.nvim_buf_set_lines(0, start_row + idx - 1, start_row + idx, true, { new_line })
@@ -73,32 +56,35 @@ return {
 	-- new fpr
 	s(
 		"fpr",
-		fmt(
+		fmta(
 			[[
-    easyAutoRule(
-      name = "{}{}",
-      validated = makeDate({}),
-      from = from{}("{}"),
-      domains = Set(
-        {}
-      ),
-      subjectContains = Seq(
-        "{}"
-      ),
-    )
+{
+  name = "<><>",
+  metadata = { validated = "<>" },
+  from = ["<>"],
+  domains = {
+    values = [
+      <>
+    ],
+  },
+  subject = {
+    contains = [
+      "<>"
+    ],
+  },
+},
 ]],
 			{
 				reg(1, "+", false),
 				i(2, ""),
 				f(pdate),
-				from_kind_choice(3),
-				reg(4, "+", false),
-				reg(5, '"', false),
-				i(6, ""),
+				reg(3, "+", false),
+				reg(4, '"', false),
+				i(5, ""),
 			}
 		)
 	),
 
 	-- fpr date
-	s("pdate", fmt("{}", { f(pdate) })),
+	s("pdate", fmta("<>", { f(pdate) })),
 }

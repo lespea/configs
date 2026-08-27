@@ -196,6 +196,21 @@ return {
 
 			local langs = {
 				scala = tsj_utils.merge_preset(rust, {}),
+				-- Nickel records ({ ... }) live on `uni_record`, but array
+				-- literals ([ ... ]) don't get their own node type -- they're
+				-- just an `atom` with a `terms` field. `atom` is also used for
+				-- bools/idents/parenthesized terms/etc, so gate it on actually
+				-- having `terms` to split/join.
+				nickel = {
+					uni_record = tsj_utils.set_preset_for_dict(),
+					atom = tsj_utils.set_preset_for_list({
+						both = {
+							enable = function(node)
+								return not vim.tbl_isempty(node:field("terms"))
+							end,
+						},
+					}),
+				},
 			}
 
 			local tj = require("treesj")

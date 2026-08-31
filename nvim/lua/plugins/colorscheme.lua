@@ -148,7 +148,7 @@ return {
 				},
 			})
 
-			vim.cmd.colorscheme("token")
+			vim.cmd.colorscheme("token-meridian")
 		end,
 	},
 }

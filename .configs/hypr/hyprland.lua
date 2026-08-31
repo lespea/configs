@@ -396,10 +396,10 @@ hl.window_rule({
 -- })
 
 -- Initialize uwsm-app and autostart
-hl.on("hyprland.start", function()
-	-- hl.exec_cmd("uwsm-app echo")
-	hl.exec_cmd("bash /home/adam/.config/hypr/xdg.sh")
-end)
+-- hl.on("hyprland.start", function()
+--  -- hl.exec_cmd("uwsm-app echo")
+--  hl.exec_cmd("bash /home/adam/.config/hypr/xdg.sh")
+-- end)
 
 require("dms.cursor")
 require("dms.colors")

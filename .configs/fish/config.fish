@@ -81,6 +81,7 @@ function runSources
     act rg --generate complete-fish
     act zoxide init fish
     act ink completions fish
+    act gh completion -s fish
 
     bind . expand-dot-to-parent-directory-path
 end

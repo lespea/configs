@@ -1,52 +1,61 @@
-#[user]
-    #name = Adam Lesperance
-    #email = lespea@gmail.com
-
 [alias]
-    aa  = add -A
-    ca  = commit -a
-    co  = checkout
-    st  = status
-    gca = gc --aggressive
+	aa = add -A
+	ca = commit -a
+	co = checkout
+	st = status
+	gca = gc --aggressive
+	dlog = "!f() { GIT_EXTERNAL_DIFF=difft git log -p --ext-diff $@; }; f"
+	dt = difftool
 
 [apply]
-    whitespace = strip
+	whitespace = strip
 
 [color]
-    grep        = always
-    diff        = always
-    interactive = always
-    pager       = true
-    status      = true
-    ui          = always
+	grep = always
+	diff = always
+	interactive = always
+	pager = true
+	status = true
+	ui = always
 
 [interactive]
-    diffFilter = delta --color-only
+	diffFilter = delta --color-only --features=interactive
 
 [core]
-    editor = vim
-    pager  = delta
+	editor = nvim
+	pager = delta
 
 [delta]
-    syntax-theme = Monokai Extended
-    line-numbers = true
+	syntax-theme = Monokai Extended
+	line-numbers = true
+	features = token-meridian-dark
+	side-by-side = false
 
 [diff]
-    rename = copy
-    colorMoved = default
+	rename = copy
+	colorMoved = default
+	algorithm = patience
+	tool = difftastic
 
 [merge]
-    conflictstyle = diff3
+	conflictstyle = zdiff3
+	keepbackup = false
+	tool = nvim
 
 [core]
-    autocrlf = false
+	autocrlf = false
 
 [push]
-    default = simple
+	default = current
+	followTags = true
 
 [cola]
-    spellcheck = false
-    fontdiff = Cascadia Code,12,-1,5,50,0,0,0,0,0
+	spellcheck = false
+	fontdiff = Cascadia Code PL,12,-1,5,50,0,0,0,0,0
+	hidpi = 1
+	icontheme = dark
+	startupmode = folder
+	theme = flat-dark-blue
 
 [filter "lfs"]
     process = git-lfs filter-process
@@ -56,6 +65,100 @@
 
 [url "ssh://git@github.com/"]
     insteadOf = https://github.com/
+	pushInsteadOf = https://github.com/
+
+[url "ssh://git@git.target.com/"]
+    insteadOf = https://git.target.com/
 
 [pull]
-    rebase = false
+	rebase = false
+[branch]
+	sort = -committerdate
+[commit]
+	gpgSign = true
+	rebase = true
+[difftool]
+	prompt = false
+[difftool "difftastic"]
+	cmd = difft \"$LOCAL\" \"$REMOTE\"
+[fetch]
+	fsckobjects = true
+	prune = true
+[init]
+	defaultBranch = main
+[log]
+	date = iso
+[pager]
+	difftool = true
+[rebase]
+	autosquash = true
+	autostash = true
+	updateRefs = true
+[receive]
+	fsckobjects = true
+[rerere]
+	enabled = true
+[submodule]
+	recurse = true
+[transfer]
+	fsckobjects = true
+[user]
+	email = lespea@gmail.com
+	name = Adam Lesperance
+	signingKey = key::ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPVprs30xkrE/3WXVUnsC+3aaRzrZC9CC76PqFFS1jP4
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	allowedSignersFile = /home/adam/configs/allowed_git_signers
+
+[delta "token-dark"]
+	dark = true
+	syntax-theme = token-dark
+	blame-palette = "#1d1d1c #212120 #262624 #2f2f2d #383835"
+	commit-decoration-style = "#5a5955" bold box ul
+	file-style = "#e8e4dc"
+	file-decoration-style = "#5a5955"
+	hunk-header-style = file line-number syntax
+	hunk-header-decoration-style = "#5a5955" box ul
+	hunk-header-file-style = bold
+	hunk-header-line-number-style = bold "#938e87"
+	line-numbers-left-style = "#5a5955"
+	line-numbers-right-style = "#5a5955"
+	line-numbers-minus-style = bold "#c67777"
+	line-numbers-plus-style = bold "#7da47a"
+	line-numbers-zero-style = "#938e87"
+	minus-style = syntax "#5a2529"
+	minus-non-emph-style = syntax "#5a2529"
+	minus-emph-style = bold "#e8e4dc" "#7a2e34"
+	minus-empty-line-marker-style = syntax "#5a2529"
+	plus-style = syntax "#2e5232"
+	plus-non-emph-style = syntax "#2e5232"
+	plus-emph-style = bold "#e8e4dc" "#3a6e3e"
+	plus-empty-line-marker-style = syntax "#2e5232"
+	map-styles = "bold purple => syntax '#444039', bold cyan => syntax '#444039'"
+
+[delta "token-meridian-dark"]
+    dark = true
+    syntax-theme = token-meridian-dark
+    blame-palette = "#1d1d1c #212120 #272724 #30302c #383835"
+    commit-decoration-style = "#91887d" bold box ul
+    file-style = "#c9c0b1"
+    file-decoration-style = "#91887d"
+    hunk-header-style = file line-number syntax
+    hunk-header-decoration-style = "#91887d" box ul
+    hunk-header-file-style = bold
+    hunk-header-line-number-style = bold "#a69c91"
+    line-numbers-left-style = "#91887d"
+    line-numbers-right-style = "#91887d"
+    line-numbers-minus-style = bold "#db8935"
+    line-numbers-plus-style = bold "#8cbb62"
+    line-numbers-zero-style = "#a69c91"
+    minus-style = syntax "#5a2529"
+    minus-non-emph-style = syntax "#5a2529"
+    minus-emph-style = bold "#c9c0b1" "#7a2e34"
+    minus-empty-line-marker-style = syntax "#5a2529"
+    plus-style = syntax "#2e5232"
+    plus-non-emph-style = syntax "#2e5232"
+    plus-emph-style = bold "#c9c0b1" "#3a6e3e"
+    plus-empty-line-marker-style = syntax "#2e5232"
+    map-styles = "bold purple => syntax '#444039', bold cyan => syntax '#444039'"

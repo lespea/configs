@@ -96,7 +96,7 @@ return {
 	},
 	event = { "BufReadPost", "BufNewFile" },
 	config = function()
-		local palette = require("token.palette")(vim.o.background)
+		local palette = require("token.palettes.meridian")("dark")
 		local colors = vim.tbl_extend("force", palette, {
 			bg_dark = palette.bg1,
 			bg = palette.bg3,

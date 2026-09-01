@@ -120,7 +120,7 @@ return {
 		},
 		event = "VeryLazy",
 		config = function()
-			local c = require("token.palette")("dark")
+			local c = require("token.palettes.meridian")("dark")
 			require("tiny-devicons-auto-colors").setup({
 				colors = {
 					c.blue,

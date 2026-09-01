@@ -13,10 +13,11 @@ return {
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v3.x",
 		dependencies = {
-			"MunifTanjim/nui.nvim",
 			"folke/snacks.nvim",
+			"MunifTanjim/nui.nvim",
 			"nvim-lua/plenary.nvim",
 			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+			"rachartier/tiny-devicons-auto-colors.nvim",
 			"s1n7ax/nvim-window-picker",
 		},
 		lazy = false,

@@ -15,7 +15,7 @@ font-size = 13
 #theme = Monokai Remastered
 #theme = Tomorrow Night Bright
 
-theme = token-dark
+theme = token-meridian-dark
 
 background-opacity = 0.96
 

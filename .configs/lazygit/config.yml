@@ -5,31 +5,31 @@ gui:
   showNumstatInFilesView: true
   theme:
     activeBorderColor:
-      - "#d97757"
+      - "#e89a49"
       - bold
     inactiveBorderColor:
-      - "#5a5955"
+      - "#91887d"
     searchingActiveBorderColor:
-      - "#c4a855"
+      - "#d99148"
       - bold
     optionsTextColor:
-      - "#7b9ebd"
+      - "#66abc6"
     selectedLineBgColor:
-      - "#3a3a37"
+      - "#3c3b36"
     inactiveViewSelectedLineBgColor:
-      - "#2f2f2d"
+      - "#30302c"
     cherryPickedCommitFgColor:
-      - "#7b9ebd"
+      - "#66abc6"
     cherryPickedCommitBgColor:
-      - "#2f2f2d"
+      - "#30302c"
     markedBaseCommitFgColor:
-      - "#a68bbf"
+      - "#b991db"
     markedBaseCommitBgColor:
-      - "#2f2f2d"
+      - "#30302c"
     unstagedChangesColor:
-      - "#c67777"
+      - "#db8935"
     defaultFgColor:
-      - "#e8e4dc"
+      - "#c9c0b1"
 git:
   overrideGpg: true
   diffRenderers:

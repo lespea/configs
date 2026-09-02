@@ -445,7 +445,6 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
     uutils_feats = [
         "default",
         "feat_Tier1",
-        "uudoc",
     ]
 
     if is_nix():

@@ -3,7 +3,7 @@ export GDK_BACKEND=wayland,x11,*
 export GSK_RENDERER=vulkan
 export MOZ_ENABLE_WAYLAND=1
 export QT_QPA_PLATFORM=wayland;xcb
-export QT_QPA_PLATFORMTHEME=qt6ct,qt5ct
+export QT_QPA_PLATFORMTHEME=qt5ct
 
 export _JAVA_AWT_WM_NONREPARENTING=1
 export ELECTRON_OZONE_PLATFORM_HINT=auto
@@ -20,6 +20,7 @@ export LC_ALL=en_US.UTF-8
 export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
 
 export FSR4_UPGRADE=1
+export PROTON_ENABLE_WAYLAND=1
 export PROTON_FSR4_UPGRADE=1
 export PROTON_NO_WM_DECORATION=1
 export PROTON_PREFER_SDL=1
@@ -28,8 +29,6 @@ export PROTON_USE_WOW64=1
 export PROTON_USE_XALIA=0
 export STEAM_DECK=0
 export SteamDeck=0
-
-# export PROTON_ENABLE_WAYLAND=1
 
 # Enforces RADV Vulkan implementation
 export AMD_VULKAN_ICD=RADV

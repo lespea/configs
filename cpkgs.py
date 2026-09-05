@@ -365,7 +365,6 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("du-dust"),
         PkgInfo("eza"),
         PkgInfo("fd-find"),
-        PkgInfo("fnox", locked=True),
         PkgInfo("fse_dump"),
         PkgInfo("git-delta"),
         PkgInfo("gitoxide"),

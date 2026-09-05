@@ -3,7 +3,7 @@ export GDK_BACKEND=wayland,x11,*
 export GSK_RENDERER=vulkan
 export MOZ_ENABLE_WAYLAND=1
 export QT_QPA_PLATFORM=wayland;xcb
-export QT_QPA_PLATFORMTHEME=qt5ct
+export QT_QPA_PLATFORMTHEME=kde
 
 export _JAVA_AWT_WM_NONREPARENTING=1
 export ELECTRON_OZONE_PLATFORM_HINT=auto

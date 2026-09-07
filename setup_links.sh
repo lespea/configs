@@ -58,7 +58,7 @@ if [ ! -f ${HOME}/.gitconfig ]; then
     cp ${CUR_DIR}/myGitConfig ${HOME}/.gitconfig
 fi
 
-BOTH_DIRS="bat atuin fish ghostty kitty lazygit lsd mise starship.toml taplo topgrade.d zellij"
+BOTH_DIRS="atuin bat bottom broot btop fish ghostty htop kitty lazygit lsd mise mpv nushell pueue rmpc starship.toml taplo topgrade.d zellij"
 
 if [[ $(uname) == "Darwin" ]]; then
     CONF_DIRS="$BOTH_DIRS"
@@ -68,7 +68,7 @@ if [[ $(uname) == "Darwin" ]]; then
 
     setup_link "${CUR_DIR}/gpg/gpg-agent.m1.conf" "${HOME}/.gnupg/gpg-agent.conf"
 else
-    CONF_DIRS="$BOTH_DIRS hypr mako picom sway uwsm waybar wpaperd paru systemd"
+    CONF_DIRS="$BOTH_DIRS ashell cava DankMaterialShell gamemode.ini hypr mako MangoHud mpd paru picom pipewire sway systemd uwsm waybar wpaperd"
 
     setup_single .Xresources
 

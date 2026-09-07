@@ -1,0 +1,9 @@
+[input]
+# Explicitly use pipewire and match your target rate
+method = pipewire
+source = auto
+sample_rate = 96000
+
+[general]
+# High-res audio can handle faster visual updates
+framerate = 60

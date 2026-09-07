@@ -1,0 +1,32 @@
+[Unit]
+Description=Signal
+After=graphical-session.target
+
+[Service]
+Type=exec
+ExecStart=/home/adam/.local/bin/pwrap /usr/bin/signal-desktop --use-tray-icon --enable-features=UseOzonePlatform --ozone-platform-hint=wayland
+Restart=no
+Slice=app-graphical.slice
+# Sandboxing & isolation handled entirely by pwrap
+# (systemd procfs/capability restrictions conflict with unprivileged user namespace /proc mounting)
+#SystemCallArchitectures=native
+#ProtectClock=yes
+#ProtectKernelLogs=yes
+#RestrictRealtime=yes
+#RestrictSUIDSGID=yes
+#NoNewPrivileges=yes
+#ProtectSystem=full
+#PrivateTmp=yes
+#PrivateUsers=yes
+#LockPersonality=yes
+#ProtectHome=read-only
+#ProtectHostname=yes
+#ProtectKernelTunables=yes
+#ProtectKernelModules=yes
+#ProtectControlGroups=yes
+#ProtectProc=invisible
+#PrivateNetwork=no
+#CapabilityBoundingSet=
+
+[Install]
+WantedBy=graphical-session.target

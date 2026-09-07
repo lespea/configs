@@ -1,0 +1,21 @@
+[Unit]
+Description=polkit-kde
+After=graphical-session.target
+
+[Service]
+Type=exec
+#ExecCondition=/lib/systemd/systemd-xdg-autostart-condition "sway" ""
+ExecStart=/usr/lib/polkit-kde-authentication-agent-1
+Restart=on-failure
+Slice=background-graphical.slice
+# Extra Hardening (Safe for GUI apps)
+SystemCallArchitectures=native
+ProtectClock=yes
+ProtectKernelLogs=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+PrivateNetwork=yes
+RestrictAddressFamilies=AF_UNIX
+
+[Install]
+WantedBy=graphical-session.target

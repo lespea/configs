@@ -1,0 +1,9 @@
+[Unit]
+Description=Unix socket activation for Atuin Daemon
+
+[Socket]
+ListenStream=%t/atuin.sock
+SocketMode=0600
+
+[Install]
+WantedBy=sockets.target

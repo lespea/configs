@@ -1,0 +1,43 @@
+[Unit]
+Description=Ashell
+Wants=mpd-mpris.service
+After=graphical-session.target mpd-mpris.service
+
+[Service]
+Type=exec
+ExecCondition=/lib/systemd/systemd-xdg-autostart-condition "Hyprland" ""
+ExecStart=ashell
+Restart=on-failure
+Slice=background-graphical.slice
+# Extra Hardening (Safe for GUI apps)
+SystemCallArchitectures=native
+ProtectClock=yes
+ProtectKernelLogs=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+# Hardening settings for file system access
+NoNewPrivileges=yes
+ProtectSystem=full
+ProtectHome=read-only
+PrivateTmp=yes
+PrivateUsers=yes
+LockPersonality=yes
+ReadWritePaths=%h/.config/ashell
+# Hardening settings for internal system info and namespaces
+ProtectHostname=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+ProtectProc=invisible
+# Network access (adjust as needed)
+PrivateNetwork=no
+# System call filtering (adjust for your application)
+#SystemCallFilter=~@chown @mount @pkey
+#SystemCallFilter=~@clock @keyring @obsolete @privileged @raw-io @reboot @setuid @swap
+# Hardening setting for kernel capabilities
+# This is the most secure setting for a user service
+# CapabilityBoundingSet=CAP_NET_BIND_SERVICE CAP_CHOWN CAP_DAC_OVERRIDE CAP_SETGID CAP_SETUID
+CapabilityBoundingSet=
+
+[Install]
+WantedBy=graphical-session.target

@@ -1,0 +1,59 @@
+[Unit]
+Description=Steam
+After=graphical-session.target
+
+[Service]
+Type=exec
+ExecStart=/home/adam/.local/bin/pwrap /usr/bin/steam
+#ExecStopPost=/usr/bin/pkill gamemoded
+Restart=no
+Slice=app-graphical.slice
+# Extra Hardening (Safe for GUI apps)
+#ProtectClock=yes
+#ProtectKernelLogs=yes
+#RestrictSUIDSGID=yes
+# Hardening settings for file system access
+# Fix for PrivateTmp breaking X11 (Steam needs to see the X11 socket)
+#PrivateTmp=yes
+# Binding the whole directory causes it to be owned by 'nobody' (due to user namespaces)
+# and makes it read-only, which prevents Gamescope's Xwayland from creating nested sockets.
+# Binding just the X0 socket file solves both issues.
+#BindReadOnlyPaths=/tmp/.X11-unix/X0
+
+# This fixes the Wine Z: drive issue for system files, 
+# making your OS files read-only to Steam/Proton.
+#ProtectSystem=full
+# Protecting Home is too restrictive for native games that save to ~/.config or ~/.local
+#ProtectHome=read-only
+
+# Allow Steam/Proton to write ONLY to these specific directories
+# (No longer needed since ProtectHome is disabled)
+#ReadWritePaths=%h/Games/Steam/ %h/Games/umu/ %h/.local/share/Steam/ %h/.local/share/umu %h/.steam/
+
+# Hardening settings for internal system info and namespaces
+#ProtectHostname=yes
+#ProtectKernelTunables=yes
+#ProtectKernelModules=yes
+#ProtectControlGroups=yes
+
+# NOTE: The following are left commented out because they usually break 
+# Steam's "pressure-vessel" (Bubblewrap) which Proton uses to run games.
+#PrivateUsers=yes
+#ProtectProc=invisible
+#NoNewPrivileges=yes
+#LockPersonality=yes
+
+# Network access (adjust as needed, obviously steam needs network)
+#PrivateNetwork=no
+
+# System call filtering (can cause some games/anti-cheats to crash)
+# WARNING: Blocking @privileged or @mount will break Proton (it breaks 'bwrap' used by pressure-vessel)
+#SystemCallFilter=~@clock @module @raw-io @reboot @swap @obsolete
+
+# Hardening setting for kernel capabilities
+# WARNING: Do NOT uncomment CapabilityBoundingSet in a user unit. 
+# It will fail instantly with status=218/CAPABILITIES because the user manager lacks CAP_SETPCAP.
+#CapabilityBoundingSet=CAP_NET_BIND_SERVICE CAP_CHOWN CAP_DAC_OVERRIDE CAP_SETGID CAP_SETUID
+
+[Install]
+WantedBy=graphical-session.target

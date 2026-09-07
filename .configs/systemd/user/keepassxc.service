@@ -1,0 +1,33 @@
+[Unit]
+Description=Keepassxc
+After=graphical-session.target dms.service ssh-agent.service dconf.service xdg-desktop-portal.service
+Wants=ssh-agent.service dms.service dconf.service xdg-desktop-portal.service
+
+[Service]
+Type=exec
+ExecCondition=/lib/systemd/systemd-xdg-autostart-condition "" "sway"
+ExecStart=/home/adam/.local/bin/pwrap /usr/bin/keepassxc
+Restart=no
+Slice=background-graphical.slice
+# Sandboxing & isolation handled entirely by pwrap
+# (systemd procfs/capability restrictions conflict with unprivileged user namespace /proc mounting)
+#SystemCallArchitectures=native
+#ProtectClock=yes
+#ProtectKernelLogs=yes
+#RestrictRealtime=yes
+#RestrictSUIDSGID=yes
+#NoNewPrivileges=yes
+#ProtectSystem=full
+#PrivateTmp=yes
+#PrivateUsers=yes
+#LockPersonality=yes
+#ProtectHostname=yes
+#ProtectKernelTunables=yes
+#ProtectKernelModules=yes
+#ProtectControlGroups=yes
+#ProtectProc=invisible
+#PrivateNetwork=no
+#CapabilityBoundingSet=
+
+[Install]
+WantedBy=graphical-session.target

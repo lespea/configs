@@ -1,0 +1,48 @@
+[Unit]
+Description=Lutris
+After=graphical-session.target
+
+[Service]
+Type=exec
+ExecStart=/home/adam/.local/bin/pwrap /usr/bin/lutris
+Restart=no
+Slice=app-graphical.slice
+# Sandboxing & isolation handled entirely by pwrap
+# (systemd procfs/capability restrictions conflict with unprivileged user namespace /proc mounting)
+#ProtectClock=yes
+#ProtectKernelLogs=yes
+#RestrictSUIDSGID=yes
+#PrivateTmp=yes
+#BindReadOnlyPaths=/tmp/.X11-unix/X0
+#ProtectSystem=full
+#ProtectHostname=yes
+#ProtectKernelTunables=yes
+#ProtectKernelModules=yes
+#ProtectControlGroups=yes
+#SystemCallFilter=~@clock @module @raw-io @reboot @swap @obsolete
+# Hardening settings for file system access
+##NoNewPrivileges=yes
+##ProtectSystem=full
+##PrivateTmp=no
+##PrivateUsers=yes
+##LockPersonality=yes
+#ProtectHome=read-only
+#ReadWritePaths=%h/.local/share/lutris %h/.local/share/icons %h/.cache/lutris %h/Games/umu/ %h/.local/share/umu
+# Hardening settings for internal system info and namespaces
+##ProtectHostname=yes
+##ProtectKernelTunables=yes
+##ProtectKernelModules=yes
+####ProtectControlGroups=yes
+##ProtectProc=invisible
+# Network access (adjust as needed)
+##PrivateNetwork=no
+# System call filtering (adjust for your application)
+#SystemCallFilter=~@chown @mount @pkey
+#SystemCallFilter=~@clock @keyring @obsolete @privileged @raw-io @reboot @setuid @swap
+# Hardening setting for kernel capabilities
+# This is the most secure setting for a user service
+# CapabilityBoundingSet=CAP_NET_BIND_SERVICE CAP_CHOWN CAP_DAC_OVERRIDE CAP_SETGID CAP_SETUID
+##CapabilityBoundingSet=
+
+[Install]
+WantedBy=graphical-session.target

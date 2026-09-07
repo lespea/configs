@@ -1,0 +1,39 @@
+[Unit]
+Description=Heroic Game Launcher
+After=graphical-session.target
+
+[Service]
+Type=exec
+ExecStart=/home/adam/.local/bin/pwrap /usr/bin/heroic
+#ExecStopPost=/usr/bin/pkill gamemoded
+Restart=no
+Slice=app-graphical.slice
+# Sandboxing & isolation handled entirely by pwrap
+# (systemd procfs/capability restrictions conflict with unprivileged user namespace /proc mounting)
+#ProtectClock=yes
+#ProtectKernelLogs=yes
+#RestrictSUIDSGID=yes
+#PrivateTmp=yes
+#BindReadOnlyPaths=/tmp/.X11-unix/X0
+#ProtectSystem=full
+#ProtectHostname=yes
+#ProtectKernelTunables=yes
+#ProtectKernelModules=yes
+#ProtectControlGroups=yes
+#SystemCallFilter=~@clock @module @raw-io @reboot @swap @obsolete
+### # --- RELAX THESE FOR GAMESCOPE/X11 ---
+### NoNewPrivileges=no
+### PrivateUsers=no
+### CapabilityBoundingSet=CAP_SYS_NICE
+### # Keep these if you like, but they are less critical to this error
+### ProtectSystem=full
+### PrivateTmp=no
+### ProtectHostname=yes
+### ProtectKernelTunables=yes
+### ProtectKernelModules=yes
+### ProtectControlGroups=yes
+### # ProtectProc=invisible can stay, but if it still fails, set to 'default'
+### ProtectProc=invisible
+
+[Install]
+WantedBy=graphical-session.target

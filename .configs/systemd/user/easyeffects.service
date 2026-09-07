@@ -1,0 +1,43 @@
+[Unit]
+Description=Easyeffects
+After=graphical-session.target
+
+[Service]
+Type=exec
+#ExecCondition=/lib/systemd/systemd-xdg-autostart-condition "" "sway"
+ExecStart=/usr/bin/easyeffects
+Restart=no
+Slice=app-graphical.slice
+# Extra Hardening (Safe for GUI apps)
+SystemCallArchitectures=native
+ProtectClock=yes
+ProtectKernelLogs=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+# Hardening settings for file system access
+NoNewPrivileges=yes
+ProtectSystem=full
+PrivateTmp=yes
+PrivateUsers=yes
+LockPersonality=yes
+# ProtectHome=read-only (disabled: EasyEffects writes directly to ~/.config/easyeffectsrc and ~/.local/state)
+# ReadWritePaths=%h/.config/easyeffects
+# Hardening settings for internal system info and namespaces
+ProtectHostname=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+ProtectProc=invisible
+# Network access (adjust as needed)
+PrivateNetwork=yes
+RestrictAddressFamilies=AF_UNIX
+# System call filtering (adjust for your application)
+#SystemCallFilter=~@chown @mount @pkey
+#SystemCallFilter=~@clock @keyring @obsolete @privileged @raw-io @reboot @setuid @swap
+# Hardening setting for kernel capabilities
+# This is the most secure setting for a user service
+# CapabilityBoundingSet=CAP_NET_BIND_SERVICE CAP_CHOWN CAP_DAC_OVERRIDE CAP_SETGID CAP_SETUID
+CapabilityBoundingSet=
+
+[Install]
+WantedBy=graphical-session.target

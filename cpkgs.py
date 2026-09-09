@@ -359,6 +359,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("cargo-outdated"),
         PkgInfo("cargo-show-asm"),
         PkgInfo("cargo-update"),
+        PkgInfo("cargo-zigbuild"),
         PkgInfo("csview"),
         PkgInfo("difftastic"),
         PkgInfo("dprint"),

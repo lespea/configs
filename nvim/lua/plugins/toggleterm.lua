@@ -108,6 +108,26 @@ local function find_vector_content(lines, start_l, end_l, label)
 	return nil
 end
 
+-- Ensures `content` (the text pulled from inside a Vector(...)) ends with a
+-- trailing comma after its last item. Leaves any trailing whitespace/newlines
+-- in place, and leaves empty/blank content untouched.
+local function ensure_trailing_comma(content)
+	if not content then
+		return content
+	end
+
+	local body, trailing = content:match("^(.-)(%s*)$")
+	if body == "" then
+		return content
+	end
+
+	if body:sub(-1) ~= "," then
+		body = body .. ","
+	end
+
+	return body .. trailing
+end
+
 -- Searches (from the cursor, forward if `forward` is true / backward if
 -- false) for the *next* "domain" block (always skipping past the paragraph
 -- the cursor currently sits in), copies its name to the system clipboard,
@@ -167,7 +187,7 @@ local function copyDomainInfo(id, forward)
 
 		vim.fn.setreg("+", name)
 
-		local vec_content = find_vector_content(lines, block_start, block_end, "Missed Doms")
+		local vec_content = ensure_trailing_comma(find_vector_content(lines, block_start, block_end, "Missed Doms"))
 		local count = 0
 		if vec_content then
 			for _ in vec_content:gmatch('"[^"]*"') do

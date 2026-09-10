@@ -15,7 +15,8 @@
 "github:skim-rs/skim" = "latest"
 
 # "asdf:mise-plugins/mise-sbt" = "1.12.13"
-"conda:sbt" = "1"
+#"conda:sbt" = "1"
+"github:sbt/sbt" = "latest"
 "vfox:mise-plugins/vfox-scala" = "latest"
 
 # Simple

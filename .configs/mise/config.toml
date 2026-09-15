@@ -16,7 +16,7 @@
 
 # "asdf:mise-plugins/mise-sbt" = "1.12.13"
 #"conda:sbt" = "1"
-"github:sbt/sbt" = "latest"
+"github:sbt/sbt" = "2.0"
 "vfox:mise-plugins/vfox-scala" = "latest"
 
 # Simple

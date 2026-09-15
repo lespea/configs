@@ -21,3 +21,8 @@ hl.layer_rule({
 	match = { namespace = "^dms:bar$" },
 	xray = true,
 })
+
+hl.layer_rule({
+	match = { namespace = "^dms:dankisland$" },
+	xray = true,
+})

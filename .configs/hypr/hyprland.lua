@@ -130,6 +130,7 @@ hl.config({
 		disable_splash_rendering = true,
 		enable_anr_dialog = false,
 		vrr = 3,
+		render_unfocused_fps = 60,
 	},
 
 	render = {
@@ -341,6 +342,7 @@ local function add_gaming_rule(name, match_criteria)
 		fullscreen = true,
 		idle_inhibit = "always",
 		tag = "+gaming",
+		render_unfocused = true,
 	})
 end
 
@@ -350,7 +352,7 @@ hl.window_rule({
 	content = "game",
 })
 
-add_gaming_rule("gaming-content", { content = 3 })
+add_gaming_rule("gaming-content", { content = "game" })
 add_gaming_rule("gaming-gamescope", { class = "gamescope" })
 add_gaming_rule("gaming-exe", { class = ".*\\.exe" })
 add_gaming_rule("gaming-steam", { class = "steam_app.*" })

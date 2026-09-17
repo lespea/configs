@@ -207,6 +207,13 @@ hl.bind(
 	}))
 )
 
+hl.bind(
+	mainAlt .. " + C",
+	hl.dsp.exec_cmd(
+		"systemctl is-active --quiet --user mumble && busctl --user --expect-reply=false call info.mumble.mumble / info.mumble.Mumble focus || systemctl --user start mumble.service"
+	)
+)
+
 -- hl.bind(mainMus .. " + B",      hl.dsp.exec_cmd("pkill -USR1 waybar"))
 -- hl.bind(mainMus .. " + R",      hl.dsp.exec_cmd("pkill -USR2 waybar"))
 
@@ -241,6 +248,40 @@ hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("dms ipc call audio increment 3"
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("dms ipc call audio decrement 3"), { locked = true, repeating = true })
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd("dms ipc call audio mute"), { locked = true })
 hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("dms ipc call audio micmute"), { locked = true })
+
+-- Mumble Comms (EVE Online Fleet Setup)
+-- 1. Local Squad (SUPER + Mouse4 / Back button)
+hl.bind(
+	mainMod .. " + mouse:275",
+	hl.dsp.exec_cmd("busctl --user --expect-reply=false call info.mumble.mumble / info.mumble.Mumble startTalking")
+)
+hl.bind(
+	mainMod .. " + mouse:275",
+	hl.dsp.exec_cmd("busctl --user --expect-reply=false call info.mumble.mumble / info.mumble.Mumble stopTalking"),
+	{ release = true }
+)
+
+-- 2. Whisper to Commander / Parent Channel (SUPER + Mouse5 / Forward button)
+hl.bind(
+	mainMod .. " + mouse:276",
+	hl.dsp.exec_cmd('busctl --user --expect-reply=false call info.mumble.mumble / info.mumble.Mumble startWhisper s "parent"')
+)
+hl.bind(
+	mainMod .. " + mouse:276",
+	hl.dsp.exec_cmd("busctl --user --expect-reply=false call info.mumble.mumble / info.mumble.Mumble stopWhisper"),
+	{ release = true }
+)
+
+-- 3. Shout to All Groups / Entire Fleet (SUPER + SHIFT + Mouse5)
+hl.bind(
+	mainMod .. " + SHIFT + mouse:276",
+	hl.dsp.exec_cmd('busctl --user --expect-reply=false call info.mumble.mumble / info.mumble.Mumble startShout s "root"')
+)
+hl.bind(
+	mainMod .. " + SHIFT + mouse:276",
+	hl.dsp.exec_cmd("busctl --user --expect-reply=false call info.mumble.mumble / info.mumble.Mumble stopShout"),
+	{ release = true }
+)
 
 -- Dedicated Media Control Keys (works when locked)
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })

@@ -1,0 +1,12 @@
+[Unit]
+Description=Mumble
+After=graphical-session.target
+
+[Service]
+Type=exec
+ExecStart=/home/adam/.local/bin/pwrap /home/adam/opt/mumble/build/mumble
+Restart=no
+Slice=app-graphical.slice
+
+[Install]
+WantedBy=graphical-session.target

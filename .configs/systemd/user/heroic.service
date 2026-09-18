@@ -1,9 +1,12 @@
 [Unit]
 Description=Heroic Game Launcher
-After=graphical-session.target
+PartOf=graphical-session.target
+After=graphical-session.target dbus.service
+
 
 [Service]
 Type=exec
+KillMode=mixed
 ExecStart=/home/adam/.local/bin/pwrap /usr/bin/heroic
 #ExecStopPost=/usr/bin/pkill gamemoded
 Restart=no

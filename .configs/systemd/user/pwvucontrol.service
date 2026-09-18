@@ -1,6 +1,8 @@
 [Unit]
 Description=pwvucontrol
-After=graphical-session.target
+PartOf=graphical-session.target
+After=graphical-session.target dbus.service
+
 
 [Service]
 Type=exec

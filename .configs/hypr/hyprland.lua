@@ -167,7 +167,7 @@ end
 -- Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
 hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd("ghostty +new-window"))
 hl.bind(mainAlt .. " + Q", hl.dsp.window.close())
-hl.bind(mainAlt .. " + X", hl.dsp.exec_cmd("loginctl terminate-user ''"))
+hl.bind(mainAlt .. " + X", hl.dsp.exec_cmd("uwsm stop"))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
 hl.bind(mainMod .. " + Space", hl.dsp.window.float({ action = "toggle" }))
 -- hl.bind(mainMod .. " + D",      hl.dsp.exec_cmd("fuzzel --launch-prefix 'uwsm app --'"))
@@ -264,7 +264,9 @@ hl.bind(
 -- 2. Whisper to Commander / Parent Channel (SUPER + Mouse5 / Forward button)
 hl.bind(
 	mainMod .. " + mouse:276",
-	hl.dsp.exec_cmd('busctl --user --expect-reply=false call info.mumble.mumble / info.mumble.Mumble startWhisper s "parent"')
+	hl.dsp.exec_cmd(
+		'busctl --user --expect-reply=false call info.mumble.mumble / info.mumble.Mumble startWhisper s "parent"'
+	)
 )
 hl.bind(
 	mainMod .. " + mouse:276",
@@ -275,7 +277,9 @@ hl.bind(
 -- 3. Shout to All Groups / Entire Fleet (SUPER + SHIFT + Mouse5)
 hl.bind(
 	mainMod .. " + SHIFT + mouse:276",
-	hl.dsp.exec_cmd('busctl --user --expect-reply=false call info.mumble.mumble / info.mumble.Mumble startShout s "root"')
+	hl.dsp.exec_cmd(
+		'busctl --user --expect-reply=false call info.mumble.mumble / info.mumble.Mumble startShout s "root"'
+	)
 )
 hl.bind(
 	mainMod .. " + SHIFT + mouse:276",
@@ -342,7 +346,7 @@ end)
 
 hl.define_submap("logout", function()
 	hl.bind("E", hl.dsp.exec_cmd('loginctl terminate-session "$XDG_SESSION_ID"'), { release = true })
-	hl.bind("X", hl.dsp.exec_cmd('loginctl terminate-user ""'), { release = true })
+	hl.bind("X", hl.dsp.exec_cmd("uwsm stop"), { release = true })
 	hl.bind("S", function()
 		hl.dispatch(hl.dsp.submap("reset"))
 		hl.dispatch(hl.dsp.exec_cmd("sh -c 'dms ipc call lock lock &!; sleep 1; systemctl suspend'"))

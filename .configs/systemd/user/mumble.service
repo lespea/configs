@@ -1,9 +1,12 @@
 [Unit]
 Description=Mumble
-After=graphical-session.target
+PartOf=graphical-session.target
+After=graphical-session.target dbus.service
+
 
 [Service]
 Type=exec
+KillMode=mixed
 ExecStart=/home/adam/.local/bin/pwrap /home/adam/opt/mumble/build/mumble
 Restart=no
 Slice=app-graphical.slice

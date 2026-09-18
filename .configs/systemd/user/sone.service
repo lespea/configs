@@ -1,9 +1,12 @@
 [Unit]
 Description=Sone
-After=graphical-session.target
+PartOf=graphical-session.target
+After=graphical-session.target dbus.service
+
 
 [Service]
 Type=exec
+KillMode=mixed
 ExecStart=/home/adam/.local/bin/pwrap /usr/bin/sone
 Restart=no
 Slice=app-graphical.slice

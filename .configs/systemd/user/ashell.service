@@ -1,7 +1,9 @@
 [Unit]
 Description=Ashell
 Wants=mpd-mpris.service
-After=graphical-session.target mpd-mpris.service
+PartOf=graphical-session.target
+After=graphical-session.target mpd-mpris.service dbus.service
+
 
 [Service]
 Type=exec

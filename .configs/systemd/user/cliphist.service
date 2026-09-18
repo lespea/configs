@@ -1,7 +1,9 @@
 [Unit]
 Description=Clipboard history “manager” for wayland
 Documentation=https://github.com/sentriz/cliphist
-After=graphical-session.target
+PartOf=graphical-session.target
+After=graphical-session.target dbus.service
+
 
 [Service]
 Type=exec

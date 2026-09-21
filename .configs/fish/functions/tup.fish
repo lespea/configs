@@ -3,13 +3,16 @@ function tup
 
     set -l frun mise x --
 
-    set -l runTop $frun topgrade
-
-    if type -q mold
-        mold --run $runTop
-    else
-        $runTop
+    if type -q allcores
+        set frun allcores $frun
     end
+
+    set -l runTop topgrade
+    if type -q mold
+        set runTop mold --run $runTop
+    end
+
+    $frun $runTop
 
     $frun fish -c setupv
 

@@ -207,12 +207,12 @@ hl.bind(
 	}))
 )
 
-hl.bind(
-	mainAlt .. " + C",
-	hl.dsp.exec_cmd(
+hl.bind(mainAlt .. " + C", function()
+	hl.exec_cmd("systemctl --user start rift.service")
+	hl.exec_cmd(
 		"systemctl is-active --quiet --user mumble && busctl --user --expect-reply=false call info.mumble.mumble / info.mumble.Mumble focus || systemctl --user start mumble.service"
 	)
-)
+end)
 
 -- hl.bind(mainMus .. " + B",      hl.dsp.exec_cmd("pkill -USR1 waybar"))
 -- hl.bind(mainMus .. " + R",      hl.dsp.exec_cmd("pkill -USR2 waybar"))
@@ -249,40 +249,29 @@ hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("dms ipc call audio decrement 3"
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd("dms ipc call audio mute"), { locked = true })
 hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("dms ipc call audio micmute"), { locked = true })
 
--- Mumble Comms (EVE Online Fleet Setup)
--- 1. Local Squad (SUPER + Mouse4 / Back button)
+-- Mumble Comms
+-- 1. Whisper to Current Channel (SUPER + Mouse4 / Back button)
 hl.bind(
 	mainMod .. " + mouse:275",
-	hl.dsp.exec_cmd("busctl --user --expect-reply=false call info.mumble.mumble / info.mumble.Mumble startTalking")
-)
-hl.bind(
-	mainMod .. " + mouse:275",
-	hl.dsp.exec_cmd("busctl --user --expect-reply=false call info.mumble.mumble / info.mumble.Mumble stopTalking"),
-	{ release = true }
-)
-
--- 2. Whisper to Commander / Parent Channel (SUPER + Mouse5 / Forward button)
-hl.bind(
-	mainMod .. " + mouse:276",
 	hl.dsp.exec_cmd(
-		'busctl --user --expect-reply=false call info.mumble.mumble / info.mumble.Mumble startWhisper s "parent"'
+		'busctl --user --expect-reply=false call info.mumble.mumble / info.mumble.Mumble startWhisper s "current"'
 	)
 )
 hl.bind(
-	mainMod .. " + mouse:276",
+	mainMod .. " + mouse:275",
 	hl.dsp.exec_cmd("busctl --user --expect-reply=false call info.mumble.mumble / info.mumble.Mumble stopWhisper"),
 	{ release = true }
 )
 
--- 3. Shout to All Groups / Entire Fleet (SUPER + SHIFT + Mouse5)
+-- 2. Whisper to Current Channel & Subchannels (SUPER + Mouse5 / Forward button)
 hl.bind(
-	mainMod .. " + SHIFT + mouse:276",
+	mainMod .. " + mouse:276",
 	hl.dsp.exec_cmd(
-		'busctl --user --expect-reply=false call info.mumble.mumble / info.mumble.Mumble startShout s "root"'
+		'busctl --user --expect-reply=false call info.mumble.mumble / info.mumble.Mumble startShout s "current"'
 	)
 )
 hl.bind(
-	mainMod .. " + SHIFT + mouse:276",
+	mainMod .. " + mouse:276",
 	hl.dsp.exec_cmd("busctl --user --expect-reply=false call info.mumble.mumble / info.mumble.Mumble stopShout"),
 	{ release = true }
 )

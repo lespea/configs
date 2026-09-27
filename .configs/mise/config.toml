@@ -84,6 +84,7 @@ java = "temurin-26"
 "pypi:ruff" = "latest"
 "github:dazld/r11y" = "latest"
 github-cli = "latest"
+yq = "latest"
 
 # Renames
 [tools."github:dmarkham/enumer"]
@@ -99,6 +100,7 @@ http_timeout = "5m"
 npm.package_manager = "bun"
 pipx.uvx = true
 python.uv_venv_auto = "create|source"
+python.compile = false
 
 minimum_release_age = "2d"
 env_cache = true
@@ -108,5 +110,4 @@ auto_install = false
 
 erlang.compile = false
 node.compile = false
-python.compile = false
 ruby.compile = false

@@ -437,8 +437,22 @@ hl.on("hyprland.start", function()
 	-- hl.exec_cmd("bash /home/adam/.config/hypr/xdg.sh")
 end)
 
-require("dms.cursor")
-require("dms.colors")
--- require("dms.layout")
-require("dms.outputs")
-require("dms.layout")
+local function import_nowatch(modname)
+	local path, err = package.searchpath(modname, package.path)
+	if not path then
+		error(string.format("module '%s' not found: %s", modname, err))
+	end
+	local fn, load_err = loadfile(path)
+	if not fn then
+		error(string.format("error loading module '%s' from '%s': %s", modname, path, load_err))
+	end
+	local res = fn()
+	package.loaded[modname] = res or true
+	return res
+end
+
+import_nowatch("dms.cursor")
+import_nowatch("dms.colors")
+import_nowatch("dms.outputs")
+import_nowatch("dms.layout")
+

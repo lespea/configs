@@ -249,32 +249,64 @@ hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("dms ipc call audio decrement 3"
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd("dms ipc call audio mute"), { locked = true })
 hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("dms ipc call audio micmute"), { locked = true })
 
--- Mumble Comms
--- 1. Whisper to Current Channel (SUPER + Mouse4 / Back button)
-hl.bind(
-	mainMod .. " + mouse:275",
-	hl.dsp.exec_cmd(
-		'busctl --user --expect-reply=false call info.mumble.mumble / info.mumble.Mumble startWhisper s "current"'
-	)
-)
-hl.bind(
-	mainMod .. " + mouse:275",
-	hl.dsp.exec_cmd("busctl --user --expect-reply=false call info.mumble.mumble / info.mumble.Mumble stopWhisper"),
-	{ release = true }
-)
+-- Mumble Comms (D-Bus RPC from ~/opt/mumble rpc-whisper branch)
+local function mumble(method, sig, ...)
+	local cmd = "busctl --user --expect-reply=false call info.mumble.mumble / info.mumble.Mumble " .. method
+	if sig then
+		cmd = cmd .. " " .. sig
+		for _, arg in ipairs({ ... }) do
+			cmd = cmd .. " " .. string.format("%q", tostring(arg))
+		end
+	end
+	hl.exec_cmd(cmd)
+end
 
--- 2. Whisper to Current Channel & Subchannels (SUPER + Mouse5 / Forward button)
-hl.bind(
-	mainMod .. " + mouse:276",
-	hl.dsp.exec_cmd(
-		'busctl --user --expect-reply=false call info.mumble.mumble / info.mumble.Mumble startShout s "current"'
-	)
-)
-hl.bind(
-	mainMod .. " + mouse:276",
-	hl.dsp.exec_cmd("busctl --user --expect-reply=false call info.mumble.mumble / info.mumble.Mumble stopShout"),
-	{ release = true }
-)
+local mumble_talk = { active = false, note = nil }
+
+local function mumble_start(label, method, sig, ...)
+	mumble(method, sig, ...)
+	mumble_talk.active = true
+	if mumble_talk.note then
+		mumble_talk.note:dismiss()
+	end
+	-- Stays up while transmitting; the long timeout is only a fallback
+	mumble_talk.note = hl.notification.create({ text = label, timeout = 120000, icon = "info", color = "rgba(33ccffee)" })
+end
+
+local function mumble_stop()
+	if not mumble_talk.active then
+		return
+	end
+	mumble_talk.active = false
+	mumble("stopShout") -- clears every active RPC whisper/shout
+	if mumble_talk.note then
+		mumble_talk.note:dismiss()
+		mumble_talk.note = nil
+	end
+end
+
+-- 1. Whisper to Current Channel (SUPER + Mouse4 / Back button)
+hl.bind(mainMod .. " + mouse:275", function()
+	mumble_start("Mumble: whisper (channel)", "startWhisper", "s", "current")
+end)
+
+-- 2. Shout to Parent + Subchannels, e.g. whole fleet minus command (SUPER + Mouse5 / Forward button)
+hl.bind(mainMod .. " + mouse:276", function()
+	mumble_start("Mumble: shout (parent + subchannels)", "startShout", "s", "parent")
+end)
+
+-- 3. Shout to Current + Subchannels + Linked channels, reaches command (SUPER + SHIFT + Mouse4)
+--    startShout args: channel, links, forceCenter, group
+hl.bind(mainAlt .. " + mouse:275", function()
+	mumble_start("Mumble: shout (linked, incl. command)", "startShout", "sbbs", "current", true, false, "")
+end)
+
+-- Stop on button release no matter which modifiers are still held (letting go of SUPER first
+-- would otherwise skip the release bind and leave us transmitting). non_consuming keeps plain
+-- back/forward clicks working; mumble_stop is a no-op unless one of the binds above is active.
+for _, button in ipairs({ "mouse:275", "mouse:276" }) do
+	hl.bind(button, mumble_stop, { release = true, ignore_mods = true, non_consuming = true })
+end
 
 -- Dedicated Media Control Keys (works when locked)
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })

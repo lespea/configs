@@ -5,6 +5,7 @@
   "registryThemeVariants": {
     "gruvboxMaterial": "hard"
   },
+  "runUserMatugenTemplates": false,
   "cornerRadius": 0,
   "hyprlandLayoutGapsOverride": 4,
   "hyprlandLayoutGapsOutOverride": 0,
@@ -63,6 +64,7 @@
   "launchPrefix": "uwsm-app",
   "terminalsAlwaysDark": true,
   "muxType": "zellij",
+  "runDmsMatugenTemplates": false,
   "matugenTemplateNiri": false,
   "matugenTemplateMangowc": false,
   "matugenTemplateFirefox": false,
@@ -194,7 +196,8 @@
       "useOverlayLayer": false,
       "shadowIntensity": 0,
       "attachToScreenEdge": false,
-      "island": true
+      "island": true,
+      "islandCompactThickness": 31
     }
   ],
   "desktopClockCustomColor": {

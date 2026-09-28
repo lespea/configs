@@ -31,7 +31,7 @@ sops = "latest"
 zig = "0.16"
 
 # Java
-java = "temurin-26"
+java = "temurin-27"
 
 # Go tools
 "aqua:charmbracelet/gum" = "latest"

@@ -203,7 +203,7 @@ hl.bind(
 	hl.dsp.exec_cmd(start_services({
 		"tidal.service",
 		"easyeffects.service",
-		"pwvucontrol.service",
+		"pavucontrol.service",
 	}))
 )
 

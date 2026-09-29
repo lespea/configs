@@ -1,12 +1,14 @@
 [Unit]
-Description=pwvucontrol
+Description=pavucontrol-qt
 PartOf=graphical-session.target
 After=graphical-session.target dbus.service
 
 
 [Service]
 Type=exec
-ExecStart=/usr/bin/pwvucontrol
+# Private writable config home (~/.config is read-only); real config still read via XDG_CONFIG_DIRS
+Environment=XDG_CONFIG_HOME=%h/.config/pavucontrol-qt XDG_CONFIG_DIRS=%h/.config:/etc/xdg
+ExecStart=/usr/bin/pavucontrol-qt
 Restart=no
 Slice=app-graphical.slice
 # Extra Hardening (Safe for GUI apps)
@@ -22,6 +24,8 @@ PrivateTmp=yes
 PrivateUsers=yes
 LockPersonality=yes
 ProtectHome=read-only
+# libpulse needs its runtime dir; pavucontrol-qt saves its settings (see XDG_CONFIG_HOME)
+ReadWritePaths=%t/pulse %h/.config/pavucontrol-qt
 # Hardening settings for internal system info and namespaces
 ProtectHostname=yes
 ProtectKernelTunables=yes

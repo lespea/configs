@@ -87,6 +87,7 @@
       "urgency": "default"
     }
   ],
+  "osdMediaVolumeEnabled": false,
   "updaterIntervalSeconds": 86400,
   "barConfigs": [
     {

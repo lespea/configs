@@ -204,7 +204,7 @@ hl.bind(
 		"tidal.service",
 		"easyeffects.service",
 		"pavucontrol.service",
-	}))
+	}, 0.75))
 )
 
 hl.bind(mainAlt .. " + C", function()

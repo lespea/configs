@@ -1,27 +1,57 @@
-export CLUTTER_BACKEND=wayland
-export GDK_BACKEND=wayland,x11,*
-export GSK_RENDERER=vulkan
-export MOZ_ENABLE_WAYLAND=1
-export QT_QPA_PLATFORM="wayland;xcb"
-export QT_QPA_PLATFORMTHEME=kde
-
-export _JAVA_AWT_WM_NONREPARENTING=1
-export ELECTRON_OZONE_PLATFORM_HINT=auto
-export GTK_A11Y=none
-export LIBVA_DRIVER_NAME=radeonsi
-export NO_AT_BRIDGE=1
-export QT_AUTO_SCREEN_SCALE_FACTOR=1
-export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-export USE_POINTER_VIEWPORT=1
-export XCURSOR_SIZE=24
-export XCURSOR_THEME=whiteglass
-
+# ---------------------------------------------------------
+# Session & System
+# ---------------------------------------------------------
 export LC_ALL=en_US.UTF-8
 export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
 
+# ---------------------------------------------------------
+# Wayland / Toolkit Backends
+# ---------------------------------------------------------
+export GDK_BACKEND=wayland,x11,*
+export QT_QPA_PLATFORM="wayland;xcb"
+export CLUTTER_BACKEND=wayland
+export ELECTRON_OZONE_PLATFORM_HINT=auto
+export MOZ_ENABLE_WAYLAND=1
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+# ---------------------------------------------------------
+# Qt Appearance & Window Behavior
+# ---------------------------------------------------------
+export QT_QPA_PLATFORMTHEME=kde
+export QT_AUTO_SCREEN_SCALE_FACTOR=1
+export QT_SCALE_FACTOR_ROUNDING_POLICY=RoundPreferFloor
+export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+
+# ---------------------------------------------------------
+# GTK & Accessibility
+# ---------------------------------------------------------
+export GSK_RENDERER=vulkan
+export GTK_USE_PORTAL=1
+export GTK_A11Y=none
+export NO_AT_BRIDGE=1
+
+# ---------------------------------------------------------
+# Cursor (Global XCursor fallback / Wayland default)
+# ---------------------------------------------------------
+export XCURSOR_THEME=Oxygen_Zion
+export XCURSOR_SIZE=24
+
+# ---------------------------------------------------------
+# Hardware & Driver
+# ---------------------------------------------------------
+# Hardware video acceleration (VA-API) for AMD Radeon
+export LIBVA_DRIVER_NAME=radeonsi
+
+# Increase AMD Mesa shader cache to 12GB
+export MESA_SHADER_CACHE_MAX_SIZE=12G
+
+# ---------------------------------------------------------
+# Gaming, Proton & Wine
+# ---------------------------------------------------------
+export USE_POINTER_VIEWPORT=1
 export FSR4_UPGRADE=1
-export PROTON_ENABLE_WAYLAND=1
 export PROTON_FSR4_UPGRADE=1
+export PROTON_ENABLE_WAYLAND=1
 export PROTON_NO_WM_DECORATION=1
 export PROTON_PREFER_SDL=1
 export PROTON_PREFER_SDL_INPUT=1
@@ -30,11 +60,5 @@ export PROTON_USE_XALIA=0
 export STEAM_DECK=0
 export SteamDeck=0
 
-# Enforces RADV Vulkan implementation
-
-# Increase AMD's shader cache size to 12GB
-export MESA_SHADER_CACHE_MAX_SIZE=12G
-
-export DMS_DISABLE_CAVA=1
-
+# Disabled as it's set specifically for games now
 #export WINE_CPU_TOPOLOGY="8:0,1,2,3,4,5,6,7"

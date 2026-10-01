@@ -155,6 +155,9 @@ local mainAlt = "SUPER + SHIFT"
 local mainLock = "SUPER + SHIFT + CONTROL"
 local mainMus = "CONTROL + SHIFT + ALT"
 
+-- Directory this config file lives in, so helper scripts next to it can be found.
+local config_dir = debug.getinfo(1, "S").source:match("^@(.*)/") or "."
+
 local function start_services(services, delay)
 	delay = delay or 0.5
 	local cmds = {}
@@ -167,7 +170,6 @@ end
 -- Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
 hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd("ghostty +new-window"))
 hl.bind(mainAlt .. " + Q", hl.dsp.window.close())
-hl.bind(mainAlt .. " + X", hl.dsp.exec_cmd("uwsm stop"))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
 hl.bind(mainMod .. " + Space", hl.dsp.window.float({ action = "toggle" }))
 -- hl.bind(mainMod .. " + D",      hl.dsp.exec_cmd("fuzzel --launch-prefix 'uwsm app --'"))
@@ -355,10 +357,17 @@ hl.define_submap("resize", function()
 	hl.bind("Return", hl.dsp.submap("reset"))
 end)
 
+-- Session-ending actions go through session.sh, launched as a transient user unit so
+-- the script outlives the compositor (see the comment in session.sh).
+local session_script = config_dir .. "/session.sh"
+local function session_end(action)
+	return hl.dsp.exec_cmd("systemd-run --user --quiet --collect -- " .. session_script .. " " .. action)
+end
+
 hl.bind(mainMod .. " + escape", function()
 	hl.dispatch(hl.dsp.submap("logout"))
 	hl.notification.create({
-		text = "e - exit\nr - reboot\ns - suspend\nS - poweroff\nl - lock\nx - termintate",
+		text = "e - exit session\nx - terminate everything\nr - reboot\ns - suspend\nS - poweroff\nl - lock",
 		timeout = 3500,
 		icon = 0,
 		color = "rgba(33ccffee)",
@@ -366,18 +375,18 @@ hl.bind(mainMod .. " + escape", function()
 end)
 
 hl.define_submap("logout", function()
-	hl.bind("E", hl.dsp.exec_cmd('loginctl terminate-session "$XDG_SESSION_ID"'), { release = true })
-	hl.bind("X", hl.dsp.exec_cmd("uwsm stop"), { release = true })
+	hl.bind("E", session_end("exit"), { release = true })
+	hl.bind("X", session_end("terminate"), { release = true })
+	hl.bind("R", session_end("reboot"), { release = true })
+	hl.bind("SHIFT + S", session_end("poweroff"), { release = true })
 	hl.bind("S", function()
 		hl.dispatch(hl.dsp.submap("reset"))
 		hl.dispatch(hl.dsp.exec_cmd("sh -c 'dms ipc call lock lock &!; sleep 1; systemctl suspend'"))
 	end, { release = true })
-	hl.bind("R", hl.dsp.exec_cmd("systemctl reboot"), { release = true })
 	hl.bind("L", function()
 		hl.dispatch(hl.dsp.submap("reset"))
 		hl.dispatch(hl.dsp.exec_cmd("dms ipc call lock lock"))
 	end, { release = true })
-	hl.bind("SHIFT + S", hl.dsp.exec_cmd("systemctl poweroff -i"), { release = true })
 	hl.bind("escape", hl.dsp.submap("reset"))
 	hl.bind("Return", hl.dsp.submap("reset"))
 end)
@@ -466,7 +475,7 @@ hl.window_rule({
 -- Initialize uwsm-app and autostart
 hl.on("hyprland.start", function()
 	hl.exec_cmd("uwsm-app echo")
-	-- hl.exec_cmd("bash /home/adam/.config/hypr/xdg.sh")
+	-- hl.exec_cmd("bash " .. config_dir .. "/xdg.sh")
 end)
 
 local function import_nowatch(modname)

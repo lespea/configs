@@ -143,12 +143,30 @@ hl.config({
 	ecosystem = {
 		no_update_news = true,
 		no_donation_nag = true,
+		-- Clients must be allowed (below) or get a prompt before they can capture the screen,
+		-- grab the keyboard, or load plugins. Changes here need a restart, not a reload.
+		enforce_permissions = true,
 	},
 
 	debug = {
 		disable_logs = true,
 	},
 })
+
+-- Permissions: matched against the client's binary path (RE2 regex). Screen sharing in
+-- Firefox/Discord/Slack goes through the portal, so the portal backend is the only client
+-- that needs screencopy for it. OBS uses the portal too. Anything not listed gets an
+-- allow/deny dialog, remembered for the session.
+local allow_screencopy = {
+	"^/usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland$",
+	"^/usr/bin/dms$", -- dms screenshot
+	"^/usr/bin/quickshell$", -- DMS shell itself (lock screen, previews)
+	"^/usr/bin/grim$",
+	"^/usr/bin/hyprpicker$",
+}
+for _, binary in ipairs(allow_screencopy) do
+	hl.permission({ binary = binary, type = "screencopy", mode = "allow" })
+end
 
 -- See https://wiki.hyprland.org/Configuring/Keywords/ for more
 local mainMod = "SUPER"

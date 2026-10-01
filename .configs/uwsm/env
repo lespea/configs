@@ -31,7 +31,6 @@ export STEAM_DECK=0
 export SteamDeck=0
 
 # Enforces RADV Vulkan implementation
-export AMD_VULKAN_ICD=RADV
 
 # Increase AMD's shader cache size to 12GB
 export MESA_SHADER_CACHE_MAX_SIZE=12G

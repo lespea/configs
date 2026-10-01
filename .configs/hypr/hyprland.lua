@@ -45,22 +45,23 @@ hl.config({
 	general = {
 		-- See https://wiki.hyprland.org/Configuring/Variables/ for more
 
-		gaps_in = 5,
-		gaps_out = 0,
-		border_size = 0,
-
-		col = {
-			active_border = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
-			inactive_border = "rgba(595959aa)",
-		},
+		-- gaps, borders, colours and rounding are managed by DMS: dms.layout and dms.colors
+		-- are imported at the end of this file and override anything set here.
+		-- gaps_in = 5,
+		-- gaps_out = 0,
+		-- border_size = 0,
+		-- col = {
+		-- 	active_border = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
+		-- 	inactive_border = "rgba(595959aa)",
+		-- },
+		-- resize_on_border = true,
 
 		layout = "dwindle",
 		-- no_border_on_floating = true,
-		resize_on_border = true,
 	},
 
 	decoration = {
-		rounding = 0,
+		-- rounding = 0, -- managed by dms.layout
 
 		active_opacity = 1.0,
 		inactive_opacity = 1.0,
@@ -229,6 +230,9 @@ hl.bind(mainMus .. " + Right", hl.dsp.exec_cmd("playerctl next"))
 -- Toggle confine_pointer for the active window (useful for games)
 hl.bind(mainMus .. " + M", function()
 	local w = hl.get_active_window()
+	if not w then
+		return
+	end
 	local has_tag = false
 	for _, t in ipairs(w.tags) do
 		if t == "confine_ptr" then
@@ -412,8 +416,8 @@ local function add_gaming_rule(name, match_criteria)
 		no_shadow = true,
 		opaque = true,
 		decorate = false,
-		immediate = true,
-		maximize = true,
+		-- No `immediate` (tearing): both monitors run VRR, which covers the latency case
+		-- without tearing, and general.allow_tearing is off anyway.
 		fullscreen = true,
 		idle_inhibit = "always",
 		tag = "+gaming",
@@ -432,6 +436,20 @@ add_gaming_rule("gaming-gamescope", { class = "gamescope" })
 add_gaming_rule("gaming-exe", { class = ".*\\.exe" })
 add_gaming_rule("gaming-steam", { class = "steam_app.*" })
 
+-- Wine launchers (Ubisoft Connect, Battle.net, EA, Epic, GOG, ...) match the .exe rule
+-- above but are ordinary windows. Rules apply in order, so this undoes just the game
+-- treatment for them. Add classes as you meet them (`hyprctl clients` shows the class).
+hl.window_rule({
+	name = "launchers-not-games",
+	match = {
+		class = "(?i)^(upc|ubisoftconnect|ubisoft game launcher|battle\\.net|agent|eadesktop|ealauncher|epicgameslauncher|galaxyclient|rockstar|launcher|origin)\\.exe$",
+	},
+	fullscreen = false,
+	idle_inhibit = "none",
+	render_unfocused = false,
+	tag = "-gaming",
+})
+
 -- No shadow for tiled windows
 hl.window_rule({
 	name = "noshadow-tiled",
@@ -449,7 +467,7 @@ hl.window_rule({
 hl.window_rule({
 	name = "tag-floating-dialogs",
 	match = {
-		initial_title = "^(.*(Extension:.*Bitwarden|open|choose files|save (as|to)|confirm to replace|file operation).*)$",
+		initial_title = "(?i)^(.*(Extension:.*Bitwarden|open|choose files|save (as|to)|confirm to replace|file operation).*)$",
 	},
 	tag = "+floating",
 })
@@ -496,4 +514,5 @@ import_nowatch("dms.cursor")
 import_nowatch("dms.colors")
 import_nowatch("dms.outputs")
 import_nowatch("dms.layout")
+import_nowatch("dms.windowrules")
 

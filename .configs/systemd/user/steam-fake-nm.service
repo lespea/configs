@@ -1,0 +1,14 @@
+[Unit]
+Description=Fake NetworkManager for Steam (skips "Waiting for network")
+Documentation=https://github.com/ValveSoftware/steam-for-linux/issues/9966
+# Lives and dies with Steam; steam.service pulls this in via Wants=.
+PartOf=steam.service
+StopWhenUnneeded=yes
+# Requires /etc/dbus-1/system.d/steam-fake-nm.conf (see steam-fake-nm.conf next to this file)
+ConditionPathExists=/etc/dbus-1/system.d/steam-fake-nm.conf
+
+[Service]
+Type=notify
+ExecStart=/usr/bin/python3 %h/.config/systemd/user/steam-fake-nm.py
+Restart=no
+Slice=app-graphical.slice

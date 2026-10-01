@@ -198,7 +198,8 @@
       "shadowIntensity": 0,
       "attachToScreenEdge": false,
       "island": true,
-      "islandCompactThickness": 31
+      "islandCompactThickness": 31,
+      "scrollEnabled": false
     }
   ],
   "desktopClockCustomColor": {

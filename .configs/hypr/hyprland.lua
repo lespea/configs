@@ -219,14 +219,44 @@ hl.bind(
 	}))
 )
 
-hl.bind(
-	mainAlt .. " + M",
-	hl.dsp.exec_cmd(start_services({
-		"tidal.service",
-		"easyeffects.service",
-		"pavucontrol.service",
-	}, 0.75))
-)
+hl.bind(mainAlt .. " + M", function()
+	hl.dispatch(hl.dsp.submap("media"))
+	hl.notification.create({
+		text = "m - all (tidal + easyeffects + pavu)\nt - tidal\ne - easyeffects\np - pavucontrol\nq - stop all",
+		timeout = 3500,
+		icon = 0,
+		color = "rgba(33ccffee)",
+	})
+end)
+
+hl.define_submap("media", function()
+	hl.bind("T", function()
+		hl.dispatch(hl.dsp.submap("reset"))
+		hl.dispatch(hl.dsp.exec_cmd("systemctl --user start tidal.service"))
+	end, { release = true })
+	hl.bind("E", function()
+		hl.dispatch(hl.dsp.submap("reset"))
+		hl.dispatch(hl.dsp.exec_cmd("systemctl --user start easyeffects.service"))
+	end, { release = true })
+	hl.bind("P", function()
+		hl.dispatch(hl.dsp.submap("reset"))
+		hl.dispatch(hl.dsp.exec_cmd("systemctl --user start pavucontrol.service"))
+	end, { release = true })
+	hl.bind("M", function()
+		hl.dispatch(hl.dsp.submap("reset"))
+		hl.dispatch(hl.dsp.exec_cmd(start_services({
+			"tidal.service",
+			"easyeffects.service",
+			"pavucontrol.service",
+		}, 0.75)))
+	end, { release = true })
+	hl.bind("Q", function()
+		hl.dispatch(hl.dsp.submap("reset"))
+		hl.dispatch(hl.dsp.exec_cmd("systemctl --user stop tidal.service easyeffects.service pavucontrol.service"))
+	end, { release = true })
+	hl.bind("escape", hl.dsp.submap("reset"))
+	hl.bind("Return", hl.dsp.submap("reset"))
+end)
 
 hl.bind(mainAlt .. " + C", function()
 	hl.exec_cmd("systemctl --user start rift.service")

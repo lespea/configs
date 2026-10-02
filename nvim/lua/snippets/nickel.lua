@@ -40,10 +40,10 @@ vim.keymap.set("n", "<leader>pd", function()
 	vim.api.nvim_win_set_cursor(0, start_pos)
 
 	local lines = vim.api.nvim_buf_get_lines(0, start_row, end_row, false)
-	local rep = 'metadata = { validated = "' .. pdate() .. '" },'
+	local rep = 'validated = "' .. pdate() .. '"'
 
 	for idx, line in ipairs(lines) do
-		local new_line = string.gsub(line, 'metadata = { validated = "%d%d%d%d%-%d%d%-%d%d" },', rep)
+		local new_line = string.gsub(line, 'validated = "%d%d%d%d%-%d%d%-%d%d"', rep)
 
 		if line ~= new_line then
 			vim.api.nvim_buf_set_lines(0, start_row + idx - 1, start_row + idx, true, { new_line })

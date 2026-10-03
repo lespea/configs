@@ -154,45 +154,13 @@ opt.ttimeoutlen = 100
 -- Disable nvim intro
 opt.shortmess:append("sI")
 
--- -- Disable builtin plugins
-local disabled_built_ins = {
-	"2html_plugin",
-	"getscript",
-	"getscriptPlugin",
-	--"gzip",
-	"logipat",
-	--"netrw",
-	"netrwPlugin",
-	"netrwSettings",
-	"netrwFileHandlers",
-	"matchit",
-	--"tar",
-	--"tarPlugin",
-	"rrhelper",
-	--"spellfile_plugin",
-	"vimball",
-	"vimballPlugin",
-	--"zip",
-	--"zipPlugin",
-	"tutor",
-	"rplugin",
-	"synmenu",
-	--"optwin",
-	"compiler",
-	"bugreport",
-	"ftplugin",
-}
-
-for _, plugin in pairs(disabled_built_ins) do
-	g["loaded_" .. plugin] = 1
-end
-
 local venvs = os.getenv("nvim_venvs") or ""
 if venvs ~= "" then
 	g.python3_host_prog = venvs .. "/.venv/bin/python"
 	g.node_host_prog = venvs .. "/node_modules/neovim/bin/cli.js"
 else
-	g.loaded_python_provider = 0
+	g.loaded_python3_provider = 0
+	g.loaded_node_provider = 0
 end
 
 g.loaded_ruby_provider = 0

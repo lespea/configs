@@ -8,7 +8,9 @@ local autocmd = vim.api.nvim_create_autocmd
 -- Highlight on yank
 local yankGrp = augroup("YankHighlight", { clear = true })
 autocmd("TextYankPost", {
-	command = "silent! lua vim.highlight.on_yank{higroup='IncSearch', timeout=500, on_visual=true}",
+	callback = function()
+		vim.hl.on_yank({ higroup = "IncSearch", timeout = 500, on_visual = true })
+	end,
 	group = yankGrp,
 })
 
@@ -49,9 +51,7 @@ autocmd("Filetype", {
 	},
 	callback = function()
 		vim.defer_fn(function()
-			local lspconfig = require("lspconfig")
-			local root_patterns = { ".git" }
-			local root_dir = lspconfig.util.root_pattern(unpack(root_patterns))(vim.fn.expand("%:p"))
+			local root_dir = vim.fs.root(0, ".git")
 
 			if not root_dir then
 				require("neo-tree.command").execute({ action = "show" })

@@ -3,7 +3,7 @@ return {
 	-- lazy = true,
 	opts = {
 		on_attach = function(bufnr)
-			local gs = package.loaded.gitsigns
+			local gs = require("gitsigns")
 
 			local function map(mode, l, r, opts)
 				opts = opts or {}
@@ -14,26 +14,22 @@ return {
 			-- Navigation
 			map("n", "]c", function()
 				if vim.wo.diff then
-					return "]c"
+					vim.cmd.normal({ "]c", bang = true })
+				else
+					gs.nav_hunk("next")
 				end
-				vim.schedule(function()
-					gs.next_hunk()
-				end)
-				return "<Ignore>"
-			end, { expr = true, desc = "Next hunk" })
+			end, { desc = "Next hunk" })
 
 			map("n", "[c", function()
 				if vim.wo.diff then
-					return "[c"
+					vim.cmd.normal({ "[c", bang = true })
+				else
+					gs.nav_hunk("prev")
 				end
-				vim.schedule(function()
-					gs.prev_hunk()
-				end)
-				return "<Ignore>"
-			end, { expr = true, desc = "Previous hunk" })
+			end, { desc = "Previous hunk" })
 
 			-- Actions
-			map("n", "<leader>hs", gs.stage_hunk, { desc = "Stage hunk" })
+			map("n", "<leader>hs", gs.stage_hunk, { desc = "Stage/unstage hunk" })
 			map("n", "<leader>hr", gs.reset_hunk, { desc = "Reset hunk" })
 			map("v", "<leader>hs", function()
 				gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
@@ -42,7 +38,6 @@ return {
 				gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
 			end, { desc = "Reset hunk" })
 			map("n", "<leader>hS", gs.stage_buffer, { desc = "Stage buffer" })
-			map("n", "<leader>hu", gs.undo_stage_hunk, { desc = "Undo stage hunk" })
 			map("n", "<leader>hR", gs.reset_buffer, { desc = "Reset buffer" })
 			map("n", "<leader>hp", gs.preview_hunk, { desc = "Preview hunk" })
 			map("n", "<leader>hb", function()
@@ -53,15 +48,11 @@ return {
 			map("n", "<leader>hD", function()
 				gs.diffthis("~")
 			end, { desc = "Diff this (cached)" })
-			map("n", "<leader>td", gs.toggle_deleted, { desc = "Toggle deleted" })
+			map("n", "<leader>td", gs.preview_hunk_inline, { desc = "Preview hunk inline" })
 
 			-- Text object
-			map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "Select hunk" })
+			map({ "o", "x" }, "ih", gs.select_hunk, { desc = "Select hunk" })
 		end,
-	},
-	dependencies = {
-		"nvim-lua/plenary.nvim",
-		"nvim-tree/nvim-web-devicons",
 	},
 }
 

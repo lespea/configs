@@ -331,8 +331,7 @@ return {
 					handler = function(destination)
 						local manager = require("neo-tree.sources.manager")
 						local utils = require("neo-tree.utils")
-						local uv = vim.loop
-						local file_info = uv.fs_stat(destination)
+						local file_info = vim.uv.fs_stat(destination)
 						if file_info and file_info.type == "file" then
 							vim.schedule(function()
 								utils.open_file(manager.get_state_for_window(), destination)

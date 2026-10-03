@@ -43,24 +43,22 @@ return {
 			vim.lsp.enable("templ")
 			vim.lsp.enable("ts_ls")
 
-			-- Automatically set filetype and start LSP for specific systemd unit file patterns
-			vim.api.nvim_create_autocmd("BufEnter", {
-				pattern = { "*.service", "*.mount", "*.device", "*.nspawn", "*.target", "*.timer" },
-				callback = function()
-					vim.bo.filetype = "systemd"
-					vim.lsp.start({
-						name = "systemd_lsp",
-						cmd = { "systemd-lsp" }, -- Update this path to your systemd-lsp binary
-						root_dir = vim.fn.getcwd(),
-					})
-				end,
+			-- Treat unit files as systemd anywhere (nvim only detects them under systemd dirs)
+			vim.filetype.add({
+				extension = {
+					device = "systemd",
+					mount = "systemd",
+					nspawn = "systemd",
+					service = "systemd",
+					target = "systemd",
+					timer = "systemd",
+				},
 			})
+			vim.lsp.enable("systemd_lsp")
 
 			-- gopls is configured and enabled by go.nvim (see go.lua)
 
 			vim.lsp.config("tinymist", {
-				cmd = { "tinymist" },
-				filetypes = { "typst" },
 				settings = {
 					formatterMode = "typstyle",
 				},

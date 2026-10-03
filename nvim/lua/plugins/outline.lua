@@ -1,11 +1,3 @@
--- return {
---   'simrat39/symbols-outline.nvim',
---   opts = {},
---   keys = {
---     { '<leader>so', ':SymbolsOutline<CR>' },
---   },
--- }
-
 return {
 	"hedyhli/outline.nvim",
 	lazy = true,

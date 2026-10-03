@@ -1,11 +1,5 @@
 return {
 	{
-		"chrisgrieser/nvim-lsp-endhints",
-		cond = false,
-		event = "LspAttach",
-		opts = {}, -- required, even if empty
-	},
-	{
 		"folke/lazydev.nvim",
 		ft = "lua", -- only load on lua files
 		opts = {
@@ -17,16 +11,6 @@ return {
 			},
 		},
 	},
-	-- {
-	--  "onsails/diaglist.nvim",
-	--  keys = {
-	--    {
-	--      "<leader>dl",
-	--      "<cmd>lua require('diaglist').open_all_diagnostics()<cr>",
-	--      desc = "Toggle Diagnostics List",
-	--    },
-	--  },
-	-- },
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {

@@ -114,16 +114,6 @@ return {
 			smart_toggle("bottom")
 		end, { desc = "Toggle bottom Edgy windows" })
 	end,
-	keys = {
-		-- TODO -- impl something that smartly closes and reopens?
-		-- {
-		--  "<leader>el",
-		--  function()
-		--    require("edgy").toggle("left")
-		--  end,
-		--  { mode = "n", desc = "Toggle Edgy Left" },
-		-- },
-	},
 	opts = function()
 		return {
 			exit_when_last = true,

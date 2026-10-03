@@ -12,17 +12,6 @@ autocmd("TextYankPost", {
 	group = yankGrp,
 })
 
--- show cursor line only in active window
--- local cursorGrp = augroup("CursorLine", { clear = true })
--- autocmd(
---   { "InsertLeave", "WinEnter" },
---   { pattern = "*", command = "set cursorline", group = cursorGrp }
--- )
--- autocmd(
---   { "InsertEnter", "WinLeave" },
---   { pattern = "*", command = "set nocursorline", group = cursorGrp }
--- )
-
 local bufSettingsGrp = augroup("Settings", { clear = true })
 
 -- Check for updates
@@ -32,23 +21,8 @@ autocmd("CursorHold", {
 	group = bufSettingsGrp,
 })
 
--- Relative line numbering
-autocmd("BufRead", {
-	pattern = "*",
-	command = "set rnu",
-	group = bufSettingsGrp,
-})
-
 -- Settings for filetypes:
 --------------------------
-
--- Disable line length marker
-augroup("setLineLength", { clear = true })
-autocmd("Filetype", {
-	group = "setLineLength",
-	pattern = { "html", "javascript", "markdown", "text", "typescript", "xhtml" },
-	command = "setlocal cc=0",
-})
 
 -- Set indentation to 2 spaces
 augroup("setIndent", { clear = true })

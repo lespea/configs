@@ -2,12 +2,7 @@ return {
 	{
 		"folke/persistence.nvim",
 		event = "BufReadPre", -- this will only start session saving when an actual file was opened
-		opts = {
-			options = { "globals" },
-			pre_save = function()
-				vim.api.nvim_exec_autocmds("User", { pattern = "SessionSavePre" })
-			end,
-		},
+		opts = {},
 	},
 	---@module 'lazy'
 	---@type LazySpec
@@ -259,13 +254,6 @@ return {
 				desc = "Autocmds",
 			},
 			{
-				"<leader>sb",
-				function()
-					Snacks.picker.lines()
-				end,
-				desc = "Buffer Lines",
-			},
-			{
 				"<leader>sc",
 				function()
 					Snacks.picker.command_history()
@@ -504,10 +492,6 @@ return {
 						ft = nil, ---@type string? filetype for highlighting. Use `nil` for auto detect
 					},
 					-- man_pager = nil, ---@type string? MANPAGER env to use for `man` preview
-				},
-				---@diagnostic disable-next-line: missing-fields
-				icons = {
-					-- diagnostics = Settings.icons.diagnostics,
 				},
 				win = {
 					-- input window

@@ -355,8 +355,8 @@ return {
 				},
 			})
 
-			vim.keymap.set({ "n" }, "\\", "<cmd>:Neotree<cr>")
-			vim.keymap.set({ "n" }, ",tt", "<cmd>:Neotree<cr>")
+			vim.keymap.set({ "n" }, "\\", "<cmd>Neotree<cr>", { desc = "Focus Neo-tree" })
+			vim.keymap.set({ "n" }, ",tt", "<cmd>Neotree<cr>", { desc = "Focus Neo-tree" })
 
 			require("neo-tree").setup(opts)
 		end,

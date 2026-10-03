@@ -267,7 +267,7 @@ return {
 			end, { desc = "Toggle vertical terminal" })
 		end
 
-		set({ "n", "t" }, "<S-Esc>", "<C-\\><C-n>")
+		set({ "n", "t" }, "<S-Esc>", "<C-\\><C-n>", { desc = "Leave terminal mode" })
 
 		local save = function()
 			vim.api.nvim_command([[update]])
@@ -290,7 +290,7 @@ return {
 		set({ "n" }, "<leader>ct", function()
 			termRight:close()
 			termRight = term:new({ hidden = true, direction = "vertical" })
-		end)
+		end, { desc = "Reset right terminal" })
 
 		local function clearAndRun(cmd)
 			return "" .. cmd .. "\n"
@@ -298,38 +298,38 @@ return {
 
 		-- Persistent right term
 		for _, key in ipairs({ "<C-,>", "\\tr" }) do
-			set({ "n", "t" }, key, rightTerm)
+			set({ "n", "t" }, key, rightTerm, { desc = "Focus right terminal (or go back)" })
 		end
 
 		set({ "n" }, "<leader>tc", function()
 			if termRight:is_open() then
 				termRight:send("", true)
 			end
-		end, { desc = "clear terminal" })
+		end, { desc = "Clear right terminal" })
 
 		set({ "n" }, "<leader>rf", function()
 			if termRight:is_open() then
 				termRight:send(clearAndRun("project fpFinder;run"), true)
 			end
-		end, { desc = "run fpFinder" })
+		end, { desc = "Run fpFinder" })
 
 		set({ "n" }, "<leader>rl", function()
 			if termRight:is_open() then
 				termRight:send(clearAndRun("\x1b[A"), true)
 			end
-		end, { desc = "run last cmd" })
+		end, { desc = "Run last command" })
 
 		set({ "n" }, "<leader>rj", function()
 			if termRight:is_open() then
 				termRight:send(clearAndRun("just"), true)
 			end
-		end, { desc = "run just" })
+		end, { desc = "Run just" })
 
 		set({ "n" }, "<leader>ri", function()
 			if termRight:is_open() then
 				termRight:send(clearAndRun("just lint"), true)
 			end
-		end, { desc = "run just lint" })
+		end, { desc = "Run just lint" })
 
 		set({ "n" }, "<leader>ru", function()
 			if termRight:is_open() then
@@ -348,7 +348,7 @@ return {
 					lazygit:toggle()
 				end, delay + 10000)
 			end
-		end, { desc = "run gen rules" })
+		end, { desc = "Run gen rules" })
 
 		set({ "n" }, "<leader>rs", function()
 			if not termRight:is_open() then
@@ -356,6 +356,6 @@ return {
 			end
 
 			termRight:send(clearAndRun("sbt"), true)
-		end, { desc = "run sbt" })
+		end, { desc = "Run sbt" })
 	end,
 }

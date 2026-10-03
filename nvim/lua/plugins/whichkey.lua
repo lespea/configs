@@ -9,8 +9,22 @@ return {
 		vim.o.timeoutlen = 300
 	end,
 	opts = {
-		-- your configuration comes here
-		-- or leave it empty to use the default settings
-		-- refer to the configuration section below
+		spec = {
+			{ "<leader>b", group = "buffers / comment box" },
+			{ "<leader>c", group = "clipboard / chat", mode = { "n", "v" } },
+			{ "<leader>e", group = "edgy" },
+			{ "<leader>f", group = "find" },
+			{ "<leader>g", group = "git" },
+			{ "<leader>G", group = "go" },
+			{ "<leader>h", group = "git hunks", mode = { "n", "v" } },
+			{ "<leader>p", group = "params / term copy" },
+			{ "<leader>r", group = "run in terminal" },
+			{ "<leader>s", group = "search" },
+			{ "<leader>t", group = "toggles" },
+			{ "<leader>x", group = "trouble" },
+			{ "\\t", group = "terminals" },
+			{ ";", group = "resize" },
+			{ "<space>", group = "treesj / window" },
+		},
 	},
 }

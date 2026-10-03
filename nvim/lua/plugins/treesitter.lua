@@ -127,39 +127,39 @@ return {
 			local sel = require("nvim-treesitter-textobjects.select")
 
 			-- You can use the capture groups defined in `textobjects.scm`
-			vim.keymap.set({ "x", "o" }, "af", function()
-				sel.select_textobject("@function.outer", "textobjects")
-			end)
-			vim.keymap.set({ "x", "o" }, "if", function()
-				sel.select_textobject("@function.inner", "textobjects")
-			end)
-			vim.keymap.set({ "x", "o" }, "ac", function()
-				sel.select_textobject("@class.outer", "textobjects")
-			end)
-			vim.keymap.set({ "x", "o" }, "ic", function()
-				sel.select_textobject("@class.inner", "textobjects")
-			end)
-			vim.keymap.set({ "x", "o" }, "aa", function()
-				sel.select_textobject("@parameter.outer", "textobjects")
-			end)
-			vim.keymap.set({ "x", "o" }, "ia", function()
-				sel.select_textobject("@parameter.inner", "textobjects")
-			end)
+			local textobjs = {
+				af = { "@function.outer", "Function (outer)" },
+				["if"] = { "@function.inner", "Function (inner)" },
+				ac = { "@class.outer", "Class (outer)" },
+				ic = { "@class.inner", "Class (inner)" },
+				aa = { "@parameter.outer", "Argument (outer)" },
+				ia = { "@parameter.inner", "Argument (inner)" },
+			}
+			for lhs, spec in pairs(textobjs) do
+				vim.keymap.set({ "x", "o" }, lhs, function()
+					sel.select_textobject(spec[1], "textobjects")
+				end, { desc = spec[2] })
+			end
 
 			local swap = require("nvim-treesitter-textobjects.swap")
 
 			vim.keymap.set("n", "<leader>pn", function()
 				swap.swap_next("@parameter.inner")
-			end)
+			end, { desc = "Swap argument with next" })
 			vim.keymap.set("n", "<leader>pp", function()
-				swap.swap_previous("@parameter.outer")
-			end)
+				swap.swap_previous("@parameter.inner")
+			end, { desc = "Swap argument with previous" })
 		end,
 	},
 	{
 		"Wansmer/treesj",
 		-- <space>m/j/s come from use_default_keymaps; listed here so they trigger loading
-		keys = { "<leader>m", "<space>m", "<space>j", "<space>s" },
+		keys = {
+			{ "<leader>m", desc = "Toggle split/join" },
+			{ "<space>m", desc = "Toggle split/join" },
+			{ "<space>j", desc = "Join node" },
+			{ "<space>s", desc = "Split node" },
+		},
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
 		},

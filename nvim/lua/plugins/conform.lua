@@ -37,7 +37,7 @@ return {
 			lua = { "stylua" },
 			nickel = { "nickel" },
 			proto = { "buf" },
-			python = { "isort", "black" },
+			python = { "ruff_organize_imports", "ruff_format" },
 			rust = { "rustfmt" },
 			sh = { "shfmt" },
 			templ = { "templ" },

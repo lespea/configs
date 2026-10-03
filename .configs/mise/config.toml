@@ -85,6 +85,7 @@ java = "temurin-27"
 "github:dazld/r11y" = "latest"
 github-cli = "latest"
 yq = "latest"
+shellcheck = "latest"
 
 # Renames
 [tools."github:dmarkham/enumer"]

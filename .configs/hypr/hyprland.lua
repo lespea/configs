@@ -565,7 +565,6 @@ hl.window_rule({
 -- Initialize uwsm-app and autostart
 hl.on("hyprland.start", function()
 	hl.exec_cmd("uwsm-app echo")
-	-- hl.exec_cmd("bash " .. config_dir .. "/xdg.sh")
 end)
 
 local function import_nowatch(modname)

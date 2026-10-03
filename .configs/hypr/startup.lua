@@ -7,13 +7,22 @@
 -- forced onto these workspaces when the sequence opens them. Opened another way, they land
 -- wherever you are, as usual.
 --
--- Tasks without `after` launch immediately and in parallel. A task with `after` waits until
--- that task's window has appeared and settled, so dwindle splits in the right order
--- (heroic beside steam; signal beside slack, then discord under signal).
+-- Tasks without a dependency launch immediately and in parallel. Otherwise:
+--   after:        wait until that task's window has appeared and settled; if it never does,
+--                 this task is skipped. Used so dwindle splits in the right order (heroic
+--                 beside steam; signal beside slack, then discord under signal).
+--   after_launch: wait until that task has been launched (or given up on). Only orders the
+--                 launches, so the services' PIDs, and so htop's tree, follow this list.
+--   after_finish: wait until that task is finished, however it went. The terminals use it
+--                 so their splits don't interleave with discord's on the same monitor.
 --
--- The terminals each get their own class (and so their own ghostty process) so their
--- windows can be told apart. `fish -C` runs the command in an interactive shell, so quitting
--- it leaves a prompt like running it by hand does.
+-- The terminals are new windows of the already-running ghostty service (so they live under
+-- it, not under Hyprland). They all share its class, so each gets a fixed title to be told
+-- apart by. `fish -C` runs the command in an interactive shell, so quitting it leaves a
+-- prompt like running it by hand does.
+--
+-- rhtop's run0 pops a polkit dialog on whatever workspace is focused, so its terminal holds
+-- off until the run has ended (and focused workspace 1) before running it.
 
 local M = {}
 
@@ -21,15 +30,26 @@ local MON1, MON2 = "DP-1", "DP-2"
 
 -- class:    exact window class to wait for (and route)
 -- title:    optional exact title the window must also have before the task counts as up
+-- term:     a terminal running this fish command; fills in class, title and cmd
 -- settle:   ms with no new matching windows before the task is done (firefox session
 --           restore opens its windows one by one; steam shows an updater window first)
 -- timeout:  seconds to wait for the window before giving up (dependents are skipped)
 -- split:    task whose window the new one should split. Dwindle splits the focused window,
 --           and follow_mouse can refocus whatever is under the pointer, so that window gets
 --           focus and the pointer is parked on it (the manual "move the mouse there" step).
+-- hold:     (term only) don't run the command until the run has ended
 -- on_done:  called once the task's window has settled (not when it was already open)
-local function term(name)
-	return "ghostty --class=org.lespea." .. name .. " -e fish -C " .. name
+
+-- Exists while a run is in progress; held terminals wait for it to go away.
+local HOLD = "$XDG_RUNTIME_DIR/hypr-startup.hold"
+
+local GHOSTTY = "com.mitchellh.ghostty"
+
+-- Starting the service is a no-op when it's already up (and waits for it when it isn't).
+local function term_cmd(name, hold)
+	local cmd = hold and ("while test -e " .. HOLD .. "; sleep 0.25; end; " .. name) or name
+	return "systemctl --user start app-" .. GHOSTTY .. ".service && ghostty +new-window --title="
+		.. name .. " -e fish -C '" .. cmd .. "'"
 end
 
 -- Exact size, in the logical pixels `hyprctl clients` reports. In dwindle this moves the
@@ -42,39 +62,6 @@ local function resize(id, w, h)
 end
 
 local tasks = {
-	-- Workspace 10: htop on the left, nvtop over jtail on the right.
-	{
-		id = "rhtop",
-		ws = 10,
-		mon = MON2,
-		class = "org.lespea.rhtop",
-		cmd = term("rhtop"),
-		settle = 500,
-	},
-	{
-		id = "nvtop",
-		after = "rhtop",
-		split = "rhtop",
-		ws = 10,
-		mon = MON2,
-		class = "org.lespea.nvtop",
-		cmd = term("nvtop"),
-		settle = 500,
-	},
-	{
-		id = "jtail",
-		after = "nvtop",
-		split = "nvtop",
-		ws = 10,
-		mon = MON2,
-		class = "org.lespea.jtail",
-		cmd = term("jtail"),
-		settle = 500,
-		on_done = function()
-			resize("rhtop", 1505, 1400)
-			resize("nvtop", 1047, 997)
-		end,
-	},
 	{
 		id = "firefox",
 		ws = 1,
@@ -101,8 +88,10 @@ local tasks = {
 		class = "heroic",
 		cmd = "systemctl --user start heroic.service",
 	},
+	-- Workspace 9: slack on the left, signal over discord on the right.
 	{
 		id = "slack",
+		after_launch = "heroic",
 		ws = 9,
 		mon = MON2,
 		class = "slack",
@@ -129,10 +118,43 @@ local tasks = {
 	},
 	{
 		id = "easyeffects",
+		after_launch = "discord",
 		ws = 8,
 		mon = MON2,
 		class = "com.github.wwmm.easyeffects",
 		cmd = "systemctl --user start easyeffects.service",
+	},
+	-- Workspace 10: htop on the left, nvtop over jtail on the right.
+	{
+		id = "rhtop",
+		after_finish = "discord",
+		ws = 10,
+		mon = MON2,
+		term = "rhtop",
+		hold = true,
+		settle = 500,
+	},
+	{
+		id = "nvtop",
+		after = "rhtop",
+		split = "rhtop",
+		ws = 10,
+		mon = MON2,
+		term = "nvtop",
+		settle = 500,
+	},
+	{
+		id = "jtail",
+		after = "nvtop",
+		split = "nvtop",
+		ws = 10,
+		mon = MON2,
+		term = "jtail",
+		settle = 500,
+		on_done = function()
+			resize("rhtop", 1505, 1400)
+			resize("nvtop", 1047, 997)
+		end,
 	},
 }
 
@@ -143,12 +165,23 @@ local DEFAULT_TIMEOUT = 90
 local TICK_MS = 250
 
 local by_id = {}
+local function exact(str)
+	return "^" .. str:gsub("[%.%-]", "\\%0") .. "$"
+end
+
 for _, t in ipairs(tasks) do
 	by_id[t.id] = t
+	local match
+	if t.term then
+		t.class, t.title, t.cmd = GHOSTTY, t.term, term_cmd(t.term, t.hold)
+		match = { class = exact(t.class), initial_title = exact(t.title) }
+	else
+		match = { class = exact(t.class) }
+	end
 	t.rule = hl.window_rule({
 		name = "startup-" .. t.id,
 		enabled = false,
-		match = { class = "^" .. t.class:gsub("[%.%-]", "\\%0") .. "$" },
+		match = match,
 		monitor = t.mon,
 		workspace = t.ws .. " silent",
 	})
@@ -205,6 +238,23 @@ local function render(state)
 	return table.concat(lines, "\n")
 end
 
+local finished = { done = true, skipped = true, failed = true }
+
+-- "go", "skip", or nil to keep waiting.
+local function ready(t, state)
+	local dep = t.after and state[t.after]
+	if dep and (dep.status == "failed" or dep.status == "skipped") then
+		return "skip"
+	elseif dep and dep.status ~= "done" then
+		return nil
+	elseif t.after_launch and state[t.after_launch].status == "waiting" then
+		return nil
+	elseif t.after_finish and not finished[state[t.after_finish].status] then
+		return nil
+	end
+	return "go"
+end
+
 local function set_rules(on)
 	for _, t in ipairs(tasks) do
 		t.rule:set_enabled(on)
@@ -217,6 +267,7 @@ local function stop(text, color)
 	end
 	run.timer:set_enabled(false)
 	set_rules(false)
+	hl.exec_cmd("rm -f " .. HOLD)
 	if run.note:is_alive() then
 		run.note:dismiss()
 	end
@@ -224,7 +275,22 @@ local function stop(text, color)
 	run = nil
 end
 
+-- Apps that open in the background mark themselves urgent; visiting each window clears
+-- that. Capped, and stops if focusing doesn't clear it, so this can't loop forever.
+local function clear_urgent()
+	local last
+	for _ = 1, 50 do
+		local w = hl.get_urgent_window()
+		if not w or w.address == last then
+			return
+		end
+		last = w.address
+		hl.dispatch(hl.dsp.focus({ window = w }))
+	end
+end
+
 local function finish(state)
+	clear_urgent()
 	for _, ws in ipairs(finish_on) do
 		hl.dispatch(hl.dsp.focus({ workspace = ws }))
 	end
@@ -256,10 +322,10 @@ local function tick()
 		local prev = s.status
 
 		if s.status == "waiting" then
-			local dep = t.after and state[t.after]
-			if dep and (dep.status == "failed" or dep.status == "skipped") then
+			local r = ready(t, state)
+			if r == "skip" then
 				s.status, s.note = "skipped", t.after .. " missing"
-			elseif not dep or dep.status == "done" then
+			elseif r == "go" then
 				if count(t) > 0 then
 					s.status, s.note = "done", "already open"
 				else
@@ -322,6 +388,7 @@ function M.toggle()
 		state[t.id] = { status = "waiting" }
 	end
 	set_rules(true)
+	hl.exec_cmd("touch " .. HOLD)
 	run = {
 		state = state,
 		note = hl.notification.create({ text = render(state), timeout = 600000, icon = 0, color = "rgba(33ccffee)" }),

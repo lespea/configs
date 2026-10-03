@@ -7,20 +7,13 @@ return {
 			"neovim/nvim-lspconfig",
 		},
 		config = function()
-			require("lsp-file-operations").setup()
+			local lfo = require("lsp-file-operations")
+			lfo.setup()
 
-			local lspconfig = require("lspconfig")
-
-			-- Set global defaults for all servers
-			lspconfig.util.default_config = vim.tbl_extend("force", lspconfig.util.default_config, {
-				capabilities = vim.tbl_deep_extend(
-					"force",
-					vim.lsp.protocol.make_client_capabilities(),
-					-- returns configured operations if setup() was already called
-					-- or default operations if not
-					require("lsp-file-operations").default_capabilities()
-				),
-			})
+			-- Advertise file-operation support to every server (nvim defaults these to false,
+			-- so some servers won't send import/module edits on rename without it).
+			-- vim.lsp.config deep-merges, so this composes with blink's '*' capabilities.
+			vim.lsp.config("*", { capabilities = lfo.default_capabilities() })
 		end,
 	},
 	{
@@ -360,16 +353,6 @@ return {
 						[vim.diagnostic.severity.HINT] = "󰌵",
 					},
 				},
-			})
-
-			local function on_move(data)
-				Snacks.rename.on_rename_file(data.source, data.destination)
-			end
-			local events = require("neo-tree.events")
-			opts.event_handlers = opts.event_handlers or {}
-			vim.list_extend(opts.event_handlers, {
-				{ event = events.FILE_MOVED, handler = on_move },
-				{ event = events.FILE_RENAMED, handler = on_move },
 			})
 
 			vim.keymap.set({ "n" }, "\\", "<cmd>:Neotree<cr>")

@@ -124,85 +124,87 @@ return {
 		--  { mode = "n", desc = "Toggle Edgy Left" },
 		-- },
 	},
-	opts = {
-		exit_when_last = true,
-		options = {
-			left = { size = 40 },
-			right = { size = 0.36 },
-		},
-		animate = {
-			spinner = require("noice.util.spinners").spinners.circleFull,
-		},
-		keys = {
-			["<C-S-o>"] = function(win)
-				win:resize("width", -5)
-			end,
-			["<C-S-p>"] = function(win)
-				win:resize("width", 5)
-			end,
-		},
-		bottom = {
-			{ ft = "Trouble", size = { height = 0.25 } },
-			{ ft = "qf", title = "QuickFix", size = { height = 10 } },
-			{
-				ft = "help",
-				size = { height = 0.25 },
-				-- only show help buffers
-				filter = function(buf)
-					return vim.bo[buf].buftype == "help"
+	opts = function()
+		return {
+			exit_when_last = true,
+			options = {
+				left = { size = 40 },
+				right = { size = 0.36 },
+			},
+			animate = {
+				spinner = require("noice.util.spinners").spinners.circleFull,
+			},
+			keys = {
+				["<C-S-o>"] = function(win)
+					win:resize("width", -5)
+				end,
+				["<C-S-p>"] = function(win)
+					win:resize("width", 5)
 				end,
 			},
-			{ ft = "spectre_panel", size = { height = 0.4 } },
-		},
-		left = {
-			-- Neo-tree filesystem always takes half the screen height
-			{
-				title = "Neo-Tree",
-				ft = "neo-tree",
-				filter = function(buf)
-					return vim.b[buf].neo_tree_source == "filesystem"
-				end,
-				size = { height = 0.5 },
-				pinned = true,
-				open = function()
-					vim.cmd("Neotree show left")
-				end,
+			bottom = {
+				{ ft = "Trouble", size = { height = 0.25 } },
+				{ ft = "qf", title = "QuickFix", size = { height = 10 } },
+				{
+					ft = "help",
+					size = { height = 0.25 },
+					-- only show help buffers
+					filter = function(buf)
+						return vim.bo[buf].buftype == "help"
+					end,
+				},
+				{ ft = "spectre_panel", size = { height = 0.4 } },
 			},
-			{
-				title = function()
-					local buf_name = vim.api.nvim_buf_get_name(0) or "[No Name]"
-					return vim.fn.fnamemodify(buf_name, ":t")
-				end,
-				ft = "Outline",
-				pinned = true,
-				collapsed = false,
-				open = "Outline",
+			left = {
+				-- Neo-tree filesystem always takes half the screen height
+				{
+					title = "Neo-Tree",
+					ft = "neo-tree",
+					filter = function(buf)
+						return vim.b[buf].neo_tree_source == "filesystem"
+					end,
+					size = { height = 0.5 },
+					pinned = true,
+					open = function()
+						vim.cmd("Neotree show left")
+					end,
+				},
+				{
+					title = function()
+						local buf_name = vim.api.nvim_buf_get_name(0) or "[No Name]"
+						return vim.fn.fnamemodify(buf_name, ":t")
+					end,
+					ft = "Outline",
+					pinned = true,
+					collapsed = false,
+					open = "Outline",
+				},
+				-- any other neo-tree windows
+				"neo-tree",
 			},
-			-- any other neo-tree windows
-			"neo-tree",
-		},
-		right = {
-			{
-				ft = "toggleterm",
-				-- exclude floating windows
-				pinned = true,
-				filter = function(buf, win)
-					return vim.api.nvim_win_get_config(win).relative == ""
-				end,
-				open = function()
-					open_right_term(false) -- false = don't focus
-				end,
+			right = {
+				{
+					ft = "toggleterm",
+					-- exclude floating windows
+					pinned = true,
+					filter = function(buf, win)
+						return vim.api.nvim_win_get_config(win).relative == ""
+					end,
+					open = function()
+						open_right_term(false) -- false = don't focus
+					end,
+				},
+				{
+					ft = "codecompanion",
+					-- Exclude floating windows (like status popups)
+					filter = function(buf, win)
+						return vim.api.nvim_win_get_config(win).relative == ""
+					end,
+					open = function()
+						require("codecompanion").toggle()
+					end,
+				},
 			},
-			{
-				ft = "codecompanion",
-				-- Exclude floating windows (like status popups)
-				filter = function(buf, win)
-					return vim.api.nvim_win_get_config(win).relative == ""
-				end,
-				open = function()
-					require("codecompanion").toggle()
-				end,
-			},
-		},
-	},
+		}
+	end,
 }

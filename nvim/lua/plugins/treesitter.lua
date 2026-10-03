@@ -183,8 +183,8 @@ return {
 	},
 	{
 		"Wansmer/treesj",
-		lazy = false,
-		keys = { "<leader>m", "<space>m" },
+		-- <space>m/j/s come from use_default_keymaps; listed here so they trigger loading
+		keys = { "<leader>m", "<space>m", "<space>j", "<space>s" },
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
 		},

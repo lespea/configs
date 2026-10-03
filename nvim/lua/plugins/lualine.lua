@@ -1,9 +1,5 @@
 local function cursor_line()
 	local total_lines = vim.fn.line("$")
-	if total_lines <= 0 then
-		return ""
-	end
-
 	local line_str = "Line: %s (%d%%%%)"
 	local line_num = vim.fn.line(".")
 	if total_lines == 1 then
@@ -17,44 +13,24 @@ local function cursor_line()
 end
 
 local function cursor_col()
-	local line_len = vim.fn.charcol("$")
-	if line_len <= 0 then
-		return ""
-	end
-
-	local col_num = vim.fn.charcol(".")
-	local col_pct = math.floor(col_num / line_len * 100)
-	return ("Col: %d/%d (%d%%%%)"):format(col_num, line_len, col_pct)
+	return ("Col: %d/%d"):format(vim.fn.charcol("."), vim.fn.charcol("$"))
 end
 
 local function getLspName()
-	local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
-	local buf_ft = vim.bo.filetype
-	if next(buf_clients) == nil then
-		return "  No servers"
-	end
-	local buf_client_names = {}
-
-	for _, client in pairs(buf_clients) do
-		if client.name ~= "null-ls" then
-			table.insert(buf_client_names, client.name)
-		end
+	local buf_client_names = vim.tbl_map(function(client)
+		return client.name
+	end, vim.lsp.get_clients({ bufnr = 0 }))
+	if #buf_client_names == 0 then
+		return "  No servers"
 	end
 
 	local lint_s, lint = pcall(require, "lint")
 	if lint_s then
-		for ft_k, ft_v in pairs(lint.linters_by_ft) do
-			if type(ft_v) == "table" then
-				for _, linter in ipairs(ft_v) do
-					if buf_ft == ft_k then
-						table.insert(buf_client_names, linter)
-					end
-				end
-			elseif type(ft_v) == "string" then
-				if buf_ft == ft_k then
-					table.insert(buf_client_names, ft_v)
-				end
-			end
+		local linters = lint.linters_by_ft[vim.bo.filetype]
+		if type(linters) == "string" then
+			table.insert(buf_client_names, linters)
+		elseif type(linters) == "table" then
+			vim.list_extend(buf_client_names, linters)
 		end
 	end
 
@@ -63,23 +39,11 @@ local function getLspName()
 		vim.list_extend(buf_client_names, conform.list_formatters_for_buffer())
 	end
 
-	local hash = {}
-	local unique_client_names = {}
-
-	for _, v in ipairs(buf_client_names) do
-		if not hash[v] then
-			unique_client_names[#unique_client_names + 1] = v
-			hash[v] = true
-		end
-	end
-	local language_servers = table.concat(unique_client_names, ", ")
-
-	return "  " .. language_servers
+	return "  " .. table.concat(vim.list.unique(buf_client_names), ", ")
 end
 
 local function project_root()
-	local path = vim.fn.getcwd()
-	return "  " .. vim.fn.fnamemodify(path, ":t")
+	return "  " .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
 end
 
 return {
@@ -89,7 +53,7 @@ return {
 		"folke/noice.nvim",
 		"ThorstenRhau/token",
 	},
-	event = { "BufReadPost", "BufNewFile" },
+	event = "VeryLazy",
 	config = function()
 		local palette = require("token.palettes.meridian")("dark")
 		local colors = vim.tbl_extend("force", palette, {
@@ -123,13 +87,26 @@ return {
 			t = colors.bright_red,
 		}
 
+		-- shared by everything in section a so it all follows the mode
+		local function mode_color()
+			local m = vim.fn.mode()
+			-- mode() can return longer variants (niI, nt, ix, Rc, ...) so fall back to the first char
+			local bg = modecolor[m] or modecolor[m:sub(1, 1)] or modecolor.n
+			return { bg = bg, fg = colors.bg_dark, gui = "bold" }
+		end
+
 		local modes = {
 			"mode",
-			color = function()
-				local mode_color = modecolor
-				return { bg = mode_color[vim.fn.mode()], fg = colors.bg_dark, gui = "bold" }
+			color = mode_color,
+			separator = { left = "", right = "" },
+		}
+
+		local hostname = {
+			"hostname",
+			color = mode_color,
+			cond = function()
+				return vim.env.SSH_CONNECTION ~= nil
 			end,
-			separator = { left = "", right = "" },
 		}
 
 		local theme = {
@@ -139,102 +116,104 @@ return {
 				c = { fg = colors.white, bg = colors.bg_dark },
 				z = { fg = colors.white, bg = colors.bg_dark },
 			},
-			insert = { a = { fg = colors.bg_dark, bg = colors.orange } },
-			visual = { a = { fg = colors.bg_dark, bg = colors.green } },
-			replace = { a = { fg = colors.bg_dark, bg = colors.red } },
 		}
 
 		-- noice builds status objects dynamically, so spell out the shape for lua_ls
 		---@class NoiceStatusEntry
 		---@field has fun(): boolean
 		---@field get fun(): string?
-		local noice_mode = require("noice").api.status.mode --[[@as NoiceStatusEntry]]
+		local noice_status = require("noice").api.status
+		local noice_mode = noice_status.mode --[[@as NoiceStatusEntry]]
+		local noice_command = noice_status.command --[[@as NoiceStatusEntry]]
+
+		-- cmdheight=0 hides both of these, so surface them here
 		local macro = {
 			noice_mode.get,
 			cond = noice_mode.has,
 			color = { fg = colors.red, bg = colors.bg_dark, gui = "italic,bold" },
 		}
+		local pending_keys = {
+			noice_command.get,
+			cond = noice_command.has,
+			color = { fg = colors.yellow, bg = colors.bg_dark },
+		}
+
+		local lazy_updates = {
+			require("lazy.status").updates,
+			cond = require("lazy.status").has_updates,
+			color = { fg = colors.orange, bg = colors.bg_dark },
+		}
 
 		local lsp = {
-			function()
-				return getLspName()
-			end,
-			separator = { left = "", right = "" },
+			getLspName,
+			separator = { left = "", right = "" },
 			color = { bg = colors.purple, fg = colors.bg, gui = "italic,bold" },
 		}
 
 		local codeSpinner = require("lualine.component"):extend()
 
-		codeSpinner.processing = false
-		codeSpinner.spinner_index = 1
+		local spinner_symbols = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
 
-		local spinner_symbols = {
-			"⠋",
-			"⠙",
-			"⠹",
-			"⠸",
-			"⠼",
-			"⠴",
-			"⠦",
-			"⠧",
-			"⠇",
-			"⠏",
-		}
-		local spinner_symbols_len = 10
-
-		-- Initializer
 		function codeSpinner:init(options)
 			codeSpinner.super.init(self, options)
+			self.active_requests = 0
+			self.spinner_index = 1
+			-- lualine only redraws every 1s on its own; drive the animation while a request is running
+			self.timer = assert(vim.uv.new_timer())
 
-			local group = vim.api.nvim_create_augroup("CodeCompanionHooks", {})
-
-			vim.api.nvim_create_autocmd({ "User" }, {
-				pattern = "CodeCompanionRequest*",
-				group = group,
+			vim.api.nvim_create_autocmd("User", {
+				pattern = { "CodeCompanionRequestStarted", "CodeCompanionRequestFinished" },
+				group = vim.api.nvim_create_augroup("LualineCodeCompanionSpinner", {}),
 				callback = function(request)
 					if request.match == "CodeCompanionRequestStarted" then
-						self.processing = true
-					elseif request.match == "CodeCompanionRequestFinished" then
-						self.processing = false
+						self.active_requests = self.active_requests + 1
+						if not self.timer:is_active() then
+							self.timer:start(0, 100, vim.schedule_wrap(require("lualine").refresh))
+						end
+					else
+						self.active_requests = math.max(self.active_requests - 1, 0)
+						if self.active_requests == 0 then
+							self.timer:stop()
+							require("lualine").refresh()
+						end
 					end
 				end,
 			})
 		end
 
-		-- Function that runs every time statusline is updated
 		function codeSpinner:update_status()
-			if self.processing then
-				self.spinner_index = (self.spinner_index % spinner_symbols_len) + 1
+			if self.active_requests > 0 then
+				self.spinner_index = (self.spinner_index % #spinner_symbols) + 1
 				return spinner_symbols[self.spinner_index]
-			else
-				return nil
 			end
 		end
 
 		require("lualine").setup({
 			options = {
-				icons_enabled = true,
 				theme = theme,
 				ignore_focus = {
 					"Outline",
 					"codecompanion",
-					"edgy",
 					"neo-tree",
 					"qf",
-					"terminal",
-					"TERMINAL",
 					"toggleterm",
 					"trouble",
 				},
 				globalstatus = true,
 			},
 			sections = {
-				lualine_a = { "hostname", modes },
+				lualine_a = { hostname, modes },
 				lualine_b = {
-					"branch",
+					{ "b:gitsigns_head", icon = "" },
 					{
 						"diff",
-						symbols = { added = " ", modified = " ", removed = " " },
+						source = function()
+							local gs = vim.b.gitsigns_status_dict
+							if gs then
+								return { added = gs.added, modified = gs.changed, removed = gs.removed }
+							end
+						end,
+						symbols = { added = " ", modified = " ", removed = " " },
 						diff_color = {
 							added = { fg = colors.gsign_add },
 							modified = { fg = colors.gsign_change },
@@ -243,27 +222,12 @@ return {
 					},
 					"diagnostics",
 				},
-				lualine_c = { project_root, "filename" },
-				lualine_x = {
-					"%b/0x%B",
-					"encoding",
-					-- { "fileformat", icons_enabled = false },
-					"filetype",
-				},
+				lualine_c = { project_root, { "filename", path = 1 } },
+				lualine_x = { pending_keys, lazy_updates, "%b/0x%B", "encoding", "filetype" },
 				lualine_y = { macro },
 				lualine_z = { cursor_line, cursor_col, "selectioncount", codeSpinner, lsp },
-				-- lualine_z = { cursor_line, cursor_col, "selectioncount", dia, lsp },
 			},
-			inactive_sections = {
-				lualine_a = {},
-				lualine_b = {},
-				lualine_c = { "filename" },
-				lualine_x = { "location" },
-				lualine_y = {},
-				lualine_z = {},
-			},
-			tabline = {},
-			extensions = { "trouble" },
+			extensions = { "lazy", "man", "mason", "neo-tree", "quickfix", "toggleterm", "trouble" },
 		})
 	end,
 }

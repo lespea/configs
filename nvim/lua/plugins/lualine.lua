@@ -144,9 +144,14 @@ return {
 			replace = { a = { fg = colors.bg_dark, bg = colors.red } },
 		}
 
+		-- noice builds status objects dynamically, so spell out the shape for lua_ls
+		---@class NoiceStatusEntry
+		---@field has fun(): boolean
+		---@field get fun(): string?
+		local noice_mode = require("noice").api.status.mode --[[@as NoiceStatusEntry]]
 		local macro = {
-			require("noice").api.status.mode.get,
-			cond = require("noice").api.status.mode.has,
+			noice_mode.get,
+			cond = noice_mode.has,
 			color = { fg = colors.red, bg = colors.bg_dark, gui = "italic,bold" },
 		}
 

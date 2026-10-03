@@ -177,7 +177,7 @@ return {
 					ft = "toggleterm",
 					-- exclude floating windows
 					pinned = true,
-					filter = function(buf, win)
+					filter = function(_, win)
 						return vim.api.nvim_win_get_config(win).relative == ""
 					end,
 					open = function()
@@ -187,7 +187,7 @@ return {
 				{
 					ft = "codecompanion",
 					-- Exclude floating windows (like status popups)
-					filter = function(buf, win)
+					filter = function(_, win)
 						return vim.api.nvim_win_get_config(win).relative == ""
 					end,
 					open = function()

@@ -77,7 +77,7 @@ return {
 					-- then these will never be used.
 					default = "*",
 					highlight = "NeoTreeFileIcon",
-					provider = function(icon, node, state) -- default icon provider utilizes nvim-web-devicons if available
+					provider = function(icon, node) -- default icon provider utilizes nvim-web-devicons if available
 						if node.type == "file" or node.type == "terminal" then
 							local success, web_devicons = pcall(require, "nvim-web-devicons")
 							local name = node.type == "terminal" and "terminal" or node.name
@@ -332,7 +332,10 @@ return {
 						local file_info = vim.uv.fs_stat(destination)
 						if file_info and file_info.type == "file" then
 							vim.schedule(function()
-								utils.open_file(manager.get_state_for_window(), destination)
+								local state = manager.get_state_for_window()
+								if state then
+									utils.open_file(state, destination)
+								end
 							end)
 						end
 					end,

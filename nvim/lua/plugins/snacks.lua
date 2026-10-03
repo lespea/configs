@@ -66,7 +66,7 @@ return {
 			{
 				"<leader>fc",
 				function()
-					Snacks.picker.files_with_symbols({
+					Snacks.picker.pick("files_with_symbols", {
 						cwd = vim.fn.stdpath("config"),
 					})
 				end,
@@ -82,7 +82,7 @@ return {
 			{
 				"<leader>ff",
 				function()
-					Snacks.picker.files_with_symbols({
+					Snacks.picker.pick("files_with_symbols", {
 						hidden = true,
 						ignored = true,
 						exclude = {

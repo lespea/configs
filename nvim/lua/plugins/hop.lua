@@ -49,11 +49,7 @@ return {
 		add_bind(hop, hint, no, ",,t", "a", nil, false)
 		add_bind(hop, hint, no, ",,T", "b", nil, false)
 
-		set(no, ",,h", function()
-			hop.hint_char2()
-		end, { silent = true, desc = "Hop to 2 chars" })
-		set(no, ",l", function()
-			hop.hint_lines_skip_whitespace()
-		end, { silent = true, desc = "Hop to line" })
+		set(no, ",,h", "<cmd>HopChar2<CR>", { silent = true, desc = "Hop to 2 chars" })
+		set(no, ",l", "<cmd>HopLineStart<CR>", { silent = true, desc = "Hop to line" })
 	end,
 }

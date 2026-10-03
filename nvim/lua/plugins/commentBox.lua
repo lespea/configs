@@ -11,14 +11,9 @@ return {
 
 		local nv = { "n", "v" }
 
-		set(nv, "<leader>bb", function()
-			box.llbox()
-		end, { desc = "Comment box (left-aligned line)" })
-		set(nv, "<leader>bc", function()
-			box.lcbox()
-		end, { desc = "Comment box (centered)" })
-		set("n", "<leader>bl", function()
-			box.line()
-		end, { desc = "Comment line" })
+		-- `:` (not <cmd>) so a visual selection passes its range to the command
+		set(nv, "<leader>bb", ":CBllbox<CR>", { desc = "Comment box (left-aligned line)" })
+		set(nv, "<leader>bc", ":CBlcbox<CR>", { desc = "Comment box (centered)" })
+		set("n", "<leader>bl", "<cmd>CBline<CR>", { desc = "Comment line" })
 	end,
 }

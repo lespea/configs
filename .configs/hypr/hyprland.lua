@@ -496,6 +496,7 @@ local function add_gaming_rule(name, match_criteria)
 		fullscreen = true,
 		idle_inhibit = "always",
 		tag = "+gaming",
+		content = "game", -- gates direct scanout (render.direct_scanout = 2); class alone misses winewayland games
 		render_unfocused = true,
 	})
 end
@@ -517,12 +518,13 @@ add_gaming_rule("gaming-steam", { class = "steam_app.*" })
 hl.window_rule({
 	name = "launchers-not-games",
 	match = {
-		class = "(?i)^(upc|ubisoftconnect|ubisoft game launcher|battle\\.net|agent|eadesktop|ealauncher|epicgameslauncher|galaxyclient|rockstar|launcher|origin)\\.exe$",
+		class = "(?i)^(upc|ubisoftconnect|ubisoft game launcher|battle\\.net|agent|eadesktop|ealauncher|epicgameslauncher|galaxyclient|rockstar|launcher|origin|eve-online)\\.exe$",
 	},
 	fullscreen = false,
 	idle_inhibit = "none",
 	render_unfocused = false,
 	tag = "-gaming",
+	content = "none",
 })
 
 -- No shadow for tiled windows

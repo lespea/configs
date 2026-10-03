@@ -219,44 +219,75 @@ hl.bind(
 	}))
 )
 
-hl.bind(mainAlt .. " + M", function()
-	hl.dispatch(hl.dsp.submap("media"))
-	hl.notification.create({
-		text = "m - all (tidal + easyeffects + pavu)\nt - tidal\ne - easyeffects\np - pavucontrol\nq - stop all",
-		timeout = 3500,
-		icon = 0,
-		color = "rgba(33ccffee)",
-	})
-end)
+-- Key "menus": a submap plus a notification listing its keys. Picking an entry flashes
+-- just that line in green for half a second, then clears the popup.
+local menu_color = "rgba(33ccffee)"
+local menu_pick_color = "rgba(66ff99ee)"
+local function define_menu(name, trigger, entries)
+	local note, flash
+	local function close()
+		if note and note:is_alive() then
+			note:dismiss()
+		end
+		note = nil
+	end
 
-hl.define_submap("media", function()
-	hl.bind("T", function()
-		hl.dispatch(hl.dsp.submap("reset"))
-		hl.dispatch(hl.dsp.exec_cmd("systemctl --user start tidal.service"))
-	end, { release = true })
-	hl.bind("E", function()
-		hl.dispatch(hl.dsp.submap("reset"))
-		hl.dispatch(hl.dsp.exec_cmd("systemctl --user start easyeffects.service"))
-	end, { release = true })
-	hl.bind("P", function()
-		hl.dispatch(hl.dsp.submap("reset"))
-		hl.dispatch(hl.dsp.exec_cmd("systemctl --user start pavucontrol.service"))
-	end, { release = true })
-	hl.bind("M", function()
-		hl.dispatch(hl.dsp.submap("reset"))
-		hl.dispatch(hl.dsp.exec_cmd(start_services({
+	hl.bind(trigger, function()
+		close()
+		hl.dispatch(hl.dsp.submap(name))
+		local lines = {}
+		for _, e in ipairs(entries) do
+			lines[#lines + 1] = e.label
+		end
+		note = hl.notification.create({
+			text = table.concat(lines, "\n"),
+			timeout = 3500,
+			icon = 0,
+			color = menu_color,
+		})
+	end)
+
+	hl.define_submap(name, function()
+		for _, e in ipairs(entries) do
+			hl.bind(e.key, function()
+				hl.dispatch(hl.dsp.submap("reset"))
+				if note and note:is_alive() then
+					note:set_text(e.label)
+					note:set_color(menu_pick_color)
+					-- keep a reference so the timer isn't collected before it fires
+					flash = hl.timer(close, { timeout = 500, type = "oneshot" })
+				end
+				hl.dispatch(e.action)
+			end, { release = true })
+		end
+		for _, key in ipairs({ "escape", "Return" }) do
+			hl.bind(key, function()
+				hl.dispatch(hl.dsp.submap("reset"))
+				close()
+			end)
+		end
+	end)
+end
+
+define_menu("media", mainAlt .. " + M", {
+	{
+		key = "M",
+		label = "m - all (tidal + easyeffects + pavu)",
+		action = hl.dsp.exec_cmd(start_services({
 			"tidal.service",
 			"easyeffects.service",
 			"pavucontrol.service",
-		}, 0.75)))
-	end, { release = true })
-	hl.bind("Q", function()
-		hl.dispatch(hl.dsp.submap("reset"))
-		hl.dispatch(hl.dsp.exec_cmd("systemctl --user stop tidal.service easyeffects.service pavucontrol.service"))
-	end, { release = true })
-	hl.bind("escape", hl.dsp.submap("reset"))
-	hl.bind("Return", hl.dsp.submap("reset"))
-end)
+		}, 0.75)),
+	},
+	{ key = "T", label = "t - tidal", action = hl.dsp.exec_cmd("systemctl --user start tidal.service") },
+	{ key = "E", label = "e - easyeffects", action = hl.dsp.exec_cmd("systemctl --user start easyeffects.service") },
+	{ key = "P", label = "p - pavucontrol", action = hl.dsp.exec_cmd("systemctl --user start pavucontrol.service") },
+	{
+		key = "Q",
+		label = "q - stop all",
+		action = hl.dsp.exec_cmd("systemctl --user stop tidal.service easyeffects.service pavucontrol.service"),
+	},
+})
 
 hl.bind(mainAlt .. " + C", function()
 	hl.exec_cmd("systemctl --user start rift.service")
@@ -416,32 +447,18 @@ local function session_end(action)
 	return hl.dsp.exec_cmd("systemd-run --user --quiet --collect -- " .. session_script .. " " .. action)
 end
 
-hl.bind(mainMod .. " + escape", function()
-	hl.dispatch(hl.dsp.submap("logout"))
-	hl.notification.create({
-		text = "e - exit session\nx - terminate everything\nr - reboot\ns - suspend\nS - poweroff\nl - lock",
-		timeout = 3500,
-		icon = 0,
-		color = "rgba(33ccffee)",
-	})
-end)
-
-hl.define_submap("logout", function()
-	hl.bind("E", session_end("exit"), { release = true })
-	hl.bind("X", session_end("terminate"), { release = true })
-	hl.bind("R", session_end("reboot"), { release = true })
-	hl.bind("SHIFT + S", session_end("poweroff"), { release = true })
-	hl.bind("S", function()
-		hl.dispatch(hl.dsp.submap("reset"))
-		hl.dispatch(hl.dsp.exec_cmd("sh -c 'dms ipc call lock lock &!; sleep 1; systemctl suspend'"))
-	end, { release = true })
-	hl.bind("L", function()
-		hl.dispatch(hl.dsp.submap("reset"))
-		hl.dispatch(hl.dsp.exec_cmd("dms ipc call lock lock"))
-	end, { release = true })
-	hl.bind("escape", hl.dsp.submap("reset"))
-	hl.bind("Return", hl.dsp.submap("reset"))
-end)
+define_menu("logout", mainMod .. " + escape", {
+	{ key = "E", label = "e - exit session", action = session_end("exit") },
+	{ key = "X", label = "x - terminate everything", action = session_end("terminate") },
+	{ key = "R", label = "r - reboot", action = session_end("reboot") },
+	{
+		key = "S",
+		label = "s - suspend",
+		action = hl.dsp.exec_cmd("sh -c 'dms ipc call lock lock &!; sleep 1; systemctl suspend'"),
+	},
+	{ key = "SHIFT + S", label = "S - poweroff", action = session_end("poweroff") },
+	{ key = "L", label = "l - lock", action = hl.dsp.exec_cmd("dms ipc call lock lock") },
+})
 
 -- Dialogs
 -- hl.window_rule({ name = "open-file", match = { title = "^(Open File)(.*)$" }, float = true })

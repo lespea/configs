@@ -21,7 +21,7 @@ local function getLspName()
 		return client.name
 	end, vim.lsp.get_clients({ bufnr = 0 }))
 	if #buf_client_names == 0 then
-		return "  No servers"
+		return "  No servers"
 	end
 
 	local lint_s, lint = pcall(require, "lint")
@@ -39,11 +39,11 @@ local function getLspName()
 		vim.list_extend(buf_client_names, conform.list_formatters_for_buffer())
 	end
 
-	return "  " .. table.concat(vim.list.unique(buf_client_names), ", ")
+	return "  " .. table.concat(vim.list.unique(buf_client_names), ", ")
 end
 
 local function project_root()
-	return "  " .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+	return "  " .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
 end
 
 return {
@@ -98,7 +98,7 @@ return {
 		local modes = {
 			"mode",
 			color = mode_color,
-			separator = { left = "", right = "" },
+			separator = { left = "", right = "" },
 		}
 
 		local hostname = {
@@ -146,7 +146,7 @@ return {
 
 		local lsp = {
 			getLspName,
-			separator = { left = "", right = "" },
+			separator = { left = "", right = "" },
 			color = { bg = colors.purple, fg = colors.bg, gui = "italic,bold" },
 		}
 
@@ -204,7 +204,7 @@ return {
 			sections = {
 				lualine_a = { hostname, modes },
 				lualine_b = {
-					{ "b:gitsigns_head", icon = "" },
+					{ "b:gitsigns_head", icon = "" },
 					{
 						"diff",
 						source = function()
@@ -213,7 +213,7 @@ return {
 								return { added = gs.added, modified = gs.changed, removed = gs.removed }
 							end
 						end,
-						symbols = { added = " ", modified = " ", removed = " " },
+						symbols = { added = " ", modified = " ", removed = " " },
 						diff_color = {
 							added = { fg = colors.gsign_add },
 							modified = { fg = colors.gsign_change },

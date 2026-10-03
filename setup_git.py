@@ -148,12 +148,12 @@ def setup(d: ToRun, email: str, signingKey: str, rewrites: dict[str, str]):
     add_cmds(
         d,
         "color",
-        diff="always",
-        grep="always",
-        interactive="always",
+        diff="auto",
+        grep="auto",
+        interactive="auto",
         pager=t,
         status=t,
-        ui="always",
+        ui="auto",
     )
 
     add_cmds(

@@ -69,6 +69,7 @@ return {
 				ls.change_choice(-1)
 			end, { desc = "prev choice" })
 
+			-- NOTE: intentionally shadows the builtin insert-mode <C-o> (run one normal command)
 			vim.keymap.set(
 				{ "i", "s" },
 				"<C-o>",

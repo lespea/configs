@@ -30,10 +30,12 @@ set("n", "<F10>", ":set expandtab<CR>:retab<CR>", opts_with_desc(optR, "Convert 
 set("n", "<C-t>", ":tabnew<CR>", opts_with_desc(optRS, "New tab"))
 
 -- Windows
-set("n", "<C-n>", "h", opts_with_desc(optRS, "Move left"))
-set("n", "<C-j>", "j", opts_with_desc(optRS, "Move down"))
-set("n", "<C-k>", "k", opts_with_desc(optRS, "Move up"))
-set("n", "<C-m>", "l", opts_with_desc(optRS, "Move right"))
+-- NOTE: <C-m> is indistinguishable from <CR> in terminals without the kitty keyboard
+-- protocol (Terminal.app, tmux without extended-keys); there Enter will move windows too.
+set("n", "<C-n>", "<C-w>h", opts_with_desc(optRS, "Go to left window"))
+set("n", "<C-j>", "<C-w>j", opts_with_desc(optRS, "Go to lower window"))
+set("n", "<C-k>", "<C-w>k", opts_with_desc(optRS, "Go to upper window"))
+set("n", "<C-m>", "<C-w>l", opts_with_desc(optRS, "Go to right window"))
 set("n", "<C-p>", "", opts_with_desc(optRS, "Noop"))
 
 -- Copy/Paste

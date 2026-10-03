@@ -1,19 +1,26 @@
 #!/usr/bin/env python
 
 import argparse
+import os
+import shutil
 import subprocess
 import time
 import typing
-
 from pathlib import Path
 
-type torun = dict[str, set[typing.Any]]
+type ToRun = dict[str, set[typing.Any]]
 
 
-allowed_signers_file = Path(__file__).resolve().parent / "allowed_git_signers"
+repo_dir = Path(__file__).resolve().parent
+allowed_signers_file = repo_dir / "allowed_git_signers"
+delta_themes_file = repo_dir / "delta-themes.gitconfig"
 
 
-def run(d: torun):
+def global_config() -> Path:
+    return Path(os.environ.get("GIT_CONFIG_GLOBAL", Path.home() / ".gitconfig"))
+
+
+def run(d: ToRun, dry_run: bool):
     keys = sorted(d.keys())
     for k in keys:
         print(f"Adding {k}")
@@ -21,10 +28,39 @@ def run(d: torun):
         for args in arg_list:
             args = list(args)
             print("  " + " ".join(args))
-            subprocess.check_call(args=args)
+            if not dry_run:
+                subprocess.check_call(args=args)
 
 
-def add_cmds(d: torun, base: str, **defs: str):
+def setup_gh_credentials(dry_run: bool):
+    # Auth to GitHub over https with gh's token instead of ssh keys. Same entries as
+    # `gh auth setup-git`, but that writes gh's resolved path, which mise changes on upgrade.
+    if shutil.which("gh") is None:
+        print("gh not installed; skipping the GitHub credential helper")
+        return
+    print("Adding credential")
+    for host in ["github.com", "gist.github.com"]:
+        key = f"credential.https://{host}.helper"
+        cmds = [
+            ["git", "config", "--global", "--unset-all", key],
+            ["git", "config", "--global", "--add", key, ""],
+            ["git", "config", "--global", "--add", key, "!gh auth git-credential"],
+        ]
+        for cmd in cmds:
+            print("  " + " ".join(cmd))
+            if not dry_run:
+                # --unset-all exits 5 when there's nothing to unset
+                subprocess.run(cmd, check=cmd[3] != "--unset-all")
+    if (
+        subprocess.run(
+            ["gh", "auth", "status"], capture_output=True, check=False
+        ).returncode
+        != 0
+    ):
+        print("gh is not logged in yet; run `gh auth login`")
+
+
+def add_cmds(d: ToRun, base: str, **defs: str):
     for k, v in defs.items():
         if v != "":
             k = k.replace("_", "-")
@@ -51,7 +87,7 @@ def add_sig(email: str, key: str):
         allowed_signers_file.write_text(want + "\n")
 
 
-def setup(d: torun, email: str, signingKey: str, rewrites: dict[str, str]):
+def setup(d: ToRun, email: str, signingKey: str, rewrites: dict[str, str]):
     t = "true"
     f = "false"
 
@@ -70,6 +106,7 @@ def setup(d: torun, email: str, signingKey: str, rewrites: dict[str, str]):
     add_cmds(d, "fetch", prune=t)
     add_cmds(d, "gpg", format="ssh")
     add_cmds(d, "gpg.ssh", allowedSignersFile=str(allowed_signers_file))
+    add_cmds(d, "include", path=str(delta_themes_file))
     add_cmds(d, "init", defaultBranch="main")
     add_cmds(d, "interactive", diffFilter="delta --color-only --features=interactive")
     add_cmds(d, "log", date="iso")
@@ -122,7 +159,7 @@ def setup(d: torun, email: str, signingKey: str, rewrites: dict[str, str]):
     add_cmds(
         d,
         "delta",
-        features="decorations",
+        features="token-meridian-dark",
         line_numbers=t,
         side_by_side=f,
         syntax_theme="Monokai Extended",
@@ -141,10 +178,11 @@ def setup(d: torun, email: str, signingKey: str, rewrites: dict[str, str]):
         add_cmds(d, "url", **rewrites)
 
 
-def main(email: str, signingKey: str, rewrites: dict[str, str]):
-    d: torun = dict()
+def main(email: str, signingKey: str, rewrites: dict[str, str], dry_run: bool):
+    d: ToRun = {}
     setup(d, email, signingKey, rewrites)
-    run(d)
+    run(d, dry_run)
+    setup_gh_credentials(dry_run)
 
 
 def cleanup_key(key: str) -> str:
@@ -172,13 +210,30 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Applies global git settings")
     parser.add_argument("-e", "--email", default="lespea@gmail.com")
     parser.add_argument("-k", "--key", default=def_key())
-    parser.add_argument("--rm", action=argparse.BooleanOptionalAction, default=False)
-    parser.add_argument("-r", "--rewrite", nargs="*", default=["!github.com"])
+    parser.add_argument(
+        "--rm",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help="delete the global gitconfig first, so it only has what this script sets",
+    )
+    parser.add_argument(
+        "-r",
+        "--rewrite",
+        nargs="*",
+        default=[],
+        help="hosts to reach over ssh instead of https; prefix with ! to only rewrite pushes",
+    )
+    parser.add_argument(
+        "-n",
+        "--dry-run",
+        action="store_true",
+        help="print the commands without running them",
+    )
 
     args = parser.parse_args()
 
-    if args.rm:
-        (Path.home() / ".gitconfig").unlink(missing_ok=True)
+    if args.rm and not args.dry_run:
+        global_config().unlink(missing_ok=True)
 
     rewrites = {}
     if args.rewrite is not None:
@@ -193,4 +248,4 @@ if __name__ == "__main__":
 
                     rewrites[f"ssh://git@{url}/.{action}"] = f"https://{url}/"
 
-    main(args.email, args.key, rewrites)
+    main(args.email, args.key, rewrites, args.dry_run)

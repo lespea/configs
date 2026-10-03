@@ -1,0 +1,53 @@
+# Delta themes, pulled into ~/.gitconfig via include.path by setup_git.py.
+
+[delta "token-dark"]
+	dark = true
+	syntax-theme = token-dark
+	blame-palette = "#1d1d1c #212120 #262624 #2f2f2d #383835"
+	commit-decoration-style = "#5a5955" bold box ul
+	file-style = "#e8e4dc"
+	file-decoration-style = "#5a5955"
+	hunk-header-style = file line-number syntax
+	hunk-header-decoration-style = "#5a5955" box ul
+	hunk-header-file-style = bold
+	hunk-header-line-number-style = bold "#938e87"
+	line-numbers-left-style = "#5a5955"
+	line-numbers-right-style = "#5a5955"
+	line-numbers-minus-style = bold "#c67777"
+	line-numbers-plus-style = bold "#7da47a"
+	line-numbers-zero-style = "#938e87"
+	minus-style = syntax "#5a2529"
+	minus-non-emph-style = syntax "#5a2529"
+	minus-emph-style = bold "#e8e4dc" "#7a2e34"
+	minus-empty-line-marker-style = syntax "#5a2529"
+	plus-style = syntax "#2e5232"
+	plus-non-emph-style = syntax "#2e5232"
+	plus-emph-style = bold "#e8e4dc" "#3a6e3e"
+	plus-empty-line-marker-style = syntax "#2e5232"
+	map-styles = "bold purple => syntax '#444039', bold cyan => syntax '#444039'"
+
+[delta "token-meridian-dark"]
+	dark = true
+	syntax-theme = token-meridian-dark
+	blame-palette = "#1d1d1c #212120 #272724 #30302c #383835"
+	commit-decoration-style = "#91887d" bold box ul
+	file-style = "#c9c0b1"
+	file-decoration-style = "#91887d"
+	hunk-header-style = file line-number syntax
+	hunk-header-decoration-style = "#91887d" box ul
+	hunk-header-file-style = bold
+	hunk-header-line-number-style = bold "#a69c91"
+	line-numbers-left-style = "#91887d"
+	line-numbers-right-style = "#91887d"
+	line-numbers-minus-style = bold "#db8935"
+	line-numbers-plus-style = bold "#8cbb62"
+	line-numbers-zero-style = "#a69c91"
+	minus-style = syntax "#5a2529"
+	minus-non-emph-style = syntax "#5a2529"
+	minus-emph-style = bold "#c9c0b1" "#7a2e34"
+	minus-empty-line-marker-style = syntax "#5a2529"
+	plus-style = syntax "#2e5232"
+	plus-non-emph-style = syntax "#2e5232"
+	plus-emph-style = bold "#c9c0b1" "#3a6e3e"
+	plus-empty-line-marker-style = syntax "#2e5232"
+	map-styles = "bold purple => syntax '#444039', bold cyan => syntax '#444039'"

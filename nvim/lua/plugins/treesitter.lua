@@ -237,6 +237,29 @@ return {
 		opts = {
 			keymaps = {
 				useDefaults = true,
+				disabledDefaults = {
+					-- these override builtin visual/operator-pending keys
+					"!", -- filter through shell cmd
+					"r", -- visual r{char}
+					"R", -- visual replace lines
+					"C", -- visual change lines
+					"Q",
+					"n", -- next search match
+					"|", -- go to column
+					"gw", -- format lines
+					"gW",
+					-- these collide with targets.vim (next-modifier and separator objects)
+					"in",
+					"an",
+					"i,",
+					"a,",
+					"i_",
+					"a_",
+					"i#",
+					"a#",
+					"iq",
+					"aq",
+				},
 			},
 		},
 	},

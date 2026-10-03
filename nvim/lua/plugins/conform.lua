@@ -1,17 +1,3 @@
----@param bufnr integer
----@param ... string
----@return string
-local function first(bufnr, ...)
-	local conform = require("conform")
-	for i = 1, select("#", ...) do
-		local formatter = select(i, ...)
-		if conform.get_formatter_info(formatter, bufnr).available then
-			return formatter
-		end
-	end
-	return select(1, ...)
-end
-
 local pr = { "biome", "prettier", stop_after_first = true }
 
 return {
@@ -19,13 +5,21 @@ return {
 	event = { "BufWritePre" },
 	cmd = { "ConformInfo" },
 	keys = {
+		-- Whole-buffer format; `gq{motion}` also formats via conform (formatexpr below)
 		{
-			-- Customize or remove this keymap to your liking
-			"gf",
+			"<leader>F",
 			function()
 				require("conform").format({ async = true })
 			end,
-			mode = "",
+			mode = { "n", "x" },
+			desc = "Format buffer",
+		},
+		{
+			"\\f",
+			function()
+				require("conform").format({ async = true })
+			end,
+			mode = { "n", "x" },
 			desc = "Format buffer",
 		},
 	},
@@ -41,7 +35,7 @@ return {
 			-- scala = { "fallback" },
 			fish = { "fish_indent" },
 			lua = { "stylua" },
-			ncl = { "nickel" },
+			nickel = { "nickel" },
 			proto = { "buf" },
 			python = { "isort", "black" },
 			rust = { "rustfmt" },
@@ -62,10 +56,7 @@ return {
 			yaml = pr,
 			handlebars = pr,
 			-- custom
-			go = function(bufnr)
-				-- return { first(bufnr, "gotgtfmt", "gofumpt", "gofmt"), "golines" }
-				return { first(bufnr, "gotgtfmt", "gofumpt", "gofmt") }
-			end,
+			go = { "gotgtfmt", "gofumpt", "gofmt", stop_after_first = true },
 			-- all
 			-- ["*"] = { "codespell" },
 		},
@@ -85,37 +76,36 @@ return {
 				args = { "-" },
 				stdin = true,
 			},
+			golines = {
+				append_args = { "-m", "120", "--base-formatter", "gofmt" },
+			},
+			prettier = {
+				append_args = { "--print-width", "120" },
+				options = {
+					ft_parsers = {
+						javascript = "babel",
+						javascriptreact = "babel",
+						typescript = "typescript",
+						typescriptreact = "typescript",
+						vue = "vue",
+						css = "css",
+						scss = "scss",
+						less = "less",
+						html = "html",
+						json = "json",
+						jsonc = "json",
+						yaml = "yaml",
+						markdown = "markdown",
+						["markdown.mdx"] = "mdx",
+						graphql = "graphql",
+						handlebars = "glimmer",
+					},
+				},
+			},
 		},
 	},
 	init = function()
 		-- If you want the formatexpr, here is the place to set it
 		vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-		local c = require("conform")
-		c.formatters.golines = {
-			append_args = { "-m", "120", "--base-formatter", "gofmt" },
-		}
-		c.formatters.prettier = {
-			append_args = { "--print-width", "120" },
-			options = {
-				ft_parsers = {
-					javascript = "babel",
-					javascriptreact = "babel",
-					typescript = "typescript",
-					typescriptreact = "typescript",
-					vue = "vue",
-					css = "css",
-					scss = "scss",
-					less = "less",
-					html = "html",
-					json = "json",
-					jsonc = "json",
-					yaml = "yaml",
-					markdown = "markdown",
-					["markdown.mdx"] = "mdx",
-					graphql = "graphql",
-					handlebars = "glimmer",
-				},
-			},
-		}
 	end,
 }

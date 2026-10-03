@@ -28,7 +28,7 @@ local function cursor_col()
 end
 
 local function getLspName()
-	local buf_clients = vim.lsp.get_clients()
+	local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
 	local buf_ft = vim.bo.filetype
 	if next(buf_clients) == nil then
 		return "  No servers"
@@ -59,13 +59,8 @@ local function getLspName()
 	end
 
 	local ok, conform = pcall(require, "conform")
-	local formatters = table.concat(conform.list_formatters_for_buffer(), " ")
 	if ok then
-		for formatter in formatters:gmatch("%w+") do
-			if formatter then
-				table.insert(buf_client_names, formatter)
-			end
-		end
+		vim.list_extend(buf_client_names, conform.list_formatters_for_buffer())
 	end
 
 	local hash = {}
@@ -109,13 +104,13 @@ return {
 			n = colors.bright_green,
 			i = colors.lavender,
 			v = colors.purple,
-			["␖"] = colors.purple,
+			["\22"] = colors.purple,
 			V = colors.red,
 			c = colors.yellow,
 			no = colors.red,
 			s = colors.yellow,
 			S = colors.yellow,
-			["␓"] = colors.yellow,
+			["\19"] = colors.yellow,
 			ic = colors.yellow,
 			R = colors.bright_red,
 			Rv = colors.purple,
@@ -243,7 +238,7 @@ return {
 					},
 					"diagnostics",
 				},
-				lualine_c = { project_root, "filename", "lsp_progress" },
+				lualine_c = { project_root, "filename" },
 				lualine_x = {
 					"%b/0x%B",
 					"encoding",

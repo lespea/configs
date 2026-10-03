@@ -72,10 +72,7 @@ return {
 				end,
 			})
 
-			vim.lsp.config("gopls", {
-				gofumpt = true,
-			})
-			vim.lsp.enable("gopls")
+			-- gopls is configured and enabled by go.nvim (see go.lua)
 
 			vim.lsp.config("tinymist", {
 				cmd = { "tinymist" },
@@ -93,16 +90,6 @@ return {
 						return
 					end
 
-					-- Set blink.cmp capabilities for this LSP client
-					local blink_ok, blink = pcall(require, "blink.cmp")
-					if blink_ok then
-						client.server_capabilities = vim.tbl_deep_extend(
-							"force",
-							client.server_capabilities,
-							blink.get_lsp_capabilities({}, true)
-						)
-					end
-
 					-- Disable by default since we can turn on when needed
 					vim.lsp.inlay_hint.enable(false)
 
@@ -110,6 +97,7 @@ return {
 					-- vim.diagnostic.config({ virtual_text = false })
 
 					-- quickly toggle inlay hints
+					-- NOTE: intentionally shadows the builtin <C-i> (jumplist forward)
 					vim.keymap.set({ "n", "x" }, "<C-i>", function()
 						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 					end, { desc = "Toggle inlay hints" })

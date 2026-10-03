@@ -4,9 +4,11 @@ local f = require("luasnip.nodes.functionNode").F
 return {
 	s({
 		trig = "date",
-		namr = "Date",
+		name = "Date",
 		dscr = "Date in the form of YYYY-MM-DD",
 	}, {
-		f(os.date("%Y-%m-%d"), {}),
+		f(function()
+			return os.date("%Y-%m-%d")
+		end),
 	}),
 }

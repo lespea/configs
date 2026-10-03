@@ -32,7 +32,6 @@ return {
 		config = function(_, opts)
 			local blink = require("blink.cmp")
 			local ls = require("luasnip")
-			local sc = require("luasnip.extras.select_choice")
 
 			opts.keymap = {
 				preset = "super-tab",

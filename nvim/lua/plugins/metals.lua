@@ -20,8 +20,6 @@ return {
 
 		metals_config.capabilities = require("blink.cmp").get_lsp_capabilities({}, true)
 
-		metals_config.on_attach = function(client, bufnr) end
-
 		return metals_config
 	end,
 	config = function(self, metals_config)

@@ -76,9 +76,6 @@ return {
 				args = { "-" },
 				stdin = true,
 			},
-			golines = {
-				append_args = { "-m", "120", "--base-formatter", "gofmt" },
-			},
 			prettier = {
 				append_args = { "--print-width", "120" },
 				options = {

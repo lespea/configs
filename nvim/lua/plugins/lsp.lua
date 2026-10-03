@@ -101,10 +101,6 @@ return {
 					vim.keymap.set({ "n", "x" }, "<C-i>", function()
 						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 					end, { desc = "Toggle inlay hints" })
-
-					vim.keymap.set({ "n", "x" }, "<F4>", function()
-						vim.lsp.buf.code_action()
-					end, { desc = "Execute code action" })
 				end,
 			})
 		end,

@@ -15,7 +15,7 @@ opt.mouse = "a" -- Enable mouse support
 opt.swapfile = false -- Don't use swapfile
 opt.backup = false -- No backup files
 opt.writebackup = false -- No backup files
-opt.undofile = false -- No undo file
+opt.undofile = false -- No persistent undo files (intentional; undo history is per-session)
 opt.undolevels = 10000 -- lots of in-memory undo
 
 opt.completeopt = "menuone,noinsert,noselect" -- Autocomplete options
@@ -41,7 +41,8 @@ if vim.fn.has("win32") ~= 0 then
 		vim.opt[option] = value
 	end
 else
-	opt.shell = "fish"
+	-- POSIX shell for :!, system() and plugins; terminals still run fish (see toggleterm.lua)
+	opt.shell = "sh"
 end
 
 opt.diffopt:append({ "linematch:60" }) -- Diff algorithm
@@ -55,9 +56,10 @@ opt.numberwidth = 3 -- always reserve 3 spaces for line number
 opt.relativenumber = true -- Relative numbering
 opt.showcmd = false -- display command in bottom bar
 opt.cmdheight = 0
-opt.signcolumn = "yes" -- keep 1 column for coc.vim check
+opt.signcolumn = "yes" -- always show the sign column so text doesn't shift
 opt.title = true -- Set the window title
 opt.termguicolors = true -- Enable 24-bit RGB colors
+opt.winborder = "rounded" -- Default border for all floating windows
 
 opt.showmatch = true -- show matching brackets
 opt.scrolloff = 3 -- always show 3 rows from edge of the screen
@@ -117,27 +119,21 @@ opt.smartindent = true -- Autoindent new lines
 opt.autoindent = true
 opt.shiftround = true
 
--- Formatting options:
+-- Formatting options (most ftplugins override these per filetype):
 -- j = Remove comment leader when joining lines
 -- c = Auto-wrap comments using 'textwidth'
 -- r = Continue comments when pressing Enter in insert mode
 -- o = Continue comments when using 'o' or 'O' in normal mode
 -- q = Allow formatting of comments with 'gq'
--- l = Don't break lines that are longer than 'textwidth' when inserting
+-- l = Don't break lines that were already longer than 'textwidth' when insert started
 -- n = Recognize numbered lists for formatting
--- t = Auto-wrap text using 'textwidth' (you can remove this if you hate auto-wrap)
---
--- In practice:
--- - Keeps comment blocks neat
--- - Doesn't randomly insert comment prefixes
--- - Plays nice with lists and manual line breaks
--- - Won't auto-wrap code unless 't' is kept
+-- t = Auto-wrap text using 'textwidth'
+-- Wrapping (c/t) only happens when 'textwidth' is set, which is 0 unless a filetype sets it.
 opt.formatoptions = "jcroqlnt"
 
 -----------------------------------------------------------
 -- Memory, CPU
 -----------------------------------------------------------
-opt.history = 100 -- Remember N lines in history
 opt.synmaxcol = 500 -- Max column for syntax highlight (increased for modern displays)
 opt.updatetime = 250 -- ms to wait for trigger an event
 

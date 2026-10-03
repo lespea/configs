@@ -109,7 +109,8 @@ return {
 			-- (Default) Only show the documentation popup when manually triggered
 			completion = {
 				menu = {
-					-- behavior = "rounded",
+					border = "none", -- keep the completion menu borderless despite 'winborder'
+
 					draw = {
 						columns = {
 							{ "kind_icon" },
@@ -160,19 +161,12 @@ return {
 				},
 				documentation = {
 					auto_show = false,
-					window = {
-						border = "rounded",
-					},
 				},
 
 				ghost_text = { enabled = true },
 			},
 
-			signature = {
-				window = {
-					border = "rounded",
-				},
-			},
+			signature = {},
 
 			-- Default list of enabled providers defined so that you can extend it
 			-- elsewhere in your config, without redefining it, due to `opts_extend`

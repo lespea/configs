@@ -218,6 +218,7 @@ return {
 				end
 			end,
 			persist_size = true,
+			shell = "fish", -- nvim's 'shell' is sh; keep terminals on fish
 			on_close = function()
 				events.fire_event(events.GIT_EVENT)
 			end,

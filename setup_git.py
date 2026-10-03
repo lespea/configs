@@ -99,13 +99,15 @@ def setup(d: ToRun, email: str, signingKey: str, rewrites: dict[str, str]):
 
     add_cmds(d, "apply", whitespace="strip")
     add_cmds(d, "branch", sort="-committerdate")
-    add_cmds(d, "commit", gpgSign=str(signingKey != "").lower())
+    add_cmds(d, "column", ui="auto")
+    add_cmds(d, "commit", gpgSign=str(signingKey != "").lower(), verbose=t)
     add_cmds(d, "core", autocrlf=f, editor="nvim", pager="delta")
     add_cmds(d, "difftool", prompt="false")
     add_cmds(d, "difftool.difftastic", cmd='difft "$LOCAL" "$REMOTE"')
     add_cmds(d, "fetch", prune=t)
     add_cmds(d, "gpg", format="ssh")
     add_cmds(d, "gpg.ssh", allowedSignersFile=str(allowed_signers_file))
+    add_cmds(d, "help", autocorrect="prompt")
     add_cmds(d, "include", path=str(delta_themes_file))
     add_cmds(d, "init", defaultBranch="main")
     add_cmds(d, "interactive", diffFilter="delta --color-only")
@@ -114,10 +116,11 @@ def setup(d: ToRun, email: str, signingKey: str, rewrites: dict[str, str]):
     add_cmds(d, "mergetool", keepBackup=f)
     add_cmds(d, "pager", difftool=t)
     add_cmds(d, "pull", rebase=f)
-    add_cmds(d, "push", default="current", followTags=t)
+    add_cmds(d, "push", autoSetupRemote=t, default="current", followTags=t)
     add_cmds(d, "rebase", autosquash=t, autostash=t, updateRefs=t)
-    add_cmds(d, "rerere", enabled=t)
+    add_cmds(d, "rerere", autoUpdate=t, enabled=t)
     add_cmds(d, "submodule", recurse=t)
+    add_cmds(d, "tag", sort="version:refname")
     add_cmds(d, "user", name="Adam Lesperance", email=email, signingKey=sig_key)
 
     for b in ["transfer", "fetch", "receive"]:
@@ -159,13 +162,14 @@ def setup(d: ToRun, email: str, signingKey: str, rewrites: dict[str, str]):
         "delta",
         features="token-meridian-dark",
         line_numbers=t,
+        navigate=t,
         side_by_side=f,
     )
 
     add_cmds(
         d,
         "diff",
-        algorithm="patience",
+        algorithm="histogram",
         colorMoved="default",
         renames="copy",
         tool="difftastic",

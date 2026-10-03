@@ -41,8 +41,9 @@ if vim.fn.has("win32") ~= 0 then
 		vim.opt[option] = value
 	end
 else
-	-- POSIX shell for :!, system() and plugins; terminals still run fish (see toggleterm.lua)
-	opt.shell = "sh"
+	-- bash for :!, system() and plugins (plenty of them assume bash-isms, and /bin/sh varies
+	-- between machines); terminals still run fish (see toggleterm.lua)
+	opt.shell = "bash"
 end
 
 opt.diffopt:append({ "linematch:60" }) -- Diff algorithm

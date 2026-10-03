@@ -10,8 +10,6 @@ import re
 import subprocess
 import sys
 import time
-import typing
-from typing import Optional
 
 GROUP_NAME = "cargo_pkgs"
 
@@ -29,7 +27,7 @@ def validate_pueue(recheck: bool = False):
             validate_pueue(True)
 
 
-def get_run_info() -> typing.Tuple[os._Environ, bool]:
+def get_run_info() -> tuple[os._Environ, bool]:
     env = os.environ
 
     nix = is_nix()
@@ -95,8 +93,8 @@ def setup_groups():
             )
         )["tasks"]
 
-        for id, _ in out.items():
-            subprocess.check_call(["pueue", "remove", id])
+        for task_id in out:
+            subprocess.check_call(["pueue", "remove", task_id])
 
         time.sleep(0.5)
 
@@ -254,9 +252,9 @@ class PkgInfo:
         locked: bool = False,
         high_priority: bool = False,
         disabled: bool = False,
-        features: Optional[list[str]] = None,
-        envs: Optional[dict[str, str]] = None,
-        extras: Optional[list[str]] = None,
+        features: list[str] | None = None,
+        envs: dict[str, str] | None = None,
+        extras: list[str] | None = None,
     ):
         self.pkg = pkg
         self.use_defaults = use_defaults

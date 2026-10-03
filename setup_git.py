@@ -99,7 +99,7 @@ def setup(d: ToRun, email: str, signingKey: str, rewrites: dict[str, str]):
 
     add_cmds(d, "apply", whitespace="strip")
     add_cmds(d, "branch", sort="-committerdate")
-    add_cmds(d, "commit", gpgSign=str(signingKey != "").lower(), rebase=t)
+    add_cmds(d, "commit", gpgSign=str(signingKey != "").lower())
     add_cmds(d, "core", autocrlf=f, editor="nvim", pager="delta")
     add_cmds(d, "difftool", prompt="false")
     add_cmds(d, "difftool.difftastic", cmd='difft "$LOCAL" "$REMOTE"')
@@ -108,9 +108,10 @@ def setup(d: ToRun, email: str, signingKey: str, rewrites: dict[str, str]):
     add_cmds(d, "gpg.ssh", allowedSignersFile=str(allowed_signers_file))
     add_cmds(d, "include", path=str(delta_themes_file))
     add_cmds(d, "init", defaultBranch="main")
-    add_cmds(d, "interactive", diffFilter="delta --color-only --features=interactive")
+    add_cmds(d, "interactive", diffFilter="delta --color-only")
     add_cmds(d, "log", date="iso")
-    add_cmds(d, "merge", conflictstyle="zdiff3", keepbackup=f, tool="nvim")
+    add_cmds(d, "merge", conflictstyle="zdiff3", tool="nvimdiff")
+    add_cmds(d, "mergetool", keepBackup=f)
     add_cmds(d, "pager", difftool=t)
     add_cmds(d, "pull", rebase=f)
     add_cmds(d, "push", default="current", followTags=t)
@@ -129,7 +130,7 @@ def setup(d: ToRun, email: str, signingKey: str, rewrites: dict[str, str]):
         ca="commit -a",
         co="checkout",
         dt="difftool",
-        dlog="!f() { GIT_EXTERNAL_DIFF=difft git log -p --ext-diff $@; }; f",
+        dlog='!f() { GIT_EXTERNAL_DIFF=difft git log -p --ext-diff "$@"; }; f',
         gca="gc --aggressive",
         st="status",
     )
@@ -148,9 +149,6 @@ def setup(d: ToRun, email: str, signingKey: str, rewrites: dict[str, str]):
     add_cmds(
         d,
         "color",
-        diff="auto",
-        grep="auto",
-        interactive="auto",
         pager=t,
         status=t,
         ui="auto",
@@ -162,7 +160,6 @@ def setup(d: ToRun, email: str, signingKey: str, rewrites: dict[str, str]):
         features="token-meridian-dark",
         line_numbers=t,
         side_by_side=f,
-        syntax_theme="Monokai Extended",
     )
 
     add_cmds(
@@ -170,7 +167,7 @@ def setup(d: ToRun, email: str, signingKey: str, rewrites: dict[str, str]):
         "diff",
         algorithm="patience",
         colorMoved="default",
-        rename="copy",
+        renames="copy",
         tool="difftastic",
     )
 
@@ -178,9 +175,33 @@ def setup(d: ToRun, email: str, signingKey: str, rewrites: dict[str, str]):
         add_cmds(d, "url", **rewrites)
 
 
+# Keys earlier versions of this script set, removed so a run without --rm doesn't leave
+# them behind (add_cmds can only set values).
+stale_keys = [
+    "color.diff",
+    "color.grep",
+    "color.interactive",
+    "commit.rebase",
+    "delta.syntax-theme",
+    "diff.rename",
+    "merge.keepbackup",
+]
+
+
+def remove_stale(dry_run: bool):
+    print("Removing stale")
+    for key in stale_keys:
+        cmd = ["git", "config", "--global", "--unset-all", key]
+        print("  " + " ".join(cmd))
+        if not dry_run:
+            # exits 5 when the key isn't set
+            subprocess.run(cmd, check=False)
+
+
 def main(email: str, signingKey: str, rewrites: dict[str, str], dry_run: bool):
     d: ToRun = {}
     setup(d, email, signingKey, rewrites)
+    remove_stale(dry_run)
     run(d, dry_run)
     setup_gh_credentials(dry_run)
 
@@ -209,7 +230,11 @@ def def_key() -> str:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Applies global git settings")
     parser.add_argument("-e", "--email", default="lespea@gmail.com")
-    parser.add_argument("-k", "--key", default=def_key())
+    parser.add_argument(
+        "-k",
+        "--key",
+        help="ssh public key to sign with (default: first key in ssh-add -L)",
+    )
     parser.add_argument(
         "--rm",
         action=argparse.BooleanOptionalAction,
@@ -248,4 +273,5 @@ if __name__ == "__main__":
 
                     rewrites[f"ssh://git@{url}/.{action}"] = f"https://{url}/"
 
-    main(args.email, args.key, rewrites, args.dry_run)
+    key = args.key if args.key is not None else def_key()
+    main(args.email, key, rewrites, args.dry_run)

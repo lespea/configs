@@ -223,23 +223,23 @@ hl.bind(
 -- just that line in green for half a second, then clears the popup.
 local menu_color = "rgba(33ccffee)"
 local menu_pick_color = "rgba(66ff99ee)"
-local function define_menu(name, trigger, entries)
-	local note, flash
-	local function close()
-		if note and note:is_alive() then
-			note:dismiss()
-		end
-		note = nil
+local function dismiss(note)
+	if note and note:is_alive() then
+		note:dismiss()
 	end
+end
+local function define_menu(name, trigger, entries)
+	-- `flash` holds the pending timer so it isn't collected before it fires
+	local menu = { note = nil, flash = nil }
 
 	hl.bind(trigger, function()
-		close()
+		dismiss(menu.note)
 		hl.dispatch(hl.dsp.submap(name))
 		local lines = {}
 		for _, e in ipairs(entries) do
 			lines[#lines + 1] = e.label
 		end
-		note = hl.notification.create({
+		menu.note = hl.notification.create({
 			text = table.concat(lines, "\n"),
 			timeout = 3500,
 			icon = 0,
@@ -251,11 +251,14 @@ local function define_menu(name, trigger, entries)
 		for _, e in ipairs(entries) do
 			hl.bind(e.key, function()
 				hl.dispatch(hl.dsp.submap("reset"))
-				if note and note:is_alive() then
-					note:set_text(e.label)
-					note:set_color(menu_pick_color)
-					-- keep a reference so the timer isn't collected before it fires
-					flash = hl.timer(close, { timeout = 500, type = "oneshot" })
+				local picked = menu.note
+				menu.note = nil
+				if picked and picked:is_alive() then
+					picked:set_text(e.label)
+					picked:set_color(menu_pick_color)
+					menu.flash = hl.timer(function()
+						dismiss(picked)
+					end, { timeout = 500, type = "oneshot" })
 				end
 				hl.dispatch(e.action)
 			end, { release = true })
@@ -263,7 +266,8 @@ local function define_menu(name, trigger, entries)
 		for _, key in ipairs({ "escape", "Return" }) do
 			hl.bind(key, function()
 				hl.dispatch(hl.dsp.submap("reset"))
-				close()
+				dismiss(menu.note)
+				menu.note = nil
 			end)
 		end
 	end)
@@ -313,7 +317,9 @@ hl.bind(mainMus .. " + M", function()
 		return
 	end
 	local has_tag = false
-	for _, t in ipairs(w.tags) do
+	for _, t in
+		ipairs(w.tags --[[@as table]])
+	do
 		if t == "confine_ptr" then
 			has_tag = true
 			break
@@ -355,7 +361,8 @@ local function mumble_start(label, method, sig, ...)
 		mumble_talk.note:dismiss()
 	end
 	-- Stays up while transmitting; the long timeout is only a fallback
-	mumble_talk.note = hl.notification.create({ text = label, timeout = 120000, icon = "info", color = "rgba(33ccffee)" })
+	mumble_talk.note =
+		hl.notification.create({ text = label, timeout = 120000, icon = "info", color = "rgba(33ccffee)" })
 end
 
 local function mumble_stop()
@@ -580,4 +587,3 @@ import_nowatch("dms.colors")
 import_nowatch("dms.outputs")
 import_nowatch("dms.layout")
 import_nowatch("dms.windowrules")
-

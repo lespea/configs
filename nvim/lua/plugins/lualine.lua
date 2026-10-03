@@ -16,6 +16,32 @@ local function cursor_col()
 	return ("Col: %d/%d"):format(vim.fn.charcol("."), vim.fn.charcol("$"))
 end
 
+-- the character under the cursor and its codepoint(s); `.` grabs the whole grapheme cluster
+-- (base + combining marks / ZWJ sequences), so list every codepoint, capped so emoji families
+-- don't eat the statusline
+local function cursor_char()
+	local col = vim.api.nvim_win_get_cursor(0)[2]
+	local char = vim.fn.matchstr(vim.api.nvim_get_current_line(), "\\%" .. col + 1 .. "c.")
+	if char == "" then
+		return ""
+	end
+
+	local codepoints = vim.fn.str2list(char)
+	local hex = vim.tbl_map(function(cp)
+		return ("U+%04X"):format(cp)
+	end, vim.list_slice(codepoints, 1, 3))
+	if #codepoints > 3 then
+		table.insert(hex, "…")
+	end
+
+	-- control chars (tab, NUL, ...) would mangle the statusline so show them as ^I etc.
+	local shown = char
+	if codepoints[1] < 0x20 or codepoints[1] == 0x7f then
+		shown = vim.fn.strtrans(char)
+	end
+	return ("%s %s"):format((shown:gsub("%%", "%%%%")), table.concat(hex, " "))
+end
+
 local function getLspName()
 	local buf_client_names = vim.tbl_map(function(client)
 		return client.name
@@ -223,7 +249,7 @@ return {
 					"diagnostics",
 				},
 				lualine_c = { project_root, { "filename", path = 1 } },
-				lualine_x = { pending_keys, lazy_updates, "%b/0x%B", "encoding", "filetype" },
+				lualine_x = { pending_keys, lazy_updates, cursor_char, "encoding", "filetype" },
 				lualine_y = { macro },
 				lualine_z = { cursor_line, cursor_col, "selectioncount", codeSpinner, lsp },
 			},

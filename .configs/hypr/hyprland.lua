@@ -130,7 +130,7 @@ hl.config({
 		disable_hyprland_logo = true,
 		disable_splash_rendering = true,
 		enable_anr_dialog = false,
-		vrr = 3,
+		-- vrr = 3, -- no effect: per-monitor vrr = 1 in dms.outputs overrides it (VRR always on)
 		render_unfocused_fps = 60,
 	},
 

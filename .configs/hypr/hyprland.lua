@@ -219,6 +219,9 @@ hl.bind(
 	}))
 )
 
+-- Launch the usual apps onto their workspaces (see startup.lua); press again to cancel
+hl.bind(mainLock .. " + S", require("startup").toggle)
+
 -- Key "menus": a submap plus a notification listing its keys. Picking an entry flashes
 -- just that line in green for half a second, then clears the popup.
 local menu_color = "rgba(33ccffee)"

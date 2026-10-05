@@ -527,6 +527,16 @@ hl.window_rule({
 	content = "none",
 })
 
+-- Steam draws its own toasts as XWayland windows pinned to the screen corner, ignoring
+-- reserved space, so they land under the DMS bar. Lift them clear of the 40px strip.
+hl.window_rule({
+	name = "steam-toasts",
+	match = { class = "^steam$", title = "^notificationtoasts" },
+	float = true,
+	no_initial_focus = true,
+	move = "monitor_w-window_w-8 monitor_h-window_h-48",
+})
+
 -- No shadow for tiled windows
 hl.window_rule({
 	name = "noshadow-tiled",

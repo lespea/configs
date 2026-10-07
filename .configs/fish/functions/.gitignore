@@ -1,0 +1,17 @@
+# Managed by reef (symlink into corals/)
+fish_prompt.fish
+
+# Work-only / machine-specific; not tracked
+cdl.fish
+cdm.fish
+cdp.fish
+cdu.fish
+cshare.fish
+homebackup.fish
+jpskm.fish
+jvisualvm.fish
+mvfin.fish
+plogs.fish
+tlogs.fish
+updtess.fish
+xcpn.fish

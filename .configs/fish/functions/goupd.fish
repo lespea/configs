@@ -2,6 +2,11 @@ function goupd
     argparse f/force -- $argv
     or return
 
+    if not set -q GOBIN
+        echo 'GOBIN not set'
+        return 1
+    end
+
     set -l gop ''
     if set -q _flag_force
         set gop -a

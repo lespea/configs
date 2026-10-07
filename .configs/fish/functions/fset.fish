@@ -23,15 +23,15 @@ function fset
         set -l env_var $parts[3]
 
         # Get the value from fnox and check it's non-empty
-        set -l secret_value (fnox get $env_var)
+        set -l secret_value (fnox get $env_var | string collect)
 
         if test -z "$secret_value"
             echo "Error: fnox get $env_var returned empty string" >&2
             return 1
         end
 
-        # Execute vault kv put
-        vault kv put secret/$org/$value_name $attribute=$secret_value
+        # Execute vault kv put; `attr=-` reads the value from stdin so it never shows up in `ps`
+        printf '%s' "$secret_value" | vault kv put secret/$org/$value_name $attribute=-
         or return 1
 
         # Execute fnox set

@@ -1,4 +1,7 @@
 function vlog
-    set -l vuser (whoami | tr '[:upper:]' '[:lower:]')
-    set -gx VAULT_TOKEN (vault login -token-only -method=ldap username=$vuser)
+    set -l vuser (string lower (whoami))
+    set -l token (vault login -token-only -method=ldap username=$vuser)
+    or return
+
+    set -gx VAULT_TOKEN $token
 end

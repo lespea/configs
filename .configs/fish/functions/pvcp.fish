@@ -32,7 +32,7 @@ function pvcp -d 'Use pv to copy files'
     end
 
     for src in $srcs
-        _pvcp $src (path resolve "$dst/$src")
+        _pvcp $src (path resolve "$dst/"(path basename $src))
     end
 end
 

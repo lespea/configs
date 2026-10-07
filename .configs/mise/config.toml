@@ -1,103 +1,103 @@
 [tools]
 # Complex
-"aqua:apache/maven" = "latest"
-"aqua:astral-sh/ruff" = "latest"
-"aqua:astral-sh/ty" = "latest"
-"aqua:astral-sh/uv" = "latest"
-"aqua:dathere/qsv" = "latest"
-"aqua:dprint/dprint" = "latest"
-"aqua:duckdb/duckdb" = "latest"
-"aqua:gradle/gradle" = "latest"
 "aqua:Myriad-Dreamin/tinymist" = "latest"
-"aqua:pnpm/pnpm" = "latest"
+"aqua:apache/maven"            = "latest"
+"aqua:astral-sh/ruff"          = "latest"
+"aqua:astral-sh/ty"            = "latest"
+"aqua:astral-sh/uv"            = "latest"
+"aqua:dathere/qsv"             = "latest"
+"aqua:dprint/dprint"           = "latest"
+"aqua:duckdb/duckdb"           = "latest"
+"aqua:gradle/gradle"           = "latest"
+"aqua:pnpm/pnpm"               = "latest"
 "aqua:rust-lang/rust-analyzer" = "latest"
-"aqua:skaji/relocatable-perl" = "latest"
-"aqua:tamasfe/taplo" = "latest"
-"github:coursier/coursier" = "latest"
-"github:dazld/r11y" = "latest"
-"github:sbt/sbt" = "2.0"
-"github:skim-rs/skim" = "latest"
+"aqua:skaji/relocatable-perl"  = "latest"
+"aqua:tamasfe/taplo"           = "latest"
+"github:coursier/coursier"     = "latest"
+"github:dazld/r11y"            = "latest"
+"github:sbt/sbt"               = "2.0"
+"github:skim-rs/skim"          = "latest"
 "vfox:mise-plugins/vfox-scala" = "latest"
 
 # Simple
-age = "latest"
-bun = "latest"
-fnox = "latest"
+age        = "latest"
+bun        = "latest"
+fnox       = "latest"
 github-cli = "latest"
-go = "1.27"
-lua = "5.1"
-node = "26"
-python = "3.14"
+go         = "1.27"
+lua        = "5.1"
+node       = "26"
+python     = "3.14"
 shellcheck = "latest"
-sops = "latest"
-yq = "latest"
-zig = "0.16"
+sops       = "latest"
+yq         = "latest"
+zig        = "0.16"
 
 # Java
 java = "temurin-27"
 
 # Go tools
-"aqua:biomejs/biome" = "latest"
-"aqua:bufbuild/buf" = "latest"
-"aqua:charmbracelet/gum" = "latest"
-"aqua:dominikh/go-tools/staticcheck" = "latest"
-"aqua:golangci/golangci-lint" = "2"
-"aqua:golangci/golines" = "latest"
-"aqua:hadolint/hadolint" = "latest"
-"aqua:itchyny/gojq" = "latest"
-"aqua:LuaLS/lua-language-server" = "latest"
-"aqua:mr-karan/doggo" = "latest"
-"aqua:muesli/duf" = "latest"
-"aqua:mvdan/gofumpt" = "latest"
-"aqua:mvdan/sh" = "latest"
+"aqua:LuaLS/lua-language-server"         = "latest"
+"aqua:biomejs/biome"                     = "latest"
+"aqua:bufbuild/buf"                      = "latest"
+"aqua:charmbracelet/gum"                 = "latest"
+"aqua:dominikh/go-tools/staticcheck"     = "latest"
+"aqua:golangci/golangci-lint"            = "2"
+"aqua:golangci/golines"                  = "latest"
+"aqua:hadolint/hadolint"                 = "latest"
+"aqua:itchyny/gojq"                      = "latest"
+"aqua:mr-karan/doggo"                    = "latest"
+"aqua:muesli/duf"                        = "latest"
+"aqua:mvdan/gofumpt"                     = "latest"
+"aqua:mvdan/sh"                          = "latest"
 "aqua:nametake/golangci-lint-langserver" = "latest"
-"aqua:oxc-project/oxc/oxfmt" = "latest"
-"aqua:rest-sh/restish" = "latest"
+"aqua:oxc-project/oxc/oxfmt"             = "latest"
+"aqua:rest-sh/restish"                   = "latest"
 
+"github:Zxilly/go-size-analyzer"       = "latest"
 "github:docker/docker-language-server" = "latest"
-"github:johnkerl/miller" = "latest"
-"github:marwan-at-work/mod" = "latest"
-"github:oligot/go-mod-upgrade" = "latest"
-"github:psampaz/go-mod-outdated" = "latest"
-"github:Zxilly/go-size-analyzer" = "latest"
+"github:johnkerl/miller"               = "latest"
+"github:marwan-at-work/mod"            = "latest"
+"github:oligot/go-mod-upgrade"         = "latest"
+"github:psampaz/go-mod-outdated"       = "latest"
 
 # Go repos
-"go:github.com/icholy/gomajor" = "latest"
+"go:github.com/icholy/gomajor"            = "latest"
 "go:github.com/noperator/jqfmt/cmd/jqfmt" = "latest"
-"go:github.com/noperator/sol/cmd/sol" = "latest"
-"go:golang.org/x/tools/gopls" = "latest"
+"go:github.com/noperator/sol/cmd/sol"     = "latest"
+"go:golang.org/x/tools/gopls"             = "latest"
 
 # Node tools
 "npm:@tailwindcss/language-server" = "latest"
-"npm:fish-lsp" = "latest"
-"npm:mcp-hub" = "latest"
-"npm:prettier" = "latest"
-"npm:typescript" = "latest"
-"npm:typescript-language-server" = "latest"
+"npm:fish-lsp"                     = "latest"
+"npm:mcp-hub"                      = "latest"
+"npm:prettier"                     = "latest"
+"npm:typescript"                   = "latest"
+"npm:typescript-language-server"   = "latest"
 "npm:vscode-langservers-extracted" = "latest"
 
 # Python tools
 "pypi:codespell" = "latest"
-"pypi:httpie" = "latest"
-"pypi:ipython" = "latest"
+"pypi:httpie"    = "latest"
+"pypi:ipython"   = "latest"
 
 [settings]
 disable_hints = ["*"]
-experimental = true
+experimental  = true
 
 http_timeout = "5m"
 
 npm.package_manager = "bun"
-pypi.uvx = true
+pypi.uvx            = true
+python.compile      = false
 python.uv_venv_auto = "create|source"
-python.compile = false
 
+env_cache           = true
 minimum_release_age = "2d"
-env_cache = true
 
+auto_install      = false
 use_versions_host = true
-auto_install = false
 
 erlang.compile = false
-node.compile = false
-ruby.compile = false
+node.compile   = false
+ruby.compile   = false

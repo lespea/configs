@@ -1,0 +1,47 @@
+{
+  "json": {},
+  "yaml": {},
+  "exec": {
+    "cwd": "${configDir}",
+    "associations": ["**/*.{lua,fish,sh,toml,py}"],
+    "commands": [
+      {
+        "command": "stylua --stdin-filepath {{file_path}} -",
+        "associations": ["**/*.lua"]
+      },
+      {
+        "command": "fish_indent",
+        "associations": ["**/*.fish"]
+      },
+      {
+        "command": "shfmt --filename {{file_path}}",
+        "associations": ["**/*.sh"],
+        "cacheKeyFiles": [".editorconfig"]
+      },
+      {
+        "command": "taplo fmt --config .configs/taplo/taplo.toml --stdin-filepath {{file_path}} -",
+        "associations": ["**/*.toml"],
+        "cacheKeyFiles": [".configs/taplo/taplo.toml"]
+      },
+      {
+        "command": "ruff check --select I --fix-only --quiet --stdin-filename {{file_path}} -",
+        "associations": ["**/*.py"]
+      },
+      {
+        "command": "ruff format --quiet --stdin-filename {{file_path}} -",
+        "associations": ["**/*.py"]
+      }
+    ]
+  },
+  "excludes": [
+    // written by DankMaterialShell itself
+    ".configs/alacritty/dank-theme.toml",
+    ".configs/DankMaterialShell/settings.json",
+    ".configs/DankMaterialShell/clsettings.json"
+  ],
+  "plugins": [
+    "npm:@dprint/json@0.25.2",
+    "npm:dprint-plugin-yaml@0.6.0",
+    "npm:@dprint/exec@0.7.3/plugin.json@704701df449dd7e942a71144773778ac529d68c2e4657bfc236d393b898b9a67"
+  ]
+}

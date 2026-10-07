@@ -1,0 +1,10 @@
+root = true
+
+# shfmt reads these (when given no formatting flags), as does nvim
+[*.sh]
+indent_style = space
+indent_size = 4
+switch_case_indent = true
+
+[.configs/hypr/session.sh]
+indent_style = tab

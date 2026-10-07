@@ -6,7 +6,7 @@ client:
   show_expanded_aliases: false
   dark_mode: false
   max_status_lines: null
-  status_time_format: '%H:%M:%S'
+  status_time_format: "%H:%M:%S"
   status_datetime_format: |-
     %Y-%m-%d
     %H:%M:%S
@@ -26,7 +26,7 @@ shared:
   unix_socket_path: null
   unix_socket_permissions: 448
   host: 127.0.0.1
-  port: '6924'
+  port: "6924"
   pid_path: null
   daemon_cert: null
   daemon_key: null

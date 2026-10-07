@@ -48,8 +48,13 @@ local GHOSTTY = "com.mitchellh.ghostty"
 -- Starting the service is a no-op when it's already up (and waits for it when it isn't).
 local function term_cmd(name, hold)
 	local cmd = hold and ("while test -e " .. HOLD .. "; sleep 0.25; end; " .. name) or name
-	return "systemctl --user start app-" .. GHOSTTY .. ".service && ghostty +new-window --title="
-		.. name .. " -e fish -C '" .. cmd .. "'"
+	return "systemctl --user start app-"
+		.. GHOSTTY
+		.. ".service && ghostty +new-window --title="
+		.. name
+		.. " -e fish -C '"
+		.. cmd
+		.. "'"
 end
 
 -- Exact size, in the logical pixels `hyprctl clients` reports. In dwindle this moves the

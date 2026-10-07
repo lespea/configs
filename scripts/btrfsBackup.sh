@@ -17,11 +17,11 @@ function backup {
     name="$1"
     src="$2"
 
-    src_snaps=`realpath "$src/.snapshots"`
+    src_snaps=$(realpath "$src/.snapshots")
     src_end="$src_snaps/$END_NAME"
     src_tmp="$src_snaps/$TMP_NAME"
 
-    dst=`realpath "$SYNC_FOLDER/$name"`
+    dst=$(realpath "$SYNC_FOLDER/$name")
     dst_end="$dst/$END_NAME"
     dst_tmp="$dst/$TMP_NAME"
 
@@ -77,4 +77,3 @@ else
     echo not mounted
     exit 1
 fi
-

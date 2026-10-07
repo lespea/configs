@@ -3,19 +3,19 @@ size = 10.5
 
 [font.normal]
 family = "Cascadia Code"
-style = "Regular"
+style  = "Regular"
 
 [[keyboard.bindings]]
 action = "CreateNewWindow"
-key = "N"
-mods = "Control|Shift"
+key    = "N"
+mods   = "Control|Shift"
 
 [[mouse.bindings]]
 action = "PasteSelection"
-mouse = "Middle"
+mouse  = "Middle"
 
 [scrolling]
-history = 2000
+history    = 2000
 multiplier = 3
 
 [selection]

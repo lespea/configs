@@ -181,9 +181,11 @@ steam-nm-policy:
     echo "installed; if steam-fake-nm.service failed to claim the name, restart it:"
     echo "  systemctl --user restart steam-fake-nm.service"
 
-# Lint and format-check the shell scripts and the Hyprland Lua config
+# Format everything dprint knows about (dprint.jsonc: json/yaml natively; lua, fish, sh, toml, py via their own formatters)
+fmt:
+    dprint fmt
+
+# Lint the shell scripts and check that everything is formatted
 lint:
     mise exec shellcheck -- shellcheck *.sh .configs/hypr/session.sh
-    shfmt -ci -i 4 -d *.sh
-    shfmt -ci -d .configs/hypr/session.sh
-    stylua --check .configs/hypr
+    dprint check

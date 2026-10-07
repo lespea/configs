@@ -32,333 +32,333 @@ $line_break$character"""
 palette = 'gruvbox_dark'
 
 [palettes.gruvbox_dark]
-color_fg0 = '#fbf1c7'
-color_bg1 = '#3c3836'
-color_bg3 = '#665c54'
-color_blue = '#458588'
-color_aqua = '#689d6a'
-color_green = '#98971a'
+color_aqua   = '#689d6a'
+color_bg1    = '#3c3836'
+color_bg3    = '#665c54'
+color_blue   = '#458588'
+color_fg0    = '#fbf1c7'
+color_green  = '#98971a'
 color_orange = '#d65d0e'
 color_purple = '#b16286'
-color_red = '#cc241d'
+color_red    = '#cc241d'
 color_yellow = '#d79921'
 
 [cmd_duration]
-style = "fg:color_yellow bg:color_bg1"
-format = "[ took $duration]($style)"
-show_notifications = false
+format             = "[ took $duration]($style)"
 min_time_to_notify = 180_000
+show_notifications = false
+style              = "fg:color_yellow bg:color_bg1"
 
 [os]
 disabled = false
-style = "bg:color_orange fg:color_fg0"
+style    = "bg:color_orange fg:color_fg0"
 
 [username]
+format      = '[ $user ]($style)'
 show_always = true
-style_user = "bg:color_orange fg:color_fg0"
-style_root = "bg:color_orange fg:color_fg0"
-format = '[ $user ]($style)'
+style_root  = "bg:color_orange fg:color_fg0"
+style_user  = "bg:color_orange fg:color_fg0"
 
 [directory]
-style = "fg:color_fg0 bg:color_yellow"
-format = "[ $path ]($style)"
-truncation_length = 3
-truncation_symbol = "…/"
-truncate_to_repo = false
 fish_style_pwd_dir_length = 3
+format                    = "[ $path ]($style)"
+style                     = "fg:color_fg0 bg:color_yellow"
+truncate_to_repo          = false
+truncation_length         = 3
+truncation_symbol         = "…/"
 
 [time]
-disabled = false
+disabled    = false
+format      = '[[  $time ](fg:color_fg0 bg:color_bg1)]($style)'
+style       = "bg:color_bg1"
 time_format = "%R"
-style = "bg:color_bg1"
-format = '[[  $time ](fg:color_fg0 bg:color_bg1)]($style)'
 
 [status]
-style = "bg:color_bg1"
-format = '[ $symbol $status]($style)'
 disabled = false
+format   = '[ $symbol $status]($style)'
+style    = "bg:color_bg1"
 
 [line_break]
 disabled = false
 
 [character]
-disabled = false
-success_symbol = '[](bold fg:color_green)'
-error_symbol = '[](bold fg:color_red)'
-vimcmd_symbol = '[](bold fg:color_green)'
+disabled                  = false
+error_symbol              = '[](bold fg:color_red)'
+success_symbol            = '[](bold fg:color_green)'
 vimcmd_replace_one_symbol = '[](bold fg:color_purple)'
-vimcmd_replace_symbol = '[](bold fg:color_purple)'
-vimcmd_visual_symbol = '[](bold fg:color_yellow)'
+vimcmd_replace_symbol     = '[](bold fg:color_purple)'
+vimcmd_symbol             = '[](bold fg:color_green)'
+vimcmd_visual_symbol      = '[](bold fg:color_yellow)'
 
 [aws]
-symbol = "  "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = "  "
 
 [buf]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [c]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [cmake]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [conda]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [crystal]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [dart]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [docker_context]
-symbol = " "
-style = "bg:color_aqua"
 format = '[[ $symbol( $context) ](fg:color_fg0 bg:color_aqua)]($style)'
+style  = "bg:color_aqua"
+symbol = " "
 
 [elixir]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [elm]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [fennel]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [fossil_branch]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [git_branch]
-symbol = "  "
-style = "fg:color_fg0 bg:color_blue"
-format = '[$symbol$branch(:$remote_branch)]($style)'
+format            = '[$symbol$branch(:$remote_branch)]($style)'
+style             = "fg:color_fg0 bg:color_blue"
+symbol            = "  "
 truncation_length = 15
 
 [git_commit]
-tag_symbol = '  '
-style = "fg:color_fg0 bg:color_blue"
-tag_disabled = false
+style              = "fg:color_fg0 bg:color_blue"
+tag_disabled       = false
 tag_max_candidates = 2
+tag_symbol         = '  '
 
 [git_state]
 style = "fg:color_red bg:color_blue"
 
 [git_metrics]
-added_style = "fg:color_yellow bg:color_blue"
+added_style   = "fg:color_yellow bg:color_blue"
 deleted_style = "fg:color_red bg:color_blue"
-format = '[ ([+$added]($added_style) )([-$deleted]($deleted_style) )](bg:color_blue)'
-disabled = false
+disabled      = false
+format        = '[ ([+$added]($added_style) )([-$deleted]($deleted_style) )](bg:color_blue)'
 
 [git_status]
-style = "fg:color_fg0 bg:color_blue"
 format = '([\[$all_status$ahead_behind\]]($style))'
+style  = "fg:color_fg0 bg:color_blue"
 
 [golang]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [guix_shell]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [haskell]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [haxe]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [hg_branch]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [hostname]
+format     = "[$ssh_symbol$hostname]($style)"
+ssh_only   = true
 ssh_symbol = " "
-ssh_only = true
-style = "bg:color_orange fg:color_fg0"
-format = "[$ssh_symbol$hostname]($style)"
+style      = "bg:color_orange fg:color_fg0"
 
 [java]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [julia]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [kotlin]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [lua]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [memory_usage]
-symbol = "󰍛 "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = "󰍛 "
 
 [meson]
-symbol = "󰔷 "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = "󰔷 "
 
 [nim]
-symbol = "󰆥 "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = "󰆥 "
 
 [nix_shell]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [nodejs]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [ocaml]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [os.symbols]
-Alpaquita = " "
-Alpine = " "
-AlmaLinux = " "
-Amazon = " "
-Android = " "
-Arch = " "
-Artix = " "
-CachyOS = " "
-CentOS = " "
-Debian = " "
-DragonFly = " "
-Emscripten = " "
-EndeavourOS = " "
-Fedora = " "
-FreeBSD = " "
-Garuda = "󰛓 "
-Gentoo = " "
-HardenedBSD = "󰞌 "
-Illumos = "󰈸 "
-Kali = " "
-Linux = " "
-Mabox = " "
-Macos = " "
-Manjaro = " "
-Mariner = " "
-MidnightBSD = " "
-Mint = " "
-NetBSD = " "
-NixOS = " "
-Nobara = " "
-OpenBSD = "󰈺 "
-openSUSE = " "
-OracleLinux = "󰌷 "
-Pop = " "
-Raspbian = " "
-Redhat = " "
+AlmaLinux        = " "
+Alpaquita        = " "
+Alpine           = " "
+Amazon           = " "
+Android          = " "
+Arch             = " "
+Artix            = " "
+CachyOS          = " "
+CentOS           = " "
+Debian           = " "
+DragonFly        = " "
+Emscripten       = " "
+EndeavourOS      = " "
+Fedora           = " "
+FreeBSD          = " "
+Garuda           = "󰛓 "
+Gentoo           = " "
+HardenedBSD      = "󰞌 "
+Illumos          = "󰈸 "
+Kali             = " "
+Linux            = " "
+Mabox            = " "
+Macos            = " "
+Manjaro          = " "
+Mariner          = " "
+MidnightBSD      = " "
+Mint             = " "
+NetBSD           = " "
+NixOS            = " "
+Nobara           = " "
+OpenBSD          = "󰈺 "
+OracleLinux      = "󰌷 "
+Pop              = " "
+Raspbian         = " "
 RedHatEnterprise = " "
-RockyLinux = " "
-Redox = "󰀘 "
-Solus = "󰠳 "
-SUSE = " "
-Ubuntu = " "
-Unknown = " "
-Void = " "
-Windows = "󰍲 "
+Redhat           = " "
+Redox            = "󰀘 "
+RockyLinux       = " "
+SUSE             = " "
+Solus            = "󰠳 "
+Ubuntu           = " "
+Unknown          = " "
+Void             = " "
+Windows          = "󰍲 "
+openSUSE         = " "
 
 [package]
-symbol = "󰏗 "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = "󰏗 "
 
 [perl]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [php]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [pijul_channel]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [python]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [rlang]
-symbol = "󰟔 "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = "󰟔 "
 
 [ruby]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [rust]
-symbol = "󱘗 "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = "󱘗 "
 
 [scala]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [swift]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [zig]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "
 
 [gradle]
-symbol = " "
-style = "bg:color_blue"
 format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+style  = "bg:color_blue"
+symbol = " "

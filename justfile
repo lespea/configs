@@ -16,6 +16,81 @@ default:
 links:
     ./setup_links.sh
 
+# One-time fish setup: universal env vars, aliases (written to functions/), paths; rerun after editing setup.fish
+fish-setup:
+    fish {{ quote(fish_dir / "setup.fish") }}
+
+# Remove leftovers from things we've retired (submodule, venvs, old functions/env vars, unused mise tools); safe to rerun
+clean:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{ quote(justfile_directory()) }}
+    cleaned=0
+    note() { echo "removed: $*"; cleaned=1; }
+
+    # base16-shell submodule: index entry, .gitmodules, .git/config, and the cloned module dir
+    if [[ $(git ls-files --stage -- base16) == 160000* ]]; then
+        git rm -qf base16
+        note "base16 submodule from the index"
+    fi
+    if [[ -f .gitmodules ]] && git config -f .gitmodules --get submodule.base16.path >/dev/null; then
+        git config -f .gitmodules --remove-section submodule.base16
+        if [[ -z $(git config -f .gitmodules --get-regexp '^submodule\..*\.path$' || true) ]]; then
+            git rm -qf --ignore-unmatch .gitmodules
+            rm -f .gitmodules
+            note ".gitmodules (no submodules left)"
+        else
+            git add .gitmodules
+            note "base16 entry from .gitmodules"
+        fi
+    fi
+    if git config --get submodule.base16.url >/dev/null; then
+        git config --remove-section submodule.base16
+        note "submodule.base16 from .git/config"
+    fi
+    module_dir=$(git rev-parse --git-path modules/base16)
+    if [[ -d $module_dir ]]; then
+        rm -rf "$module_dir"
+        note "$module_dir"
+    fi
+    if [[ -e base16 ]] && ! git ls-files --error-unmatch base16 >/dev/null 2>&1; then
+        rm -rf base16
+        note "base16 working directory"
+    fi
+
+    # nvim python/node provider venv (the providers are disabled now)
+    venv_dir="${XDG_CACHE_HOME:-$HOME/.cache}/nvim_venvs"
+    if [[ -d $venv_dir ]]; then
+        rm -rf "$venv_dir"
+        note "$venv_dir"
+    fi
+
+    # fish functions we no longer define (generated or hand-written; they linger on machines that had them)
+    for name in gcola normpkgs oplogs pdump setupv synpip synpipf synpipr whosts; do
+        file={{ quote(fish_dir) }}/functions/$name.fish
+        if [[ -e $file || -L $file ]]; then
+            rm -f "$file"
+            note "function $name"
+        fi
+    done
+
+    # fish universal variables we no longer set (LC_ALL was replaced by LANG)
+    if command -v fish >/dev/null; then
+        for var in nvim_venvs LC_ALL; do
+            if fish -c "set -qU $var"; then
+                fish -c "set -Ue $var"
+                note "universal variable \$$var"
+            fi
+        done
+    fi
+
+    # mise: versions and tools (black, isort, pypi:ruff, ...) no longer referenced by any tracked config
+    if command -v mise >/dev/null; then
+        mise prune
+    fi
+
+    if [[ $cleaned == 0 ]]; then echo "nothing else to clean"; fi
+
 # Cache the fish init scripts and completions so shell startup doesn't regenerate them; rerun after upgrading a tool
 fish-cache: _fish-clean _fish-generate
 
@@ -75,12 +150,12 @@ _gen dest bin kind cmd:
 # Apply global git settings (`just git --help` for options)
 [positional-arguments]
 git *args:
-    python3 setup_git.py "$@"
+    uv run setup_git.py "$@"
 
 # Manage cargo-installed tools through pueue: install [-m|-p PKG|-f], missing, list
 [positional-arguments]
 cargo *args:
-    python3 cpkgs.py "$@"
+    uv run cpkgs.py "$@"
 
 # Install the system D-Bus policy that lets steam-fake-nm own the NetworkManager name
 steam-nm-policy:

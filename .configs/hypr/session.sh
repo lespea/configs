@@ -8,6 +8,12 @@
 # `uwsm stop` stops graphical-session.target: app units (PartOf/After the target) are
 # stopped first and get their KillMode=mixed SIGTERM, then Hyprland goes down. The tty
 # login is `exec uwsm start`, so that session ends on its own afterwards.
+#
+# reboot/poweroff must NOT `uwsm stop` first: polkit only allows them without a password
+# from an active session, and stopping the compositor ends the tty session, so the later
+# systemctl call races logind and fails with "requires interactive authentication". The
+# system shutdown stops user@.service anyway, which tears the graphical session down in
+# the same order.
 set -u
 
 case "${1-}" in
@@ -21,11 +27,9 @@ case "${1-}" in
 		loginctl terminate-user "$(id -un)"
 		;;
 	reboot)
-		uwsm stop
 		systemctl reboot
 		;;
 	poweroff)
-		uwsm stop
 		systemctl poweroff -i
 		;;
 	*)

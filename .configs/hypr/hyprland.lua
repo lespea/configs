@@ -464,7 +464,7 @@ define_menu("logout", mainMod .. " + escape", {
 	{
 		key = "S",
 		label = "s - suspend",
-		action = hl.dsp.exec_cmd("sh -c 'dms ipc call lock lock &!; sleep 1; systemctl suspend'"),
+		action = hl.dsp.exec_cmd("sh -c 'dms ipc call lock lock & sleep 1; systemctl suspend'"),
 	},
 	{ key = "SHIFT + S", label = "S - poweroff", action = session_end("poweroff") },
 	{ key = "L", label = "l - lock", action = hl.dsp.exec_cmd("dms ipc call lock lock") },

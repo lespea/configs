@@ -61,39 +61,6 @@ function setAbbs
     abbr --add g. -p anywhere './...'
 end
 
-function runSources
-    if type -q mise
-        if type -q fnox
-            fnox x -- mise activate fish | source
-        else
-            mise activate fish | source
-        end
-        mise completion fish | source
-
-        set -gx FNOX_SHELL_OUTPUT none
-        mise x -- fnox activate fish | source
-        mise x -- fnox completion fish | source
-    end
-
-    act atuin init fish --disable-up-arrow
-    act bat --completion fish
-    act just --completions fish
-    act rg --generate complete-fish
-    act zoxide init fish
-    act ink completions fish
-    act gh completion -s fish
-
-    bind . expand-dot-to-parent-directory-path
-end
-
-function act
-    set -l cmd $argv[1]
-
-    if type -q $cmd
-        $cmd $argv[2..-1] | source
-    end
-end
-
 function hypr
     if set -q IS_ARCH; and type -q uwsm; and uwsm check may-start -q
         exec uwsm start hyprland.desktop
@@ -114,6 +81,8 @@ function setupFish
 
     fish_config theme choose token
 
+    bind . expand-dot-to-parent-directory-path
+
     for mode in (bind --list-modes)
         bind -M $mode ctrl-c cancel-commandline
     end
@@ -122,15 +91,9 @@ end
 if status is-interactive
     hypr
 
-    if set -q IS_MAC; and set -q brewpath
-        $brewpath shellenv fish | source
-    end
-
     setupFish
     setEnvs
     setAbbs
-
-    runSources
 
     final
 end

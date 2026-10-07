@@ -32,6 +32,7 @@ alias -s rga 'rg -M0'
 alias -s rgq 'rg --no-filename --no-heading -N -M0'
 alias -s vim nvim
 alias -s xsv qsv
+alias -s sbtb 'sbt --mem 7168 -J-XX:MaxGCPauseMillis=1000 -J-XX:+UseStringDeduplication -J-XX:+AlwaysPreTouch'
 
 # real function for now
 # alias -s rusti 'mold --run env RUSTFLAGS="-C link-args=-s -C target-cpu=native" cargo install'

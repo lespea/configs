@@ -88,7 +88,7 @@ experimental = true
 http_timeout = "5m"
 
 npm.package_manager = "bun"
-pipx.uvx = true
+pypi.uvx = true
 python.uv_venv_auto = "create|source"
 python.compile = false
 

@@ -8,5 +8,4 @@ if set -q IS_ARCH
         /usr/lib/ccache/bin \
         "$HOME/go/bin" \
         "$HOME/bin"
-else
 end

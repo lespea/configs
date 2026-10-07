@@ -1,35 +1,4 @@
-function setEnvs
-    set -gax JAVA_OPTS '-XX:+UseG1GC -Xmx3G -XX:MaxInlineLevel=21 --enable-native-access=ALL-UNNAMED --add-opens=java.base/jdk.internal.misc=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED'
-    set -gax SBT_OPTS '-Xss1M -XX:ReservedCodeCacheSize=512m'
-
-    set -gx TAPLO_CONFIG "$XDG_CONFIG_HOME/taplo/taplo.toml"
-    set -gx RIPGREP_CONFIG_PATH "$HOME/.ripgreprc"
-
-    if set -q XDG_CACHE_DIR
-        set -gx nvim_venvs "$XDG_CACHE_HOME/nvim_venvs"
-    else
-        set -gx nvim_venvs "$HOME/.cache/nvim_venvs"
-    end
-
-    set -gx CMAKE_GENERATOR Ninja
-    set -gx PUPPETEER_SKIP_DOWNLOAD 1
-
-    if set -q IS_ARCH
-        set -gx USE_CODEIUM 1
-    else
-        set -gx LC_ALL en_US.UTF-8
-    end
-
-    set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
-    set -gx MANROFFOPT -c
-
-    set AGE_KEY "$XDG_DATA_HOME/.ak/.dat"
-    set -gx FNOX_AGE_KEY_FILE $AGE_KEY
-    set -gx SOPS_AGE_KEY_FILE $AGE_KEY
-
-    set -gx MISE_LIBC gnu
-    set -gx SYSTEMD_TINT_BACKGROUND 0
-end
+# Env vars and other one-time settings live in setup.fish (`just fish-setup`)
 
 function setAbbs
     # search
@@ -42,8 +11,7 @@ function setAbbs
     abbr --add BL -p anywhere '| bat -pP -llog'
 
     # fmt
-    abbr --add BJ -p anywhere '| jq | bat -ljson'
-    abbr --add BL -p anywhere '| bat -pP -llog'
+    abbr --add BJ -p anywhere '| gojq | bat -ljson'
     abbr --add BHL -p anywhere '| bunx prettier --parser html | bat -lhtml'
 
     # fmt cursor
@@ -72,15 +40,9 @@ function final
     if test -e $custom
         source $custom
     end
-
-    # gvenv
 end
 
-function setupFish
-    set -g fish_transient_prompt 1
-
-    fish_config theme choose token
-
+function setupBinds
     bind . expand-dot-to-parent-directory-path
 
     for mode in (bind --list-modes)
@@ -91,8 +53,7 @@ end
 if status is-interactive
     hypr
 
-    setupFish
-    setEnvs
+    setupBinds
     setAbbs
 
     final

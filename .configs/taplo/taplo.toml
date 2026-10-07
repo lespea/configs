@@ -1,5 +1,5 @@
 # The CLI and LSP read snake_case keys (camelCase is only for editor settings, e.g. VS Code)
-# No reorder_arrays: array order matters in some configs (e.g. ashell's module layout)
+# No reorder_arrays: array order matters in some configs (e.g. bar module layouts)
 [formatting]
 align_entries         = true
 array_auto_collapse   = false

@@ -53,7 +53,7 @@ BOTH_DIRS="alacritty atuin bat bottom broot btop fish ghostty htop kitty lazygit
 if [[ $(uname) == "Darwin" ]]; then
     CONF_DIRS="$BOTH_DIRS"
 else
-    CONF_DIRS="$BOTH_DIRS ashell cava DankMaterialShell gamemode.ini hypr mako MangoHud mpd paru picom pipewire sway systemd uwsm waybar wpaperd xdg-desktop-portal"
+    CONF_DIRS="$BOTH_DIRS cava DankMaterialShell gamemode.ini hypr MangoHud mpd paru picom pipewire sway systemd uwsm waybar wpaperd xdg-desktop-portal"
 
     setup_single .Xresources
 fi

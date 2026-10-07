@@ -73,3 +73,8 @@ nvim/lazy-lock.json
 /.configs/fish/functions/vmmount.fish
 /.configs/fish/functions/curmilk.fish
 /.configs/fish/functions/allcores.fish
+/.configs/fish/functions/ytd.fish
+/.configs/fish/functions/pod.fish
+/.configs/fish/functions/caddyf.fish
+/.configs/fish/functions/caddyr.fish
+/.configs/fish/functions/gsync.fish

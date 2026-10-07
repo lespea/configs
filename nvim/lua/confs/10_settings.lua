@@ -151,15 +151,9 @@ opt.ttimeoutlen = 100
 -- Disable nvim intro
 opt.shortmess:append("sI")
 
-local venvs = os.getenv("nvim_venvs") or ""
-if venvs ~= "" then
-	g.python3_host_prog = venvs .. "/.venv/bin/python"
-	g.node_host_prog = venvs .. "/node_modules/neovim/bin/cli.js"
-else
-	g.loaded_python3_provider = 0
-	g.loaded_node_provider = 0
-end
-
+-- Providers only exist for remote plugins and :py3-style commands, which nothing here uses
+g.loaded_python3_provider = 0
+g.loaded_node_provider = 0
 g.loaded_ruby_provider = 0
 g.loaded_perl_provider = 0
 

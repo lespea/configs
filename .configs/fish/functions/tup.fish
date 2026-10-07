@@ -14,8 +14,6 @@ function tup
 
     $frun $runTop
 
-    $frun fish -c setupv
-
     echo -e "\nUpdating rust packages"
-    $frun python "$HOME/configs/cpkgs.py" install -m
+    $frun just --justfile "$HOME/configs/justfile" cargo install -m
 end

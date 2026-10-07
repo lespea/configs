@@ -1,6 +1,7 @@
 [tools]
 # Complex
 "aqua:apache/maven" = "latest"
+"aqua:astral-sh/ruff" = "latest"
 "aqua:astral-sh/uv" = "latest"
 "aqua:dathere/qsv" = "latest"
 "aqua:dprint/dprint" = "latest"
@@ -72,18 +73,15 @@ java = "temurin-27"
 "npm:mcp-hub" = "latest"
 "npm:oxfmt" = "latest"
 "npm:prettier" = "latest"
+"npm:pyright" = "latest"
 "npm:typescript" = "latest"
 "npm:typescript-language-server" = "latest"
 "npm:vscode-langservers-extracted" = "latest"
 
 # Python tools
-"pypi:black" = "latest"
 "pypi:codespell" = "latest"
 "pypi:httpie" = "latest"
 "pypi:ipython" = "latest"
-"pypi:isort" = "latest"
-"pypi:pyright" = "latest"
-"pypi:ruff" = "latest"
 "github:dazld/r11y" = "latest"
 github-cli = "latest"
 yq = "latest"

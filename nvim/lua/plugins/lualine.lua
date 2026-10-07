@@ -194,7 +194,13 @@ return {
 					if request.match == "CodeCompanionRequestStarted" then
 						self.active_requests = self.active_requests + 1
 						if not self.timer:is_active() then
-							self.timer:start(0, 100, vim.schedule_wrap(require("lualine").refresh))
+							self.timer:start(
+								0,
+								100,
+								vim.schedule_wrap(function()
+									require("lualine").refresh()
+								end)
+							)
 						end
 					else
 						self.active_requests = math.max(self.active_requests - 1, 0)

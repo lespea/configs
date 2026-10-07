@@ -65,6 +65,15 @@ clean:
         note "$venv_dir"
     fi
 
+    # ~/.config links (from setup_links.sh) to config dirs we've removed; only dangling links, never real dirs
+    for name in ashell mako; do
+        link="${XDG_CONFIG_HOME:-$HOME/.config}/$name"
+        if [[ -L $link && ! -e $link ]]; then
+            rm "$link"
+            note "dangling link $link"
+        fi
+    done
+
     # fish functions we no longer define (generated or hand-written; they linger on machines that had them)
     for name in gcola normpkgs oplogs pdump setupv synpip synpipf synpipr whosts; do
         file={{ quote(fish_dir) }}/functions/$name.fish
@@ -185,14 +194,49 @@ steam-nm-policy:
 fmt:
     dprint fmt
 
-# Lint (shellcheck, ruff, ty, fish syntax, LuaLS for the Hyprland config, systemd units) and check that everything is formatted
-lint: _lint-systemd
+# Lint (shellcheck, ruff, ty, fish syntax, LuaLS for the Hyprland and nvim configs, systemd units) and check that everything is formatted
+lint: _lint-systemd _lint-nvim
     shellcheck *.sh .configs/hypr/session.sh
     ruff check --quiet
     ty check --quiet
     git ls-files -z "*.fish" | xargs -0 -n1 fish --no-execute
-    lua-language-server --check=.configs/hypr --checklevel=Warning --logpath="${TMPDIR:-/tmp}/luals-lint" >/dev/null
+    just _luals .configs/hypr
     dprint check
+
+# LuaLS over the nvim config, set up the way lazydev does it in the editor (nvim's runtime plus each plugin's lua/ dir,
+# strict require paths); generated rather than a committed .luarc.json, which lazydev warns breaks it
+[private]
+_lint-nvim:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    shopt -s nullglob
+    lazy="${XDG_DATA_HOME:-$HOME/.local/share}/nvim/lazy"
+    if [[ ! -d $lazy ]]; then echo "skip nvim LuaLS: plugins aren't installed ($lazy)"; exit 0; fi
+    runtime=$(nvim --clean --headless -c 'lua io.stdout:write(vim.env.VIMRUNTIME)' -c q)
+    cfg="${TMPDIR:-/tmp}/luals-lint/nvim-luarc.json"
+    mkdir -p "$(dirname "$cfg")"
+    printf '%s\n' "$runtime/lua" "$lazy"/*/lua | jq -R . | jq -s '{
+        "runtime.version": "LuaJIT",
+        "runtime.pathStrict": true,
+        "workspace.library": .,
+        "workspace.checkThirdParty": false
+    }' > "$cfg"
+    just _luals nvim "$cfg"
+
+# Run LuaLS's checker over `dir` (with an optional config file) and print any problems from its JSON report
+[private]
+_luals dir config="":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    out="${TMPDIR:-/tmp}/luals-lint"
+    report="$out/$(basename {{ quote(dir) }}).json"
+    mkdir -p "$out"
+    rm -f "$report"
+    if ! lua-language-server --check={{ quote(dir) }} --checklevel=Warning {{ if config == "" { "" } else { "--configpath=" + quote(config) } }} \
+        --logpath="$out" --check_format=json --check_out_path="$report" >/dev/null; then
+        jq -r 'to_entries[] | .key as $f | .value[] | "\($f | sub("^file://"; "")):\(.range.start.line + 1): \(.code): \(.message | split("\n")[0])"' "$report"
+        exit 1
+    fi
 
 # systemd-analyze only warns about bad keys/values, so any output fails; masked units (symlinks to /dev/null) and
 # programs not installed on this machine are expected and filtered out

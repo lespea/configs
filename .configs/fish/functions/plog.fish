@@ -1,3 +1,3 @@
-function plog --wraps='tail -F $argv | bat -pP -llog' --description 'alias plog tail -F $argv | bat -pP -llog'
-    tail -F $argv | bat -pP -llog $argv
+function plog --wraps='tail -F' --description 'Follow files, colorized as logs'
+    tail -F $argv | bat -pP -llog
 end

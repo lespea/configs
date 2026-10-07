@@ -121,7 +121,6 @@ if set -q IS_ARCH
     # alias -s icat 'kitty +kitten icat'
     # alias -s kssh 'kitty +kitten ssh'
     alias -s jlog 'journalctl -r -p warning'
-    alias -s plog 'tail -F $argv | bat -pP -llog'
 
     for dir in Desktop Documents Downloads Music Pictures Video
         mkdir -p "$HOME/$dir"

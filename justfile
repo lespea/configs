@@ -100,11 +100,13 @@ fish-cache: _fish-clean _fish-generate
 @_fish-clean:
     { rg --files-with-matches --null --no-ignore --fixed-strings {{ quote(fish_cache_marker) }} {{ quote(fish_dir / "conf.d") }} {{ quote(fish_dir / "completions") }} || true; } | xargs -0 rm -fv
 
-# (fnox's hook-env reads FNOX_SHELL_OUTPUT at runtime, so it is patched into the cached script instead of set globally)
+# mise: run as if from a shell without mise active, otherwise it emits a "deactivate" preamble that bakes in the current PATH
+# fnox: its absolute (versioned) path becomes `command fnox` so upgrades don't break the cache; hook-env reads
+# FNOX_SHELL_OUTPUT at runtime, so it is patched into the cached script instead of set globally
 [parallel, private]
 _fish-generate: \
-    (_init "10" "mise" "mise activate fish") \
-    (_init "20" "fnox" "fnox activate fish | sd '([^ (]*fnox) hook-env' 'FNOX_SHELL_OUTPUT=none $1 hook-env' | sd '(?m)^__fnox_env_eval$' ''") \
+    (_init "10" "mise" "env -u __MISE_DIFF -u __MISE_SESSION -u __MISE_ENV_CACHE_KEY PATH=\"${__MISE_ORIG_PATH:-$PATH}\" \"$(command -v mise)\" activate fish") \
+    (_init "20" "fnox" "fnox activate fish | sd '(command )?/[^ ()]*/fnox ' 'command fnox ' | sd 'command fnox hook-env' 'FNOX_SHELL_OUTPUT=none command fnox hook-env' | sd '(?m)^__fnox_env_eval$' ''") \
     (_init "20" "atuin" "atuin init fish --disable-up-arrow") \
     (_init "20" "zoxide" "zoxide init fish") \
     (_completion "mise" "mise completion fish") \

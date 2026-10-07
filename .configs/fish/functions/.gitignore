@@ -15,3 +15,13 @@ plogs.fish
 tlogs.fish
 updtess.fish
 xcpn.fish
+
+# Local-only helpers
+vmmount.fish
+curmilk.fish
+allcores.fish
+ytd.fish
+pod.fish
+caddyf.fish
+caddyr.fish
+gsync.fish

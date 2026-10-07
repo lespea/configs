@@ -185,11 +185,25 @@ steam-nm-policy:
 fmt:
     dprint fmt
 
-# Lint (shellcheck, ruff, ty, fish syntax, LuaLS for the Hyprland config) and check that everything is formatted
-lint:
+# Lint (shellcheck, ruff, ty, fish syntax, LuaLS for the Hyprland config, systemd units) and check that everything is formatted
+lint: _lint-systemd
     shellcheck *.sh .configs/hypr/session.sh
     ruff check --quiet
     ty check --quiet
     git ls-files -z "*.fish" | xargs -0 -n1 fish --no-execute
     lua-language-server --check=.configs/hypr --checklevel=Warning --logpath="${TMPDIR:-/tmp}/luals-lint" >/dev/null
     dprint check
+
+# systemd-analyze only warns about bad keys/values, so any output fails; masked units (symlinks to /dev/null) and
+# programs not installed on this machine are expected and filtered out
+[linux, private]
+_lint-systemd:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    out=$(git ls-files -z '.configs/systemd/*.service' '.configs/systemd/*.socket' '.configs/systemd/*.timer' '.configs/systemd/*.path' \
+        | xargs -0 -n1 systemd-analyze --user verify 2>&1 \
+        | grep -vE ' is masked\.$|Command .* is not executable: No such file or directory$' || true)
+    if [[ -n $out ]]; then echo "$out"; exit 1; fi
+
+[macos, private]
+_lint-systemd:

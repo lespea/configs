@@ -2,6 +2,7 @@
 # Complex
 "aqua:apache/maven" = "latest"
 "aqua:astral-sh/ruff" = "latest"
+"aqua:astral-sh/ty" = "latest"
 "aqua:astral-sh/uv" = "latest"
 "aqua:dathere/qsv" = "latest"
 "aqua:dprint/dprint" = "latest"
@@ -13,31 +14,35 @@
 "aqua:skaji/relocatable-perl" = "latest"
 "aqua:tamasfe/taplo" = "latest"
 "github:coursier/coursier" = "latest"
-"github:skim-rs/skim" = "latest"
-
-# "asdf:mise-plugins/mise-sbt" = "1.12.13"
-#"conda:sbt" = "1"
+"github:dazld/r11y" = "latest"
 "github:sbt/sbt" = "2.0"
+"github:skim-rs/skim" = "latest"
 "vfox:mise-plugins/vfox-scala" = "latest"
 
 # Simple
 age = "latest"
 bun = "latest"
 fnox = "latest"
+github-cli = "latest"
 go = "1.27"
 lua = "5.1"
 node = "26"
 python = "3.14"
+shellcheck = "latest"
 sops = "latest"
+yq = "latest"
 zig = "0.16"
 
 # Java
 java = "temurin-27"
 
 # Go tools
+"aqua:biomejs/biome" = "latest"
+"aqua:bufbuild/buf" = "latest"
 "aqua:charmbracelet/gum" = "latest"
 "aqua:dominikh/go-tools/staticcheck" = "latest"
 "aqua:golangci/golangci-lint" = "2"
+"aqua:golangci/golines" = "latest"
 "aqua:hadolint/hadolint" = "latest"
 "aqua:itchyny/gojq" = "latest"
 "aqua:LuaLS/lua-language-server" = "latest"
@@ -45,10 +50,10 @@ java = "temurin-27"
 "aqua:muesli/duf" = "latest"
 "aqua:mvdan/gofumpt" = "latest"
 "aqua:mvdan/sh" = "latest"
+"aqua:nametake/golangci-lint-langserver" = "latest"
+"aqua:oxc-project/oxc/oxfmt" = "latest"
 "aqua:rest-sh/restish" = "latest"
-"aqua:segmentio/golines" = "latest"
 
-"github:a-h/templ" = "latest"
 "github:docker/docker-language-server" = "latest"
 "github:johnkerl/miller" = "latest"
 "github:marwan-at-work/mod" = "latest"
@@ -57,23 +62,17 @@ java = "temurin-27"
 "github:Zxilly/go-size-analyzer" = "latest"
 
 # Go repos
-"go:github.com/golangci/golines" = "latest"
 "go:github.com/icholy/gomajor" = "latest"
-"go:github.com/nametake/golangci-lint-langserver" = "latest"
 "go:github.com/noperator/jqfmt/cmd/jqfmt" = "latest"
 "go:github.com/noperator/sol/cmd/sol" = "latest"
 "go:golang.org/x/tools/cmd/stringer" = "latest"
 "go:golang.org/x/tools/gopls" = "latest"
 
 # Node tools
-"npm:@biomejs/biome" = "latest"
-"npm:@bufbuild/buf" = "latest"
 "npm:@tailwindcss/language-server" = "latest"
 "npm:fish-lsp" = "latest"
 "npm:mcp-hub" = "latest"
-"npm:oxfmt" = "latest"
 "npm:prettier" = "latest"
-"npm:pyright" = "latest"
 "npm:typescript" = "latest"
 "npm:typescript-language-server" = "latest"
 "npm:vscode-langservers-extracted" = "latest"
@@ -82,15 +81,6 @@ java = "temurin-27"
 "pypi:codespell" = "latest"
 "pypi:httpie" = "latest"
 "pypi:ipython" = "latest"
-"github:dazld/r11y" = "latest"
-github-cli = "latest"
-yq = "latest"
-shellcheck = "latest"
-
-# Renames
-[tools."github:dmarkham/enumer"]
-version = "latest"
-rename_exe = "enumer"
 
 [settings]
 disable_hints = ["*"]

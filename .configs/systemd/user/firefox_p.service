@@ -3,7 +3,6 @@ Description=Firefox Private
 PartOf=graphical-session.target
 After=graphical-session.target dbus.service
 
-
 [Service]
 Type=exec
 KillMode=mixed

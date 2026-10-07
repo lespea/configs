@@ -185,7 +185,11 @@ steam-nm-policy:
 fmt:
     dprint fmt
 
-# Lint the shell scripts and check that everything is formatted
+# Lint (shellcheck, ruff, ty, fish syntax, LuaLS for the Hyprland config) and check that everything is formatted
 lint:
-    mise exec shellcheck -- shellcheck *.sh .configs/hypr/session.sh
+    shellcheck *.sh .configs/hypr/session.sh
+    ruff check --quiet
+    ty check --quiet
+    git ls-files -z "*.fish" | xargs -0 -n1 fish --no-execute
+    lua-language-server --check=.configs/hypr --checklevel=Warning --logpath="${TMPDIR:-/tmp}/luals-lint" >/dev/null
     dprint check

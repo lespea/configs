@@ -103,7 +103,7 @@ enable_workspace_filling = false
 #  - DownloadSpeed
 #  - UploadSpeed
 # optional, the following is the default configuration
-# If for example you want to dispay the usage of the root and home partition
+# If for example you want to display the usage of the root and home partition
 # you can use the following configuration
 # systemInfo = [ { disk = "/" }, { disk = "/home" } ]
 indicators = ["Cpu", "Memory", "DownloadSpeed", "UploadSpeed"]

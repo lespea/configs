@@ -1,0 +1,7 @@
+# steam-fake-nm.py runs under the system python (its unit's ExecStart is /usr/bin/python3) with pacman's
+# python-dbus and python-gobject, which the mise python that ty resolves against doesn't have
+[[overrides]]
+include = [".configs/systemd/user/steam-fake-nm.py"]
+
+[overrides.rules]
+unresolved-import = "ignore"

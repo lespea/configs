@@ -5,6 +5,8 @@ set shell := ["bash", "-euo", "pipefail", "-c"]
 steam_nm_policy := justfile_directory() / ".configs/systemd/user/steam-fake-nm.conf"
 steam_nm_policy_dst := "/etc/dbus-1/system.d/steam-fake-nm.conf"
 fish_dir := justfile_directory() / ".configs/fish"
+# Written into every generated file so `_fish-clean` can find them (and only them)
+fish_cache_marker := "just-fish-cache-generated"
 
 [private]
 default:
@@ -15,9 +17,17 @@ links:
     ./setup_links.sh
 
 # Cache the fish init scripts and completions so shell startup doesn't regenerate them; rerun after upgrading a tool
+fish-cache: _fish-clean _fish-generate
+
+# Delete previously generated files so tools removed from the list below don't leave stale ones behind
+# (rg, not fd: fd matches names and the completions have to keep their `<tool>.fish` names; --no-ignore since both dirs are gitignored)
+[private]
+@_fish-clean:
+    { rg --files-with-matches --null --no-ignore --fixed-strings {{ quote(fish_cache_marker) }} {{ quote(fish_dir / "conf.d") }} {{ quote(fish_dir / "completions") }} || true; } | xargs -0 rm -fv
+
 # (fnox's hook-env reads FNOX_SHELL_OUTPUT at runtime, so it is patched into the cached script instead of set globally)
-[parallel]
-fish-cache: \
+[parallel, private]
+_fish-generate: \
     (_init "10" "mise" "mise activate fish") \
     (_init "20" "fnox" "fnox activate fish | sd '([^ (]*fnox) hook-env' 'FNOX_SHELL_OUTPUT=none $1 hook-env' | sd '(?m)^__fnox_env_eval$' ''") \
     (_init "20" "atuin" "atuin init fish --disable-up-arrow") \
@@ -47,12 +57,19 @@ _completion bin cmd: (_gen fish_dir / "completions" / bin + ".fish" bin "plain" 
 
 # Run `cmd` into `dest` via a temp file so a failing generator never leaves a truncated script; skips missing tools
 [private]
-@_gen dest bin kind cmd:
-    if ! command -v {{ bin }} >/dev/null; then echo "skip {{ bin }}: not installed"; exit 0; fi
-    mkdir -p "$(dirname "{{ dest }}")"
-    if [[ {{ kind }} == interactive ]]; then echo 'status is-interactive; or return' > "{{ dest }}.tmp"; else : > "{{ dest }}.tmp"; fi
-    {{ cmd }} >> "{{ dest }}.tmp" || { rm -f "{{ dest }}.tmp"; exit 1; }
-    mv "{{ dest }}.tmp" "{{ dest }}"
+_gen dest bin kind cmd:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    command -v {{ bin }} >/dev/null || { echo "skip {{ bin }}: not installed"; exit 0; }
+    mkdir -p {{ quote(parent_directory(dest)) }}
+    tmp={{ quote(dest + ".tmp") }}
+    trap 'rm -f "$tmp"' EXIT
+    {
+        if [[ {{ kind }} == interactive ]]; then echo 'status is-interactive; or return'; fi
+        echo '# {{ fish_cache_marker }}: do not edit; regenerate with `just fish-cache`'
+        {{ cmd }}
+    } > "$tmp"
+    mv "$tmp" {{ quote(dest) }}
     echo "wrote {{ dest }}"
 
 # Apply global git settings (`just git --help` for options)

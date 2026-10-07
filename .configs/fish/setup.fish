@@ -118,9 +118,13 @@ while read -l line
 end <$theme_file
 
 if set -q IS_ARCH
-    # alias -s icat 'kitty +kitten icat'
+    alias -s icat 'kitty +kitten icat'
     # alias -s kssh 'kitty +kitten ssh'
     alias -s jlog 'journalctl -r -p warning'
+    alias -s jtail "clear && journalctl -n0 -f | rg -M0 -iv --line-buffered 'rtkit-daemon|G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START|ghostty' | bat -pP -llog"
+    alias -s refl "sudo reflector -n 24 -c 'United States' -f 10 -p https --save /etc/pacman.d/mirrorlist --threads 10 -a 12"
+    alias -s rhtop 'run0 --empower htop'
+    # plog is a real function (functions/plog.fish): alias appends $argv at the end, but the files have to go to `tail`
 
     for dir in Desktop Documents Downloads Music Pictures Video
         mkdir -p "$HOME/$dir"

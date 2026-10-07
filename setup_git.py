@@ -20,6 +20,25 @@ def global_config() -> Path:
     return Path(os.environ.get("GIT_CONFIG_GLOBAL", Path.home() / ".gitconfig"))
 
 
+def current_signing_key() -> str:
+    # exits 1 when the key isn't set (or there's no config yet)
+    return subprocess.run(
+        ["git", "config", "--global", "--get", "user.signingKey"],
+        capture_output=True,
+        text=True,
+        check=False,
+    ).stdout.strip()
+
+
+def backup_config():
+    # Moved aside (never deleted, never over an older backup) so --rm can't lose hand-added settings.
+    cfg = global_config()
+    if cfg.exists():
+        backup = cfg.with_name(f"{cfg.name}.bak-{time.strftime('%Y%m%d-%H%M%S')}")
+        cfg.rename(backup)
+        print(f"Backed up {cfg} to {backup}")
+
+
 def run(d: ToRun, dry_run: bool):
     keys = sorted(d.keys())
     for k in keys:
@@ -74,8 +93,12 @@ def add_cmds(d: ToRun, base: str, **defs: str):
             d.setdefault(base, set()).add(args)
 
 
-def add_sig(email: str, key: str):
+def add_sig(email: str, key: str, dry_run: bool):
     want = f"{email} {key}"
+
+    if dry_run:
+        print(f"Would allow {want} in {allowed_signers_file}")
+        return
 
     if allowed_signers_file.exists():
         known = allowed_signers_file.read_text().splitlines()
@@ -87,12 +110,14 @@ def add_sig(email: str, key: str):
         allowed_signers_file.write_text(want + "\n")
 
 
-def setup(d: ToRun, email: str, signingKey: str, rewrites: dict[str, str]):
+def setup(
+    d: ToRun, email: str, signingKey: str, rewrites: dict[str, str], dry_run: bool
+):
     t = "true"
     f = "false"
 
     if signingKey != "":
-        add_sig(email, signingKey)
+        add_sig(email, signingKey, dry_run)
         sig_key = "key::" + signingKey
     else:
         sig_key = ""
@@ -204,7 +229,7 @@ def remove_stale(dry_run: bool):
 
 def main(email: str, signingKey: str, rewrites: dict[str, str], dry_run: bool):
     d: ToRun = {}
-    setup(d, email, signingKey, rewrites)
+    setup(d, email, signingKey, rewrites, dry_run)
     remove_stale(dry_run)
     run(d, dry_run)
     setup_gh_credentials(dry_run)
@@ -261,8 +286,16 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
+    key = args.key if args.key is not None else def_key()
+
+    previous_key = current_signing_key()
+    print(f"Config: {global_config()}")
+    print(f"Identity: {args.email}, signing key: {key or '(none)'}")
+    if previous_key and previous_key != "key::" + key:
+        print(f"Note: replacing the configured signing key ({previous_key})")
+
     if args.rm and not args.dry_run:
-        global_config().unlink(missing_ok=True)
+        backup_config()
 
     rewrites = {}
     if args.rewrite is not None:
@@ -277,5 +310,4 @@ if __name__ == "__main__":
 
                     rewrites[f"ssh://git@{url}/.{action}"] = f"https://{url}/"
 
-    key = args.key if args.key is not None else def_key()
     main(args.email, key, rewrites, args.dry_run)

@@ -73,12 +73,14 @@ _gen dest bin kind cmd:
     echo "wrote {{ dest }}"
 
 # Apply global git settings (`just git --help` for options)
+[positional-arguments]
 git *args:
-    python3 setup_git.py {{ args }}
+    python3 setup_git.py "$@"
 
 # Manage cargo-installed tools through pueue: install [-m|-p PKG|-f], missing, list
+[positional-arguments]
 cargo *args:
-    python3 cpkgs.py {{ args }}
+    python3 cpkgs.py "$@"
 
 # Install the system D-Bus policy that lets steam-fake-nm own the NetworkManager name
 steam-nm-policy:

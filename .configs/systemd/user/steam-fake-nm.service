@@ -4,11 +4,12 @@ Documentation=https://github.com/ValveSoftware/steam-for-linux/issues/9966
 # Lives and dies with Steam; steam.service pulls this in via Wants=.
 PartOf=steam.service
 StopWhenUnneeded=yes
-# Requires /etc/dbus-1/system.d/steam-fake-nm.conf (see steam-fake-nm.conf next to this file)
+# Requires the D-Bus policy from ~/devel/fake-nm (`just install-policy`)
 ConditionPathExists=/etc/dbus-1/system.d/steam-fake-nm.conf
 
 [Service]
 Type=notify
-ExecStart=/usr/bin/python3 %h/.config/systemd/user/steam-fake-nm.py
+# Runs straight out of the build directory; rebuild with `just build` in ~/devel/fake-nm
+ExecStart=%h/devel/fake-nm/target/release/fake-nm
 Restart=no
 Slice=app-graphical.slice

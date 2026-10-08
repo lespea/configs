@@ -2,8 +2,6 @@
 
 set shell := ["bash", "-euo", "pipefail", "-c"]
 
-steam_nm_policy := justfile_directory() / ".configs/systemd/user/steam-fake-nm.conf"
-steam_nm_policy_dst := "/etc/dbus-1/system.d/steam-fake-nm.conf"
 fish_dir := justfile_directory() / ".configs/fish"
 # Written into every generated file so `_fish-clean` can find them (and only them)
 fish_cache_marker := "just-fish-cache-generated"
@@ -167,28 +165,6 @@ git *args:
 [positional-arguments]
 cargo *args:
     uv run cpkgs.py "$@"
-
-# Install the system D-Bus policy that lets steam-fake-nm own the NetworkManager name
-steam-nm-policy:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    # Copied, not symlinked: root's dbus daemon must not trust a file this user can edit.
-    if [[ $(uname) != Linux ]]; then
-        echo "only for the Linux desktop" >&2
-        exit 1
-    fi
-    if pacman -Q networkmanager &>/dev/null; then
-        echo "real NetworkManager is installed; not installing the fake-NM policy" >&2
-        exit 1
-    fi
-    if cmp -s "{{ steam_nm_policy }}" "{{ steam_nm_policy_dst }}"; then
-        echo "{{ steam_nm_policy_dst }} is already up to date"
-        exit 0
-    fi
-    sudo install -m644 "{{ steam_nm_policy }}" "{{ steam_nm_policy_dst }}"
-    sudo systemctl reload dbus.service
-    echo "installed; if steam-fake-nm.service failed to claim the name, restart it:"
-    echo "  systemctl --user restart steam-fake-nm.service"
 
 # Format everything dprint knows about (dprint.jsonc: json/yaml natively; lua, fish, sh, toml, py via their own formatters)
 fmt:

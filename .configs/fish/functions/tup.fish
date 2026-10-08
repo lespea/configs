@@ -14,9 +14,9 @@ function tup
 
     $frun $runTop
 
-    echo -e "\nUpdating rust packages"
-    $frun just --justfile "$HOME/configs/justfile" cargo install -m
-
     echo -e "\nRegenerating fish init cache"
     just --justfile "$HOME/configs/justfile" fish-cache
+
+    echo -e "\nUpdating rust packages"
+    $frun just --justfile "$HOME/configs/justfile" cargo install -m
 end

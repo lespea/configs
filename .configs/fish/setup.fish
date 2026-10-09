@@ -23,16 +23,16 @@ set -U fish_greeting
 ##### Aliases
 
 alias -s cp 'coreutils cp -g --reflink=auto'
-alias -s mv 'coreutils mv -g'
 alias -s df 'df -h'
 alias -s du 'du -h'
 alias -s gitk 'gitk --all'
+alias -s mv 'coreutils mv -g'
 alias -s p pnpm
 alias -s rga 'rg -M0'
 alias -s rgq 'rg --no-filename --no-heading -N -M0'
+alias -s sbt sbtn
 alias -s vim nvim
 alias -s xsv qsv
-alias -s sbtb 'sbt --mem 7168 -J-XX:MaxGCPauseMillis=1000 -J-XX:+UseStringDeduplication -J-XX:+AlwaysPreTouch'
 
 # real function for now
 # alias -s rusti 'mold --run env RUSTFLAGS="-C link-args=-s -C target-cpu=native" cargo install'
@@ -73,8 +73,8 @@ set -Ux XDG_VIDEOS_DIR "$HOME/Videos"
 
 ## Env (universal so every fish process gets them, not just interactive shells)
 
-set -Ux JAVA_OPTS '-XX:+UseG1GC -Xmx3G -XX:MaxInlineLevel=21 --enable-native-access=ALL-UNNAMED --add-opens=java.base/jdk.internal.misc=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED'
-set -Ux SBT_OPTS '-Xss1M -XX:ReservedCodeCacheSize=512m'
+set -Ux JAVA_OPTS '-XX:+UseG1GC -Xmx2G -XX:MaxInlineLevel=21 --enable-native-access=ALL-UNNAMED --add-opens=java.base/jdk.internal.misc=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED'
+set -Ux SBT_OPTS '-Xmx4G -Xss1M -XX:ReservedCodeCacheSize=512m'
 
 set -Ux TAPLO_CONFIG "$XDG_CONFIG_HOME/taplo/taplo.toml"
 set -Ux RIPGREP_CONFIG_PATH "$HOME/.ripgreprc"

@@ -309,7 +309,7 @@ return {
 
 		set({ "n" }, "<leader>rf", function()
 			if termRight:is_open() then
-				termRight:send(clearAndRun("project fpFinder;run"), true)
+				termRight:send(clearAndRun(";project fpFinder;run;"), true)
 			end
 		end, { desc = "Run fpFinder" })
 
@@ -333,7 +333,7 @@ return {
 
 		set({ "n" }, "<leader>ru", function()
 			if termRight:is_open() then
-				termRight:send(clearAndRun("project genLists;run;project fpFinder"), true)
+				termRight:send(clearAndRun(";project genLists;run;project fpFinder;"), true)
 
 				local delay = 8000
 

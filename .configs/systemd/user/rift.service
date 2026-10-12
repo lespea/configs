@@ -6,7 +6,7 @@ After=graphical-session.target dbus.service
 [Service]
 Type=exec
 KillMode=mixed
-ExecStart=/home/adam/.local/bin/pwrap /home/adam/opt/rift/bin/rift
+ExecStart=/home/adam/.local/bin/pwrap /usr/bin/rift
 Restart=no
 Slice=app-graphical.slice
 

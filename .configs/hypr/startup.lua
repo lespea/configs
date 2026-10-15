@@ -7,22 +7,21 @@
 -- forced onto these workspaces when the sequence opens them. Opened another way, they land
 -- wherever you are, as usual.
 --
--- Tasks without a dependency launch immediately and in parallel. Otherwise:
---   after:        wait until that task's window has appeared and settled; if it never does,
---                 this task is skipped. Used so dwindle splits in the right order (heroic
---                 beside steam; signal beside slack, then discord under signal).
---   after_launch: wait until that task has been launched (or given up on). Only orders the
---                 launches, so the services' PIDs, and so htop's tree, follow this list.
---   after_finish: wait until that task is finished, however it went. The terminals use it
---                 so their splits don't interleave with discord's on the same monitor.
+-- A run goes:
+--   1. rhtop opens first. Its run0 pops a polkit dialog on the focused workspace, and the
+--      rest waits for that to be answered (or cancelled), however long it takes, so nothing
+--      opens or grabs focus while you type the password.
+--   2. Everything else launches at once. The services are started one after another in list
+--      order; that's quick (the units are Type=exec, so up once exec'd) and keeps their PIDs,
+--      and so htop's tree, in this order.
+--   3. Once every window has appeared and settled (or timed out), each workspace in `layouts`
+--      is rebuilt: its windows are taken off and put back in order, each splitting the one
+--      before, so dwindle ends up the same however the apps raced each other.
 --
 -- The terminals are new windows of the already-running ghostty service (so they live under
 -- it, not under Hyprland). They all share its class, so each gets a fixed title to be told
 -- apart by. `fish -C` runs the command in an interactive shell, so quitting it leaves a
 -- prompt like running it by hand does.
---
--- rhtop's run0 pops a polkit dialog on whatever workspace is focused, so its terminal holds
--- off until the run has ended (and focused workspace 1) before running it.
 
 local M = {}
 
@@ -30,30 +29,22 @@ local MON1, MON2 = "DP-1", "DP-2"
 
 -- class:    exact window class to wait for (and route)
 -- title:    optional exact title the window must also have before the task counts as up
--- term:     a terminal running this fish command; fills in class, title and cmd
+-- unit:     user service (without .service) that starts the app
+-- term:     a terminal running this fish command; fills in class and title
 -- settle:   ms with no new matching windows before the task is done (firefox session
 --           restore opens its windows one by one; steam shows an updater window first)
--- timeout:  seconds to wait for the window before giving up (dependents are skipped)
--- split:    task whose window the new one should split. Dwindle splits the focused window,
---           and follow_mouse can refocus whatever is under the pointer, so that window gets
---           focus and the pointer is parked on it (the manual "move the mouse there" step).
--- hold:     (term only) don't run the command until the run has ended
--- on_done:  called once the task's window has settled (not when it was already open)
-
--- Exists while a run is in progress; held terminals wait for it to go away.
-local HOLD = "$XDG_RUNTIME_DIR/hypr-startup.hold"
+-- timeout:  seconds to wait for the window before giving up
 
 local GHOSTTY = "com.mitchellh.ghostty"
 
 -- Starting the service is a no-op when it's already up (and waits for it when it isn't).
-local function term_cmd(name, hold)
-	local cmd = hold and ("while test -e " .. HOLD .. "; sleep 0.25; end; " .. name) or name
+local function term_cmd(name)
 	return "systemctl --user start app-"
 		.. GHOSTTY
 		.. ".service && ghostty +new-window --title="
 		.. name
 		.. " -e fish -C '"
-		.. cmd
+		.. name
 		.. "'"
 end
 
@@ -66,97 +57,41 @@ local function resize(id, w, h)
 	end
 end
 
+-- Launched in this order (the first is the password gate, see above).
 local tasks = {
-	{
-		id = "firefox",
-		ws = 1,
-		mon = MON1,
-		class = "firefox-developer-edition",
-		cmd = "systemctl --user start firefox.service",
-		settle = 3000,
-	},
+	{ id = "rhtop", ws = 10, mon = MON2, term = "rhtop", settle = 500 },
+	{ id = "firefox", ws = 1, mon = MON1, class = "firefox-developer-edition", unit = "firefox", settle = 3000 },
 	{
 		id = "steam",
 		ws = 5,
 		mon = MON1,
 		class = "steam",
 		title = "Steam",
-		cmd = "systemctl --user start steam.service",
+		unit = "steam",
 		settle = 2000,
 		timeout = 300,
 	},
+	{ id = "heroic", ws = 5, mon = MON1, class = "heroic", unit = "heroic" },
+	{ id = "slack", ws = 9, mon = MON2, class = "slack", unit = "slack", settle = 1000 },
+	{ id = "signal", ws = 9, mon = MON2, class = "signal", unit = "signal", settle = 1000 },
+	{ id = "discord", ws = 9, mon = MON2, class = "discord", unit = "discord" },
+	{ id = "easyeffects", ws = 8, mon = MON2, class = "com.github.wwmm.easyeffects", unit = "easyeffects" },
+	{ id = "nvtop", ws = 10, mon = MON2, term = "nvtop", settle = 500 },
+	{ id = "jtail", ws = 10, mon = MON2, term = "jtail", settle = 500 },
+}
+
+-- Tiled workspaces rebuilt at the end (on the first task's workspace), in this order; then
+-- `resize` runs.
+local layouts = {
+	{ "steam", "heroic" },
+	-- slack on the left, signal over discord on the right
+	{ "slack", "signal", "discord" },
+	-- htop on the left, nvtop over jtail on the right
 	{
-		id = "heroic",
-		after = "steam",
-		ws = 5,
-		mon = MON1,
-		class = "heroic",
-		cmd = "systemctl --user start heroic.service",
-	},
-	-- Workspace 9: slack on the left, signal over discord on the right.
-	{
-		id = "slack",
-		after_launch = "heroic",
-		ws = 9,
-		mon = MON2,
-		class = "slack",
-		cmd = "systemctl --user start slack.service",
-		settle = 1000,
-	},
-	{
-		id = "signal",
-		after = "slack",
-		ws = 9,
-		mon = MON2,
-		class = "signal",
-		cmd = "systemctl --user start signal.service",
-		settle = 1000,
-	},
-	{
-		id = "discord",
-		after = "signal",
-		ws = 9,
-		mon = MON2,
-		class = "discord",
-		split = "signal",
-		cmd = "systemctl --user start discord.service",
-	},
-	{
-		id = "easyeffects",
-		after_launch = "discord",
-		ws = 8,
-		mon = MON2,
-		class = "com.github.wwmm.easyeffects",
-		cmd = "systemctl --user start easyeffects.service",
-	},
-	-- Workspace 10: htop on the left, nvtop over jtail on the right.
-	{
-		id = "rhtop",
-		after_finish = "discord",
-		ws = 10,
-		mon = MON2,
-		term = "rhtop",
-		hold = true,
-		settle = 500,
-	},
-	{
-		id = "nvtop",
-		after = "rhtop",
-		split = "rhtop",
-		ws = 10,
-		mon = MON2,
-		term = "nvtop",
-		settle = 500,
-	},
-	{
-		id = "jtail",
-		after = "nvtop",
-		split = "nvtop",
-		ws = 10,
-		mon = MON2,
-		term = "jtail",
-		settle = 500,
-		on_done = function()
+		"rhtop",
+		"nvtop",
+		"jtail",
+		resize = function()
 			resize("rhtop", 1505, 1400)
 			resize("nvtop", 1047, 997)
 		end,
@@ -165,6 +100,15 @@ local tasks = {
 
 -- Workspaces to show at the end, in order (the last one ends up focused).
 local finish_on = { 10, 1 }
+
+local GATE = tasks[1]
+-- The polkit agent's dialog.
+local PROMPT = { class = "hyprpolkitagent", title = "Authentication Required" }
+-- How long after the gate's window is up to wait for a dialog before deciding none is coming.
+local PROMPT_WAIT_MS = 5000
+
+-- Where a layout's windows wait while their workspace is rebuilt.
+local STASH = "special:startup"
 
 local DEFAULT_TIMEOUT = 90
 local TICK_MS = 250
@@ -178,9 +122,10 @@ for _, t in ipairs(tasks) do
 	by_id[t.id] = t
 	local match
 	if t.term then
-		t.class, t.title, t.cmd = GHOSTTY, t.term, term_cmd(t.term, t.hold)
+		t.class, t.title, t.cmd = GHOSTTY, t.term, term_cmd(t.term)
 		match = { class = exact(t.class), initial_title = exact(t.title) }
 	else
+		t.cmd = "systemctl --user start " .. t.unit .. ".service"
 		match = { class = exact(t.class) }
 	end
 	t.rule = hl.window_rule({
@@ -192,7 +137,7 @@ for _, t in ipairs(tasks) do
 	})
 end
 
----@type { timer: HL.Timer, note: HL.Notification, state: table<string, table> }|nil
+---@type { timer: HL.Timer, note: HL.Notification, state: table<string, table>, gated: boolean, prompted: boolean }|nil
 local run = nil
 
 -- os.time() only has whole seconds, so time is counted in timer ticks.
@@ -225,12 +170,20 @@ local function count(t)
 	return n
 end
 
+local function prompt_open()
+	for _, w in ipairs(hl.get_windows()) do
+		if w.class == PROMPT.class and w.title == PROMPT.title then
+			return true
+		end
+	end
+	return false
+end
+
 local marks = {
 	waiting = "·",
 	launching = "…",
 	settling = "…",
 	done = "✓",
-	skipped = "↷",
 	failed = "✗",
 }
 
@@ -243,22 +196,7 @@ local function render(state)
 	return table.concat(lines, "\n")
 end
 
-local finished = { done = true, skipped = true, failed = true }
-
--- "go", "skip", or nil to keep waiting.
-local function ready(t, state)
-	local dep = t.after and state[t.after]
-	if dep and (dep.status == "failed" or dep.status == "skipped") then
-		return "skip"
-	elseif dep and dep.status ~= "done" then
-		return nil
-	elseif t.after_launch and state[t.after_launch].status == "waiting" then
-		return nil
-	elseif t.after_finish and not finished[state[t.after_finish].status] then
-		return nil
-	end
-	return "go"
-end
+local pending = { waiting = true, launching = true, settling = true }
 
 local function set_rules(on)
 	for _, t in ipairs(tasks) do
@@ -272,12 +210,74 @@ local function stop(text, color)
 	end
 	run.timer:set_enabled(false)
 	set_rules(false)
-	hl.exec_cmd("rm -f " .. HOLD)
 	if run.note:is_alive() then
 		run.note:dismiss()
 	end
 	hl.notification.create({ text = text, timeout = 4000, icon = 0, color = color })
 	run = nil
+end
+
+-- Marks the task done if its window is already open, otherwise returns its command.
+local function launch(t, s)
+	if count(t) > 0 then
+		s.status, s.note, s.since = "done", "already open", now_ms()
+		return nil
+	end
+	s.status, s.since = "launching", now_ms()
+	return t.cmd
+end
+
+-- Everything after the gate. The service starts go in one shell, one after another, so
+-- their PIDs follow the list; the terminals don't need ordering.
+local function launch_rest(state)
+	local units = {}
+	for _, t in ipairs(tasks) do
+		if t ~= GATE then
+			local cmd = launch(t, state[t.id])
+			if cmd and t.unit then
+				units[#units + 1] = cmd
+			elseif cmd then
+				hl.exec_cmd(cmd)
+			end
+		end
+	end
+	if #units > 0 then
+		hl.exec_cmd(table.concat(units, "; "))
+	end
+end
+
+-- Dwindle splits the focused window, and follow_mouse can refocus whatever is under the
+-- pointer, so the window gets focus and the pointer is parked on it.
+local function point_at(win)
+	hl.dispatch(hl.dsp.focus({ window = win }))
+	hl.dispatch(hl.dsp.cursor.move({ x = win.at.x + win.size.x / 2, y = win.at.y + win.size.y / 2 }))
+end
+
+local function rebuild(layout)
+	local first = by_id[layout[1]]
+	local present = {}
+	for _, id in ipairs(layout) do
+		if M.find(id) then
+			present[#present + 1] = id
+		end
+	end
+	if #present > 1 then
+		for _, id in ipairs(present) do
+			hl.dispatch(hl.dsp.window.move({ workspace = STASH, follow = false, window = M.find(id) }))
+		end
+		-- focusing the monitor first means a workspace that doesn't exist yet is made there
+		hl.dispatch(hl.dsp.focus({ monitor = first.mon }))
+		hl.dispatch(hl.dsp.focus({ workspace = first.ws }))
+		for i, id in ipairs(present) do
+			if i > 1 then
+				point_at(M.find(present[i - 1]))
+			end
+			hl.dispatch(hl.dsp.window.move({ workspace = first.ws, follow = false, window = M.find(id) }))
+		end
+	end
+	if layout.resize then
+		layout.resize()
+	end
 end
 
 -- Apps that open in the background mark themselves urgent; visiting each window clears
@@ -295,14 +295,16 @@ local function clear_urgent()
 end
 
 local function finish(state)
+	for _, layout in ipairs(layouts) do
+		rebuild(layout)
+	end
 	clear_urgent()
 	for _, ws in ipairs(finish_on) do
 		hl.dispatch(hl.dsp.focus({ workspace = ws }))
 	end
 	local failed = {}
 	for _, t in ipairs(tasks) do
-		local status = state[t.id].status
-		if status == "failed" or status == "skipped" then
+		if state[t.id].status == "failed" then
 			failed[#failed + 1] = t.id
 		end
 	end
@@ -313,6 +315,48 @@ local function finish(state)
 	end
 end
 
+-- Moves a launched task along as its window(s) appear and settle.
+local function advance(t, s, t_now)
+	if s.status == "launching" then
+		local n = count(t)
+		if n > 0 then
+			s.status, s.seen, s.since = "settling", n, t_now
+		elseif t_now - s.since > (t.timeout or DEFAULT_TIMEOUT) * 1000 then
+			s.status, s.note, s.since = "failed", "timed out", t_now
+		end
+	elseif s.status == "settling" then
+		local n = count(t)
+		if n == 0 then
+			-- the window closed again before settling; keep waiting (timeout restarts)
+			s.status, s.since = "launching", t_now
+		elseif n > s.seen then
+			s.seen, s.since = n, t_now
+		elseif t_now - s.since >= (t.settle or 0) then
+			s.status, s.since = "done", t_now
+		end
+	end
+end
+
+-- Lets the rest go once the gate's prompt has come and gone, or never showed up.
+local function check_gate(r, t_now)
+	local g = r.state[GATE.id]
+	if prompt_open() then
+		r.prompted = true
+		g.note = "waiting for password"
+		return false
+	end
+	if pending[g.status] and not r.prompted then
+		return false
+	end
+	if not r.prompted and g.status == "done" and g.note ~= "already open" and t_now - g.since < PROMPT_WAIT_MS then
+		return false
+	end
+	if g.note == "waiting for password" then
+		g.note = nil
+	end
+	return true
+end
+
 local function tick()
 	if not run then
 		return
@@ -320,64 +364,30 @@ local function tick()
 	local state = run.state
 	ticks = ticks + 1
 	local t_now = now_ms()
-	local changed, all_done = false, true
 
+	local before = render(state)
 	for _, t in ipairs(tasks) do
-		local s = state[t.id]
-		local prev = s.status
+		advance(t, state[t.id], t_now)
+	end
+	if not run.gated and check_gate(run, t_now) then
+		run.gated = true
+		launch_rest(state)
+	end
 
-		if s.status == "waiting" then
-			local r = ready(t, state)
-			if r == "skip" then
-				s.status, s.note = "skipped", t.after .. " missing"
-			elseif r == "go" then
-				if count(t) > 0 then
-					s.status, s.note = "done", "already open"
-				else
-					local target = t.split and M.find(t.split)
-					if target then
-						hl.dispatch(hl.dsp.focus({ window = target }))
-						hl.dispatch(hl.dsp.cursor.move({
-							x = target.at.x + target.size.x / 2,
-							y = target.at.y + target.size.y / 2,
-						}))
-					end
-					hl.exec_cmd(t.cmd)
-					s.status, s.since = "launching", t_now
-				end
-			end
-		elseif s.status == "launching" then
-			local n = count(t)
-			if n > 0 then
-				s.status, s.seen, s.since = "settling", n, t_now
-			elseif t_now - s.since > (t.timeout or DEFAULT_TIMEOUT) * 1000 then
-				s.status, s.note = "failed", "timed out"
-			end
-		elseif s.status == "settling" then
-			local n = count(t)
-			if n == 0 then
-				-- the window closed again before settling; keep waiting (timeout restarts)
-				s.status, s.since = "launching", t_now
-			elseif n > s.seen then
-				s.seen, s.since = n, t_now
-			elseif t_now - s.since >= (t.settle or 0) then
-				s.status = "done"
-				if t.on_done then
-					t.on_done()
-				end
-			end
-		end
-
-		changed = changed or s.status ~= prev
-		if s.status == "waiting" or s.status == "launching" or s.status == "settling" then
+	local all_done = run.gated
+	for _, t in ipairs(tasks) do
+		if pending[state[t.id].status] then
 			all_done = false
 		end
 	end
 
 	if all_done then
 		finish(state)
-	elseif changed and run.note:is_alive() then
-		run.note:set_text(render(state))
+	elseif run.note:is_alive() then
+		local text = render(state)
+		if text ~= before then
+			run.note:set_text(text)
+		end
 	end
 end
 
@@ -393,9 +403,14 @@ function M.toggle()
 		state[t.id] = { status = "waiting" }
 	end
 	set_rules(true)
-	hl.exec_cmd("touch " .. HOLD)
+	local cmd = launch(GATE, state[GATE.id])
+	if cmd then
+		hl.exec_cmd(cmd)
+	end
 	run = {
 		state = state,
+		gated = false,
+		prompted = false,
 		note = hl.notification.create({ text = render(state), timeout = 600000, icon = 0, color = "rgba(33ccffee)" }),
 		timer = hl.timer(tick, { timeout = TICK_MS, type = "repeat" }),
 	}

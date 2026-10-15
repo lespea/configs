@@ -9,8 +9,9 @@
 --
 -- A run goes:
 --   1. rhtop opens first. Its run0 pops a polkit dialog on the focused workspace, and the
---      rest waits for that to be answered (or cancelled), however long it takes, so nothing
---      opens or grabs focus while you type the password.
+--      rest waits until that dialog closes, so nothing opens or grabs focus while you type
+--      the password. That's not indefinite: PID1 gives up on polkit after its 25s D-Bus
+--      timeout, closing the dialog and leaving rhtop at a fish prompt.
 --   2. Everything else launches at once. The services are started one after another in list
 --      order; that's quick (the units are Type=exec, so up once exec'd) and keeps their PIDs,
 --      and so htop's tree, in this order.
@@ -24,6 +25,8 @@
 -- prompt like running it by hand does.
 
 local M = {}
+
+local find -- (id) -> the task's window, if open; defined below
 
 local MON1, MON2 = "DP-1", "DP-2"
 
@@ -51,7 +54,7 @@ end
 -- Exact size, in the logical pixels `hyprctl clients` reports. In dwindle this moves the
 -- split(s) next to the window.
 local function resize(id, w, h)
-	local win = M.find(id)
+	local win = find(id)
 	if win then
 		hl.dispatch(hl.dsp.window.resize({ x = w, y = h, window = win }))
 	end
@@ -151,7 +154,7 @@ local function matches(t, w)
 	return w.class == t.class and (not t.title or (w.title == t.title and not w.floating))
 end
 
-function M.find(id)
+function find(id)
 	local t = by_id[id]
 	for _, w in ipairs(hl.get_windows()) do
 		if matches(t, w) then
@@ -257,22 +260,22 @@ local function rebuild(layout)
 	local first = by_id[layout[1]]
 	local present = {}
 	for _, id in ipairs(layout) do
-		if M.find(id) then
+		if find(id) then
 			present[#present + 1] = id
 		end
 	end
 	if #present > 1 then
 		for _, id in ipairs(present) do
-			hl.dispatch(hl.dsp.window.move({ workspace = STASH, follow = false, window = M.find(id) }))
+			hl.dispatch(hl.dsp.window.move({ workspace = STASH, follow = false, window = find(id) }))
 		end
 		-- focusing the monitor first means a workspace that doesn't exist yet is made there
 		hl.dispatch(hl.dsp.focus({ monitor = first.mon }))
 		hl.dispatch(hl.dsp.focus({ workspace = first.ws }))
 		for i, id in ipairs(present) do
 			if i > 1 then
-				point_at(M.find(present[i - 1]))
+				point_at(find(present[i - 1]))
 			end
-			hl.dispatch(hl.dsp.window.move({ workspace = first.ws, follow = false, window = M.find(id) }))
+			hl.dispatch(hl.dsp.window.move({ workspace = first.ws, follow = false, window = find(id) }))
 		end
 	end
 	if layout.resize then
@@ -337,24 +340,20 @@ local function advance(t, s, t_now)
 	end
 end
 
--- Lets the rest go once the gate's prompt has come and gone, or never showed up.
+-- Lets the rest go once the gate's prompt has come and gone. With no prompt, it goes once the
+-- gate was already open, failed, or showed no prompt within PROMPT_WAIT_MS of its window.
 local function check_gate(r, t_now)
 	local g = r.state[GATE.id]
 	if prompt_open() then
-		r.prompted = true
-		g.note = "waiting for password"
+		r.prompted, g.note = true, "waiting for password"
 		return false
-	end
-	if pending[g.status] and not r.prompted then
-		return false
-	end
-	if not r.prompted and g.status == "done" and g.note ~= "already open" and t_now - g.since < PROMPT_WAIT_MS then
-		return false
-	end
-	if g.note == "waiting for password" then
+	elseif r.prompted then
 		g.note = nil
+		return true
+	elseif pending[g.status] then
+		return false
 	end
-	return true
+	return g.status == "failed" or g.note == "already open" or t_now - g.since >= PROMPT_WAIT_MS
 end
 
 local function tick()

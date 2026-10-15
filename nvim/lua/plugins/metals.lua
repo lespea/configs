@@ -18,6 +18,10 @@ return {
 			showImplicitConversionsAndClasses = true,
 		}
 
+		if vim.fn.has("mac") == 1 then
+			metals_config.settings.serverProperties = { "-Dmetals.macos-max-watch-roots=4096" }
+		end
+
 		metals_config.capabilities = require("blink.cmp").get_lsp_capabilities({}, true)
 
 		return metals_config

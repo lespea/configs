@@ -401,7 +401,9 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
     ]
 
     nix_pkgs = [
-        PkgInfo("atuin", use_defaults=False, features=["client", "daemon"]),
+        PkgInfo(
+            "atuin", use_defaults=False, features=["client", "daemon"], locked=True
+        ),
         PkgInfo("bandwhich"),
         PkgInfo("bottom"),
         PkgInfo("gitui", locked=True),

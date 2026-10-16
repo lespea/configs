@@ -77,9 +77,10 @@ java = "temurin-27"
 "npm:vscode-langservers-extracted" = "latest"
 
 # Python tools
-"pypi:codespell" = "latest"
-"pypi:httpie"    = "latest"
-"pypi:ipython"   = "latest"
+"pypi:codespell"  = "latest"
+"pypi:httpie"     = "latest"
+"pypi:ipython"    = "latest"
+"pypi:markitdown" = "latest"
 
 [settings]
 disable_hints = ["*"]

@@ -265,6 +265,10 @@ return {
 				return false
 			end
 
+			-- Grab the stock agent prompt before setup() replaces it with our wrapper below
+			local default_agent_prompt =
+				require("codecompanion.config").interactions.chat.tools.groups["agent"].system_prompt
+
 			require("codecompanion").setup({
 				ignore_warnings = true,
 				interactions = {
@@ -297,6 +301,10 @@ When in doubt, require approval. Reply only through the provided schema.]],
 						},
 					},
 					chat = {
+						adapter = {
+							name = "copilot",
+							model = "claude-opus-5.5",
+						},
 						tools = {
 							opts = {
 								-- Load the full agent toolset in every new chat automatically
@@ -306,8 +314,7 @@ When in doubt, require approval. Reply only through the provided schema.]],
 								-- Extend the agent group's system prompt with our tool-usage rules
 								["agent"] = {
 									system_prompt = function(group, ctx)
-										local default = group.default_system_prompt
-											or require("codecompanion.config").interactions.chat.tools.groups["agent"].system_prompt
+										local default = default_agent_prompt
 										return (type(default) == "function" and default(group, ctx) or default or "")
 											.. [[
 <toolRules>
@@ -320,34 +327,6 @@ When in doubt, require approval. Reply only through the provided schema.]],
 									end,
 								},
 							},
-						},
-					},
-				},
-				memory = {
-					default = {
-						description = "Collection of common files for all projects",
-						files = {
-							".clinerules",
-							".cursorrules",
-							".goosehints",
-							".rules",
-							".windsurfrules",
-							".github/copilot-instructions.md",
-							"AGENT.md",
-							"AGENTS.md",
-							{ path = "CLAUDE.md", parser = "claude" },
-							{ path = "CLAUDE.local.md", parser = "claude" },
-							{ path = "~/.claude/CLAUDE.md", parser = "claude" },
-						},
-					},
-				},
-				strategies = {
-					chat = {
-						adapter = {
-							name = "copilot",
-							model = "claude-sonnet-5",
-						},
-						tools = {
 							-- No filepath arg; workspace-scoped reads — never prompt
 							["grep_search"] = { opts = { require_approval_before = false } },
 							["file_search"] = { opts = { require_approval_before = false } },
@@ -359,7 +338,7 @@ When in doubt, require approval. Reply only through the provided schema.]],
 							["read_file"] = { opts = { require_approval_before = outside_cwd_or_sensitive } },
 							["create_file"] = { opts = { require_approval_before = outside_cwd_or_sensitive } },
 							["delete_file"] = { opts = { require_approval_before = outside_cwd_or_sensitive } },
-							["insert_edit_into_file"] = {
+							["edit_file"] = {
 								opts = {
 									require_approval_before = outside_cwd_or_sensitive,
 									require_confirmation_after = false, -- git handles this
@@ -372,15 +351,13 @@ When in doubt, require approval. Reply only through the provided schema.]],
 							-- requires_hard_confirmation, regardless of what the judge decides.
 							["run_command"] = {
 								opts = {
-									allowed_in_yolo_mode = true,
-									judge_in_yolo_mode = true,
+									protect = false,
+									judge = true,
 									require_approval_before = requires_hard_confirmation,
 								},
 							},
 						},
 					},
-					inline = { adapter = "copilot" },
-					agent = { adapter = "copilot" },
 				},
 			})
 		end,

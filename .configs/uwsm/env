@@ -48,17 +48,18 @@ export MESA_SHADER_CACHE_MAX_SIZE=12G
 # ---------------------------------------------------------
 # Gaming, Proton & Wine
 # ---------------------------------------------------------
-export USE_POINTER_VIEWPORT=1
 export FSR4_UPGRADE=1
-export PROTON_FSR4_UPGRADE=1
 export PROTON_ENABLE_WAYLAND=1
+export PROTON_FSR4_UPGRADE=1
 export PROTON_NO_WM_DECORATION=1
 export PROTON_PREFER_SDL=1
 export PROTON_PREFER_SDL_INPUT=1
+export PROTON_SONY_AUTO_XINPUT=0
 export PROTON_USE_WOW64=1
 export PROTON_USE_XALIA=0
 export STEAM_DECK=0
 export SteamDeck=0
+export USE_POINTER_VIEWPORT=1
 
 # Disabled as it's set specifically for games now
 #export WINE_CPU_TOPOLOGY="8:0,1,2,3,4,5,6,7"

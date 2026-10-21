@@ -16,6 +16,17 @@ return {
 			showInferredType = true,
 			superMethodLensesEnabled = true,
 			showImplicitConversionsAndClasses = true,
+			defaultBspToBuildTool = true, -- Use the build tool's BSP server (e.g. sbt) instead of Bloop
+			autoImportBuild = "initial",
+			excludedPackages = { "org.apache.pekko.actor.typed.javadsl" },
+			-- Hints are toggled globally via the LspAttach <C-i> mapping in lsp.lua
+			inlayHints = {
+				inferredTypes = { enable = true },
+				implicitArguments = { enable = true },
+				implicitConversions = { enable = true },
+				typeParameters = { enable = true },
+				hintsInPatternMatch = { enable = true },
+			},
 		}
 
 		if vim.fn.has("mac") == 1 then

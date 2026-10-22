@@ -13,11 +13,10 @@
 "aqua:rust-lang/rust-analyzer" = "latest"
 "aqua:skaji/relocatable-perl"  = "latest"
 "aqua:tamasfe/taplo"           = "latest"
-"github:coursier/coursier"     = "latest"
 "github:dazld/r11y"            = "latest"
 "github:sbt/sbt"               = "2.0"
+"github:scalameta/scalafmt"    = "latest"
 "github:skim-rs/skim"          = "latest"
-"vfox:mise-plugins/vfox-scala" = "latest"
 
 # Simple
 age        = "latest"

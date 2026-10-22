@@ -17,7 +17,9 @@ return {
 			superMethodLensesEnabled = true,
 			showImplicitConversionsAndClasses = true,
 			defaultBspToBuildTool = true, -- Use the build tool's BSP server (e.g. sbt) instead of Bloop
-			autoImportBuild = "initial",
+			automaticImportBuild = "initial",
+			startMcpServer = true, -- Expose MCP so Claude Code can use this instance (writes .metals/mcp.json)
+			mcpClient = "claude",
 			excludedPackages = { "org.apache.pekko.actor.typed.javadsl" },
 			-- Hints are toggled globally via the LspAttach <C-i> mapping in lsp.lua
 			inlayHints = {

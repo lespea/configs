@@ -7,7 +7,7 @@
 "aqua:astral-sh/uv"            = "latest"
 "aqua:dathere/qsv"             = "latest"
 "aqua:dprint/dprint"           = "latest"
-"aqua:duckdb/duckdb"           = "latest"
+"aqua:duckdb/duckdb"           = "1"
 "aqua:gradle/gradle"           = "latest"
 "aqua:pnpm/pnpm"               = "latest"
 "aqua:rust-lang/rust-analyzer" = "latest"

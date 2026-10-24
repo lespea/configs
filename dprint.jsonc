@@ -34,10 +34,10 @@
     ]
   },
   "excludes": [
-    // written by DankMaterialShell itself
+    // written by DMS (Dux Shell) itself
     ".configs/alacritty/dank-theme.toml",
-    ".configs/DankMaterialShell/settings.json",
-    ".configs/DankMaterialShell/clsettings.json"
+    ".configs/dms/settings.json",
+    ".configs/dms/clsettings.json"
   ],
   "plugins": [
     "npm:@dprint/json@0.25.2",

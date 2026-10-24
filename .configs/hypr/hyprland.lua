@@ -72,7 +72,7 @@ hl.config({
 		blur = {
 			enabled = true,
 			size = 6,
-			passes = 3,
+			-- passes = 3, -- managed by dms.layout (DMS blur strength slider)
 			new_optimizations = true,
 			ignore_opacity = true,
 			xray = false,

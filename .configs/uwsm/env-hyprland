@@ -5,6 +5,6 @@ export HYPRCURSOR_THEME=Oxygen_Zion
 export HYPRCURSOR_SIZE=24
 
 # ---------------------------------------------------------
-# Desktop Shell (DankMaterialShell)
+# Desktop Shell (DMS / Dux Shell)
 # ---------------------------------------------------------
 export DMS_DISABLE_CAVA=1

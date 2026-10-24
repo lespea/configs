@@ -53,7 +53,7 @@ BOTH_DIRS="alacritty atuin bat bottom broot btop fish ghostty htop kitty lazygit
 if [[ $(uname) == "Darwin" ]]; then
     CONF_DIRS="$BOTH_DIRS"
 else
-    CONF_DIRS="$BOTH_DIRS cava DankMaterialShell gamemode.ini hypr MangoHud mpd paru picom pipewire sway systemd uwsm waybar wpaperd xdg-desktop-portal"
+    CONF_DIRS="$BOTH_DIRS cava dms gamemode.ini hypr MangoHud mpd paru picom pipewire sway systemd uwsm waybar wpaperd xdg-desktop-portal"
 
     setup_single .Xresources
 fi
@@ -63,3 +63,8 @@ setup_link "${CUR_DIR}/nvim" "${HOME}/.config/nvim"
 for dir in $CONF_DIRS; do
     setup_link "$CUR_DIR/.configs/$dir" "$HOME/.config/$dir"
 done
+
+# DMS 2.0 moved its config dir from DankMaterialShell to dms; keep the old name for pre-2.0 installs
+if [[ $(uname) != "Darwin" ]]; then
+    setup_link dms "$HOME/.config/DankMaterialShell"
+fi

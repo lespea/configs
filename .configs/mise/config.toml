@@ -80,6 +80,7 @@ java = "temurin-27"
 "pypi:httpie"     = "latest"
 "pypi:ipython"    = "latest"
 "pypi:markitdown" = "latest"
+"npm:puppeteer" = "latest"
 
 [settings]
 disable_hints = ["*"]

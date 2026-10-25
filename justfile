@@ -113,7 +113,7 @@ fish-cache: _fish-clean _fish-generate
 [parallel, private]
 _fish-generate: \
     (_init "10" "mise" "env -u __MISE_DIFF -u __MISE_SESSION -u __MISE_ENV_CACHE_KEY PATH=\"${__MISE_ORIG_PATH:-$PATH}\" \"$(command -v mise)\" activate fish") \
-    (_init "20" "fnox" "fnox activate fish | sd '(command )?/[^ ()]*/fnox ' 'command fnox ' | sd 'command fnox hook-env' 'FNOX_SHELL_OUTPUT=none command fnox hook-env' | sd '(?m)^__fnox_env_eval$' ''") \
+    (_init "20" "fnox" "fnox activate fish | sd \"(command )?'?/[^ ()']*/fnox'? \" 'command fnox ' | sd 'command fnox hook-env' 'FNOX_SHELL_OUTPUT=none command fnox hook-env' | sd '(?m)^__fnox_env_eval$' ''") \
     (_init "20" "atuin" "atuin init fish --disable-up-arrow") \
     (_init "20" "zoxide" "zoxide init fish") \
     (_completion "mise" "mise completion fish") \

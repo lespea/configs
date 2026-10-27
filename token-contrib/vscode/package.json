@@ -1,0 +1,67 @@
+{
+  "name": "token-vscode-themes",
+  "displayName": "Token VS Code Themes",
+  "description": "Local VS Code themes generated from the Token colorscheme palette.",
+  "version": "0.0.0",
+  "publisher": "thorstenrhau",
+  "author": {
+    "name": "Thorsten Rhau"
+  },
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "contributes": {
+    "themes": [
+      {
+        "label": "Token Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/token-dark-color-theme.json"
+      },
+      {
+        "label": "Token Light",
+        "uiTheme": "vs",
+        "path": "./themes/token-light-color-theme.json"
+      },
+      {
+        "label": "Token Flint Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/token-flint-dark-color-theme.json"
+      },
+      {
+        "label": "Token Flint Light",
+        "uiTheme": "vs",
+        "path": "./themes/token-flint-light-color-theme.json"
+      },
+      {
+        "label": "Token Temper Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/token-temper-dark-color-theme.json"
+      },
+      {
+        "label": "Token Temper Light",
+        "uiTheme": "vs",
+        "path": "./themes/token-temper-light-color-theme.json"
+      },
+      {
+        "label": "Token Ultra Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/token-ultra-dark-color-theme.json"
+      },
+      {
+        "label": "Token Ultra Light",
+        "uiTheme": "vs",
+        "path": "./themes/token-ultra-light-color-theme.json"
+      },
+      {
+        "label": "Token Meridian Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/token-meridian-dark-color-theme.json"
+      },
+      {
+        "label": "Token Meridian Light",
+        "uiTheme": "vs",
+        "path": "./themes/token-meridian-light-color-theme.json"
+      }
+    ]
+  }
+}

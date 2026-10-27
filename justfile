@@ -156,6 +156,37 @@ _gen dest bin kind cmd:
     mv "$tmp" {{ quote(dest) }}
     echo "wrote {{ dest }}"
 
+# Only touches token-contrib/, so review with `git diff` and then run `just token-apply`
+# Mirror the token colorscheme's generated contrib/ into token-contrib/ (TOKEN_DIR overrides the ~/opt/token checkout)
+sync-token:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    src="${TOKEN_DIR:-$HOME/opt/token}/contrib"
+    [[ -d $src ]] || { echo "no token contrib dir at $src (set TOKEN_DIR)" >&2; exit 1; }
+    rsync -a --delete --itemize-changes "$src/" {{ quote(justfile_directory() / "token-contrib/") }}
+
+# bat, ghostty, and delta read token-contrib/ directly (symlinks/include), but lazygit and ripgrep get the colors
+# merged inline, bat needs its cache rebuilt, and fish's colors are universal vars
+# Bring this machine's themes in line with token-contrib/ (run after `just sync-token` or a pull)
+token-apply:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    cd {{ quote(justfile_directory()) }}
+    name=token-meridian-dark
+
+    SRC="token-contrib/lazygit/$name.yml" yq -i '.gui.theme = load(strenv(SRC)).gui.theme' .configs/lazygit/config.yml
+    echo "merged $name into .configs/lazygit/config.yml"
+    # Strip trailing blank lines so the rewrite doesn't grow a gap on every run
+    trim() { cat -s | sed -e :a -e '/^\n*$/{$d;N;ba' -e '}'; }
+    tmp=$(mktemp)
+    trap 'rm -f "$tmp"' EXIT
+    { rg -v '^--colors=' .ripgreprc | trim; echo; rg -v '^#' "token-contrib/ripgrep/$name.ripgreprc" | trim; } > "$tmp"
+    cat "$tmp" > .ripgreprc
+    echo "merged $name into .ripgreprc"
+
+    if command -v bat >/dev/null; then bat cache --build >/dev/null && echo "rebuilt bat cache"; fi
+    if command -v fish >/dev/null; then fish .configs/fish/theme.fish && echo "set fish universal colors"; fi
+
 # Apply global git settings (`just git --help` for options)
 [positional-arguments]
 git *args:

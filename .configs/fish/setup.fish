@@ -102,21 +102,7 @@ set -U fish_transient_prompt 1
 
 ## Theme
 
-# Persist the dark variant of themes/token.theme as universal colors; skips the per-startup `fish_config theme choose`
-set -l theme_file (status dirname)/themes/token.theme
-set -l theme_section
-while read -l line
-    switch $line
-        case '' '#*'
-            continue
-        case '[*]'
-            set theme_section $line
-        case '*'
-            test "$theme_section" = '[dark]'; or continue
-            set -l kv (string split -m 1 ' ' -- $line)
-            set -U -- $kv[1] (string split ' ' -- $kv[2])
-    end
-end <$theme_file
+source (status dirname)/theme.fish
 
 if set -q IS_ARCH
     alias -s icat 'kitty +kitten icat'

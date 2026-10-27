@@ -81,6 +81,7 @@ java = "temurin-27"
 "pypi:ipython"    = "latest"
 "pypi:markitdown" = "latest"
 "npm:puppeteer" = "latest"
+"npm:@mermaid-js/mermaid-cli" = "latest"
 
 [settings]
 disable_hints = ["*"]

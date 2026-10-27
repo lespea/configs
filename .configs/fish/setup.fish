@@ -30,7 +30,6 @@ alias -s mv 'coreutils mv -g'
 alias -s p pnpm
 alias -s rga 'rg -M0'
 alias -s rgq 'rg --no-filename --no-heading -N -M0'
-alias -s sbt sbtn
 alias -s vim nvim
 alias -s xsv qsv
 

@@ -20,7 +20,7 @@ theme = token-meridian-dark
 
 background-opacity = 0.96
 
-copy-on-select   = clipboard
+copy-on-select = both
 
 shell-integration-features = no-cursor,sudo,title,no-ssh-env,no-ssh-terminfo
 

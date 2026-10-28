@@ -38,7 +38,7 @@ hl.config({
 
 	cursor = {
 		warp_on_change_workspace = false,
-		inactive_timeout = 30,
+		inactive_timeout = 20, -- max allowed
 		enable_hyprcursor = true,
 	},
 
@@ -81,7 +81,7 @@ hl.config({
 		shadow = {
 			enabled = true,
 			range = 30,
-			render_power = 5,
+			render_power = 3,
 			offset = { 0, 5 },
 			color = "rgba(00000070)",
 		},
@@ -132,6 +132,7 @@ hl.config({
 		enable_anr_dialog = false,
 		-- vrr = 3, -- no effect: per-monitor vrr = 1 in dms.outputs overrides it (VRR always on)
 		render_unfocused_fps = 60,
+		bell_sound = "none", -- still emits the socket2/lua bell event, just no sound
 	},
 
 	render = {

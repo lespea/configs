@@ -179,6 +179,7 @@ return {
 		local codeSpinner = require("lualine.component"):extend()
 
 		local spinner_symbols = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+		local spinner_frame_ms = 120 -- time per frame; raise to slow the spinner down
 
 		function codeSpinner:init(options)
 			codeSpinner.super.init(self, options)
@@ -196,7 +197,7 @@ return {
 						if not self.timer:is_active() then
 							self.timer:start(
 								0,
-								100,
+								spinner_frame_ms,
 								vim.schedule_wrap(function()
 									require("lualine").refresh()
 								end)
@@ -215,8 +216,9 @@ return {
 
 		function codeSpinner:update_status()
 			if self.active_requests > 0 then
-				self.spinner_index = (self.spinner_index % #spinner_symbols) + 1
-				return spinner_symbols[self.spinner_index]
+				-- derive frame from wall-clock time so extra lualine refreshes don't speed it up
+				local frame = math.floor(vim.uv.now() / spinner_frame_ms) % #spinner_symbols
+				return spinner_symbols[frame + 1]
 			end
 		end
 

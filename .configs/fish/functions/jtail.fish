@@ -1,33 +1,37 @@
 function jtail --wraps=journalctl --description 'Follow the journal, minus repetitive noise'
     # Message-level patterns only; everything else from these sources still shows
     set -l noise \
-        'unimplemented action=\.' \
-        'adjusting page capacity' \
         "Failed to realize renderer 'GskVulkanRenderer'" \
-        'loaded OpenGL \d' \
+        '(Processing|Building) theme: hex|Setting desired theme - hex mode' \
+        '(Running|with) matugen|Matugen worker completed' \
+        '^(Elapsed time|Transferred|Transferring|Checks):' \
+        'adjusting page capacity' \
+        app-ghostty-surface-transient \
+        'Binding loop detected for property "workspaceList"' \
+        'CSI \w+ with (unimplemented|intermediate)' \
+        'Duplicate object found in source' \
+        'error occurred in Get' \
         'found Ghostty resources dir' \
+        'health_status=healthy' \
+        'InputWatcher\] Silence' \
+        'loaded OpenGL \d' \
+        'OSC \d+ host \(.*\) must be local' \
+        'Possible clipping detected' \
+        'print\(\) on closed filehandle' \
+        'pty fd closed, read thread exiting' \
+        'QWaylandTextInputv3::disableSurface' \
+        'radv is not a conformant Vulkan implementation' \
+        'removing destroyed snapshots from cache' \
+        RTCControlSocket \
         'shell integration automatically injected' \
         'started subcommand path=' \
-        'pty fd closed, read thread exiting' \
-        'surface closed addr=' \
-        'CSI \w+ with (unimplemented|intermediate)' \
-        'radv is not a conformant Vulkan implementation' \
-        'OSC \d+ host \(.*\) must be local' \
+        StatusNotifierItem \
         'Successfully (made|demoted) thread \d+ of process' \
-        'app-ghostty-surface-transient' \
-        'Binding loop detected for property "workspaceList"' \
+        'surface closed addr=' \
+        'Theme generation completed|No color changes detected, skipping refresh' \
+        'unimplemented action=\.' \
         'WorkspaceSwitcherModel\.qml' \
-        'StatusNotifierItem' \
-        'error occurred in Get' \
-        'RTCControlSocket' \
-        'InputWatcher\] Silence' \
-        'zwp_linux_dmabuf_v\d+: Got format' \
-        'Possible clipping detected' \
-        'removing destroyed snapshots from cache' \
-        'print\(\) on closed filehandle' \
-        'health_status=healthy' \
-        '^(Elapsed time|Transferred|Transferring|Checks):' \
-        'Duplicate object found in source'
+        'zwp_linux_dmabuf_v\d+: Got format'
 
     set -l cmd journalctl -n0 -f -p info -g "^(?!.*("(string join '|' $noise)"))" $argv
 

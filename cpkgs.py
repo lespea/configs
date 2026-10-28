@@ -393,6 +393,7 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("smartedit-cli"),
         PkgInfo("splog"),
         PkgInfo("stylua"),
+        PkgInfo("tailspin"),
         PkgInfo("tokei", features=["all"]),
         PkgInfo("trippy"),
         PkgInfo("vivid"),

@@ -218,6 +218,7 @@ return {
 				end
 			end,
 			persist_size = true,
+			auto_scroll = false, -- don't jump to bottom on output while reading scrollback
 			shell = "fish", -- nvim's 'shell' is bash; keep terminals on fish
 			on_close = function()
 				events.fire_event(events.GIT_EVENT)

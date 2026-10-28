@@ -400,8 +400,11 @@ end)
 -- Stop on button release no matter which modifiers are still held (letting go of SUPER first
 -- would otherwise skip the release bind and leave us transmitting). non_consuming keeps plain
 -- back/forward clicks working; mumble_stop is a no-op unless one of the binds above is active.
+-- transparent: since 0.57, once the SUPER+button press is consumed (or a key is released while
+-- the button is held) Hyprland shadows this release bind and it never fires; transparent binds
+-- are exempt from shadowing.
 for _, button in ipairs({ "mouse:275", "mouse:276" }) do
-	hl.bind(button, mumble_stop, { release = true, ignore_mods = true, non_consuming = true })
+	hl.bind(button, mumble_stop, { release = true, ignore_mods = true, non_consuming = true, transparent = true })
 end
 
 -- Dedicated Media Control Keys (works when locked)

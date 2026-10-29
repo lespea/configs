@@ -6,6 +6,10 @@ After=graphical-session.target dbus.service
 [Service]
 Type=exec
 KillMode=mixed
+# Rift's bundled JBR queries Wayland per-monitor scales when WAYLAND_DISPLAY is set and
+# gets them inconsistent under XWayland (force_zero_scaling); without it scale is uniform
+# and Rift's in-app UI scale applies evenly. Rift still runs via DISPLAY (XWayland).
+UnsetEnvironment=WAYLAND_DISPLAY
 ExecStart=/home/adam/.local/bin/pwrap /usr/bin/rift
 Restart=no
 Slice=app-graphical.slice

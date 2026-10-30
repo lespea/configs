@@ -41,7 +41,7 @@ return {
 			vim.lsp.enable("tailwindcss")
 			vim.lsp.enable("taplo")
 			vim.lsp.enable("templ")
-			vim.lsp.enable("ts_ls")
+			vim.lsp.enable("tsc")
 
 			-- Treat unit files as systemd anywhere (nvim only detects them under systemd dirs)
 			vim.filetype.add({

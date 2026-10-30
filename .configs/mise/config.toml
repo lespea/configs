@@ -17,6 +17,7 @@
 "github:sbt/sbt"               = "2.0"
 "github:scalameta/scalafmt"    = "latest"
 "github:skim-rs/skim"          = "latest"
+"aqua:a-h/templ"               = "latest"
 
 # Simple
 age        = "latest"
@@ -72,7 +73,6 @@ java = "temurin-27"
 "npm:mcp-hub"                      = "latest"
 "npm:prettier"                     = "latest"
 "npm:typescript"                   = "latest"
-"npm:typescript-language-server"   = "latest"
 "npm:vscode-langservers-extracted" = "latest"
 
 # Python tools

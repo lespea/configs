@@ -108,21 +108,22 @@ fish-cache: _fish-clean _fish-generate
     { rg --files-with-matches --null --no-ignore --fixed-strings {{ quote(fish_cache_marker) }} {{ quote(fish_dir / "conf.d") }} {{ quote(fish_dir / "completions") }} || true; } | xargs -0 rm -fv
 
 # mise: run as if from a shell without mise active, otherwise it emits a "deactivate" preamble that bakes in the current PATH
+# fnox, gh: run via `mise x` so a shell whose PATH predates an upgrade still finds the current install
 # fnox: its absolute (versioned) path becomes `command fnox` so upgrades don't break the cache; hook-env reads
 # FNOX_SHELL_OUTPUT at runtime, so it is patched into the cached script instead of set globally
 [parallel, private]
 _fish-generate: \
     (_init "10" "mise" "env -u __MISE_DIFF -u __MISE_SESSION -u __MISE_ENV_CACHE_KEY PATH=\"${__MISE_ORIG_PATH:-$PATH}\" \"$(command -v mise)\" activate fish") \
-    (_init "20" "fnox" "fnox activate fish | sd \"(command )?'?/[^ ()']*/fnox'? \" 'command fnox ' | sd 'command fnox hook-env' 'FNOX_SHELL_OUTPUT=none command fnox hook-env' | sd '(?m)^__fnox_env_eval$' ''") \
+    (_init "20" "fnox" "mise x -- fnox activate fish | sd \"(command )?'?/[^ ()']*/fnox'? \" 'command fnox ' | sd 'command fnox hook-env' 'FNOX_SHELL_OUTPUT=none command fnox hook-env' | sd '(?m)^__fnox_env_eval$' ''") \
     (_init "20" "atuin" "atuin init fish --disable-up-arrow") \
     (_init "20" "zoxide" "zoxide init fish") \
     (_completion "mise" "mise completion fish") \
-    (_completion "fnox" "fnox completion fish") \
+    (_completion "fnox" "mise x -- fnox completion fish") \
     (_completion "bat" "bat --completion fish") \
     (_completion "just" "just --completions fish") \
     (_completion "rg" "rg --generate complete-fish") \
     (_completion "ink" "ink completions fish") \
-    (_completion "gh" "gh completion -s fish") \
+    (_completion "gh" "mise x -- gh completion -s fish") \
     && _os-cache
 
 # macOS only: brew's env has to land before the other init scripts, which expect brew-installed tools on PATH
@@ -140,11 +141,12 @@ _init order bin cmd: (_gen fish_dir / "conf.d" / order + "-" + bin + ".fish" bin
 _completion bin cmd: (_gen fish_dir / "completions" / bin + ".fish" bin "plain" cmd)
 
 # Run `cmd` into `dest` via a temp file so a failing generator never leaves a truncated script; skips missing tools
+# (`mise which` covers mise tools whose PATH entry went stale after an upgrade)
 [private]
 _gen dest bin kind cmd:
     #!/usr/bin/env bash
     set -euo pipefail
-    command -v {{ bin }} >/dev/null || { echo "skip {{ bin }}: not installed"; exit 0; }
+    command -v {{ bin }} >/dev/null || mise which {{ bin }} >/dev/null 2>&1 || { echo "skip {{ bin }}: not installed"; exit 0; }
     mkdir -p {{ quote(parent_directory(dest)) }}
     tmp={{ quote(dest + ".tmp") }}
     trap 'rm -f "$tmp"' EXIT

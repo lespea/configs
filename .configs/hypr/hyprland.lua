@@ -13,6 +13,8 @@
 
 hl.config({
 	xwayland = {
+		-- Tried disabling XWayland (2026-10-31): RIFT runs native Wayland now, but the Steam client has
+		-- no Wayland mode ("Unable to open X11 display, exiting"), so XWayland has to stay on.
 		force_zero_scaling = true,
 		use_nearest_neighbor = false,
 		create_abstract_socket = true,

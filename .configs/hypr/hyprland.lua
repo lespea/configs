@@ -53,8 +53,8 @@ hl.config({
 		-- gaps_out = 0,
 		-- border_size = 0,
 		-- col = {
-		-- 	active_border = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
-		-- 	inactive_border = "rgba(595959aa)",
+		--  active_border = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
+		--  inactive_border = "rgba(595959aa)",
 		-- },
 		-- resize_on_border = true,
 
@@ -139,6 +139,11 @@ hl.config({
 
 	render = {
 		direct_scanout = 2,
+		-- Don't fifo-lock vsync'd frames from render_unfocused windows (games) while their
+		-- workspace is hidden. The default (0 = always) left EVE blocked in present until the
+		-- 60 fps render_unfocused timer freed it, which stalled and then "caught up".
+		-- 0 = always, 1 = ignore_unfocused, 2 = never.
+		not_shown_fifo_lock = 1,
 		cm_enabled = false,
 		cm_auto_hdr = 0,
 	},
@@ -317,7 +322,7 @@ hl.bind(mainMus .. " + Left", hl.dsp.exec_cmd("playerctl previous"))
 hl.bind(mainMus .. " + Right", hl.dsp.exec_cmd("playerctl next"))
 
 -- Toggle confine_pointer for the active window (useful for games)
-hl.bind(mainMus .. " + M", function()
+hl.bind(mainMus .. " + P", function()
 	local w = hl.get_active_window()
 	if not w then
 		return

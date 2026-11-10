@@ -6,7 +6,7 @@
   "globals": {
     "background": "#fbf9f4",
     "foreground": "#28323a",
-    "caret": "#28323a",
+    "caret": "#0048b3",
     "line_highlight": "#eae9e540",
     "selection": "#dedbd3",
     "selection_border": "#dedbd3",
@@ -15,8 +15,8 @@
     "find_highlight": "#eadab6",
     "find_highlight_foreground": "#28323a",
     "gutter_foreground": "#8f8c85",
-    "guide": "#43505c40",
-    "active_guide": "#524b4280",
+    "guide": "#616f7c40",
+    "active_guide": "#6c645b80",
     "accent": "#0048b3"
   },
   "rules": [
@@ -45,6 +45,12 @@
       "font_style": ""
     },
     {
+      "name": "Word operator",
+      "scope": "keyword.operator.word, keyword.operator.logical.python, keyword.operator.expression, keyword.operator.new",
+      "foreground": "#46535f",
+      "font_style": "bold"
+    },
+    {
       "name": "Function definition",
       "scope": "entity.name.function, meta.function.definition entity.name",
       "foreground": "#832882",
@@ -67,6 +73,12 @@
       "scope": "string, punctuation.definition.string",
       "foreground": "#005f2f",
       "font_style": ""
+    },
+    {
+      "name": "Docstring",
+      "scope": "string.quoted.docstring, string.quoted.docstring punctuation.definition.string",
+      "foreground": "#6c645b",
+      "font_style": "italic"
     },
     {
       "name": "Number",
@@ -143,13 +155,13 @@
     {
       "name": "Debug",
       "scope": "keyword.other.debugger",
-      "foreground": "#0048b3",
+      "foreground": "#ae5158",
       "font_style": "bold"
     },
     {
       "name": "Exception",
       "scope": "keyword.control.exception, keyword.control.trycatch",
-      "foreground": "#0048b3",
+      "foreground": "#ae5158",
       "font_style": "bold"
     },
     {
@@ -284,7 +296,7 @@
     {
       "name": "Diff changed",
       "scope": "markup.changed",
-      "foreground": "#926e25",
+      "foreground": "#89661b",
       "font_style": ""
     },
     {
@@ -302,19 +314,19 @@
     {
       "name": "GitGutter changed",
       "scope": "markup.changed.git_gutter",
-      "foreground": "#926e25",
+      "foreground": "#89661b",
       "font_style": ""
     },
     {
       "name": "GitGutter untracked",
       "scope": "markup.untracked.git_gutter",
-      "foreground": "#43505c",
+      "foreground": "#616f7c",
       "font_style": ""
     },
     {
       "name": "GitGutter ignored",
       "scope": "markup.ignored.git_gutter",
-      "foreground": "#43505c",
+      "foreground": "#616f7c",
       "font_style": ""
     }
   ]

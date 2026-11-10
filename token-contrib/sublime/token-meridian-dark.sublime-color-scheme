@@ -6,7 +6,7 @@
   "globals": {
     "background": "#272724",
     "foreground": "#c9c0b1",
-    "caret": "#c9c0b1",
+    "caret": "#e89a49",
     "line_highlight": "#38383540",
     "selection": "#3c3b36",
     "selection_border": "#3c3b36",
@@ -45,6 +45,12 @@
       "font_style": ""
     },
     {
+      "name": "Word operator",
+      "scope": "keyword.operator.word, keyword.operator.logical.python, keyword.operator.expression, keyword.operator.new",
+      "foreground": "#b8aea1",
+      "font_style": "bold"
+    },
+    {
       "name": "Function definition",
       "scope": "entity.name.function, meta.function.definition entity.name",
       "foreground": "#c69de8",
@@ -67,6 +73,12 @@
       "scope": "string, punctuation.definition.string",
       "foreground": "#8cbb62",
       "font_style": ""
+    },
+    {
+      "name": "Docstring",
+      "scope": "string.quoted.docstring, string.quoted.docstring punctuation.definition.string",
+      "foreground": "#a69c91",
+      "font_style": "italic"
     },
     {
       "name": "Number",
@@ -143,13 +155,13 @@
     {
       "name": "Debug",
       "scope": "keyword.other.debugger",
-      "foreground": "#7cc1dc",
+      "foreground": "#dd8384",
       "font_style": "bold"
     },
     {
       "name": "Exception",
       "scope": "keyword.control.exception, keyword.control.trycatch",
-      "foreground": "#7cc1dc",
+      "foreground": "#dd8384",
       "font_style": "bold"
     },
     {

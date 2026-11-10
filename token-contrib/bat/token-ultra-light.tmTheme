@@ -15,13 +15,13 @@
           <key>foreground</key>
           <string>#31312b</string>
           <key>caret</key>
-          <string>#31312b</string>
+          <string>#893517</string>
           <key>lineHighlight</key>
           <string>#eae9e540</string>
           <key>selection</key>
           <string>#dedbd3cc</string>
           <key>activeGuide</key>
-          <string>#514b4420</string>
+          <string>#6b645d20</string>
           <key>findHighlight</key>
           <string>#eadab6</string>
           <key>misspelling</key>
@@ -82,6 +82,19 @@
     </dict>
     <dict>
       <key>name</key>
+      <string>Word operator</string>
+      <key>scope</key>
+      <string>keyword.operator.word, keyword.operator.logical.python, keyword.operator.expression, keyword.operator.new</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#565141</string>
+        <key>fontStyle</key>
+        <string>bold</string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
       <string>Function definition</string>
       <key>scope</key>
       <string>entity.name.function, meta.function.definition entity.name</string>
@@ -130,6 +143,19 @@
         <string>#1a5a53</string>
         <key>fontStyle</key>
         <string></string>
+      </dict>
+    </dict>
+    <dict>
+      <key>name</key>
+      <string>Docstring</string>
+      <key>scope</key>
+      <string>string.quoted.docstring, string.quoted.docstring punctuation.definition.string</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#6b645d</string>
+        <key>fontStyle</key>
+        <string>italic</string>
       </dict>
     </dict>
     <dict>
@@ -283,7 +309,7 @@
       <key>settings</key>
       <dict>
         <key>foreground</key>
-        <string>#6c4800</string>
+        <string>#ae5158</string>
         <key>fontStyle</key>
         <string>bold</string>
       </dict>
@@ -296,7 +322,7 @@
       <key>settings</key>
       <dict>
         <key>foreground</key>
-        <string>#6c4800</string>
+        <string>#ae5158</string>
         <key>fontStyle</key>
         <string>bold</string>
       </dict>
@@ -322,7 +348,7 @@
       <key>settings</key>
       <dict>
         <key>foreground</key>
-        <string>#31312b</string>
+        <string>#7d4d60</string>
         <key>fontStyle</key>
         <string></string>
       </dict>
@@ -550,7 +576,7 @@
       <key>settings</key>
       <dict>
         <key>foreground</key>
-        <string>#514b44</string>
+        <string>#6b645d</string>
         <key>fontStyle</key>
         <string>italic</string>
       </dict>
@@ -589,7 +615,7 @@
       <key>settings</key>
       <dict>
         <key>foreground</key>
-        <string>#926e25</string>
+        <string>#89661b</string>
         <key>fontStyle</key>
         <string></string>
       </dict>
@@ -628,7 +654,7 @@
       <key>settings</key>
       <dict>
         <key>foreground</key>
-        <string>#926e25</string>
+        <string>#89661b</string>
         <key>fontStyle</key>
         <string></string>
       </dict>
@@ -641,7 +667,7 @@
       <key>settings</key>
       <dict>
         <key>foreground</key>
-        <string>#544e44</string>
+        <string>#736c62</string>
         <key>fontStyle</key>
         <string></string>
       </dict>
@@ -654,7 +680,7 @@
       <key>settings</key>
       <dict>
         <key>foreground</key>
-        <string>#544e44</string>
+        <string>#736c62</string>
         <key>fontStyle</key>
         <string></string>
       </dict>

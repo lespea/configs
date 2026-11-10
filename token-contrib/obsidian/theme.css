@@ -58,7 +58,7 @@
   --text-error: #d68585;
   --text-selection: #3a3a37;
   --text-highlight-bg: #4a4030;
-  --caret-color: #c3c0b8;
+  --caret-color: #f4906f;
 
   --link-color: #81a5c4;
   --link-color-hover: #f4906f;
@@ -83,7 +83,7 @@
   --code-important: #d68585;
   --code-keyword: #f7c699;
   --code-operator: #b3aea5;
-  --code-property: #c3c0b8;
+  --code-property: #c293a4;
   --code-punctuation: #a19c94;
   --code-string: #8fb78c;
   --code-tag: #b195ca;
@@ -99,16 +99,16 @@
   --color-base-30: #e6e5e1;
   --color-base-35: #8e8c86;
   --color-base-40: #a8a49c;
-  --color-base-50: #524e46;
-  --color-base-60: #504b44;
+  --color-base-50: #716c64;
+  --color-base-60: #6a655d;
   --color-base-70: #565141;
   --color-base-100: #323128;
   --color-red: #ad5253;
   --color-red-rgb: 173, 82, 83;
   --color-orange: #6d4717;
   --color-orange-rgb: 109, 71, 23;
-  --color-yellow: #857238;
-  --color-yellow-rgb: 133, 114, 56;
+  --color-yellow: #7d6a30;
+  --color-yellow-rgb: 125, 106, 48;
   --color-green: #365a33;
   --color-green-rgb: 54, 90, 51;
   --color-cyan: #185b5b;
@@ -131,7 +131,7 @@
   --background-modifier-hover: #f0efeb;
   --background-modifier-active-hover: #eae9e5;
   --background-modifier-border: #eae9e5;
-  --background-modifier-border-hover: #524e46;
+  --background-modifier-border-hover: #716c64;
   --background-modifier-border-focus: var(--interactive-accent);
   --background-modifier-form-field: #f6f5f1;
 
@@ -139,16 +139,16 @@
   --interactive-hover: #eae9e5;
 
   --text-normal: #323128;
-  --text-muted: #504b44;
-  --text-faint: #524e46;
+  --text-muted: #6a655d;
+  --text-faint: #716c64;
   --text-on-accent: #faf9f5;
   --text-on-accent-inverted: #faf9f5;
   --text-success: #365a33;
-  --text-warning: #857238;
+  --text-warning: #7d6a30;
   --text-error: #ad5253;
   --text-selection: #dddcd6;
   --text-highlight-bg: #e8d8b0;
-  --caret-color: #323128;
+  --caret-color: #863716;
 
   --link-color: #315270;
   --link-color-hover: #863716;
@@ -173,7 +173,7 @@
   --code-important: #ad5253;
   --code-keyword: #6d4717;
   --code-operator: #565141;
-  --code-property: #323128;
+  --code-property: #794f5f;
   --code-punctuation: #6a655d;
   --code-string: #365a33;
   --code-tag: #61457c;

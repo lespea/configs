@@ -4,20 +4,20 @@ t.prefs_.set('color-palette-overrides', [
   '#323128',
   '#ad5253',
   '#365a33',
-  '#857238',
+  '#7d6a30',
   '#315270',
   '#61457c',
   '#185b5b',
   '#8e8c86',
-  '#504b44',
+  '#6a655d',
   '#863716',
   '#274b24',
-  '#6d4717',
-  '#335471',
+  '#74680d',
+  '#40678a',
   '#6b5488',
   '#387272',
   '#faf9f5',
 ]);
 t.prefs_.set('foreground-color', '#323128');
 t.prefs_.set('background-color', '#faf9f5');
-t.prefs_.set('cursor-color', 'rgba(50, 49, 40, 0.5)');
+t.prefs_.set('cursor-color', 'rgba(134, 55, 22, 0.5)');

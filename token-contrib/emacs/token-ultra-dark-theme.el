@@ -30,6 +30,8 @@
       (cyan            "#7ebcbb")
       (orange          "#80b3ac")
       (olive           "#aab86d")
+      (property        "#c395a5")
+      (faded           "#87837b")
       (bright-green    "#a1c99e")
       (bright-blue     "#90b2cc")
       (bright-purple   "#bea5d4")
@@ -42,6 +44,7 @@
       (diff-text       "#444039")
       (sel             "#3c3b36")
       (match           "#4d4231")
+      (match-current   "#304e66")
       (line-nr         "#6b6b67")
       (whitespace      "#4b4b48")
       (comment         "#a39d94"))
@@ -51,7 +54,7 @@
 
    ;; ── Core ─────────────────────────────────────────────────────────────────
    `(default                           ((,class (:foreground ,fg0 :background ,bg3))))
-   `(cursor                            ((,class (:background ,fg0))))
+   `(cursor                            ((,class (:background ,accent))))
    `(fringe                            ((,class (:foreground ,fg3 :background ,bg2))))
    `(region                            ((,class (:background ,sel :extend t))))
    `(secondary-selection               ((,class (:background ,bg5 :extend t))))
@@ -172,8 +175,8 @@
    `(font-lock-bracket-face            ((,class (:foreground ,comment))))
    `(font-lock-punctuation-face        ((,class (:foreground ,comment))))
    `(font-lock-misc-punctuation-face   ((,class (:foreground ,comment))))
-   `(font-lock-property-name-face      ((,class (:foreground ,fg0))))
-   `(font-lock-property-use-face       ((,class (:foreground ,fg0))))
+   `(font-lock-property-name-face      ((,class (:foreground ,property))))
+   `(font-lock-property-use-face       ((,class (:foreground ,property))))
    `(sh-quoted-exec                    ((,class (:inherit default))))
    `(sh-heredoc                        ((,class (:inherit font-lock-string-face))))
 
@@ -181,7 +184,7 @@
    `(treesit-fold-replacement-face     ((,class (:foreground ,fg2 :background ,bg4))))
 
    ;; ── Search ───────────────────────────────────────────────────────────────
-   `(isearch                           ((,class (:foreground ,fg0 :background ,match :weight bold))))
+   `(isearch                           ((,class (:foreground ,fg0 :background ,match-current :weight bold))))
    `(isearch-fail                      ((,class (:foreground ,fg0 :background ,diff-del))))
    `(isearch-group-1                   ((,class (:foreground ,bg3 :background ,accent))))
    `(isearch-group-2                   ((,class (:foreground ,bg3 :background ,accent2))))
@@ -340,7 +343,7 @@
    `(eglot-inlay-hint-face             ((,class (:foreground ,fg3 :background ,bg4 :slant italic))))
    `(eglot-parameter-hint-face         ((,class (:foreground ,fg3 :background ,bg4 :slant italic))))
    `(eglot-type-hint-face              ((,class (:foreground ,blue :background ,bg4 :slant italic))))
-   `(eglot-diagnostic-tag-unnecessary-face ((,class (:foreground ,fg3))))
+   `(eglot-diagnostic-tag-unnecessary-face ((,class (:foreground ,faded))))
    `(eglot-diagnostic-tag-deprecated-face ((,class (:foreground ,fg2 :strike-through t))))
    `(eglot-semantic-namespace          ((,class (:inherit font-lock-type-face))))
    `(eglot-semantic-type               ((,class (:inherit font-lock-type-face))))

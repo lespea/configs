@@ -40,7 +40,7 @@ hl.config({
 
 	cursor = {
 		warp_on_change_workspace = false,
-		inactive_timeout = 20, -- max allowed
+		inactive_timeout = 60,
 		enable_hyprcursor = true,
 	},
 

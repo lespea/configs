@@ -13,7 +13,8 @@ type ToRun = dict[str, set[typing.Any]]
 
 repo_dir = Path(__file__).resolve().parent
 allowed_signers_file = repo_dir / "allowed_git_signers"
-delta_themes_file = repo_dir / "delta-themes.gitconfig"
+delta_themes_dir = repo_dir / "token-contrib" / "delta"
+default_delta_theme = "token-meridian-dark"
 
 
 def global_config() -> Path:
@@ -53,9 +54,10 @@ def run(d: ToRun, dry_run: bool):
 
 def setup_gh_credentials(dry_run: bool):
     # Auth to GitHub over https with gh's token instead of ssh keys. Same entries as
-    # `gh auth setup-git`, but that writes gh's resolved path, which mise changes on upgrade.
-    if shutil.which("gh") is None:
-        print("gh not installed; skipping the GitHub credential helper")
+    # `gh auth setup-git`, but that writes gh's resolved path, which mise changes on upgrade;
+    # `mise x` also finds gh when the shell that git runs the helper from hasn't activated mise.
+    if shutil.which("mise") is None:
+        print("mise not installed; skipping the GitHub credential helper")
         return
     print("Adding credential")
     for host in ["github.com", "gist.github.com"]:
@@ -63,7 +65,7 @@ def setup_gh_credentials(dry_run: bool):
         cmds = [
             ["git", "config", "--global", "--unset-all", key],
             ["git", "config", "--global", "--add", key, ""],
-            ["git", "config", "--global", "--add", key, "!gh auth git-credential"],
+            ["git", "config", "--global", "--add", key, "!mise x gh -- gh auth git-credential"],
         ]
         for cmd in cmds:
             print("  " + " ".join(cmd))
@@ -72,7 +74,9 @@ def setup_gh_credentials(dry_run: bool):
                 subprocess.run(cmd, check=cmd[3] != "--unset-all")
     if (
         subprocess.run(
-            ["gh", "auth", "status"], capture_output=True, check=False
+            ["mise", "x", "gh", "--", "gh", "auth", "status"],
+            capture_output=True,
+            check=False,
         ).returncode
         != 0
     ):
@@ -133,7 +137,6 @@ def setup(
     add_cmds(d, "gpg", format="ssh")
     add_cmds(d, "gpg.ssh", allowedSignersFile=str(allowed_signers_file))
     add_cmds(d, "help", autocorrect="prompt")
-    add_cmds(d, "include", path=str(delta_themes_file))
     add_cmds(d, "init", defaultBranch="main")
     add_cmds(d, "interactive", diffFilter="delta --color-only")
     add_cmds(d, "log", date="iso")
@@ -185,7 +188,6 @@ def setup(
     add_cmds(
         d,
         "delta",
-        features="token-meridian-dark",
         line_numbers=t,
         navigate=t,
         side_by_side=f,
@@ -227,11 +229,62 @@ def remove_stale(dry_run: bool):
             subprocess.run(cmd, check=False)
 
 
-def main(email: str, signingKey: str, rewrites: dict[str, str], dry_run: bool):
+def config_entries(*where: str) -> list[tuple[str, str]]:
+    # -z prints "key\nvalue\0" so quoted/spaced values come back verbatim; a bare boolean key has no "\n"
+    out = subprocess.run(
+        ["git", "config", *where, "--list", "--null"],
+        capture_output=True,
+        text=True,
+        check=False,
+    ).stdout
+    entries = []
+    for entry in out.split("\0"):
+        if entry:
+            k, _, v = entry.partition("\n")
+            entries.append((k, v if "\n" in entry else "true"))
+    return entries
+
+
+def inline_delta_theme(theme: str, dry_run: bool):
+    # Copied into the global config rather than include.path'd, since sandboxes that can read
+    # ~/.gitconfig often can't read this repo, and delta then runs without the theme.
+    prefix = f"delta.{theme}."
+    settings = []
+    for f in sorted(delta_themes_dir.glob("*.gitconfig")):
+        settings = [(k, v) for k, v in config_entries("--file", str(f)) if k.startswith(prefix)]
+        if settings:
+            break
+    if not settings:
+        raise SystemExit(f"No delta theme {theme} in {delta_themes_dir}")
+
+    # Drop previously inlined token themes so switching themes doesn't leave one behind,
+    # plus the include of delta-themes.gitconfig that earlier versions of this script set
+    old = {
+        k[len("delta.") : k.rindex(".")]
+        for k, _ in config_entries("--global")
+        if k.startswith("delta.token-")
+    }
+    cmds = [["git", "config", "--global", "--unset-all", "include.path", r"delta-themes\.gitconfig$"]]
+    cmds += [["git", "config", "--global", "--remove-section", f"delta.{s}"] for s in sorted(old)]
+    cmds += [["git", "config", "--global", k, v] for k, v in settings]
+    cmds.append(["git", "config", "--global", "delta.features", theme])
+
+    print(f"Inlining delta theme {theme}")
+    for cmd in cmds:
+        print("  " + " ".join(cmd))
+        if not dry_run:
+            # --unset-all exits 5 when there's nothing to unset
+            subprocess.run(cmd, check=cmd[3] != "--unset-all")
+
+
+def main(
+    email: str, signingKey: str, rewrites: dict[str, str], theme: str, dry_run: bool
+):
     d: ToRun = {}
     setup(d, email, signingKey, rewrites, dry_run)
     remove_stale(dry_run)
     run(d, dry_run)
+    inline_delta_theme(theme, dry_run)
     setup_gh_credentials(dry_run)
 
 
@@ -283,8 +336,24 @@ if __name__ == "__main__":
         action="store_true",
         help="print the commands without running them",
     )
+    parser.add_argument(
+        "-t",
+        "--theme",
+        default=default_delta_theme,
+        help=f"delta feature from {delta_themes_dir.relative_to(repo_dir)}/ to inline",
+    )
+    parser.add_argument(
+        "--theme-only",
+        action="store_true",
+        help="only re-inline the delta theme (after a token update), leaving everything else alone",
+    )
 
     args = parser.parse_args()
+
+    if args.theme_only:
+        print(f"Config: {global_config()}")
+        inline_delta_theme(args.theme, args.dry_run)
+        raise SystemExit
 
     key = args.key if args.key is not None else def_key()
 
@@ -310,4 +379,4 @@ if __name__ == "__main__":
 
                     rewrites[f"ssh://git@{url}/.{action}"] = f"https://{url}/"
 
-    main(args.email, key, rewrites, args.dry_run)
+    main(args.email, key, rewrites, args.theme, args.dry_run)

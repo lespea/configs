@@ -167,8 +167,9 @@ sync-token:
     [[ -d $src ]] || { echo "no token contrib dir at $src (set TOKEN_DIR)" >&2; exit 1; }
     rsync -a --delete --itemize-changes "$src/" {{ quote(justfile_directory() / "token-contrib/") }}
 
-# bat, ghostty, and delta read token-contrib/ directly (symlinks/include), but lazygit and ripgrep get the colors
-# merged inline, bat needs its cache rebuilt, and fish's colors are universal vars
+# bat and ghostty read token-contrib/ directly (symlinks), but lazygit, ripgrep, and delta (~/.gitconfig, since
+# sandboxes may not be able to read this repo) get the colors merged inline, bat needs its cache rebuilt, and fish's
+# colors are universal vars
 # Bring this machine's themes in line with token-contrib/ (run after `just sync-token` or a pull)
 token-apply:
     #!/usr/bin/env bash
@@ -185,6 +186,9 @@ token-apply:
     { rg -v '^--colors=' .ripgreprc | trim; echo; rg -v '^#' "token-contrib/ripgrep/$name.ripgreprc" | trim; } > "$tmp"
     cat "$tmp" > .ripgreprc
     echo "merged $name into .ripgreprc"
+
+    uv run setup_git.py --theme "$name" --theme-only >/dev/null
+    echo "inlined $name into the global gitconfig"
 
     if command -v bat >/dev/null; then bat cache --build >/dev/null && echo "rebuilt bat cache"; fi
     if command -v fish >/dev/null; then fish .configs/fish/theme.fish && echo "set fish universal colors"; fi

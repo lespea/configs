@@ -1,5 +1,0 @@
-# Delta themes, pulled into ~/.gitconfig via include.path by setup_git.py; the theme files are vendored by `just sync-token`.
-
-[include]
-	path = token-contrib/delta/token.gitconfig
-	path = token-contrib/delta/token-meridian.gitconfig

@@ -23,6 +23,7 @@
 age        = "latest"
 bun        = "latest"
 fnox       = "latest"
+gh         = "latest"
 github-cli = "latest"
 go         = "1.27"
 lua        = "5.1"

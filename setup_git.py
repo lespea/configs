@@ -71,7 +71,7 @@ def setup_gh_credentials(dry_run: bool):
                 "--global",
                 "--add",
                 key,
-                "!mise x github-cli -- gh auth git-credential",
+                "!mise x gh -- gh auth git-credential",
             ],
         ]
         for cmd in cmds:

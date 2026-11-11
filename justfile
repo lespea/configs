@@ -111,26 +111,17 @@ fish-cache: _fish-clean _fish-generate
 # fnox, gh: run via `mise x` so a shell whose PATH predates an upgrade still finds the current install
 # fnox: its absolute (versioned) path becomes `command fnox` so upgrades don't break the cache; hook-env reads
 # FNOX_SHELL_OUTPUT at runtime, so it is patched into the cached script instead of set globally
-[parallel, private]
-_fish-generate: \
-    (_init "10" "mise" "env -u __MISE_DIFF -u __MISE_SESSION -u __MISE_ENV_CACHE_KEY PATH=\"${__MISE_ORIG_PATH:-$PATH}\" \"$(command -v mise)\" activate fish") \
-    (_init "20" "fnox" "mise x -- fnox activate fish | sd \"(command )?'?/[^ ()']*/fnox'? \" 'command fnox ' | sd 'command fnox hook-env' 'FNOX_SHELL_OUTPUT=none command fnox hook-env' | sd '(?m)^__fnox_env_eval$' ''") \
-    (_init "20" "atuin" "atuin init fish --disable-up-arrow") \
-    (_init "20" "zoxide" "zoxide init fish") \
-    (_completion "mise" "mise completion fish") \
-    (_completion "fnox" "mise x -- fnox completion fish") \
-    (_completion "bat" "bat --completion fish") \
-    (_completion "just" "just --completions fish") \
-    (_completion "rg" "rg --generate complete-fish") \
-    (_completion "ink" "ink completions fish") \
-    (_completion "gh" "mise x -- gh completion -s fish") \
-    && _os-cache
+[parallel]
+[private]
+_fish-generate: (_init "10" "mise" "env -u __MISE_DIFF -u __MISE_SESSION -u __MISE_ENV_CACHE_KEY PATH=\"${__MISE_ORIG_PATH:-$PATH}\" \"$(command -v mise)\" activate fish") (_init "20" "fnox" "mise x -- fnox activate fish | sd \"(command )?'?/[^ ()']*/fnox'? \" 'command fnox ' | sd 'command fnox hook-env' 'FNOX_SHELL_OUTPUT=none command fnox hook-env' | sd '(?m)^__fnox_env_eval$' ''") (_init "20" "atuin" "atuin init fish --disable-up-arrow") (_init "20" "zoxide" "zoxide init fish") (_completion "mise" "mise completion fish") (_completion "fnox" "mise x -- fnox completion fish") (_completion "bat" "bat --completion fish") (_completion "just" "just --completions fish") (_completion "rg" "rg --generate complete-fish") (_completion "ink" "ink completions fish") (_completion "gh" "mise x github-cli -- gh completion -s fish") && _os-cache
 
 # macOS only: brew's env has to land before the other init scripts, which expect brew-installed tools on PATH
-[macos, private]
+[macos]
+[private]
 _os-cache: (_gen fish_dir / "conf.d/00-brew.fish" "/opt/homebrew/bin/brew" "interactive" "/opt/homebrew/bin/brew shellenv fish")
 
-[linux, private]
+[linux]
+[private]
 _os-cache:
 
 # `order` prefixes the file name since conf.d loads alphabetically (mise before the tools it installs)
@@ -253,7 +244,8 @@ _luals dir config="":
 
 # systemd-analyze only warns about bad keys/values, so any output fails; masked units (symlinks to /dev/null) and
 # programs not installed on this machine are expected and filtered out
-[linux, private]
+[linux]
+[private]
 _lint-systemd:
     #!/usr/bin/env bash
     set -euo pipefail
@@ -262,5 +254,6 @@ _lint-systemd:
         | grep -vE ' is masked\.$|Command .* is not executable: No such file or directory$' || true)
     if [[ -n $out ]]; then echo "$out"; exit 1; fi
 
-[macos, private]
+[macos]
+[private]
 _lint-systemd:

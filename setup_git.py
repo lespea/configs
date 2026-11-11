@@ -65,7 +65,14 @@ def setup_gh_credentials(dry_run: bool):
         cmds = [
             ["git", "config", "--global", "--unset-all", key],
             ["git", "config", "--global", "--add", key, ""],
-            ["git", "config", "--global", "--add", key, "!mise x gh -- gh auth git-credential"],
+            [
+                "git",
+                "config",
+                "--global",
+                "--add",
+                key,
+                "!mise x github-cli -- gh auth git-credential",
+            ],
         ]
         for cmd in cmds:
             print("  " + " ".join(cmd))
@@ -251,7 +258,9 @@ def inline_delta_theme(theme: str, dry_run: bool):
     prefix = f"delta.{theme}."
     settings = []
     for f in sorted(delta_themes_dir.glob("*.gitconfig")):
-        settings = [(k, v) for k, v in config_entries("--file", str(f)) if k.startswith(prefix)]
+        settings = [
+            (k, v) for k, v in config_entries("--file", str(f)) if k.startswith(prefix)
+        ]
         if settings:
             break
     if not settings:
@@ -264,8 +273,20 @@ def inline_delta_theme(theme: str, dry_run: bool):
         for k, _ in config_entries("--global")
         if k.startswith("delta.token-")
     }
-    cmds = [["git", "config", "--global", "--unset-all", "include.path", r"delta-themes\.gitconfig$"]]
-    cmds += [["git", "config", "--global", "--remove-section", f"delta.{s}"] for s in sorted(old)]
+    cmds = [
+        [
+            "git",
+            "config",
+            "--global",
+            "--unset-all",
+            "include.path",
+            r"delta-themes\.gitconfig$",
+        ]
+    ]
+    cmds += [
+        ["git", "config", "--global", "--remove-section", f"delta.{s}"]
+        for s in sorted(old)
+    ]
     cmds += [["git", "config", "--global", k, v] for k, v in settings]
     cmds.append(["git", "config", "--global", "delta.features", theme])
 

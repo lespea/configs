@@ -64,6 +64,12 @@ def get_run_info() -> tuple[os._Environ, bool]:
         env["MAKEFLAGS"] = "-j20"
         env["RUSTFLAGS"] = "-C link-args=-s -C target-cpu=native"
 
+    # openssl-sys only supports OpenSSL 1.1/3.x; the system openssl is 4.x, so
+    # build against the openssl-3 compat package when it's installed.
+    if os.path.isdir("/usr/include/openssl-3"):
+        env["OPENSSL_LIB_DIR"] = "/usr/lib/openssl-3"
+        env["OPENSSL_INCLUDE_DIR"] = "/usr/include/openssl-3"
+
     return env, mold
 
 
@@ -154,10 +160,12 @@ def install(args):
             runenv = env
 
             # Merge the envs if there are any
-            if pkg.envs is not None:
+            if pkg.envs is not None or pkg.env_append is not None:
                 runenv = env.copy()
-                for k, v in pkg.envs.items():
+                for k, v in (pkg.envs or {}).items():
                     runenv[k] = v
+                for k, v in (pkg.env_append or {}).items():
+                    runenv[k] = f"{runenv[k]} {v}" if runenv.get(k) else v
 
             subprocess.check_call(pkg.args(is_mold, args.force), env=runenv)
     wait_and_clean()
@@ -254,6 +262,7 @@ class PkgInfo:
         disabled: bool = False,
         features: list[str] | None = None,
         envs: dict[str, str] | None = None,
+        env_append: dict[str, str] | None = None,
         extras: list[str] | None = None,
     ):
         self.pkg = pkg
@@ -264,6 +273,7 @@ class PkgInfo:
         self.disabled = disabled
 
         self.envs = envs
+        self.env_append = env_append
         self.extras = extras
 
         if features is None:
@@ -369,9 +379,16 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("gitoxide"),
         PkgInfo("gping"),
         PkgInfo("hexyl"),
-        PkgInfo("ht"),
+        # bundled oniguruma (onig_sys) uses pre-C23 `int (*)()` fn pointers; GCC 15+ defaults to C23
+        PkgInfo("ht", env_append={"CFLAGS": "-std=gnu17"}),
         PkgInfo("hyperfine"),
-        PkgInfo("igrep"),
+        # crates.io 1.2.0's bundled Cargo.lock pins time 0.3.23, which no longer compiles
+        # (cargo install honors it); upstream HEAD has a fresh lock
+        PkgInfo(
+            "igrep",
+            env_append={"CFLAGS": "-std=gnu17"},
+            extras=["--git", "https://github.com/konradsz/igrep"],
+        ),
         PkgInfo("ink-md"),
         PkgInfo("jsonxf"),
         PkgInfo("just"),
@@ -383,7 +400,8 @@ def get_packages(limit: set[str]) -> list[PkgInfo]:
         PkgInfo("nickel-lang-cli", high_priority=True),
         PkgInfo("nickel-lang-lsp", high_priority=True),
         PkgInfo("onefetch"),
-        PkgInfo("ouch"),
+        # rustc 1.100 LLVM "Cannot select: sign_extend v16i32" in libbz2_rs_sys with AVX-512
+        PkgInfo("ouch", env_append={"RUSTFLAGS": "-C target-feature=-avx512f"}),
         PkgInfo("procs"),
         PkgInfo("ptail"),
         PkgInfo("ripgrep", features=["pcre2"], extras=["--profile", "release-lto"]),

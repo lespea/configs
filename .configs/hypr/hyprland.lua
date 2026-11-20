@@ -527,7 +527,7 @@ add_gaming_rule("gaming-steam", { class = "steam_app.*" })
 hl.window_rule({
 	name = "launchers-not-games",
 	match = {
-		class = "(?i)^(upc|ubisoftconnect|ubisoft game launcher|battle\\.net|agent|eadesktop|ealauncher|epicgameslauncher|galaxyclient|rockstar|launcher|origin|eve-online)\\.exe$",
+		class = "(?i)^(upc|ubisoftconnect|ubisoft game launcher|battle\\.net|agent|eadesktop|ealauncher|epicgameslauncher|galaxyclient|rockstar|launcher|origin|eve-online|evemon)\\.exe$",
 	},
 	fullscreen = false,
 	idle_inhibit = "none",

@@ -102,6 +102,39 @@ return {
 			end)
 		end
 
+		-- Keep the Outline pane from staying collapsed after visiting a terminal.
+		-- Edgy shows a 1-line placeholder for the pinned Outline view whenever the
+		-- real Outline window is gone while other left-side windows are open.
+		-- If that placeholder exists we re-open Outline (without stealing focus).
+		-- If the left bar is hidden entirely there are no placeholders, so we do
+		-- nothing and hidden panes stay hidden.
+		vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
+			group = vim.api.nvim_create_augroup("edgyKeepOutline", { clear = true }),
+			callback = function(ev)
+				if vim.bo[ev.buf].filetype ~= "toggleterm" then
+					return
+				end
+				vim.schedule(function()
+					local ok, config = pcall(require, "edgy.config")
+					local left = ok and config.layout and config.layout.left
+					if not left then
+						return
+					end
+					for _, view in ipairs(left.views) do
+						local pw = view.pinned_win
+						if view.ft == "Outline" and pw and vim.api.nvim_win_is_valid(pw.win) then
+							local cur = vim.api.nvim_get_current_win()
+							pcall(vim.cmd, "OutlineOpen")
+							if vim.api.nvim_win_is_valid(cur) then
+								vim.api.nvim_set_current_win(cur)
+							end
+							return
+						end
+					end
+				end)
+			end,
+		})
+
 		-- Set up keybindings
 		vim.keymap.set("n", "<leader>ee", toggle_all_edgy, { desc = "Toggle all Edgy windows" })
 		vim.keymap.set("n", "<leader>el", function()

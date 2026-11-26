@@ -34,6 +34,8 @@ local MON1, MON2 = "DP-1", "DP-2"
 -- title:    optional exact title the window must also have before the task counts as up
 -- unit:     user service (without .service) that starts the app
 -- term:     a terminal running this fish command; fills in class and title
+-- nowindow: the app starts hidden (e.g. to the tray), so there's no window to wait for or
+--           route; it's done as soon as its unit has been started
 -- settle:   ms with no new matching windows before the task is done (firefox session
 --           restore opens its windows one by one; steam shows an updater window first)
 -- timeout:  seconds to wait for the window before giving up
@@ -78,7 +80,7 @@ local tasks = {
 	{ id = "slack", ws = 9, mon = MON2, class = "slack", unit = "slack", settle = 1000 },
 	{ id = "signal", ws = 9, mon = MON2, class = "signal", unit = "signal", settle = 1000 },
 	{ id = "discord", ws = 9, mon = MON2, class = "discord", unit = "discord" },
-	{ id = "easyeffects", ws = 8, mon = MON2, class = "com.github.wwmm.easyeffects", unit = "easyeffects" },
+	{ id = "easyeffects", unit = "easyeffects", nowindow = true },
 	{ id = "nvtop", ws = 10, mon = MON2, term = "nvtop", settle = 500 },
 	{ id = "jtail", ws = 10, mon = MON2, term = "jtail", settle = 500 },
 }
@@ -129,15 +131,17 @@ for _, t in ipairs(tasks) do
 		match = { class = exact(t.class), initial_title = exact(t.title) }
 	else
 		t.cmd = "systemctl --user start " .. t.unit .. ".service"
-		match = { class = exact(t.class) }
+		match = t.class and { class = exact(t.class) }
 	end
-	t.rule = hl.window_rule({
-		name = "startup-" .. t.id,
-		enabled = false,
-		match = match,
-		monitor = t.mon,
-		workspace = t.ws .. " silent",
-	})
+	if match then
+		t.rule = hl.window_rule({
+			name = "startup-" .. t.id,
+			enabled = false,
+			match = match,
+			monitor = t.mon,
+			workspace = t.ws .. " silent",
+		})
+	end
 end
 
 ---@type { timer: HL.Timer, note: HL.Notification, state: table<string, table>, gated: boolean, prompted: boolean }|nil
@@ -203,7 +207,9 @@ local pending = { waiting = true, launching = true, settling = true }
 
 local function set_rules(on)
 	for _, t in ipairs(tasks) do
-		t.rule:set_enabled(on)
+		if t.rule then
+			t.rule:set_enabled(on)
+		end
 	end
 end
 
@@ -220,8 +226,13 @@ local function stop(text, color)
 	run = nil
 end
 
--- Marks the task done if its window is already open, otherwise returns its command.
+-- Marks the task done if its window is already open, otherwise returns its command. A
+-- `nowindow` task is done right away (starting an active unit is a no-op anyway).
 local function launch(t, s)
+	if t.nowindow then
+		s.status, s.since = "done", now_ms()
+		return t.cmd
+	end
 	if count(t) > 0 then
 		s.status, s.note, s.since = "done", "already open", now_ms()
 		return nil

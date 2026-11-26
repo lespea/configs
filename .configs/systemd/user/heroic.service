@@ -6,6 +6,8 @@ After=graphical-session.target dbus.service
 [Service]
 Type=exec
 KillMode=mixed
+# pwrap reports the app's SIGTERM death as exit code 143
+SuccessExitStatus=143
 ExecStart=/home/adam/.local/bin/pwrap /usr/bin/heroic
 #ExecStopPost=/usr/bin/pkill gamemoded
 Restart=no

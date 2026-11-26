@@ -6,7 +6,7 @@ After=graphical-session.target dbus.service
 [Service]
 Type=exec
 #ExecCondition=/lib/systemd/systemd-xdg-autostart-condition "" "sway"
-ExecStart=/usr/bin/easyeffects
+ExecStart=/usr/bin/easyeffects --service-mode --hide-window
 Restart=no
 Slice=app-graphical.slice
 # Extra Hardening (Safe for GUI apps)
